@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# Release build rewrites this file and adds the canonical sitemap URL.

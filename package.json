@@ -1,0 +1,36 @@
+{
+  "name": "passport-security",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run qa && npm run build:client && npm run build:ssr && npm run prerender && npm run qa:dist",
+    "build:client": "vite build --outDir dist/client",
+    "build:ssr": "vite build --ssr src/entry-server.jsx --outDir dist/server",
+    "prerender": "node scripts/prerender.mjs",
+    "preview": "vite preview --outDir dist/client",
+    "qa": "node scripts/qa.mjs && npm run server:check",
+    "qa:dist": "node scripts/qa.mjs --dist",
+    "dev:api": "node --watch server/index.mjs",
+    "start": "node server/index.mjs",
+    "server:check": "node --check server/index.mjs"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.2.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-helmet-async": "^2.0.5",
+    "react-redux": "^9.1.2",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "nodemailer": "^6.9.16"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.3",
+    "vite": "^5.4.10"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

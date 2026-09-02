@@ -1,0 +1,464 @@
+.penalties {
+  padding: clamp(96px, 11vw, 168px) 0;
+  border-top: 1px solid rgba(255,255,255,.08);
+  background: var(--color-text);
+  color: #fff;
+}
+
+.penalties__heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(330px, .82fr);
+  gap: clamp(46px, 7vw, 112px);
+  align-items: end;
+  margin-bottom: clamp(50px, 6vw, 78px);
+}
+
+.penalties__kicker,
+.penalties__footer-kicker,
+.penalties__law-label {
+  margin: 0 0 18px;
+  color: var(--color-accent);
+  font-size: .76rem;
+  font-weight: 820;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.penalties h2 {
+  max-width: 900px;
+  margin: 0;
+  font-size: clamp(2.8rem, 5.15vw, 5.75rem);
+  line-height: .98;
+  letter-spacing: -.020em;
+}
+
+.penalties h2 em {
+  color: rgba(255,255,255,.42);
+  font-style: normal;
+  font-weight: inherit;
+}
+
+.penalties__law {
+  display: grid;
+  grid-template-columns: 82px minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+  padding: 26px 0 4px clamp(24px, 3vw, 38px);
+  border-left: 1px solid rgba(255,255,255,.14);
+}
+
+.penalties__law-index {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 50%;
+  color: var(--color-accent);
+  font-size: .83rem;
+  font-weight: 850;
+  letter-spacing: .04em;
+}
+
+.penalties__law-label {
+  margin-bottom: 10px;
+}
+
+.penalties__law p:last-child {
+  margin: 0;
+  color: rgba(255,255,255,.58);
+  line-height: 1.65;
+}
+
+.penalties__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.penalty-card {
+  min-width: 0;
+  min-height: 430px;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(26px, 3vw, 38px);
+  border: 1px solid rgba(255,255,255,.11);
+  border-radius: clamp(26px, 3vw, 36px);
+  background: rgba(255,255,255,.035);
+  transition: transform .22s ease, border-color .22s ease, background .22s ease;
+}
+
+.penalty-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(169,240,74,.72);
+  background: rgba(255,255,255,.055);
+}
+
+.penalty-card--featured {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-text);
+}
+
+.penalty-card--featured:hover {
+  border-color: #fff;
+  background: var(--color-accent);
+}
+
+.penalty-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.penalty-card__number {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 50%;
+  color: var(--color-accent);
+  font-size: .74rem;
+  font-weight: 850;
+}
+
+.penalty-card--featured .penalty-card__number {
+  border-color: rgba(21,21,21,.18);
+  background: #fff;
+  color: var(--color-primary);
+}
+
+.penalty-card__label {
+  color: rgba(255,255,255,.42);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.penalty-card--featured .penalty-card__label {
+  color: rgba(21,21,21,.56);
+}
+
+.penalty-card__amount {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 5px 9px;
+  margin: clamp(54px, 6vw, 84px) 0 34px;
+}
+
+.penalty-card__amount strong {
+  font-size: clamp(2.5rem, 4.1vw, 4.7rem);
+  line-height: .88;
+  letter-spacing: -.065em;
+  white-space: nowrap;
+}
+
+.penalty-card__prefix,
+.penalty-card__currency,
+.penalty-card__separator {
+  color: rgba(255,255,255,.47);
+  font-size: .76rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.penalty-card__separator {
+  padding-inline: 2px;
+  font-size: 1.1rem;
+}
+
+.penalty-card--featured .penalty-card__prefix,
+.penalty-card--featured .penalty-card__currency,
+.penalty-card--featured .penalty-card__separator {
+  color: rgba(21,21,21,.5);
+}
+
+.penalty-card__copy {
+  margin-top: auto;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,.12);
+}
+
+.penalty-card--featured .penalty-card__copy {
+  border-color: rgba(21,21,21,.15);
+}
+
+.penalty-card h3 {
+  margin: 0 0 10px;
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  line-height: 1.02;
+  letter-spacing: -.04em;
+}
+
+.penalty-card p {
+  margin: 0;
+  color: rgba(255,255,255,.57);
+  line-height: 1.58;
+}
+
+.penalty-card--featured p {
+  color: rgba(21,21,21,.64);
+}
+
+.penalties__footer {
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: center;
+  margin-top: 18px;
+  padding: clamp(26px, 3vw, 38px);
+  border: 1px solid rgba(255,255,255,.11);
+  border-radius: 30px;
+  background: rgba(255,255,255,.04);
+}
+
+.penalties__footer-mark {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-text);
+  font-size: 1.15rem;
+  font-weight: 850;
+}
+
+.penalties__footer-kicker {
+  margin-bottom: 7px;
+}
+
+.penalties__footer h3 {
+  max-width: 780px;
+  margin: 0 0 8px;
+  font-size: clamp(1.5rem, 2.2vw, 2.25rem);
+  line-height: 1.03;
+  letter-spacing: -.04em;
+}
+
+.penalties__footer-copy > p:last-child {
+  max-width: 810px;
+  margin: 0;
+  color: rgba(255,255,255,.56);
+  line-height: 1.58;
+}
+
+.penalties__action {
+  min-height: 54px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 0 20px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+  color: #fff;
+  font-weight: 760;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.penalties__action span:last-child {
+  color: var(--color-accent);
+  transition: transform .2s ease, color .2s ease;
+}
+
+.penalties__action:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-text);
+}
+
+.penalties__action:hover span:last-child {
+  color: var(--color-text);
+  transform: translate(2px, -2px);
+}
+
+@media (max-width: 1000px) {
+  .penalties__heading {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .penalties__law {
+    max-width: 700px;
+    padding: 22px 0 0;
+    border-left: 0;
+    border-top: 1px solid rgba(255,255,255,.14);
+  }
+
+  .penalties__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .penalty-card--featured {
+    grid-column: 1 / -1;
+  }
+
+  .penalties__footer {
+    grid-template-columns: 58px minmax(0, 1fr);
+  }
+
+  .penalties__action {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 680px) {
+  .penalties__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .penalty-card--featured {
+    grid-column: auto;
+  }
+
+  .penalty-card {
+    min-height: 360px;
+  }
+
+  .penalties__law {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .penalties {
+    padding: 78px 0;
+  }
+
+  .penalty-card,
+  .penalties__footer {
+    border-radius: 24px;
+  }
+
+  .penalties__footer {
+    grid-template-columns: 1fr;
+    padding: 22px 18px;
+  }
+
+  .penalties__action {
+    grid-column: 1;
+    width: 100%;
+  }
+}
+
+/* === penalties visual balance === */
+
+/* Цена становится цельным композиционным блоком */
+.penalty-card .penalty-card__amount {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 15px;
+
+  width: 100%;
+
+  /* меньше пустоты сверху */
+  margin: 62px 0 34px;
+}
+
+/* Одна строка: ОТ + цена */
+.penalty-card .penalty-card__amount-line {
+  display: grid;
+  grid-template-columns: 28px max-content;
+  align-items: center;
+
+  column-gap: 7px;
+
+  width: max-content;
+}
+
+/* ОТ / ДО */
+.penalty-card .penalty-card__prefix {
+  display: block;
+
+  width: 28px;
+
+  margin: 0;
+  padding: 0;
+
+  color: rgba(255, 255, 255, 0.48);
+
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1;
+  letter-spacing: 0.04em;
+
+  text-transform: uppercase;
+
+  transform: translateY(2px);
+}
+
+/* Суммы */
+.penalty-card .penalty-card__amount-line strong {
+  display: flex;
+  align-items: baseline;
+
+  margin: 0;
+  padding: 0;
+
+  font-size: clamp(2.65rem, 4vw, 4.5rem);
+  font-weight: 650;
+  line-height: 0.82;
+  letter-spacing: -0.045em;
+
+  white-space: nowrap;
+}
+
+/* ₽ — меньше цифр, но на правильной базовой линии */
+.penalty-card .penalty-card__ruble {
+  display: inline-block;
+
+  margin-left: 5px;
+
+  font-size: 0.56em;
+  font-weight: 650;
+  line-height: 1;
+
+  vertical-align: baseline;
+
+  transform: translateY(-0.08em);
+}
+
+/* Лаймовая карточка */
+.penalty-card--featured .penalty-card__prefix {
+  color: rgba(17, 17, 17, 0.55);
+}
+
+/* Чуть больше воздуха перед нижней частью */
+.penalty-card__copy {
+  padding-top: 30px;
+}
+
+/* Мобильный */
+@media (max-width: 640px) {
+  .penalty-card .penalty-card__amount {
+    margin-top: 46px;
+    gap: 13px;
+  }
+
+  .penalty-card .penalty-card__amount-line {
+    grid-template-columns: 24px max-content;
+    column-gap: 6px;
+  }
+
+  .penalty-card .penalty-card__prefix {
+    width: 24px;
+    font-size: 11px;
+  }
+
+  .penalty-card .penalty-card__amount-line strong {
+    font-size: clamp(2.45rem, 12vw, 3.7rem);
+  }
+}
+
+/* === /penalties visual balance === */

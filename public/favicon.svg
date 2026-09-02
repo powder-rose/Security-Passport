@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <title>Б</title>
+  <path d="M16 12H47V18H23V28H37C47.5 28 53 33.5 53 42C53 50.5 47 56 36.5 56H16V12ZM23 34V50H36C41.7 50 45 47.2 45 42C45 36.8 41.7 34 36 34H23Z" fill="#2657ff"/>
+  <rect x="16" y="12" width="7" height="44" rx="3.5" fill="#2657ff"/>
+  <rect x="19" y="34" width="27" height="16" rx="8" stroke="#2657ff" stroke-width="2" opacity="0.18"/>
+</svg>
