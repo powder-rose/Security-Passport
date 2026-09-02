@@ -1,6 +1,6 @@
 const env = import.meta.env;
 
-const baseDomain = env.VITE_BASE_DOMAIN?.trim() || 'boykovgroup.ru';
+const baseDomain = env.VITE_BASE_DOMAIN?.trim() || 'pasport-bezopasnosty.ru';
 const protocol = env.VITE_SITE_PROTOCOL?.trim() || 'https';
 const siteOrigin = env.VITE_SITE_ORIGIN?.trim()?.replace(/\/$/, '');
 const subdomain = env.VITE_CITY_SUBDOMAIN?.trim() || '';
