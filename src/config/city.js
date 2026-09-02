@@ -11,6 +11,7 @@ export const CITY = {
   nameGenitive: env.VITE_CITY_GENITIVE?.trim() || 'России',
   namePrepositional: env.VITE_CITY_PREPOSITIONAL?.trim() || 'России',
   region: env.VITE_CITY_REGION?.trim() || 'Россия',
+  address: env.VITE_CITY_ADDRESS?.trim() || '',
   subdomain,
   isDefault: defaultFlag ? defaultFlag === 'true' : !subdomain,
 };

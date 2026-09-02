@@ -1,5 +1,6 @@
 import Container from '../ui/Container/Container';
 import { SITE } from '../../config/site';
+import { CITY } from '../../config/city';
 import './Footer.css';
 
 const navLinks = [
@@ -46,6 +47,13 @@ export default function Footer() {
             <p>Связаться</p>
             <a href={SITE.phoneHref}>{SITE.phone}</a>
             <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+
+            {CITY.address ? (
+              <div className="site-footer__address">
+                <span>Наш адрес</span>
+                <strong>{CITY.address}</strong>
+              </div>
+            ) : null}
             <a className="site-footer__contact-action" href="#contact">Обсудить объект ↗</a>
           </div>
         </div>

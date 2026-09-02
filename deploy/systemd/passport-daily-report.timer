@@ -1,0 +1,11 @@
+[Unit]
+Description=Send passport statistics every morning
+
+[Timer]
+OnCalendar=*-*-* 09:00:00 Europe/Moscow
+Persistent=true
+AccuracySec=1min
+Unit=passport-daily-report.service
+
+[Install]
+WantedBy=timers.target

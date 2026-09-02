@@ -169,3 +169,28 @@
 .site-footer__legal-links a:hover {
   color: var(--color-text);
 }
+
+
+/* === regional address === */
+.site-footer__address {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 10px;
+  max-width: 290px;
+}
+
+.site-footer__address span {
+  font-size: 0.72rem;
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.48;
+}
+
+.site-footer__address strong {
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+/* === /regional address === */

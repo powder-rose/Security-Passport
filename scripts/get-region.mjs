@@ -24,4 +24,4 @@ console.log(region.name);
 console.log(region.genitive);
 console.log(region.prepositional);
 console.log(region.region);
-console.log(region.cdekAddress || '');
+console.log(region.address || '');

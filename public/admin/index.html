@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Статистика — БОЙКОВГРУПП</title>
+
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <meta name="referrer" content="same-origin" />
+
+  <link rel="icon" href="/favicon.svg" />
+  <link rel="stylesheet" href="/admin/admin.css?v=2" />
+  <link rel="stylesheet" href="/admin/admin-leads.css?v=1" />
+</head>
+
+<body>
+  <div id="login-view" class="login-view" hidden>
+    <div class="login-card">
+      <div class="login-card__brand">
+        БОЙКОВГРУПП
+      </div>
+
+      <div class="login-card__number">
+        01
+      </div>
+
+      <h1>Статистика сайта</h1>
+
+      <p>
+        Введите пароль администратора.
+      </p>
+
+      <form id="login-form">
+        <label>
+          <span>Пароль</span>
+
+          <input
+            id="password"
+            type="password"
+            autocomplete="current-password"
+            required
+            autofocus
+          />
+        </label>
+
+        <p
+          id="login-error"
+          class="form-error"
+          hidden
+        ></p>
+
+        <button type="submit">
+          <span>Войти</span>
+          <span aria-hidden="true">↗</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+
+  <div id="dashboard-view" class="dashboard" hidden>
+
+    <header class="dashboard-header">
+      <div>
+        <a
+          class="dashboard-brand"
+          href="/"
+        >
+          БОЙКОВГРУПП
+        </a>
+
+        <span class="dashboard-badge">
+          ADMIN
+        </span>
+      </div>
+
+      <div class="dashboard-header__actions">
+        <button
+          id="refresh-button"
+          class="header-button"
+          type="button"
+        >
+          Обновить
+        </button>
+
+        <button
+          id="logout-button"
+          class="header-button header-button--dark"
+          type="button"
+        >
+          Выйти
+        </button>
+      </div>
+    </header>
+
+
+    <main class="dashboard-main">
+
+      <section class="dashboard-intro">
+        <div>
+          <p class="eyebrow">
+            Аналитика
+          </p>
+
+          <h1>
+            Посещения<br />
+            <em>и заявки</em>
+          </h1>
+        </div>
+
+        <div class="dashboard-intro__meta">
+          <p>
+            Статистика рассчитывается по полностью
+            завершённым календарным дням.
+          </p>
+
+          <span id="generated-at">
+            —
+          </span>
+        </div>
+      </section>
+
+
+      <nav
+        id="period-tabs"
+        class="period-tabs"
+        aria-label="Период статистики"
+      >
+        <button
+          type="button"
+          data-period="day"
+          class="is-active"
+        >
+          Сутки
+        </button>
+
+        <button
+          type="button"
+          data-period="7days"
+        >
+          7 дней
+        </button>
+
+        <button
+          type="button"
+          data-period="30days"
+        >
+          30 дней
+        </button>
+
+        <button
+          type="button"
+          data-period="365days"
+        >
+          365 дней
+        </button>
+      </nav>
+
+
+      <section class="summary-grid">
+        <article class="summary-card">
+          <div class="summary-card__top">
+            <span>01</span>
+            <p>Посещения</p>
+          </div>
+
+          <strong id="total-visits">0</strong>
+
+          <small id="period-range-visits">
+            —
+          </small>
+        </article>
+
+
+        <article class="summary-card summary-card--blue">
+          <div class="summary-card__top">
+            <span>02</span>
+            <p>Заявки</p>
+          </div>
+
+          <strong id="total-leads">0</strong>
+
+          <small id="period-range-leads">
+            —
+          </small>
+        </article>
+
+
+        <article class="summary-card summary-card--lime">
+          <div class="summary-card__top">
+            <span>03</span>
+            <p>Конверсия</p>
+          </div>
+
+          <strong id="total-conversion">—</strong>
+
+          <small>
+            заявки / посещения
+          </small>
+        </article>
+      </section>
+
+
+      <section class="cities-section">
+
+        <div class="cities-heading">
+          <div>
+            <p class="eyebrow">
+              География
+            </p>
+
+            <h2>
+              Статистика
+              <em>по городам</em>
+            </h2>
+          </div>
+
+          <label class="city-search">
+            <span>Поиск</span>
+
+            <input
+              id="city-search"
+              type="search"
+              placeholder="Название города"
+              autocomplete="off"
+            />
+          </label>
+        </div>
+
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  <button
+                    type="button"
+                    data-sort="name"
+                  >
+                    Город
+                  </button>
+                </th>
+
+                <th>
+                  <button
+                    type="button"
+                    data-sort="visits"
+                  >
+                    Посещения
+                  </button>
+                </th>
+
+                <th>
+                  <button
+                    type="button"
+                    data-sort="leads"
+                    class="is-sorted"
+                  >
+                    Заявки ↓
+                  </button>
+                </th>
+
+                <th>
+                  <button
+                    type="button"
+                    data-sort="conversion"
+                  >
+                    Конверсия
+                  </button>
+                </th>
+              </tr>
+            </thead>
+
+            <tbody id="cities-body"></tbody>
+
+            <tfoot>
+              <tr>
+                <td>Итого</td>
+                <td id="footer-visits">0</td>
+                <td id="footer-leads">0</td>
+                <td id="footer-conversion">—</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <p
+          id="empty-state"
+          class="empty-state"
+          hidden
+        >
+          Города не найдены.
+        </p>
+
+      </section>
+
+
+      <section class="leads-section">
+
+        <div class="leads-heading">
+          <div>
+            <p class="eyebrow">Обращения</p>
+
+            <h2>
+              Последние
+              <em>заявки</em>
+            </h2>
+
+            <p id="leads-count" class="leads-count">
+              0 заявок
+            </p>
+          </div>
+
+          <label class="lead-search">
+            <span>Поиск</span>
+
+            <input
+              id="lead-search"
+              type="search"
+              placeholder="Имя, телефон, город..."
+              autocomplete="off"
+            />
+          </label>
+        </div>
+
+        <div class="leads-table-wrap">
+          <table class="leads-table">
+            <thead>
+              <tr>
+                <th>Дата</th>
+                <th>Город</th>
+                <th>Источник</th>
+                <th>Имя</th>
+                <th>Телефон</th>
+                <th>Организация</th>
+              </tr>
+            </thead>
+
+            <tbody id="leads-body"></tbody>
+          </table>
+        </div>
+
+        <div id="leads-empty" class="leads-empty" hidden>
+          <span>00</span>
+          <p>Пока нет заявок.</p>
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <script
+    type="module"
+    src="/admin/admin.js?v=2"
+  ></script>
+</body>
+</html>

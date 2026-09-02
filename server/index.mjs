@@ -6,6 +6,10 @@ import { fileURLToPath } from 'node:url';
 import express from 'express';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
+import { resolveSiteFromHost } from './site-region.mjs';
+import { getStatistics } from './statistics.mjs';
+import { getAdminLeads } from './admin-leads.mjs';
+import { createAdminAuth } from './admin-auth.mjs';
 
 dotenv.config({ path: process.env.SERVER_ENV_FILE || '.env.server' });
 
@@ -24,6 +28,8 @@ const RATE_MAX = Number(process.env.LEAD_RATE_MAX || 8);
 const DEDUPE_TTL_MS = Number(process.env.LEAD_DEDUPE_TTL_MS || 24 * 60 * 60 * 1000);
 const BACKUP_ENABLED = String(process.env.LEADS_BACKUP_ENABLED ?? 'true').toLowerCase() === 'true';
 const LEADS_FILE = path.resolve(projectRoot, process.env.LEADS_FILE || 'data/leads.jsonl');
+const VISITS_FILE = path.resolve(projectRoot, process.env.VISITS_FILE || 'data/visits.jsonl');
+const VISIT_DEDUPE_TTL_MS = Number(process.env.VISIT_DEDUPE_TTL_MS || 30 * 60 * 1000);
 
 const allowedOrigins = new Set(
   String(process.env.LEAD_ALLOWED_ORIGINS || '')
@@ -34,6 +40,7 @@ const allowedOrigins = new Set(
 
 const rateBuckets = new Map();
 const requestIds = new Map();
+const visitIds = new Map();
 
 function pruneMaps(now = Date.now()) {
   for (const [key, bucket] of rateBuckets) {
@@ -41,6 +48,10 @@ function pruneMaps(now = Date.now()) {
   }
   for (const [requestId, timestamp] of requestIds) {
     if (now - timestamp > DEDUPE_TTL_MS) requestIds.delete(requestId);
+  }
+
+  for (const [visitId, timestamp] of visitIds) {
+    if (now - timestamp > VISIT_DEDUPE_TTL_MS) visitIds.delete(visitId);
   }
 }
 
@@ -157,6 +168,7 @@ function normalizeLead(body, req) {
     receivedAt: new Date().toISOString(),
     page: cleanString(body?.page, 1200),
     referrer: cleanString(body?.referrer, 1200),
+    site: resolveSiteFromHost(req.get('x-forwarded-host') || req.get('host') || ''),
     attribution,
     data,
     meta: {
@@ -320,6 +332,11 @@ function createMailTransport() {
 
 const mailTransport = createMailTransport();
 
+const adminAuth = createAdminAuth({
+  password: process.env.ADMIN_PASSWORD || '',
+  isProduction: IS_PRODUCTION,
+});
+
 async function sendEmail(text, lead) {
   const to = cleanString(process.env.LEAD_EMAIL_TO, 500);
   const from = cleanString(process.env.LEAD_EMAIL_FROM, 500) || cleanString(process.env.SMTP_USER, 300);
@@ -366,6 +383,75 @@ async function deliverLead(lead) {
   };
 }
 
+app.post('/api/admin/login', adminAuth.login);
+
+app.post(
+  '/api/admin/logout',
+  adminAuth.logout,
+);
+
+app.get(
+  '/api/admin/session',
+  adminAuth.requireAdmin,
+  adminAuth.session,
+);
+
+app.get(
+  '/api/admin/leads',
+  adminAuth.requireAdmin,
+  async (req, res) => {
+    try {
+      const leads = await getAdminLeads({
+        limit: 100,
+      });
+
+      return res.json({
+        ok: true,
+        leads,
+      });
+    } catch (error) {
+      console.error(
+        '[admin] leads failed:',
+        error?.message || error,
+      );
+
+      return res.status(500).json({
+        ok: false,
+        error: 'ADMIN_LEADS_READ_FAILED',
+      });
+    }
+  },
+);
+
+
+app.get(
+  '/api/admin/statistics',
+  adminAuth.requireAdmin,
+  async (req, res) => {
+    try {
+      const statistics =
+        await getStatistics();
+
+      return res.json({
+        ok: true,
+        ...statistics,
+      });
+    } catch (error) {
+      console.error(
+        '[admin] statistics failed:',
+        error?.message || error,
+      );
+
+      return res.status(500).json({
+        ok: false,
+        error:
+          'STATISTICS_READ_FAILED',
+      });
+    }
+  },
+);
+
+
 app.get('/api/health', (req, res) => {
   res.json({
     ok: true,
@@ -378,6 +464,72 @@ app.get('/api/health', (req, res) => {
     },
   });
 });
+
+app.post('/api/visits', async (req, res) => {
+  pruneMaps();
+
+  const sessionId = cleanString(req.body?.sessionId, 160);
+
+  if (!sessionId || sessionId.length < 8) {
+    return res.status(400).json({
+      ok: false,
+      error: 'INVALID_VISIT_ID',
+    });
+  }
+
+  if (visitIds.has(sessionId)) {
+    return res.status(200).json({
+      ok: true,
+      duplicate: true,
+    });
+  }
+
+  const visit = {
+    id: crypto.randomUUID(),
+    sessionId,
+    receivedAt: new Date().toISOString(),
+    site: resolveSiteFromHost(
+      req.get('x-forwarded-host') || req.get('host') || ''
+    ),
+    path: cleanString(req.body?.path, 1200),
+    referrer: cleanString(req.body?.referrer, 1200),
+    attribution: cleanValue(req.body?.attribution || {}),
+    meta: {
+      userAgent: cleanString(req.get('user-agent'), 600),
+    },
+  };
+
+  try {
+    await fs.mkdir(path.dirname(VISITS_FILE), { recursive: true });
+
+    await fs.appendFile(
+      VISITS_FILE,
+      `${JSON.stringify(visit)}\n`,
+      {
+        encoding: 'utf8',
+        mode: 0o600,
+      },
+    );
+
+    visitIds.set(sessionId, Date.now());
+
+    return res.status(201).json({
+      ok: true,
+      id: visit.id,
+    });
+  } catch (error) {
+    console.error(
+      '[visit] write failed:',
+      error?.message || error,
+    );
+
+    return res.status(500).json({
+      ok: false,
+      error: 'VISIT_WRITE_FAILED',
+    });
+  }
+});
+
 
 app.post('/api/leads', rateLimit, async (req, res) => {
   pruneMaps();

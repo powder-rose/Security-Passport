@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily statistics report for pasport-bezopasnosty.ru
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/var/www/pasport-bezopasnosty.ru/app/passport-security-base
+Environment=SERVER_ENV_FILE=/var/www/pasport-bezopasnosty.ru/app/passport-security-base/.env.server
+ExecStart=/usr/bin/node /var/www/pasport-bezopasnosty.ru/app/passport-security-base/scripts/send-daily-report.mjs
