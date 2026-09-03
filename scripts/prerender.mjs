@@ -13,6 +13,7 @@ import path from 'node:path';
 
 import {
   DEFAULT_LOCATION,
+  getRegionalLocations,
 } from '../config/geography/index.mjs';
 
 
@@ -195,6 +196,57 @@ if (canonical) {
     `</urlset>\n`,
 
     'utf8',
+  );
+}
+
+
+if (canonical) {
+  const canonicalUrl =
+    new URL(canonical);
+
+  const googleUrls = [
+    canonical,
+
+    ...getRegionalLocations()
+      .filter(
+        (location) =>
+          location.seoIndexable === true,
+      )
+      .map(
+        (location) =>
+          `${canonicalUrl.protocol}//` +
+          `${location.slug}.` +
+          `${canonicalUrl.hostname}`,
+      ),
+  ];
+
+  const uniqueGoogleUrls =
+    [...new Set(googleUrls)];
+
+  await writeFile(
+    path.join(
+      clientDir,
+      'sitemap-google.xml',
+    ),
+
+    `<?xml version="1.0" encoding="UTF-8"?>\n` +
+    `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+    uniqueGoogleUrls
+      .map(
+        (url) =>
+          `  <url>\n` +
+          `    <loc>${url}</loc>\n` +
+          `  </url>\n`,
+      )
+      .join('') +
+    `</urlset>\n`,
+
+    'utf8',
+  );
+
+  console.log(
+    'Google sitemap URLs:',
+    uniqueGoogleUrls.length,
   );
 }
 
