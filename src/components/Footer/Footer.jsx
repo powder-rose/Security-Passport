@@ -1,6 +1,6 @@
 import Container from '../ui/Container/Container';
 import { SITE } from '../../config/site';
-import { CITY } from '../../config/city';
+import { useCity } from '../../context/GeoContext';
 import './Footer.css';
 
 const navLinks = [
@@ -20,6 +20,8 @@ const legalLinks = [
 ];
 
 export default function Footer() {
+  const city = useCity();
+
   return (
     <footer className="site-footer" aria-label="Подвал сайта">
       <Container>
@@ -48,10 +50,10 @@ export default function Footer() {
             <a href={SITE.phoneHref}>{SITE.phone}</a>
             <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
 
-            {CITY.address ? (
+            {city.address ? (
               <div className="site-footer__address">
                 <span>Наш адрес</span>
-                <strong>{CITY.address}</strong>
+                <strong>{city.address}</strong>
               </div>
             ) : null}
             <a className="site-footer__contact-action" href="#contact">Обсудить объект ↗</a>

@@ -35,3 +35,6 @@ Thumbs.db
 # Local project backups / notes
 src-backup-before-style-fix/
 notes/
+
+__pycache__/
+*.pyc

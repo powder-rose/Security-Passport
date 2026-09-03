@@ -8,7 +8,9 @@ import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import { resolveSiteFromHost } from './site-region.mjs';
 import { getStatistics } from './statistics.mjs';
-import { getAdminLeads } from './admin-leads.mjs';
+import {
+  getAdminLeadsPage,
+} from './admin-leads.mjs';
 import { createAdminAuth } from './admin-auth.mjs';
 
 dotenv.config({ path: process.env.SERVER_ENV_FILE || '.env.server' });
@@ -372,10 +374,21 @@ async function deliverLead(lead) {
   const successfulNotifications = configuredNotifications.filter((result) => result.ok);
 
   // If a notification channel is configured, do not hide a notification outage behind the local backup.
-  // If no notification channel is configured, the protected JSONL backup is a valid acceptance channel.
-  const ok = configuredNotifications.length > 0
-    ? successfulNotifications.length > 0
-    : successful.some((result) => result.channel === 'backup');
+  // Protected JSONL backup is always a valid
+  // acceptance channel.
+  //
+  // Notification transports are best-effort:
+  // a temporary email failure must not turn an
+  // already saved lead into a failed submission.
+  const backupSucceeded =
+    successful.some(
+      (result) =>
+        result.channel === 'backup',
+    );
+
+  const ok =
+    backupSucceeded ||
+    successfulNotifications.length > 0;
 
   return {
     ok,
@@ -401,13 +414,21 @@ app.get(
   adminAuth.requireAdmin,
   async (req, res) => {
     try {
-      const leads = await getAdminLeads({
-        limit: 100,
-      });
+      const result =
+        await getAdminLeadsPage({
+          page:
+            req.query.page,
+
+          limit:
+            req.query.limit,
+
+          search:
+            req.query.search,
+        });
 
       return res.json({
         ok: true,
-        leads,
+        ...result,
       });
     } catch (error) {
       console.error(

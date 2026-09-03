@@ -1,19 +1,45 @@
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { HelmetProvider } from 'react-helmet-async';
+
 import { store } from './app/store';
 import App from './app/App';
 
-export function render() {
+import {
+  CITY,
+  normalizeCity,
+} from './config/city';
+
+import {
+  GeoProvider,
+} from './context/GeoContext';
+
+
+export function render({
+  city = CITY,
+} = {}) {
   const helmetContext = {};
 
-  const html = renderToString(
-    <Provider store={store}>
-      <HelmetProvider context={helmetContext}>
-        <App />
-      </HelmetProvider>
-    </Provider>,
-  );
+  const resolvedCity =
+    normalizeCity(city);
 
-  return { html, helmet: helmetContext.helmet };
+  const html =
+    renderToString(
+      <Provider store={store}>
+        <HelmetProvider context={helmetContext}>
+          <GeoProvider city={resolvedCity}>
+            <App />
+          </GeoProvider>
+        </HelmetProvider>
+      </Provider>,
+    );
+
+  return {
+    html,
+    helmet:
+      helmetContext.helmet,
+
+    city:
+      resolvedCity,
+  };
 }

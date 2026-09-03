@@ -10,7 +10,7 @@
   <meta name="referrer" content="same-origin" />
 
   <link rel="icon" href="/favicon.svg" />
-  <link rel="stylesheet" href="/admin/admin.css?v=2" />
+  <link rel="stylesheet" href="/admin/admin.css?v=4" />
   <link rel="stylesheet" href="/admin/admin-leads.css?v=1" />
 </head>
 
@@ -285,6 +285,31 @@
           </table>
         </div>
 
+        <div
+          id="city-pagination"
+          class="city-pagination"
+        >
+          <span id="city-page-info">
+            —
+          </span>
+
+          <div class="city-pagination__actions">
+            <button
+              id="city-page-prev"
+              type="button"
+            >
+              ← Назад
+            </button>
+
+            <button
+              id="city-page-next"
+              type="button"
+            >
+              Далее →
+            </button>
+          </div>
+        </div>
+
         <p
           id="empty-state"
           class="empty-state"
@@ -341,6 +366,31 @@
           </table>
         </div>
 
+        <div
+          id="leads-pagination"
+          class="city-pagination"
+        >
+          <span id="leads-page-info">
+            —
+          </span>
+
+          <div class="city-pagination__actions">
+            <button
+              id="leads-page-prev"
+              type="button"
+            >
+              ← Назад
+            </button>
+
+            <button
+              id="leads-page-next"
+              type="button"
+            >
+              Далее →
+            </button>
+          </div>
+        </div>
+
         <div id="leads-empty" class="leads-empty" hidden>
           <span>00</span>
           <p>Пока нет заявок.</p>
@@ -355,7 +405,7 @@
 
   <script
     type="module"
-    src="/admin/admin.js?v=2"
+    src="/admin/admin.js?v=4"
   ></script>
 </body>
 </html>

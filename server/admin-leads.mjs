@@ -135,3 +135,121 @@ export async function getAdminLeads({
     })
     .slice(0, Math.max(1, Math.min(limit, 500)));
 }
+
+
+export async function getAdminLeadsPage({
+  page = 1,
+  limit = 50,
+  search = '',
+} = {}) {
+  const safePage =
+    Math.max(
+      1,
+      Number.parseInt(page, 10) || 1,
+    );
+
+  const safeLimit =
+    Math.max(
+      1,
+      Math.min(
+        Number.parseInt(limit, 10) || 50,
+        100,
+      ),
+    );
+
+  const query =
+    String(search || '')
+      .trim()
+      .toLocaleLowerCase('ru')
+      .slice(0, 200);
+
+
+  /*
+   * Берём до 500 последних заявок.
+   *
+   * Это сохраняет текущий защитный лимит
+   * и не позволяет API вернуть
+   * неограниченный массив.
+   */
+  const all =
+    await getAdminLeads({
+      limit: 500,
+    });
+
+
+  const filtered =
+    query
+      ? all.filter((lead) => {
+          const haystack = [
+            lead?.city?.name,
+            lead?.name,
+            lead?.phone,
+            lead?.email,
+            lead?.company,
+            lead?.sourceTitle,
+            lead?.object,
+          ]
+            .filter(Boolean)
+            .join(' ')
+            .toLocaleLowerCase('ru');
+
+          return haystack.includes(
+            query,
+          );
+        })
+      : all;
+
+
+  const total =
+    filtered.length;
+
+  const totalPages =
+    Math.max(
+      1,
+      Math.ceil(
+        total /
+        safeLimit,
+      ),
+    );
+
+  const resolvedPage =
+    Math.min(
+      safePage,
+      totalPages,
+    );
+
+  const offset =
+    (
+      resolvedPage - 1
+    )
+    *
+    safeLimit;
+
+
+  return {
+    leads:
+      filtered.slice(
+        offset,
+        offset + safeLimit,
+      ),
+
+    pagination: {
+      page:
+        resolvedPage,
+
+      limit:
+        safeLimit,
+
+      total,
+
+      totalPages,
+
+      hasPrevious:
+        resolvedPage > 1,
+
+      hasNext:
+        resolvedPage <
+        totalPages,
+    },
+  };
+}

@@ -31,6 +31,15 @@ const tableBody =
 const emptyState =
   document.querySelector('#empty-state');
 
+const cityPageInfo =
+  document.querySelector('#city-page-info');
+
+const cityPagePrev =
+  document.querySelector('#city-page-prev');
+
+const cityPageNext =
+  document.querySelector('#city-page-next');
+
 const leadsBody =
   document.querySelector('#leads-body');
 
@@ -43,6 +52,15 @@ const leadsCount =
 const leadSearchInput =
   document.querySelector('#lead-search');
 
+const leadsPageInfo =
+  document.querySelector('#leads-page-info');
+
+const leadsPagePrev =
+  document.querySelector('#leads-page-prev');
+
+const leadsPageNext =
+  document.querySelector('#leads-page-next');
+
 
 const state = {
   statistics: null,
@@ -52,6 +70,21 @@ const state = {
 
   search: '',
   leadSearch: '',
+
+  leadPage: 1,
+  leadPageSize: 50,
+
+  leadPagination: {
+    page: 1,
+    limit: 50,
+    total: 0,
+    totalPages: 1,
+    hasPrevious: false,
+    hasNext: false,
+  },
+
+  cityPage: 1,
+  cityPageSize: 50,
 
   sort: {
     key: 'leads',
@@ -266,13 +299,106 @@ function updateSortHeaders() {
 }
 
 
+function updateCityPagination(
+  totalRows,
+) {
+  const pageSize =
+    state.cityPageSize;
+
+  const totalPages =
+    Math.max(
+      1,
+      Math.ceil(
+        totalRows / pageSize,
+      ),
+    );
+
+  if (
+    state.cityPage >
+    totalPages
+  ) {
+    state.cityPage =
+      totalPages;
+  }
+
+  if (!totalRows) {
+    cityPageInfo.textContent =
+      '0 из 0';
+
+    cityPagePrev.disabled = true;
+    cityPageNext.disabled = true;
+
+    return;
+  }
+
+  const start =
+    (
+      state.cityPage - 1
+    )
+    *
+    pageSize
+    +
+    1;
+
+  const end =
+    Math.min(
+      state.cityPage
+        *
+        pageSize,
+
+      totalRows,
+    );
+
+  cityPageInfo.textContent =
+    `${start}–${end} из ${totalRows}`;
+
+  cityPagePrev.disabled =
+    state.cityPage <= 1;
+
+  cityPageNext.disabled =
+    state.cityPage >=
+    totalPages;
+}
+
+
 function renderTable(period) {
   const rows =
     getVisibleRows(period);
 
+  const totalPages =
+    Math.max(
+      1,
+      Math.ceil(
+        rows.length /
+        state.cityPageSize,
+      ),
+    );
+
+  if (
+    state.cityPage >
+    totalPages
+  ) {
+    state.cityPage =
+      totalPages;
+  }
+
+  const offset =
+    (
+      state.cityPage - 1
+    )
+    *
+    state.cityPageSize;
+
+  const pageRows =
+    rows.slice(
+      offset,
+      offset +
+      state.cityPageSize,
+    );
+
   tableBody.innerHTML = '';
 
-  for (const row of rows) {
+  for (const row of pageRows) {
     const tr =
       document.createElement('tr');
 
@@ -292,10 +418,14 @@ function renderTable(period) {
       row.name;
 
     visits.textContent =
-      formatNumber(row.visits);
+      formatNumber(
+        row.visits,
+      );
 
     leads.textContent =
-      formatNumber(row.leads);
+      formatNumber(
+        row.leads,
+      );
 
     conversion.textContent =
       formatPercent(
@@ -338,6 +468,10 @@ function renderTable(period) {
       period.totals.visits,
     );
 
+  updateCityPagination(
+    rows.length,
+  );
+
   updateSortHeaders();
 }
 
@@ -370,22 +504,49 @@ function pluralLeads(count) {
 
 
 function renderLeads() {
-  const query =
-    state.leadSearch
-      .trim()
-      .toLocaleLowerCase('ru');
+  const rows =
+    state.leads;
 
-  const rows = query
-    ? state.leads.filter((lead) =>
-        getLeadSearchText(lead).includes(query)
-      )
-    : state.leads;
+  const pagination =
+    state.leadPagination;
 
   leadsBody.innerHTML = '';
 
-  leadsCount.textContent = query
-    ? `${pluralLeads(rows.length)} из ${state.leads.length}`
-    : pluralLeads(state.leads.length);
+  leadsCount.textContent =
+    pluralLeads(
+      pagination.total || 0,
+    );
+
+  if (!pagination.total) {
+    leadsPageInfo.textContent =
+      '0 из 0';
+  } else {
+    const start =
+      (
+        pagination.page - 1
+      )
+      *
+      pagination.limit
+      +
+      1;
+
+    const end =
+      Math.min(
+        pagination.page *
+        pagination.limit,
+
+        pagination.total,
+      );
+
+    leadsPageInfo.textContent =
+      `${start}–${end} из ${pagination.total}`;
+  }
+
+  leadsPagePrev.disabled =
+    !pagination.hasPrevious;
+
+  leadsPageNext.disabled =
+    !pagination.hasNext;
 
   for (const lead of rows) {
     const tr = document.createElement('tr');
@@ -554,17 +715,47 @@ function render() {
 
 
 async function loadLeads() {
-  const response =
-    await fetch('/api/admin/leads', {
-      headers: {
-        Accept: 'application/json',
-      },
+  const params =
+    new URLSearchParams({
+      page:
+        String(
+          state.leadPage,
+        ),
+
+      limit:
+        String(
+          state.leadPageSize,
+        ),
     });
+
+  const query =
+    state.leadSearch.trim();
+
+  if (query) {
+    params.set(
+      'search',
+      query,
+    );
+  }
+
+
+  const response =
+    await fetch(
+      `/api/admin/leads?${params}`,
+      {
+        headers: {
+          Accept:
+            'application/json',
+        },
+      },
+    );
+
 
   if (response.status === 401) {
     showLogin();
     return false;
   }
+
 
   if (!response.ok) {
     throw new Error(
@@ -572,12 +763,45 @@ async function loadLeads() {
     );
   }
 
-  const result = await response.json();
+
+  const result =
+    await response.json();
+
 
   state.leads =
-    Array.isArray(result.leads)
+    Array.isArray(
+      result.leads,
+    )
       ? result.leads
       : [];
+
+
+  state.leadPagination =
+    result.pagination || {
+      page:
+        1,
+
+      limit:
+        state.leadPageSize,
+
+      total:
+        state.leads.length,
+
+      totalPages:
+        1,
+
+      hasPrevious:
+        false,
+
+      hasNext:
+        false,
+    };
+
+
+  state.leadPage =
+    state.leadPagination.page ||
+    1;
+
 
   return true;
 }
@@ -761,6 +985,8 @@ periodTabs.addEventListener(
     state.period =
       button.dataset.period;
 
+    state.cityPage = 1;
+
     render();
   },
 );
@@ -772,6 +998,8 @@ searchInput.addEventListener(
     state.search =
       searchInput.value;
 
+    state.cityPage = 1;
+
     const period =
       getCurrentPeriod();
 
@@ -782,13 +1010,84 @@ searchInput.addEventListener(
 );
 
 
+let leadSearchTimer = null;
+
+
 leadSearchInput.addEventListener(
   'input',
   () => {
+    clearTimeout(
+      leadSearchTimer,
+    );
+
     state.leadSearch =
       leadSearchInput.value;
 
-    renderLeads();
+    state.leadPage = 1;
+
+
+    leadSearchTimer =
+      setTimeout(
+        async () => {
+          try {
+            const loaded =
+              await loadLeads();
+
+            if (loaded) {
+              renderLeads();
+            }
+          } catch (error) {
+            console.error(
+              error,
+            );
+          }
+        },
+        250,
+      );
+  },
+);
+
+
+leadsPagePrev.addEventListener(
+  'click',
+  async () => {
+    if (
+      !state.leadPagination
+        .hasPrevious
+    ) {
+      return;
+    }
+
+    state.leadPage -= 1;
+
+    const loaded =
+      await loadLeads();
+
+    if (loaded) {
+      renderLeads();
+    }
+  },
+);
+
+
+leadsPageNext.addEventListener(
+  'click',
+  async () => {
+    if (
+      !state.leadPagination
+        .hasNext
+    ) {
+      return;
+    }
+
+    state.leadPage += 1;
+
+    const loaded =
+      await loadLeads();
+
+    if (loaded) {
+      renderLeads();
+    }
   },
 );
 
@@ -821,12 +1120,71 @@ document.addEventListener(
           : 'desc';
     }
 
+    state.cityPage = 1;
+
     const period =
       getCurrentPeriod();
 
     if (period) {
       renderTable(period);
     }
+  },
+);
+
+
+cityPagePrev.addEventListener(
+  'click',
+  () => {
+    if (
+      state.cityPage <= 1
+    ) {
+      return;
+    }
+
+    state.cityPage -= 1;
+
+    const period =
+      getCurrentPeriod();
+
+    if (period) {
+      renderTable(period);
+    }
+  },
+);
+
+
+cityPageNext.addEventListener(
+  'click',
+  () => {
+    const period =
+      getCurrentPeriod();
+
+    if (!period) {
+      return;
+    }
+
+    const rows =
+      getVisibleRows(period);
+
+    const totalPages =
+      Math.max(
+        1,
+        Math.ceil(
+          rows.length /
+          state.cityPageSize,
+        ),
+      );
+
+    if (
+      state.cityPage >=
+      totalPages
+    ) {
+      return;
+    }
+
+    state.cityPage += 1;
+
+    renderTable(period);
   },
 );
 

@@ -1,8 +1,10 @@
 import Container from '../../components/ui/Container/Container';
-import { CITY } from '../../config/city';
+import { useCity } from '../../context/GeoContext';
 import './Hero.css';
 
 export default function Hero() {
+  const city = useCity();
+
   const handlePortraitError = (event) => {
     event.currentTarget.hidden = true;
     event.currentTarget.parentElement?.classList.add('hero-portrait__media--fallback');
@@ -20,7 +22,7 @@ export default function Hero() {
           <h1 id="hero-title" className="hero__title">
             <span>Разработка и согласование</span>
             <span>паспорта безопасности</span>
-            <span className="hero__title-location">в {CITY.namePrepositional}</span>
+            <span className="hero__title-location">{city.locationPhrase}</span>
           </h1>
 
           <p className="hero__lead">
@@ -60,7 +62,7 @@ export default function Hero() {
               alt="Николай Бойков, руководитель БОЙКОВГРУПП"
               width="930"
               height="1400"
-              fetchPriority="high"
+              fetchpriority="high"
               decoding="async"
               onError={handlePortraitError}
             />

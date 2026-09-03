@@ -3,9 +3,9 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import {
-  DEFAULT_REGION,
-  REGIONS,
-} from '../config/regions.mjs';
+  DEFAULT_LOCATION,
+  getLocationBySlug,
+} from '../config/geography/index.mjs';
 
 import { resolveSiteFromHost } from './site-region.mjs';
 
@@ -141,19 +141,50 @@ function resolveVisitSite(visit) {
   };
 }
 
-function getKnownCities() {
-  return [
-    {
-      slug: 'russia',
-      name: DEFAULT_REGION.name,
+const BASELINE_CITY_SLUGS = [
+  'moscow',
+  'spb',
+  'kazan',
+];
+
+
+const BASELINE_CITIES =
+  BASELINE_CITY_SLUGS.map(
+    (slug) => {
+      const location =
+        getLocationBySlug(slug);
+
+      if (!location) {
+        throw new Error(
+          `Baseline geography not found: ${slug}`,
+        );
+      }
+
+      return {
+        slug:
+          location.slug,
+
+        name:
+          location.name,
+      };
     },
-    ...REGIONS
-      .filter((region) => region.active)
-      .map((region) => ({
-        slug: region.slug,
-        name: region.name,
-      })),
-  ];
+  );
+
+
+const KNOWN_CITIES = [
+  {
+    slug: 'russia',
+
+    name:
+      DEFAULT_LOCATION.name,
+  },
+
+  ...BASELINE_CITIES,
+];
+
+
+function getKnownCities() {
+  return KNOWN_CITIES;
 }
 
 function createCityMap() {
