@@ -38,3 +38,11 @@ notes/
 
 __pycache__/
 *.pyc
+
+# PROJECT_LOCAL_BACKUPS
+backups/
+*.bak
+*.bak-*
+*.bad-*
+*.problem-*
+# /PROJECT_LOCAL_BACKUPS
