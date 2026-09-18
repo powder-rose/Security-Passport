@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import Container from '../../components/ui/Container/Container';
 
 import Expert from '../../sections/Expert/Expert';
@@ -299,6 +301,68 @@ export default function ActualizationPage() {
 
   const locationText =
     getLocationText(city);
+
+
+  useEffect(() => {
+    const items =
+      Array.from(
+        document.querySelectorAll(
+          '.actualization-work__timeline li',
+        ),
+      );
+
+    if (!items.length) {
+      return undefined;
+    }
+
+    if (
+      !('IntersectionObserver' in window)
+    ) {
+      items.forEach(
+        (item) => {
+          item.classList.add('is-active');
+        },
+      );
+
+      return undefined;
+    }
+
+    const observer =
+      new IntersectionObserver(
+        (entries) => {
+          entries.forEach(
+            (entry) => {
+              if (!entry.isIntersecting) {
+                return;
+              }
+
+              entry.target.classList.add(
+                'is-active',
+              );
+
+              observer.unobserve(
+                entry.target,
+              );
+            },
+          );
+        },
+        {
+          threshold: 0.42,
+          rootMargin:
+            '0px 0px -18% 0px',
+        },
+      );
+
+    items.forEach(
+      (item) => {
+        observer.observe(item);
+      },
+    );
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
 
   return (
@@ -604,7 +668,7 @@ export default function ActualizationPage() {
               </p>
 
               <h2>
-                Всегда ли нужно заново проводить категорирование
+                Всегда ли нужно заново проводить категорирование?
               </h2>
             </div>
 
@@ -723,7 +787,7 @@ export default function ActualizationPage() {
       >
         <Container>
           <div className="actualization-price__panel">
-            <div>
+            <div className="actualization-price__heading">
               <p className="actualization-kicker">
                 Стоимость
               </p>
@@ -731,14 +795,68 @@ export default function ActualizationPage() {
               <h2>
                 Стоимость актуализации паспорта безопасности
               </h2>
+
+              <p className="actualization-price__intro">
+                Состав работ определяем после проверки
+                действующего паспорта и изменений
+                на объекте.
+              </p>
             </div>
 
-            <p>
-              Точная стоимость зависит от объёма
-              необходимых изменений и от того,
-              требуется ли повторное категорирование
-              объекта.
-            </p>
+
+            <aside className="actualization-price__card">
+              <p className="actualization-price__card-label">
+                На расчёт влияют
+              </p>
+
+              <div className="actualization-price__factor">
+                <span>
+                  01
+                </span>
+
+                <div>
+                  <strong>
+                    Объём необходимых изменений
+                  </strong>
+
+                  <p>
+                    Проверяем, какие сведения
+                    действующего паспорта требуется
+                    актуализировать.
+                  </p>
+                </div>
+              </div>
+
+
+              <div className="actualization-price__factor">
+                <span>
+                  02
+                </span>
+
+                <div>
+                  <strong>
+                    Повторное категорирование
+                  </strong>
+
+                  <p>
+                    Отдельно определяем, требуется ли
+                    оно для конкретного объекта.
+                  </p>
+                </div>
+              </div>
+
+
+              <a
+                className="actualization-price__action"
+                href="#lead-form"
+              >
+                Уточнить стоимость
+
+                <span aria-hidden="true">
+                  ↗
+                </span>
+              </a>
+            </aside>
           </div>
         </Container>
       </section>

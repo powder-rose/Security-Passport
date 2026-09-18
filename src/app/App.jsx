@@ -40,6 +40,55 @@ const categorizationActPageCssUrl =
   '/styles/CategorizationActPage.css';
 
 
+function getRuntimeStylesheetUrl(
+  fallbackUrl,
+) {
+  if (
+    typeof document === 'undefined'
+  ) {
+    return fallbackUrl;
+  }
+
+  const fileName =
+    fallbackUrl
+      .split('/')
+      .pop()
+      ?.replace(
+        /\.css$/,
+        '',
+      );
+
+  if (!fileName) {
+    return fallbackUrl;
+  }
+
+  const existingLink =
+    Array.from(
+      document.querySelectorAll(
+        'link[rel="stylesheet"]',
+      ),
+    ).find(
+      (link) => {
+        const href =
+          link.getAttribute(
+            'href',
+          ) || '';
+
+        return href.includes(
+          `/styles/${fileName}`,
+        );
+      },
+    );
+
+  return (
+    existingLink?.getAttribute(
+      'href',
+    ) ||
+    fallbackUrl
+  );
+}
+
+
 const servicePageViews = {
   'categorization-act': {
     Component:
@@ -166,6 +215,11 @@ export default function App({
     const ServicePageComponent =
       servicePageView.Component;
 
+    const servicePageCssUrl =
+      getRuntimeStylesheetUrl(
+        servicePageView.cssUrl,
+      );
+
     return (
       <>
         <Seo pathname={resolvedPathname} />
@@ -173,7 +227,7 @@ export default function App({
         <Helmet>
           <link
             rel="stylesheet"
-            href={servicePageView.cssUrl}
+            href={servicePageCssUrl}
           />
         </Helmet>
 
