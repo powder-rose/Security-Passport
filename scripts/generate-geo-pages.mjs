@@ -93,10 +93,32 @@ const {
   );
 
 
+const regionalLocations =
+  getRegionalLocations();
+
 const locations = [
   DEFAULT_LOCATION,
-  ...getRegionalLocations(),
+  ...regionalLocations,
 ];
+
+const SERVICE_ROUTES = Object.freeze([
+  {
+    pathname:
+      '/akt-obsledovaniya-i-kategorirovaniya-obekta/',
+    h1Fragment:
+      'Акт обследования',
+    titleFragment:
+      'Акт',
+  },
+  {
+    pathname:
+      '/aktualizaciya-pasporta-bezopasnosti-obekta/',
+    h1Fragment:
+      'Актуализация паспорта',
+    titleFragment:
+      'Актуализация',
+  },
+]);
 
 
 function serializeCity(city) {
@@ -478,6 +500,282 @@ for (
 }
 
 
+// GEO_SERVICE_ROUTES_PATCH_V1
+let serviceGeneratedCount = 0;
+
+
+function geoExpectedCanonicalForPath(
+  location,
+  pathname,
+) {
+  const base =
+    expectedCanonical(location);
+
+  if (!pathname || pathname === '/') {
+    return base;
+  }
+
+  const normalizedPath =
+    `/${String(pathname).replace(/^\/+|\/+$/g, '')}/`;
+
+  return `${base}${normalizedPath}`;
+}
+
+
+function geoExtractTagText(
+  document,
+  tagName,
+) {
+  const match =
+    document.match(
+      new RegExp(
+        `<${tagName}\\b[^>]*>([\\s\\S]*?)<\\/${tagName}>`,
+        'i',
+      ),
+    );
+
+  if (!match) {
+    return '';
+  }
+
+  return normalizeHtml(
+    match[1].replace(/<[^>]+>/g, ' '),
+  ).trim();
+}
+
+
+function geoValidateServiceDocument(
+  location,
+  route,
+  document,
+) {
+  const expected =
+    geoExpectedCanonicalForPath(
+      location,
+      route.pathname,
+    );
+
+  const canonicalOk =
+    document.includes(
+      `rel="canonical" href="${expected}"`,
+    );
+
+  const h1Text =
+    geoExtractTagText(
+      document,
+      'h1',
+    );
+
+  const titleText =
+    geoExtractTagText(
+      document,
+      'title',
+    );
+
+  const h1Ok =
+    h1Text
+      .toLowerCase()
+      .includes(
+        route.h1Fragment.toLowerCase(),
+      );
+
+  const titleOk =
+    titleText
+      .toLowerCase()
+      .includes(
+        route.titleFragment.toLowerCase(),
+      );
+
+  const robotsOk =
+    document.includes(
+      `name="robots" content="${expectedRobots(location)}"`,
+    );
+
+  const bootstrapOk =
+    document.includes(
+      'window.__PASSPORT_CITY__=',
+    );
+
+  if (
+    !canonicalOk ||
+    !h1Ok ||
+    !titleOk ||
+    !robotsOk ||
+    !bootstrapOk
+  ) {
+    throw new Error(
+      [
+        `Ошибка service SSR: ${location.name}`,
+        `pathname=${route.pathname}`,
+        `canonical=${canonicalOk}`,
+        `h1=${h1Ok}`,
+        `title=${titleOk}`,
+        `robots=${robotsOk}`,
+        `bootstrap=${bootstrapOk}`,
+      ].join(' | '),
+    );
+  }
+}
+
+
+for (const location of regionalLocations) {
+
+  const regionDirectory =
+    path.join(
+      outputRoot,
+      'regions',
+      location.slug,
+    );
+
+  const routeManifest = [];
+
+
+  for (const route of SERVICE_ROUTES) {
+
+    const result = await render({
+      city: location,
+      pathname: route.pathname,
+    });
+
+
+    const document =
+      buildDocument(result);
+
+
+    geoValidateServiceDocument(
+      location,
+      route,
+      document,
+    );
+
+
+    const routeDirectoryName =
+      route.pathname.replace(
+        /^\/+|\/+$/g,
+        '',
+      );
+
+
+    const outputDirectory =
+      path.join(
+        regionDirectory,
+        routeDirectoryName,
+      );
+
+
+    await mkdir(
+      outputDirectory,
+      {
+        recursive: true,
+      },
+    );
+
+
+    const outputFile =
+      path.join(
+        outputDirectory,
+        'index.html',
+      );
+
+
+    await writeFile(
+      outputFile,
+      document,
+      'utf8',
+    );
+
+
+    routeManifest.push({
+      pathname:
+        route.pathname,
+
+      canonical:
+        geoExpectedCanonicalForPath(
+          location,
+          route.pathname,
+        ),
+
+      output:
+        path.relative(
+          outputRoot,
+          outputFile,
+        ),
+    });
+
+
+    serviceGeneratedCount += 1;
+  }
+
+
+  if (isSeoIndexable(location)) {
+
+    const sitemapEntries = [
+      {
+        loc:
+          expectedCanonical(location),
+
+        priority:
+          '1.0',
+      },
+
+      ...SERVICE_ROUTES.map(
+        (route) => ({
+          loc:
+            geoExpectedCanonicalForPath(
+              location,
+              route.pathname,
+            ),
+
+          priority:
+            '0.9',
+        }),
+      ),
+    ];
+
+
+    const sitemap =
+      `<?xml version="1.0" encoding="UTF-8"?>\n` +
+      `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+
+      sitemapEntries
+        .map(
+          ({ loc, priority }) =>
+            `  <url>\n` +
+            `    <loc>${loc}</loc>\n` +
+            `    <changefreq>monthly</changefreq>\n` +
+            `    <priority>${priority}</priority>\n` +
+            `  </url>\n`,
+        )
+        .join('') +
+
+      `</urlset>\n`;
+
+
+    await writeFile(
+      path.join(
+        regionDirectory,
+        'sitemap.xml',
+      ),
+      sitemap,
+      'utf8',
+    );
+  }
+
+
+  const manifestEntry =
+    manifest.find(
+      (entry) =>
+        entry.slug === location.slug,
+    );
+
+
+  if (manifestEntry) {
+    manifestEntry.serviceRoutes =
+      routeManifest;
+  }
+}
+
+
 await writeFile(
   path.join(
     outputRoot,
@@ -503,6 +801,52 @@ await writeFile(
 );
 
 
+const geoManifestPath =
+  path.join(
+    outputRoot,
+    'manifest.json',
+  );
+
+
+const geoManifestData =
+  JSON.parse(
+    await readFile(
+      geoManifestPath,
+      'utf8',
+    ),
+  );
+
+
+geoManifestData.regionalCount =
+  regionalLocations.length;
+
+geoManifestData.serviceRouteCount =
+  SERVICE_ROUTES.length;
+
+geoManifestData.servicePageCount =
+  serviceGeneratedCount;
+
+geoManifestData.regionalHtmlCount =
+  regionalLocations.length *
+  (1 + SERVICE_ROUTES.length);
+
+geoManifestData.serviceRoutes =
+  SERVICE_ROUTES.map(
+    ({ pathname }) => pathname,
+  );
+
+
+await writeFile(
+  geoManifestPath,
+  JSON.stringify(
+    geoManifestData,
+    null,
+    2,
+  ),
+  'utf8',
+);
+
+
 const elapsed =
   (
     (
@@ -520,7 +864,7 @@ console.log(
 );
 
 console.log(
-  `✓ Создано страниц: ${generatedCount}`,
+  `✓ Создано HTML: ${generatedCount + serviceGeneratedCount}`,
 );
 
 console.log(

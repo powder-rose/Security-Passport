@@ -287,6 +287,167 @@ function buildRowsHtml(rows) {
 }
 
 
+function buildOverviewHtml(statistics) {
+  const rows =
+    STAT_PERIODS
+      .map((definition) => {
+        const period =
+          statistics.periods[
+            definition.key
+          ];
+
+        return `
+          <tr>
+            <td style="
+              padding:14px 12px;
+              border-bottom:1px solid #e7e7e7;
+              text-align:left;
+              vertical-align:top;
+            ">
+              <div style="
+                font-weight:700;
+                color:#111;
+              ">
+                ${escapeHtml(period.label)}
+              </div>
+
+              <div style="
+                margin-top:4px;
+                color:#888;
+                font-size:10px;
+                line-height:1.4;
+              ">
+                ${escapeHtml(
+                  periodRangeText(period),
+                )}
+              </div>
+            </td>
+
+            <td style="
+              padding:14px 12px;
+              border-bottom:1px solid #e7e7e7;
+              text-align:right;
+              vertical-align:top;
+              font-weight:700;
+            ">
+              ${formatNumber(
+                period.totals.visits,
+              )}
+            </td>
+
+            <td style="
+              padding:14px 12px;
+              border-bottom:1px solid #e7e7e7;
+              text-align:right;
+              vertical-align:top;
+              font-weight:700;
+              color:#1260ff;
+            ">
+              ${formatNumber(
+                period.totals.leads,
+              )}
+            </td>
+
+            <td style="
+              padding:14px 12px;
+              border-bottom:1px solid #e7e7e7;
+              text-align:right;
+              vertical-align:top;
+              font-weight:700;
+            ">
+              ${formatPercent(
+                period.totals.conversion,
+                period.totals.visits,
+              )}
+            </td>
+          </tr>
+        `;
+      })
+      .join('');
+
+  return `
+    <div style="
+      margin:0 0 48px;
+    ">
+
+      <div style="
+        color:#1260ff;
+        font-size:12px;
+        font-weight:800;
+        letter-spacing:.08em;
+        text-transform:uppercase;
+        margin-bottom:10px;
+      ">
+        Общая статистика
+      </div>
+
+      <div style="
+        margin:0 0 18px;
+        color:#666;
+        font-size:12px;
+        line-height:1.5;
+      ">
+        Основные показатели сайта
+        по всем периодам.
+      </div>
+
+      <table
+        width="100%"
+        cellspacing="0"
+        cellpadding="0"
+        style="
+          width:100%;
+          border-collapse:collapse;
+          font-size:13px;
+          background:#fff;
+          border:1px solid #e2e0d9;
+        "
+      >
+        <thead>
+          <tr style="
+            background:#111;
+            color:#fff;
+          ">
+            <th style="
+              padding:12px;
+              text-align:left;
+            ">
+              Период
+            </th>
+
+            <th style="
+              padding:12px;
+              text-align:right;
+            ">
+              Посещения
+            </th>
+
+            <th style="
+              padding:12px;
+              text-align:right;
+            ">
+              Заявки
+            </th>
+
+            <th style="
+              padding:12px;
+              text-align:right;
+            ">
+              Конверсия
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          ${rows}
+        </tbody>
+      </table>
+
+    </div>
+  `;
+}
+
+
 function buildPeriodHtml(period) {
   const compact =
     compactPeriod(period);
@@ -316,102 +477,12 @@ function buildPeriodHtml(period) {
       <div style="
         color:#777;
         font-size:12px;
-        margin-bottom:18px;
+        margin-bottom:14px;
       ">
-        ${escapeHtml(periodRangeText(period))}
+        ${escapeHtml(
+          periodRangeText(period),
+        )}
       </div>
-
-
-      <table
-        role="presentation"
-        width="100%"
-        cellspacing="0"
-        cellpadding="0"
-        style="
-          border-collapse:collapse;
-          margin-bottom:16px;
-        "
-      >
-        <tr>
-
-          <td style="
-            width:33.33%;
-            padding:16px;
-            background:#111;
-            color:#fff;
-          ">
-            <div style="
-              font-size:11px;
-              opacity:.65;
-              margin-bottom:8px;
-            ">
-              ПОСЕЩЕНИЯ
-            </div>
-
-            <div style="
-              font-size:28px;
-              font-weight:700;
-            ">
-              ${formatNumber(
-                period.totals.visits,
-              )}
-            </div>
-          </td>
-
-
-          <td style="
-            width:33.33%;
-            padding:16px;
-            background:#1260ff;
-            color:#fff;
-          ">
-            <div style="
-              font-size:11px;
-              opacity:.75;
-              margin-bottom:8px;
-            ">
-              ЗАЯВКИ
-            </div>
-
-            <div style="
-              font-size:28px;
-              font-weight:700;
-            ">
-              ${formatNumber(
-                period.totals.leads,
-              )}
-            </div>
-          </td>
-
-
-          <td style="
-            width:33.33%;
-            padding:16px;
-            background:#a9f04a;
-            color:#111;
-          ">
-            <div style="
-              font-size:11px;
-              opacity:.65;
-              margin-bottom:8px;
-            ">
-              КОНВЕРСИЯ
-            </div>
-
-            <div style="
-              font-size:28px;
-              font-weight:700;
-            ">
-              ${formatPercent(
-                period.totals.conversion,
-                period.totals.visits,
-              )}
-            </div>
-          </td>
-
-        </tr>
-      </table>
-
 
       <div style="
         margin:0 0 14px;
@@ -421,12 +492,13 @@ function buildPeriodHtml(period) {
       ">
         Активных регионов:
         <strong style="color:#111;">
-          ${formatNumber(compact.activeCount)}
+          ${formatNumber(
+            compact.activeCount,
+          )}
         </strong>.
         ${escapeHtml(compactNote)}
         Полный список — в CSV-файле.
       </div>
-
 
       <table
         width="100%"
@@ -436,6 +508,7 @@ function buildPeriodHtml(period) {
           width:100%;
           border-collapse:collapse;
           font-size:13px;
+          background:#fff;
         "
       >
         <thead>
@@ -476,48 +549,6 @@ function buildPeriodHtml(period) {
           ${buildRowsHtml(
             compact.displayRows,
           )}
-
-          <tr style="
-            background:#111;
-            color:#fff;
-            font-weight:700;
-          ">
-            <td style="
-              padding:12px;
-              text-align:left;
-            ">
-              Итого
-            </td>
-
-            <td style="
-              padding:12px;
-              text-align:right;
-            ">
-              ${formatNumber(
-                period.totals.visits,
-              )}
-            </td>
-
-            <td style="
-              padding:12px;
-              text-align:right;
-            ">
-              ${formatNumber(
-                period.totals.leads,
-              )}
-            </td>
-
-            <td style="
-              padding:12px;
-              text-align:right;
-            ">
-              ${formatPercent(
-                period.totals.conversion,
-                period.totals.visits,
-              )}
-            </td>
-          </tr>
-
         </tbody>
       </table>
 
@@ -530,9 +561,46 @@ function buildText(statistics) {
   const lines = [
     'Статистика pasport-bezopasnosty.ru',
     '',
+    'ОБЩАЯ СТАТИСТИКА',
+    '',
   ];
 
-  for (const definition of STAT_PERIODS) {
+  for (
+    const definition
+    of STAT_PERIODS
+  ) {
+    const period =
+      statistics.periods[
+        definition.key
+      ];
+
+    lines.push(
+      `${period.label}: `
+      + `${formatNumber(
+        period.totals.visits,
+      )} посещений, `
+      + `${formatNumber(
+        period.totals.leads,
+      )} заявок, `
+      + `${formatPercent(
+        period.totals.conversion,
+        period.totals.visits,
+      )}`,
+    );
+  }
+
+  lines.push(
+    '',
+    '==============================',
+    '',
+    'ДЕТАЛЬНАЯ СТАТИСТИКА ПО РЕГИОНАМ',
+    '',
+  );
+
+  for (
+    const definition
+    of STAT_PERIODS
+  ) {
     const period =
       statistics.periods[
         definition.key
@@ -544,30 +612,9 @@ function buildText(statistics) {
     lines.push(
       period.label.toUpperCase(),
       periodRangeText(period),
-
-      `Посещения: ${
-        formatNumber(
-          period.totals.visits,
-        )
-      }`,
-
-      `Заявки: ${
-        formatNumber(
-          period.totals.leads,
-        )
-      }`,
-
-      `Конверсия: ${
-        formatPercent(
-          period.totals.conversion,
-          period.totals.visits,
-        )
-      }`,
-
       `Активных регионов: ${
         compact.activeCount
       }`,
-
       '',
     );
 
@@ -577,8 +624,12 @@ function buildText(statistics) {
     ) {
       lines.push(
         `${row.displayName}: `
-        + `${formatNumber(row.visits)} посещений, `
-        + `${formatNumber(row.leads)} заявок, `
+        + `${formatNumber(
+          row.visits,
+        )} посещений, `
+        + `${formatNumber(
+          row.leads,
+        )} заявок, `
         + `${formatPercent(
           row.conversion,
           row.visits,
@@ -745,6 +796,37 @@ function buildHtml(statistics) {
             Полная статистика активных регионов
             приложена к письму в CSV.
           </p>
+
+
+          ${buildOverviewHtml(statistics)}
+
+
+          <div style="
+            margin:0 0 24px;
+            padding-top:2px;
+          ">
+
+            <div style="
+              color:#111;
+              font-size:22px;
+              font-weight:800;
+              line-height:1.15;
+              letter-spacing:-.02em;
+              margin-bottom:8px;
+            ">
+              Детальная статистика по регионам
+            </div>
+
+            <div style="
+              color:#777;
+              font-size:12px;
+              line-height:1.5;
+            ">
+              Посещения, заявки и конверсия
+              по отдельным регионам.
+            </div>
+
+          </div>
 
 
           ${

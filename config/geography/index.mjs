@@ -115,10 +115,116 @@ if (!Array.isArray(raw)) {
   );
 }
 
+const validatedLocations =
+  raw.map(validateLocation);
+
+
+function getSeoPhraseKey(location) {
+  const hasTrustedInflection =
+    location.inflectionMode === 'trusted' &&
+    Boolean(
+      location.genitive &&
+      location.prepositional,
+    );
+
+  if (hasTrustedInflection) {
+    return (
+      `trusted:` +
+      location.prepositional
+        .trim()
+        .toLocaleLowerCase('ru-RU')
+    );
+  }
+
+  const name =
+    String(
+      location.name || '',
+    ).trim();
+
+  const subject =
+    String(
+      location.subject ||
+      location.region ||
+      '',
+    ).trim();
+
+  const locationSeo =
+    subject &&
+    subject !== name
+      ? `${name}, ${subject}`
+      : name;
+
+  return (
+    `neutral:` +
+    locationSeo.toLocaleLowerCase('ru-RU')
+  );
+}
+
+
+const seoPhraseCounts =
+  new Map();
+
+
+for (const location of validatedLocations) {
+  if (
+    !location.active ||
+    location.isDefault ||
+    !location.slug ||
+    location.seoIndexable !== true
+  ) {
+    continue;
+  }
+
+  const key =
+    getSeoPhraseKey(location);
+
+  seoPhraseCounts.set(
+    key,
+    (
+      seoPhraseCounts.get(key) ||
+      0
+    ) + 1,
+  );
+}
+
+
 export const LOCATIONS =
   Object.freeze(
-    raw.map(validateLocation),
+    validatedLocations.map(
+      (location) => {
+        const subject =
+          String(
+            location.subject ||
+            location.region ||
+            '',
+          ).trim();
+
+        const seoPhraseKey =
+          getSeoPhraseKey(location);
+
+        const seoNeedsSubject =
+          Boolean(
+            location.active &&
+            !location.isDefault &&
+            location.slug &&
+            location.seoIndexable === true &&
+            (
+              seoPhraseCounts.get(
+                seoPhraseKey,
+              ) || 0
+            ) > 1 &&
+            subject &&
+            subject !== location.name,
+          );
+
+        return Object.freeze({
+          ...location,
+          seoNeedsSubject,
+        });
+      },
+    ),
   );
+
 
 const locationsBySlug =
   new Map();

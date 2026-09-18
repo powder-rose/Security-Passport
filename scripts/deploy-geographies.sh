@@ -2,6 +2,8 @@
 
 set -Eeuo pipefail
 
+# GEO_SERVICE_ROUTES_DEPLOY_PATCH_V1
+
 PROJECT="/var/www/pasport-bezopasnosty.ru/app/passport-security-base"
 BASE="/var/www/pasport-bezopasnosty.ru"
 
@@ -36,6 +38,100 @@ echo
 echo "[3/7] Генерируем все географические страницы..."
 
 node scripts/generate-geo-pages.mjs
+
+
+echo
+echo "[3b/7] Проверяем федеральный SSR..."
+
+node --input-type=module <<'NODE'
+import {
+  pathToFileURL,
+} from 'node:url';
+
+import {
+  DEFAULT_LOCATION,
+} from './config/geography/index.mjs';
+
+const serverEntry =
+  pathToFileURL(
+    `${process.cwd()}/dist/server/entry-server.js`,
+  ).href;
+
+const {
+  render,
+} = await import(serverEntry);
+
+const checks = [
+  {
+    pathname:
+      '/',
+    canonical:
+      'https://pasport-bezopasnosty.ru',
+    fragment:
+      null,
+  },
+  {
+    pathname:
+      '/akt-obsledovaniya-i-kategorirovaniya-obekta/',
+    canonical:
+      'https://pasport-bezopasnosty.ru/akt-obsledovaniya-i-kategorirovaniya-obekta/',
+    fragment:
+      'Акт обследования',
+  },
+  {
+    pathname:
+      '/aktualizaciya-pasporta-bezopasnosti-obekta/',
+    canonical:
+      'https://pasport-bezopasnosty.ru/aktualizaciya-pasporta-bezopasnosti-obekta/',
+    fragment:
+      'Актуализация паспорта',
+  },
+];
+
+for (const check of checks) {
+
+  const result = await render({
+    city:
+      DEFAULT_LOCATION,
+    pathname:
+      check.pathname,
+  });
+
+  const head = [
+    result.helmet?.title?.toString() || '',
+    result.helmet?.meta?.toString() || '',
+    result.helmet?.link?.toString() || '',
+  ].join('\n');
+
+  if (
+    !head.includes(
+      `rel="canonical" href="${check.canonical}"`,
+    )
+  ) {
+    throw new Error(
+      `Federal canonical failed: ${check.pathname}`,
+    );
+  }
+
+  if (
+    check.fragment &&
+    !result.html
+      .toLowerCase()
+      .includes(
+        check.fragment.toLowerCase(),
+      )
+  ) {
+    throw new Error(
+      `Federal content failed: ${check.pathname}`,
+    );
+  }
+}
+
+console.log(
+  '✓ Federal SSR regression passed'
+);
+NODE
+
 
 
 echo
@@ -83,6 +179,97 @@ fi
 
 
 echo
+
+echo
+echo "Проверяем service routes и количество HTML..."
+
+MANIFEST_STATS="$(
+  node --input-type=module <<'NODE'
+import fs from 'node:fs';
+
+const manifest =
+  JSON.parse(
+    fs.readFileSync(
+      './dist/geo-pages/manifest.json',
+      'utf8',
+    ),
+  );
+
+const values = [
+  manifest.regionalCount,
+  manifest.serviceRouteCount,
+  manifest.servicePageCount,
+  manifest.regionalHtmlCount,
+];
+
+if (
+  values.some(
+    (value) =>
+      !Number.isInteger(value),
+  )
+) {
+  throw new Error(
+    'В manifest отсутствует статистика service routes',
+  );
+}
+
+console.log(
+  values.join('|')
+);
+NODE
+)"
+
+IFS='|' read -r \
+  MANIFEST_REGIONS \
+  ROUTE_COUNT \
+  SERVICE_PAGE_COUNT \
+  REGIONAL_HTML_COUNT \
+  <<< "${MANIFEST_STATS}"
+
+EXPECTED_SERVICE_PAGES=$((
+  EXPECTED * ROUTE_COUNT
+))
+
+EXPECTED_REGIONAL_HTML=$((
+  EXPECTED * (1 + ROUTE_COUNT)
+))
+
+ACTUAL_REGIONAL_HTML="$(
+  find dist/geo-pages/regions \
+    -type f \
+    -name index.html \
+    | wc -l \
+    | tr -d '[:space:]'
+)"
+
+echo "Service routes:                 ${ROUTE_COUNT}"
+echo "Service HTML ожидается:         ${EXPECTED_SERVICE_PAGES}"
+echo "Service HTML в manifest:        ${SERVICE_PAGE_COUNT}"
+echo "Всего regional HTML ожидается: ${EXPECTED_REGIONAL_HTML}"
+echo "Всего regional HTML manifest:  ${REGIONAL_HTML_COUNT}"
+echo "Всего regional HTML на диске:  ${ACTUAL_REGIONAL_HTML}"
+
+if [ "${MANIFEST_REGIONS}" != "${EXPECTED}" ]; then
+    echo "ОШИБКА: regionalCount в manifest не совпадает."
+    exit 1
+fi
+
+if [ "${SERVICE_PAGE_COUNT}" != "${EXPECTED_SERVICE_PAGES}" ]; then
+    echo "ОШИБКА: количество service pages не совпадает."
+    exit 1
+fi
+
+if [ "${REGIONAL_HTML_COUNT}" != "${EXPECTED_REGIONAL_HTML}" ]; then
+    echo "ОШИБКА: regionalHtmlCount в manifest не совпадает."
+    exit 1
+fi
+
+if [ "${ACTUAL_REGIONAL_HTML}" != "${EXPECTED_REGIONAL_HTML}" ]; then
+    echo "ОШИБКА: фактическое количество HTML не совпадает."
+    exit 1
+fi
+
+
 echo "[5/7] Готовим новый release..."
 
 mkdir -p "${RELEASES}"
@@ -100,7 +287,8 @@ echo "[6/7] Обновляем общую статику..."
 
 mkdir -p \
   "${SHARED}/assets" \
-  "${SHARED}/images"
+  "${SHARED}/images" \
+  "${SHARED}/styles"
 
 # Старые hashed assets специально не удаляем:
 # старые HTML и браузерный кеш продолжат работать.
@@ -111,6 +299,16 @@ cp -a \
 cp -a \
   dist/client/images/. \
   "${SHARED}/images/"
+
+if [ ! -d dist/client/styles ]; then
+    echo "ОШИБКА: dist/client/styles отсутствует после build."
+    exit 1
+fi
+
+cp -a \
+  dist/client/styles/. \
+  "${SHARED}/styles/"
+
 
 cp -a \
   dist/client/favicon.png \
@@ -139,6 +337,79 @@ echo
 echo "Проверяем Nginx..."
 
 nginx -t
+
+
+echo
+echo "[cleanup] Удаляем временную массовую сборку..."
+
+if [ -d "${PROJECT}/dist/geo-pages" ]; then
+    rm -rf -- "${PROJECT}/dist/geo-pages"
+    echo "✓ dist/geo-pages удалён"
+else
+    echo "✓ dist/geo-pages уже отсутствует"
+fi
+
+
+echo
+echo "[cleanup] Оставляем current + один release для rollback..."
+
+CURRENT_REAL="$(
+  readlink -f "${CURRENT}"
+)"
+
+if [ -z "${CURRENT_REAL}" ] || [ ! -d "${CURRENT_REAL}" ]; then
+    echo "ОШИБКА: не удалось определить текущий production release."
+    exit 1
+fi
+
+PREVIOUS_KEEP=""
+
+while IFS= read -r RELEASE_PATH; do
+    if [ "${RELEASE_PATH}" = "${CURRENT_REAL}" ]; then
+        continue
+    fi
+
+    PREVIOUS_KEEP="${RELEASE_PATH}"
+    break
+done < <(
+    find "${RELEASES}"       -mindepth 1       -maxdepth 1       -type d       -print       | sort -r
+)
+
+echo "Current:"
+echo "${CURRENT_REAL}"
+
+if [ -n "${PREVIOUS_KEEP}" ]; then
+    echo
+    echo "Rollback:"
+    echo "${PREVIOUS_KEEP}"
+else
+    echo
+    echo "Rollback release пока отсутствует."
+fi
+
+while IFS= read -r RELEASE_PATH; do
+    if [ "${RELEASE_PATH}" = "${CURRENT_REAL}" ]; then
+        continue
+    fi
+
+    if       [ -n "${PREVIOUS_KEEP}" ] &&       [ "${RELEASE_PATH}" = "${PREVIOUS_KEEP}" ]
+    then
+        continue
+    fi
+
+    echo "Удаляем старый release:"
+    echo "${RELEASE_PATH}"
+
+    rm -rf -- "${RELEASE_PATH}"
+done < <(
+    find "${RELEASES}"       -mindepth 1       -maxdepth 1       -type d       -print       | sort -r
+)
+
+
+echo
+echo "[cleanup] Releases после очистки:"
+
+du -sh   "${RELEASES}"/*   2>/dev/null   | sort -h   || true
 
 
 echo

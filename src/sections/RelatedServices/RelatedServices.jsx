@@ -18,7 +18,16 @@ function ServiceLink({ service, index }) {
         <span className="related-service__title">{service.title}</span>
       </span>
 
-      <span className="related-service__description">{service.description}</span>
+      <span className="related-service__description">
+        {service.description}
+
+        {service.linkLabel ? (
+          <span className="related-service__more">
+            {service.linkLabel}
+            <span aria-hidden="true"> →</span>
+          </span>
+        ) : null}
+      </span>
 
       <span className="related-service__arrow" aria-hidden="true">↗</span>
     </a>

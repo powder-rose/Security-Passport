@@ -1,0 +1,502 @@
+.regulation-guide {
+  padding:
+    clamp(96px, 11vw, 168px)
+    0;
+
+  background: #111111;
+  color: #ffffff;
+}
+
+
+.regulation-guide__heading {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.25fr)
+    minmax(300px, .55fr);
+
+  gap:
+    clamp(48px, 6vw, 90px);
+
+  align-items: end;
+
+  margin-bottom:
+    clamp(52px, 6vw, 82px);
+}
+
+
+.regulation-guide__kicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin: 0 0 18px;
+
+  color: #ffffff;
+
+  font-size: .76rem;
+  font-weight: 820;
+  letter-spacing: .14em;
+
+  text-transform: uppercase;
+}
+
+
+.regulation-guide__kicker::before {
+  content: "";
+
+  width: 26px;
+  height: 4px;
+
+  border-radius: 999px;
+
+  background: #a9f04a;
+}
+
+
+.regulation-guide h2 {
+  max-width: 850px;
+
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size:
+    clamp(2.85rem, 4.7vw, 5.25rem);
+
+  line-height: .96;
+  letter-spacing: -.055em;
+
+  text-wrap: balance;
+}
+
+
+.regulation-guide h2 em {
+  color: rgba(255, 255, 255, .48);
+
+  font-style: normal;
+  font-weight: inherit;
+}
+
+
+.regulation-guide__lead {
+  max-width: 470px;
+
+  margin: 0 0 .25em;
+
+  color: rgba(255, 255, 255, .62);
+
+  font-size:
+    clamp(1rem, 1.25vw, 1.12rem);
+
+  line-height: 1.68;
+}
+
+
+/* Table */
+
+.regulation-guide__table-wrap {
+  width: 100%;
+
+  border-top:
+    1px solid rgba(255, 255, 255, .18);
+}
+
+
+.regulation-guide__table {
+  width: 100%;
+
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+
+.regulation-guide__table th {
+  padding:
+    18px 22px;
+
+  color: rgba(255, 255, 255, .42);
+
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+
+  text-align: left;
+  text-transform: uppercase;
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, .12);
+}
+
+
+.regulation-guide__table th:first-child {
+  width: 42%;
+}
+
+
+.regulation-guide__table td {
+  padding:
+    clamp(22px, 2.8vw, 34px)
+    22px;
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, .12);
+
+  vertical-align: middle;
+
+  transition:
+    background-color 180ms ease;
+}
+
+
+.regulation-guide__object a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  color: #ffffff;
+
+  font-size:
+    clamp(1.2rem, 1.85vw, 1.75rem);
+
+  font-weight: 730;
+  line-height: 1.08;
+  letter-spacing: -.035em;
+
+  text-decoration: none;
+}
+
+
+.regulation-guide__arrow {
+  display: grid;
+  place-items: center;
+
+  width: 36px;
+  height: 36px;
+
+  flex: 0 0 auto;
+
+  border:
+    1px solid rgba(255, 255, 255, .18);
+
+  border-radius: 50%;
+
+  color: #a9f04a;
+
+  font-size: .92rem;
+
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+
+.regulation-guide__requirements {
+  display: flex;
+  align-items: center;
+
+  gap:
+    clamp(18px, 2.5vw, 34px);
+}
+
+
+.regulation-guide__focus {
+  min-width: 0;
+  flex: 1;
+
+  color:
+    rgba(255, 255, 255, .66);
+
+  line-height: 1.55;
+}
+
+
+.regulation-guide__act {
+  flex: 0 0 auto;
+
+  padding:
+    8px 12px;
+
+  border:
+    1px solid rgba(169, 240, 74, .68);
+
+  border-radius: 999px;
+
+  background:
+    rgba(169, 240, 74, .09);
+
+  color: #a9f04a;
+
+  font-size: .76rem;
+  font-weight: 820;
+  line-height: 1.2;
+
+  white-space: nowrap;
+}
+
+
+@media (hover: hover) and (pointer: fine) {
+  .regulation-guide__table tbody tr:hover td {
+    background:
+      rgba(255, 255, 255, .035);
+  }
+
+  .regulation-guide__table tbody tr:hover
+  .regulation-guide__arrow {
+    border-color: #a9f04a;
+
+    background: #a9f04a;
+    color: #111111;
+
+    transform: rotate(8deg);
+  }
+
+  .regulation-guide__object a:hover {
+    color: #ffffff;
+  }
+}
+
+
+/* Footer */
+
+.regulation-guide__footer {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 14px;
+
+  max-width: 920px;
+
+  margin-top: 30px;
+}
+
+
+.regulation-guide__footer-mark {
+  color: #a9f04a;
+
+  font-size: 1.05rem;
+  font-weight: 900;
+  line-height: 1.5;
+}
+
+
+.regulation-guide__footer p {
+  margin: 0;
+
+  color: rgba(255, 255, 255, .48);
+
+  font-size: .88rem;
+  line-height: 1.65;
+}
+
+
+/* Tablet */
+
+@media (max-width: 980px) {
+  .regulation-guide__heading {
+    grid-template-columns: 1fr;
+
+    gap: 24px;
+  }
+
+  .regulation-guide__lead {
+    max-width: 720px;
+  }
+
+  .regulation-guide__table th:first-child {
+    width: 40%;
+  }
+
+  .regulation-guide__requirements {
+    align-items: flex-start;
+    flex-direction: column;
+
+    gap: 12px;
+  }
+}
+
+
+/* Mobile */
+
+@media (max-width: 680px) {
+  .regulation-guide {
+    padding:
+      78px 0;
+  }
+
+  .regulation-guide h2 {
+    font-size:
+      clamp(2.55rem, 11vw, 3.8rem);
+  }
+
+  .regulation-guide__table-wrap {
+    border-top: 0;
+  }
+
+  .regulation-guide__table,
+  .regulation-guide__table tbody,
+  .regulation-guide__table tr,
+  .regulation-guide__table td {
+    display: block;
+
+    width: 100%;
+  }
+
+  .regulation-guide__table thead {
+    display: none;
+  }
+
+  .regulation-guide__table tr {
+    padding:
+      24px 0;
+
+    border-top:
+      1px solid rgba(255, 255, 255, .14);
+  }
+
+  .regulation-guide__table tr:last-child {
+    border-bottom:
+      1px solid rgba(255, 255, 255, .14);
+  }
+
+  .regulation-guide__table td {
+    padding: 0;
+
+    border: 0;
+  }
+
+  .regulation-guide__object {
+    margin-bottom: 17px;
+  }
+
+  .regulation-guide__object a {
+    font-size:
+      clamp(1.25rem, 5.8vw, 1.6rem);
+  }
+
+  .regulation-guide__requirements {
+    padding-right: 48px;
+  }
+
+  .regulation-guide__act {
+    white-space: normal;
+  }
+
+  .regulation-guide__footer {
+    margin-top: 26px;
+  }
+}
+
+
+/* ==========================================================
+   Regulation rows alignment
+   ========================================================== */
+
+.regulation-guide__table {
+  table-layout: fixed;
+}
+
+.regulation-guide__table th:first-child,
+.regulation-guide__table td:first-child {
+  width: 42%;
+}
+
+.regulation-guide__table td {
+  position: relative;
+  vertical-align: middle;
+}
+
+.regulation-guide__object a {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    38px;
+
+  gap: 24px;
+  align-items: center;
+}
+
+.regulation-guide__object span:first-child {
+  min-width: 0;
+}
+
+.regulation-guide__arrow {
+  justify-self: end;
+
+  width: 38px;
+  height: 38px;
+}
+
+.regulation-guide__requirements {
+  display: table-cell;
+
+  padding-right: 205px !important;
+}
+
+.regulation-guide__focus {
+  display: block;
+
+  max-width: 620px;
+
+  color: rgba(255,255,255,.7);
+
+  line-height: 1.55;
+}
+
+.regulation-guide__act {
+  position: absolute;
+
+  top: 50%;
+  right: 22px;
+
+  min-width: 112px;
+
+  justify-content: center;
+
+  transform: translateY(-50%);
+}
+
+@media (max-width: 980px) {
+  .regulation-guide__requirements {
+    padding-right: 22px !important;
+  }
+
+  .regulation-guide__act {
+    position: static;
+
+    display: inline-flex;
+
+    margin-top: 12px;
+
+    transform: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .regulation-guide__table th:first-child,
+  .regulation-guide__table td:first-child {
+    width: 100%;
+  }
+
+  .regulation-guide__object a {
+    grid-template-columns:
+      minmax(0, 1fr)
+      36px;
+
+    gap: 16px;
+  }
+
+  .regulation-guide__arrow {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* ==========================================================
+   /Regulation rows alignment
+   ========================================================== */

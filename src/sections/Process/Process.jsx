@@ -161,7 +161,7 @@ export default function Process() {
             <p className="process-section__cta-kicker">Нужно подготовить паспорт безопасности?</p>
             <h3>Проверим объект и определим состав работ до старта</h3>
           </div>
-          <a className="button button--primary" href="#contact">
+          <a className="button button--primary" href="#lead-form">
             Рассчитать стоимость
           </a>
         </div>

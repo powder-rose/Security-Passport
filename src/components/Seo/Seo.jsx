@@ -7,20 +7,66 @@ import {
 } from '../../config/seo';
 
 import { SITE } from '../../config/site';
+
+import {
+  getObjectTypeByPathname,
+} from '../../data/objectTypes';
+
+import {
+  getServicePageByPathname,
+} from '../../data/servicePages';
+
 import { useCity } from '../../context/GeoContext';
-import { faq } from '../../data/faq';
 
 
-export default function Seo() {
+export default function Seo({
+  pathname = '/',
+}) {
   const city =
     useCity();
 
+  const objectType =
+    getObjectTypeByPathname(
+      pathname,
+    );
+
+  const servicePage =
+    getServicePageByPathname(
+      pathname,
+    );
+
   const seo =
-    buildSeo(city);
+    buildSeo(
+      city,
+      pathname,
+    );
+
+  /*
+   * Федеральные страницы индексируются.
+   *
+   * Для регионов:
+   * - главная индексируется только при seoIndexable=true;
+   * - service pages наследуют seoIndexable региона;
+   * - object-type страницы пока всегда noindex,follow.
+   */
+  const childPagePath =
+    objectType?.path ||
+    servicePage?.path ||
+    null;
+
+  const isChildSeoPage =
+    Boolean(childPagePath);
+
+  const isRegionalObjectTypePage =
+    !city.isDefault &&
+    Boolean(objectType?.path);
 
   const isIndexable =
     city.isDefault ||
-    city.seoIndexable === true;
+    (
+      city.seoIndexable === true &&
+      !isRegionalObjectTypePage
+    );
 
   const robotsContent =
     isIndexable
@@ -28,34 +74,66 @@ export default function Seo() {
       : 'noindex,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
 
   const serviceSchema =
-    buildServiceSchema(city);
+    buildServiceSchema(
+      city,
+      pathname,
+    );
+
+  const schemaBaseUrl =
+    seo.canonical.replace(
+      /\/$/,
+      '',
+    );
 
   const imageAlt =
-    city.hasTrustedInflection
-      ? (
-          `Разработка паспорта безопасности ` +
-          `${city.locationPhrase}`
+    servicePage
+      ? `${servicePage.seoName} — ${SITE.brand}`
+      : objectType
+        ? `${objectType.seoName} — ${SITE.brand}`
+        : 'Паспорт безопасности объекта — БОЙКОВГРУПП';
+
+
+  const breadcrumbHomeUrl =
+    isChildSeoPage &&
+    childPagePath &&
+    seo.canonical.endsWith(childPagePath)
+      ? seo.canonical.slice(
+          0,
+          -childPagePath.length,
         )
-      : (
-          `Разработка паспорта безопасности — ` +
-          `${city.locationSeo}`
-        );
+      : SITE.defaultUrl;
 
-  const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
+  const breadcrumbSchema =
+    isChildSeoPage
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
 
-    mainEntity:
-      faq.map((item) => ({
-        '@type': 'Question',
-        name: item.question,
+          '@id':
+            `${schemaBaseUrl}/#breadcrumb`,
 
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: item.answer,
-        },
-      })),
-  };
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Главная',
+              item: breadcrumbHomeUrl,
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+
+              name:
+                servicePage?.seoName ||
+                objectType?.seoName ||
+                seo.title,
+
+              item:
+                seo.canonical,
+            },
+          ],
+        }
+      : null;
 
 
   const pageSchema = {
@@ -63,7 +141,7 @@ export default function Seo() {
     '@type': 'WebPage',
 
     '@id':
-      `${seo.canonical}/#webpage`,
+      `${schemaBaseUrl}/#webpage`,
 
     name:
       seo.title,
@@ -79,7 +157,7 @@ export default function Seo() {
 
     about: {
       '@id':
-        `${seo.canonical}/#service`,
+        `${schemaBaseUrl}/#service`,
     },
 
     isPartOf: {
@@ -94,6 +172,13 @@ export default function Seo() {
         'ru-RU',
     },
   };
+
+  if (breadcrumbSchema) {
+    pageSchema.breadcrumb = {
+      '@id':
+        breadcrumbSchema['@id'],
+    };
+  }
 
 
   return (
@@ -165,17 +250,17 @@ export default function Seo() {
 
       <meta
         property="og:image:type"
-        content="image/webp"
+        content="image/png"
       />
 
       <meta
         property="og:image:width"
-        content="930"
+        content="1200"
       />
 
       <meta
         property="og:image:height"
-        content="1400"
+        content="630"
       />
 
       <meta
@@ -222,9 +307,11 @@ export default function Seo() {
         {JSON.stringify(pageSchema)}
       </script>
 
-      <script type="application/ld+json">
-        {JSON.stringify(faqSchema)}
-      </script>
+      {breadcrumbSchema ? (
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+      ) : null}
     </Helmet>
   );
 }

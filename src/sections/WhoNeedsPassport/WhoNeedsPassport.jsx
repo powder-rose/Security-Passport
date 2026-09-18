@@ -5,16 +5,26 @@ import './WhoNeedsPassport.css';
 
 function ObjectTypeCard({ item, featured = false }) {
   return (
-    <article className={`object-type-card${featured ? ' object-type-card--featured' : ''}`}>
+    <a
+      className={`object-type-card${featured ? ' object-type-card--featured' : ''}`}
+      href={item.path}
+      aria-label={`${item.title} — подробнее`}
+    >
       <div className="object-type-card__illustration">
         <ObjectTypeIllustration variant={item.id} title={item.title} />
       </div>
+
       <div className="object-type-card__content">
         <span className="object-type-card__accent">{item.accent}</span>
         <h3>{item.title}</h3>
         <p>{item.description}</p>
+
+        <span className="object-type-card__link">
+          Подробнее
+          <span aria-hidden="true">→</span>
+        </span>
       </div>
-    </article>
+    </a>
   );
 }
 
@@ -26,7 +36,7 @@ export default function WhoNeedsPassport() {
           <div>
             <p className="who-needs-passport__kicker">Кому требуется документ</p>
             <h2 id="who-needs-passport-title">
-              Когда паспорт безопасности нужен <em>объекту</em>
+              Паспорта безопасности <em>по типам объектов</em>
             </h2>
           </div>
 

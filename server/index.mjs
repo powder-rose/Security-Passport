@@ -7,6 +7,9 @@ import express from 'express';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import { resolveSiteFromHost } from './site-region.mjs';
+import {
+  resolveIpLocation,
+} from './geo-location.mjs';
 import { getStatistics } from './statistics.mjs';
 import {
   getAdminLeadsPage,
@@ -471,6 +474,88 @@ app.get(
     }
   },
 );
+
+
+app.get('/api/geo', async (req, res) => {
+  try {
+    const result =
+      await resolveIpLocation(
+        getClientIp(req),
+      );
+
+    const baseDomain =
+      String(
+        process.env.BASE_DOMAIN ||
+        'pasport-bezopasnosty.ru',
+      )
+        .trim()
+        .toLowerCase();
+
+    const slug =
+      String(
+        result?.location?.slug ||
+        '',
+      ).trim();
+
+    const targetHost =
+      result.kind === 'federal' ||
+      !slug
+        ? baseDomain
+        : `${slug}.${baseDomain}`;
+
+    return res.json({
+      ok: true,
+
+      kind:
+        result.kind,
+
+      reason:
+        result.reason,
+
+      detected: {
+        country:
+          result?.geo?.country ??
+          result?.detectedCountry ??
+          null,
+
+        city:
+          result?.geo?.city ??
+          result?.detectedCity ??
+          null,
+
+        subdivision:
+          result?.geo?.subdivision ??
+          null,
+      },
+
+      location:
+        result.location,
+
+      targetOrigin:
+        `https://${targetHost}`,
+    });
+  } catch (error) {
+    console.error(
+      '[geo] resolve failed:',
+      error?.message || error,
+    );
+
+    return res.status(200).json({
+      ok: true,
+      kind: 'federal',
+      reason: 'geo-api-fallback',
+
+      location: {
+        slug: '',
+        name: 'Россия',
+        type: 'country',
+      },
+
+      targetOrigin:
+        'https://pasport-bezopasnosty.ru',
+    });
+  }
+});
 
 
 app.get('/api/health', (req, res) => {

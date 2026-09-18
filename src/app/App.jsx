@@ -1,13 +1,17 @@
+import { Helmet } from 'react-helmet-async';
+
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import Seo from '../components/Seo/Seo';
 import Analytics from '../components/Analytics/Analytics';
+
 import Hero from '../sections/Hero/Hero';
 import Experience from '../sections/Experience/Experience';
 import AboutPassport from '../sections/AboutPassport/AboutPassport';
 import ObjectQuiz from '../sections/ObjectQuiz/ObjectQuiz';
 import DocumentsComparison from '../sections/DocumentsComparison/DocumentsComparison';
 import WhoNeedsPassport from '../sections/WhoNeedsPassport/WhoNeedsPassport';
+import RegulationByObject from '../sections/RegulationByObject/RegulationByObject';
 import Process from '../sections/Process/Process';
 import Advantages from '../sections/Advantages/Advantages';
 import Prices from '../sections/Prices/Prices';
@@ -18,13 +22,181 @@ import Expert from '../sections/Expert/Expert';
 import FAQ from '../sections/FAQ/FAQ';
 import FinalCTA from '../sections/FinalCTA/FinalCTA';
 
+import LegalPage from '../pages/LegalPage/LegalPage';
+import ObjectTypePage from '../pages/ObjectTypePage/ObjectTypePage';
+import ActualizationPage from '../pages/ActualizationPage/ActualizationPage';
+import CategorizationActPage from '../pages/CategorizationActPage/CategorizationActPage';
 
-export default function App() {
+const legalPageCssUrl =
+  '/styles/LegalPage.css';
+
+const objectTypePageCssUrl =
+  '/styles/ObjectTypePage.css';
+
+const actualizationPageCssUrl =
+  '/styles/ActualizationPage.css';
+
+const categorizationActPageCssUrl =
+  '/styles/CategorizationActPage.css';
+
+
+const servicePageViews = {
+  'categorization-act': {
+    Component:
+      CategorizationActPage,
+
+    cssUrl:
+      categorizationActPageCssUrl,
+  },
+
+  'passport-actualization': {
+    Component:
+      ActualizationPage,
+
+    cssUrl:
+      actualizationPageCssUrl,
+  },
+};
+
+import {
+  getLegalDocumentByPathname,
+} from '../content/legalDocuments';
+
+import {
+  getObjectTypeByPathname,
+} from '../data/objectTypes';
+
+import {
+  getServicePageByPathname,
+} from '../data/servicePages';
+
+import {
+  useCity,
+} from '../context/GeoContext';
+
+
+export default function App({
+  pathname,
+}) {
+  const city =
+    useCity();
+
+  const resolvedPathname =
+    pathname ||
+    (
+      typeof window !== 'undefined'
+        ? window.location.pathname
+        : '/'
+    );
+
+  const legalDocument =
+    city.isDefault
+      ? getLegalDocumentByPathname(
+          resolvedPathname,
+        )
+      : null;
+
+  if (legalDocument) {
+    return (
+      <>
+        <Helmet>
+          <link
+            rel="stylesheet"
+            href={legalPageCssUrl}
+          />
+        </Helmet>
+
+        <Analytics />
+
+        <LegalPage
+          document={legalDocument}
+        />
+      </>
+    );
+  }
+
+
+  const objectType =
+    getObjectTypeByPathname(
+      resolvedPathname,
+    );
+
+  if (objectType) {
+    return (
+      <>
+        <Seo pathname={resolvedPathname} />
+
+        <Helmet>
+          <link
+            rel="stylesheet"
+            href={objectTypePageCssUrl}
+          />
+        </Helmet>
+
+        <Analytics />
+        <Header />
+
+        <ObjectTypePage
+          objectType={objectType}
+        />
+
+        <Footer />
+      </>
+    );
+  }
+
+
+  const servicePage =
+    getServicePageByPathname(
+      resolvedPathname,
+    );
+
+  const servicePageView =
+    servicePage
+      ? servicePageViews[
+          servicePage.id
+        ]
+      : null;
+
+
+  if (
+    servicePage &&
+    servicePageView
+  ) {
+    const ServicePageComponent =
+      servicePageView.Component;
+
+    return (
+      <>
+        <Seo pathname={resolvedPathname} />
+
+        <Helmet>
+          <link
+            rel="stylesheet"
+            href={servicePageView.cssUrl}
+          />
+        </Helmet>
+
+        <Analytics />
+        <Header />
+
+        <ServicePageComponent
+          servicePage={servicePage}
+        />
+
+        <Footer />
+      </>
+    );
+  }
+
+
+
   return (
     <>
-      <Seo />
+      <Seo pathname="/" />
       <Analytics />
       <Header />
+
       <main id="main-content">
         <Hero />
         <Experience />
@@ -32,6 +204,7 @@ export default function App() {
         <ObjectQuiz />
         <DocumentsComparison />
         <WhoNeedsPassport />
+        <RegulationByObject />
         <Process />
         <Advantages />
         <Prices />
@@ -40,9 +213,9 @@ export default function App() {
         <RelatedServices />
         <Expert />
         <FAQ />
-
         <FinalCTA />
       </main>
+
       <Footer />
     </>
   );

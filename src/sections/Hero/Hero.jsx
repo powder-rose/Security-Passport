@@ -5,6 +5,21 @@ import './Hero.css';
 export default function Hero() {
   const city = useCity();
 
+  const heroLocationPhrase =
+    city.isDefault
+      ? ''
+      : (
+          city.seoNeedsSubject &&
+          city.subject &&
+          city.subject !== city.name
+        )
+        ? (
+            `— ${city.name}, ${city.subject}`
+          )
+        : city.hasTrustedInflection
+          ? city.locationPhrase
+          : `— ${city.locationSeo}`;
+
   const handlePortraitError = (event) => {
     event.currentTarget.hidden = true;
     event.currentTarget.parentElement?.classList.add('hero-portrait__media--fallback');
@@ -21,13 +36,36 @@ export default function Hero() {
 
           <h1 id="hero-title" className="hero__title">
             <span>Разработка и согласование</span>
-            <span>паспорта безопасности</span>
-            <span className="hero__title-location">{city.locationPhrase}</span>
+            <span>
+              {heroLocationPhrase
+                ? 'паспорта безопасности'
+                : 'паспорта безопасности объекта'}
+            </span>
+            {heroLocationPhrase ? (
+              <span className="hero__title-location">
+                {heroLocationPhrase}
+              </span>
+            ) : null}
           </h1>
 
           <p className="hero__lead">
-            Разработаем паспорт безопасности объекта и сопроводим его согласование.
+            {heroLocationPhrase
+              ? 'Разработаем паспорт безопасности объекта и сопроводим его согласование.'
+              : 'Категорирование, разработка паспорта и сопровождение согласования по России.'}
           </p>
+
+          <div
+            className="hero__price-card"
+            aria-label="Стоимость разработки паспорта безопасности"
+          >
+            <span className="hero__price-label">
+              Разработка паспорта
+            </span>
+
+            <strong className="hero__price-value">
+              9 500 ₽
+            </strong>
+          </div>
 
           <ul className="hero__benefits" aria-label="Преимущества услуги">
             <li>Под ключ</li>
@@ -36,7 +74,7 @@ export default function Hero() {
           </ul>
 
           <div className="hero__actions" aria-label="Основные действия">
-            <a className="button button--primary hero__primary-action" href="#contact">
+            <a className="button button--primary hero__primary-action" href="#lead-form">
               Рассчитать стоимость
               <span aria-hidden="true">↗</span>
             </a>
@@ -59,10 +97,11 @@ export default function Hero() {
             </span>
             <img
               src="/images/nikolay-boykov-hero.webp"
+              srcSet="/images/nikolay-boykov-hero-560.webp 560w, /images/nikolay-boykov-hero-800.webp 800w, /images/nikolay-boykov-hero.webp 930w"
+              sizes="(max-width: 620px) 90vw, (max-width: 900px) 82vw, 470px"
               alt="Николай Бойков, руководитель БОЙКОВГРУПП"
               width="930"
               height="1400"
-              fetchpriority="high"
               decoding="async"
               onError={handlePortraitError}
             />

@@ -62,7 +62,14 @@ export default function Footer() {
 
         <div className="site-footer__legal-links" aria-label="Юридическая информация">
           {legalLinks.map(([href, label]) => (
-            <a key={href} href={href}>{label}</a>
+            <a
+              key={href}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {label}
+            </a>
           ))}
         </div>
 

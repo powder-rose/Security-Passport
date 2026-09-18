@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Container from '../../components/ui/Container/Container';
 import { SITE } from '../../config/site';
@@ -7,6 +7,7 @@ import { getLeadEndpoint, submitLead } from '../../lib/lead';
 import {
   answerQuestion,
   completeQuiz,
+  goToStep,
   nextStep,
   previousStep,
   resetQuiz,
@@ -219,19 +220,170 @@ function isStepValid(question, answer) {
   return false;
 }
 
-export default function ObjectQuiz() {
+export default function ObjectQuiz({
+  presetObjectType = null,
+}) {
   const dispatch = useDispatch();
   const { currentStep, answers, completed } = useSelector((state) => state.quiz);
   const [showError, setShowError] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('idle');
   const [submitMessage, setSubmitMessage] = useState('');
   const quizStartedRef = useRef(false);
+  const quizCardRef = useRef(null);
+  const quizCompleteRef = useRef(null);
   const question = quizQuestions[currentStep];
   const answer = answers[question.id] ?? emptyObject;
-  const progress = ((currentStep + 1) / quizQuestions.length) * 100;
-  const isLastStep = currentStep === quizQuestions.length - 1;
 
-  const valid = useMemo(() => isStepValid(question, answer), [question, answer]);
+  const hasPresetObjectType =
+    Boolean(
+      presetObjectType,
+    );
+
+  const visibleTotal =
+    hasPresetObjectType
+      ? quizQuestions.length - 1
+      : quizQuestions.length;
+
+  const visibleStep =
+    hasPresetObjectType
+      ? Math.max(
+          1,
+          currentStep,
+        )
+      : currentStep + 1;
+
+  const progress =
+    (
+      visibleStep /
+      visibleTotal
+    ) * 100;
+
+  const displayQuestionNumber =
+    hasPresetObjectType
+      ? String(
+          visibleStep,
+        ).padStart(
+          2,
+          '0',
+        )
+      : question.number;
+
+  const isLastStep =
+    currentStep ===
+    quizQuestions.length - 1;
+
+  const valid =
+    useMemo(
+      () =>
+        isStepValid(
+          question,
+          answer,
+        ),
+      [
+        question,
+        answer,
+      ],
+    );
+
+  useEffect(() => {
+    if (!hasPresetObjectType) {
+      return;
+    }
+
+    const existingObjectType =
+      answers.objectType;
+
+    const existingSelected =
+      typeof existingObjectType === 'string'
+        ? existingObjectType
+        : existingObjectType?.selected;
+
+    if (
+      existingSelected !==
+      presetObjectType
+    ) {
+      dispatch(
+        answerQuestion({
+          questionId:
+            'objectType',
+
+          value: {
+            selected:
+              presetObjectType,
+
+            other:
+              '',
+          },
+        }),
+      );
+    }
+
+    if (currentStep === 0) {
+      dispatch(
+        goToStep(1),
+      );
+    }
+  }, [
+    answers.objectType,
+    currentStep,
+    dispatch,
+    hasPresetObjectType,
+    presetObjectType,
+  ]);
+
+
+  useEffect(() => {
+    if (
+      !completed ||
+      typeof window === 'undefined' ||
+      !window.matchMedia('(max-width: 768px)').matches
+    ) {
+      return;
+    }
+
+    const frameId = window.requestAnimationFrame(() => {
+      const completeBlock = quizCompleteRef.current;
+
+      if (!completeBlock) return;
+
+      const top =
+        completeBlock.getBoundingClientRect().top +
+        window.scrollY -
+        96;
+
+      window.scrollTo(
+        0,
+        Math.max(0, top),
+      );
+    });
+
+    return () => window.cancelAnimationFrame(frameId);
+  }, [completed]);
+
+  const scrollToCurrentQuestion = () => {
+    if (
+      typeof window === 'undefined' ||
+      !window.matchMedia('(max-width: 768px)').matches
+    ) {
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      const card = quizCardRef.current;
+
+      if (!card) return;
+
+      const top =
+        card.getBoundingClientRect().top +
+        window.scrollY -
+        96;
+
+      window.scrollTo(
+        0,
+        Math.max(0, top),
+      );
+    });
+  };
 
   const updateAnswer = (value) => {
     setShowError(false);
@@ -240,7 +392,7 @@ export default function ObjectQuiz() {
 
     if (!quizStartedRef.current) {
       quizStartedRef.current = true;
-      reachGoal(METRICA_GOALS.quizStart, { step: currentStep + 1 });
+      reachGoal(METRICA_GOALS.quizStart, { step: visibleStep });
     }
     dispatch(answerQuestion({ questionId: question.id, value }));
   };
@@ -253,12 +405,13 @@ export default function ObjectQuiz() {
 
     setShowError(false);
     reachGoal(METRICA_GOALS.quizStepCompleted, {
-      step: currentStep + 1,
+      step: visibleStep,
       question: question.id,
     });
 
     if (!isLastStep) {
       dispatch(nextStep());
+      scrollToCurrentQuestion();
       return;
     }
 
@@ -295,15 +448,23 @@ export default function ObjectQuiz() {
   };
 
   const handleBack = () => {
+    if (
+      hasPresetObjectType &&
+      currentStep <= 1
+    ) {
+      return;
+    }
+
     setShowError(false);
     dispatch(previousStep());
+    scrollToCurrentQuestion();
   };
 
   if (completed) {
     return (
       <section className="object-quiz object-quiz--complete" id="quiz" aria-labelledby="quiz-complete-title">
         <Container>
-          <div className="quiz-complete">
+          <div className="quiz-complete" ref={quizCompleteRef}>
             <div className="quiz-complete__mark" aria-hidden="true">✓</div>
             <p className="quiz-kicker">Экспресс-проверка заполнена</p>
             <h2 id="quiz-complete-title">Ответы отправлены специалисту</h2>
@@ -332,7 +493,9 @@ export default function ObjectQuiz() {
           </p>
 
           <aside className="quiz-result-note" aria-labelledby="quiz-result-note-title">
-            <span className="quiz-result-note__number" aria-hidden="true">6</span>
+            <span className="quiz-result-note__number" aria-hidden="true">
+              {visibleTotal}
+            </span>
             <div>
               <h3 id="quiz-result-note-title">Что определим после проверки</h3>
               <ul>
@@ -342,19 +505,21 @@ export default function ObjectQuiz() {
           </aside>
         </header>
 
-        <div className="quiz-card">
+        <div className="quiz-card" ref={quizCardRef}>
           <div className="quiz-card__topline">
             <span>Проверка объекта</span>
-            <span>Вопрос {currentStep + 1} из {quizQuestions.length}</span>
+            <span>
+              Вопрос {visibleStep} из {visibleTotal}
+            </span>
           </div>
 
           <div
             className="quiz-progress"
             role="progressbar"
             aria-valuemin="1"
-            aria-valuemax={quizQuestions.length}
-            aria-valuenow={currentStep + 1}
-            aria-label={`Вопрос ${currentStep + 1} из ${quizQuestions.length}`}
+            aria-valuemax={visibleTotal}
+            aria-valuenow={visibleStep}
+            aria-label={`Вопрос ${visibleStep} из ${visibleTotal}`}
           >
             <span style={{ width: `${progress}%` }} />
           </div>
@@ -368,7 +533,12 @@ export default function ObjectQuiz() {
             noValidate
           >
             <div className="quiz-question" key={question.id}>
-              <span className="quiz-question__number" aria-hidden="true">{question.number}</span>
+              <span
+                className="quiz-question__number"
+                aria-hidden="true"
+              >
+                {displayQuestionNumber}
+              </span>
               <div className="quiz-question__copy">
                 <h3>{question.title}</h3>
                 <p>{question.description}</p>
@@ -398,7 +568,11 @@ export default function ObjectQuiz() {
                 className="quiz-back"
                 type="button"
                 onClick={handleBack}
-                disabled={currentStep === 0}
+                disabled={
+                  hasPresetObjectType
+                    ? currentStep <= 1
+                    : currentStep === 0
+                }
               >
                 ← Назад
               </button>

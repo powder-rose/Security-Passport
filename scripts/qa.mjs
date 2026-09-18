@@ -38,8 +38,36 @@ if (mode === 'source') {
   const contents = await Promise.all(files.map(async (file) => [file, await readFile(file, 'utf8')]));
   const all = contents.map(([, text]) => text).join('\n');
 
-  const h1Count = (all.match(/<h1\b/g) || []).length;
-  if (h1Count !== 1) addError(`Expected exactly one <h1> in source, found ${h1Count}.`);
+  const h1Files =
+    contents.filter(
+      ([, text]) =>
+        /<h1\b/.test(text),
+    );
+
+  if (!h1Files.length) {
+    addError(
+      'No <h1> found in source page templates.',
+    );
+  }
+
+  for (
+    const [file, text]
+    of h1Files
+  ) {
+    const count =
+      (
+        text.match(/<h1\b/g) ||
+        []
+      ).length;
+
+    if (count !== 1) {
+      addError(
+        `Source page template ${
+          path.relative(root, file)
+        } contains ${count} <h1> elements; expected exactly one.`,
+      );
+    }
+  }
 
   const ids = new Set([...all.matchAll(/\bid=["']([^"']+)["']/g)].map((match) => match[1]));
   const hashLinks = new Set([...all.matchAll(/\bhref=["']#([^"']+)["']/g)].map((match) => match[1]));
@@ -88,6 +116,103 @@ if (mode === 'source') {
     if (!/<script[^>]+application\/ld\+json/i.test(html)) addError('Prerendered HTML is missing JSON-LD.');
     if (!/<h1\b/i.test(html)) addError('Prerendered HTML is missing H1 content.');
     if ((html.match(/<h1\b/gi) || []).length !== 1) addError('Prerendered HTML must contain exactly one H1.');
+  }
+
+
+  const legalPages = [
+    'oferta',
+    'personal-data',
+    'privacy',
+  ];
+
+  for (const slug of legalPages) {
+    const legalPath =
+      path.join(
+        distDir,
+        slug,
+        'index.html',
+      );
+
+    if (!(await exists(legalPath))) {
+      addError(
+        `Legal prerender is missing: dist/client/${slug}/index.html.`,
+      );
+
+      continue;
+    }
+
+    const legalHtml =
+      await readFile(
+        legalPath,
+        'utf8',
+      );
+
+    if (
+      legalHtml.includes(
+        '<div id="root"></div>',
+      )
+    ) {
+      addError(
+        `Legal prerender failed for /${slug}/: #root is empty.`,
+      );
+    }
+
+    const h1Count =
+      (
+        legalHtml.match(
+          /<h1\b/gi,
+        ) ||
+        []
+      ).length;
+
+    if (h1Count !== 1) {
+      addError(
+        `Legal page /${slug}/ must contain exactly one H1; found ${h1Count}.`,
+      );
+    }
+
+    const robotsMatch =
+      legalHtml.match(
+        /<meta[^>]+name=["']robots["'][^>]+content=["']([^"']+)["']/i,
+      );
+
+    if (
+      !robotsMatch ||
+      !robotsMatch[1].startsWith(
+        'noindex,follow',
+      )
+    ) {
+      addError(
+        `Legal page /${slug}/ must be noindex,follow.`,
+      );
+    }
+
+    const canonicalMatch =
+      legalHtml.match(
+        /<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i,
+      );
+
+    const expectedCanonical =
+      `https://pasport-bezopasnosty.ru/${slug}/`;
+
+    if (
+      !canonicalMatch ||
+      canonicalMatch[1] !== expectedCanonical
+    ) {
+      addError(
+        `Legal page /${slug}/ has invalid canonical; expected ${expectedCanonical}.`,
+      );
+    }
+
+    if (
+      legalHtml.includes(
+        'boykovgroup.ru',
+      )
+    ) {
+      addError(
+        `Legal page /${slug}/ still contains boykovgroup.ru.`,
+      );
+    }
   }
 
   for (const name of ['robots.txt', 'sitemap.xml']) {

@@ -104,7 +104,12 @@ export default function FinalCTA() {
           </div>
         </div>
 
-        <form className="final-cta__form" onSubmit={handleSubmit} noValidate>
+        <form
+          className="final-cta__form"
+          id="lead-form"
+          onSubmit={handleSubmit}
+          noValidate
+        >
           <label className="lead-honeypot" aria-hidden="true">
             <span>Ваш сайт</span>
             <input

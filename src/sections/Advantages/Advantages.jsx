@@ -1,102 +1,141 @@
 import Container from '../../components/ui/Container/Container';
 import './Advantages.css';
 
-const advantages = [
+
+const proofs = [
   {
-    number: '01',
-    eyebrow: 'Соответствие требованиям',
-    title: 'Снижаем риск штрафов и претензий',
-    text: 'Паспорт безопасности готовится по действующим требованиям законодательства и с учётом особенностей конкретного объекта.',
-    badge: 'Отсутствие штрафов',
-    variant: 'wide',
-  },
-  {
-    number: '02',
-    eyebrow: 'Экспертиза',
-    title: 'Учитываем практику согласования',
-    text: 'Специалисты регулярно разрабатывают паспорта безопасности и учитывают требования ведомств и нюансы прохождения согласования.',
-    badge: 'Практический опыт',
-  },
-  {
-    number: '03',
-    eyebrow: 'Ответственность',
-    title: 'Фиксируем обязательства в договоре',
-    text: 'Состав работ, требования к результату и обязательства по разработке документа закрепляются договором до начала проекта.',
-    badge: 'Гарантии в договоре',
+    id: 'experience',
+    eyebrow: 'Практический опыт',
+    value: '15+',
+    unit: 'лет',
+    title: 'Личная практика руководителя',
+    text:
+      'Николай Бойков более 15 лет работает с организациями по обязательным направлениям безопасности, включая антитеррористическую защищённость объектов.',
     variant: 'dark',
   },
+
   {
-    number: '04',
-    eyebrow: 'Проверки',
-    title: 'Документ подтверждает соблюдение требований',
-    text: 'Корректно оформленный паспорт безопасности помогает подтвердить выполнение установленных требований при проверках.',
-    badge: 'Юридическая защита',
-    variant: 'wide-end',
+    id: 'company',
+    eyebrow: 'Юридическое лицо',
+    value: 'СПЕЦКОНС',
+    title: 'Работа ведётся от имени действующей организации',
+    text:
+      'ООО «СПЕЦКОНС» · ИНН 5027310150 · ОГРН 1225000108618.',
+    href:
+      'https://boykovgroup.ru/rekvizity',
+    linkLabel:
+      'Проверить реквизиты',
+    variant: 'light',
+  },
+
+  {
+    id: 'licenses',
+    eyebrow: 'Документы компании',
+    value: '2',
+    unit: 'лицензии',
+    title: 'Публично указанные лицензии',
+    text:
+      'Лицензия МЧС Л014-00101-50/00624678 и образовательная лицензия Л035-01255-50-06059814.',
+    href:
+      'https://boykovgroup.ru/rekvizity',
+    linkLabel:
+      'Посмотреть реквизиты',
+    variant: 'accent',
   },
 ];
 
-function AdvantageCard({ item }) {
-  const className = [
-    'advantage-card',
-    item.variant ? `advantage-card--${item.variant}` : '',
-  ].filter(Boolean).join(' ');
-
-  return (
-    <article className={className}>
-      <div className="advantage-card__top">
-        <span className="advantage-card__number" aria-hidden="true">{item.number}</span>
-        <span className="advantage-card__eyebrow">{item.eyebrow}</span>
-      </div>
-
-      <div className="advantage-card__body">
-        <h3>{item.title}</h3>
-        <p>{item.text}</p>
-      </div>
-
-      <div className="advantage-card__footer">
-        <span className="advantage-card__badge">{item.badge}</span>
-        <span className="advantage-card__mark" aria-hidden="true">↗</span>
-      </div>
-    </article>
-  );
-}
 
 export default function Advantages() {
   return (
-    <section className="advantages" id="advantages" aria-labelledby="advantages-title">
+    <section
+      className="proofs"
+      id="advantages"
+      aria-labelledby="proofs-title"
+    >
       <Container>
-        <div className="advantages__heading">
+        <div className="proofs__heading">
           <div>
-            <p className="advantages__kicker">Почему выбирают нас</p>
-            <h2 id="advantages-title">
-              Не просто готовим документ — <em>доводим его до результата</em>
+            <p className="proofs__kicker">
+              Почему нам доверяют
+            </p>
+
+            <h2 id="proofs-title">
+              Не обещания,
+              <em> а проверяемые факты</em>
             </h2>
           </div>
 
-          <div className="advantages__lead">
-            <span className="advantages__lead-line" aria-hidden="true" />
-            <p>
-              Важен не сам файл, а документ, который соответствует требованиям, учитывает специфику
-              объекта и не создаёт лишних вопросов при согласовании и проверках.
-            </p>
-          </div>
+          <p className="proofs__lead">
+            Показываем то, что можно проверить:
+            опыт руководителя, юридическое лицо
+            и публичные реквизиты компании.
+          </p>
         </div>
 
-        <div className="advantages__grid">
-          {advantages.map((item) => (
-            <AdvantageCard key={item.number} item={item} />
-          ))}
-        </div>
 
-        <div className="advantages__cta">
-          <div>
-            <p className="advantages__cta-label">Нужен понятный состав работ?</p>
-            <h3>Проверим объект и зафиксируем результат до старта проекта</h3>
-          </div>
-          <a className="button button--primary advantages-discuss-button" href="#contact">
-              <span className="advantages-discuss-button__label">Обсудить объект</span>
-              <span className="advantages-discuss-button__arrow" aria-hidden="true">↗</span>
-            </a>
+        <div className="proofs__grid">
+          {proofs.map(
+            (proof, index) => (
+              <article
+                className={
+                  `proof-card ` +
+                  `proof-card--${proof.variant}`
+                }
+                key={proof.id}
+              >
+                <div className="proof-card__top">
+                  <span className="proof-card__number">
+                    {String(
+                      index + 1,
+                    ).padStart(2, '0')}
+                  </span>
+
+                  <span className="proof-card__eyebrow">
+                    {proof.eyebrow}
+                  </span>
+                </div>
+
+
+                <div className="proof-card__value">
+                  <strong>
+                    {proof.value}
+                  </strong>
+
+                  {proof.unit ? (
+                    <span>
+                      {proof.unit}
+                    </span>
+                  ) : null}
+                </div>
+
+
+                <div className="proof-card__content">
+                  <h3>
+                    {proof.title}
+                  </h3>
+
+                  <p>
+                    {proof.text}
+                  </p>
+
+                  {proof.href ? (
+                    <a
+                      className="proof-card__link"
+                      href={proof.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {proof.linkLabel}
+
+                      <span aria-hidden="true">
+                        ↗
+                      </span>
+                    </a>
+                  ) : null}
+                </div>
+              </article>
+            ),
+          )}
         </div>
       </Container>
     </section>

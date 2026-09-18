@@ -33,16 +33,19 @@ export function initYandexMetrica() {
   if (!document.querySelector('script[data-boykov-metrica]')) {
     const script = document.createElement('script');
     script.async = true;
-    script.src = 'https://mc.yandex.ru/metrika/tag.js';
+    script.src = `https://mc.yandex.ru/metrika/tag.js?id=${METRICA_ID}`;
     script.dataset.boykovMetrica = 'true';
     document.head.appendChild(script);
   }
 
   window.ym(METRICA_ID, 'init', {
+    ssr: true,
     clickmap: true,
     trackLinks: true,
     accurateTrackBounce: true,
     webvisor: WEBVISOR_ENABLED,
+    referrer: document.referrer,
+    url: window.location.href,
   });
 
   window.__boykovMetricaInitialized = true;
@@ -69,7 +72,10 @@ export function trackNavigationClick(event) {
   const href = link.getAttribute('href') || '';
   const label = link.textContent?.replace(/\s+/g, ' ').trim().slice(0, 120) || undefined;
 
-  if (href === '#contact') {
+  if (
+    href === '#contact' ||
+    href === '#lead-form'
+  ) {
     reachGoal(METRICA_GOALS.contactCtaClick, { label });
     return;
   }

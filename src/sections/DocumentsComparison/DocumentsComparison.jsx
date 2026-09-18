@@ -16,7 +16,17 @@ const passportPoints = [
   'Не заменяет акт обследования и не отменяет необходимость работы комиссии.',
 ];
 
-function DocumentCard({ type, label, title, points, actionLabel, variant = 'light', illustration }) {
+function DocumentCard({
+  type,
+  label,
+  title,
+  points,
+  actionLabel,
+  actionHref = '#contact',
+  actionAriaLabel,
+  variant = 'light',
+  illustration,
+}) {
   return (
     <article className={`document-card document-card--${variant}`}>
       <div className="document-card__top">
@@ -41,8 +51,11 @@ function DocumentCard({ type, label, title, points, actionLabel, variant = 'ligh
 
       <a
         className="document-card__action"
-        href="#contact"
-        aria-label={`${actionLabel}. Перейти к форме консультации`}
+        href={actionHref}
+        aria-label={
+          actionAriaLabel
+            || `${actionLabel}. Перейти к форме консультации`
+        }
       >
         <span>{actionLabel}</span>
         <span className="document-card__arrow" aria-hidden="true">↗</span>
@@ -76,6 +89,8 @@ export default function DocumentsComparison() {
             title="Акт обследования и категорирования"
             points={actPoints}
             actionLabel="Заказать акт категорирования"
+            actionHref="/akt-obsledovaniya-i-kategorirovaniya-obekta/"
+            actionAriaLabel="Подробнее об услуге подготовки акта обследования и категорирования объекта"
             illustration={<DocumentFlowIllustration />}
           />
 

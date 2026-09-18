@@ -93,15 +93,71 @@ function getTimestamp(row, type) {
   return Number.isFinite(timestamp) ? timestamp : null;
 }
 
+const LEGACY_SITE_SLUGS = new Map([
+  ['gay', 'gai'],
+]);
+
+
+function normalizeStatisticsSite(
+  site,
+) {
+  const rawSlug =
+    String(
+      site?.slug ||
+      '',
+    )
+      .trim()
+      .toLowerCase();
+
+  if (!rawSlug) {
+    return {
+      slug: 'unknown',
+      name: 'Не определён',
+    };
+  }
+
+  const slug =
+    LEGACY_SITE_SLUGS.get(
+      rawSlug,
+    ) ||
+    rawSlug;
+
+  if (slug === 'russia') {
+    return {
+      slug: 'russia',
+      name: DEFAULT_LOCATION.name,
+    };
+  }
+
+  const location =
+    getLocationBySlug(
+      slug,
+    );
+
+  if (location) {
+    return {
+      slug: location.slug,
+      name: location.name,
+    };
+  }
+
+  return {
+    slug,
+    name:
+      site?.name ||
+      slug,
+  };
+}
+
+
 function resolveLeadSite(lead) {
   if (
     lead?.site?.slug &&
     lead?.site?.name
   ) {
-    return {
-      slug: lead.site.slug,
-      name: lead.site.name,
-    };
+    return normalizeStatisticsSite(
+      lead.site,
+    );
   }
 
   if (lead?.page) {
@@ -109,10 +165,9 @@ function resolveLeadSite(lead) {
       const url = new URL(lead.page);
       const site = resolveSiteFromHost(url.host);
 
-      return {
-        slug: site.slug,
-        name: site.name,
-      };
+      return normalizeStatisticsSite(
+        site,
+      );
     } catch {
       // fallback ниже
     }
@@ -129,10 +184,9 @@ function resolveVisitSite(visit) {
     visit?.site?.slug &&
     visit?.site?.name
   ) {
-    return {
-      slug: visit.site.slug,
-      name: visit.site.name,
-    };
+    return normalizeStatisticsSite(
+      visit.site,
+    );
   }
 
   return {
