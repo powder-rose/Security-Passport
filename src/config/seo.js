@@ -134,11 +134,27 @@ export function buildSeo(
             );
 
   } else if (objectType) {
+    const objectSeoTitle =
+      objectType.seoTitle ||
+      (
+        `${objectType.seoName} — ` +
+        `разработка от 9 500 ₽`
+      );
+
+    const objectSeoDescription =
+      objectType.seoDescription ||
+      (
+        `${objectType.seoName} от 9 500 ₽. ` +
+        `Категорирование, акт обследования, ` +
+        `разработка паспорта и сопровождение ` +
+        `согласования. ${SITE.brand}.`
+      );
+
+
     title =
       city.isDefault
         ? (
-            `${objectType.seoName} — ` +
-            `разработка от 9 500 ₽ | ${SITE.brand}`
+            `${objectSeoTitle} | ${SITE.brand}`
           )
         : city.hasTrustedInflection &&
           !city.seoNeedsSubject
@@ -151,14 +167,10 @@ export function buildSeo(
               `${seoTitleLocation} | ${SITE.brand}`
             );
 
+
     description =
       city.isDefault
-        ? (
-            `${objectType.seoName} от 9 500 ₽. ` +
-            `Категорирование, акт обследования, ` +
-            `разработка паспорта и сопровождение ` +
-            `согласования. ${SITE.brand}.`
-          )
+        ? objectSeoDescription
         : city.hasTrustedInflection &&
           !city.seoNeedsSubject
           ? (

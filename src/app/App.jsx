@@ -24,6 +24,7 @@ import FinalCTA from '../sections/FinalCTA/FinalCTA';
 
 import LegalPage from '../pages/LegalPage/LegalPage';
 import ObjectTypePage from '../pages/ObjectTypePage/ObjectTypePage';
+import HotelPage from '../pages/HotelPage/HotelPage';
 import ActualizationPage from '../pages/ActualizationPage/ActualizationPage';
 import CategorizationActPage from '../pages/CategorizationActPage/CategorizationActPage';
 
@@ -32,6 +33,9 @@ const legalPageCssUrl =
 
 const objectTypePageCssUrl =
   '/styles/ObjectTypePage.css';
+
+const hotelPageCssUrl =
+  '/styles/HotelPage.css';
 
 const actualizationPageCssUrl =
   '/styles/ActualizationPage.css';
@@ -87,6 +91,17 @@ function getRuntimeStylesheetUrl(
     fallbackUrl
   );
 }
+
+
+const objectTypeViews = {
+  hotel: {
+    Component:
+      HotelPage,
+
+    cssUrl:
+      hotelPageCssUrl,
+  },
+};
 
 
 const servicePageViews = {
@@ -171,6 +186,21 @@ export default function App({
     );
 
   if (objectType) {
+    const objectTypeView =
+      objectTypeViews[
+        objectType.id
+      ];
+
+    const ObjectPageComponent =
+      objectTypeView?.Component ||
+      ObjectTypePage;
+
+    const objectPageCssUrl =
+      getRuntimeStylesheetUrl(
+        objectTypeView?.cssUrl ||
+        objectTypePageCssUrl,
+      );
+
     return (
       <>
         <Seo pathname={resolvedPathname} />
@@ -178,14 +208,14 @@ export default function App({
         <Helmet>
           <link
             rel="stylesheet"
-            href={objectTypePageCssUrl}
+            href={objectPageCssUrl}
           />
         </Helmet>
 
         <Analytics />
         <Header />
 
-        <ObjectTypePage
+        <ObjectPageComponent
           objectType={objectType}
         />
 
