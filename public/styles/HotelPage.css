@@ -2640,3 +2640,27 @@
 
 
 /* HOTEL_PAGE_STAGE_5:end */
+
+/* HOTEL_MAIN_TYPOGRAPHY_SYNC_V1:start */
+
+/*
+ * Синхронизация типографики с главной страницей.
+ * Семейство Inter уже наследуется от глобального body.
+ */
+
+.hotel-page h1,
+.hotel-page h2,
+.hotel-page h3 {
+  font-weight: 750;
+}
+
+/*
+ * Служебные подзаголовки:
+ * «Нормативная основа», «Категорирование»,
+ * «Стоимость», «Исходные данные» и т. п.
+ */
+.hotel-page .hotel-kicker {
+  color: var(--color-primary);
+}
+
+/* HOTEL_MAIN_TYPOGRAPHY_SYNC_V1:end */
