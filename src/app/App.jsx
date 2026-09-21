@@ -25,6 +25,7 @@ import FinalCTA from '../sections/FinalCTA/FinalCTA';
 import LegalPage from '../pages/LegalPage/LegalPage';
 import ObjectTypePage from '../pages/ObjectTypePage/ObjectTypePage';
 import HotelPage from '../pages/HotelPage/HotelPage';
+import CulturePage from '../pages/CulturePage/CulturePage';
 import ActualizationPage from '../pages/ActualizationPage/ActualizationPage';
 import CategorizationActPage from '../pages/CategorizationActPage/CategorizationActPage';
 
@@ -36,6 +37,9 @@ const objectTypePageCssUrl =
 
 const hotelPageCssUrl =
   '/styles/HotelPage.css';
+
+const culturePageCssUrl =
+  '/styles/CulturePage.css';
 
 const actualizationPageCssUrl =
   '/styles/ActualizationPage.css';
@@ -100,6 +104,14 @@ const objectTypeViews = {
 
     cssUrl:
       hotelPageCssUrl,
+  },
+
+  culture: {
+    Component:
+      CulturePage,
+
+    cssUrl:
+      culturePageCssUrl,
   },
 };
 
