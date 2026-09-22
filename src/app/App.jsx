@@ -27,6 +27,7 @@ import ObjectTypePage from '../pages/ObjectTypePage/ObjectTypePage';
 import HotelPage from '../pages/HotelPage/HotelPage';
 import CulturePage from '../pages/CulturePage/CulturePage';
 import EducationPage from '../pages/EducationPage/EducationPage';
+import SportPage from '../pages/SportPage/SportPage';
 import ActualizationPage from '../pages/ActualizationPage/ActualizationPage';
 import CategorizationActPage from '../pages/CategorizationActPage/CategorizationActPage';
 
@@ -44,6 +45,9 @@ const culturePageCssUrl =
 
 const educationPageCssUrl =
   '/styles/EducationPage.css';
+
+const sportPageCssUrl =
+  '/styles/SportPage.css';
 
 const actualizationPageCssUrl =
   '/styles/ActualizationPage.css';
@@ -124,6 +128,14 @@ const objectTypeViews = {
 
     cssUrl:
       educationPageCssUrl,
+  },
+
+  sport: {
+    Component:
+      SportPage,
+
+    cssUrl:
+      sportPageCssUrl,
   },
 };
 

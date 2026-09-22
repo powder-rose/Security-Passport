@@ -1101,6 +1101,11 @@ export default function ActualizationPage() {
                       <a href="/pasport-bezopasnosti-obrazovatelnoj-organizacii/">
                         {item}
                       </a>
+                    ) : item ===
+                      'Объекты спорта' ? (
+                      <a href="/pasport-bezopasnosti-obekta-sporta/">
+                        {item}
+                      </a>
                     ) : (
                       item
                     )}
