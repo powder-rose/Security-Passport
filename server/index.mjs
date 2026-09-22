@@ -274,23 +274,381 @@ function prettyLines(value, prefix = '', lines = [], depth = 0) {
   return lines;
 }
 
-function buildLeadText(lead) {
-  const sourceTitle = lead.source === 'passport-security-quiz' ? 'Квиз «Паспорт безопасности»' : 'Форма «Обсудить объект»';
-  const lines = [
-    `Новая заявка — ${sourceTitle}`,
-    `ID: ${lead.id}`,
-    `Получена: ${lead.receivedAt}`,
-    lead.page ? `Страница: ${lead.page}` : '',
-    '',
-    ...prettyLines(lead.data),
-  ].filter(Boolean);
-
-  const attributionLines = flatten(lead.attribution).filter((line) => !line.endsWith(': '));
-  if (attributionLines.length) {
-    lines.push('', 'Реклама / атрибуция:', ...attributionLines);
+function formatLeadValue(value) {
+  if (
+    value === null ||
+    value === undefined ||
+    value === ''
+  ) {
+    return '—';
   }
 
-  return lines.join('\n').slice(0, 12000);
+  if (value === true) {
+    return 'Да';
+  }
+
+  if (value === false) {
+    return 'Нет';
+  }
+
+  if (Array.isArray(value)) {
+    return (
+      value
+        .filter(
+          (item) =>
+            item !== null &&
+            item !== undefined &&
+            item !== '',
+        )
+        .join(', ') ||
+      '—'
+    );
+  }
+
+  return String(value);
+}
+
+
+function addLeadField(
+  lines,
+  label,
+  value,
+) {
+  if (
+    value === null ||
+    value === undefined ||
+    value === ''
+  ) {
+    return;
+  }
+
+  lines.push(
+    `${label}: ${formatLeadValue(value)}`
+  );
+}
+
+
+function addLeadSection(
+  lines,
+  title,
+  fields,
+) {
+  const section = [];
+
+  fields.forEach(
+    ([label, value]) => {
+      addLeadField(
+        section,
+        label,
+        value,
+      );
+    },
+  );
+
+  if (!section.length) {
+    return;
+  }
+
+  lines.push(
+    '',
+    `=== ${title} ===`,
+    ...section,
+  );
+}
+
+
+function getAnswerSelected(value) {
+  if (
+    value &&
+    typeof value === 'object' &&
+    !Array.isArray(value)
+  ) {
+    return (
+      value.selected ??
+      value.value ??
+      ''
+    );
+  }
+
+  return value;
+}
+
+
+function getAnswerOther(value) {
+  if (
+    value &&
+    typeof value === 'object' &&
+    !Array.isArray(value)
+  ) {
+    return (
+      value.other ??
+      ''
+    );
+  }
+
+  return '';
+}
+
+
+function addLeadAttribution(
+  lines,
+  lead,
+) {
+  const attribution =
+    lead.attribution || {};
+
+  addLeadSection(
+    lines,
+    'РЕКЛАМА / АТРИБУЦИЯ',
+    [
+      [
+        'Посадочная страница',
+        attribution.landingPage,
+      ],
+      [
+        'Источник перехода',
+        attribution.referrer ||
+          lead.referrer,
+      ],
+      [
+        'UTM source',
+        attribution.utm_source ||
+          attribution.utmSource,
+      ],
+      [
+        'UTM medium',
+        attribution.utm_medium ||
+          attribution.utmMedium,
+      ],
+      [
+        'UTM campaign',
+        attribution.utm_campaign ||
+          attribution.utmCampaign,
+      ],
+      [
+        'UTM content',
+        attribution.utm_content ||
+          attribution.utmContent,
+      ],
+      [
+        'UTM term',
+        attribution.utm_term ||
+          attribution.utmTerm,
+      ],
+      [
+        'YCLID',
+        attribution.yclid,
+      ],
+    ],
+  );
+}
+
+
+function buildQuizLeadText(lead) {
+  const answers =
+    lead.data?.answers || {};
+
+  const objectType =
+    answers.objectType || {};
+
+  const location =
+    answers.location || {};
+
+  const objectMetrics =
+    answers.objectMetrics || {};
+
+  const contact =
+    answers.contact || {};
+
+
+  const lines = [
+    'НОВАЯ ЗАЯВКА — КВИЗ «ПАСПОРТ БЕЗОПАСНОСТИ»',
+    '',
+    `ID: ${lead.id}`,
+    `Получена: ${lead.receivedAt}`,
+  ];
+
+
+  if (lead.page) {
+    lines.push(
+      `Страница: ${lead.page}`,
+    );
+  }
+
+
+  addLeadSection(
+    lines,
+    'ОБЪЕКТ',
+    [
+      [
+        'Тип объекта',
+        getAnswerSelected(
+          objectType,
+        ),
+      ],
+      [
+        'Уточнение',
+        getAnswerOther(
+          objectType,
+        ),
+      ],
+      [
+        'Регион',
+        location.region,
+      ],
+      [
+        'Город',
+        location.city,
+      ],
+    ],
+  );
+
+
+  addLeadSection(
+    lines,
+    'ТЕКУЩАЯ СИТУАЦИЯ',
+    [
+      [
+        'Уведомление о включении в перечень',
+        getAnswerSelected(
+          answers.notification,
+        ),
+      ],
+      [
+        'Документы',
+        getAnswerSelected(
+          answers.documentsStatus,
+        ),
+      ],
+      [
+        'Площадь, м²',
+        objectMetrics.area,
+      ],
+      [
+        'Максимум людей',
+        objectMetrics.people,
+      ],
+    ],
+  );
+
+
+  addLeadSection(
+    lines,
+    'КОНТАКТЫ',
+    [
+      [
+        'Имя',
+        contact.name,
+      ],
+      [
+        'Телефон',
+        contact.phone,
+      ],
+      [
+        'Email',
+        contact.email,
+      ],
+      [
+        'Организация',
+        contact.company,
+      ],
+      [
+        'Согласие',
+        contact.consent,
+      ],
+    ],
+  );
+
+
+  addLeadAttribution(
+    lines,
+    lead,
+  );
+
+
+  return lines
+    .join('\n')
+    .slice(0, 12000);
+}
+
+
+function buildFormLeadText(lead) {
+  const data =
+    lead.data || {};
+
+
+  const lines = [
+    'НОВАЯ ЗАЯВКА — ФОРМА «ОБСУДИТЬ ОБЪЕКТ»',
+    '',
+    `ID: ${lead.id}`,
+    `Получена: ${lead.receivedAt}`,
+  ];
+
+
+  if (lead.page) {
+    lines.push(
+      `Страница: ${lead.page}`,
+    );
+  }
+
+
+  addLeadSection(
+    lines,
+    'КОНТАКТЫ',
+    [
+      [
+        'Имя',
+        data.name,
+      ],
+      [
+        'Телефон',
+        data.phone,
+      ],
+      [
+        'Email',
+        data.email,
+      ],
+      [
+        'Организация',
+        data.company,
+      ],
+      [
+        'Объект / задача',
+        data.object,
+      ],
+      [
+        'Согласие',
+        data.consent,
+      ],
+    ],
+  );
+
+
+  addLeadAttribution(
+    lines,
+    lead,
+  );
+
+
+  return lines
+    .join('\n')
+    .slice(0, 12000);
+}
+
+
+function buildLeadText(lead) {
+  if (
+    lead.source ===
+    'passport-security-quiz'
+  ) {
+    return buildQuizLeadText(
+      lead,
+    );
+  }
+
+  return buildFormLeadText(
+    lead,
+  );
 }
 
 async function saveBackup(lead) {
