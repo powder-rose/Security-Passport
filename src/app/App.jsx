@@ -28,6 +28,7 @@ import HotelPage from '../pages/HotelPage/HotelPage';
 import CulturePage from '../pages/CulturePage/CulturePage';
 import EducationPage from '../pages/EducationPage/EducationPage';
 import SportPage from '../pages/SportPage/SportPage';
+import TradePage from '../pages/TradePage/TradePage';
 import ActualizationPage from '../pages/ActualizationPage/ActualizationPage';
 import CategorizationActPage from '../pages/CategorizationActPage/CategorizationActPage';
 
@@ -48,6 +49,9 @@ const educationPageCssUrl =
 
 const sportPageCssUrl =
   '/styles/SportPage.css';
+
+const tradePageCssUrl =
+  '/styles/TradePage.css';
 
 const actualizationPageCssUrl =
   '/styles/ActualizationPage.css';
@@ -136,6 +140,14 @@ const objectTypeViews = {
 
     cssUrl:
       sportPageCssUrl,
+  },
+
+  trade: {
+    Component:
+      TradePage,
+
+    cssUrl:
+      tradePageCssUrl,
   },
 };
 
