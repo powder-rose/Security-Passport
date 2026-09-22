@@ -3125,3 +3125,20 @@
 
 
 /* ACTUALIZATION_PAGE_REFINEMENTS:end */
+
+
+/* EDUCATION_ACTUALIZATION_BACKLINK_V1:start */
+
+.actualization-objects__list h3 a {
+  color: inherit;
+  text-decoration: none;
+
+  transition:
+    color 180ms ease;
+}
+
+.actualization-objects__list h3 a:hover {
+  color: #76b922;
+}
+
+/* EDUCATION_ACTUALIZATION_BACKLINK_V1:end */

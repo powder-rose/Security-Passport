@@ -1096,7 +1096,14 @@ export default function ActualizationPage() {
                   </span>
 
                   <h3>
-                    {item}
+                    {item ===
+                    'Образовательные организации' ? (
+                      <a href="/pasport-bezopasnosti-obrazovatelnoj-organizacii/">
+                        {item}
+                      </a>
+                    ) : (
+                      item
+                    )}
                   </h3>
                 </article>
               ),

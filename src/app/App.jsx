@@ -26,6 +26,7 @@ import LegalPage from '../pages/LegalPage/LegalPage';
 import ObjectTypePage from '../pages/ObjectTypePage/ObjectTypePage';
 import HotelPage from '../pages/HotelPage/HotelPage';
 import CulturePage from '../pages/CulturePage/CulturePage';
+import EducationPage from '../pages/EducationPage/EducationPage';
 import ActualizationPage from '../pages/ActualizationPage/ActualizationPage';
 import CategorizationActPage from '../pages/CategorizationActPage/CategorizationActPage';
 
@@ -40,6 +41,9 @@ const hotelPageCssUrl =
 
 const culturePageCssUrl =
   '/styles/CulturePage.css';
+
+const educationPageCssUrl =
+  '/styles/EducationPage.css';
 
 const actualizationPageCssUrl =
   '/styles/ActualizationPage.css';
@@ -112,6 +116,14 @@ const objectTypeViews = {
 
     cssUrl:
       culturePageCssUrl,
+  },
+
+  education: {
+    Component:
+      EducationPage,
+
+    cssUrl:
+      educationPageCssUrl,
   },
 };
 
