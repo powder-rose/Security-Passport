@@ -181,11 +181,16 @@ fi
 echo
 
 echo
-echo "Проверяем service routes и количество HTML..."
+echo "Проверяем service/object routes и количество HTML..."
 
 MANIFEST_STATS="$(
   node --input-type=module <<'NODE'
 import fs from 'node:fs';
+
+import {
+  objectTypes,
+} from './src/data/objectTypes.js';
+
 
 const manifest =
   JSON.parse(
@@ -195,12 +200,22 @@ const manifest =
     ),
   );
 
+
+const expectedObjectRoutes =
+  objectTypes.map(
+    ({ path }) => path,
+  );
+
+
 const values = [
   manifest.regionalCount,
   manifest.serviceRouteCount,
   manifest.servicePageCount,
+  manifest.objectRouteCount,
+  manifest.objectPageCount,
   manifest.regionalHtmlCount,
 ];
+
 
 if (
   values.some(
@@ -209,30 +224,73 @@ if (
   )
 ) {
   throw new Error(
-    'В manifest отсутствует статистика service routes',
+    'В manifest отсутствует статистика regional routes',
   );
 }
 
+
+if (
+  manifest.objectRouteCount !==
+  expectedObjectRoutes.length
+) {
+  throw new Error(
+    'objectRouteCount не совпадает с objectTypes',
+  );
+}
+
+
+if (
+  JSON.stringify(
+    manifest.objectRoutes,
+  ) !==
+  JSON.stringify(
+    expectedObjectRoutes,
+  )
+) {
+  throw new Error(
+    'objectRoutes не совпадают с objectTypes',
+  );
+}
+
+
 console.log(
-  values.join('|')
+  values.join('|'),
 );
 NODE
 )"
 
+
 IFS='|' read -r \
   MANIFEST_REGIONS \
-  ROUTE_COUNT \
+  SERVICE_ROUTE_COUNT \
   SERVICE_PAGE_COUNT \
+  OBJECT_ROUTE_COUNT \
+  OBJECT_PAGE_COUNT \
   REGIONAL_HTML_COUNT \
   <<< "${MANIFEST_STATS}"
 
+
 EXPECTED_SERVICE_PAGES=$((
-  EXPECTED * ROUTE_COUNT
+  EXPECTED *
+  SERVICE_ROUTE_COUNT
 ))
 
-EXPECTED_REGIONAL_HTML=$((
-  EXPECTED * (1 + ROUTE_COUNT)
+
+EXPECTED_OBJECT_PAGES=$((
+  EXPECTED *
+  OBJECT_ROUTE_COUNT
 ))
+
+
+EXPECTED_REGIONAL_HTML=$((
+  EXPECTED *
+  (
+    1 +
+    SERVICE_ROUTE_COUNT +
+    OBJECT_ROUTE_COUNT
+  )
+))
+
 
 ACTUAL_REGIONAL_HTML="$(
   find dist/geo-pages/regions \
@@ -242,32 +300,47 @@ ACTUAL_REGIONAL_HTML="$(
     | tr -d '[:space:]'
 )"
 
-echo "Service routes:                 ${ROUTE_COUNT}"
+
+echo "Service routes:                 ${SERVICE_ROUTE_COUNT}"
+echo "Object routes:                  ${OBJECT_ROUTE_COUNT}"
 echo "Service HTML ожидается:         ${EXPECTED_SERVICE_PAGES}"
 echo "Service HTML в manifest:        ${SERVICE_PAGE_COUNT}"
+echo "Object HTML ожидается:          ${EXPECTED_OBJECT_PAGES}"
+echo "Object HTML в manifest:         ${OBJECT_PAGE_COUNT}"
 echo "Всего regional HTML ожидается: ${EXPECTED_REGIONAL_HTML}"
 echo "Всего regional HTML manifest:  ${REGIONAL_HTML_COUNT}"
 echo "Всего regional HTML на диске:  ${ACTUAL_REGIONAL_HTML}"
+
 
 if [ "${MANIFEST_REGIONS}" != "${EXPECTED}" ]; then
     echo "ОШИБКА: regionalCount в manifest не совпадает."
     exit 1
 fi
 
+
 if [ "${SERVICE_PAGE_COUNT}" != "${EXPECTED_SERVICE_PAGES}" ]; then
     echo "ОШИБКА: количество service pages не совпадает."
     exit 1
 fi
+
+
+if [ "${OBJECT_PAGE_COUNT}" != "${EXPECTED_OBJECT_PAGES}" ]; then
+    echo "ОШИБКА: количество object pages не совпадает."
+    exit 1
+fi
+
 
 if [ "${REGIONAL_HTML_COUNT}" != "${EXPECTED_REGIONAL_HTML}" ]; then
     echo "ОШИБКА: regionalHtmlCount в manifest не совпадает."
     exit 1
 fi
 
+
 if [ "${ACTUAL_REGIONAL_HTML}" != "${EXPECTED_REGIONAL_HTML}" ]; then
     echo "ОШИБКА: фактическое количество HTML не совпадает."
     exit 1
 fi
+
 
 
 echo "[5/7] Готовим новый release..."

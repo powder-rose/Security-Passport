@@ -17,6 +17,10 @@ import {
   getRegionalLocations,
 } from '../config/geography/index.mjs';
 
+import {
+  objectTypes,
+} from '../src/data/objectTypes.js';
+
 
 const startedAt =
   Date.now();
@@ -119,6 +123,70 @@ const SERVICE_ROUTES = Object.freeze([
       'Актуализация',
   },
 ]);
+
+
+const OBJECT_ROUTE_ROBOTS =
+  'noindex,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
+
+
+const OBJECT_ROUTES = Object.freeze(
+  objectTypes.map(
+    (objectType) => ({
+      id:
+        objectType.id,
+
+      pathname:
+        objectType.path,
+
+      h1Fragment:
+        objectType.h1 ||
+        objectType.seoName ||
+        objectType.title,
+
+      titleFragment:
+        objectType.seoName ||
+        objectType.title,
+    }),
+  ),
+);
+
+
+for (const route of OBJECT_ROUTES) {
+  if (
+    !route.id ||
+    !route.pathname ||
+    !route.h1Fragment ||
+    !route.titleFragment
+  ) {
+    throw new Error(
+      `Invalid object route: ${JSON.stringify(route)}`,
+    );
+  }
+}
+
+
+const REGIONAL_ROUTE_PATHNAMES = [
+  ...SERVICE_ROUTES.map(
+    ({ pathname }) => pathname,
+  ),
+
+  ...OBJECT_ROUTES.map(
+    ({ pathname }) => pathname,
+  ),
+];
+
+
+if (
+  new Set(
+    REGIONAL_ROUTE_PATHNAMES,
+  ).size !==
+  REGIONAL_ROUTE_PATHNAMES.length
+) {
+  throw new Error(
+    'Duplicate regional route pathname',
+  );
+}
+
 
 
 function serializeCity(city) {
@@ -503,6 +571,8 @@ for (
 // GEO_SERVICE_ROUTES_PATCH_V1
 let serviceGeneratedCount = 0;
 
+let objectGeneratedCount = 0;
+
 
 function geoExpectedCanonicalForPath(
   location,
@@ -618,6 +688,90 @@ function geoValidateServiceDocument(
 }
 
 
+function geoValidateObjectDocument(
+  location,
+  route,
+  document,
+) {
+  const expected =
+    geoExpectedCanonicalForPath(
+      location,
+      route.pathname,
+    );
+
+
+  const canonicalOk =
+    document.includes(
+      `rel="canonical" href="${expected}"`,
+    );
+
+
+  const h1Text =
+    geoExtractTagText(
+      document,
+      'h1',
+    );
+
+
+  const titleText =
+    geoExtractTagText(
+      document,
+      'title',
+    );
+
+
+  const h1Ok =
+    h1Text
+      .toLowerCase()
+      .includes(
+        route.h1Fragment
+          .toLowerCase(),
+      );
+
+
+  const titleOk =
+    titleText
+      .toLowerCase()
+      .includes(
+        route.titleFragment
+          .toLowerCase(),
+      );
+
+
+  const robotsOk =
+    document.includes(
+      `name="robots" content="${OBJECT_ROUTE_ROBOTS}"`,
+    );
+
+
+  const bootstrapOk =
+    document.includes(
+      'window.__PASSPORT_CITY__=',
+    );
+
+
+  if (
+    !canonicalOk ||
+    !h1Ok ||
+    !titleOk ||
+    !robotsOk ||
+    !bootstrapOk
+  ) {
+    throw new Error(
+      [
+        `Ошибка object SSR: ${location.name}`,
+        `pathname=${route.pathname}`,
+        `canonical=${canonicalOk}`,
+        `h1=${h1Ok}`,
+        `title=${titleOk}`,
+        `robots=${robotsOk}`,
+        `bootstrap=${bootstrapOk}`,
+      ].join(' | '),
+    );
+  }
+}
+
+
 for (const location of regionalLocations) {
 
   const regionDirectory =
@@ -628,6 +782,10 @@ for (const location of regionalLocations) {
     );
 
   const routeManifest = [];
+
+
+
+  const objectRouteManifest = [];
 
 
   for (const route of SERVICE_ROUTES) {
@@ -707,6 +865,90 @@ for (const location of regionalLocations) {
   }
 
 
+  for (const route of OBJECT_ROUTES) {
+
+    const result = await render({
+      city:
+        location,
+
+      pathname:
+        route.pathname,
+    });
+
+
+    const document =
+      buildDocument(result);
+
+
+    geoValidateObjectDocument(
+      location,
+      route,
+      document,
+    );
+
+
+    const routeDirectoryName =
+      route.pathname.replace(
+        /^\/+|\/+$/g,
+        '',
+      );
+
+
+    const outputDirectory =
+      path.join(
+        regionDirectory,
+        routeDirectoryName,
+      );
+
+
+    await mkdir(
+      outputDirectory,
+      {
+        recursive: true,
+      },
+    );
+
+
+    const outputFile =
+      path.join(
+        outputDirectory,
+        'index.html',
+      );
+
+
+    await writeFile(
+      outputFile,
+      document,
+      'utf8',
+    );
+
+
+    objectRouteManifest.push({
+      id:
+        route.id,
+
+      pathname:
+        route.pathname,
+
+      canonical:
+        geoExpectedCanonicalForPath(
+          location,
+          route.pathname,
+        ),
+
+      output:
+        path.relative(
+          outputRoot,
+          outputFile,
+        ),
+    });
+
+
+    objectGeneratedCount += 1;
+  }
+
+
+
   if (isSeoIndexable(location)) {
 
     const sitemapEntries = [
@@ -772,6 +1014,9 @@ for (const location of regionalLocations) {
   if (manifestEntry) {
     manifestEntry.serviceRoutes =
       routeManifest;
+
+    manifestEntry.objectRoutes =
+      objectRouteManifest;
   }
 }
 
@@ -823,15 +1068,30 @@ geoManifestData.regionalCount =
 geoManifestData.serviceRouteCount =
   SERVICE_ROUTES.length;
 
+geoManifestData.objectRouteCount =
+  OBJECT_ROUTES.length;
+
 geoManifestData.servicePageCount =
   serviceGeneratedCount;
 
+geoManifestData.objectPageCount =
+  objectGeneratedCount;
+
 geoManifestData.regionalHtmlCount =
   regionalLocations.length *
-  (1 + SERVICE_ROUTES.length);
+  (
+    1 +
+    SERVICE_ROUTES.length +
+    OBJECT_ROUTES.length
+  );
 
 geoManifestData.serviceRoutes =
   SERVICE_ROUTES.map(
+    ({ pathname }) => pathname,
+  );
+
+geoManifestData.objectRoutes =
+  OBJECT_ROUTES.map(
     ({ pathname }) => pathname,
   );
 
@@ -864,7 +1124,7 @@ console.log(
 );
 
 console.log(
-  `✓ Создано HTML: ${generatedCount + serviceGeneratedCount}`,
+  `✓ Создано HTML: ${generatedCount + serviceGeneratedCount + objectGeneratedCount}`,
 );
 
 console.log(
