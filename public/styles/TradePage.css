@@ -3583,3 +3583,3049 @@
     padding-left: 0;
   }
 }
+
+
+/* ========================================
+   TRADE_UI_POLISH_V1:start
+   Visual rhythm / hierarchy / interaction
+   ======================================== */
+
+
+/*
+ * Общая идея:
+ * - сохраняем исходную дизайн-систему;
+ * - убираем ощущение бесконечной таблицы;
+ * - добавляем глубину только ключевым элементам;
+ * - разные секции получают разный характер;
+ * - интерактив остаётся сдержанным.
+ */
+
+
+/* ----------------------------------------
+   PAGE RHYTHM
+   ---------------------------------------- */
+
+.trade-objects,
+.trade-act,
+.trade-copies,
+.trade-service,
+.trade-documents,
+.trade-actualization,
+.trade-faq {
+  background: #f5f5f1;
+}
+
+
+.trade-applicability,
+.trade-regulation,
+.trade-categorization,
+.trade-passport,
+.trade-owners,
+.trade-prices,
+.trade-form,
+.trade-why {
+  background: #fff;
+}
+
+
+/*
+ * Не каждый заголовок должен конкурировать
+ * с H1 и ключевыми смысловыми блоками.
+ */
+
+.trade-act__content h2,
+.trade-copies__heading h2,
+.trade-owners__intro h2,
+.trade-service__heading h2,
+.trade-documents__heading h2,
+.trade-form__content h2,
+.trade-why__heading h2 {
+  font-size:
+    clamp(
+      2.35rem,
+      3.35vw,
+      3.75rem
+    );
+}
+
+
+/* ----------------------------------------
+   SHARED INTERACTION LANGUAGE
+   ---------------------------------------- */
+
+.trade-applicability__rule,
+.trade-applicability__check,
+.trade-object,
+.trade-change,
+.trade-categorization__steps li,
+.trade-passport__deadline,
+.trade-passport__lifetime,
+.trade-approval__timeline article,
+.trade-copies__visual article,
+.trade-owners__rules article,
+.trade-prices__list article,
+.trade-actualization__reasons article,
+.trade-why__grid article {
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+
+@media (hover: hover) {
+  .trade-applicability__rule:hover,
+  .trade-object:hover,
+  .trade-change:hover,
+  .trade-categorization__steps li:hover,
+  .trade-copies__visual article:hover,
+  .trade-owners__rules article:hover,
+  .trade-prices__list article:hover,
+  .trade-actualization__reasons article:hover,
+  .trade-why__grid article:hover {
+    transform:
+      translateY(-4px);
+  }
+}
+
+
+/* ----------------------------------------
+   HERO
+   ---------------------------------------- */
+
+.trade-hero__edition {
+  isolation: isolate;
+  overflow: hidden;
+}
+
+
+.trade-hero__edition::before {
+  position: absolute;
+  right: -115px;
+  bottom: -135px;
+  z-index: -1;
+  width: 285px;
+  height: 285px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  content: '';
+  opacity: .14;
+  transition:
+    transform 500ms ease,
+    opacity 500ms ease;
+}
+
+
+@media (hover: hover) {
+  .trade-hero__edition:hover::before {
+    opacity: .2;
+    transform:
+      translate(-18px, -16px);
+  }
+}
+
+
+/* ----------------------------------------
+   APPLICABILITY
+   ---------------------------------------- */
+
+.trade-applicability__core {
+  gap: 16px;
+  border: 0;
+}
+
+
+.trade-applicability__rule {
+  padding: 32px;
+  border:
+    1px solid
+    var(--color-border) !important;
+  border-radius: 24px;
+  background: #fff;
+}
+
+
+.trade-applicability__rule +
+.trade-applicability__rule {
+  border-left:
+    1px solid
+    var(--color-border);
+}
+
+
+@media (hover: hover) {
+  .trade-applicability__rule:hover {
+    border-color:
+      rgb(21 21 21 / 28%) !important;
+    box-shadow:
+      var(--shadow-soft);
+  }
+}
+
+
+.trade-applicability__check {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  box-shadow:
+    var(--shadow-soft);
+}
+
+
+.trade-applicability__check::before {
+  position: absolute;
+  top: 0;
+  right: 30px;
+  width: 72px;
+  height: 6px;
+  border-radius:
+    0 0 6px 6px;
+  background:
+    var(--color-primary);
+  content: '';
+}
+
+
+/* ----------------------------------------
+   OBJECT TYPES
+   ---------------------------------------- */
+
+.trade-objects__list {
+  gap: 14px;
+  border: 0;
+}
+
+
+.trade-object {
+  position: relative;
+  overflow: hidden;
+  border:
+    1px solid
+    var(--color-border);
+  border-radius: 22px;
+  background: #fff;
+}
+
+
+.trade-object::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background:
+    var(--color-primary);
+  content: '';
+  opacity: 0;
+  transform:
+    scaleX(.3);
+  transform-origin:
+    left center;
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+
+
+@media (hover: hover) {
+  .trade-object:hover {
+    border-color:
+      rgb(21 21 21 / 22%);
+    box-shadow:
+      var(--shadow-soft);
+  }
+
+  .trade-object:hover::after {
+    opacity: 1;
+    transform:
+      scaleX(1);
+  }
+}
+
+
+.trade-objects__notice {
+  border:
+    1px solid
+    var(--color-border);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow:
+    var(--shadow-soft);
+}
+
+
+/* ----------------------------------------
+   REGULATION — make №1273 a real object
+   ---------------------------------------- */
+
+.trade-regulation__identity {
+  position: sticky;
+  top: 110px;
+  overflow: hidden;
+  padding: 34px;
+  border-radius:
+    var(--radius-lg);
+  background: #151515;
+  color: #fff;
+  box-shadow:
+    var(--shadow-soft);
+}
+
+
+.trade-regulation__identity::after {
+  position: absolute;
+  top: -90px;
+  right: -80px;
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  background:
+    var(--color-primary);
+  content: '';
+  opacity: .92;
+}
+
+
+.trade-regulation__identity > span,
+.trade-regulation__identity > strong,
+.trade-regulation__identity > small {
+  position: relative;
+  z-index: 1;
+}
+
+
+.trade-regulation__identity > span,
+.trade-regulation__identity > small {
+  color:
+    rgb(255 255 255 / 56%);
+}
+
+
+.trade-regulation__identity > strong {
+  color: #fff;
+}
+
+
+.trade-regulation__badge {
+  border: 0;
+  background:
+    var(--color-primary);
+  color: #fff;
+  box-shadow:
+    0 8px 24px
+    rgb(31 85 255 / 18%);
+}
+
+
+.trade-regulation__meta {
+  gap: 12px;
+  border: 0;
+}
+
+
+.trade-regulation__meta > div {
+  min-width: 0;
+  padding: 22px;
+  border:
+    1px solid
+    var(--color-border) !important;
+  border-radius: 18px;
+  background: #fff;
+}
+
+
+.trade-regulation__notice {
+  border-radius: 20px;
+}
+
+
+/* ----------------------------------------
+   2026 CHANGES
+   ---------------------------------------- */
+
+.trade-changes__grid {
+  gap: 14px;
+  border: 0;
+}
+
+
+.trade-change {
+  border:
+    1px solid
+    rgb(255 255 255 / 13%);
+  border-radius: 22px;
+  background:
+    rgb(255 255 255 / 3%);
+}
+
+
+@media (hover: hover) {
+  .trade-change:hover {
+    border-color:
+      rgb(255 255 255 / 28%);
+    background:
+      rgb(255 255 255 / 5%);
+    box-shadow:
+      0 18px 44px
+      rgb(0 0 0 / 18%);
+  }
+}
+
+
+.trade-change--wide {
+  border-color:
+    rgb(255 255 255 / 20%);
+  background:
+    rgb(255 255 255 / 6%);
+}
+
+
+/* ----------------------------------------
+   CATEGORIZATION
+   ---------------------------------------- */
+
+.trade-categorization__deadline {
+  border: 0;
+  border-radius: 24px;
+  background: #151515;
+  color: #fff;
+  box-shadow:
+    var(--shadow-soft);
+}
+
+
+.trade-categorization__deadline > span,
+.trade-categorization__deadline p {
+  color:
+    rgb(255 255 255 / 64%);
+}
+
+
+.trade-categorization__deadline > strong {
+  color: #fff;
+}
+
+
+.trade-categorization__expert-note {
+  padding: 24px;
+  border: 0;
+  border-radius: 20px;
+  background: #f5f5f1;
+}
+
+
+.trade-categorization__steps {
+  gap: 12px;
+  border: 0;
+}
+
+
+.trade-categorization__steps li {
+  border:
+    1px solid
+    var(--color-border);
+  border-radius: 18px;
+  background: #fff;
+}
+
+
+@media (hover: hover) {
+  .trade-categorization__steps li:hover {
+    border-color:
+      rgb(21 21 21 / 26%);
+    box-shadow:
+      var(--shadow-soft);
+  }
+}
+
+
+/* ----------------------------------------
+   ACT
+   ---------------------------------------- */
+
+.trade-act__index {
+  position: sticky;
+  top: 110px;
+  min-height: 300px;
+  justify-content: space-between;
+  padding: 30px;
+  border-radius:
+    var(--radius-lg);
+  background: #151515;
+  color: #fff;
+  box-shadow:
+    var(--shadow-soft);
+}
+
+
+.trade-act__index span {
+  color:
+    rgb(255 255 255 / 52%);
+}
+
+
+.trade-act__index strong {
+  color:
+    var(--color-primary);
+}
+
+
+.trade-act__connection {
+  gap: 12px;
+  border: 0;
+}
+
+
+.trade-act__connection > div {
+  min-height: 112px;
+  justify-content: center;
+  padding: 22px;
+  border:
+    1px solid
+    var(--color-border);
+  border-radius: 18px;
+  background: #fff;
+}
+
+
+/* ----------------------------------------
+   PASSPORT / 30 DAYS
+   ---------------------------------------- */
+
+.trade-passport__facts {
+  gap: 16px;
+  border: 0;
+  background: transparent;
+}
+
+
+.trade-passport__deadline,
+.trade-passport__lifetime {
+  border-radius:
+    var(--radius-lg);
+  box-shadow:
+    var(--shadow-soft);
+}
+
+
+.trade-passport__deadline {
+  background:
+    var(--color-primary);
+  color: #fff;
+}
+
+
+.trade-passport__deadline > span,
+.trade-passport__deadline p {
+  color:
+    rgb(255 255 255 / 78%);
+}
+
+
+.trade-passport__deadline > strong {
+  color: #fff;
+}
+
+
+.trade-passport__lifetime {
+  border:
+    1px solid
+    var(--color-border);
+  background: #fff;
+}
+
+
+/* ----------------------------------------
+   APPROVAL
+   ---------------------------------------- */
+
+.trade-approval__timeline {
+  gap: 14px;
+  border: 0;
+}
+
+
+.trade-approval__timeline article {
+  border:
+    1px solid
+    rgb(255 255 255 / 13%);
+  border-radius: 22px;
+  background:
+    rgb(255 255 255 / 3%);
+}
+
+
+@media (hover: hover) {
+  .trade-approval__timeline article:hover {
+    border-color:
+      rgb(255 255 255 / 28%);
+    background:
+      rgb(255 255 255 / 5%);
+    transform:
+      translateY(-4px);
+  }
+}
+
+
+.trade-approval__timeline article:nth-child(2) {
+  transform:
+    translateY(20px);
+}
+
+
+@media (hover: hover) {
+  .trade-approval__timeline article:nth-child(2):hover {
+    transform:
+      translateY(16px);
+  }
+}
+
+
+.trade-approval__summary {
+  border-top:
+    1px solid
+    rgb(255 255 255 / 18%);
+}
+
+
+/* ----------------------------------------
+   COPIES
+   ---------------------------------------- */
+
+.trade-copies__visual {
+  gap: 16px;
+  border: 0;
+}
+
+
+.trade-copies__visual article {
+  border:
+    1px solid
+    var(--color-border);
+  border-radius: 24px;
+  background: #fff;
+}
+
+
+@media (hover: hover) {
+  .trade-copies__visual article:hover {
+    box-shadow:
+      var(--shadow-soft);
+  }
+}
+
+
+.trade-copies__visual article:first-child {
+  transform:
+    translateY(-16px);
+}
+
+
+.trade-copies__note {
+  padding: 24px 28px;
+  border-radius: 20px;
+  background: #fff;
+}
+
+
+/* ----------------------------------------
+   MULTIPLE OWNERS
+   ---------------------------------------- */
+
+.trade-owners__rules {
+  gap: 16px;
+  border: 0;
+}
+
+
+.trade-owners__rules article {
+  border:
+    1px solid
+    var(--color-border);
+  border-radius: 22px;
+  background: #fff;
+}
+
+
+@media (hover: hover) {
+  .trade-owners__rules article:hover {
+    box-shadow:
+      var(--shadow-soft);
+  }
+}
+
+
+.trade-owners__tenant-note {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  box-shadow:
+    var(--shadow-soft);
+}
+
+
+.trade-owners__tenant-note::before {
+  position: absolute;
+  top: 0;
+  right: 34px;
+  width: 76px;
+  height: 6px;
+  border-radius:
+    0 0 6px 6px;
+  background:
+    var(--color-primary);
+  content: '';
+}
+
+
+/* ----------------------------------------
+   RESTRICTED INFORMATION
+   Fix collision + stronger composition
+   ---------------------------------------- */
+
+.trade-restricted__layout {
+  grid-template-columns:
+    minmax(250px, .38fr)
+    minmax(0, 1.15fr);
+  gap:
+    clamp(
+      70px,
+      9vw,
+      145px
+    );
+}
+
+
+.trade-restricted__identity {
+  position: sticky;
+  top: 110px;
+  min-width: 0;
+  align-self: start;
+  padding: 30px;
+  border:
+    1px solid
+    rgb(255 255 255 / 13%);
+  border-radius: 24px;
+  background:
+    rgb(255 255 255 / 3%);
+}
+
+
+.trade-restricted__identity > strong {
+  max-width: 100%;
+  font-size:
+    clamp(
+      2.15rem,
+      2.8vw,
+      3rem
+    );
+  line-height: .96;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+
+.trade-restricted__identity > small {
+  max-width: none;
+}
+
+
+.trade-restricted__content h2 {
+  max-width: 780px;
+  font-size:
+    clamp(
+      2.55rem,
+      3.55vw,
+      3.95rem
+    );
+}
+
+
+.trade-restricted__rules {
+  gap: 14px;
+  border: 0;
+}
+
+
+.trade-restricted__rules article {
+  border:
+    1px solid
+    rgb(255 255 255 / 13%);
+  border-radius: 22px;
+  background:
+    rgb(255 255 255 / 3%);
+}
+
+
+/* ----------------------------------------
+   SERVICE
+   ---------------------------------------- */
+
+.trade-service__rows article {
+  padding-right: 18px;
+  padding-left: 18px;
+  border-radius: 16px;
+  transition:
+    padding-left 200ms ease,
+    background-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+
+@media (hover: hover) {
+  .trade-service__rows article:hover {
+    padding-left: 28px;
+    background: #fff;
+    box-shadow:
+      0 10px 28px
+      rgb(0 0 0 / 5%);
+  }
+}
+
+
+/* ----------------------------------------
+   PRICES
+   ---------------------------------------- */
+
+.trade-prices__list {
+  gap: 14px;
+  border: 0;
+}
+
+
+.trade-prices__list article {
+  overflow: hidden;
+  border:
+    1px solid
+    var(--color-border);
+  border-radius: 22px;
+  background: #fff;
+}
+
+
+@media (hover: hover) {
+  .trade-prices__list article:hover {
+    box-shadow:
+      var(--shadow-soft);
+  }
+}
+
+
+.trade-price--accent {
+  border-color: #151515 !important;
+  background: #151515 !important;
+  box-shadow:
+    var(--shadow-soft);
+}
+
+
+.trade-prices__logic {
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+
+/* ----------------------------------------
+   DOCUMENTS
+   ---------------------------------------- */
+
+.trade-documents__list article {
+  padding-right: 18px;
+  padding-left: 18px;
+  border-radius: 16px;
+  transition:
+    padding-left 200ms ease,
+    background-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+
+@media (hover: hover) {
+  .trade-documents__list article:hover {
+    padding-left: 28px;
+    background: #fff;
+    box-shadow:
+      0 10px 28px
+      rgb(0 0 0 / 5%);
+  }
+}
+
+
+.trade-documents__note {
+  padding: 28px;
+  border: 0;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow:
+    var(--shadow-soft);
+}
+
+
+/* ----------------------------------------
+   FORM
+   ---------------------------------------- */
+
+.trade-form__document {
+  isolation: isolate;
+  overflow: hidden;
+  border-radius:
+    var(--radius-lg);
+  background: #fff;
+  box-shadow:
+    var(--shadow-soft);
+}
+
+
+.trade-form__document::before {
+  position: absolute;
+  top: 0;
+  right: 34px;
+  z-index: 2;
+  width: 78px;
+  height: 7px;
+  border-radius:
+    0 0 7px 7px;
+  background:
+    var(--color-primary);
+  content: '';
+}
+
+
+.trade-form__notes {
+  gap: 12px;
+  border: 0;
+  background: transparent;
+}
+
+
+.trade-form__notes article {
+  border:
+    1px solid
+    var(--color-border);
+  border-radius: 18px;
+}
+
+
+/* ----------------------------------------
+   ACTUALIZATION
+   ---------------------------------------- */
+
+.trade-actualization__reasons {
+  gap: 14px;
+  border: 0;
+}
+
+
+.trade-actualization__reasons article {
+  border:
+    1px solid
+    var(--color-border);
+  border-radius: 22px;
+  background: #fff;
+}
+
+
+@media (hover: hover) {
+  .trade-actualization__reasons article:hover {
+    box-shadow:
+      var(--shadow-soft);
+  }
+}
+
+
+.trade-actualization__reasons article:nth-child(2),
+.trade-actualization__reasons article:nth-child(4) {
+  transform:
+    translateY(18px);
+}
+
+
+@media (hover: hover) {
+  .trade-actualization__reasons article:nth-child(2):hover,
+  .trade-actualization__reasons article:nth-child(4):hover {
+    transform:
+      translateY(14px);
+  }
+}
+
+
+.trade-actualization__corrections {
+  border-radius: 24px;
+  box-shadow:
+    var(--shadow-soft);
+}
+
+
+/* ----------------------------------------
+   SHOPPING CENTER
+   Own visual identity
+   ---------------------------------------- */
+
+.trade-mall {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+
+.trade-mall::before {
+  position: absolute;
+  bottom: -190px;
+  left:
+    clamp(
+      40px,
+      8vw,
+      145px
+    );
+  z-index: -1;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background:
+    var(--color-primary);
+  content: '';
+  opacity: .9;
+}
+
+
+.trade-mall__layout {
+  position: relative;
+  z-index: 1;
+}
+
+
+.trade-mall__index {
+  position: relative;
+}
+
+
+.trade-mall__index strong {
+  color: #fff;
+  text-shadow:
+    0 12px 34px
+    rgb(0 0 0 / 18%);
+}
+
+
+/* ----------------------------------------
+   WHY
+   ---------------------------------------- */
+
+.trade-why__grid {
+  gap: 14px;
+  border: 0;
+}
+
+
+.trade-why__grid article {
+  position: relative;
+  overflow: hidden;
+  border:
+    1px solid
+    var(--color-border);
+  border-radius: 22px;
+  background: #fff;
+}
+
+
+.trade-why__grid article::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+  background:
+    var(--color-primary);
+  content: '';
+  opacity: 0;
+  transform:
+    scaleX(.25);
+  transform-origin:
+    left center;
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+
+
+@media (hover: hover) {
+  .trade-why__grid article:hover {
+    box-shadow:
+      var(--shadow-soft);
+  }
+
+  .trade-why__grid article:hover::before {
+    opacity: 1;
+    transform:
+      scaleX(1);
+  }
+}
+
+
+/* ----------------------------------------
+   FAQ
+   ---------------------------------------- */
+
+.trade-faq__list {
+  overflow: hidden;
+  padding: 0 26px;
+  border:
+    1px solid
+    var(--color-border);
+  border-radius:
+    var(--radius-lg);
+  background: #fff;
+  box-shadow:
+    var(--shadow-soft);
+}
+
+
+.trade-faq__item summary {
+  margin: 0 -10px;
+  padding-right: 10px;
+  padding-left: 10px;
+  border-radius: 14px;
+  transition:
+    background-color 180ms ease;
+}
+
+
+@media (hover: hover) {
+  .trade-faq__item summary:hover {
+    background:
+      #f5f5f1;
+  }
+}
+
+
+.trade-faq__item[open]
+summary {
+  background:
+    #f5f5f1;
+}
+
+
+/* ----------------------------------------
+   RESPONSIVE CORRECTIONS
+   ---------------------------------------- */
+
+@media (max-width: 1180px) {
+  .trade-restricted__layout {
+    grid-template-columns:
+      minmax(220px, .34fr)
+      minmax(0, 1fr);
+    gap: 64px;
+  }
+}
+
+
+@media (max-width: 1024px) {
+  .trade-regulation__identity,
+  .trade-act__index,
+  .trade-restricted__identity {
+    position: relative;
+    top: auto;
+  }
+
+  .trade-act__index {
+    min-height: auto;
+  }
+
+  .trade-restricted__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .trade-restricted__identity {
+    max-width: 520px;
+  }
+
+  .trade-restricted__identity > strong {
+    font-size:
+      clamp(
+        2.3rem,
+        6vw,
+        3.2rem
+      );
+  }
+
+  .trade-approval__timeline
+  article:nth-child(2) {
+    transform: none;
+  }
+
+  .trade-copies__visual
+  article:first-child {
+    transform: none;
+  }
+
+  .trade-actualization__reasons
+  article:nth-child(2),
+  .trade-actualization__reasons
+  article:nth-child(4) {
+    transform: none;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .trade-applicability__core,
+  .trade-changes__grid,
+  .trade-categorization__steps,
+  .trade-copies__visual,
+  .trade-owners__rules,
+  .trade-prices__list,
+  .trade-form__notes,
+  .trade-actualization__reasons,
+  .trade-why__grid {
+    gap: 10px;
+  }
+
+  .trade-act__index {
+    padding: 24px;
+  }
+
+  .trade-regulation__identity {
+    padding: 28px;
+  }
+
+  .trade-faq__list {
+    padding:
+      0 18px;
+  }
+
+  .trade-mall::before {
+    bottom: -180px;
+    left: -110px;
+    width: 300px;
+    height: 300px;
+    opacity: .75;
+  }
+}
+
+
+@media (max-width: 430px) {
+  .trade-applicability__rule,
+  .trade-applicability__check,
+  .trade-object,
+  .trade-regulation__identity,
+  .trade-change,
+  .trade-categorization__deadline,
+  .trade-categorization__expert-note,
+  .trade-categorization__steps li,
+  .trade-act__index,
+  .trade-act__connection > div,
+  .trade-passport__deadline,
+  .trade-passport__lifetime,
+  .trade-approval__timeline article,
+  .trade-copies__visual article,
+  .trade-copies__note,
+  .trade-owners__rules article,
+  .trade-owners__tenant-note,
+  .trade-restricted__identity,
+  .trade-restricted__rules article,
+  .trade-prices__list article,
+  .trade-documents__note,
+  .trade-form__document,
+  .trade-form__notes article,
+  .trade-actualization__reasons article,
+  .trade-actualization__corrections,
+  .trade-why__grid article {
+    border-radius: 18px;
+  }
+
+  .trade-restricted__content h2 {
+    font-size: 2.35rem;
+  }
+
+  .trade-faq__list {
+    padding:
+      0 12px;
+    border-radius: 18px;
+  }
+}
+
+
+/* ========================================
+   TRADE_UI_POLISH_V1:end
+   ======================================== */
+
+
+/* ========================================
+   TRADE_UI_POLISH_V2:start
+   Previous-page visual language:
+   black / neutral / lime accent
+   ======================================== */
+
+
+/* ----------------------------------------
+   ACCENT LANGUAGE
+   ---------------------------------------- */
+
+.trade-page {
+  --trade-accent:
+    var(--color-accent);
+}
+
+
+/*
+ * Синий остаётся частью общей дизайн-системы,
+ * но TradePage больше не использует его
+ * как крупную декоративную заливку.
+ */
+
+
+/* HERO */
+
+.trade-hero__edition::before {
+  top: 0;
+  right: 42px;
+  bottom: auto;
+  width: 84px;
+  height: 7px;
+  border-radius:
+    0 0 7px 7px;
+  background:
+    var(--trade-accent);
+  opacity: 1;
+  transform: none;
+}
+
+
+@media (hover: hover) {
+  .trade-hero__edition:hover::before {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
+.trade-hero__number {
+  color:
+    var(--trade-accent);
+}
+
+
+.trade-hero__number strong {
+  color:
+    var(--trade-accent);
+}
+
+
+.trade-hero__update strong {
+  color:
+    var(--trade-accent);
+}
+
+
+/* ----------------------------------------
+   APPLICABILITY
+   ---------------------------------------- */
+
+.trade-applicability__check::before {
+  background:
+    var(--trade-accent);
+}
+
+
+.trade-applicability__index {
+  display: inline-flex;
+  width: 36px;
+  height: 24px;
+  border-radius: 999px;
+  background:
+    var(--trade-accent);
+  color: #151515;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.trade-applicability__rule {
+  box-shadow: none;
+}
+
+
+@media (hover: hover) {
+  .trade-applicability__rule:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+
+/* ----------------------------------------
+   OBJECT TYPES
+   4 + 3 modular layout
+   ---------------------------------------- */
+
+.trade-objects__list {
+  display: grid;
+  grid-template-columns:
+    repeat(12, minmax(0, 1fr));
+  gap: 12px;
+}
+
+
+.trade-object {
+  grid-column:
+    span 3;
+  min-width: 0;
+  border-radius: 14px;
+  box-shadow: none;
+}
+
+
+.trade-object:nth-child(n + 5) {
+  grid-column:
+    span 4;
+}
+
+
+.trade-object__number {
+  display: inline-flex;
+  width: 36px;
+  height: 24px;
+  border-radius: 999px;
+  background:
+    var(--trade-accent);
+  color: #151515;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.trade-object::after {
+  background:
+    var(--trade-accent);
+}
+
+
+@media (hover: hover) {
+  .trade-object:hover {
+    transform:
+      translateY(-2px);
+    box-shadow:
+      0 12px 28px
+      rgb(0 0 0 / 5%);
+  }
+}
+
+
+.trade-objects__notice {
+  border: 0;
+  background:
+    var(--trade-accent);
+  box-shadow: none;
+  color: #151515;
+}
+
+
+.trade-objects__notice span,
+.trade-objects__notice p {
+  color: #151515;
+}
+
+
+/* ----------------------------------------
+   REGULATION
+   ---------------------------------------- */
+
+.trade-regulation__identity {
+  min-height: 410px;
+  background: #151515;
+}
+
+
+.trade-regulation__identity::after {
+  top: 32px;
+  right: 32px;
+  width: 8px;
+  height: 92px;
+  border-radius: 999px;
+  background:
+    var(--trade-accent);
+  opacity: 1;
+}
+
+
+.trade-regulation__identity > strong {
+  max-width: 100%;
+  color:
+    var(--trade-accent);
+  font-size:
+    clamp(
+      4.4rem,
+      6vw,
+      6.8rem
+    );
+  white-space: nowrap;
+}
+
+
+.trade-regulation__badge {
+  background:
+    var(--trade-accent);
+  color: #151515;
+  box-shadow: none;
+}
+
+
+.trade-regulation__meta > div {
+  border-radius: 14px;
+}
+
+
+.trade-regulation__notice > span {
+  border-color: #151515;
+  background:
+    var(--trade-accent);
+  color: #151515;
+}
+
+
+/* ----------------------------------------
+   2026 CHANGES
+   ---------------------------------------- */
+
+.trade-change > span {
+  color:
+    var(--trade-accent);
+}
+
+
+.trade-change > strong {
+  color:
+    rgb(255 255 255 / 88%);
+}
+
+
+.trade-change--wide {
+  position: relative;
+}
+
+
+.trade-change--wide::before {
+  position: absolute;
+  top: 28px;
+  bottom: 28px;
+  left: 0;
+  width: 4px;
+  border-radius:
+    0 999px 999px 0;
+  background:
+    var(--trade-accent);
+  content: '';
+}
+
+
+.trade-change__edition strong {
+  color:
+    var(--trade-accent);
+}
+
+
+/* ----------------------------------------
+   CATEGORIZATION
+   ---------------------------------------- */
+
+.trade-categorization__deadline {
+  position: relative;
+  overflow: hidden;
+}
+
+
+.trade-categorization__deadline::before {
+  position: absolute;
+  top: 0;
+  right: 34px;
+  width: 78px;
+  height: 7px;
+  border-radius:
+    0 0 7px 7px;
+  background:
+    var(--trade-accent);
+  content: '';
+}
+
+
+.trade-categorization__deadline > strong {
+  color:
+    var(--trade-accent);
+}
+
+
+.trade-categorization__expert-note {
+  background:
+    var(--trade-accent);
+  color: #151515;
+}
+
+
+.trade-categorization__expert-note > span {
+  background: #151515;
+  color: #fff;
+}
+
+
+.trade-categorization__expert-note p {
+  color: #151515;
+}
+
+
+.trade-categorization__steps {
+  gap: 8px;
+}
+
+
+.trade-categorization__steps li {
+  min-height: 158px;
+  border-radius: 14px;
+  box-shadow: none;
+}
+
+
+.trade-categorization__steps span {
+  display: inline-flex;
+  width: 34px;
+  height: 23px;
+  border-radius: 999px;
+  background:
+    var(--trade-accent);
+  color: #151515;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.trade-categorization__steps
+li:not(:last-child)::after {
+  color: #151515;
+}
+
+
+/* ----------------------------------------
+   ACT
+   Remove oversized black pillar
+   ---------------------------------------- */
+
+.trade-act__layout {
+  align-items: start;
+}
+
+
+.trade-act__index {
+  position: sticky;
+  top: 110px;
+  align-self: start;
+  min-height: 0;
+  height: auto;
+  padding: 6px 0 0;
+  border-radius: 0;
+  background: transparent;
+  color:
+    var(--color-text);
+  box-shadow: none;
+}
+
+
+.trade-act__index::after {
+  display: block;
+  width: 72px;
+  height: 7px;
+  margin-top: 30px;
+  border-radius: 999px;
+  background:
+    var(--trade-accent);
+  content: '';
+}
+
+
+.trade-act__index span {
+  color:
+    var(--color-text-secondary);
+}
+
+
+.trade-act__index strong {
+  margin-top: 18px;
+  color:
+    var(--color-text);
+}
+
+
+.trade-act__connection > div {
+  border-radius: 14px;
+  box-shadow: none;
+}
+
+
+/* ----------------------------------------
+   PASSPORT
+   Lime replaces bright-blue surface
+   ---------------------------------------- */
+
+.trade-passport__deadline {
+  background:
+    var(--trade-accent);
+  color: #151515;
+  box-shadow: none;
+}
+
+
+.trade-passport__deadline > span,
+.trade-passport__deadline > strong,
+.trade-passport__deadline p {
+  color: #151515;
+}
+
+
+.trade-passport__deadline,
+.trade-passport__lifetime {
+  border-radius:
+    var(--radius-md);
+}
+
+
+.trade-passport__lifetime {
+  box-shadow: none;
+}
+
+
+/* ----------------------------------------
+   APPROVAL
+   No accidental staircase
+   ---------------------------------------- */
+
+.trade-approval__timeline article,
+.trade-approval__timeline
+article:nth-child(2) {
+  transform: none;
+}
+
+
+@media (hover: hover) {
+  .trade-approval__timeline article:hover,
+  .trade-approval__timeline
+  article:nth-child(2):hover {
+    transform:
+      translateY(-2px);
+  }
+}
+
+
+.trade-approval__number {
+  color:
+    var(--trade-accent);
+}
+
+
+.trade-approval__timeline article {
+  border-radius: 16px;
+}
+
+
+.trade-approval__timeline article:nth-child(2) {
+  border-color:
+    rgb(212 255 0 / 38%);
+}
+
+
+.trade-approval__summary span {
+  color:
+    var(--trade-accent);
+}
+
+
+/* ----------------------------------------
+   COPIES
+   ---------------------------------------- */
+
+.trade-copies__visual article,
+.trade-copies__visual article:first-child {
+  transform: none;
+}
+
+
+.trade-copies__visual article {
+  border-radius:
+    var(--radius-md);
+  box-shadow: none;
+}
+
+
+.trade-copies__visual article > span {
+  display: inline-flex;
+  width: 36px;
+  height: 24px;
+  border-radius: 999px;
+  background:
+    var(--trade-accent);
+  color: #151515;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.trade-copies__note {
+  background:
+    var(--trade-accent);
+  color: #151515;
+  box-shadow: none;
+}
+
+
+.trade-copies__note > span {
+  border-color: #151515;
+  background: #151515;
+  color: #fff;
+}
+
+
+.trade-copies__note p {
+  color: #151515;
+}
+
+
+/* ----------------------------------------
+   OWNERS
+   ---------------------------------------- */
+
+.trade-owners__rules article > span {
+  display: inline-flex;
+  width: 36px;
+  height: 24px;
+  border-radius: 999px;
+  background:
+    var(--trade-accent);
+  color: #151515;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.trade-owners__tenant-note::before {
+  background:
+    var(--trade-accent);
+}
+
+
+/* ----------------------------------------
+   RESTRICTED INFORMATION
+   ---------------------------------------- */
+
+.trade-restricted__layout {
+  grid-template-columns:
+    minmax(300px, .46fr)
+    minmax(0, 1.1fr);
+}
+
+
+.trade-restricted__identity {
+  min-width: 0;
+}
+
+
+.trade-restricted__identity::before {
+  display: block;
+  width: 64px;
+  height: 6px;
+  margin-bottom: 30px;
+  border-radius: 999px;
+  background:
+    var(--trade-accent);
+  content: '';
+}
+
+
+.trade-restricted__identity > strong {
+  max-width: none;
+  font-size:
+    clamp(
+      1.9rem,
+      2.25vw,
+      2.55rem
+    );
+  line-height: 1;
+  letter-spacing: -.045em;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+
+
+.trade-restricted__sign {
+  border-color:
+    var(--trade-accent);
+  color:
+    var(--trade-accent);
+}
+
+
+.trade-restricted__rule--negative
+.trade-restricted__sign::before {
+  background:
+    var(--trade-accent);
+}
+
+
+/* ----------------------------------------
+   SERVICE / DOCUMENTS
+   Lime numerical markers
+   ---------------------------------------- */
+
+.trade-service__rows
+article > span,
+.trade-documents__list
+article > span {
+  display: inline-flex;
+  width: 36px;
+  height: 24px;
+  border-radius: 999px;
+  background:
+    var(--trade-accent);
+  color: #151515;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ----------------------------------------
+   PRICES
+   ---------------------------------------- */
+
+.trade-price--accent {
+  position: relative;
+}
+
+
+.trade-price--accent::before {
+  position: absolute;
+  top: 0;
+  right: 30px;
+  width: 76px;
+  height: 7px;
+  border-radius:
+    0 0 7px 7px;
+  background:
+    var(--trade-accent);
+  content: '';
+}
+
+
+.trade-price--accent strong {
+  color:
+    var(--trade-accent);
+}
+
+
+/* ----------------------------------------
+   FORM
+   ---------------------------------------- */
+
+.trade-form__document::before {
+  background:
+    var(--trade-accent);
+}
+
+
+.trade-form__statement span,
+.trade-form__notes span {
+  color: #151515;
+}
+
+
+.trade-form__notes span {
+  display: inline-flex;
+  width: 36px;
+  height: 24px;
+  border-radius: 999px;
+  background:
+    var(--trade-accent);
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ----------------------------------------
+   ACTUALIZATION
+   Remove stagger
+   ---------------------------------------- */
+
+.trade-actualization__reasons
+article:nth-child(2),
+.trade-actualization__reasons
+article:nth-child(4) {
+  transform: none;
+}
+
+
+@media (hover: hover) {
+  .trade-actualization__reasons
+  article:nth-child(2):hover,
+  .trade-actualization__reasons
+  article:nth-child(4):hover {
+    transform:
+      translateY(-2px);
+  }
+}
+
+
+.trade-actualization__reasons
+article > span {
+  display: inline-flex;
+  width: 36px;
+  height: 24px;
+  border-radius: 999px;
+  background:
+    var(--trade-accent);
+  color: #151515;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.trade-actualization__corrections {
+  position: relative;
+  overflow: hidden;
+}
+
+
+.trade-actualization__corrections::before {
+  position: absolute;
+  top: 0;
+  left: 34px;
+  width: 76px;
+  height: 7px;
+  border-radius:
+    0 0 7px 7px;
+  background:
+    var(--trade-accent);
+  content: '';
+}
+
+
+/* ----------------------------------------
+   SHOPPING CENTER
+   Lime as accent, not giant surface
+   ---------------------------------------- */
+
+.trade-mall::before {
+  top:
+    clamp(
+      110px,
+      12vw,
+      175px
+    );
+  bottom: auto;
+  left:
+    clamp(
+      42px,
+      8vw,
+      145px
+    );
+  width: 8px;
+  height: 220px;
+  border-radius: 999px;
+  background:
+    var(--trade-accent);
+  opacity: 1;
+}
+
+
+.trade-mall__index strong {
+  color: #fff;
+}
+
+
+/* ----------------------------------------
+   WHY
+   More editorial 2 x 2 composition
+   ---------------------------------------- */
+
+.trade-why__grid {
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+
+.trade-why__grid article {
+  min-height: 220px;
+  padding: 34px;
+  border-radius:
+    var(--radius-md);
+  box-shadow: none;
+}
+
+
+.trade-why__grid article > span {
+  display: inline-flex;
+  width: 36px;
+  height: 24px;
+  border-radius: 999px;
+  background:
+    var(--trade-accent);
+  color: #151515;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.trade-why__grid article::before {
+  background:
+    var(--trade-accent);
+}
+
+
+/* ----------------------------------------
+   FAQ
+   ---------------------------------------- */
+
+.trade-faq__item[open]
+.trade-faq__toggle {
+  border-radius: 50%;
+  background:
+    var(--trade-accent);
+  color: #151515;
+}
+
+
+/* ----------------------------------------
+   RESPONSIVE
+   ---------------------------------------- */
+
+@media (max-width: 1180px) {
+  .trade-object,
+  .trade-object:nth-child(n + 5) {
+    grid-column:
+      span 6;
+  }
+
+
+  .trade-object:last-child {
+    grid-column:
+      1 / -1;
+  }
+
+
+  .trade-restricted__layout {
+    grid-template-columns:
+      minmax(260px, .42fr)
+      minmax(0, 1fr);
+  }
+}
+
+
+@media (max-width: 1024px) {
+  .trade-act__index {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    gap: 22px;
+    align-items: baseline;
+  }
+
+
+  .trade-act__index::after {
+    width: 54px;
+    height: 6px;
+    margin: 0 0 0 8px;
+  }
+
+
+  .trade-regulation__identity {
+    min-height: 300px;
+  }
+
+
+  .trade-restricted__layout {
+    grid-template-columns: 1fr;
+  }
+
+
+  .trade-restricted__identity {
+    max-width: 560px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .trade-object,
+  .trade-object:nth-child(n + 5),
+  .trade-object:last-child {
+    grid-column:
+      span 12;
+  }
+
+
+  .trade-why__grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .trade-regulation__identity {
+    min-height: 260px;
+  }
+
+
+  .trade-mall::before {
+    top: 80px;
+    left: 22px;
+    width: 6px;
+    height: 150px;
+  }
+}
+
+
+@media (max-width: 430px) {
+  .trade-regulation__identity > strong {
+    font-size: 4rem;
+  }
+
+
+  .trade-restricted__identity > strong {
+    font-size: 1.85rem;
+  }
+
+
+  .trade-act__index {
+    align-items: center;
+  }
+
+
+  .trade-act__index strong {
+    font-size: 3.8rem;
+  }
+
+
+  .trade-copies__note {
+    padding: 22px;
+  }
+
+
+  .trade-why__grid article {
+    min-height: 0;
+    padding: 26px;
+  }
+}
+
+
+/* ========================================
+   TRADE_UI_POLISH_V2:end
+   ======================================== */
+
+
+/* ========================================
+   TRADE_IMPORTANT_CARD_FIX_V1:start
+   ======================================== */
+
+
+/*
+ * "Важно" под типами торговых объектов.
+ *
+ * Не используем лайм как огромную заливку.
+ * Лайм остаётся фирменным акцентом,
+ * сама поверхность — спокойная чёрная.
+ */
+
+.trade-objects__notice {
+  display: grid;
+  grid-template-columns:
+    118px
+    minmax(0, 1fr);
+  gap: 34px;
+  align-items: center;
+
+  width: 100%;
+  max-width: none;
+
+  margin:
+    36px 0 0;
+
+  padding:
+    28px 32px;
+
+  border: 0;
+  border-radius:
+    var(--radius-md);
+
+  background: #151515;
+  color: #fff;
+
+  box-shadow:
+    var(--shadow-soft);
+}
+
+
+.trade-objects__notice > span {
+  display: inline-flex;
+  width: fit-content;
+
+  padding:
+    7px 12px;
+
+  border-radius: 999px;
+
+  background:
+    var(--trade-accent);
+
+  color: #151515;
+
+  font-size: .72rem;
+  font-weight: 850;
+  line-height: 1;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+
+.trade-objects__notice > p {
+  max-width: 900px;
+
+  margin: 0;
+
+  color:
+    rgb(255 255 255 / 72%);
+
+  font-size: .98rem;
+  line-height: 1.68;
+}
+
+
+/*
+ * Небольшой лаймовый штрих,
+ * чтобы карточка визуально связывалась
+ * с остальными акцентами страницы.
+ */
+
+.trade-objects__notice {
+  position: relative;
+  overflow: hidden;
+}
+
+
+.trade-objects__notice::after {
+  position: absolute;
+
+  top: 0;
+  right: 32px;
+
+  width: 74px;
+  height: 6px;
+
+  border-radius:
+    0 0 6px 6px;
+
+  background:
+    var(--trade-accent);
+
+  content: '';
+}
+
+
+@media (max-width: 768px) {
+  .trade-objects__notice {
+    grid-template-columns: 1fr;
+    gap: 18px;
+
+    padding:
+      24px;
+  }
+
+
+  .trade-objects__notice > p {
+    max-width: none;
+  }
+}
+
+
+@media (max-width: 430px) {
+  .trade-objects__notice {
+    padding:
+      22px 20px;
+
+    border-radius: 18px;
+  }
+
+
+  .trade-objects__notice::after {
+    right: 22px;
+    width: 58px;
+  }
+}
+
+
+/* ========================================
+   TRADE_IMPORTANT_CARD_FIX_V1:end
+   ======================================== */
+
+
+/* ========================================
+   TRADE_UI_POLISH_V3:start
+   Targeted composition cleanup
+   ======================================== */
+
+
+/* ----------------------------------------
+   01. REGULATION / №1273
+   Fit number + reduce lime overload
+   ---------------------------------------- */
+
+.trade-regulation__identity {
+  overflow: hidden;
+}
+
+
+.trade-regulation__identity > strong {
+  display: block;
+
+  width: 100%;
+  max-width: 100%;
+
+  margin-top: 26px;
+
+  color: #fff;
+
+  font-size:
+    clamp(
+      4rem,
+      5.1vw,
+      5.55rem
+    );
+
+  line-height: .9;
+  letter-spacing: -.075em;
+
+  white-space: nowrap;
+}
+
+
+.trade-regulation__identity::after {
+  top: 32px;
+  right: 30px;
+
+  width: 6px;
+  height: 76px;
+}
+
+
+.trade-regulation__badge {
+  background:
+    var(--trade-accent);
+  color: #151515;
+}
+
+
+/*
+ * Лайм остаётся только небольшими
+ * смысловыми акцентами.
+ */
+
+.trade-regulation__notice > span {
+  background: transparent;
+  border:
+    1px solid
+    var(--trade-accent);
+  color: #151515;
+}
+
+
+/* ----------------------------------------
+   02. CATEGORIZATION PROCESS
+   One coherent stepper, no random arrows
+   ---------------------------------------- */
+
+.trade-categorization__steps {
+  position: relative;
+
+  display: grid;
+  grid-template-columns:
+    repeat(6, minmax(0, 1fr));
+
+  gap: 0;
+
+  overflow: hidden;
+
+  margin-top: 58px;
+
+  border:
+    1px solid
+    var(--color-border);
+
+  border-radius:
+    var(--radius-md);
+
+  background: #fff;
+
+  box-shadow:
+    inset 0 4px 0
+    var(--trade-accent);
+}
+
+
+.trade-categorization__steps li {
+  position: relative;
+
+  min-width: 0;
+  min-height: 168px;
+
+  padding:
+    32px 22px 26px;
+
+  border: 0;
+  border-right:
+    1px solid
+    var(--color-border);
+
+  border-radius: 0;
+
+  background: transparent;
+
+  box-shadow: none;
+
+  transform: none;
+}
+
+
+.trade-categorization__steps
+li:last-child {
+  border-right: 0;
+}
+
+
+/*
+ * Старые стрелки между карточками
+ * полностью убираем.
+ */
+
+.trade-categorization__steps
+li::after {
+  display: none !important;
+  content: none !important;
+}
+
+
+.trade-categorization__steps
+> span {
+  display: none !important;
+}
+
+
+.trade-categorization__steps
+li > span {
+  display: block;
+
+  width: auto;
+  height: auto;
+
+  margin: 0 0 42px;
+
+  padding: 0;
+
+  border-radius: 0;
+
+  background: transparent;
+
+  color:
+    var(--color-text-secondary);
+
+  font-size: .72rem;
+  font-weight: 850;
+  letter-spacing: .1em;
+}
+
+
+.trade-categorization__steps
+li > strong {
+  display: block;
+
+  max-width: 150px;
+
+  font-size: .95rem;
+  line-height: 1.35;
+}
+
+
+@media (hover: hover) {
+  .trade-categorization__steps li:hover {
+    transform: none;
+
+    background:
+      #f7f7f4;
+
+    box-shadow: none;
+  }
+}
+
+
+/*
+ * Экспертная заметка больше
+ * не является огромной лаймовой поверхностью.
+ */
+
+.trade-categorization__expert-note {
+  position: relative;
+
+  overflow: hidden;
+
+  background:
+    #f5f5f1;
+
+  color: #151515;
+
+  box-shadow:
+    inset 4px 0 0
+    var(--trade-accent);
+}
+
+
+.trade-categorization__expert-note > span {
+  background: #151515;
+  color: #fff;
+}
+
+
+.trade-categorization__expert-note p {
+  color:
+    var(--color-text-secondary);
+}
+
+
+/* ----------------------------------------
+   03. ACT RESULT
+   Turn three loose cards into one flow
+   ---------------------------------------- */
+
+.trade-act__content {
+  min-width: 0;
+}
+
+
+.trade-act__connection {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 0;
+
+  overflow: hidden;
+
+  margin-top: 48px;
+
+  border:
+    1px solid
+    var(--color-border);
+
+  border-radius:
+    var(--radius-md);
+
+  background: #fff;
+}
+
+
+/*
+ * Если стрелки являются отдельными
+ * элементами JSX — также скрываем.
+ */
+
+.trade-act__connection > span {
+  display: none !important;
+}
+
+
+.trade-act__connection > div {
+  position: relative;
+
+  min-height: 150px;
+
+  padding:
+    26px 28px;
+
+  border: 0;
+  border-right:
+    1px solid
+    var(--color-border);
+
+  border-radius: 0;
+
+  background: #fff;
+
+  box-shadow: none;
+
+  justify-content:
+    space-between;
+}
+
+
+.trade-act__connection
+> div:last-of-type {
+  border-right: 0;
+}
+
+
+/*
+ * Центральный "результат — акт"
+ * становится смысловым центром процесса.
+ */
+
+.trade-act__connection
+> div:nth-of-type(2) {
+  border-color: #151515;
+
+  background: #151515;
+  color: #fff;
+}
+
+
+.trade-act__connection
+> div:nth-of-type(2)
+span,
+.trade-act__connection
+> div:nth-of-type(2)
+small {
+  color:
+    rgb(255 255 255 / 56%);
+}
+
+
+.trade-act__connection
+> div:nth-of-type(2)
+strong {
+  color:
+    var(--trade-accent);
+}
+
+
+.trade-act__connection
+> div:nth-of-type(2)::before {
+  position: absolute;
+
+  top: 0;
+  left: 28px;
+
+  width: 58px;
+  height: 5px;
+
+  border-radius:
+    0 0 5px 5px;
+
+  background:
+    var(--trade-accent);
+
+  content: '';
+}
+
+
+/*
+ * Номер этапа остаётся editorial,
+ * но чуть компактнее.
+ */
+
+.trade-act__index strong {
+  font-size:
+    clamp(
+      5rem,
+      8vw,
+      7.4rem
+    );
+
+  line-height: .84;
+}
+
+
+/* ----------------------------------------
+   04. RESTRICTED INFORMATION
+   Prevent title overflow
+   ---------------------------------------- */
+
+.trade-restricted__layout {
+  grid-template-columns:
+    minmax(340px, 370px)
+    minmax(0, 1fr);
+
+  gap:
+    clamp(
+      62px,
+      8vw,
+      125px
+    );
+}
+
+
+.trade-restricted__identity {
+  width: 100%;
+  max-width: 370px;
+
+  box-sizing: border-box;
+}
+
+
+.trade-restricted__identity > strong {
+  display: block;
+
+  width: 100%;
+  max-width: 100%;
+
+  font-size:
+    clamp(
+      1.55rem,
+      1.75vw,
+      1.85rem
+    );
+
+  line-height: 1.08;
+  letter-spacing: -.03em;
+
+  overflow: hidden;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+}
+
+
+/* ----------------------------------------
+   REDUCE LARGE LIME SURFACES
+   Lime = accent, not a background system
+   ---------------------------------------- */
+
+
+/* 30 days */
+
+.trade-passport__deadline {
+  position: relative;
+
+  overflow: hidden;
+
+  background: #151515;
+  color: #fff;
+}
+
+
+.trade-passport__deadline::before {
+  position: absolute;
+
+  top: 0;
+  right: 34px;
+
+  width: 76px;
+  height: 6px;
+
+  border-radius:
+    0 0 6px 6px;
+
+  background:
+    var(--trade-accent);
+
+  content: '';
+}
+
+
+.trade-passport__deadline > span,
+.trade-passport__deadline p {
+  color:
+    rgb(255 255 255 / 64%);
+}
+
+
+.trade-passport__deadline > strong {
+  color: #fff;
+}
+
+
+/* Copies note */
+
+.trade-copies__note {
+  border:
+    1px solid
+    var(--color-border);
+
+  background: #fff;
+
+  color:
+    var(--color-text);
+
+  box-shadow:
+    inset 4px 0 0
+    var(--trade-accent);
+}
+
+
+.trade-copies__note > span {
+  border: 0;
+  background:
+    var(--trade-accent);
+  color: #151515;
+}
+
+
+.trade-copies__note p {
+  color:
+    var(--color-text-secondary);
+}
+
+
+/* ----------------------------------------
+   RESPONSIVE
+   ---------------------------------------- */
+
+@media (max-width: 1180px) {
+  .trade-categorization__steps {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+
+
+  .trade-categorization__steps li {
+    border-bottom:
+      1px solid
+      var(--color-border);
+  }
+
+
+  .trade-categorization__steps
+  li:nth-child(3n) {
+    border-right: 0;
+  }
+
+
+  .trade-categorization__steps
+  li:nth-last-child(-n + 3) {
+    border-bottom: 0;
+  }
+
+
+  .trade-restricted__layout {
+    grid-template-columns:
+      minmax(310px, 340px)
+      minmax(0, 1fr);
+
+    gap: 55px;
+  }
+}
+
+
+@media (max-width: 1024px) {
+  .trade-restricted__layout {
+    grid-template-columns: 1fr;
+  }
+
+
+  .trade-restricted__identity {
+    max-width: 460px;
+  }
+
+
+  .trade-restricted__identity > strong {
+    font-size: 1.8rem;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .trade-categorization__steps {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+
+  .trade-categorization__steps li,
+  .trade-categorization__steps
+  li:nth-child(3n) {
+    border-right:
+      1px solid
+      var(--color-border);
+
+    border-bottom:
+      1px solid
+      var(--color-border);
+  }
+
+
+  .trade-categorization__steps
+  li:nth-child(2n) {
+    border-right: 0;
+  }
+
+
+  .trade-categorization__steps
+  li:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+
+
+  .trade-act__connection {
+    grid-template-columns: 1fr;
+  }
+
+
+  .trade-act__connection > div {
+    min-height: 116px;
+
+    border-right: 0;
+    border-bottom:
+      1px solid
+      var(--color-border);
+  }
+
+
+  .trade-act__connection
+  > div:last-of-type {
+    border-bottom: 0;
+  }
+}
+
+
+@media (max-width: 430px) {
+  .trade-categorization__steps {
+    grid-template-columns: 1fr;
+  }
+
+
+  .trade-categorization__steps li,
+  .trade-categorization__steps
+  li:nth-child(2n),
+  .trade-categorization__steps
+  li:nth-child(3n) {
+    min-height: auto;
+
+    border-right: 0;
+    border-bottom:
+      1px solid
+      var(--color-border);
+  }
+
+
+  .trade-categorization__steps
+  li:last-child {
+    border-bottom: 0;
+  }
+
+
+  .trade-categorization__steps
+  li > span {
+    margin-bottom: 18px;
+  }
+
+
+  .trade-restricted__identity {
+    max-width: 100%;
+  }
+
+
+  .trade-restricted__identity > strong {
+    font-size: 1.65rem;
+  }
+
+
+  .trade-regulation__identity
+  > strong {
+    font-size: 3.65rem;
+  }
+}
+
+
+/* ========================================
+   TRADE_UI_POLISH_V3:end
+   ======================================== */
