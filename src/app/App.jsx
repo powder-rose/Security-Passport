@@ -29,6 +29,7 @@ import CulturePage from '../pages/CulturePage/CulturePage';
 import EducationPage from '../pages/EducationPage/EducationPage';
 import SportPage from '../pages/SportPage/SportPage';
 import TradePage from '../pages/TradePage/TradePage';
+import HealthPage from '../pages/HealthPage/HealthPage';
 import ActualizationPage from '../pages/ActualizationPage/ActualizationPage';
 import CategorizationActPage from '../pages/CategorizationActPage/CategorizationActPage';
 
@@ -52,6 +53,9 @@ const sportPageCssUrl =
 
 const tradePageCssUrl =
   '/styles/TradePage.css';
+
+const healthPageCssUrl =
+  '/styles/HealthPage.css';
 
 const actualizationPageCssUrl =
   '/styles/ActualizationPage.css';
@@ -148,6 +152,14 @@ const objectTypeViews = {
 
     cssUrl:
       tradePageCssUrl,
+  },
+
+  health: {
+    Component:
+      HealthPage,
+
+    cssUrl:
+      healthPageCssUrl,
   },
 };
 
