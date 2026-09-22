@@ -10,7 +10,7 @@ dist/
 !.env.example
 
 # Lead data
-data/
+/data/
 *.jsonl
 
 # Logs
