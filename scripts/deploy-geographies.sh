@@ -187,11 +187,6 @@ MANIFEST_STATS="$(
   node --input-type=module <<'NODE'
 import fs from 'node:fs';
 
-import {
-  objectTypes,
-} from './src/data/objectTypes.js';
-
-
 const manifest =
   JSON.parse(
     fs.readFileSync(
@@ -201,10 +196,11 @@ const manifest =
   );
 
 
-const expectedObjectRoutes =
-  objectTypes.map(
-    ({ path }) => path,
-  );
+/*
+ * Object-type pages are federal-only.
+ * Regional geography releases must not contain them.
+ */
+const expectedObjectRoutes = [];
 
 
 const values = [

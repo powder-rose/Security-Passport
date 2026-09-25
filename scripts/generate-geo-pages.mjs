@@ -17,11 +17,6 @@ import {
   getRegionalLocations,
 } from '../config/geography/index.mjs';
 
-import {
-  objectTypes,
-} from '../src/data/objectTypes.js';
-
-
 const startedAt =
   Date.now();
 
@@ -129,26 +124,13 @@ const OBJECT_ROUTE_ROBOTS =
   'noindex,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
 
 
-const OBJECT_ROUTES = Object.freeze(
-  objectTypes.map(
-    (objectType) => ({
-      id:
-        objectType.id,
-
-      pathname:
-        objectType.path,
-
-      h1Fragment:
-        objectType.h1 ||
-        objectType.seoName ||
-        objectType.title,
-
-      titleFragment:
-        objectType.seoName ||
-        objectType.title,
-    }),
-  ),
-);
+/*
+ * Страницы паспортов безопасности по типам объектов
+ * существуют только на федеральном домене.
+ *
+ * Региональные копии не генерируем.
+ */
+const OBJECT_ROUTES = Object.freeze([]);
 
 
 for (const route of OBJECT_ROUTES) {
