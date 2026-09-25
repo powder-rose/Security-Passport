@@ -135,3 +135,10 @@ export async function uploadArticleImage(file){
 
 }
 
+
+
+export function getStatistics() {
+  return request(
+    '/statistics'
+  );
+}

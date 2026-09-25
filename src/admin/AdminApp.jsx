@@ -8,6 +8,7 @@ import AdminLayout from './components/Layout/AdminLayout.jsx';
 
 import DashboardPage from './pages/DashboardPage/DashboardPage.jsx';
 import ArticlesPage from './pages/ArticlesPage/ArticlesPage.jsx';
+import StatisticsPage from './pages/StatisticsPage/StatisticsPage.jsx';
 
 import {
   useAuth,
@@ -87,18 +88,7 @@ function RouterView() {
   ) {
 
     return (
-      <div>
-
-        <div className="admin-section-title">
-          Статистика
-        </div>
-
-
-        <p>
-          Раздел в разработке
-        </p>
-
-      </div>
+      <StatisticsPage />
     );
 
   }

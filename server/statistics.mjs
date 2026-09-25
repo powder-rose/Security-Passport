@@ -8,6 +8,7 @@ import {
 } from '../config/geography/index.mjs';
 
 import { resolveSiteFromHost } from './site-region.mjs';
+import { isBotVisit } from './bot-detection.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
@@ -381,6 +382,12 @@ export async function getStatistics({
     readJsonLines(LEADS_FILE),
   ]);
 
+  const humanVisits =
+    visits.filter(
+      (visit) =>
+        !isBotVisit(visit),
+    );
+
   const periods = {};
 
   for (const period of STAT_PERIODS) {
@@ -388,7 +395,7 @@ export async function getStatistics({
       key: period.key,
       label: period.label,
       ...aggregatePeriod({
-        visits,
+        visits: humanVisits,
         leads,
         days: period.days,
         now,

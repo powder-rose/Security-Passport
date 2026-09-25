@@ -7,6 +7,7 @@ import express from 'express';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import { resolveSiteFromHost } from './site-region.mjs';
+import { isBotUserAgent } from './bot-detection.mjs';
 import {
   resolveIpLocation,
 } from './geo-location.mjs';
@@ -1152,6 +1153,24 @@ app.get('/api/health', (req, res) => {
 app.post('/api/visits', async (req, res) => {
   pruneMaps();
 
+  const userAgent =
+    cleanString(
+      req.get('user-agent'),
+      600,
+    );
+
+  if (
+    isBotUserAgent(
+      userAgent,
+    )
+  ) {
+    return res.status(200).json({
+      ok: true,
+      ignored: true,
+      reason: 'BOT_VISIT',
+    });
+  }
+
   const sessionId = cleanString(req.body?.sessionId, 160);
 
   if (!sessionId || sessionId.length < 8) {
@@ -1179,7 +1198,7 @@ app.post('/api/visits', async (req, res) => {
     referrer: cleanString(req.body?.referrer, 1200),
     attribution: cleanValue(req.body?.attribution || {}),
     meta: {
-      userAgent: cleanString(req.get('user-agent'), 600),
+      userAgent,
     },
   };
 
