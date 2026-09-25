@@ -46,3 +46,6 @@ backups/
 *.bad-*
 *.problem-*
 # /PROJECT_LOCAL_BACKUPS
+
+# Runtime uploads
+public/uploads/
