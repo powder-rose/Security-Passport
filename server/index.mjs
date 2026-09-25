@@ -15,6 +15,19 @@ import {
   getAdminLeadsPage,
 } from './admin-leads.mjs';
 import { createAdminAuth } from './admin-auth.mjs';
+import {
+  getArticles,
+  getArticleById,
+  createArticle,
+  updateArticle,
+  deleteArticle,
+} from './admin-articles.mjs';
+
+import formidable from 'formidable';
+
+
+
+
 
 dotenv.config({ path: process.env.SERVER_ENV_FILE || '.env.server' });
 
@@ -834,6 +847,213 @@ app.get(
 );
 
 
+
+
+app.get(
+  '/api/admin/articles',
+  adminAuth.requireAdmin,
+  async (req, res) => {
+    const articles =
+      await getArticles();
+
+    res.json({
+      ok: true,
+      articles,
+    });
+  }
+);
+
+
+app.post(
+  '/api/admin/articles',
+  adminAuth.requireAdmin,
+  async (req, res) => {
+
+    const article =
+      await createArticle(
+        req.body
+      );
+
+    res.json({
+      ok: true,
+      article,
+    });
+
+  }
+);
+
+
+
+
+app.get(
+  '/api/admin/articles/:id',
+  adminAuth.requireAdmin,
+  async (req, res) => {
+
+    const article =
+      await getArticleById(
+        req.params.id
+      );
+
+
+    if (!article) {
+      return res.status(404).json({
+        ok:false,
+        error:'ARTICLE_NOT_FOUND',
+      });
+    }
+
+
+    res.json({
+      ok:true,
+      article,
+    });
+
+  }
+);
+
+
+
+
+app.put(
+  '/api/admin/articles/:id',
+  adminAuth.requireAdmin,
+  async (req, res) => {
+
+    const article =
+      await updateArticle(
+        req.params.id,
+        req.body,
+      );
+
+
+    if (!article) {
+      return res.status(404).json({
+        ok:false,
+        error:'ARTICLE_NOT_FOUND',
+      });
+    }
+
+
+    res.json({
+      ok:true,
+      article,
+    });
+  }
+);
+
+
+
+app.delete(
+  '/api/admin/articles/:id',
+  adminAuth.requireAdmin,
+  async (req, res) => {
+
+    await deleteArticle(
+      req.params.id
+    );
+
+
+    res.json({
+      ok:true,
+    });
+
+  }
+);
+
+
+
+
+app.post(
+  '/api/admin/upload/article-image',
+  adminAuth.requireAdmin,
+  async (req,res)=>{
+
+
+    const uploadDir =
+      path.resolve(
+        'public/uploads/articles'
+      );
+
+
+    await fs.mkdir(
+      uploadDir,
+      {
+        recursive:true
+      }
+    );
+
+
+
+    const form =
+      formidable({
+        uploadDir,
+        keepExtensions:true,
+      });
+
+
+
+    form.parse(
+      req,
+      async(err,fields,files)=>{
+
+
+        if(err){
+
+          return res.status(500)
+            .json({
+              ok:false,
+              error:'UPLOAD_ERROR'
+            });
+
+        }
+
+
+
+        const file =
+          files.image?.[0];
+
+
+
+        if(!file){
+
+          return res.status(400)
+            .json({
+              ok:false,
+              error:'FILE_REQUIRED'
+            });
+
+        }
+
+
+
+        const filename =
+          path.basename(
+            file.filepath
+          );
+
+
+
+        res.json({
+
+          ok:true,
+
+          url:
+            `/uploads/articles/${filename}`
+
+        });
+
+
+      }
+    );
+
+
+  }
+);
+
+
+
+
 app.get('/api/geo', async (req, res) => {
   try {
     const result =
@@ -1027,6 +1247,27 @@ app.post('/api/leads', rateLimit, async (req, res) => {
     return res.status(500).json({ ok: false, error: 'LEAD_DELIVERY_FAILED' });
   }
 });
+
+app.get('/admin/', async (req, res) => {
+  try {
+    const html = await fs.readFile(
+      path.join(clientDir, 'admin.html'),
+      'utf8',
+    );
+
+    return res.send(html);
+  } catch (error) {
+    console.error(
+      '[admin] react admin load failed:',
+      error,
+    );
+
+    return res
+      .status(500)
+      .send('Admin unavailable');
+  }
+});
+
 
 app.use(express.static(clientDir, {
   index: false,

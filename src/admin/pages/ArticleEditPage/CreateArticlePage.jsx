@@ -11,6 +11,8 @@ import {
 
 import ArticleEditor from '../../components/Editor/ArticleEditor.jsx';
 
+import ImageCropper from '../../components/ImageCropper/ImageCropper.jsx';
+
 
 
 
@@ -36,6 +38,7 @@ const [form,setForm] = useState({
  title:'',
  content:'',
  image:'',
+ imageAlt:'',
  status:'draft',
  seoTitle:'',
  seoDescription:'',
@@ -49,6 +52,9 @@ const [seoManual,setSeoManual] = useState({
  seoDescription:false,
 
 });
+
+
+const [cropImage,setCropImage] = useState(null);
 
 
 
@@ -155,22 +161,152 @@ async function uploadImage(e){
   }
 
 
-  const result =
-    await uploadArticleImage(
+  const dimensionsValid =
+    await new Promise((resolve)=>{
+
+      const img = new Image();
+
+      img.onload = ()=>{
+
+        const ratio =
+          img.width / img.height;
+
+
+        if(
+          ratio > 0.75
+          &&
+          ratio < 0.9
+        ){
+
+          resolve(true);
+
+        }
+        else{
+
+          resolve(false);
+
+        }
+
+      };
+
+
+      img.onerror = ()=>resolve(false);
+
+
+      img.src =
+        URL.createObjectURL(file);
+
+    });
+
+
+  const preview =
+    URL.createObjectURL(
       file
     );
 
 
+  console.log(
+    'OPEN CROPPER',
+    file,
+    preview
+  );
 
 
-  if(result.url){
+  setCropImage({
 
-    change(
-      'image',
-      result.url
-    );
+    file,
 
-  }
+    preview
+
+  });
+
+}
+
+
+async function getCroppedFile(
+  imageSrc,
+  pixelCrop
+){
+
+  const image =
+    await new Promise((resolve)=>{
+
+      const img = new Image();
+
+      img.onload = ()=>{
+        resolve(img);
+      };
+
+      img.src = imageSrc;
+
+    });
+
+
+
+  const canvas =
+    document.createElement('canvas');
+
+
+  canvas.width =
+    pixelCrop.width;
+
+
+  canvas.height =
+    pixelCrop.height;
+
+
+
+  const ctx =
+    canvas.getContext('2d');
+
+
+
+  ctx.drawImage(
+
+    image,
+
+    pixelCrop.x,
+    pixelCrop.y,
+
+    pixelCrop.width,
+    pixelCrop.height,
+
+    0,
+    0,
+
+    pixelCrop.width,
+    pixelCrop.height
+
+  );
+
+
+
+  const blob =
+    await new Promise((resolve)=>{
+
+      canvas.toBlob(
+        resolve,
+        'image/webp',
+        0.9
+      );
+
+    });
+
+
+
+  return new File(
+
+    [
+      blob
+    ],
+
+    'article-image.webp',
+
+    {
+      type:'image/webp'
+    }
+
+  );
 
 }
 
@@ -199,7 +335,83 @@ async function save(){
 
 
 
+
+
 return (
+
+<>
+
+
+{
+  cropImage
+  &&
+  (
+    <ImageCropper
+
+      image={
+        cropImage.preview
+      }
+
+
+      onCancel={()=>{
+
+        setCropImage(null);
+
+      }}
+
+
+      onCrop={async(pixels)=>{
+
+console.log(
+  'STEP 1 CROP PIXELS',
+  pixels
+);
+
+
+        const file =
+          await getCroppedFile(
+            cropImage.preview,
+            pixels
+          );
+
+
+        console.log(
+          'STEP 2 CROPPED FILE',
+          file
+        );
+
+
+        const result =
+          await uploadArticleImage(
+            file
+          );
+
+
+        console.log(
+          'STEP 3 UPLOAD RESULT',
+          result
+        );
+
+
+        if(result.url){
+
+          change(
+            'image',
+            result.url
+          );
+
+        }
+
+
+        setCropImage(null);
+
+
+      }}
+
+    />
+  )
+}
+
 
 <div className="admin-editor">
 
@@ -269,9 +481,17 @@ return (
 
  accept="image/*"
 
- onChange={
-   uploadImage
- }
+ onChange={(e)=>{
+
+   console.log(
+     'FILE INPUT CHANGE',
+     e.target.files[0]
+   );
+
+
+   uploadImage(e);
+
+ }}
 
 />
 
@@ -286,7 +506,9 @@ return (
 
       <img
         src={form.image}
-        alt=""
+          alt="Превью изображения статьи"
+          width="320"
+          height="180"
         className="admin-image-preview"
       />
 
@@ -312,6 +534,35 @@ return (
 
 
 </label>
+
+
+<label>
+
+<span>
+Alt изображения
+</span>
+
+<input
+
+type="text"
+
+value={form.imageAlt}
+
+onChange={(e)=>{
+
+change(
+'imageAlt',
+e.target.value
+);
+
+}}
+
+placeholder="Например: Специалисты проводят обследование объекта"
+
+/>
+
+</label>
+
 
 
 
@@ -448,6 +699,7 @@ setSeoManual({
 change(
 'seoDescription',
 e.target.value
+
 );
 
 }
@@ -475,6 +727,8 @@ onClick={save}
 
 
 </div>
+
+</>
 
 );
 
