@@ -142,3 +142,27 @@ export function getStatistics() {
     '/statistics'
   );
 }
+
+
+export function getLeads({
+  page = 1,
+  limit = 50,
+  search = '',
+} = {}) {
+  const params =
+    new URLSearchParams({
+      page: String(page),
+      limit: String(limit),
+    });
+
+  if (search) {
+    params.set(
+      'search',
+      search,
+    );
+  }
+
+  return request(
+    `/leads?${params.toString()}`
+  );
+}
