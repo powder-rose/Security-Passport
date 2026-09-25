@@ -1967,10 +1967,39 @@ export default function TradePage() {
 
 
               <a
-                className="button button--primary"
+                className="button button--primary trade-form__button"
                 href="#lead-form"
               >
-                Получить актуальную форму паспорта
+                <span className="trade-form__button-label">
+                  Получить актуальную форму паспорта
+                </span>
+
+                <span
+                  className="trade-form__button-icon"
+                  aria-hidden="true"
+                >
+                  
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M7 17L17 7"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                      />
+                      <path
+                        d="M9 7H17V15"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  
+                </span>
               </a>
             </div>
 

@@ -6629,3 +6629,74 @@ strong {
 /* ========================================
    TRADE_UI_POLISH_V3:end
    ======================================== */
+
+
+
+/* ========================================
+   TRADE FORM CTA ARROW BUTTON
+   ======================================== */
+
+.trade-form__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  min-height: 58px;
+  padding: 0 26px;
+
+  border: 0;
+  border-radius: 999px;
+
+  color: #ffffff;
+  text-decoration: none;
+
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease;
+}
+
+
+.trade-form__button-label {
+  display: block;
+
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+
+  white-space: nowrap;
+}
+
+
+.trade-form__button-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: none;
+
+  color: #a9f04a;
+
+  transform: translateY(-1px);
+
+  transition: transform 180ms ease;
+}
+
+
+.trade-form__button-icon svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+
+.trade-form__button:hover {
+  transform: translateY(-2px);
+}
+
+
+.trade-form__button:hover .trade-form__button-icon {
+  transform: translate(4px,-3px);
+}
