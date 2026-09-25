@@ -30,6 +30,7 @@ import EducationPage from '../pages/EducationPage/EducationPage';
 import SportPage from '../pages/SportPage/SportPage';
 import TradePage from '../pages/TradePage/TradePage';
 import HealthPage from '../pages/HealthPage/HealthPage';
+import CrowdPage from '../pages/CrowdPage/CrowdPage';
 import ActualizationPage from '../pages/ActualizationPage/ActualizationPage';
 import CategorizationActPage from '../pages/CategorizationActPage/CategorizationActPage';
 
@@ -56,6 +57,9 @@ const tradePageCssUrl =
 
 const healthPageCssUrl =
   '/styles/HealthPage.css';
+
+const crowdPageCssUrl =
+  '/styles/CrowdPage.css';
 
 const actualizationPageCssUrl =
   '/styles/ActualizationPage.css';
@@ -160,6 +164,14 @@ const objectTypeViews = {
 
     cssUrl:
       healthPageCssUrl,
+  },
+
+  crowd: {
+    Component:
+      CrowdPage,
+
+    cssUrl:
+      crowdPageCssUrl,
   },
 };
 
