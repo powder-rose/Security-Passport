@@ -215,7 +215,7 @@ if (canonical) {
   const googleUrls = [
     canonical,
 
-    ...getRegionalLocations()
+    ...[] /* FEDERAL_ONLY_V1: региональные URL исключены */
       .filter(
         (location) =>
           location.seoIndexable === true,
@@ -773,7 +773,7 @@ if (canonical) {
       ({ loc }) => loc,
     ),
 
-    ...getRegionalLocations()
+    ...[] /* FEDERAL_ONLY_V1: региональные URL исключены */
       .filter(
         (location) =>
           location.seoIndexable === true,

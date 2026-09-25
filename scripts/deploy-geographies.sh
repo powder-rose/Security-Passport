@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# FEDERAL_ONLY_V1
+echo "Региональный деплой отключён: сайт работает на федеральном домене." >&2
+exit 1
+
+
 set -Eeuo pipefail
 
 # GEO_SERVICE_ROUTES_DEPLOY_PATCH_V1

@@ -1,3 +1,7 @@
+
+// FEDERAL_ONLY_V1
+throw new Error("Генерация региональных страниц отключена.");
+
 import {
   mkdir,
   readFile,
