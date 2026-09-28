@@ -166,3 +166,32 @@ export function getLeads({
     `/leads?${params.toString()}`
   );
 }
+
+export function deleteLead(id) {
+  return request(
+    `/leads/${encodeURIComponent(id)}`,
+    {
+      method: 'DELETE',
+    },
+  );
+}
+
+
+export function getRegulations() {
+  return request('/regulations');
+}
+
+export function saveRegulation(number, data) {
+  return request(`/regulations/${encodeURIComponent(number)}`, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+  });
+}
+
+export function getRegulationPublication() {
+  return request('/regulations/publication');
+}
+
+export function retryRegulationPublication() {
+  return request('/regulations/publication', { method: 'POST' });
+}

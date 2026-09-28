@@ -5,6 +5,7 @@ import {
 
 import {
   getLeads,
+  deleteLead,
 } from '../../api/adminApi';
 
 import './LeadsPage.css';
@@ -117,6 +118,11 @@ export default function LeadsPage() {
     setError,
   ] = useState('');
 
+  const [
+    deletingId,
+    setDeletingId,
+  ] = useState('');
+
 
   async function loadLeads({
     page = 1,
@@ -208,6 +214,68 @@ export default function LeadsPage() {
       page: 1,
       query: '',
     });
+  }
+
+
+  async function handleDeleteLead(lead) {
+    if (
+      !lead?.id ||
+      deletingId
+    ) {
+      return;
+    }
+
+    const leadLabel =
+      lead.name
+        ? `заявку от «${lead.name}»`
+        : 'эту заявку';
+
+    const confirmed =
+      window.confirm(
+        `Удалить ${leadLabel}?\n\nЭто действие нельзя отменить.`,
+      );
+
+    if (!confirmed) {
+      return;
+    }
+
+    setDeletingId(lead.id);
+    setError('');
+
+    try {
+      const result =
+        await deleteLead(
+          lead.id,
+        );
+
+      if (!result?.ok) {
+        throw new Error(
+          result?.error ||
+          'LEAD_DELETE_FAILED',
+        );
+      }
+
+      const nextPage =
+        leads.length === 1 &&
+        pagination.page > 1
+          ? pagination.page - 1
+          : pagination.page;
+
+      await loadLeads({
+        page: nextPage,
+        query: appliedSearch,
+      });
+    } catch (deleteError) {
+      console.error(
+        deleteError,
+      );
+
+      setError(
+        'Не удалось удалить заявку.',
+      );
+    } finally {
+      setDeletingId('');
+    }
   }
 
 
@@ -330,6 +398,7 @@ export default function LeadsPage() {
                 <th>Имя</th>
                 <th>Телефон</th>
                 <th>Организация</th>
+                <th>Действия</th>
               </tr>
             </thead>
 
@@ -416,6 +485,28 @@ export default function LeadsPage() {
                           lead.company ||
                           '—'
                         }
+                      </td>
+
+                      <td className="leads-page__actions">
+                        <button
+                          type="button"
+                          className="leads-page__delete"
+                          disabled={
+                            deletingId === lead.id
+                          }
+                          onClick={
+                            () =>
+                              handleDeleteLead(
+                                lead,
+                              )
+                          }
+                        >
+                          {
+                            deletingId === lead.id
+                              ? 'Удаление...'
+                              : 'Удалить'
+                          }
+                        </button>
                       </td>
 
                     </tr>

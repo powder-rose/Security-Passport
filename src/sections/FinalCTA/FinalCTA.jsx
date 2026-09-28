@@ -3,6 +3,11 @@ import Container from '../../components/ui/Container/Container';
 import { SITE } from '../../config/site';
 import { METRICA_GOALS, reachGoal } from '../../lib/analytics';
 import { getLeadEndpoint, submitLead } from '../../lib/lead';
+import {
+  formatRussianPhone,
+  sanitizeEmailInput,
+} from '../../lib/formInput';
+import { leadFormSchema } from '../../lib/validation/leadValidation';
 import './FinalCTA.css';
 
 const initialForm = {
@@ -35,9 +40,15 @@ export default function FinalCTA() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!form.name.trim() || !form.phone.trim() || !form.consent) {
+    try {
+      await leadFormSchema.validate(form, {
+        abortEarly: false,
+      });
+    } catch (error) {
       setStatus('error');
-      setMessage('Укажите имя и телефон и подтвердите согласие на обработку данных.');
+      setMessage(
+        error?.errors?.[0] || 'Проверьте правильность заполнения формы.',
+      );
       return;
     }
 
@@ -148,10 +159,15 @@ export default function FinalCTA() {
                 type="tel"
                 name="phone"
                 autoComplete="tel"
-                inputMode="tel"
+                inputMode="numeric"
                 value={form.phone}
-                onChange={(event) => updateField('phone', event.target.value)}
-                placeholder="+7 900 000-00-00"
+                onChange={(event) =>
+                  updateField(
+                    'phone',
+                    formatRussianPhone(event.target.value),
+                  )
+                }
+                placeholder="+7 (900) 000-00-00"
                 aria-invalid={phoneInvalid || undefined}
                 aria-describedby={phoneInvalid ? 'final-cta-status' : undefined}
                 required
@@ -165,7 +181,12 @@ export default function FinalCTA() {
                 name="email"
                 autoComplete="email"
                 value={form.email}
-                onChange={(event) => updateField('email', event.target.value)}
+                onChange={(event) =>
+                  updateField(
+                    'email',
+                    sanitizeEmailInput(event.target.value),
+                  )
+                }
                 placeholder="name@example.ru"
               />
             </label>

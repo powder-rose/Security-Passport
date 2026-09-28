@@ -27,6 +27,8 @@ export default function AdminLayout({
             Статьи
           </a>
 
+          <a href="/admin/regulations">Нормативные документы</a>
+
           <a href="/admin/leads">
             Заявки
           </a>

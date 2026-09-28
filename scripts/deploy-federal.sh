@@ -13,6 +13,12 @@ PUBLIC_DIR="${SITE_ROOT}/public_html"
 NEW_DIR="${SITE_ROOT}/public_html.new"
 OLD_DIR="${SITE_ROOT}/public_html.previous"
 
+exec 9>"${PROJECT}/data/.federal-deploy.lock"
+if ! flock -n 9; then
+    echo "ОШИБКА: федеральная публикация уже выполняется."
+    exit 1
+fi
+
 cd "${PROJECT}"
 
 mapfile -t REGION_DATA < <(node scripts/get-default-region.mjs)
@@ -71,6 +77,11 @@ if ! grep -Fq "https://${BASE_DOMAIN}" dist/client/index.html; then
     exit 1
 fi
 
+
+if [ ! -s dist/client/404.html ]; then
+    echo "ОШИБКА: страница 404 отсутствует в сборке."
+    exit 1
+fi
 
 echo "[4/5] Публикуем..."
 

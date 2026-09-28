@@ -9,6 +9,7 @@ import AdminLayout from './components/Layout/AdminLayout.jsx';
 import DashboardPage from './pages/DashboardPage/DashboardPage.jsx';
 import ArticlesPage from './pages/ArticlesPage/ArticlesPage.jsx';
 import StatisticsPage from './pages/StatisticsPage/StatisticsPage.jsx';
+import RegulationsPage from './pages/RegulationsPage/RegulationsPage.jsx';
 import LeadsPage from './pages/LeadsPage/LeadsPage.jsx';
 
 import {
@@ -48,6 +49,10 @@ function RouterView() {
   }
 
 
+
+  if (path.startsWith('/admin/regulations')) {
+    return <RegulationsPage />;
+  }
 
   if (
     path.startsWith('/admin/articles')

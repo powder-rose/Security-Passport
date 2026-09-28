@@ -1,0 +1,1576 @@
+{
+  "version": 1,
+  "createdAt": "2026-09-28T07:53:21.318998+00:00",
+  "items": [
+    {
+      "number": "8",
+      "title": "Постановление Правительства РФ №8",
+      "officialUrl": "",
+      "edition": "",
+      "reviewStatus": "reviewed",
+      "reviewedAt": "2026-09-28",
+      "reviewNote": "",
+      "occurrences": [
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 146
+        },
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 148
+        },
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 160
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 344
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 347
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 352
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 47
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 53
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 59
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 65
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 71
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 113
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 125
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 216
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 266
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 328
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 341
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 447
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 465
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 480
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 568
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 998
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 1122
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 1253
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 1280
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 1395
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 1696
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 2041
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 2056
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 2190
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 2459
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 2476
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 2483
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 2518
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 2564
+        },
+        {
+          "file": "src/pages/HealthPage/HealthPage.jsx",
+          "line": 2663
+        },
+        {
+          "file": "src/pages/ActualizationPage/ActualizationPage.jsx",
+          "line": 178
+        }
+      ],
+      "claims": [
+        {
+          "id": "health.faq.00",
+          "label": "FAQ: Каким медицинским организациям нужен паспорт безопасности?",
+          "text": "Применимость ПП РФ №8 определяется с учётом правообладателя, назначения и фактического статуса конкретного объекта. Требования распространяются на предусмотренные постановлением объекты в сфере здравоохранения, включая объекты организаций, осуществляющих медицинскую и фармацевтическую деятельность."
+        },
+        {
+          "id": "health.faq.01",
+          "label": "FAQ: Нужен ли паспорт частной клинике?",
+          "text": "Само название «частная клиника» не означает автоматическую обязанность оформлять отдельный паспорт. Сначала проверяются статус организации, назначение и фактические характеристики конкретного объекта и применимость ПП РФ №8."
+        },
+        {
+          "id": "health.faq.02",
+          "label": "FAQ: Нужен ли паспорт аптеке?",
+          "text": "ПП РФ №8 охватывает в том числе объекты организаций, осуществляющих фармацевтическую деятельность. При этом применимость требований к конкретной аптеке определяется с учётом статуса организации и самого объекта."
+        },
+        {
+          "id": "health.faq.03",
+          "label": "FAQ: Какое постановление регулирует объекты здравоохранения?",
+          "text": "Специальные требования к антитеррористической защищённости рассматриваемых объектов здравоохранения и форма паспорта безопасности установлены Постановлением Правительства РФ от 14.01.2017 №8. На сентябрь 2026 года применяется редакция от 15.08.2025."
+        },
+        {
+          "id": "health.faq.04",
+          "label": "FAQ: Сколько категорий предусмотрено?",
+          "text": "ПП РФ №8 предусматривает четыре категории объектов: I, II, III и IV."
+        },
+        {
+          "id": "health.faq.05",
+          "label": "FAQ: Как определяется категория объекта?",
+          "text": "Категорию определяет комиссия по результатам обследования. При категорировании учитываются прогнозируемое количество пострадавших и возможный материальный ущерб, поэтому определять категорию только по количеству людей некорректно."
+        },
+        {
+          "id": "health.faq.06",
+          "label": "FAQ: Кто входит в комиссию?",
+          "text": "В комиссию входят представители правообладателя и объекта, а также по согласованию представители территориального органа безопасности, Росгвардии или подразделения вневедомственной охраны и территориального органа МЧС. К работе могут привлекаться эксперты специализированных организаций."
+        },
+        {
+          "id": "health.faq.07",
+          "label": "FAQ: Сколько времени может работать комиссия?",
+          "text": "Максимальный срок работы комиссии по обследованию и категорированию составляет 60 рабочих дней. Конкретный срок определяется с учётом сложности объекта."
+        },
+        {
+          "id": "health.faq.08",
+          "label": "FAQ: Сколько экземпляров акта составляется?",
+          "text": "Акт обследования и категорирования составляется в двух экземплярах, подписывается всеми членами комиссии, утверждается председателем комиссии и является неотъемлемой частью паспорта безопасности."
+        },
+        {
+          "id": "health.faq.09",
+          "label": "FAQ: Сколько экземпляров паспорта оформляется?",
+          "text": "Паспорт безопасности оформляется в двух экземплярах. Первый хранится на объекте или территории, второй направляется правообладателю. Копия или электронная копия направляется в территориальный орган безопасности."
+        },
+        {
+          "id": "health.faq.10",
+          "label": "FAQ: С кем согласовывается паспорт?",
+          "text": "Паспорт согласовывается с территориальным органом безопасности и с соответствующим территориальным органом Росгвардии либо подразделением вневедомственной охраны. После согласования документ утверждает правообладатель объекта либо уполномоченное им лицо."
+        },
+        {
+          "id": "health.faq.11",
+          "label": "FAQ: Какой срок согласования?",
+          "text": "По ПП РФ №8 срок согласования паспорта составляет 30 дней со дня его разработки."
+        },
+        {
+          "id": "health.faq.12",
+          "label": "FAQ: Как часто нужно актуализировать паспорт?",
+          "text": "Паспорт подлежит актуализации не реже одного раза в пять лет, а также при предусмотренных изменениях характеристик объекта, опасных и критических элементов, сил и средств обеспечения защищённости и мер инженерно-технической защиты."
+        },
+        {
+          "id": "health.faq.13",
+          "label": "FAQ: Можно ли скачать форму паспорта?",
+          "text": "Официальная форма паспорта утверждена непосредственно ПП РФ №8. На странице можно ознакомиться со структурой документа и запросить форму паспорта."
+        },
+        {
+          "id": "health.faq.15",
+          "label": "FAQ: Сколько стоит разработка?",
+          "text": "Разработка паспорта безопасности стоит 9 500 ₽, акт обследования и категорирования — 9 500 ₽, сопровождение согласования — от 9 500 ₽, комплекс под ключ — от 35 000 ₽."
+        }
+      ],
+      "contentUpdatedAt": "2026-09-28T12:45:07.702Z",
+      "reviewDueDate": "2027-09-28",
+      "updatedAt": "2026-09-28T12:45:07.702Z",
+      "documentDate": "2017-01-14"
+    },
+    {
+      "number": "176",
+      "title": "Постановление № 176",
+      "officialUrl": "",
+      "edition": "",
+      "reviewedAt": null,
+      "reviewStatus": "needs_review",
+      "occurrences": [
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 65
+        },
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 67
+        },
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 75
+        },
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 79
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 149
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 152
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 157
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 176
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 196
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 91
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 106
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 108
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 114
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 126
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 156
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 162
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 174
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 186
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 201
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 238
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 349
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 798
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 817
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 835
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 883
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 929
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 966
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 970
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 1038
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 1047
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 1085
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 1112
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 1391
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 1480
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 1570
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 1623
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 1912
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 1935
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 2168
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 2172
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 2179
+        },
+        {
+          "file": "src/pages/CulturePage/CulturePage.jsx",
+          "line": 2305
+        },
+        {
+          "file": "src/pages/ActualizationPage/ActualizationPage.jsx",
+          "line": 188
+        }
+      ],
+      "claims": [
+        {
+          "id": "culture.faq.00",
+          "label": "FAQ: Что считается объектом культуры для целей ПП №176?",
+          "text": "Применимость ПП РФ №176 определяется не только названием учреждения. Учитываются правовой статус объекта, его правообладатель и характер деятельности организации. В сферу требований входят предусмотренные постановлением объекты и территории организаций в сфере культуры."
+        },
+        {
+          "id": "culture.faq.01",
+          "label": "FAQ: Всем ли объектам культуры нужен паспорт безопасности?",
+          "text": "Нет. Сначала необходимо установить, распространяется ли ПП РФ №176 именно на конкретный объект. Постановление содержит область применения и исключения, поэтому одного названия объекта недостаточно."
+        },
+        {
+          "id": "culture.faq.02",
+          "label": "FAQ: Как определить категорию объекта культуры?",
+          "text": "Категория определяется комиссией по результатам обследования и категорирования с учётом прогнозируемого количества людей, которые могут погибнуть или получить вред здоровью при совершении террористического акта."
+        },
+        {
+          "id": "culture.faq.03",
+          "label": "FAQ: Сколько категорий предусмотрено?",
+          "text": "ПП РФ №176 предусматривает три категории опасности: I — более 500 прогнозируемых пострадавших, II — от 50 до 500, III — менее 50."
+        },
+        {
+          "id": "culture.faq.04",
+          "label": "FAQ: Кто проводит категорирование?",
+          "text": "Обследование и категорирование проводит комиссия, создаваемая решением руководителя организации-правообладателя. Категория не определяется исполнителем документа единолично."
+        },
+        {
+          "id": "culture.faq.05",
+          "label": "FAQ: Сколько экземпляров акта оформляется?",
+          "text": "Акт обследования и категорирования объекта культуры оформляется в двух экземплярах и подписывается всеми членами комиссии."
+        },
+        {
+          "id": "culture.faq.06",
+          "label": "FAQ: Сколько экземпляров паспорта составляется?",
+          "text": "Паспорт безопасности объекта или территории в сфере культуры составляется комиссией в двух экземплярах."
+        },
+        {
+          "id": "culture.faq.07",
+          "label": "FAQ: С кем согласовывается паспорт?",
+          "text": "Паспорт согласовывается с территориальным органом безопасности и территориальным органом Росгвардии либо подразделением вневедомственной охраны Росгвардии по месту нахождения объекта."
+        },
+        {
+          "id": "culture.faq.08",
+          "label": "FAQ: Какой срок согласования?",
+          "text": "ПП РФ №176 предусматривает согласование паспорта в 30-дневный срок со дня его составления."
+        },
+        {
+          "id": "culture.faq.09",
+          "label": "FAQ: Как часто актуализировать паспорт объекта культуры?",
+          "text": "Паспорт актуализируется не реже одного раза в 3 года, а также при наступлении предусмотренных ПП РФ №176 изменений. Сама актуализация выполняется в течение 5 рабочих дней."
+        },
+        {
+          "id": "culture.faq.11",
+          "label": "FAQ: Какая форма действует в 2026 году?",
+          "text": "Используется форма паспорта безопасности, утверждённая ПП РФ №176 с учётом изменений 2025 года. При разработке нового документа старый шаблон необходимо проверять на соответствие действующей форме."
+        },
+        {
+          "id": "culture.faq.13",
+          "label": "FAQ: Можно ли размещать заполненный паспорт в интернете?",
+          "text": "Заполненный паспорт действующего объекта размещать в открытом доступе не следует: ПП РФ №176 относит содержащиеся в нём сведения к служебной информации ограниченного распространения, если документу не присвоен гриф секретности."
+        },
+        {
+          "id": "culture.faq.14",
+          "label": "FAQ: Чем акт категорирования отличается от паспорта безопасности?",
+          "text": "Акт фиксирует результаты обследования и категорирования и является неотъемлемой частью паспорта. Паспорт — отдельный документ по установленной форме, который содержит сведения об объекте, категории, защите, угрозах и других предусмотренных разделах."
+        }
+      ],
+      "contentUpdatedAt": null,
+      "documentDate": "2017-02-11"
+    },
+    {
+      "number": "202",
+      "title": "Постановление № 202",
+      "officialUrl": "",
+      "edition": "",
+      "reviewedAt": null,
+      "reviewStatus": "needs_review",
+      "occurrences": [
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 119
+        },
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 121
+        },
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 133
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 279
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 282
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 287
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 300
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 312
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 326
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 51
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 57
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 63
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 81
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 105
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 117
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 129
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 206
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 372
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 415
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 422
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 427
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 520
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 740
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 848
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 985
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 1034
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 1274
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 1715
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 1805
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 1952
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 2011
+        },
+        {
+          "file": "src/pages/SportPage/SportPage.jsx",
+          "line": 2171
+        }
+      ],
+      "claims": [
+        {
+          "id": "sport.faq.00",
+          "label": "FAQ: Каким спортивным объектам нужен паспорт безопасности?",
+          "text": "ПП РФ №202 распространяется на объекты недвижимости и комплексы недвижимости, специально предназначенные для проведения физкультурных и/или спортивных мероприятий. Применимость требований определяется по фактическому назначению и статусу конкретного объекта."
+        },
+        {
+          "id": "sport.faq.01",
+          "label": "FAQ: Какое постановление регулирует паспорт объекта спорта?",
+          "text": "Основной нормативный акт для объектов спорта — Постановление Правительства РФ от 06.03.2015 №202, которым установлены требования к антитеррористической защищённости объектов спорта и форма паспорта безопасности."
+        },
+        {
+          "id": "sport.faq.02",
+          "label": "FAQ: Сколько категорий опасности существует?",
+          "text": "ПП РФ №202 предусматривает четыре категории опасности объектов спорта."
+        },
+        {
+          "id": "sport.faq.03",
+          "label": "FAQ: Как определяется категория объекта спорта?",
+          "text": "Категория определяется комиссией по результатам обследования и категорирования с учётом установленных критериев. Исполнитель документации не присваивает категорию объекту единолично."
+        },
+        {
+          "id": "sport.faq.04",
+          "label": "FAQ: Кто проводит категорирование?",
+          "text": "Обследование и категорирование проводятся комиссией. По результатам её работы принимается решение об отнесении объекта к соответствующей категории."
+        },
+        {
+          "id": "sport.faq.05",
+          "label": "FAQ: Как оформляется акт обследования?",
+          "text": "Результаты работы комиссии оформляются актом обследования и категорирования. По ПП РФ №202 акт составляется в одном экземпляре, подписывается всеми членами комиссии и хранится вместе с паспортом безопасности объекта."
+        },
+        {
+          "id": "sport.faq.06",
+          "label": "FAQ: Сколько времени даётся на разработку паспорта?",
+          "text": "Паспорт безопасности объекта спорта составляется в течение 3 месяцев после проведения обследования и категорирования."
+        },
+        {
+          "id": "sport.faq.07",
+          "label": "FAQ: С кем согласовывается паспорт объекта спорта?",
+          "text": "Паспорт согласовывается с руководителем территориального органа безопасности либо уполномоченным им лицом, а также с руководителем территориального органа Росгвардии либо подразделения вневедомственной охраны Росгвардии по месту нахождения объекта. После согласования паспорт утверждается ответственным лицом."
+        },
+        {
+          "id": "sport.faq.08",
+          "label": "FAQ: Какой срок согласования?",
+          "text": "Срок согласования паспорта объекта спорта — не более 30 дней со дня его представления в соответствующие органы."
+        },
+        {
+          "id": "sport.faq.09",
+          "label": "FAQ: Можно ли скачать форму паспорта?",
+          "text": "ПП РФ №202 утверждает официальную форму паспорта безопасности объекта спорта. На этой странице показана обезличенная структура документа, а получить форму можно через заявку."
+        },
+        {
+          "id": "sport.faq.11",
+          "label": "FAQ: Когда паспорт необходимо актуализировать?",
+          "text": "ПП РФ №202 предусматривает актуализацию при изменении нормативных требований, застройки или после реконструкции, изменении профиля деятельности, схемы охраны или технического оснащения, смене собственника, наименования или организационно-правовой формы, а также при изменении предусмотренных сведений о должностных лицах и способах связи. Актуализация проводится в течение 30 дней после возникновения соответствующих обстоятельств."
+        },
+        {
+          "id": "sport.faq.12",
+          "label": "FAQ: Сколько стоит разработка?",
+          "text": "Подготовка паспорта безопасности — 9 500 ₽. Акт обследования и категорирования — 9 500 ₽, сопровождение согласования — от 9 500 ₽, комплекс под ключ — от 35 000 ₽."
+        },
+        {
+          "id": "sport.faq.13",
+          "label": "FAQ: Нужен ли паспорт открытому спортивному сооружению?",
+          "text": "Если открытое сооружение относится к объектам спорта, подпадающим под ПП РФ №202, применяются требования этого постановления. Для открытых плоскостных сооружений установлено специальное правило — им присваивается IV категория опасности."
+        }
+      ],
+      "contentUpdatedAt": null,
+      "documentDate": "2015-03-06"
+    },
+    {
+      "number": "229",
+      "title": "Постановление № 229",
+      "officialUrl": "",
+      "edition": "",
+      "reviewedAt": null,
+      "reviewStatus": "needs_review",
+      "occurrences": [
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 58
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 124
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 273
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 486
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 507
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 711
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 1926
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 1938
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 2044
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 2301
+        }
+      ],
+      "claims": [
+        {
+          "id": "trade.faq.13",
+          "label": "FAQ: Можно ли скачать актуальную форму 2026 года?",
+          "text": "Форма паспорта была изменена с 13 марта 2026 года Постановлением Правительства РФ №229. Для подготовки используем форму в действующей редакции от 04.03.2026; получить актуальную форму можно через заявку на этой странице."
+        }
+      ],
+      "contentUpdatedAt": null,
+      "documentDate": "2026-03-04"
+    },
+    {
+      "number": "272",
+      "title": "Постановление № 272",
+      "officialUrl": "",
+      "edition": "",
+      "reviewedAt": null,
+      "reviewStatus": "needs_review",
+      "occurrences": [
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 173
+        },
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 175
+        },
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 181
+        },
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 183
+        },
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 187
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 33
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 409
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 412
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 412
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 417
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 436
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 456
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 116
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 686
+        },
+        {
+          "file": "src/pages/ActualizationPage/ActualizationPage.jsx",
+          "line": 198
+        },
+        {
+          "file": "src/pages/CrowdPage/CrowdPage.jsx",
+          "line": 52
+        },
+        {
+          "file": "src/pages/CrowdPage/CrowdPage.jsx",
+          "line": 128
+        },
+        {
+          "file": "src/pages/CrowdPage/CrowdPage.jsx",
+          "line": 152
+        },
+        {
+          "file": "src/pages/CrowdPage/CrowdPage.jsx",
+          "line": 178
+        },
+        {
+          "file": "src/pages/CrowdPage/CrowdPage.jsx",
+          "line": 244
+        },
+        {
+          "file": "src/pages/CrowdPage/CrowdPage.jsx",
+          "line": 283
+        },
+        {
+          "file": "src/pages/CrowdPage/CrowdPage.jsx",
+          "line": 303
+        },
+        {
+          "file": "src/pages/CrowdPage/CrowdPage.jsx",
+          "line": 342
+        },
+        {
+          "file": "src/pages/CrowdPage/CrowdPage.jsx",
+          "line": 388
+        },
+        {
+          "file": "src/pages/CrowdPage/CrowdPage.jsx",
+          "line": 425
+        }
+      ],
+      "claims": [
+        {
+          "id": "crowd.categories",
+          "label": "ММП: категории и сроки комиссии",
+          "text": "Постановление № 272 устанавливает: 1 категория — более 1000 человек, 2 категория — от 200 до 1000, 3 категория — от 50 до 200. Комиссия создаётся в течение 30 дней после включения места в соответствующий перечень, а обследование проводится в срок не более 30 дней со дня создания комиссии."
+        },
+        {
+          "id": "crowd.passport",
+          "label": "ММП: оформление паспорта",
+          "text": "Паспорт составляется в течение 30 дней после обследования и категорирования. Он оформляется в 6 экземплярах и согласовывается с территориальными органами безопасности, МВД, Росгвардии и МЧС, после чего утверждается уполномоченным региональным или муниципальным органом."
+        },
+        {
+          "id": "crowd.updates",
+          "label": "ММП: согласование и актуализация",
+          "text": "Согласование осуществляется в течение 10 рабочих дней. На доработку при замечаниях предусмотрено 10 рабочих дней, на утверждение — 7 рабочих дней. Паспорт актуализируется не реже одного раза в 3 года и при наступлении предусмотренных постановлением изменений."
+        }
+      ],
+      "contentUpdatedAt": null,
+      "documentDate": "2015-03-25"
+    },
+    {
+      "number": "410",
+      "title": "Постановление № 410",
+      "officialUrl": "",
+      "edition": "",
+      "reviewedAt": null,
+      "reviewStatus": "needs_review",
+      "occurrences": [
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 206
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 474
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 477
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 482
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 493
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 501
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 513
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 521
+        }
+      ],
+      "claims": [
+        {
+          "id": "social.scope",
+          "label": "Социальная защита: применимость",
+          "text": "Постановление охватывает объекты Минтруда, Роструда, Социального фонда, соответствующих государственных органов субъектов РФ, учреждений службы занятости, а также находящиеся в ведении федеральных или региональных государственных органов организации социального обслуживания, предоставляющие услуги в полустационарной или стационарной форме."
+        },
+        {
+          "id": "social.agreement",
+          "label": "Социальная защита: согласование и хранение",
+          "text": "Постановление № 410 предусматривает согласование паспорта в течение 30 дней со дня его разработки. Паспорт содержит служебную информацию ограниченного распространения и составляется в 2 экземплярах."
+        }
+      ],
+      "contentUpdatedAt": null,
+      "reviewNote": "",
+      "reviewDueDate": null,
+      "updatedAt": "2026-09-28T10:37:56.309Z",
+      "documentDate": "2016-05-13"
+    },
+    {
+      "number": "447",
+      "title": "Постановление Правительства РФ от 13.04.2017 №447",
+      "officialUrl": "https://publication.pravo.gov.ru/Document/View/0001201704180014",
+      "edition": "",
+      "reviewedAt": null,
+      "reviewStatus": "needs_review",
+      "occurrences": [
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 13
+        },
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 25
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 15
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 20
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 31
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 45
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 59
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 7
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 19
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 50
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 50
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 50
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 56
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 62
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 80
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 104
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 110
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 116
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 194
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 267
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 305
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 656
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 682
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 721
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 730
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 739
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 1244
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 1271
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 1376
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 1513
+        },
+        {
+          "file": "src/pages/HotelPage/HotelPage.jsx",
+          "line": 1597
+        }
+      ],
+      "claims": [
+        {
+          "id": "hotel.updatePeriod",
+          "label": "Гостиницы: периодическая актуализация",
+          "text": "5 лет"
+        },
+        {
+          "id": "hotel.updateDeadline",
+          "label": "Гостиницы: срок при возникновении основания",
+          "text": "30 дней"
+        },
+        {
+          "id": "hotel.faq.00",
+          "label": "FAQ: Кому нужен паспорт безопасности гостиницы?",
+          "text": "Если на гостиницу распространяется Постановление Правительства РФ от 13.04.2017 №447, паспорт безопасности составляется для гостиниц I, II и III категорий опасности. Для гостиниц IV категории паспорт безопасности по Постановлению Правительства РФ от 13.04.2017 №447 не составляется. До начала разработки также необходимо проверить, не относится ли объект к исключениям из сферы действия №447."
+        },
+        {
+          "id": "hotel.faq.01",
+          "label": "FAQ: Какое постановление регулирует паспорт гостиницы?",
+          "text": "Основные обязательные требования к антитеррористической защищённости гостиниц и иных средств размещения, порядок категорирования и форма паспорта безопасности установлены Постановлением Правительства РФ от 13.04.2017 №447."
+        },
+        {
+          "id": "hotel.faq.02",
+          "label": "FAQ: Кто разрабатывает паспорт безопасности гостиницы?",
+          "text": "Ответственность за обеспечение антитеррористической защищённости несёт ответственное лицо, определённое Постановлением Правительства РФ от 13.04.2017 №447. Специализированная организация может подготовить проект паспорта и комплект документов, а утверждается паспорт ответственным лицом после предусмотренного согласования."
+        },
+        {
+          "id": "hotel.faq.03",
+          "label": "FAQ: Кто присваивает гостинице категорию опасности?",
+          "text": "Категория определяется комиссией по результатам обследования гостиницы. Подрядчик или специалист не присваивает категорию единолично."
+        },
+        {
+          "id": "hotel.faq.04",
+          "label": "FAQ: С кем согласовывается паспорт безопасности гостиницы?",
+          "text": "Паспорт согласовывается с руководителем территориального органа безопасности или уполномоченным им лицом, а также с руководителем соответствующего территориального органа Росгвардии или подразделения вневедомственной охраны. После этого паспорт утверждается ответственным лицом."
+        },
+        {
+          "id": "hotel.faq.05",
+          "label": "FAQ: Сколько экземпляров паспорта оформляется?",
+          "text": "По Постановлении Правительства РФ от 13.04.2017 №447 паспорт безопасности гостиницы составляется в трёх экземплярах."
+        },
+        {
+          "id": "hotel.faq.08",
+          "label": "FAQ: Нужен ли сначала акт категорирования?",
+          "text": "Да. Для гостиниц I–III категорий паспорт составляется после обследования и категорирования комиссией. Результаты обследования и категорирования оформляются актом."
+        },
+        {
+          "id": "hotel.faq.09",
+          "label": "FAQ: Как выглядит форма паспорта безопасности гостиницы?",
+          "text": "Форма паспорта утверждена Постановлением Правительства РФ от 13.04.2017 №447. Она включает сведения о гостинице, её характеристиках, категории, работниках и посетителях, потенциально опасных участках и критических элементах, охране, технических средствах защиты, мероприятиях и предусмотренных приложениях."
+        },
+        {
+          "id": "hotel.faq.11",
+          "label": "FAQ: Что делать, если гостиница уже относится к месту массового пребывания людей?",
+          "text": "Постановление Правительства РФ от 13.04.2017 №447 не распространяется на гостиницы, включённые в перечни мест массового пребывания людей, формируемые по ПП РФ №272. В такой ситуации сначала необходимо определить применимый нормативный режим и не оформлять два параллельных паспорта по разным постановлениям."
+        }
+      ],
+      "contentUpdatedAt": "2026-09-28T11:57:28.682Z",
+      "reviewNote": "",
+      "reviewDueDate": null,
+      "updatedAt": "2026-09-28T11:57:28.682Z",
+      "documentDate": "2017-04-13"
+    },
+    {
+      "number": "1006",
+      "title": "Постановление № 1006",
+      "officialUrl": "",
+      "edition": "",
+      "reviewedAt": null,
+      "reviewStatus": "needs_review",
+      "occurrences": [
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 52
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 84
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 105
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 115
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 123
+        },
+        {
+          "file": "src/pages/ActualizationPage/ActualizationPage.jsx",
+          "line": 168
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 42
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 540
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 546
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 552
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 564
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 570
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 576
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 582
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 588
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 606
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 612
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 947
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 1080
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 1102
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 1111
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 1215
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 1275
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 1314
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 1551
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 1612
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 1825
+        }
+      ],
+      "claims": [
+        {
+          "id": "education.faq.01",
+          "label": "FAQ: Какое постановление применяется к школе?",
+          "text": "Для объектов Минпросвещения и объектов, относящихся к его сфере, применяется ПП РФ №1006. Для конкретной школы дополнительно проверяются правообладатель, сфера деятельности и ведомственная принадлежность."
+        },
+        {
+          "id": "education.faq.02",
+          "label": "FAQ: Какое постановление применяется к вузу?",
+          "text": "Для объектов Минобрнауки и объектов, относящихся к сфере его деятельности, применяется ПП РФ №1421. Поэтому для вуза нельзя автоматически использовать порядок и форму, предусмотренные для объектов по №1006."
+        },
+        {
+          "id": "education.faq.03",
+          "label": "FAQ: Кто составляет паспорт безопасности?",
+          "text": "Паспорт оформляется после обследования и категорирования по форме применимого нормативного акта. Мы можем подготовить проект документа на основании акта и исходных данных. Для объектов по ПП РФ №1006 паспорт подписывает лицо, непосредственно руководящее деятельностью работников на объекте."
+        },
+        {
+          "id": "education.faq.04",
+          "label": "FAQ: Кто присваивает категорию объекту?",
+          "text": "Категорию определяет комиссия по обследованию и категорированию. Подрядчик может подготовить исходные сведения, расчёты и проекты документов, но не присваивает категорию объекту единолично."
+        },
+        {
+          "id": "education.faq.05",
+          "label": "FAQ: Сколько категорий предусмотрено для образовательных объектов?",
+          "text": "Для объектов, подпадающих под ПП РФ №1006, предусмотрены четыре категории опасности. Для объекта с другим нормативным режимом применимые правила необходимо проверять отдельно."
+        },
+        {
+          "id": "education.faq.06",
+          "label": "FAQ: Кто согласовывает паспорт?",
+          "text": "По ПП РФ №1006 паспорт согласовывается с территориальным органом безопасности, территориальным органом Росгвардии или подразделением вневедомственной охраны и территориальным органом МЧС."
+        },
+        {
+          "id": "education.faq.07",
+          "label": "FAQ: Сколько времени занимает согласование?",
+          "text": "Для объектов по ПП РФ №1006 общий срок согласования установлен не более 45 рабочих дней со дня подписания паспорта. Срок рассмотрения каждым соответствующим органом — не более 10 дней с момента поступления документа."
+        },
+        {
+          "id": "education.faq.08",
+          "label": "FAQ: Сколько экземпляров паспорта оформляется?",
+          "text": "По ПП РФ №1006 паспорт оформляется в двух экземплярах: один хранится на объекте, второй направляется организации или органу-правообладателю, а копия направляется в территориальный орган безопасности. По ПП РФ №1421 паспорт составляется в одном экземпляре."
+        },
+        {
+          "id": "education.faq.09",
+          "label": "FAQ: Как часто актуализировать паспорт?",
+          "text": "По ПП РФ №1006 паспорт актуализируется не реже одного раза в 5 лет, а также при предусмотренных изменениях объекта, в том числе площади и периметра, количества критических элементов и мер инженерно-технической защиты."
+        },
+        {
+          "id": "education.faq.11",
+          "label": "FAQ: Сколько стоит разработка?",
+          "text": "Разработка паспорта безопасности — 9 500 ₽. Подготовка акта обследования и категорирования — 9 500 ₽, сопровождение согласования — от 9 500 ₽, комплекс под ключ — от 35 000 ₽."
+        },
+        {
+          "id": "education.faq.12",
+          "label": "FAQ: Где взять форму паспорта?",
+          "text": "ПП РФ №1006 содержит утверждённую форму паспорта для объектов, подпадающих под этот нормативный режим. На странице показана структура документа; форму также можно запросить через заявку."
+        },
+        {
+          "id": "education.faq.13",
+          "label": "FAQ: Можно ли скачать заполненный образец?",
+          "text": "Для объектов по ПП РФ №1006 паспорт содержит служебную информацию ограниченного распространения и имеет пометку «Для служебного пользования». Поэтому реальный заполненный паспорт клиента не публикуется: для ознакомления используются официальная форма, обезличенная структура и пояснения."
+        }
+      ],
+      "contentUpdatedAt": null,
+      "documentDate": "2019-08-02"
+    },
+    {
+      "number": "1273",
+      "title": "Постановление № 1273",
+      "officialUrl": "",
+      "edition": "",
+      "reviewedAt": null,
+      "reviewStatus": "needs_review",
+      "occurrences": [
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 92
+        },
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 94
+        },
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 102
+        },
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 106
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 222
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 233
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 235
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 46
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 58
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 62
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 184
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 207
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 308
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 320
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 338
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 364
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 376
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 429
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 459
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 476
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 482
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 555
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 975
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 1049
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 1234
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 1439
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 2015
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 2213
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 2280
+        },
+        {
+          "file": "src/pages/TradePage/TradePage.jsx",
+          "line": 2367
+        },
+        {
+          "file": "src/pages/ActualizationPage/ActualizationPage.jsx",
+          "line": 208
+        }
+      ],
+      "claims": [
+        {
+          "id": "trade.faq.00",
+          "label": "FAQ: Всем ли торговым объектам нужен паспорт безопасности?",
+          "text": "Нет. ПП РФ №1273 применяется к торговым объектам, включённым в соответствующий перечень объектов, подлежащих категорированию. Также учитывается, не регулируется ли конкретный объект другими специальными требованиями Правительства РФ."
+        },
+        {
+          "id": "trade.faq.02",
+          "label": "FAQ: Какое постановление регулирует торговые объекты?",
+          "text": "Основной нормативный акт — Постановление Правительства РФ от 19.10.2017 №1273. На сентябрь 2026 года применяется редакция от 04.03.2026 с изменениями, внесёнными Постановлением Правительства РФ №229."
+        },
+        {
+          "id": "trade.faq.03",
+          "label": "FAQ: Что изменилось в ПП №1273 в 2026 году?",
+          "text": "Изменения затронули порядок формирования перечней торговых объектов, статус правообладателей и организатора антитеррористической защищённости, создание комиссии, сроки согласования и доработки паспорта, порядок актуализации и непосредственно форму паспорта безопасности."
+        },
+        {
+          "id": "trade.faq.04",
+          "label": "FAQ: Кто проводит категорирование торгового объекта?",
+          "text": "Обследование и категорирование проводит комиссия. С марта 2026 года дополнительно закреплён срок её создания — в частности, в течение одного месяца после получения уведомления о включении торгового объекта в соответствующий перечень."
+        },
+        {
+          "id": "trade.faq.05",
+          "label": "FAQ: Сколько времени даётся на разработку паспорта?",
+          "text": "Паспорт безопасности торгового объекта должен быть разработан в течение 30 дней после подписания акта обследования и категорирования."
+        },
+        {
+          "id": "trade.faq.06",
+          "label": "FAQ: Сколько занимает согласование?",
+          "text": "Срок согласования — не более 10 рабочих дней с момента поступления паспорта соответствующим органам. При наличии замечаний на доработку предусмотрено 5 рабочих дней. После согласования всеми предусмотренными должностными лицами паспорт утверждается не позднее 5 рабочих дней."
+        },
+        {
+          "id": "trade.faq.07",
+          "label": "FAQ: Сколько экземпляров паспорта оформляется?",
+          "text": "С 13 марта 2026 года паспорт безопасности торгового объекта составляется в двух экземплярах. Один передаётся в уполномоченный орган субъекта РФ, второй хранится непосредственно на торговом объекте. Предусмотренным территориальным органам направляются заверенные бумажные или электронные копии."
+        },
+        {
+          "id": "trade.faq.11",
+          "label": "FAQ: Когда паспорт нужно актуализировать?",
+          "text": "Полная актуализация требуется, в частности, при изменении специализации или вида торговли, если это влияет на прогнозируемое число пострадавших, при изменении общей площади и границ объекта, а также количества потенциально опасных участков или критических элементов. Для изменений сил и средств антитеррористической защищённости и иных предусмотренных случаев применяется лист учёта корректировок."
+        },
+        {
+          "id": "trade.faq.12",
+          "label": "FAQ: Является ли паспорт бессрочным?",
+          "text": "Паспорт торгового объекта является информационно-справочным документом постоянного действия. При этом при наступлении установленных обстоятельств он подлежит актуализации."
+        },
+        {
+          "id": "trade.faq.14",
+          "label": "FAQ: Сколько стоит разработка?",
+          "text": "Разработка паспорта безопасности — 9 500 ₽. Акт обследования и категорирования — 9 500 ₽. Сопровождение согласования — от 9 500 ₽. Комплекс под ключ — от 35 000 ₽."
+        }
+      ],
+      "contentUpdatedAt": null,
+      "documentDate": "2017-10-19"
+    },
+    {
+      "number": "1421",
+      "title": "Постановление № 1421",
+      "officialUrl": "",
+      "edition": "",
+      "reviewedAt": null,
+      "reviewStatus": "needs_review",
+      "occurrences": [
+        {
+          "file": "src/data/objectTypes.js",
+          "line": 52
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 92
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 111
+        },
+        {
+          "file": "src/data/objectTypeLegalContent.js",
+          "line": 123
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 51
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 524
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 546
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 582
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 1264
+        },
+        {
+          "file": "src/pages/EducationPage/EducationPage.jsx",
+          "line": 1825
+        }
+      ],
+      "claims": [
+        {
+          "id": "education.universities",
+          "label": "Высшее образование: применимость",
+          "text": "Для объектов в сфере науки и высшего образования применяется постановление № 1421. Поэтому паспорт школы или колледжа и паспорт университета нельзя разрабатывать как один и тот же документ по одной нормативной форме."
+        }
+      ],
+      "contentUpdatedAt": null,
+      "documentDate": "2019-11-07"
+    }
+  ]
+}

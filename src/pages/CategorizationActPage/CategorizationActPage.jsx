@@ -214,6 +214,8 @@ export default function CategorizationActPage() {
                 определим применимые требования и оформим
                 проект акта по результатам обследования
                 и категорирования.
+                {' '}
+                <span className="coverage-emphasis">Работаем по всей России</span>.
               </p>
 
 

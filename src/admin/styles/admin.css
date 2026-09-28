@@ -1843,9 +1843,9 @@ button {
 
   display:block;
 
-  width:220px;
+  width:min(100%, 480px);
 
-  aspect-ratio:9 / 16;
+  aspect-ratio:16 / 9;
 
   object-fit:cover;
 
@@ -2285,9 +2285,9 @@ z-index:1000;
 
 position:relative;
 
-width:320px;
+width:min(800px, calc(100vw - 40px));
 
-height:560px;
+aspect-ratio:16 / 9;
 
 background:#111;
 
@@ -2300,7 +2300,7 @@ overflow:hidden;
 
 .image-cropper input{
 
-width:320px;
+width:min(800px, calc(100vw - 40px));
 
 margin:20px 0;
 
@@ -2328,3 +2328,74 @@ cursor:pointer;
 
 }
 
+
+
+/* =========================
+   ARTICLE IMAGE PREVIEW INFO
+========================= */
+
+.admin-image-preview-header{
+
+  width:min(100%, 480px);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:16px;
+
+  margin-top:18px;
+
+  margin-bottom:8px;
+
+}
+
+
+.admin-image-preview-header span{
+
+  font-size:12px;
+
+  font-weight:700;
+
+  text-transform:uppercase;
+
+  letter-spacing:.04em;
+
+}
+
+
+.admin-image-preview-header small{
+
+  font-size:12px;
+
+  font-weight:500;
+
+  color:rgba(17,17,17,.5);
+
+  white-space:nowrap;
+
+}
+
+
+.admin-image-preview-header + .admin-image-preview{
+
+  margin-top:0;
+
+}
+
+
+@media (max-width:600px){
+
+  .admin-image-preview-header{
+
+    align-items:flex-start;
+
+    flex-direction:column;
+
+    gap:4px;
+
+  }
+
+}

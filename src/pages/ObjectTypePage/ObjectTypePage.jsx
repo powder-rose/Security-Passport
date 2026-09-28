@@ -245,8 +245,9 @@ export default function ObjectTypePage({
               </h1>
 
               <p className="object-service-hero__lead">
-                {objectType.pageLead}{' '}
-                Работаем {locationText}.
+                {objectType.pageLead}
+                {' '}
+                <span className="coverage-emphasis">Работаем по всей России</span>.
               </p>
 
               <p className="object-service-hero__price">

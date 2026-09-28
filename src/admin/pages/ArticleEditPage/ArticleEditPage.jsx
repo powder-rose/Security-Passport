@@ -9,6 +9,9 @@ import {
 } from '../../api/adminApi';
 
 
+import ArticleEditor from '../../components/Editor/ArticleEditor.jsx';
+
+
 function createSlug(value){
 
   return value
@@ -46,6 +49,14 @@ export default function ArticleEditPage() {
     ogTitle: '',
     ogDescription: '',
     ogImage: '',
+  });
+
+
+  const [seoManual,setSeoManual] = useState({
+
+    seoTitle:false,
+    seoDescription:false,
+
   });
 
 
@@ -123,25 +134,54 @@ export default function ArticleEditPage() {
     value
   ){
 
-    setForm({
+    setForm((prev)=>{
 
-      ...form,
+      const next = {
 
-      [field]:
-        value,
+        ...prev,
+
+        [field]:value,
+
+      };
 
 
-      ...(field === 'title'
-        ? {
-            slug:
-              createSlug(value)
-          }
-        : {}),
+      if(field === 'title'){
+
+        next.slug =
+          createSlug(value);
+
+
+        if(!seoManual.seoTitle){
+
+          next.seoTitle =
+            value;
+
+        }
+
+      }
+
+
+      if(
+        field === 'content'
+        &&
+        !seoManual.seoDescription
+      ){
+
+        next.seoDescription =
+          value
+            .replace(/<[^>]*>/g,' ')
+            .replace(/\s+/g,' ')
+            .trim()
+            .slice(0,160);
+
+      }
+
+
+      return next;
 
     });
 
   }
-
 
 
   async function save(){
@@ -251,23 +291,25 @@ export default function ArticleEditPage() {
         </label>
 
 
-        <label>
+        <div className="admin-field">
+
           <span>
             Текст статьи
           </span>
 
-          <textarea
-            rows="14"
+
+          <ArticleEditor
             value={form.content}
             onChange={
-              e =>
-              change(
-                'content',
-                e.target.value
-              )
+              value =>
+                change(
+                  'content',
+                  value
+                )
             }
           />
-        </label>
+
+        </div>
 
 
         <label>
@@ -316,11 +358,20 @@ export default function ArticleEditPage() {
           <input
             value={form.seoTitle}
             onChange={
-              e =>
-              change(
-                'seoTitle',
-                e.target.value
-              )
+              e => {
+
+                setSeoManual((prev)=>({
+                  ...prev,
+                  seoTitle:true,
+                }));
+
+
+                change(
+                  'seoTitle',
+                  e.target.value
+                );
+
+              }
             }
           />
 
@@ -336,11 +387,20 @@ export default function ArticleEditPage() {
             rows="4"
             value={form.seoDescription}
             onChange={
-              e =>
-              change(
-                'seoDescription',
-                e.target.value
-              )
+              e => {
+
+                setSeoManual((prev)=>({
+                  ...prev,
+                  seoDescription:true,
+                }));
+
+
+                change(
+                  'seoDescription',
+                  e.target.value
+                );
+
+              }
             }
           />
 

@@ -70,7 +70,7 @@ crop={crop}
 
 zoom={zoom}
 
-aspect={9 / 16}
+aspect={16 / 9}
 
 onCropChange={setCrop}
 

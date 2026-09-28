@@ -555,6 +555,7 @@
     minmax(260px, .44fr)
     minmax(0, 1fr);
   gap: clamp(70px, 10vw, 160px);
+  align-items: start;
 }
 
 
@@ -2567,7 +2568,6 @@
 
 
 .trade-documents__list {
-  border-top: 1px solid var(--color-border);
 }
 
 
@@ -3271,10 +3271,6 @@
 
 .trade-faq__heading {
   align-self: start;
-}
-
-
-.trade-faq__heading > div {
   position: sticky;
   top: 110px;
 }
@@ -3430,8 +3426,7 @@
     grid-template-columns: 1fr;
   }
 
-  .trade-form__document,
-  .trade-faq__heading > div {
+  .trade-form__document {
     position: static;
   }
 
@@ -3605,11 +3600,13 @@
    PAGE RHYTHM
    ---------------------------------------- */
 
-.trade-objects,
+.trade-objects {
+  background: #fff;
+}
+
+.trade-objects-old,
 .trade-act,
 .trade-copies,
-.trade-service,
-.trade-documents,
 .trade-actualization,
 .trade-faq {
   background: #f5f5f1;
@@ -6023,7 +6020,7 @@ article > span {
  */
 
 .trade-regulation__notice > span {
-  background: transparent;
+  background: var(--trade-accent);
   border:
     1px solid
     var(--trade-accent);
@@ -6630,16 +6627,736 @@ strong {
    TRADE_UI_POLISH_V3:end
    ======================================== */
 
+/* Remove gray background from trade objects section */
+.trade-objects {
+  background: #fff;
+}
+
+/* ========================================
+   TRADE REGULATION IDENTITY REF STYLE
+   ======================================== */
+
+.trade-regulation__identity {
+  min-height: 584px;
+  padding: 38px 34px;
+  border-radius: 34px;
+  background: #151515;
+  overflow: hidden;
+}
+
+
+.trade-regulation__identity::after {
+  top: 32px;
+  right: 30px;
+
+  width: 6px;
+  height: 74px;
+
+  border-radius: 999px;
+  background: var(--trade-accent);
+}
+
+
+/* НОРМАТИВНОЕ ОСНОВАНИЕ */
+.trade-regulation__identity .trade-kicker {
+  color: var(--trade-accent);
+  font-size: .72rem;
+  letter-spacing: .16em;
+}
+
+
+/* ПП РФ */
+.trade-regulation__identity > span {
+  margin-top: 54px;
+  color: rgb(255 255 255 / 45%);
+  font-size: .85rem;
+}
+
+
+/* №1273 */
+.trade-regulation__identity > strong {
+  margin-top: 26px;
+
+  color: #fff;
+
+  font-size: clamp(
+    4.4rem,
+    6vw,
+    5.8rem
+  );
+
+  line-height: .9;
+  letter-spacing: -.07em;
+}
+
+
+/* дата */
+.trade-regulation__identity > small {
+  margin-top: 20px;
+  color: rgb(255 255 255 / 45%);
+}
+/* ========================================
+   TRADE REGULATION CARD REF FIX
+   ======================================== */
+
+
+/* Верхний заголовок */
+.trade-regulation__identity .trade-kicker {
+  width: 150px;
+
+  color: #fff;
+
+  font-size: .85rem;
+  line-height: 1.35;
+
+  letter-spacing: .08em;
+}
+
+
+/* ПП РФ */
+.trade-regulation__identity > span {
+  margin-top: 58px;
+
+  color: var(--trade-accent);
+
+  font-size: .9rem;
+  font-weight: 800;
+}
+
+
+/* №1273 */
+.trade-regulation__identity > strong {
+  margin-top: 14px;
+
+  color: #fff;
+}
+
+
+/* дата */
+.trade-regulation__identity > small {
+  margin-top: 14px;
+
+  color: var(--trade-accent);
+
+  font-weight: 700;
+}
+
+
+/* TEMP: increase PP and date size */
+.trade-regulation__identity > span {
+  margin-top: 58px;
+  color: var(--trade-accent);
+  font-size: 1.15rem;
+  font-weight: 850;
+}
+
+.trade-regulation__identity > small {
+  margin-top: 18px;
+  color: var(--trade-accent);
+  font-size: 1rem;
+  font-weight: 750;
+}
+
+
+/* TEMP: fix date position */
+.trade-regulation__identity > small {
+  display: block;
+
+  margin-top: 18px;
+  margin-left: 0;
+
+  color: var(--trade-accent);
+
+  font-size: 1rem;
+  font-weight: 750;
+
+  text-transform: uppercase;
+  text-align: left;
+}
+
+
+/* TEMP: move date like reference */
+.trade-regulation__identity {
+  position: relative;
+}
+
+.trade-regulation__identity > small {
+  position: absolute;
+
+  left: auto;
+  right: 34px;
+  bottom: 70px;
+
+  margin: 0;
+
+  color: var(--trade-accent);
+
+  font-size: 1rem;
+  font-weight: 750;
+
+  text-transform: uppercase;
+}
+
+
+/* TEMP: reduce regulation card height */
+.trade-regulation__identity {
+  min-height: 430px;
+  padding-top: 34px;
+  padding-bottom: 34px;
+}
+
+
+/* TEMP: reduce regulation card height */
+.trade-regulation__identity {
+  min-height: 220px;
+  padding-top: 34px;
+  padding-bottom: 34px;
+}
+
+
+/* TEMP: reduce regulation card height */
+.trade-regulation__identity {
+  min-height: 430px;
+  padding-top: 34px;
+  padding-bottom: 34px;
+}
+
+
+/* TEMP: final regulation card adjustment */
+
+.trade-regulation__identity {
+  min-height: 390px;
+}
+
+
+/* №1273 center position */
+.trade-regulation__identity > strong {
+  margin-top: 90px;
+}
+
+
+/* keep date inside shorter card */
+.trade-regulation__identity > small {
+  bottom: 55px;
+}
+
+
+/* TEMP: center number in regulation card */
+
+.trade-regulation__identity {
+  position: relative;
+}
+
+.trade-regulation__identity > strong {
+  position: absolute;
+
+  left: 34px;
+  top: 175px;
+
+  margin: 0;
+}
+
+
+/* CARD NORMALIZE TO REFERENCE */
+
+.trade-regulation__identity {
+  min-height: 260px;
+  height: 260px;
+
+  padding: 34px 34px;
+}
+
+
+/* header */
+.trade-regulation__identity .trade-kicker {
+  width: 150px;
+
+  color: #fff;
+  line-height: 1.25;
+}
+
+
+/* PP RF */
+.trade-regulation__identity > span {
+  margin-top: 28px;
+
+  font-size: 0.85rem;
+}
+
+
+/* number */
+.trade-regulation__identity > strong {
+  position: static;
+
+  margin-top: 12px;
+
+  font-size: 3.5rem;
+  line-height: .95;
+}
+
+
+/* date */
+.trade-regulation__identity > small {
+  right: 34px;
+  bottom: 28px;
+
+  font-size: .8rem;
+}
+
+
+/* sticky regulation card */
+.trade-regulation__identity {
+  position: sticky;
+  top: 120px;
+  align-self: start;
+}
+}
+
+
+/* center notice icon */
+
+.trade-regulation__notice {
+  align-items: center;
+  column-gap: 36px;
+}
+
+.trade-regulation__notice > span {
+  align-self: center;
+}
+
+
+/* move notice icon into left space center */
+
+.trade-regulation__notice {
+  grid-template-columns: 90px minmax(0, 1fr);
+}
+
+.trade-regulation__notice > span {
+  justify-self: center;
+}
+
+
+/* final notice icon position */
+
+.trade-regulation__notice {
+  grid-template-columns: 42px minmax(0, 1fr);
+}
+
+.trade-regulation__notice > span {
+  transform: translateX(0);
+}
+
+
+/* disable sticky on tablet */
+@media (max-width: 1024px) {
+
+  .trade-regulation__identity {
+    position: static;
+  }
+
+}
+
+
+/* center copies note icon */
+.trade-copies__note {
+  grid-template-columns:
+    72px minmax(0, 1fr);
+  align-items: center;
+}
+
+.trade-copies__note > span {
+  justify-self: center;
+  align-self: center;
+}
+
+
+/* reduce space between plus icon and text */
+.trade-copies__note {
+  gap: 12px;
+}
+
+
+/* align copies note icon closer to text */
+.trade-copies__note {
+  grid-template-columns:
+    42px minmax(0, 1fr);
+}
+
+
+/* center plus inside copies note circle */
+.trade-copies__note > span {
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* copies note plus like FAQ toggle */
+.trade-copies__note > span {
+  position: relative;
+
+  display: block;
+
+  width: 28px;
+  height: 28px;
+
+  font-size: 0;
+}
+
+.trade-copies__note > span::before,
+.trade-copies__note > span::after {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 12px;
+  height: 2px;
+
+  border-radius: 999px;
+
+  background: currentColor;
+
+  content: '';
+
+  transform: translate(-50%, -50%);
+}
+
+.trade-copies__note > span::after {
+  transform:
+    translate(-50%, -50%)
+    rotate(90deg);
+}
+
+
+/* copies note plus gray */
+.trade-copies__note > span {
+  color: #8a8a8a;
+}
+
+
+/* copies note plus: 50% darker than text */
+.trade-copies__note > span {
+  color: color-mix(
+    in srgb,
+    var(--color-text-secondary) 50%,
+    #000 50%
+  );
+}
+
+
+/* copies note plus: 30% darker than text */
+.trade-copies__note > span {
+  color: color-mix(
+    in srgb,
+    var(--color-text-secondary) 70%,
+    #000 30%
+  );
+}
+
+
+/* center expert note icon vertically */
+.trade-categorization__expert-note {
+  align-items: center;
+}
+
+
+/* compact expert note layout */
+.trade-categorization__expert-note {
+  grid-template-columns:
+    34px minmax(0, 1fr);
+
+  gap: 14px;
+}
+
+.trade-categorization__expert-note > span {
+  width: 34px;
+  height: 34px;
+}
+
+
+/* expert note plus like FAQ */
+.trade-categorization__expert-note > span {
+  position: relative;
+  display: block;
+  width: 34px;
+  height: 34px;
+  font-size: 0;
+  line-height: 0;
+}
+
+.trade-categorization__expert-note > span::before,
+.trade-categorization__expert-note > span::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  content: '';
+  transform: translate(-50%, -50%);
+}
+
+.trade-categorization__expert-note > span::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+
+/* expert note transparent like page background */
+.trade-categorization__expert-note {
+  background: var(--color-background);
+}
+
+
+/* force page background for expert note */
+.trade-categorization__expert-note {
+  background: #fff !important;
+}
+
+
+/* expert note slightly darker background */
+.trade-categorization__expert-note {
+  background: #eaeae6;
+}
+
+
+/* replace restricted plus with centered css icon */
+.trade-restricted__sign {
+  position: relative;
+  font-size: 0;
+}
+
+.trade-restricted__sign::before,
+.trade-restricted__sign::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--trade-accent);
+  content: '';
+  transform: translate(-50%, -50%);
+}
+
+.trade-restricted__sign::after {
+  transform:
+    translate(-50%, -50%)
+    rotate(90deg);
+}
+
+
+/* restricted signs fix */
+
+.trade-restricted__sign {
+  position: relative;
+  font-size: 0;
+}
+
+
+/* plus */
+.trade-restricted__rules article:not(.trade-restricted__rule--negative)
+.trade-restricted__sign::before,
+.trade-restricted__rules article:not(.trade-restricted__rule--negative)
+.trade-restricted__sign::after {
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 12px;
+  height: 2px;
+
+  border-radius: 999px;
+
+  background:
+    var(--trade-accent);
+
+  content: '';
+
+  transform:
+    translate(-50%, -50%);
+}
+
+
+.trade-restricted__rules article:not(.trade-restricted__rule--negative)
+.trade-restricted__sign::after {
+
+  transform:
+    translate(-50%, -50%)
+    rotate(90deg);
+}
+
+
+/* minus */
+.trade-restricted__rule--negative
+.trade-restricted__sign::before {
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 12px;
+  height: 2px;
+
+  border-radius: 999px;
+
+  background:
+    var(--trade-accent);
+
+  content: '';
+
+  transform:
+    translate(-50%, -50%);
+}
+
+
+.trade-restricted__rule--negative
+.trade-restricted__sign::after {
+  display: none;
+}
+
+
+
+/* TC letters divider */
+.trade-mall::before {
+  display: none;
+}
+
+
+.trade-mall__index strong {
+  position: relative;
+  display: inline-block;
+  padding: 0 18px;
+}
+
+
+.trade-mall__index strong::after {
+  position: absolute;
+
+  top: 8%;
+  bottom: 8%;
+
+  left: 50%;
+
+  width: 8px;
+
+  border-radius: 999px;
+
+  background:
+    var(--trade-accent);
+
+  content: "";
+
+  transform: translateX(-50%);
+}
+
+
+
+
+/* TC divider between columns */
+.trade-mall::before {
+  display: block;
+
+  top: 50%;
+  left: clamp(240px, 23vw, 360px);
+
+  width: 8px;
+  height: 220px;
+
+  transform: translateY(-50%);
+}
+
+
+/* restore TC mark */
+.trade-mall__index strong {
+  padding: 0;
+}
+
+.trade-mall__index strong::after {
+  display: none;
+}
+
+
+
+/* TRADE MALL divider: full-height and centered in real column gap */
+.trade-mall::before {
+  content: none;
+}
+
+.trade-mall__layout {
+  --trade-mall-gap: clamp(80px, 11vw, 180px);
+  gap: var(--trade-mall-gap);
+  align-items: stretch;
+}
+
+.trade-mall__index {
+  position: relative;
+  align-self: stretch;
+}
+
+.trade-mall__index::after {
+  content: '';
+  position: absolute;
+  top: 16px;
+  bottom: 16px;
+  right: calc(var(--trade-mall-gap) / -2);
+  transform: translateX(50%);
+  width: 8px;
+  border-radius: 999px;
+  background: var(--trade-accent);
+}
+
+@media (max-width: 768px) {
+  .trade-mall__index::after {
+    width: 6px;
+    top: 12px;
+    bottom: 12px;
+  }
+}
+
+@media (max-width: 430px) {
+  .trade-mall__index::after {
+    width: 5px;
+    top: 10px;
+    bottom: 10px;
+  }
+}
+
+
+/* ========================================
+   UNIFIED SECTION LABEL COLOR
+======================================== */
+
+.trade-page .trade-kicker {
+  color: var(--color-primary);
+}
+
+
+
+/* LIME KICKERS */
+
+.trade-mall .trade-kicker,
+.trade-restricted .trade-kicker,
+.trade-approval .trade-kicker,
+.trade-changes .trade-kicker,
+.trade-regulation .trade-kicker {
+  color: var(--trade-accent);
+}
 
 
 /* ========================================
    TRADE FORM CTA ARROW BUTTON
    ======================================== */
 
+
 .trade-form__button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   gap: 14px;
 
   min-height: 58px;
@@ -6679,16 +7396,14 @@ strong {
 
   color: #a9f04a;
 
+  font-size: 23px;
+  font-weight: 800;
+  line-height: 1;
+
   transform: translateY(-1px);
 
-  transition: transform 180ms ease;
-}
-
-
-.trade-form__button-icon svg {
-  width: 18px;
-  height: 18px;
-  display: block;
+  transition:
+    transform 180ms ease;
 }
 
 
@@ -6698,5 +7413,6 @@ strong {
 
 
 .trade-form__button:hover .trade-form__button-icon {
-  transform: translate(4px,-3px);
+  transform: translate(3px, -4px);
 }
+

@@ -53,6 +53,8 @@ export default function CrowdPage() {
                 Сопроводим обследование
                 и категорирование, подготовим акт,
                 паспорт и комплект для согласования.
+                {' '}
+                <span className="coverage-emphasis">Работаем по всей России</span>.
               </p>
 
 

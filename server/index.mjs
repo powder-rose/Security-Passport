@@ -15,6 +15,10 @@ import { getStatistics } from './statistics.mjs';
 import {
   getAdminLeadsPage,
 } from './admin-leads.mjs';
+import {
+  appendLeadToFile,
+  deleteLeadFromFile,
+} from './lead-storage.mjs';
 import { createAdminAuth } from './admin-auth.mjs';
 import {
   getArticles,
@@ -24,6 +28,11 @@ import {
   deleteArticle,
 } from './admin-articles.mjs';
 
+import { listRegulations, updateRegulation } from './admin-regulations.mjs';
+import {
+  queueRegulationPublication,
+  getRegulationPublication,
+} from './regulation-publisher.mjs';
 import formidable from 'formidable';
 
 
@@ -667,8 +676,12 @@ function buildLeadText(lead) {
 
 async function saveBackup(lead) {
   if (!BACKUP_ENABLED) return { channel: 'backup', ok: false, skipped: true };
-  await fs.mkdir(path.dirname(LEADS_FILE), { recursive: true });
-  await fs.appendFile(LEADS_FILE, `${JSON.stringify(lead)}\n`, { encoding: 'utf8', mode: 0o600 });
+
+  await appendLeadToFile(
+    LEADS_FILE,
+    lead,
+  );
+
   return { channel: 'backup', ok: true };
 }
 
@@ -820,6 +833,52 @@ app.get(
 );
 
 
+app.delete(
+  '/api/admin/leads/:id',
+  adminAuth.requireAdmin,
+  async (req, res) => {
+    try {
+      const result = await deleteLeadFromFile(
+        LEADS_FILE,
+        req.params.id,
+      );
+
+      if (
+        !result.deleted &&
+        result.reason === 'INVALID_ID'
+      ) {
+        return res.status(400).json({
+          ok: false,
+          error: 'INVALID_LEAD_ID',
+        });
+      }
+
+      if (!result.deleted) {
+        return res.status(404).json({
+          ok: false,
+          error: 'LEAD_NOT_FOUND',
+        });
+      }
+
+      return res.json({
+        ok: true,
+        deleted: true,
+      });
+    } catch (error) {
+      console.error(
+        '[admin] lead delete failed:',
+        error?.message || error,
+      );
+
+      return res.status(500).json({
+        ok: false,
+        error: 'ADMIN_LEAD_DELETE_FAILED',
+      });
+    }
+  },
+);
+
+
 app.get(
   '/api/admin/statistics',
   adminAuth.requireAdmin,
@@ -849,6 +908,49 @@ app.get(
 
 
 
+
+app.get('/api/admin/regulations', adminAuth.requireAdmin, async (req, res) => {
+  try {
+    res.json({ ok: true, regulations: await listRegulations() });
+  } catch (error) {
+    console.error('[admin] regulations read failed:', error);
+    res.status(500).json({ ok: false, error: 'REGULATIONS_READ_FAILED' });
+  }
+});
+
+app.get('/api/admin/regulations/publication', adminAuth.requireAdmin, async (req, res) => {
+  try {
+    res.json({ ok: true, publication: await getRegulationPublication() });
+  } catch (error) {
+    console.error('[admin] publication status failed:', error);
+    res.status(500).json({ ok: false, message: 'Ошибка получения статуса публикации' });
+  }
+});
+
+app.post('/api/admin/regulations/publication', adminAuth.requireAdmin, (req, res) => {
+  res.status(202).json({ ok: true, publication: queueRegulationPublication() });
+});
+
+app.patch('/api/admin/regulations/:number', adminAuth.requireAdmin, async (req, res) => {
+  try {
+    const regulation = await updateRegulation(req.params.number, req.body);
+    if (!regulation) {
+      return res.status(404).json({ ok: false, message: 'Документ не найден' });
+    }
+    const { publicationNeeded, ...savedRegulation } = regulation;
+    return res.json({
+      ok: true,
+      regulation: savedRegulation,
+      publication: publicationNeeded ? queueRegulationPublication() : null,
+    });
+  } catch (error) {
+    if (error instanceof TypeError) {
+      return res.status(400).json({ ok: false, message: error.message });
+    }
+    console.error('[admin] regulations update failed:', error);
+    return res.status(500).json({ ok: false, message: 'Ошибка сохранения' });
+  }
+});
 
 app.get(
   '/api/admin/articles',

@@ -5,6 +5,17 @@ import { SITE } from '../../config/site';
 import { METRICA_GOALS, reachGoal } from '../../lib/analytics';
 import { getLeadEndpoint, submitLead } from '../../lib/lead';
 import {
+  formatRussianPhone,
+  normalizeGeoName,
+  normalizeSettlementName,
+  sanitizeEmailInput,
+} from '../../lib/formInput';
+import {
+  quizContactSchema,
+  quizLocationSchema,
+  quizMetricsSchema,
+} from '../../lib/validation/leadValidation';
+import {
   answerQuestion,
   completeQuiz,
   goToStep,
@@ -44,7 +55,19 @@ function ChoiceCards({ question, value, onChange }) {
   );
 }
 
-function TextField({ id, label, value = '', onChange, placeholder, type = 'text', required = false, inputMode, autoComplete }) {
+function TextField({
+  id,
+  label,
+  value = '',
+  onChange,
+  placeholder,
+  type = 'text',
+  required = false,
+  inputMode,
+  autoComplete,
+  list,
+  maxLength,
+}) {
   return (
     <label className="quiz-field" htmlFor={id}>
       <span className="quiz-field__label">
@@ -56,6 +79,8 @@ function TextField({ id, label, value = '', onChange, placeholder, type = 'text'
         name={id}
         inputMode={inputMode}
         autoComplete={autoComplete}
+        list={list}
+        maxLength={maxLength}
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
@@ -65,7 +90,47 @@ function TextField({ id, label, value = '', onChange, placeholder, type = 'text'
   );
 }
 
-function StepFields({ question, answer, updateAnswer }) {
+
+function sanitizeAreaInput(value) {
+  let cleaned =
+    String(value ?? '')
+      .replace(/\s/g, '')
+      .replace(/,/g, '.')
+      .replace(/[^0-9.]/g, '');
+
+  const firstDot =
+    cleaned.indexOf('.');
+
+  if (firstDot !== -1) {
+    cleaned =
+      cleaned.slice(0, firstDot + 1) +
+      cleaned
+        .slice(firstDot + 1)
+        .replace(/\./g, '');
+  }
+
+  const [whole = '', decimal] =
+    cleaned.split('.');
+
+  const safeWhole =
+    whole.slice(0, 8);
+
+  if (decimal === undefined) {
+    return safeWhole;
+  }
+
+  return (
+    `${safeWhole}.${decimal.slice(0, 2)}`
+  );
+}
+
+function StepFields({
+  question,
+  answer,
+  updateAnswer,
+  regionOptions = [],
+  settlementOptions = [],
+}) {
   if (question.type === 'choice' || question.type === 'choice-with-other') {
     const selected = typeof answer === 'string' ? answer : answer?.selected;
     const other = typeof answer === 'object' ? answer?.other ?? '' : '';
@@ -103,17 +168,59 @@ function StepFields({ question, answer, updateAnswer }) {
           label="Регион"
           value={answer?.region}
           placeholder="Например, Московская область"
-          onChange={(value) => updateAnswer({ ...answer, region: value })}
+          list="quiz-region-options"
+          autoComplete="off"
+          onChange={(value) =>
+            updateAnswer({
+              ...answer,
+              region: value,
+              city:
+                value === answer?.region
+                  ? answer?.city ?? ''
+                  : '',
+            })
+          }
           required
         />
+
+        <datalist id="quiz-region-options">
+          {regionOptions.map((region) => (
+            <option
+              key={region.name}
+              value={region.name}
+            />
+          ))}
+        </datalist>
+
         <TextField
           id="quiz-city"
           label="Населённый пункт"
           value={answer?.city}
-          placeholder="Например, г. Химки"
-          onChange={(value) => updateAnswer({ ...answer, city: value })}
+          placeholder="Например, Химки"
+          list="quiz-city-options"
+          autoComplete="off"
+          onChange={(value) =>
+            updateAnswer({
+              ...answer,
+              city: value,
+            })
+          }
           required
         />
+
+        <datalist id="quiz-city-options">
+          {settlementOptions.map((settlement) => (
+            <option
+              key={`${settlement.type}-${settlement.name}`}
+              value={settlement.name}
+              label={
+                settlement.type
+                  ? `${settlement.type} ${settlement.name}`
+                  : settlement.name
+              }
+            />
+          ))}
+        </datalist>
       </div>
     );
   }
@@ -127,7 +234,12 @@ function StepFields({ question, answer, updateAnswer }) {
           value={answer?.area}
           placeholder="Например, 850"
           inputMode="numeric"
-          onChange={(value) => updateAnswer({ ...answer, area: value.replace(/[^0-9., ]/g, '') })}
+          onChange={(value) =>
+            updateAnswer({
+              ...answer,
+              area: sanitizeAreaInput(value),
+            })
+          }
           required
         />
         <TextField
@@ -136,7 +248,14 @@ function StepFields({ question, answer, updateAnswer }) {
           value={answer?.people}
           placeholder="Например, 120"
           inputMode="numeric"
-          onChange={(value) => updateAnswer({ ...answer, people: value.replace(/\D/g, '') })}
+          onChange={(value) =>
+            updateAnswer({
+              ...answer,
+              people: value
+                .replace(/\D/g, '')
+                .slice(0, 7),
+            })
+          }
           required
         />
       </div>
@@ -161,10 +280,15 @@ function StepFields({ question, answer, updateAnswer }) {
             label="Телефон"
             type="tel"
             value={answer?.phone}
-            placeholder="+7 900 000-00-00"
-            inputMode="tel"
+            placeholder="+7 (900) 000-00-00"
+            inputMode="numeric"
             autoComplete="tel"
-            onChange={(value) => updateAnswer({ ...answer, phone: value })}
+            onChange={(value) =>
+              updateAnswer({
+                ...answer,
+                phone: formatRussianPhone(value),
+              })
+            }
             required
           />
           <TextField
@@ -174,7 +298,12 @@ function StepFields({ question, answer, updateAnswer }) {
             value={answer?.email}
             placeholder="name@example.ru"
             autoComplete="email"
-            onChange={(value) => updateAnswer({ ...answer, email: value })}
+            onChange={(value) =>
+              updateAnswer({
+                ...answer,
+                email: sanitizeEmailInput(value),
+              })
+            }
           />
           <TextField
             id="quiz-company"
@@ -228,11 +357,80 @@ export default function ObjectQuiz({
   const [showError, setShowError] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('idle');
   const [submitMessage, setSubmitMessage] = useState('');
+  const [geography, setGeography] = useState(null);
+  const [geographyError, setGeographyError] = useState(false);
   const quizStartedRef = useRef(false);
   const quizCardRef = useRef(null);
   const quizCompleteRef = useRef(null);
   const question = quizQuestions[currentStep];
   const answer = answers[question.id] ?? emptyObject;
+
+  useEffect(() => {
+    let cancelled = false;
+
+    fetch('/assets/quiz-geography-v1.json', {
+      cache: 'force-cache',
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `Geography HTTP ${response.status}`,
+          );
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        if (
+          cancelled ||
+          !Array.isArray(data?.regions)
+        ) {
+          return;
+        }
+
+        setGeography(data);
+        setGeographyError(false);
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setGeographyError(true);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const regionOptions =
+    geography?.regions ?? [];
+
+  const selectedGeoRegion = useMemo(() => {
+    if (
+      question.type !== 'location' ||
+      !answer?.region
+    ) {
+      return null;
+    }
+
+    const target =
+      normalizeGeoName(answer.region);
+
+    return (
+      regionOptions.find(
+        (region) =>
+          normalizeGeoName(region.name) ===
+          target,
+      ) ?? null
+    );
+  }, [
+    question.type,
+    answer?.region,
+    regionOptions,
+  ]);
+
+  const settlementOptions =
+    selectedGeoRegion?.settlements ?? [];
 
   const hasPresetObjectType =
     Boolean(
@@ -403,6 +601,81 @@ export default function ObjectQuiz({
       return;
     }
 
+    const validationSchema =
+      question.type === 'location'
+        ? quizLocationSchema
+        : question.type === 'metrics'
+          ? quizMetricsSchema
+          : question.type === 'contact'
+            ? quizContactSchema
+            : null;
+
+    if (validationSchema) {
+      try {
+        await validationSchema.validate(answer, {
+          abortEarly: false,
+        });
+      } catch (error) {
+        setShowError(true);
+        setSubmitStatus('error');
+        setSubmitMessage(
+          error?.errors?.[0] ||
+            'Проверьте правильность заполнения данных.',
+        );
+        return;
+      }
+    }
+
+    if (question.type === 'location') {
+      if (geographyError || !geography) {
+        setShowError(true);
+        setSubmitStatus('error');
+        setSubmitMessage(
+          'Не удалось загрузить справочник населённых пунктов. Обновите страницу и попробуйте ещё раз.',
+        );
+        return;
+      }
+
+      const regionTarget =
+        normalizeGeoName(answer?.region);
+
+      const region =
+        geography.regions.find(
+          (item) =>
+            normalizeGeoName(item.name) ===
+            regionTarget,
+        );
+
+      if (!region) {
+        setShowError(true);
+        setSubmitStatus('error');
+        setSubmitMessage(
+          'Выберите регион из списка.',
+        );
+        return;
+      }
+
+      const cityTarget =
+        normalizeSettlementName(answer?.city);
+
+      const cityExists =
+        region.settlements.some(
+          (settlement) =>
+            normalizeGeoName(
+              settlement.name,
+            ) === cityTarget,
+        );
+
+      if (!cityExists) {
+        setShowError(true);
+        setSubmitStatus('error');
+        setSubmitMessage(
+          'Выберите существующий населённый пункт в выбранном регионе.',
+        );
+        return;
+      }
+    }
+
     setShowError(false);
     reachGoal(METRICA_GOALS.quizStepCompleted, {
       step: visibleStep,
@@ -545,7 +818,13 @@ export default function ObjectQuiz({
               </div>
             </div>
 
-            <StepFields question={question} answer={answer} updateAnswer={updateAnswer} />
+            <StepFields
+              question={question}
+              answer={answer}
+              updateAnswer={updateAnswer}
+              regionOptions={regionOptions}
+              settlementOptions={settlementOptions}
+            />
 
             {showError ? (
               <p className="quiz-error" role="alert">

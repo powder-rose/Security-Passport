@@ -1,0 +1,174 @@
+/* REGULATIONS_POLISH_V1 */
+.regulations-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  color: #111;
+  font-family: inherit;
+}
+
+.regulations-page h1 {
+  margin: 0 0 30px;
+  color: #111;
+  font-size: clamp(36px, 4.5vw, 64px);
+  font-weight: 700;
+  line-height: .98;
+  letter-spacing: -.055em;
+}
+
+.regulations-page h2 {
+  margin: 0 0 26px;
+  color: #111;
+  font-size: clamp(23px, 2.5vw, 32px);
+  line-height: 1.15;
+  letter-spacing: -.035em;
+}
+
+/* Основной список и редактор */
+.regulations-page [style*="grid-template-columns"] {
+  grid-template-columns: minmax(250px, 320px) minmax(0, 1fr) !important;
+  gap: 28px !important;
+  align-items: start;
+}
+
+.regulations-page [style*="grid-template-columns"] > :first-child {
+  position: sticky;
+  top: 20px;
+  display: grid;
+  gap: 9px;
+  max-height: calc(100vh - 40px);
+  padding: 2px 8px 2px 2px;
+  overflow-y: auto;
+  align-content: start;
+}
+
+.regulations-page [style*="grid-template-columns"] > :last-child {
+  min-width: 0;
+  padding: clamp(22px, 3vw, 38px);
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 12px 36px rgba(17, 17, 17, .055);
+}
+
+/* Постановления: название и статус читаются отдельно */
+.regulations-page button {
+  max-width: 100%;
+  border: 1px solid #e6e6e2;
+  border-radius: 14px;
+  background: #fff;
+  color: #111;
+  font: inherit;
+  cursor: pointer;
+  transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+
+.regulations-page [style*="grid-template-columns"] > :first-child button {
+  width: 100%;
+  min-height: 66px;
+  padding: 13px 16px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: left;
+}
+
+.regulations-page button:not(:disabled):hover {
+  border-color: #1260ff;
+  box-shadow: 0 5px 18px rgba(18, 96, 255, .09);
+  transform: translateY(-1px);
+}
+
+.regulations-page button:focus-visible,
+.regulations-page :is(input, select, textarea):focus-visible {
+  outline: 3px solid #1260ff;
+  outline-offset: 2px;
+}
+
+.regulations-page [style*="grid-template-columns"]
+  > :first-child button small {
+  display: block;
+  width: fit-content;
+  margin-top: 6px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #f1efe8;
+  color: #555;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Поля редактора */
+.regulations-page label {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 20px;
+  color: #111;
+  font-weight: 700;
+}
+
+.regulations-page input,
+.regulations-page select,
+.regulations-page textarea {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 14px;
+  border: 1px solid #d9d9d5;
+  border-radius: 10px;
+  background: #fff;
+  color: #111;
+  font: inherit;
+  font-weight: 400;
+}
+
+.regulations-page textarea {
+  min-height: 145px;
+  line-height: 1.55;
+  resize: vertical;
+}
+
+.regulations-page button[type="submit"] {
+  width: 100%;
+  min-height: 52px;
+  padding: 14px 24px;
+  border: 0;
+  border-radius: 999px;
+  background: #1260ff;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+}
+
+.regulations-page button[type="submit"]:not(:disabled):hover {
+  background: #064de0;
+  box-shadow: 0 8px 20px rgba(18, 96, 255, .2);
+}
+
+.regulations-page button:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+.regulations-page small {
+  color: rgba(17, 17, 17, .58);
+}
+
+@media (max-width: 900px) {
+  .regulations-page [style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  .regulations-page [style*="grid-template-columns"] > :first-child {
+    position: static;
+    max-height: 260px;
+  }
+
+  .regulations-page [style*="grid-template-columns"] > :last-child {
+    padding: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .regulations-page button {
+    transition: none;
+  }
+}

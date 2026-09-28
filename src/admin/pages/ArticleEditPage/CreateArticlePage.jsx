@@ -205,13 +205,6 @@ async function uploadImage(e){
     );
 
 
-  console.log(
-    'OPEN CROPPER',
-    file,
-    preview
-  );
-
-
   setCropImage({
 
     file,
@@ -248,11 +241,11 @@ async function getCroppedFile(
 
 
   canvas.width =
-    pixelCrop.width;
+    1200;
 
 
   canvas.height =
-    pixelCrop.height;
+    675;
 
 
 
@@ -274,8 +267,8 @@ async function getCroppedFile(
     0,
     0,
 
-    pixelCrop.width,
-    pixelCrop.height
+    1200,
+    675
 
   );
 
@@ -362,12 +355,6 @@ return (
 
       onCrop={async(pixels)=>{
 
-console.log(
-  'STEP 1 CROP PIXELS',
-  pixels
-);
-
-
         const file =
           await getCroppedFile(
             cropImage.preview,
@@ -375,22 +362,10 @@ console.log(
           );
 
 
-        console.log(
-          'STEP 2 CROPPED FILE',
-          file
-        );
-
-
         const result =
           await uploadArticleImage(
             file
           );
-
-
-        console.log(
-          'STEP 3 UPLOAD RESULT',
-          result
-        );
 
 
         if(result.url){
@@ -481,17 +456,9 @@ console.log(
 
  accept="image/*"
 
- onChange={(e)=>{
-
-   console.log(
-     'FILE INPUT CHANGE',
-     e.target.files[0]
-   );
-
-
-   uploadImage(e);
-
- }}
+ onChange={
+   uploadImage
+ }
 
 />
 
@@ -504,11 +471,22 @@ console.log(
   (
     <div className="admin-image-wrapper">
 
+      <div className="admin-image-preview-header">
+
+        <span>
+          Предпросмотр
+        </span>
+
+        <small>
+          1200 × 675 px · 16:9
+        </small>
+
+      </div>
+
+
       <img
         src={form.image}
-          alt="Превью изображения статьи"
-          width="320"
-          height="180"
+        alt="Превью изображения статьи"
         className="admin-image-preview"
       />
 

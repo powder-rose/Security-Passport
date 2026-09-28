@@ -1,3 +1,18 @@
+function formatRegulationAct(value) {
+  const text = String(value || '');
+
+  const numbers = [
+    ...text.matchAll(/№\s*(\d+)/g),
+  ].map(match => match[1]);
+
+  if (!numbers.length) {
+    return text;
+  }
+
+  return `ПП РФ № ${numbers.join(' / № ')}`;
+}
+
+
 import Container from '../../components/ui/Container/Container';
 
 import {
@@ -76,7 +91,7 @@ export default function RegulationByObject() {
                       </span>
 
                       <span className="regulation-guide__act">
-                        {objectType.regulationAct}
+                        {formatRegulationAct(objectType.regulationAct)}
                       </span>
                     </td>
                   </tr>

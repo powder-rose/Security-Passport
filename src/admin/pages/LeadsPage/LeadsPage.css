@@ -370,3 +370,54 @@
       );
   }
 }
+
+/* =========================
+   LEAD DELETE
+========================= */
+
+.leads-page__actions {
+  width: 1%;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.leads-page__delete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 92px;
+  height: 38px;
+
+  padding: 0 16px;
+
+  border: 1px solid #d8d8d8;
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: #b42318;
+
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    opacity 160ms ease;
+}
+
+.leads-page__delete:hover:not(:disabled) {
+  border-color: #b42318;
+  background: #fff4f2;
+}
+
+.leads-page__delete:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+
