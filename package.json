@@ -10,11 +10,12 @@
     "build:ssr": "vite build --ssr src/entry-server.jsx --outDir dist/server",
     "prerender": "node scripts/prerender.mjs",
     "preview": "vite preview --outDir dist/client",
-    "qa": "node scripts/qa.mjs && npm run server:check",
+    "qa": "node scripts/qa.mjs && npm run qa:regulations && npm run server:check",
     "qa:dist": "node scripts/qa.mjs --dist",
     "dev:api": "node --watch server/index.mjs",
     "start": "node server/index.mjs",
-    "server:check": "node --check server/index.mjs"
+    "server:check": "node --check server/index.mjs",
+    "qa:regulations": "node scripts/qa-regulations.mjs"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
