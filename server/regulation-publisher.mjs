@@ -6,7 +6,7 @@ import path from 'node:path';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const script = path.join(root, 'scripts/deploy-federal.sh');
 const registry = path.join(root, 'data/regulations.json');
-const publishedPage = '/var/www/pasport-bezopasnosty.ru/public_html/pasport-bezopasnosti-gostinicy/index.html';
+const publishedPage = '/var/www/pasport-bezopasnosty.ru/current/pasport-bezopasnosti-gostinicy/index.html';
 
 const state = {
   phase: 'idle',
@@ -21,7 +21,7 @@ let running = false;
 
 function deploy() {
   return new Promise((resolve, reject) => {
-    const child = spawn('bash', [script], {
+    const child = spawn('bash', [script, 'regulation-publication'], {
       cwd: root,
       stdio: ['ignore', 'pipe', 'pipe'],
     });

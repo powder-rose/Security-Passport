@@ -33,25 +33,46 @@ const projectRoot =
     '..',
   );
 
+const resolveEnvPath = (
+  name,
+  fallback,
+) => {
+  const value =
+    process.env[name]?.trim();
+
+  return value
+    ? path.resolve(value)
+    : fallback;
+};
+
 const clientDir =
-  path.join(
-    projectRoot,
-    'dist',
-    'client',
+  resolveEnvPath(
+    'PRERENDER_CLIENT_DIR',
+    path.join(
+      projectRoot,
+      'dist',
+      'client',
+    ),
   );
 
 const templatePath =
-  path.join(
-    clientDir,
-    'index.html',
+  resolveEnvPath(
+    'PRERENDER_TEMPLATE_PATH',
+    path.join(
+      clientDir,
+      'index.html',
+    ),
   );
 
 const serverEntry =
-  path.join(
-    projectRoot,
-    'dist',
-    'server',
-    'entry-server.js',
+  resolveEnvPath(
+    'PRERENDER_SERVER_ENTRY',
+    path.join(
+      projectRoot,
+      'dist',
+      'server',
+      'entry-server.js',
+    ),
   );
 
 
@@ -133,10 +154,13 @@ if (
 
 
 const generatorTemplateDir =
-  path.join(
-    projectRoot,
-    'dist',
-    'template',
+  resolveEnvPath(
+    'PRERENDER_TEMPLATE_DIR',
+    path.join(
+      projectRoot,
+      'dist',
+      'template',
+    ),
   );
 
 const generatorTemplatePath =
