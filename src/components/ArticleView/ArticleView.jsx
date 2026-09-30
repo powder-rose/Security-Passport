@@ -332,7 +332,7 @@ function RelatedArticles({
           </p>
 
           <h2 id="article-related-title">
-            Похожие статьи
+            Полезные статьи
           </h2>
 
         </div>
@@ -364,7 +364,7 @@ function RelatedArticles({
         </p>
 
         <h2 id="article-related-title">
-          Похожие статьи
+          Полезные статьи
         </h2>
 
       </div>
