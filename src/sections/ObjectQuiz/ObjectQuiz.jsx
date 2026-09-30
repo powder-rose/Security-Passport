@@ -351,7 +351,14 @@ function isStepValid(question, answer) {
 
 export default function ObjectQuiz({
   presetObjectType = null,
+  variant = 'default',
+  preview = false,
 }) {
+  const sectionClassName =
+    variant === 'article'
+      ? 'object-quiz object-quiz--article'
+      : 'object-quiz';
+
   const dispatch = useDispatch();
   const { currentStep, answers, completed } = useSelector((state) => state.quiz);
   const [showError, setShowError] = useState(false);
@@ -688,6 +695,14 @@ export default function ObjectQuiz({
       return;
     }
 
+    if (preview) {
+      setSubmitStatus('notice');
+      setSubmitMessage(
+        'Режим предпросмотра: ответы заполнены корректно, но заявка не отправлена.'
+      );
+      return;
+    }
+
     const endpoint = getLeadEndpoint();
     if (!endpoint) {
       setSubmitStatus('notice');
@@ -735,7 +750,7 @@ export default function ObjectQuiz({
 
   if (completed) {
     return (
-      <section className="object-quiz object-quiz--complete" id="quiz" aria-labelledby="quiz-complete-title">
+      <section className={`${sectionClassName} object-quiz--complete`} id="quiz" aria-labelledby="quiz-complete-title">
         <Container>
           <div className="quiz-complete" ref={quizCompleteRef}>
             <div className="quiz-complete__mark" aria-hidden="true">✓</div>
@@ -755,7 +770,7 @@ export default function ObjectQuiz({
   }
 
   return (
-    <section className="object-quiz" id="quiz" aria-labelledby="quiz-title">
+    <section className={sectionClassName} id="quiz" aria-labelledby="quiz-title">
       <Container className="object-quiz__layout">
         <header className="object-quiz__intro">
           <p className="quiz-kicker">Экспресс-проверка объекта</p>

@@ -84,9 +84,25 @@ if (mode === 'source') {
 
   for (const match of all.matchAll(/<img([\s\S]*?)\/>/g)) {
     const attrs = match[1];
-    if (!/\balt=["']/.test(attrs)) addError('Found an <img> without alt text.');
-    if (!/\bwidth=["']/.test(attrs) || !/\bheight=["']/.test(attrs)) {
-      addWarning('Found an <img> without explicit width/height; this can increase CLS.');
+    const hasAlt =
+      /\balt\s*=\s*(?:["'][^"']*["']|\{[^}]+\})/.test(attrs);
+
+    const hasWidth =
+      /\bwidth\s*=\s*(?:["'][^"']+["']|\{[^}]+\})/.test(attrs);
+
+    const hasHeight =
+      /\bheight\s*=\s*(?:["'][^"']+["']|\{[^}]+\})/.test(attrs);
+
+    if (!hasAlt) {
+      addError(
+        'Found an <img> without alt text.'
+      );
+    }
+
+    if (!hasWidth || !hasHeight) {
+      addWarning(
+        'Found an <img> without explicit width/height; this can increase CLS.'
+      );
     }
   }
 

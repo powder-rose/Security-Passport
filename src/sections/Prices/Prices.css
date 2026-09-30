@@ -249,6 +249,14 @@
   color: var(--color-accent);
 }
 
+/* FEATURED_PRICE_ARROW_HOVER_BLACK_V1 */
+.price-row--featured
+.price-row__action:hover
+span:last-child {
+  color: var(--color-text);
+}
+/* /FEATURED_PRICE_ARROW_HOVER_BLACK_V1 */
+
 .prices-section__footer {
   display: grid;
   grid-template-columns: 64px minmax(0, 1fr) auto;

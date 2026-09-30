@@ -6629,3 +6629,39 @@ strong {
 /* ========================================
    TRADE_UI_POLISH_V3:end
    ======================================== */
+
+
+/* === trade form CTA arrow === */
+
+.trade-form__content > .trade-form__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.trade-form__button-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: none;
+
+  color: var(--trade-accent);
+
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1;
+
+  transform: translateY(-1px);
+
+  transition:
+    transform 180ms ease;
+}
+
+.trade-form__button:hover
+.trade-form__button-arrow {
+  transform: translate(3px, -4px);
+}
+
+/* === /trade form CTA arrow === */

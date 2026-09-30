@@ -55,6 +55,15 @@ async function bootstrap() {
       : CITY;
 
 
+  const initialBlogData =
+    typeof window !== 'undefined'
+      ? (
+          window.__PASSPORT_BLOG__ ||
+          {}
+        )
+      : {};
+
+
   const app = (
     <StrictMode>
       <Provider store={store}>
@@ -65,6 +74,14 @@ async function bootstrap() {
             <App
               pathname={
                 window.location.pathname
+              }
+              initialBlogArticles={
+                initialBlogData.articles ??
+                null
+              }
+              initialArticle={
+                initialBlogData.article ??
+                null
               }
             />
           </GeoProvider>

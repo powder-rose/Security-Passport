@@ -37,11 +37,134 @@ async function saveArticles(articles) {
 }
 
 
-function createSlug(title) {
-  return title
-    .toLowerCase()
-    .replace(/[^a-zа-яё0-9]+/gi, '-')
-    .replace(/^-|-$/g, '');
+const SLUG_TRANSLIT = {
+  а: 'a',
+  б: 'b',
+  в: 'v',
+  г: 'g',
+  д: 'd',
+  е: 'e',
+  ё: 'e',
+  ж: 'zh',
+  з: 'z',
+  и: 'i',
+  й: 'y',
+  к: 'k',
+  л: 'l',
+  м: 'm',
+  н: 'n',
+  о: 'o',
+  п: 'p',
+  р: 'r',
+  с: 's',
+  т: 't',
+  у: 'u',
+  ф: 'f',
+  х: 'h',
+  ц: 'c',
+  ч: 'ch',
+  ш: 'sh',
+  щ: 'shch',
+  ъ: '',
+  ы: 'y',
+  ь: '',
+  э: 'e',
+  ю: 'yu',
+  я: 'ya',
+};
+
+
+function createSlug(value) {
+
+  const source =
+    String(value || '')
+      .trim()
+      .toLowerCase();
+
+
+  const transliterated =
+    Array.from(source)
+      .map(
+        char => {
+
+          if (
+            Object.prototype.hasOwnProperty.call(
+              SLUG_TRANSLIT,
+              char
+            )
+          ) {
+            return SLUG_TRANSLIT[char];
+          }
+
+          return char;
+
+        }
+      )
+      .join('');
+
+
+  return transliterated
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .replace(/-{2,}/g, '-');
+
+}
+
+
+function createUniqueSlug(
+  articles,
+  value,
+  excludeId = null,
+) {
+
+  const base =
+    createSlug(value) ||
+    'article';
+
+
+  let candidate =
+    base;
+
+  let suffix =
+    2;
+
+
+  const isUsed =
+    slug =>
+      articles.some(
+        article =>
+          article.id !== excludeId
+          &&
+          (
+            article.slug === slug
+            ||
+            (
+              Array.isArray(
+                article.legacySlugs
+              )
+              &&
+              article.legacySlugs.includes(
+                slug
+              )
+            )
+          )
+      );
+
+
+  while (
+    isUsed(candidate)
+  ) {
+
+    candidate =
+      `${base}-${suffix}`;
+
+    suffix += 1;
+
+  }
+
+
+  return candidate;
+
 }
 
 
@@ -92,20 +215,28 @@ export async function createArticle(data) {
 
 
     status:
-      'draft',
+      data.status === 'published'
+        ? 'published'
+        : 'draft',
 
 
     slug:
-      createSlug(
-        data.title || 'article'
+      createUniqueSlug(
+        articles,
+        data.slug ||
+        data.title ||
+        'article'
       ),
+
+    legacySlugs:
+      [],
 
 
     seoTitle:
-      '',
+      data.seoTitle || '',
 
     seoDescription:
-      '',
+      data.seoDescription || '',
 
     ogTitle:
       '',
@@ -124,7 +255,9 @@ export async function createArticle(data) {
       now,
 
     publishedAt:
-      null,
+      data.status === 'published'
+        ? now
+        : null,
   };
 
 
@@ -164,6 +297,78 @@ export async function updateArticle(
     articles[index];
 
 
+  let nextSlug =
+    article.slug;
+
+
+  let legacySlugs =
+    Array.isArray(
+      article.legacySlugs
+    )
+      ? [...article.legacySlugs]
+      : [];
+
+
+  /*
+   * ВАЖНО:
+   *
+   * Обычное изменение заголовка больше
+   * не должно менять публичный URL.
+   *
+   * Slug меняется только если админ
+   * явно отправил updateSlug: true.
+   */
+  if (
+    data.updateSlug === true
+    &&
+    typeof data.slug === 'string'
+  ) {
+
+    const requestedSlug =
+      createUniqueSlug(
+        articles,
+        data.slug,
+        article.id
+      );
+
+
+    if (
+      requestedSlug
+      &&
+      requestedSlug !== article.slug
+    ) {
+
+      if (
+        article.slug
+      ) {
+        legacySlugs.push(
+          article.slug
+        );
+      }
+
+
+      legacySlugs =
+        [
+          ...new Set(
+            legacySlugs
+          ),
+        ]
+          .filter(
+            slug =>
+              slug
+              &&
+              slug !== requestedSlug
+          );
+
+
+      nextSlug =
+        requestedSlug;
+
+    }
+
+  }
+
+
   articles[index] = {
 
     ...article,
@@ -183,18 +388,21 @@ export async function updateArticle(
       article.image,
 
 
+    imageAlt:
+      data.imageAlt ??
+      article.imageAlt ??
+      '',
+
+
     status:
       data.status ??
       article.status,
 
 
     slug:
-      data.slug ??
-      (
-        data.title
-          ? createSlug(data.title)
-          : article.slug
-      ),
+      nextSlug,
+
+    legacySlugs,
 
 
     seoTitle:
@@ -253,6 +461,81 @@ export async function updateArticle(
 
 
   return articles[index];
+}
+
+
+
+export async function updatePublishedArticlesYear(
+  year = new Date().getUTCFullYear(),
+) {
+
+  const articles =
+    await readArticles();
+
+
+  let updated = 0;
+
+
+  const nextArticles =
+    articles.map(
+      article => {
+
+        if (
+          article.status !== 'published' ||
+          !article.publishedAt
+        ) {
+          return article;
+        }
+
+
+        const date =
+          new Date(
+            article.publishedAt
+          );
+
+
+        if (
+          Number.isNaN(
+            date.getTime()
+          )
+        ) {
+          return article;
+        }
+
+
+        date.setUTCFullYear(
+          year
+        );
+
+
+        updated += 1;
+
+
+        return {
+          ...article,
+
+          publishedAt:
+            date.toISOString(),
+
+          updatedAt:
+            new Date()
+              .toISOString(),
+        };
+
+      }
+    );
+
+
+  await saveArticles(
+    nextArticles
+  );
+
+
+  return {
+    updated,
+    year,
+  };
+
 }
 
 

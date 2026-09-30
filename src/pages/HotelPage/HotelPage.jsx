@@ -663,7 +663,7 @@ export default function HotelPage({
 
               <aside className="hotel-check__important">
                 <span className="hotel-check__important-mark">
-                  Важно
+                  !
                 </span>
 
                 <div>
@@ -1292,7 +1292,7 @@ export default function HotelPage({
 
               <div className="hotel-form__document-note">
                 <span aria-hidden="true">
-                  i
+                  !
                 </span>
 
                 <p>

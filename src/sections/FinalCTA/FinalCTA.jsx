@@ -19,7 +19,9 @@ const initialForm = {
   website: '',
 };
 
-export default function FinalCTA() {
+export default function FinalCTA({
+  preview = false,
+}) {
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState('idle');
   const [message, setMessage] = useState('');
@@ -39,6 +41,14 @@ export default function FinalCTA() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (preview) {
+      setStatus('notice');
+      setMessage(
+        'Режим предпросмотра: форма работает, но заявка не отправлена.'
+      );
+      return;
+    }
 
     try {
       await leadFormSchema.validate(form, {

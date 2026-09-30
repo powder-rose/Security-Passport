@@ -181,11 +181,28 @@ export function getRegulations() {
   return request('/regulations');
 }
 
+export function createRegulation(data) {
+  return request('/regulations', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
 export function saveRegulation(number, data) {
   return request(`/regulations/${encodeURIComponent(number)}`, {
     method: 'PATCH',
     body: JSON.stringify(data),
   });
+}
+
+export function saveRegulationTopicClaims(topic, claims) {
+  return request(
+    `/regulations/topic/${encodeURIComponent(topic)}/claims`,
+    {
+      method: 'PATCH',
+      body: JSON.stringify({ claims }),
+    },
+  );
 }
 
 export function getRegulationPublication() {
@@ -194,4 +211,16 @@ export function getRegulationPublication() {
 
 export function retryRegulationPublication() {
   return request('/regulations/publication', { method: 'POST' });
+}
+
+
+export function updateArticlesYear() {
+
+  return request(
+    '/articles/update-year',
+    {
+      method: 'POST',
+    }
+  );
+
 }

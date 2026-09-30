@@ -1,4 +1,5 @@
 import {
+  useEffect,
   useState,
 } from 'react';
 
@@ -18,13 +19,85 @@ import ImageCropper from '../../components/ImageCropper/ImageCropper.jsx';
 
 
 
+const SLUG_TRANSLIT = {
+  а:'a', б:'b', в:'v', г:'g', д:'d',
+  е:'e', ё:'e', ж:'zh', з:'z', и:'i',
+  й:'y', к:'k', л:'l', м:'m', н:'n',
+  о:'o', п:'p', р:'r', с:'s', т:'t',
+  у:'u', ф:'f', х:'h', ц:'c', ч:'ch',
+  ш:'sh', щ:'shch', ъ:'', ы:'y', ь:'',
+  э:'e', ю:'yu', я:'ya',
+};
+
+
 function createSlug(value){
 
-  return value
-    .toLowerCase()
-    .replace(/ё/g,'е')
-    .replace(/[^a-zа-я0-9]+/gi,'-')
-    .replace(/^-|-$/g,'');
+  const source =
+    String(value || '')
+      .trim()
+      .toLowerCase();
+
+
+  return Array
+    .from(source)
+    .map(
+      char =>
+        Object.prototype.hasOwnProperty.call(
+          SLUG_TRANSLIT,
+          char
+        )
+          ? SLUG_TRANSLIT[char]
+          : char
+    )
+    .join('')
+    .replace(/[^a-z0-9]+/g,'-')
+    .replace(/^-+|-+$/g,'')
+    .replace(/-{2,}/g,'-');
+
+}
+
+
+
+const ARTICLE_DRAFT_KEY =
+  'passport-admin-new-article-draft';
+
+
+function loadArticleDraft(){
+
+  try {
+
+    const raw =
+      window.localStorage.getItem(
+        ARTICLE_DRAFT_KEY
+      );
+
+
+    if(!raw){
+      return null;
+    }
+
+
+    const parsed =
+      JSON.parse(raw);
+
+
+    if(
+      !parsed
+      ||
+      typeof parsed !== 'object'
+    ){
+      return null;
+    }
+
+
+    return parsed;
+
+  }
+  catch{
+
+    return null;
+
+  }
 
 }
 
@@ -33,28 +106,95 @@ function createSlug(value){
 export default function CreateArticlePage(){
 
 
-const [form,setForm] = useState({
+const [form,setForm] = useState(()=>{
 
- title:'',
- content:'',
- image:'',
- imageAlt:'',
- status:'draft',
- seoTitle:'',
- seoDescription:'',
+  const draft =
+    loadArticleDraft();
+
+
+  return draft?.form || {
+
+    title:'',
+    slug:'',
+    content:'',
+    image:'',
+    imageAlt:'',
+    status:'draft',
+    seoTitle:'',
+    seoDescription:'',
+
+  };
 
 });
 
 
-const [seoManual,setSeoManual] = useState({
+const [seoManual,setSeoManual] = useState(()=>{
 
- seoTitle:false,
- seoDescription:false,
+  const draft =
+    loadArticleDraft();
+
+
+  return draft?.seoManual || {
+
+    seoTitle:false,
+    seoDescription:false,
+
+  };
 
 });
 
 
 const [cropImage,setCropImage] = useState(null);
+
+
+
+useEffect(()=>{
+
+  const timer =
+    window.setTimeout(()=>{
+
+      try {
+
+        window.localStorage.setItem(
+          ARTICLE_DRAFT_KEY,
+          JSON.stringify({
+
+            form,
+
+            seoManual,
+
+            savedAt:
+              new Date()
+                .toISOString(),
+
+          })
+        );
+
+      }
+      catch(error){
+
+        console.warn(
+          'Не удалось сохранить черновик статьи',
+          error
+        );
+
+      }
+
+    },300);
+
+
+  return ()=>{
+
+    window.clearTimeout(
+      timer
+    );
+
+  };
+
+},[
+  form,
+  seoManual,
+]);
 
 
 
@@ -305,23 +445,72 @@ async function getCroppedFile(
 
 
 
+function previewArticle(){
+
+  const previewData = {
+
+    ...form,
+
+    slug:
+      createSlug(
+        form.slug ||
+        form.title
+      ),
+
+    createdAt:
+      new Date()
+        .toISOString(),
+
+  };
+
+
+  sessionStorage.setItem(
+    'passport-article-preview',
+    JSON.stringify(
+      previewData
+    )
+  );
+
+
+  window.open(
+    '/article-preview.html',
+    '_blank'
+  );
+
+}
+
+
+
 async function save(){
 
 
 
- await createArticle({
+ const result =
+   await createArticle({
 
-   ...form,
+     ...form,
 
-   slug:createSlug(
-     form.title
-   ),
+     slug:createSlug(
+       form.slug ||
+       form.title
+     ),
 
- });
+   });
 
 
- window.location.href =
-   '/admin/articles';
+ if(
+   result?.ok !== false
+ ){
+
+   window.localStorage.removeItem(
+     ARTICLE_DRAFT_KEY
+   );
+
+
+   window.location.href =
+     '/admin/articles';
+
+ }
 
 
 }
@@ -434,6 +623,58 @@ return (
  }
 
 />
+
+</label>
+
+
+
+<label className="admin-slug-field">
+
+<span>
+URL статьи
+</span>
+
+
+<div className="admin-slug-control">
+
+  <span className="admin-slug-prefix">
+    /blog/
+  </span>
+
+
+  <input
+    type="text"
+    value={form.slug || ''}
+    placeholder={
+      createSlug(form.title) ||
+      'url-stati'
+    }
+    autoCapitalize="none"
+    autoComplete="off"
+    spellCheck="false"
+    onChange={
+      e =>
+        change(
+          'slug',
+          createSlug(
+            e.target.value
+          )
+        )
+    }
+  />
+
+
+  <span className="admin-slug-suffix">
+    /
+  </span>
+
+</div>
+
+
+<small className="admin-slug-hint">
+  Можно оставить пустым — адрес автоматически
+  сформируется из заголовка.
+</small>
 
 </label>
 
@@ -692,7 +933,24 @@ e.target.value
 
 
 
+<div className="admin-editor__actions">
+
 <button
+
+type="button"
+
+className="admin-button admin-button--preview"
+
+onClick={previewArticle}
+
+>
+Предпросмотр статьи
+</button>
+
+
+<button
+
+type="button"
 
 className="admin-button"
 
@@ -701,6 +959,8 @@ onClick={save}
 >
 Сохранить
 </button>
+
+</div>
 
 
 

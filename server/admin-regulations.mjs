@@ -13,6 +13,18 @@ import {
 } from './regulation-date-sync.mjs';
 
 const FILE = fileURLToPath(new URL('../data/regulations.json', import.meta.url));
+
+const TOPICS = new Set([
+  'hotel',
+  'education',
+  'culture',
+  'trade',
+  'sport',
+  'health',
+  'crowd',
+  'social',
+]);
+
 let writes = Promise.resolve();
 
 async function readRegistry() {
@@ -28,6 +40,18 @@ function validate(input) {
 
   const fields = ['title', 'edition', 'officialUrl', 'reviewNote'];
   const result = {};
+
+  if (Object.hasOwn(input, 'topic')) {
+    const topic = String(input.topic || '').trim();
+
+    if (!TOPICS.has(topic)) {
+      throw new TypeError(
+        'Выберите тематику постановления'
+      );
+    }
+
+    result.topic = topic;
+  }
 
 
   const number =
@@ -131,7 +155,17 @@ function validate(input) {
         !claim.text.trim() || claim.text.length > 1000) {
       throw new TypeError('Неверное нормативное поле');
     }
-    return { id: claim.id, text: claim.text.trim() };
+    const resultClaim = {
+      id: claim.id,
+      text: claim.text.trim(),
+    };
+
+    if (typeof claim.label === 'string' && claim.label.trim()) {
+      resultClaim.label =
+        claim.label.trim().slice(0, 500);
+    }
+
+    return resultClaim;
   });
 
   return result;
@@ -139,6 +173,88 @@ function validate(input) {
 
 export async function listRegulations() {
   return (await readRegistry()).items;
+}
+
+export function createRegulation(input) {
+  const change = validate(input);
+
+  if (!change.topic) {
+    throw new TypeError(
+      'Выберите тематику постановления'
+    );
+  }
+
+  const operation = writes.then(async () => {
+    const data = await readRegistry();
+
+    if (
+      data.items.some(
+        item =>
+          String(item.number) ===
+          String(change.number)
+      )
+    ) {
+      throw new TypeError(
+        'Постановление с таким номером уже существует'
+      );
+    }
+
+    const now =
+      new Date().toISOString();
+
+    const created = {
+      ...change,
+      occurrences: [],
+      claims: [],
+      contentUpdatedAt: null,
+      createdAt: now,
+      updatedAt: now,
+    };
+
+    data.items.push(created);
+
+    const temporary =
+      `${FILE}.${process.pid}.${Date.now()}.tmp`;
+
+    try {
+      await fs.writeFile(
+        temporary,
+        JSON.stringify(
+          data,
+          null,
+          2,
+        ) + '\n',
+        {
+          encoding: 'utf8',
+          mode: 0o600,
+        },
+      );
+
+      await fs.rename(
+        temporary,
+        FILE,
+      );
+    } catch (error) {
+      await fs.rm(
+        temporary,
+        {
+          force: true,
+        },
+      );
+
+      throw error;
+    }
+
+    return {
+      ...created,
+      publicationNeeded: false,
+    };
+  });
+
+  writes =
+    operation.catch(() => {});
+
+  return operation;
 }
 
 export function updateRegulation(number, input) {
@@ -160,6 +276,16 @@ export function updateRegulation(number, input) {
     }));
 
     const previous = data.items[index];
+
+    if (
+      change.topic &&
+      previous.topic &&
+      change.topic !== previous.topic
+    ) {
+      throw new TypeError(
+        'Тематика существующего постановления привязана к контенту сайта и не может быть изменена автоматически'
+      );
+    }
 
     const oldNumber =
       String(previous.number);
@@ -356,3 +482,265 @@ export function updateRegulation(number, input) {
   writes = operation.catch(() => {});
   return operation;
 }
+function validateTopicClaimUpdates(topic, input) {
+  const normalizedTopic =
+    String(topic || '').trim();
+
+  if (!TOPICS.has(normalizedTopic)) {
+    throw new TypeError(
+      'Неизвестная тематика постановления'
+    );
+  }
+
+  if (
+    !input ||
+    typeof input !== 'object' ||
+    Array.isArray(input) ||
+    !Array.isArray(input.claims)
+  ) {
+    throw new TypeError(
+      'Неверный список тематических вопросов'
+    );
+  }
+
+  if (input.claims.length > 100) {
+    throw new TypeError(
+      'Слишком много тематических вопросов'
+    );
+  }
+
+  const seen = new Set();
+
+  const claims =
+    input.claims.map(item => {
+      const number =
+        String(
+          item?.number ?? ''
+        ).trim();
+
+      const id =
+        String(
+          item?.id ?? ''
+        ).trim();
+
+      const text =
+        String(
+          item?.text ?? ''
+        ).trim();
+
+      if (
+        !number ||
+        !id ||
+        !text ||
+        text.length > 1000
+      ) {
+        throw new TypeError(
+          'Неверный тематический вопрос'
+        );
+      }
+
+      const key =
+        `${number}:${id}`;
+
+      if (seen.has(key)) {
+        throw new TypeError(
+          'Тематический вопрос продублирован'
+        );
+      }
+
+      seen.add(key);
+
+      return {
+        number,
+        id,
+        text,
+      };
+    });
+
+  return {
+    topic: normalizedTopic,
+    claims,
+  };
+}
+
+
+export function updateTopicClaims(topic, input) {
+  const change =
+    validateTopicClaimUpdates(
+      topic,
+      input,
+    );
+
+  const operation =
+    writes.then(async () => {
+      const data =
+        await readRegistry();
+
+      const expected =
+        new Map();
+
+      for (const item of data.items) {
+        if (
+          item.topic !==
+          change.topic
+        ) {
+          continue;
+        }
+
+        for (
+          const claim
+          of item.claims || []
+        ) {
+          expected.set(
+            `${item.number}:${claim.id}`,
+            {
+              item,
+              claim,
+            },
+          );
+        }
+      }
+
+      if (
+        change.claims.length !==
+        expected.size
+      ) {
+        throw new TypeError(
+          'Состав тематических вопросов изменён. Обновите страницу.'
+        );
+      }
+
+      for (
+        const claim
+        of change.claims
+      ) {
+        const key =
+          `${claim.number}:${claim.id}`;
+
+        if (!expected.has(key)) {
+          throw new TypeError(
+            'Неизвестный тематический вопрос. Обновите страницу.'
+          );
+        }
+      }
+
+      let changedClaims = 0;
+
+      const changedNumbers =
+        new Set();
+
+      for (
+        const update
+        of change.claims
+      ) {
+        const regulation =
+          data.items.find(
+            item =>
+              String(item.number) ===
+                update.number &&
+              item.topic ===
+                change.topic
+          );
+
+        if (!regulation) {
+          throw new TypeError(
+            `Не найдено постановление №${update.number}`
+          );
+        }
+
+        const claim =
+          (regulation.claims || [])
+            .find(
+              item =>
+                item.id ===
+                update.id
+            );
+
+        if (!claim) {
+          throw new TypeError(
+            `Не найден вопрос ${update.id}`
+          );
+        }
+
+        if (
+          claim.text !==
+          update.text
+        ) {
+          claim.text =
+            update.text;
+
+          changedClaims += 1;
+
+          changedNumbers.add(
+            String(
+              regulation.number
+            )
+          );
+        }
+      }
+
+      if (changedClaims > 0) {
+        const now =
+          new Date().toISOString();
+
+        for (const item of data.items) {
+          if (
+            changedNumbers.has(
+              String(item.number)
+            )
+          ) {
+            item.contentUpdatedAt =
+              now;
+
+            item.updatedAt =
+              now;
+          }
+        }
+
+        const temporary =
+          `${FILE}.${process.pid}.${Date.now()}.tmp`;
+
+        try {
+          await fs.writeFile(
+            temporary,
+            JSON.stringify(
+              data,
+              null,
+              2,
+            ) + '\n',
+            {
+              encoding: 'utf8',
+              mode: 0o600,
+            },
+          );
+
+          await fs.rename(
+            temporary,
+            FILE,
+          );
+        } catch (error) {
+          await fs.rm(
+            temporary,
+            {
+              force: true,
+            },
+          );
+
+          throw error;
+        }
+      }
+
+      return {
+        topic: change.topic,
+        changedClaims,
+        publicationNeeded:
+          changedClaims > 0,
+      };
+    });
+
+  writes =
+    operation.catch(() => {});
+
+  return operation;
+}
+

@@ -1130,3 +1130,710 @@
 /* ==========================================================
    /Object page hero — balanced layout
    ========================================================== */
+
+
+/* ========================================================
+   SOCIAL_FAQ_TRADE_STYLE_V1
+   Trade FAQ style for generic ObjectTypePage only.
+   Main page FAQ is not affected.
+   ======================================================== */
+
+
+/* SECTION */
+
+.object-service-page > .faq {
+  padding: 116px 0 126px !important;
+
+  border-top: 0 !important;
+
+  background: #f5f5f1 !important;
+}
+
+
+/* Two-column TradePage layout */
+
+.object-service-page > .faq > .container {
+  display: grid !important;
+
+  grid-template-columns:
+    minmax(300px, .62fr)
+    minmax(0, 1.15fr) !important;
+
+  gap:
+    clamp(
+      70px,
+      10vw,
+      165px
+    ) !important;
+
+  align-items: start !important;
+}
+
+
+/* LEFT COLUMN */
+
+.object-service-page > .faq .faq__heading {
+  position: sticky !important;
+  top: 110px !important;
+
+  display: block !important;
+
+  align-self: start !important;
+
+  margin: 0 !important;
+}
+
+
+.object-service-page > .faq .faq__kicker {
+  margin: 0 0 20px !important;
+
+  color: var(--color-primary) !important;
+
+  font-size: .76rem !important;
+  font-weight: 800 !important;
+
+  letter-spacing: .14em !important;
+  text-transform: uppercase !important;
+}
+
+
+.object-service-page > .faq h2 {
+  max-width: 600px !important;
+
+  margin: 0 !important;
+
+  font-size:
+    clamp(
+      2.65rem,
+      3.9vw,
+      4.25rem
+    ) !important;
+
+  line-height: 1 !important;
+  letter-spacing: -.055em !important;
+
+  text-wrap: balance;
+}
+
+
+/* На главной вторая часть заголовка серая.
+   Здесь делаем как в TradePage. */
+
+.object-service-page > .faq h2 em {
+  display: inline !important;
+
+  color: inherit !important;
+
+  font-style: normal !important;
+}
+
+
+.object-service-page > .faq .faq__intro {
+  max-width: 560px !important;
+
+  margin: 30px 0 0 !important;
+  padding: 0 !important;
+}
+
+
+.object-service-page > .faq .faq__intro p {
+  margin: 0 !important;
+
+  color:
+    var(--color-text-secondary) !important;
+
+  line-height: 1.72 !important;
+}
+
+
+.object-service-page > .faq .faq__intro a {
+  display: inline-block !important;
+
+  margin-top: 18px !important;
+
+  color: var(--color-text) !important;
+
+  font-size: .88rem !important;
+  font-weight: 750 !important;
+
+  text-decoration: none !important;
+}
+
+
+/* RIGHT CARD */
+
+.object-service-page > .faq .faq__list {
+  overflow: hidden !important;
+
+  padding: 0 26px !important;
+
+  border:
+    1px solid
+    var(--color-border) !important;
+
+  border-radius:
+    var(--radius-lg) !important;
+
+  background: #fff !important;
+
+  box-shadow:
+    var(--shadow-soft) !important;
+}
+
+
+.object-service-page > .faq .faq-item {
+  margin: 0 !important;
+
+  border: 0 !important;
+
+  border-bottom:
+    1px solid
+    var(--color-border) !important;
+
+  background: transparent !important;
+}
+
+
+.object-service-page > .faq .faq-item:last-child {
+  border-bottom: 0 !important;
+}
+
+
+.object-service-page > .faq .faq-item__heading {
+  margin: 0 !important;
+}
+
+
+/* ROW */
+
+.object-service-page > .faq .faq-item__button {
+  display: grid !important;
+
+  grid-template-columns:
+    54px
+    minmax(0, 1fr)
+    36px !important;
+
+  gap: 18px !important;
+
+  align-items: center !important;
+
+  width: 100% !important;
+  min-height: 94px !important;
+
+  margin: 0 -10px !important;
+
+  padding:
+    23px
+    10px !important;
+
+  border: 0 !important;
+  border-radius: 14px !important;
+
+  background: transparent !important;
+
+  color: var(--color-text) !important;
+
+  text-align: left !important;
+
+  transition:
+    background-color 180ms ease !important;
+}
+
+
+/* NUMBER — no circle */
+
+.object-service-page > .faq .faq-item__number,
+.object-service-page > .faq
+.faq-item--open
+.faq-item__number,
+.object-service-page > .faq
+.faq-item__button:hover
+.faq-item__number {
+  display: block !important;
+
+  width: auto !important;
+  height: auto !important;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+
+  background: transparent !important;
+
+  color:
+    var(--color-text-secondary) !important;
+
+  font-size: .72rem !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+
+  letter-spacing: .09em !important;
+}
+
+
+/* QUESTION */
+
+.object-service-page > .faq .faq-item__question {
+  max-width: none !important;
+
+  font-size: 1.08rem !important;
+  font-weight: 750 !important;
+
+  line-height: 1.4 !important;
+  letter-spacing: 0 !important;
+}
+
+
+/* +/- ICON */
+
+.object-service-page > .faq .faq-item__icon {
+  position: relative !important;
+
+  justify-self: end !important;
+
+  width: 28px !important;
+  height: 28px !important;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+
+  background: transparent !important;
+
+  color: var(--color-text) !important;
+
+  transform: none !important;
+
+  transition:
+    background-color 180ms ease,
+    color 180ms ease !important;
+}
+
+
+.object-service-page > .faq
+.faq-item__button:hover
+.faq-item__icon {
+  border: 0 !important;
+
+  background: transparent !important;
+
+  color: var(--color-text) !important;
+}
+
+
+.object-service-page > .faq
+.faq-item--open
+.faq-item__icon {
+  border: 0 !important;
+
+  border-radius: 50% !important;
+
+  background: #a9f04a !important;
+
+  color: #151515 !important;
+}
+
+
+.object-service-page > .faq
+.faq-item__icon span {
+  position: absolute !important;
+
+  top: 50% !important;
+  left: 50% !important;
+
+  width: 16px !important;
+  height: 2px !important;
+
+  border-radius: 999px !important;
+
+  background: currentColor !important;
+
+  transform:
+    translate(-50%, -50%) !important;
+}
+
+
+.object-service-page > .faq
+.faq-item__icon span:last-child {
+  transform:
+    translate(-50%, -50%)
+    rotate(90deg) !important;
+}
+
+
+.object-service-page > .faq
+.faq-item--open
+.faq-item__icon span:last-child {
+  transform:
+    translate(-50%, -50%)
+    rotate(0deg) !important;
+}
+
+
+/* OPEN / HOVER ROW */
+
+@media (hover: hover) {
+  .object-service-page > .faq
+  .faq-item__button:hover {
+    background: #f5f5f1 !important;
+  }
+}
+
+
+.object-service-page > .faq
+.faq-item--open
+.faq-item__button {
+  background: #f5f5f1 !important;
+}
+
+
+/* ANSWER */
+
+.object-service-page > .faq .faq-item__panel[hidden] {
+  display: none !important;
+}
+
+
+.object-service-page > .faq .faq-item__answer {
+  display: block !important;
+
+  padding:
+    0
+    54px
+    28px
+    72px !important;
+}
+
+
+.object-service-page > .faq
+.faq-item__answer::before,
+.object-service-page > .faq
+.faq-item__answer::after {
+  display: none !important;
+
+  content: none !important;
+}
+
+
+.object-service-page > .faq
+.faq-item__answer p {
+  max-width: 750px !important;
+
+  margin: 0 !important;
+
+  color:
+    var(--color-text-secondary) !important;
+
+  font-size: 1rem !important;
+
+  line-height: 1.72 !important;
+}
+
+
+/* TABLET */
+
+@media (max-width: 1024px) {
+
+  .object-service-page > .faq > .container {
+    grid-template-columns: 1fr !important;
+  }
+
+
+  .object-service-page > .faq .faq__heading {
+    position: static !important;
+
+    max-width: 740px !important;
+  }
+
+}
+
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+  .object-service-page > .faq {
+    padding-top: 80px !important;
+    padding-bottom: 86px !important;
+  }
+
+
+  .object-service-page > .faq .faq__list {
+    padding:
+      0
+      18px !important;
+  }
+
+
+  .object-service-page > .faq
+  .faq-item__button {
+    grid-template-columns:
+      44px
+      minmax(0, 1fr)
+      32px !important;
+  }
+
+
+  .object-service-page > .faq
+  .faq-item__answer {
+    padding-left: 62px !important;
+  }
+
+}
+
+
+@media (max-width: 430px) {
+
+  .object-service-page > .faq h2 {
+    font-size: 2.4rem !important;
+  }
+
+
+  .object-service-page > .faq .faq__list {
+    padding:
+      0
+      12px !important;
+
+    border-radius: 18px !important;
+  }
+
+
+  .object-service-page > .faq
+  .faq-item__button {
+    grid-template-columns:
+      34px
+      minmax(0, 1fr)
+      28px !important;
+
+    gap: 12px !important;
+  }
+
+
+  .object-service-page > .faq
+  .faq-item__answer {
+    padding:
+      0
+      28px
+      26px
+      46px !important;
+  }
+
+}
+
+
+@media (max-width: 320px) {
+
+  .object-service-page > .faq h2 {
+    font-size: 2.05rem !important;
+  }
+
+
+  .object-service-page > .faq
+  .faq-item__number {
+    display: none !important;
+  }
+
+
+  .object-service-page > .faq
+  .faq-item__button {
+    grid-template-columns:
+      minmax(0, 1fr)
+      28px !important;
+  }
+
+
+  .object-service-page > .faq
+  .faq-item__answer {
+    padding-left: 0 !important;
+  }
+
+}
+
+
+/* ========================================================
+   /SOCIAL_FAQ_TRADE_STYLE_V1
+   ======================================================== */
+
+
+/* ========================================================
+   SOCIAL_FAQ_ICON_FIX_V2
+   Exact persistent FAQ +/- icon
+   ======================================================== */
+
+
+/*
+ * Старые span-линии общего FAQ полностью отключаем.
+ */
+
+.object-service-page > .faq
+.faq-item__icon > span {
+  display: none !important;
+}
+
+
+/*
+ * Базовая иконка.
+ */
+
+.object-service-page > .faq
+.faq-item__icon {
+  position: relative !important;
+
+  display: block !important;
+
+  justify-self: end !important;
+
+  width: 28px !important;
+  height: 28px !important;
+
+  flex: none !important;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+
+  background: transparent !important;
+
+  color: #151515 !important;
+
+  transform: none !important;
+
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    border-radius 180ms ease !important;
+}
+
+
+/*
+ * Горизонтальная и вертикальная линии.
+ */
+
+.object-service-page > .faq
+.faq-item__icon::before,
+.object-service-page > .faq
+.faq-item__icon::after {
+  position: absolute !important;
+
+  top: 50% !important;
+  left: 50% !important;
+
+  display: block !important;
+
+  width: 16px !important;
+  height: 2px !important;
+
+  border: 0 !important;
+  border-radius: 999px !important;
+
+  background: currentColor !important;
+
+  content: "" !important;
+
+  transform:
+    translate(-50%, -50%) !important;
+
+  transform-origin: center !important;
+
+  transition:
+    transform 180ms ease !important;
+}
+
+
+/*
+ * Вертикальная линия формирует плюс.
+ */
+
+.object-service-page > .faq
+.faq-item__icon::after {
+  transform:
+    translate(-50%, -50%)
+    rotate(90deg) !important;
+}
+
+
+/*
+ * Убираем старое hover-оформление.
+ * Закрытый пункт остаётся обычным чёрным плюсом.
+ */
+
+.object-service-page > .faq
+.faq-item__button:hover
+.faq-item__icon {
+  border: 0 !important;
+  border-radius: 0 !important;
+
+  background: transparent !important;
+
+  color: #151515 !important;
+
+  transform: none !important;
+}
+
+
+/*
+ * OPEN.
+ * Используем сразу два признака:
+ * class faq-item--open и aria-expanded=true.
+ *
+ * Поэтому лаймовое состояние не зависит от hover.
+ */
+
+.object-service-page > .faq
+.faq-item--open
+.faq-item__icon,
+
+.object-service-page > .faq
+.faq-item__button[aria-expanded="true"]
+.faq-item__icon,
+
+.object-service-page > .faq
+.faq-item__button[aria-expanded="true"]:hover
+.faq-item__icon {
+  border: 0 !important;
+
+  border-radius: 50% !important;
+
+  background: #a9f04a !important;
+
+  color: #151515 !important;
+
+  transform: none !important;
+}
+
+
+/*
+ * В открытом состоянии вертикальная линия
+ * складывается в горизонтальную.
+ */
+
+.object-service-page > .faq
+.faq-item--open
+.faq-item__icon::after,
+
+.object-service-page > .faq
+.faq-item__button[aria-expanded="true"]
+.faq-item__icon::after {
+  transform:
+    translate(-50%, -50%)
+    rotate(0deg) !important;
+}
+
+
+/*
+ * Горизонтальная линия всегда строго горизонтальна.
+ */
+
+.object-service-page > .faq
+.faq-item--open
+.faq-item__icon::before,
+
+.object-service-page > .faq
+.faq-item__button[aria-expanded="true"]
+.faq-item__icon::before {
+  transform:
+    translate(-50%, -50%) !important;
+}
+
+
+/* ========================================================
+   /SOCIAL_FAQ_ICON_FIX_V2
+   ======================================================== */

@@ -2399,3 +2399,1220 @@ cursor:pointer;
   }
 
 }
+
+
+/* =========================
+   ARTICLE PREVIEW ACTIONS
+========================= */
+
+.admin-editor__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+
+.admin-editor__actions .admin-button--preview {
+  background: #1260ff;
+}
+
+
+@media (max-width: 600px) {
+
+  .admin-editor__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+
+  .admin-editor__actions .admin-button {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================
+   ARTICLE EDITOR — CONTENT WIDTH FIX
+========================================= */
+
+.admin-field {
+  min-width: 0;
+  width: 100%;
+}
+
+
+.article-editor {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+
+.article-editor .ProseMirror {
+  box-sizing: border-box;
+
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+
+  white-space: normal;
+
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+
+.article-editor .ProseMirror p,
+.article-editor .ProseMirror h2,
+.article-editor .ProseMirror h3,
+.article-editor .ProseMirror li,
+.article-editor .ProseMirror blockquote {
+  max-width: 100%;
+
+  white-space: normal;
+
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+
+.article-editor .ProseMirror ul,
+.article-editor .ProseMirror ol {
+  box-sizing: border-box;
+
+  max-width: 100%;
+
+  padding-right: 20px;
+}
+
+
+.article-editor .ProseMirror img {
+  display: block;
+
+  width: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+
+.admin-editor__card {
+  min-width: 0;
+}
+
+
+.admin-editor__card > * {
+  min-width: 0;
+}
+
+
+/* =========================================
+   ARTICLE EDITOR — STICKY TOOLBAR FINAL
+========================================= */
+
+.article-editor-shell {
+  position: relative;
+
+  width: 100%;
+  min-width: 0;
+}
+
+
+.article-editor-shell .article-editor-toolbar {
+  position: sticky !important;
+
+  top: 12px;
+
+  z-index: 200;
+
+  width: 100%;
+  max-width: 100%;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+
+  margin:
+    0 0
+    10px;
+
+  padding:
+    10px 12px;
+
+  border:
+    1px solid
+    rgba(17, 17, 17, .10);
+
+  border-radius: 10px;
+
+  background:
+    rgba(247, 247, 247, .97);
+
+  box-shadow:
+    0 8px 26px
+    rgba(17, 17, 17, .10);
+
+  backdrop-filter:
+    blur(12px);
+
+  -webkit-backdrop-filter:
+    blur(12px);
+}
+
+
+.article-editor-shell .article-editor {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+
+  overflow: visible;
+}
+
+
+/*
+ * Sticky не работает корректно,
+ * если предки его обрезают.
+ */
+.admin-field {
+  min-width: 0;
+  overflow: visible !important;
+}
+
+
+.admin-editor__card {
+  overflow: visible !important;
+}
+
+
+@media (max-width: 700px) {
+
+  .article-editor-shell
+  .article-editor-toolbar {
+    top: 8px;
+
+    gap: 6px;
+
+    padding: 8px;
+  }
+
+}
+
+
+/* =========================================
+   ARTICLE EDITOR ACTIONS
+========================================= */
+
+.admin-editor__actions {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 12px;
+
+  margin-top: 24px;
+}
+
+
+.admin-button--preview {
+  background: #fff;
+  color: #111;
+
+  border:
+    1px solid
+    rgba(17, 17, 17, .14);
+}
+
+
+.admin-button--preview:hover {
+  border-color: #1260ff;
+  color: #1260ff;
+}
+
+
+@media (max-width: 600px) {
+
+  .admin-editor__actions {
+    flex-direction: column;
+  }
+
+
+  .admin-editor__actions .admin-button {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================
+   ARTICLE EDITOR — IMPORTANT BLOCK
+========================================= */
+
+.article-editor .ProseMirror blockquote {
+  margin:
+    24px 0;
+
+  padding:
+    4px 0
+    4px 20px;
+
+  border-left:
+    5px solid
+    #d9d9d9;
+
+  background: transparent;
+
+  color: inherit;
+}
+
+
+.article-editor .ProseMirror blockquote p {
+  margin: 0;
+
+  line-height: 1.65;
+}
+
+
+.article-editor .ProseMirror blockquote strong {
+  font-weight: 800;
+}
+
+
+.article-editor-toolbar
+.editor-button--active {
+  border-color: #1260ff;
+
+  background:
+    rgba(18, 96, 255, .08);
+
+  color: #1260ff;
+}
+
+
+/* =========================================
+   ARTICLE EDITOR — CALLOUT / ВРЕЗКА
+========================================= */
+
+.article-editor .ProseMirror blockquote {
+  position: relative;
+
+  margin:
+    24px 0;
+
+  padding:
+    18px 20px
+    18px 22px;
+
+  border: 0;
+  border-radius: 12px;
+
+  background:
+    rgba(18, 96, 255, .08);
+
+  color: inherit;
+}
+
+
+.article-editor .ProseMirror blockquote::before {
+  content: '';
+
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+  left: 0;
+
+  width: 5px;
+
+  border-radius:
+    12px 0 0 12px;
+
+  background:
+    #1260ff;
+}
+
+
+.article-editor .ProseMirror blockquote p {
+  margin: 0;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================
+   ARTICLE EDITOR — TABLES
+========================================= */
+
+.article-editor .ProseMirror table {
+  width: 100%;
+
+  margin:
+    24px 0;
+
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  table-layout: auto;
+}
+
+
+.article-editor .ProseMirror th,
+.article-editor .ProseMirror td {
+  position: relative;
+
+  min-width: 80px;
+
+  padding:
+    10px 12px;
+
+  border:
+    1px solid
+    rgba(17, 17, 17, .14);
+
+  vertical-align: top;
+
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+
+.article-editor .ProseMirror th {
+  background:
+    rgba(18, 96, 255, .08);
+
+  font-weight: 750;
+
+  color: #111;
+}
+
+
+.article-editor .ProseMirror td {
+  background: #fff;
+}
+
+
+.article-editor .ProseMirror th p,
+.article-editor .ProseMirror td p {
+  margin: 0;
+}
+
+
+.article-editor .ProseMirror th p + p,
+.article-editor .ProseMirror td p + p {
+  margin-top: 6px;
+}
+
+
+.article-editor .ProseMirror .selectedCell::after {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    rgba(18, 96, 255, .08);
+}
+
+
+.editor-button--danger {
+  color: #a62e2e;
+}
+
+
+.editor-button--danger:hover {
+  border-color:
+    rgba(166, 46, 46, .4);
+
+  background:
+    rgba(166, 46, 46, .06);
+}
+
+
+/* =========================================
+   ADMIN SIDEBAR — PUBLIC BLOG LINK
+========================================= */
+
+.admin-sidebar__menu a.admin-sidebar__blog-link {
+  color: #6f92ff;
+}
+
+
+.admin-sidebar__menu a.admin-sidebar__blog-link:hover {
+  color: #fff;
+
+  background:
+    rgba(18, 96, 255, .22);
+}
+
+
+/* =========================================
+   ARTICLES — BULK YEAR UPDATE
+========================================= */
+
+.admin-articles-header-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+}
+
+
+.admin-year-button {
+  min-height: 46px;
+
+  padding:
+    0 18px;
+
+  border:
+    1px solid
+    rgba(18, 96, 255, .22);
+
+  border-radius: 999px;
+
+  background:
+    rgba(18, 96, 255, .07);
+
+  color:
+    #1260ff;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background .18s ease,
+    border-color .18s ease,
+    transform .18s ease;
+}
+
+
+.admin-year-button:hover:not(:disabled) {
+  transform:
+    translateY(-1px);
+
+  background:
+    rgba(18, 96, 255, .12);
+
+  border-color:
+    rgba(18, 96, 255, .35);
+}
+
+
+.admin-year-button:disabled {
+  opacity: .5;
+
+  cursor: wait;
+}
+
+
+@media (max-width: 760px) {
+
+  .admin-articles-header-actions {
+    width: 100%;
+
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+
+  .admin-year-button {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================
+   ARTICLES — YEAR UPDATE HINT
+========================================= */
+
+.admin-articles-header-actions-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  gap: 8px;
+}
+
+
+.admin-year-hint {
+  color:
+    rgba(17, 17, 17, .48);
+
+  font-size: 12px;
+  line-height: 1.35;
+
+  text-align: right;
+}
+
+
+@media (max-width: 700px) {
+
+  .admin-articles-header-actions-wrap {
+    align-items: flex-start;
+  }
+
+
+  .admin-year-hint {
+    text-align: left;
+  }
+
+}
+
+
+/* =========================================
+   ARTICLES — YEAR TOOLTIP
+========================================= */
+
+.admin-articles-header-actions-wrap {
+  position: relative;
+
+  align-items: flex-end;
+
+  gap: 0;
+}
+
+
+.admin-year-hint {
+  display: none;
+}
+
+
+.admin-year-help {
+  position: relative;
+
+  width: 26px;
+  height: 26px;
+
+  flex: 0 0 26px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: -2px;
+  margin-right: 2px;
+
+  border:
+    1px solid
+    rgba(18, 96, 255, .22);
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  color: #1260ff;
+
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+
+  cursor: help;
+
+  outline: none;
+}
+
+
+.admin-year-help:hover,
+.admin-year-help:focus-visible {
+  border-color: #1260ff;
+
+  background:
+    rgba(18, 96, 255, .07);
+}
+
+
+.admin-year-tooltip {
+  position: absolute;
+
+  z-index: 100;
+
+  top:
+    calc(100% + 10px);
+
+  left: 50%;
+
+  width: 260px;
+
+  padding:
+    12px 14px;
+
+  border-radius: 10px;
+
+  background: #111;
+
+  color: #fff;
+
+  box-shadow:
+    0 12px 30px
+    rgba(0, 0, 0, .16);
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+
+  text-align: left;
+
+  transform:
+    translateX(-50%)
+    translateY(-4px);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity .16s ease,
+    transform .16s ease,
+    visibility .16s ease;
+}
+
+
+.admin-year-tooltip::before {
+  content: "";
+
+  position: absolute;
+
+  bottom: 100%;
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  border:
+    6px solid
+    transparent;
+
+  border-bottom-color:
+    #111;
+}
+
+
+.admin-year-help:hover
+.admin-year-tooltip,
+.admin-year-help:focus
+.admin-year-tooltip,
+.admin-year-help:focus-visible
+.admin-year-tooltip {
+  opacity: 1;
+  visibility: visible;
+
+  transform:
+    translateX(-50%)
+    translateY(0);
+}
+
+
+@media (max-width: 700px) {
+
+  .admin-year-tooltip {
+    left: auto;
+    right: 0;
+
+    width: 230px;
+
+    transform:
+      translateY(-4px);
+  }
+
+
+  .admin-year-tooltip::before {
+    left: auto;
+    right: 7px;
+
+    transform: none;
+  }
+
+
+  .admin-year-help:hover
+  .admin-year-tooltip,
+  .admin-year-help:focus
+  .admin-year-tooltip,
+  .admin-year-help:focus-visible
+  .admin-year-tooltip {
+    transform:
+      translateY(0);
+  }
+
+}
+
+
+/* =========================================
+   ARTICLE EDIT — PUBLISHED NOTICE
+========================================= */
+
+.admin-published-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 24px;
+
+  margin:
+    0 0 24px;
+
+  padding:
+    18px 20px;
+
+  border:
+    1px solid
+    rgba(18, 96, 255, .13);
+
+  border-radius: 16px;
+
+  background:
+    rgba(18, 96, 255, .045);
+}
+
+
+.admin-published-notice__status {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 12px;
+
+  min-width: 0;
+}
+
+
+.admin-published-notice__dot {
+  width: 9px;
+  height: 9px;
+
+  flex: 0 0 9px;
+
+  margin-top: 6px;
+
+  border-radius: 50%;
+
+  background: #22a06b;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(34, 160, 107, .10);
+}
+
+
+.admin-published-notice__status > div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+
+  min-width: 0;
+}
+
+
+.admin-published-notice__status strong {
+  color: #111;
+
+  font-size: 14px;
+  font-weight: 750;
+}
+
+
+.admin-published-notice__status span {
+  color:
+    rgba(17, 17, 17, .55);
+
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+
+.admin-published-notice__link {
+  flex: 0 0 auto;
+
+  color: #1260ff;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+
+.admin-published-notice__link:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================================
+   ARTICLE EDIT — TWO COLUMN WORKSPACE
+========================================= */
+
+.admin-editor__workspace {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    220px;
+
+  gap: 24px;
+
+  align-items: start;
+}
+
+
+.admin-editor__main {
+  min-width: 0;
+}
+
+
+/* =========================================
+   ARTICLE EDIT — STICKY ACTIONS
+========================================= */
+
+.admin-editor__sticky-actions {
+  position: sticky;
+
+  top: 18px;
+
+  z-index: 40;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+
+  padding: 14px;
+
+  border:
+    1px solid
+    rgba(17, 17, 17, .09);
+
+  border-radius: 16px;
+
+  background:
+    rgba(255, 255, 255, .96);
+
+  box-shadow:
+    0 10px 32px
+    rgba(17, 17, 17, .07);
+
+  backdrop-filter:
+    blur(12px);
+
+  -webkit-backdrop-filter:
+    blur(12px);
+}
+
+
+.admin-editor__sticky-title {
+  margin:
+    2px 2px
+    4px;
+
+  color:
+    rgba(17, 17, 17, .42);
+
+  font-size: 10px;
+  font-weight: 800;
+
+  line-height: 1.2;
+
+  letter-spacing: .09em;
+
+  text-transform: uppercase;
+}
+
+
+.admin-editor__sticky-actions
+.admin-button {
+  width: 100%;
+
+  min-height: 44px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0;
+
+  text-align: center;
+}
+
+
+.admin-editor__sticky-actions
+.admin-button--preview {
+  background: #fff;
+
+  color: #111;
+
+  border:
+    1px solid
+    rgba(17, 17, 17, .13);
+}
+
+
+.admin-editor__sticky-actions
+.admin-button--preview:hover {
+  color: #1260ff;
+
+  border-color:
+    rgba(18, 96, 255, .45);
+}
+
+
+.admin-editor__public-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 36px;
+
+  margin-top: 2px;
+
+  color:
+    rgba(17, 17, 17, .57);
+
+  font-size: 11px;
+  font-weight: 650;
+
+  line-height: 1.3;
+
+  text-align: center;
+  text-decoration: none;
+}
+
+
+.admin-editor__public-link:hover {
+  color: #1260ff;
+}
+
+
+/* =========================================
+   ARTICLE EDIT — RESPONSIVE
+========================================= */
+
+@media (max-width: 1100px) {
+
+  .admin-editor__workspace {
+    grid-template-columns:
+      minmax(0, 1fr)
+      190px;
+
+    gap: 18px;
+  }
+
+}
+
+
+@media (max-width: 850px) {
+
+  .admin-editor__workspace {
+    display: flex;
+    flex-direction: column;
+  }
+
+
+  .admin-editor__sticky-actions {
+    top: 8px;
+
+    width: 100%;
+
+    order: -1;
+
+    flex-direction: row;
+    align-items: center;
+
+    padding: 10px;
+
+    border-radius: 14px;
+  }
+
+
+  .admin-editor__sticky-title {
+    display: none;
+  }
+
+
+  .admin-editor__sticky-actions
+  .admin-button {
+    flex: 1;
+  }
+
+
+  .admin-editor__public-link {
+    flex: 0 0 auto;
+
+    padding:
+      0 12px;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .admin-published-notice {
+    align-items: flex-start;
+    flex-direction: column;
+
+    gap: 14px;
+
+    padding:
+      16px;
+  }
+
+
+  .admin-editor__sticky-actions {
+    flex-wrap: wrap;
+  }
+
+
+  .admin-editor__sticky-actions
+  .admin-button {
+    min-width:
+      calc(50% - 5px);
+  }
+
+
+  .admin-editor__public-link {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================
+   ARTICLE EDITOR — SLUG / PUBLIC URL
+========================================= */
+
+.admin-slug-field {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+
+.admin-slug-control {
+  display: flex;
+  align-items: stretch;
+
+  width: 100%;
+  min-height: 46px;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(17, 17, 17, .14);
+
+  border-radius: 10px;
+
+  background: #fff;
+
+  transition:
+    border-color .18s ease,
+    box-shadow .18s ease;
+}
+
+
+.admin-slug-control:focus-within {
+  border-color:
+    rgba(18, 96, 255, .55);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(18, 96, 255, .08);
+}
+
+
+.admin-slug-control input {
+  flex: 1;
+
+  min-width: 0;
+
+  padding:
+    0 8px;
+
+  border: 0 !important;
+
+  border-radius: 0 !important;
+
+  outline: 0;
+
+  background: transparent;
+
+  box-shadow: none !important;
+
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    monospace;
+
+  font-size: 13px;
+}
+
+
+.admin-slug-prefix,
+.admin-slug-suffix {
+  display: inline-flex;
+  align-items: center;
+
+  flex: 0 0 auto;
+
+  color:
+    rgba(17, 17, 17, .43);
+
+  background:
+    rgba(17, 17, 17, .035);
+
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    monospace;
+
+  font-size: 12px;
+
+  white-space: nowrap;
+}
+
+
+.admin-slug-prefix {
+  padding-left: 13px;
+}
+
+
+.admin-slug-suffix {
+  padding:
+    0 13px 0 3px;
+}
+
+
+.admin-slug-hint {
+  display: block;
+
+  color:
+    rgba(17, 17, 17, .48);
+
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+
+@media (max-width: 600px) {
+
+  .admin-slug-prefix {
+    padding-left: 10px;
+  }
+
+
+  .admin-slug-suffix {
+    padding-right: 10px;
+  }
+
+}

@@ -1951,35 +1951,15 @@ export default function TradePage() {
                 className="button button--primary trade-form__button"
                 href="#lead-form"
               >
-                <span className="trade-form__button-label">
+                <span>
                   Получить актуальную форму паспорта
                 </span>
 
                 <span
-                  className="trade-form__button-icon"
+                  className="trade-form__button-arrow"
                   aria-hidden="true"
                 >
-                  
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M7 17L17 7"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M9 7H17V15"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  
+                  ↗
                 </span>
               </a>
             </div>

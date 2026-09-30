@@ -17,6 +17,11 @@ export default defineConfig({
           process.cwd(),
           'admin.html',
         ),
+
+        articlePreview: path.resolve(
+          process.cwd(),
+          'article-preview.html',
+        ),
       },
     },
   },

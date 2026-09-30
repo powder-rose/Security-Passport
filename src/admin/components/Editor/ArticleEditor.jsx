@@ -19,6 +19,10 @@ import Image from '@tiptap/extension-image';
 
 import Link from '@tiptap/extension-link';
 
+import {
+  TableKit,
+} from '@tiptap/extension-table';
+
 
 
 import {
@@ -59,6 +63,19 @@ const editor = useEditor({
 
     Link.configure({
       openOnClick:false,
+    }),
+
+
+    TableKit.configure({
+
+      table: {
+
+        HTMLAttributes: {
+          class: 'article-table',
+        },
+
+      },
+
     }),
 
 
@@ -196,19 +213,7 @@ if(!editor){
 
 return (
 
-<>
-
-<div className="article-editor">
-
-
-<EditorContent
- editor={editor}
-/>
-
-
-</div>
-
-
+<div className="article-editor-shell">
 
 <div className="article-editor-toolbar">
 
@@ -377,6 +382,210 @@ Tx
 
 
 
+<button
+ type="button"
+ className={`editor-button ${
+   editor.isActive('blockquote')
+     ? 'editor-button--active'
+     : ''
+ }`}
+ title="Вставить выделенный блок"
+ onClick={()=>{
+
+   if(
+     editor.isActive(
+       'blockquote'
+     )
+   ){
+
+     editor
+      .chain()
+      .focus()
+      .toggleBlockquote()
+      .run();
+
+     return;
+
+   }
+
+
+   const selection =
+     editor.state.selection;
+
+
+   /*
+    * Если пользователь выделил текст —
+    * просто превращаем его в блок «Важно».
+    */
+   if(
+     !selection.empty
+   ){
+
+     editor
+      .chain()
+      .focus()
+      .toggleBlockquote()
+      .run();
+
+     return;
+
+   }
+
+
+   /*
+    * Если ничего не выделено —
+    * создаём готовую заготовку.
+    */
+   editor
+    .chain()
+    .focus()
+    .insertContent({
+      type:'blockquote',
+
+      content:[
+        {
+          type:'paragraph',
+        },
+      ],
+    })
+    .focus()
+    .run();
+
+ }}
+>
+Врезка
+</button>
+
+
+
+<button
+ type="button"
+ className={
+   editor.isActive('table')
+     ? 'editor-button active'
+     : 'editor-button'
+ }
+ title="Вставить таблицу 3 × 3"
+ onClick={()=>{
+
+   editor
+    .chain()
+    .focus()
+    .insertTable({
+      rows:3,
+      cols:3,
+      withHeaderRow:true,
+    })
+    .run();
+
+ }}
+>
+Таблица
+</button>
+
+
+
+{
+  editor.isActive('table')
+  &&
+  (
+    <>
+
+      <button
+        type="button"
+        className="editor-button"
+        title="Добавить строку снизу"
+        onClick={()=>{
+
+          editor
+            .chain()
+            .focus()
+            .addRowAfter()
+            .run();
+
+        }}
+      >
+        + строка
+      </button>
+
+
+      <button
+        type="button"
+        className="editor-button"
+        title="Удалить текущую строку"
+        onClick={()=>{
+
+          editor
+            .chain()
+            .focus()
+            .deleteRow()
+            .run();
+
+        }}
+      >
+        − строка
+      </button>
+
+
+      <button
+        type="button"
+        className="editor-button"
+        title="Добавить столбец справа"
+        onClick={()=>{
+
+          editor
+            .chain()
+            .focus()
+            .addColumnAfter()
+            .run();
+
+        }}
+      >
+        + столбец
+      </button>
+
+
+      <button
+        type="button"
+        className="editor-button"
+        title="Удалить текущий столбец"
+        onClick={()=>{
+
+          editor
+            .chain()
+            .focus()
+            .deleteColumn()
+            .run();
+
+        }}
+      >
+        − столбец
+      </button>
+
+
+      <button
+        type="button"
+        className="editor-button editor-button--danger"
+        title="Удалить всю таблицу"
+        onClick={()=>{
+
+          editor
+            .chain()
+            .focus()
+            .deleteTable()
+            .run();
+
+        }}
+      >
+        Удалить таблицу
+      </button>
+
+    </>
+  )
+}
+
+
+
 <label className="article-upload-button">
 Изображение
 <input
@@ -390,7 +599,17 @@ Tx
 </div>
 
 
-</>
+<div className="article-editor">
+
+
+<EditorContent
+ editor={editor}
+/>
+
+
+</div>
+
+</div>
 
 );
 }

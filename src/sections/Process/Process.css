@@ -241,12 +241,13 @@
 
 .process-section__cta .button--primary {
   flex: 0 0 auto;
-  background: var(--color-accent);
+  background: #ffffff;
   color: var(--color-text);
+  font-weight: 800;
 }
 
 .process-section__cta .button--primary:hover {
-  background: #b6f568;
+  background: var(--color-accent);
 }
 
 @media (max-width: 980px) {

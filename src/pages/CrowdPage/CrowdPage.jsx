@@ -1,5 +1,6 @@
 import Container from '../../components/ui/Container/Container';
 import FinalCTA from '../../sections/FinalCTA/FinalCTA';
+import { getRegulationClaim } from '../../data/regulationClaims';
 
 
 export default function CrowdPage() {
@@ -912,9 +913,10 @@ export default function CrowdPage() {
           <div className="crowd-faq__answer">
 
             <p>
-              Необходимость разработки паспорта определяется
-              требованиями законодательства и характеристиками
-              конкретного объекта.
+              {getRegulationClaim(
+                '272',
+                'crowd.faq.00',
+              )}
             </p>
 
           </div>
@@ -944,9 +946,10 @@ export default function CrowdPage() {
           <div className="crowd-faq__answer">
 
             <p>
-              В состав работ входят обследование объекта,
-              подготовка материалов и оформление паспорта
-              безопасности.
+              {getRegulationClaim(
+                '272',
+                'crowd.faq.01',
+              )}
             </p>
 
           </div>
@@ -976,8 +979,10 @@ export default function CrowdPage() {
           <div className="crowd-faq__answer">
 
             <p>
-              Необходимость актуализации зависит от изменений
-              объекта и требований, применяемых к нему.
+              {getRegulationClaim(
+                '272',
+                'crowd.faq.02',
+              )}
             </p>
 
           </div>

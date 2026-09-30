@@ -480,3 +480,58 @@
 }
 
 /* /Hero commercial price accent */
+
+
+/* ========================================================
+   HERO_PRIMARY_ARROW_EXACT_REFERENCE_V4
+   Exact copy of RelatedServices arrow
+   ======================================================== */
+
+.hero__primary-action {
+  gap: 14px !important;
+}
+
+.hero__primary-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: auto;
+  height: auto;
+  flex: none;
+
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+  border-radius: 0;
+
+  background: transparent;
+  box-shadow: none;
+
+  color: #a9f04a;
+
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1;
+
+  transform: translateY(-1px);
+
+  transition:
+    transform 180ms ease;
+}
+
+.hero__primary-action:hover
+.hero__primary-arrow {
+  transform: translate(3px, -4px);
+}
+
+@media (max-width: 640px) {
+  .hero__primary-arrow {
+    font-size: 20px;
+  }
+}
+
+/* ========================================================
+   /HERO_PRIMARY_ARROW_EXACT_REFERENCE_V4
+   ======================================================== */

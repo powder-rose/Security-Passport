@@ -33,6 +33,8 @@ import HealthPage from '../pages/HealthPage/HealthPage';
 import CrowdPage from '../pages/CrowdPage/CrowdPage';
 import ActualizationPage from '../pages/ActualizationPage/ActualizationPage';
 import CategorizationActPage from '../pages/CategorizationActPage/CategorizationActPage';
+import BlogPage from '../pages/BlogPage/BlogPage';
+import ArticlePage from '../pages/ArticlePage/ArticlePage';
 
 const legalPageCssUrl =
   '/styles/LegalPage.css';
@@ -213,6 +215,8 @@ import {
 
 export default function App({
   pathname,
+  initialBlogArticles = null,
+  initialArticle = null,
 }) {
   const city =
     useCity();
@@ -224,6 +228,81 @@ export default function App({
         ? window.location.pathname
         : '/'
     );
+
+  const normalizedPathname =
+    resolvedPathname.replace(
+      /\/+$/,
+      ''
+    ) || '/';
+
+
+  if(
+    normalizedPathname ===
+    '/blog'
+  ){
+
+    return (
+      <>
+        <Analytics />
+
+        <Header />
+
+        <BlogPage
+          initialArticles={initialBlogArticles}
+        />
+
+        <Footer />
+      </>
+    );
+
+  }
+
+
+  const blogArticleMatch =
+    normalizedPathname.match(
+      /^\/blog\/([^/]+)$/
+    );
+
+
+  if(
+    blogArticleMatch
+  ){
+
+    let articleSlug =
+      blogArticleMatch[1];
+
+
+    try {
+
+      articleSlug =
+        decodeURIComponent(
+          articleSlug
+        );
+
+    }
+    catch {
+      // Оставляем исходный slug.
+    }
+
+
+    return (
+      <>
+        <Analytics />
+
+        <Header />
+
+        <ArticlePage
+          slug={articleSlug}
+          initialArticle={initialArticle}
+          initialArticles={initialBlogArticles}
+        />
+
+        <Footer />
+      </>
+    );
+
+  }
+
 
   const legalDocument =
     city.isDefault

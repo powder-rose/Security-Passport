@@ -7,6 +7,7 @@ import {
 import {
   getArticles,
   deleteArticle,
+  updateArticlesYear,
 } from '../../api/adminApi';
 
 
@@ -85,6 +86,69 @@ export default function ArticlesPage() {
 
   },[]);
 
+
+
+
+  const [
+    updatingYear,
+    setUpdatingYear,
+  ] = useState(false);
+
+
+
+  async function updateYear(){
+
+    const year =
+      new Date()
+        .getFullYear();
+
+
+    const ok =
+      window.confirm(
+        `Изменить год публикации всех опубликованных статей на ${year}?`
+      );
+
+
+    if(!ok){
+      return;
+    }
+
+
+    setUpdatingYear(true);
+
+
+    try {
+
+      const result =
+        await updateArticlesYear();
+
+
+      if(result?.ok){
+
+        alert(
+          `Готово. Обновлено статей: ${result.updated || 0}`
+        );
+
+
+        await loadArticles();
+
+      }
+      else {
+
+        alert(
+          'Не удалось обновить год статей'
+        );
+
+      }
+
+    }
+    finally {
+
+      setUpdatingYear(false);
+
+    }
+
+  }
 
 
 
@@ -201,12 +265,56 @@ export default function ArticlesPage() {
 
 
 
-        <a
-          href="/admin/articles/new"
-          className="admin-button"
-        >
-          Создать статью
-        </a>
+        <div className="admin-articles-header-actions-wrap">
+
+          <div className="admin-articles-header-actions">
+
+            <button
+              type="button"
+              className="admin-year-button"
+              disabled={updatingYear}
+              onClick={updateYear}
+            >
+              {
+                updatingYear
+                  ? 'Обновляем…'
+                  : `Обновить год → ${new Date().getFullYear()}`
+              }
+            </button>
+
+
+            <span
+              className="admin-year-help"
+              tabIndex="0"
+              aria-label="Информация об обновлении года"
+            >
+              ?
+
+              <span
+                className="admin-year-tooltip"
+                role="tooltip"
+              >
+                Обновляет только год у опубликованных статей.
+                День и месяц сохраняются.
+                Черновики не изменяются.
+              </span>
+
+            </span>
+
+
+            <a
+              href="/admin/articles/new"
+              className="admin-button"
+            >
+              Создать статью
+            </a>
+
+          </div>
+
+
+
+
+        </div>
 
 
       </div>

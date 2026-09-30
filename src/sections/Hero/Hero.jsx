@@ -78,7 +78,13 @@ export default function Hero() {
           <div className="hero__actions" aria-label="Основные действия">
             <a className="button button--primary hero__primary-action" href="#lead-form">
               Рассчитать стоимость
-              <span aria-hidden="true">↗</span>
+
+              <span
+                className="hero__primary-arrow"
+                aria-hidden="true"
+              >
+                ↗
+              </span>
             </a>
             <a className="button button--ghost hero__secondary-action" href="#quiz">
               Пройти экспресс-проверку

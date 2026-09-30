@@ -7219,7 +7219,6 @@ strong {
 }
 
 
-
 /* TC letters divider */
 .trade-mall::before {
   display: none;
@@ -7254,8 +7253,6 @@ strong {
 }
 
 
-
-
 /* TC divider between columns */
 .trade-mall::before {
   display: block;
@@ -7278,7 +7275,6 @@ strong {
 .trade-mall__index strong::after {
   display: none;
 }
-
 
 
 /* TRADE MALL divider: full-height and centered in real column gap */
@@ -7335,7 +7331,6 @@ strong {
 }
 
 
-
 /* LIME KICKERS */
 
 .trade-mall .trade-kicker,
@@ -7347,56 +7342,25 @@ strong {
 }
 
 
-/* ========================================
-   TRADE FORM CTA ARROW BUTTON
-   ======================================== */
+/* === trade form CTA arrow === */
 
-
-.trade-form__button {
+.trade-form__content > .trade-form__button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  gap: 14px;
-
-  min-height: 58px;
-  padding: 0 26px;
-
-  border: 0;
-  border-radius: 999px;
-
-  color: #ffffff;
-  text-decoration: none;
-
-  transition:
-    transform 180ms ease,
-    background-color 180ms ease;
+  gap: 12px;
 }
 
-
-.trade-form__button-label {
-  display: block;
-
-  color: #ffffff;
-
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 1;
-
-  white-space: nowrap;
-}
-
-
-.trade-form__button-icon {
+.trade-form__button-arrow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
   flex: none;
 
-  color: #a9f04a;
+  color: var(--trade-accent);
 
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 800;
   line-height: 1;
 
@@ -7406,13 +7370,9 @@ strong {
     transform 180ms ease;
 }
 
-
-.trade-form__button:hover {
-  transform: translateY(-2px);
-}
-
-
-.trade-form__button:hover .trade-form__button-icon {
+.trade-form__button:hover
+.trade-form__button-arrow {
   transform: translate(3px, -4px);
 }
 
+/* === /trade form CTA arrow === */

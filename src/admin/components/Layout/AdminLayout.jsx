@@ -27,6 +27,15 @@ export default function AdminLayout({
             Статьи
           </a>
 
+          <a
+            href="/blog/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="admin-sidebar__blog-link"
+          >
+            Блог на сайте ↗
+          </a>
+
           <a href="/admin/regulations">Нормативные документы</a>
 
           <a href="/admin/leads">

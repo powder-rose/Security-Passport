@@ -18,6 +18,8 @@ import {
 export function render({
   city = CITY,
   pathname = '/',
+  blogArticles = null,
+  article = null,
 } = {}) {
   const helmetContext = {};
 
@@ -29,7 +31,11 @@ export function render({
       <Provider store={store}>
         <HelmetProvider context={helmetContext}>
           <GeoProvider city={resolvedCity}>
-            <App pathname={pathname} />
+            <App
+              pathname={pathname}
+              initialBlogArticles={blogArticles}
+              initialArticle={article}
+            />
           </GeoProvider>
         </HelmetProvider>
       </Provider>,

@@ -630,11 +630,20 @@ export default function ActualizationPage() {
               </p>
 
               <a
-                className="button button--primary"
+                className="button button--primary actualization-check-button"
                 href="#lead-form"
               >
+              <span className="actualization-check-button__label">
                 Отправить паспорт на проверку
-              </a>
+              </span>
+
+              <span
+                className="actualization-check-button__arrow"
+                aria-hidden="true"
+              >
+                ↗
+              </span>
+            </a>
             </div>
 
 

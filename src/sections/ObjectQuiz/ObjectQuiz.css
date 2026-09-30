@@ -502,3 +502,193 @@
 /* ==========================================================
    /Object-page quiz anchor
    ========================================================== */
+
+
+/* ==========================================================
+   ARTICLE INLINE QUIZ
+   Использует тот же ObjectQuiz и те же данные, что главная.
+   ========================================================== */
+
+.object-quiz--article {
+  width: 100%;
+
+  margin:
+    clamp(56px, 7vw, 82px)
+    0;
+
+  padding:
+    clamp(26px, 4vw, 42px);
+
+  border:
+    1px solid
+    rgba(21, 21, 21, .09);
+
+  border-radius:
+    clamp(24px, 3vw, 34px);
+
+  background: #f4f1e8;
+  color: var(--color-text);
+}
+
+
+.object-quiz--article .object-quiz__layout {
+  width: 100%;
+  max-width: none;
+
+  margin: 0;
+  padding: 0;
+
+  grid-template-columns:
+    minmax(220px, .72fr)
+    minmax(0, 1.28fr);
+
+  gap:
+    clamp(28px, 4vw, 48px);
+
+  align-items: start;
+}
+
+
+.object-quiz--article .object-quiz__intro {
+  position: static;
+  top: auto;
+}
+
+
+.object-quiz--article .quiz-kicker {
+  color: var(--color-primary);
+}
+
+
+.object-quiz--article
+.object-quiz__intro > h2 {
+  max-width: 420px;
+
+  font-size:
+    clamp(
+      1.8rem,
+      3vw,
+      2.8rem
+    );
+
+  line-height: 1;
+}
+
+
+.object-quiz--article
+.object-quiz__intro > p:not(.quiz-kicker) {
+  margin-top: 18px;
+
+  color:
+    var(--color-text-secondary);
+
+  font-size: .94rem;
+}
+
+
+.object-quiz--article .quiz-result-note {
+  margin-top: 28px;
+  padding-top: 22px;
+
+  border-color:
+    rgba(21, 21, 21, .11);
+}
+
+
+.object-quiz--article
+.quiz-result-note ul {
+  color:
+    var(--color-text-secondary);
+}
+
+
+.object-quiz--article .quiz-card {
+  border:
+    1px solid
+    rgba(21, 21, 21, .09);
+
+  border-radius: 24px;
+
+  background: #fff;
+
+  box-shadow:
+    0 14px 42px
+    rgba(21, 21, 21, .06);
+}
+
+
+.object-quiz--article
+.quiz-card__topline {
+  padding:
+    18px 24px
+    14px;
+}
+
+
+.object-quiz--article .quiz-form {
+  padding:
+    clamp(24px, 3vw, 34px);
+}
+
+
+.object-quiz--article
+.quiz-question {
+  margin-bottom: 26px;
+}
+
+
+.object-quiz--article
+.quiz-question__copy h3 {
+  font-size:
+    clamp(
+      1.45rem,
+      2.3vw,
+      2rem
+    );
+}
+
+
+.object-quiz--article
+.quiz-option {
+  min-height: 62px;
+
+  padding: 13px 15px;
+
+  border-radius: 14px;
+}
+
+
+@media (max-width: 840px) {
+
+  .object-quiz--article {
+    padding: 22px;
+  }
+
+
+  .object-quiz--article
+  .object-quiz__layout {
+    grid-template-columns: 1fr;
+  }
+
+
+  .object-quiz--article
+  .quiz-result-note {
+    display: none;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .object-quiz--article {
+    margin:
+      44px 0;
+
+    padding:
+      18px 14px;
+
+    border-radius: 22px;
+  }
+
+}

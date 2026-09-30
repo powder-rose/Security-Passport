@@ -77,10 +77,58 @@ let template =
   );
 
 
-if (!template.includes('<div id="root"></div>')) {
+/*
+ * npm run prerender может запускаться повторно
+ * после полноценной сборки — например, когда
+ * редактор публикует новую статью.
+ *
+ * В таком случае dist/client/index.html уже
+ * содержит SSR-разметку, поэтому используем
+ * сохранённый сырой Vite-шаблон.
+ */
+if (
+  !template.includes(
+    '<div id="root"></div>'
+  )
+) {
+
+  const savedRawTemplate =
+    path.join(
+      projectRoot,
+      'dist',
+      'template',
+      'index.html',
+    );
+
+
+  try {
+
+    template =
+      await readFile(
+        savedRawTemplate,
+        'utf8',
+      );
+
+  }
+  catch {
+
+    // Финальная проверка ниже
+    // выдаст понятную ошибку.
+  }
+
+}
+
+
+if (
+  !template.includes(
+    '<div id="root"></div>'
+  )
+) {
+
   throw new Error(
     'Raw Vite template is missing empty root',
   );
+
 }
 
 
@@ -376,6 +424,157 @@ if (canonical) {
       generatorTemplatePath,
       'utf8',
     );
+
+
+  /*
+   * Published blog articles.
+   *
+   * Они используются для:
+   * - SSR /blog/
+   * - SSR /blog/:slug/
+   * - sitemap.xml
+   */
+  const articlesFile =
+    path.join(
+      projectRoot,
+      'data',
+      'articles.json',
+    );
+
+
+  let publishedArticles = [];
+
+
+  try {
+
+    const articlesSource =
+      JSON.parse(
+        await readFile(
+          articlesFile,
+          'utf8',
+        )
+      );
+
+
+    if(
+      Array.isArray(
+        articlesSource
+      )
+    ){
+
+      publishedArticles =
+        articlesSource
+          .filter(
+            article =>
+              article?.status ===
+                'published' &&
+              article?.slug
+          )
+          .sort(
+            (a, b) =>
+              new Date(
+                b.publishedAt ||
+                b.createdAt ||
+                0
+              )
+              -
+              new Date(
+                a.publishedAt ||
+                a.createdAt ||
+                0
+              )
+          );
+
+    }
+
+  }
+  catch(error){
+
+    if(
+      error?.code !==
+      'ENOENT'
+    ){
+      throw error;
+    }
+
+  }
+
+
+  function createBlogDocument(
+    renderResult,
+    blogData,
+  ){
+
+    let document =
+      objectTypeBaseTemplate
+        .replace(
+          /<title>[\s\S]*?<\/title>/i,
+          '',
+        )
+        .replace(
+          /<meta\s+name=["']robots["'][^>]*>/i,
+          '',
+        )
+        .replace(
+          /<meta\s+name=["']description["'][^>]*>/i,
+          '',
+        );
+
+
+    const resultHeadTags = [
+      renderResult.helmet?.title?.toString() || '',
+      renderResult.helmet?.meta?.toString() || '',
+      renderResult.helmet?.link?.toString() || '',
+      renderResult.helmet?.script?.toString() || '',
+    ].join('\n');
+
+
+    const resultCity =
+      JSON.stringify(
+        renderResult.city,
+      )
+        .replace(/</g, '\\u003c')
+        .replace(/>/g, '\\u003e')
+        .replace(/&/g, '\\u0026');
+
+
+    const serializedBlogData =
+      JSON.stringify(
+        blogData,
+      )
+        .replace(/</g, '\\u003c')
+        .replace(/>/g, '\\u003e')
+        .replace(/&/g, '\\u0026');
+
+
+    const resultBootstrap =
+      `<script>` +
+      `window.__PASSPORT_CITY__=` +
+      `${resultCity};` +
+      `window.__PASSPORT_BLOG__=` +
+      `${serializedBlogData};` +
+      `</script>`;
+
+
+    document =
+      document
+        .replace(
+          '</head>',
+          `${resultHeadTags}\n` +
+          `${resultBootstrap}\n` +
+          `</head>`,
+        )
+        .replace(
+          '<div id="root"></div>',
+          `<div id="root">` +
+          `${renderResult.html}` +
+          `</div>`,
+        );
+
+
+    return document;
+
+  }
 
 
   for (const objectType of objectTypes) {
@@ -697,6 +896,150 @@ if (canonical) {
   // === /FEDERAL SERVICE PAGE PRERENDER ===
 
 
+  // ========================================================
+  // BLOG PRERENDER
+  // ========================================================
+
+  const blogResult =
+    render({
+      city:
+        DEFAULT_LOCATION,
+
+      pathname:
+        '/blog/',
+
+      blogArticles:
+        publishedArticles,
+
+      article:
+        null,
+    });
+
+
+  const blogDocument =
+    createBlogDocument(
+      blogResult,
+      {
+        articles:
+          publishedArticles,
+
+        article:
+          null,
+      },
+    );
+
+
+  const blogOutputDirectory =
+    path.join(
+      clientDir,
+      'blog',
+    );
+
+
+  await mkdir(
+    blogOutputDirectory,
+    {
+      recursive: true,
+    },
+  );
+
+
+  await writeFile(
+    path.join(
+      blogOutputDirectory,
+      'index.html',
+    ),
+    blogDocument,
+    'utf8',
+  );
+
+
+  console.log(
+    'Blog prerender: /blog/',
+  );
+
+
+
+  for (
+    const article
+    of publishedArticles
+  ) {
+
+    const articlePathname =
+      `/blog/${article.slug}/`;
+
+
+    const articleResult =
+      render({
+        city:
+          DEFAULT_LOCATION,
+
+        pathname:
+          articlePathname,
+
+        blogArticles:
+          publishedArticles,
+
+        article,
+      });
+
+
+    const articleDocument =
+      createBlogDocument(
+        articleResult,
+        {
+          articles:
+            publishedArticles,
+
+          article,
+        },
+      );
+
+
+    const articleOutputDirectory =
+      path.join(
+        clientDir,
+        'blog',
+        article.slug,
+      );
+
+
+    await mkdir(
+      articleOutputDirectory,
+      {
+        recursive: true,
+      },
+    );
+
+
+    await writeFile(
+      path.join(
+        articleOutputDirectory,
+        'index.html',
+      ),
+      articleDocument,
+      'utf8',
+    );
+
+
+    console.log(
+      `Article prerender: ${articlePathname}`,
+    );
+
+  }
+
+
+  console.log(
+    'Published articles:',
+    publishedArticles.length,
+  );
+
+
+  // ========================================================
+  // /BLOG PRERENDER
+  // ========================================================
+
+
 
   // Перезаписываем федеральный sitemap:
   // главная + индексируемые дочерние SEO-страницы.
@@ -725,6 +1068,28 @@ if (canonical) {
           '0.9',
       }),
     ),
+
+
+    {
+      loc:
+        `${canonical}/blog/`,
+
+      priority:
+        '0.8',
+    },
+
+
+    ...publishedArticles.map(
+      (article) => ({
+        loc:
+          `${canonical}/blog/` +
+          `${encodeURIComponent(article.slug)}/`,
+
+        priority:
+          '0.7',
+      }),
+    ),
+
   ];
 
 

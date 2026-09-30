@@ -26,9 +26,22 @@ import {
   createArticle,
   updateArticle,
   deleteArticle,
+
+  updatePublishedArticlesYear,
 } from './admin-articles.mjs';
 
-import { listRegulations, updateRegulation } from './admin-regulations.mjs';
+import {
+  queueBlogPublication,
+  getBlogPublicationStatus,
+} from './blog-publication.mjs';
+
+
+import {
+  listRegulations,
+  createRegulation,
+  updateRegulation,
+  updateTopicClaims,
+} from './admin-regulations.mjs';
 import {
   queueRegulationPublication,
   getRegulationPublication,
@@ -50,7 +63,7 @@ const PORT = Number(process.env.PORT || 8787);
 const HOST = process.env.HOST || '0.0.0.0';
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const IS_PRODUCTION = NODE_ENV === 'production';
-const BODY_LIMIT = process.env.LEAD_BODY_LIMIT || '32kb';
+const BODY_LIMIT = process.env.LEAD_BODY_LIMIT || '1mb';
 const RATE_WINDOW_MS = Number(process.env.LEAD_RATE_WINDOW_MS || 10 * 60 * 1000);
 const RATE_MAX = Number(process.env.LEAD_RATE_MAX || 8);
 const DEDUPE_TTL_MS = Number(process.env.LEAD_DEDUPE_TTL_MS || 24 * 60 * 60 * 1000);
@@ -918,6 +931,88 @@ app.get('/api/admin/regulations', adminAuth.requireAdmin, async (req, res) => {
   }
 });
 
+app.post('/api/admin/regulations', adminAuth.requireAdmin, async (req, res) => {
+  try {
+    const regulation =
+      await createRegulation(req.body);
+
+    const {
+      publicationNeeded,
+      ...savedRegulation
+    } = regulation;
+
+    return res.status(201).json({
+      ok: true,
+      regulation: savedRegulation,
+      publication:
+        publicationNeeded
+          ? queueRegulationPublication()
+          : null,
+    });
+  } catch (error) {
+    if (error instanceof TypeError) {
+      return res.status(400).json({
+        ok: false,
+        message: error.message,
+      });
+    }
+
+    console.error(
+      '[admin] regulations create failed:',
+      error,
+    );
+
+    return res.status(500).json({
+      ok: false,
+      message: 'Ошибка создания постановления',
+    });
+  }
+});
+
+app.patch(
+  '/api/admin/regulations/topic/:topic/claims',
+  adminAuth.requireAdmin,
+  async (req, res) => {
+    try {
+      const result =
+        await updateTopicClaims(
+          req.params.topic,
+          req.body,
+        );
+
+      return res.json({
+        ok: true,
+        topic: result.topic,
+        changedClaims:
+          result.changedClaims,
+        publication:
+          result.publicationNeeded
+            ? queueRegulationPublication()
+            : null,
+      });
+    } catch (error) {
+      if (error instanceof TypeError) {
+        return res.status(400).json({
+          ok: false,
+          message: error.message,
+        });
+      }
+
+      console.error(
+        '[admin] topic claims update failed:',
+        error,
+      );
+
+      return res.status(500).json({
+        ok: false,
+        message:
+          'Ошибка сохранения тематических вопросов',
+      });
+    }
+  },
+);
+
+
 app.get('/api/admin/regulations/publication', adminAuth.requireAdmin, async (req, res) => {
   try {
     res.json({ ok: true, publication: await getRegulationPublication() });
@@ -952,6 +1047,344 @@ app.patch('/api/admin/regulations/:number', adminAuth.requireAdmin, async (req, 
   }
 });
 
+/*
+ * ----------------------------------------------------------
+ * Legacy blog article redirects
+ * ----------------------------------------------------------
+ *
+ * Nginx отправляет сюда только отсутствующие
+ * статические /blog/... страницы.
+ *
+ * Если slug есть в legacySlugs опубликованной статьи,
+ * отдаём настоящий HTTP 301 на актуальный URL.
+ */
+app.get(
+  [
+    '/blog/:slug',
+    '/blog/:slug/',
+  ],
+  async (req, res) => {
+
+    try {
+
+      const articles =
+        await getArticles();
+
+
+      const requestedSlug =
+        req.params.slug;
+
+
+      const target =
+        articles.find(
+          article =>
+            article.status === 'published'
+            &&
+            Array.isArray(
+              article.legacySlugs
+            )
+            &&
+            article.legacySlugs.includes(
+              requestedSlug
+            )
+        );
+
+
+      if (target) {
+
+        return res.redirect(
+          301,
+          `/blog/${encodeURIComponent(
+            target.slug
+          )}/`
+        );
+
+      }
+
+
+      /*
+       * Если это актуальный slug, но его статика
+       * почему-то ещё не появилась, не отдаём
+       * случайно главную страницу.
+       */
+      const current =
+        articles.find(
+          article =>
+            article.status === 'published'
+            &&
+            article.slug === requestedSlug
+        );
+
+
+      if (current) {
+
+        return res
+          .status(503)
+          .type('text/plain')
+          .send(
+            'Article page is being published.'
+          );
+
+      }
+
+
+      return res
+        .status(404)
+        .type('text/plain')
+        .send(
+          'Article not found'
+        );
+
+    }
+    catch(error) {
+
+      console.error(
+        '[articles] legacy redirect failed:',
+        error
+      );
+
+
+      return res
+        .status(500)
+        .type('text/plain')
+        .send(
+          'Article redirect failed'
+        );
+
+    }
+
+  }
+);
+
+
+
+/*
+ * ----------------------------------------------------------
+ * Public articles API
+ * ----------------------------------------------------------
+ */
+
+app.get(
+  '/api/articles',
+  async (req, res) => {
+
+    try {
+
+      const articles =
+        await getArticles();
+
+
+      const published =
+        articles
+          .filter(
+            article =>
+              article.status ===
+              'published'
+          )
+          .sort(
+            (a, b) =>
+              new Date(
+                b.publishedAt ||
+                b.createdAt ||
+                0
+              )
+              -
+              new Date(
+                a.publishedAt ||
+                a.createdAt ||
+                0
+              )
+          )
+          .map(
+            article => ({
+              id:
+                article.id,
+
+              title:
+                article.title,
+
+              slug:
+                article.slug,
+
+              image:
+                article.image || '',
+
+              imageAlt:
+                article.imageAlt || '',
+
+              seoDescription:
+                article.seoDescription || '',
+
+              createdAt:
+                article.createdAt,
+
+              updatedAt:
+                article.updatedAt,
+
+              publishedAt:
+                article.publishedAt,
+            })
+          );
+
+
+      res.json({
+        ok: true,
+        articles: published,
+      });
+
+    }
+    catch(error) {
+
+      console.error(
+        '[articles] public list failed:',
+        error
+      );
+
+
+      res.status(500).json({
+        ok: false,
+        error: 'ARTICLES_READ_FAILED',
+      });
+
+    }
+
+  }
+);
+
+
+
+app.get(
+  '/api/articles/:slug',
+  async (req, res) => {
+
+    try {
+
+      const articles =
+        await getArticles();
+
+
+      const article =
+        articles.find(
+          item =>
+            item.status ===
+              'published'
+            &&
+            item.slug ===
+              req.params.slug
+        );
+
+
+      if(!article){
+
+        return res
+          .status(404)
+          .json({
+            ok: false,
+            error: 'ARTICLE_NOT_FOUND',
+          });
+
+      }
+
+
+      res.json({
+        ok: true,
+        article,
+      });
+
+    }
+    catch(error) {
+
+      console.error(
+        '[articles] public article failed:',
+        error
+      );
+
+
+      res.status(500).json({
+        ok: false,
+        error: 'ARTICLE_READ_FAILED',
+      });
+
+    }
+
+  }
+);
+
+
+
+app.get(
+  '/api/admin/blog-publication',
+  adminAuth.requireAdmin,
+  (req, res) => {
+
+    res.json({
+      ok: true,
+
+      publication:
+        getBlogPublicationStatus(),
+    });
+
+  }
+);
+
+
+
+app.post(
+  '/api/admin/articles/update-year',
+  adminAuth.requireAdmin,
+  async (req, res) => {
+
+    try {
+
+      const currentYear =
+        new Date()
+          .getUTCFullYear();
+
+
+      const result =
+        await updatePublishedArticlesYear(
+          currentYear
+        );
+
+
+      queueBlogPublication(
+        'articles-year-updated'
+      );
+
+
+      res.json({
+        ok: true,
+
+        ...result,
+
+        publication: {
+          queued: true,
+        },
+      });
+
+    }
+    catch(error) {
+
+      console.error(
+        '[admin] articles year update failed:',
+        error
+      );
+
+
+      res.status(500).json({
+        ok: false,
+
+        error:
+          'ARTICLE_YEAR_UPDATE_FAILED',
+      });
+
+    }
+
+  }
+);
+
+
+
 app.get(
   '/api/admin/articles',
   adminAuth.requireAdmin,
@@ -977,9 +1410,19 @@ app.post(
         req.body
       );
 
+
+    queueBlogPublication(
+      'article-created'
+    );
+
+
     res.json({
       ok: true,
       article,
+
+      publication: {
+        queued: true,
+      },
     });
 
   }
@@ -1038,9 +1481,18 @@ app.put(
     }
 
 
+    queueBlogPublication(
+      'article-updated'
+    );
+
+
     res.json({
       ok:true,
       article,
+
+      publication: {
+        queued: true,
+      },
     });
   }
 );
@@ -1057,8 +1509,17 @@ app.delete(
     );
 
 
+    queueBlogPublication(
+      'article-deleted'
+    );
+
+
     res.json({
       ok:true,
+
+      publication: {
+        queued: true,
+      },
     });
 
   }
