@@ -386,3 +386,23 @@
     margin-top: 42px;
   }
 }
+
+/* === STATISTICS THREE COLUMNS === */
+
+.statistics-table {
+  table-layout: fixed;
+}
+
+.statistics-table th,
+.statistics-table td,
+.statistics-table th:first-child,
+.statistics-table td:first-child,
+.statistics-table th:last-child,
+.statistics-table td:last-child {
+  width: 33.333333%;
+  padding-left: 14px;
+  padding-right: 14px;
+  text-align: center;
+}
+
+/* === /STATISTICS THREE COLUMNS === */

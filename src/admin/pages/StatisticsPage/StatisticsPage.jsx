@@ -593,38 +593,9 @@ export default function StatisticsPage() {
             </p>
 
             <h2>
-              Статистика{' '}
-              <em>
-                по городам
-              </em>
+              Статистика
             </h2>
           </div>
-
-
-          <label className="statistics-search">
-
-            <span>
-              Поиск
-            </span>
-
-            <input
-              type="search"
-              value={
-                search
-              }
-              onChange={
-                (event) =>
-                  setSearch(
-                    event
-                      .target
-                      .value,
-                  )
-              }
-              placeholder="Название города"
-              autoComplete="off"
-            />
-
-          </label>
 
         </div>
 
@@ -635,23 +606,6 @@ export default function StatisticsPage() {
 
             <thead>
               <tr>
-
-                <th>
-                  <button
-                    type="button"
-                    onClick={
-                      () =>
-                        handleSort(
-                          'name',
-                        )
-                    }
-                  >
-                    {sortLabel(
-                      'name',
-                      'Город',
-                    )}
-                  </button>
-                </th>
 
                 <th>
                   <button
@@ -710,80 +664,32 @@ export default function StatisticsPage() {
 
             <tbody>
 
-              {rows.map(
-                (row) => (
-                  <tr
-                    key={
-                      row.slug ||
-                      row.name
-                    }
-                  >
-                    <td>
-                      {row.name}
-                    </td>
+              <tr>
+                  <td>
+                    {formatNumber(
+                      totals.visits,
+                    )}
+                  </td>
 
-                    <td>
-                      {formatNumber(
-                        row.visits,
-                      )}
-                    </td>
+                  <td>
+                    {formatNumber(
+                      totals.leads,
+                    )}
+                  </td>
 
-                    <td>
-                      {formatNumber(
-                        row.leads,
-                      )}
-                    </td>
-
-                    <td>
-                      {formatPercent(
-                        row.conversion,
-                        row.visits,
-                      )}
-                    </td>
-                  </tr>
-                ),
-              )}
+                  <td>
+                    {formatPercent(
+                      totals.conversion,
+                      totals.visits,
+                    )}
+                  </td>
+                </tr>
 
             </tbody>
-
-
-            <tfoot>
-              <tr>
-                <td>
-                  Итого
-                </td>
-
-                <td>
-                  {formatNumber(
-                    totals.visits,
-                  )}
-                </td>
-
-                <td>
-                  {formatNumber(
-                    totals.leads,
-                  )}
-                </td>
-
-                <td>
-                  {formatPercent(
-                    totals.conversion,
-                    totals.visits,
-                  )}
-                </td>
-              </tr>
-            </tfoot>
 
           </table>
 
         </div>
-
-
-        {rows.length === 0 && (
-          <p className="statistics-empty">
-            Города не найдены.
-          </p>
-        )}
 
       </section>
 

@@ -7337,3 +7337,31 @@ summary:focus-visible {
 /* ========================================================
    /UNIFIED_FAQ_TOGGLE_FIX_V1
    ======================================================== */
+
+/* ========================================================
+   FAQ_ANSWER_TOP_SPACING_V1
+   Extra breathing room between FAQ question and answer
+   ======================================================== */
+
+.health-faq__answer {
+  padding-top: 18px !important;
+}
+
+@media (max-width: 620px) {
+  .health-faq__answer {
+    padding-top: 14px !important;
+  }
+}
+
+/* /FAQ_ANSWER_TOP_SPACING_V1 */
+
+/* ========================================================
+   FAQ_ICON_ALWAYS_ROUND_V1
+   Keep FAQ toggle round in every state
+   ======================================================== */
+
+.health-faq__toggle {
+  border-radius: 50% !important;
+}
+
+/* /FAQ_ICON_ALWAYS_ROUND_V1 */

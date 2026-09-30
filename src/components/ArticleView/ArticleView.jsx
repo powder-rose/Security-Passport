@@ -70,7 +70,13 @@ function splitArticleHtml(html) {
 
 
   if (!value) {
-    return ['', ''];
+
+    return {
+      contentBeforeQuiz: '',
+      contentAfterQuiz: '',
+      shouldShowQuiz: false,
+    };
+
   }
 
 
@@ -179,43 +185,133 @@ function splitArticleHtml(html) {
   }
 
 
-  if (blocks.length < 2) {
-    return [
-      value,
-      '',
-    ];
+  if (!blocks.length) {
+
+    return {
+      contentBeforeQuiz: value,
+      contentAfterQuiz: '',
+      shouldShowQuiz: false,
+    };
+
   }
 
 
-  const splitIndex =
-    Math.min(
-      blocks.length - 1,
-      Math.max(
-        1,
-        Math.ceil(
-          blocks.length * .4
-        )
+  /*
+   * Квиз разрешён только непосредственно
+   * перед заголовком H2.
+   *
+   * При этом не используем H2, если
+   * предыдущий HTML-блок содержит фото.
+   * Это не позволяет квизу оказаться
+   * сразу после img / figure / picture.
+   */
+
+  const safeHeadingIndexes =
+    blocks
+      .map(
+        (block, index) => {
+
+          const isH2 =
+            /^\s*<h2\b/i
+              .test(block);
+
+
+          if (
+            !isH2 ||
+            index === 0
+          ) {
+            return -1;
+          }
+
+
+          const previousBlock =
+            blocks[index - 1] ||
+            '';
+
+
+          const followsImage =
+            /<(?:img|figure|picture)\b/i
+              .test(
+                previousBlock
+              );
+
+
+          return followsImage
+            ? -1
+            : index;
+
+        }
+      )
+      .filter(
+        index =>
+          index >= 0
+      );
+
+
+  if (!safeHeadingIndexes.length) {
+
+    return {
+      contentBeforeQuiz: value,
+      contentAfterQuiz: '',
+      shouldShowQuiz: false,
+    };
+
+  }
+
+
+  /*
+   * Сохраняем прежнюю идею:
+   * квиз желательно показывать примерно
+   * после 40% материала.
+   *
+   * Но теперь выбираем только допустимый H2.
+   */
+
+  const targetIndex =
+    Math.max(
+      1,
+      Math.ceil(
+        blocks.length * .4
       )
     );
 
 
-  return [
-    blocks
-      .slice(
-        0,
-        splitIndex
-      )
-      .join('\n'),
+  const headingAfterTarget =
+    safeHeadingIndexes.find(
+      index =>
+        index >= targetIndex
+    );
 
-    blocks
-      .slice(
-        splitIndex
-      )
-      .join('\n'),
-  ];
+
+  const splitIndex =
+    headingAfterTarget ??
+    safeHeadingIndexes[
+      safeHeadingIndexes.length - 1
+    ];
+
+
+  return {
+
+    contentBeforeQuiz:
+      blocks
+        .slice(
+          0,
+          splitIndex
+        )
+        .join('\n'),
+
+    contentAfterQuiz:
+      blocks
+        .slice(
+          splitIndex
+        )
+        .join('\n'),
+
+    shouldShowQuiz: true,
+
+  };
 
 }
-
 
 function RelatedServices() {
 
@@ -494,10 +590,11 @@ export default function ArticleView({
     );
 
 
-  const [
+  const {
     contentBeforeQuiz,
     contentAfterQuiz,
-  ] =
+    shouldShowQuiz,
+  } =
     splitArticleHtml(
       content
     );
@@ -589,7 +686,7 @@ export default function ArticleView({
 
 
           {
-            content
+            shouldShowQuiz
             &&
             (
               <ObjectQuiz
