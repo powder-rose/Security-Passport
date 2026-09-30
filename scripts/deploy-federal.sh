@@ -2,6 +2,9 @@
 
 set -Eeuo pipefail
 
+# Production files must be readable by nginx.
+umask 022
+
 PROJECT="/var/www/pasport-bezopasnosty.ru/app/passport-security-base"
 SITE_ROOT="/var/www/pasport-bezopasnosty.ru"
 
@@ -267,6 +270,16 @@ if [ "$(
     echo "ОШИБКА: runtime/node_modules указывает не туда."
     exit 1
 fi
+
+
+# Ensure nginx can traverse and read the static release.
+find "${BUILD_RELEASE}" \
+    -type d \
+    -exec chmod 755 {} +
+
+find "${BUILD_RELEASE}" \
+    -type f \
+    -exec chmod a+r {} +
 
 
 mv \

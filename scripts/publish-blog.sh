@@ -2,6 +2,9 @@
 
 set -Eeuo pipefail
 
+# Production files must be readable by nginx.
+umask 022
+
 PROJECT="/var/www/pasport-bezopasnosty.ru/app/passport-security-base"
 SITE_ROOT="/var/www/pasport-bezopasnosty.ru"
 
