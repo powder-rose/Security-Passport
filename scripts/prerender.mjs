@@ -419,12 +419,20 @@ for (const legalSlug of legalSlugs) {
         '',
       );
 
+  const legalRouteCssTags =
+    getClientCssLinks(
+      'src/pages/LegalPage/LegalPage.jsx',
+    );
+
   const legalHeadTags = [
     legalResult.helmet?.title?.toString() || '',
     legalResult.helmet?.meta?.toString() || '',
     legalResult.helmet?.link?.toString() || '',
     legalResult.helmet?.script?.toString() || '',
-  ].join('\n');
+    legalRouteCssTags,
+  ]
+    .filter(Boolean)
+    .join('\n');
 
   const legalCity =
     JSON.stringify(

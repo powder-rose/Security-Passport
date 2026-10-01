@@ -275,13 +275,6 @@ export default function App({
   if (legalDocument) {
     return (
       <>
-        <Helmet>
-          <link
-            rel="stylesheet"
-            href={legalPageCssUrl}
-          />
-        </Helmet>
-
         <Analytics />
 
         <LegalPageComponent

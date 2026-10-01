@@ -1,3 +1,4 @@
+import './LegalPage.css';
 import { Helmet } from 'react-helmet-async';
 
 import Container from '../../components/ui/Container/Container';
