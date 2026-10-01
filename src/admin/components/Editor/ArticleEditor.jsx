@@ -31,6 +31,28 @@ import {
 
 
 
+const ArticleImage = Image.extend({
+
+  addAttributes() {
+
+    return {
+      ...this.parent?.(),
+
+      width: {
+        default: null,
+      },
+
+      height: {
+        default: null,
+      },
+    };
+
+  },
+
+});
+
+
+
 export default function ArticleEditor({
   value,
   onChange,
@@ -52,7 +74,7 @@ const editor = useEditor({
 
     }),
 
-    Image.configure({
+    ArticleImage.configure({
 
       HTMLAttributes:{
         class:'article-image'
@@ -193,7 +215,9 @@ async function addImage(e){
       .focus()
       .setImage({
         src:result.url,
-        alt
+        alt,
+        width:result.width,
+        height:result.height
       })
       .run();
 

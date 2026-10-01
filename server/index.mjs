@@ -1667,6 +1667,12 @@ app.post(
 
             url:
               `/uploads/articles/${optimizedName}`,
+
+            width:
+              result.width,
+
+            height:
+              result.height,
           });
 
         } catch (error) {
