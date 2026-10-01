@@ -7404,3 +7404,142 @@ strong {
 }
 
 /* /FAQ_ICON_ALWAYS_ROUND_V1 */
+
+
+/* ========================================================
+   TRADE_MOBILE_APPLICABILITY_FIX_V1
+   Fix applicability cards on mobile
+   ======================================================== */
+
+@media (max-width: 768px) {
+
+  .trade-applicability__rule,
+  .trade-applicability__rule +
+  .trade-applicability__rule {
+    min-width: 0;
+    width: 100%;
+    padding: 32px;
+  }
+
+  .trade-applicability__check {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 430px) {
+
+  .trade-applicability__core {
+    width: 100%;
+    min-width: 0;
+    gap: 12px;
+  }
+
+  .trade-applicability__rule,
+  .trade-applicability__rule +
+  .trade-applicability__rule {
+    width: 100%;
+    max-width: 100%;
+    padding: 28px 22px;
+  }
+
+  .trade-applicability__rule h3,
+  .trade-applicability__rule p {
+    max-width: 100%;
+  }
+
+  .trade-applicability__check {
+    width: 100%;
+    max-width: 100%;
+    padding: 28px 22px;
+  }
+}
+
+/* /TRADE_MOBILE_APPLICABILITY_FIX_V1 */
+
+
+/* ========================================================
+   TRADE_MOBILE_FAQ_LAYOUT_FIX_V1
+   Prevent FAQ heading/intro/list overlap on mobile
+   ======================================================== */
+
+@media (max-width: 768px) {
+
+  .trade-faq__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 44px;
+  }
+
+  .trade-faq__heading {
+    display: block;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+  }
+
+  .trade-faq__heading > div {
+    position: static;
+    width: 100%;
+  }
+
+  .trade-faq__heading > p {
+    position: static;
+    display: block;
+    width: 100%;
+    max-width: 680px;
+    margin: 24px 0 0;
+  }
+
+  .trade-faq__list {
+    position: static;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+  }
+}
+
+
+@media (max-width: 430px) {
+
+  .trade-faq {
+    overflow: hidden;
+  }
+
+  .trade-faq__layout {
+    gap: 36px;
+  }
+
+  .trade-faq__heading h2 {
+    max-width: 100%;
+    font-size: clamp(
+      2rem,
+      10.5vw,
+      2.4rem
+    );
+    line-height: 1.04;
+  }
+
+  .trade-faq__heading > p {
+    max-width: 100%;
+    margin-top: 22px;
+    font-size: .98rem;
+    line-height: 1.65;
+  }
+
+  .trade-faq__list {
+    padding: 0 12px;
+  }
+
+  .trade-faq__item summary {
+    min-width: 0;
+  }
+
+  .trade-faq__question {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* /TRADE_MOBILE_FAQ_LAYOUT_FIX_V1 */
