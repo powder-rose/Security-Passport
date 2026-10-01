@@ -144,6 +144,13 @@ export function getStatistics() {
 }
 
 
+export function getDocumentation() {
+  return request(
+    '/documentation'
+  );
+}
+
+
 export function getLeads({
   page = 1,
   limit = 50,

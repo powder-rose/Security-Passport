@@ -46,6 +46,10 @@ export default function AdminLayout({
             Статистика
           </a>
 
+          <a href="/admin/documentation">
+            Документация
+          </a>
+
         </nav>
 
 

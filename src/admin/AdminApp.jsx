@@ -11,6 +11,7 @@ import ArticlesPage from './pages/ArticlesPage/ArticlesPage.jsx';
 import StatisticsPage from './pages/StatisticsPage/StatisticsPage.jsx';
 import RegulationsPage from './pages/RegulationsPage/RegulationsPage.jsx';
 import LeadsPage from './pages/LeadsPage/LeadsPage.jsx';
+import DocumentationPage from './pages/DocumentationPage/DocumentationPage.jsx';
 
 import {
   useAuth,
@@ -84,6 +85,17 @@ function RouterView() {
 
     return (
       <StatisticsPage />
+    );
+
+  }
+
+
+  if (
+    path.startsWith('/admin/documentation')
+  ) {
+
+    return (
+      <DocumentationPage />
     );
 
   }

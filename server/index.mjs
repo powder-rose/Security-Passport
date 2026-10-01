@@ -812,6 +812,75 @@ app.get(
 );
 
 app.get(
+  '/api/admin/documentation',
+  adminAuth.requireAdmin,
+  async (req, res) => {
+    const documentationPath =
+      path.resolve(
+        projectRoot,
+        'README_DEV.md',
+      );
+
+    try {
+      const [
+        markdown,
+        stats,
+      ] =
+        await Promise.all([
+          fs.readFile(
+            documentationPath,
+            'utf8',
+          ),
+
+          fs.stat(
+            documentationPath,
+          ),
+        ]);
+
+      res.set(
+        'Cache-Control',
+        'no-store',
+      );
+
+      return res.json({
+        ok: true,
+        markdown,
+        updatedAt:
+          stats.mtime.toISOString(),
+      });
+    } catch (error) {
+      if (
+        error?.code ===
+        'ENOENT'
+      ) {
+        return res
+          .status(404)
+          .json({
+            ok: false,
+            error:
+              'README_DEV_NOT_FOUND',
+          });
+      }
+
+      console.error(
+        '[admin] documentation read failed:',
+        error?.message ||
+          error,
+      );
+
+      return res
+        .status(500)
+        .json({
+          ok: false,
+          error:
+            'DOCUMENTATION_READ_FAILED',
+        });
+    }
+  },
+);
+
+
+app.get(
   '/api/admin/leads',
   adminAuth.requireAdmin,
   async (req, res) => {
