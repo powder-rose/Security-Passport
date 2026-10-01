@@ -969,6 +969,146 @@ if (mode === 'source') {
   );
 
 
+  /*
+   * Heading hierarchy QA.
+   *
+   * Проверяем итоговые prerender index.html:
+   * - ровно один H1;
+   * - отсутствие скачков H1 -> H3,
+   *   H2 -> H4 и т.п.
+   */
+  let headingQaPages = 0;
+  let headingQaProblems = 0;
+
+
+  for (
+    const htmlFile
+    of linkQaHtmlFiles
+  ) {
+
+    if (
+      path.basename(
+        htmlFile,
+      ) !== 'index.html'
+    ) {
+      continue;
+    }
+
+
+    headingQaPages++;
+
+
+    const html =
+      await readFile(
+        htmlFile,
+        'utf8',
+      );
+
+
+    const headings =
+      [
+        ...html.matchAll(
+          /<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>/gi,
+        ),
+      ]
+        .map(
+          (match) => ({
+            level:
+              Number(
+                match[1],
+              ),
+
+            text:
+              match[2]
+                .replace(
+                  /<[^>]+>/g,
+                  ' ',
+                )
+                .replace(
+                  /&nbsp;/g,
+                  ' ',
+                )
+                .replace(
+                  /\s+/g,
+                  ' ',
+                )
+                .trim()
+                .slice(
+                  0,
+                  120,
+                ),
+          }),
+        );
+
+
+    const h1Count =
+      headings.filter(
+        (heading) =>
+          heading.level === 1,
+      ).length;
+
+
+    const pageLabel =
+      path.relative(
+        distDir,
+        htmlFile,
+      );
+
+
+    if (
+      h1Count !== 1
+    ) {
+
+      headingQaProblems++;
+
+      addError(
+        `Heading hierarchy ${pageLabel}: ` +
+        `expected exactly one H1; found ${h1Count}.`,
+      );
+
+    }
+
+
+    for (
+      let index = 1;
+      index < headings.length;
+      index++
+    ) {
+
+      const previous =
+        headings[index - 1];
+
+      const current =
+        headings[index];
+
+
+      if (
+        current.level >
+        previous.level + 1
+      ) {
+
+        headingQaProblems++;
+
+        addError(
+          `Heading hierarchy ${pageLabel}: ` +
+          `H${previous.level} -> H${current.level} jump ` +
+          `("${previous.text}" -> "${current.text}").`,
+        );
+
+      }
+
+    }
+
+  }
+
+
+  console.log(
+    `Heading hierarchy QA: ` +
+    `${headingQaPages} HTML pages, ` +
+    `${headingQaProblems} problems.`,
+  );
+
+
   const legalPages = [
     'oferta',
     'personal-data',
