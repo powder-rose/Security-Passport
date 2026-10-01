@@ -5,10 +5,6 @@ import { SITE } from '../../config/site';
 import { METRICA_GOALS, reachGoal } from '../../lib/analytics';
 import { getLeadEndpoint, submitLead } from '../../lib/lead';
 import {
-  normalizeGeoName,
-  normalizeSettlementName,
-} from '../../lib/formInput';
-import {
   quizContactSchema,
   quizLocationSchema,
   quizMetricsSchema,
@@ -30,6 +26,9 @@ import {
   isQuizStepValid,
 } from './quizStepValidation';
 
+import useQuizGeography
+from './useQuizGeography';
+
 import './ObjectQuiz.css';
 
 const emptyObject = {};
@@ -49,80 +48,24 @@ export default function ObjectQuiz({
   const [showError, setShowError] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('idle');
   const [submitMessage, setSubmitMessage] = useState('');
-  const [geography, setGeography] = useState(null);
-  const [geographyError, setGeographyError] = useState(false);
   const quizStartedRef = useRef(false);
   const quizCardRef = useRef(null);
   const quizCompleteRef = useRef(null);
   const question = quizQuestions[currentStep];
   const answer = answers[question.id] ?? emptyObject;
 
-  useEffect(() => {
-    let cancelled = false;
-
-    fetch('/assets/quiz-geography-v1.json', {
-      cache: 'force-cache',
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(
-            `Geography HTTP ${response.status}`,
-          );
-        }
-
-        return response.json();
-      })
-      .then((data) => {
-        if (
-          cancelled ||
-          !Array.isArray(data?.regions)
-        ) {
-          return;
-        }
-
-        setGeography(data);
-        setGeographyError(false);
-      })
-      .catch(() => {
-        if (!cancelled) {
-          setGeographyError(true);
-        }
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  const regionOptions =
-    geography?.regions ?? [];
-
-  const selectedGeoRegion = useMemo(() => {
-    if (
-      question.type !== 'location' ||
-      !answer?.region
-    ) {
-      return null;
-    }
-
-    const target =
-      normalizeGeoName(answer.region);
-
-    return (
-      regionOptions.find(
-        (region) =>
-          normalizeGeoName(region.name) ===
-          target,
-      ) ?? null
-    );
-  }, [
-    question.type,
-    answer?.region,
+  const {
     regionOptions,
-  ]);
+    settlementOptions,
+    validateLocation,
+  } =
+    useQuizGeography({
+      questionType:
+        question.type,
 
-  const settlementOptions =
-    selectedGeoRegion?.settlements ?? [];
+      regionValue:
+        answer?.region,
+    });
 
   const hasPresetObjectType =
     Boolean(
@@ -318,52 +261,28 @@ export default function ObjectQuiz({
       }
     }
 
-    if (question.type === 'location') {
-      if (geographyError || !geography) {
-        setShowError(true);
-        setSubmitStatus('error');
+    if (
+      question.type ===
+      'location'
+    ) {
+      const locationError =
+        validateLocation(
+          answer,
+        );
+
+      if (locationError) {
+        setShowError(
+          true,
+        );
+
+        setSubmitStatus(
+          'error',
+        );
+
         setSubmitMessage(
-          'Не удалось загрузить справочник населённых пунктов. Обновите страницу и попробуйте ещё раз.',
-        );
-        return;
-      }
-
-      const regionTarget =
-        normalizeGeoName(answer?.region);
-
-      const region =
-        geography.regions.find(
-          (item) =>
-            normalizeGeoName(item.name) ===
-            regionTarget,
+          locationError,
         );
 
-      if (!region) {
-        setShowError(true);
-        setSubmitStatus('error');
-        setSubmitMessage(
-          'Выберите регион из списка.',
-        );
-        return;
-      }
-
-      const cityTarget =
-        normalizeSettlementName(answer?.city);
-
-      const cityExists =
-        region.settlements.some(
-          (settlement) =>
-            normalizeGeoName(
-              settlement.name,
-            ) === cityTarget,
-        );
-
-      if (!cityExists) {
-        setShowError(true);
-        setSubmitStatus('error');
-        setSubmitMessage(
-          'Выберите существующий населённый пункт в выбранном регионе.',
-        );
         return;
       }
     }
