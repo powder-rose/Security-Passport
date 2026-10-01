@@ -1,3 +1,4 @@
+import './SportPage.css';
 import Container from '../../components/ui/Container/Container';
 import { getRegulationClaim } from '../../data/regulationClaims';
 import FinalCTA from '../../sections/FinalCTA/FinalCTA';

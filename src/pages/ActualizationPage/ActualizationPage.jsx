@@ -1,3 +1,4 @@
+import './ActualizationPage.css';
 import { useEffect } from 'react';
 
 import Container from '../../components/ui/Container/Container';

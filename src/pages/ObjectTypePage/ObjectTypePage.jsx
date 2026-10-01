@@ -1,3 +1,4 @@
+import './ObjectTypePage.css';
 import Container from '../../components/ui/Container/Container';
 
 import ObjectQuiz from '../../sections/ObjectQuiz/ObjectQuiz';

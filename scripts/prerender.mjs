@@ -673,8 +673,23 @@ if (canonical) {
 
 
     const objectRouteCssSources = {
+      hotel:
+        'src/pages/HotelPage/HotelPage.jsx',
+
+      culture:
+        'src/pages/CulturePage/CulturePage.jsx',
+
+      education:
+        'src/pages/EducationPage/EducationPage.jsx',
+
+      sport:
+        'src/pages/SportPage/SportPage.jsx',
+
       trade:
         'src/pages/TradePage/TradePage.jsx',
+
+      health:
+        'src/pages/HealthPage/HealthPage.jsx',
 
       crowd:
         'src/pages/CrowdPage/CrowdPage.jsx',
@@ -683,14 +698,13 @@ if (canonical) {
     const objectRouteCssSource =
       objectRouteCssSources[
         objectType.id
-      ];
+      ] ||
+      'src/pages/ObjectTypePage/ObjectTypePage.jsx';
 
     const objectRouteCssTags =
-      objectRouteCssSource
-        ? getClientCssLinks(
-            objectRouteCssSource,
-          )
-        : '';
+      getClientCssLinks(
+        objectRouteCssSource,
+      );
 
     const objectHeadTags = [
       objectResult.helmet?.title?.toString() || '',
@@ -852,6 +866,9 @@ if (canonical) {
     const serviceRouteCssSources = {
       'categorization-act':
         'src/pages/CategorizationActPage/CategorizationActPage.jsx',
+
+      'passport-actualization':
+        'src/pages/ActualizationPage/ActualizationPage.jsx',
     };
 
     const serviceRouteCssSource =
@@ -859,12 +876,16 @@ if (canonical) {
         servicePage.id
       ];
 
+    if (!serviceRouteCssSource) {
+      throw new Error(
+        `Client CSS route source not found: ${servicePage.id}`,
+      );
+    }
+
     const serviceRouteCssTags =
-      serviceRouteCssSource
-        ? getClientCssLinks(
-            serviceRouteCssSource,
-          )
-        : '';
+      getClientCssLinks(
+        serviceRouteCssSource,
+      );
 
     const serviceHeadTags = [
       serviceResult.helmet?.title?.toString() || '',

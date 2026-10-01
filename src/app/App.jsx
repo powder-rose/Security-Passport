@@ -304,30 +304,9 @@ export default function App({
       ] ||
       GenericObjectTypePage;
 
-    const objectPageCssUrl =
-      ['trade', 'crowd'].includes(
-        objectType.id,
-      )
-        ? null
-        : getRuntimeStylesheetUrl(
-            objectTypeCssUrls[
-              objectType.id
-            ] ||
-            objectTypePageCssUrl,
-          );
-
     return (
       <>
         <Seo pathname={resolvedPathname} />
-
-        {objectPageCssUrl ? (
-          <Helmet>
-            <link
-              rel="stylesheet"
-              href={objectPageCssUrl}
-            />
-          </Helmet>
-        ) : null}
 
         <Analytics />
         <Header pathname={resolvedPathname} />
@@ -359,28 +338,9 @@ export default function App({
     servicePage &&
     ServicePageComponent
   ) {
-    const servicePageCssUrl =
-      servicePage.id ===
-        'categorization-act'
-        ? null
-        : getRuntimeStylesheetUrl(
-            servicePageCssUrls[
-              servicePage.id
-            ],
-          );
-
     return (
       <>
         <Seo pathname={resolvedPathname} />
-
-        {servicePageCssUrl ? (
-          <Helmet>
-            <link
-              rel="stylesheet"
-              href={servicePageCssUrl}
-            />
-          </Helmet>
-        ) : null}
 
         <Analytics />
         <Header pathname={resolvedPathname} />
