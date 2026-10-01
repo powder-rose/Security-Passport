@@ -1205,6 +1205,54 @@ if (mode === 'source') {
     }
   }
 
+  const notFoundPagePath =
+    path.join(
+      distDir,
+      '404.html',
+    );
+
+  if (
+    !(await exists(
+      notFoundPagePath,
+    ))
+  ) {
+
+    addError(
+      'dist/client/404.html is missing.',
+    );
+
+  }
+  else {
+
+    const notFoundHtml =
+      await readFile(
+        notFoundPagePath,
+        'utf8',
+      );
+
+    const robots404 =
+      notFoundHtml.match(
+        /<meta[^>]+name=["']robots["'][^>]+content=["']([^"']+)["']/i,
+      );
+
+    if (
+      !robots404 ||
+      !robots404[1]
+        .toLowerCase()
+        .startsWith(
+          'noindex',
+        )
+    ) {
+
+      addError(
+        '404.html must contain robots noindex.',
+      );
+
+    }
+
+  }
+
+
   for (const name of ['robots.txt', 'sitemap.xml']) {
     if (!(await exists(path.join(distDir, name)))) addError(`dist/client/${name} is missing.`);
   }

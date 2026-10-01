@@ -1076,6 +1076,69 @@ app.get(
         req.params.slug;
 
 
+      /*
+       * Если prerender текущей статьи уже существует,
+       * отдаём его напрямую с HTTP 200.
+       *
+       * Это важно, потому что express.static с index:false
+       * сам не отдаёт /blog/:slug/index.html для directory URL.
+       */
+      const articleStaticRoot =
+        path.resolve(
+          clientDir,
+          'blog',
+        );
+
+
+      const articleStaticPath =
+        path.resolve(
+          articleStaticRoot,
+          requestedSlug,
+          'index.html',
+        );
+
+
+      const insideArticleStaticRoot =
+        articleStaticPath.startsWith(
+          `${articleStaticRoot}${path.sep}`,
+        );
+
+
+      if (
+        insideArticleStaticRoot
+      ) {
+
+        try {
+
+          const articleHtml =
+            await fs.readFile(
+              articleStaticPath,
+              'utf8',
+            );
+
+
+          return res
+            .status(200)
+            .type('html')
+            .send(
+              articleHtml,
+            );
+
+        }
+        catch (error) {
+
+          if (
+            error?.code !==
+            'ENOENT'
+          ) {
+            throw error;
+          }
+
+        }
+
+      }
+
+
       const target =
         articles.find(
           article =>
@@ -1962,15 +2025,153 @@ app.use(express.static(clientDir, {
 }));
 
 app.get('*', async (req, res, next) => {
-  if (req.path.startsWith('/api/')) return next();
+  if (
+    req.path === '/api' ||
+    req.path.startsWith('/api/')
+  ) {
+    return next();
+  }
+
   try {
-    const html = await fs.readFile(path.join(clientDir, 'index.html'), 'utf8');
-    res.type('html').send(html);
-  } catch (error) {
-    if (error?.code === 'ENOENT') {
-      return res.status(503).type('text').send('Frontend build not found. Run npm run build first.');
+    let decodedPath;
+
+    try {
+      decodedPath =
+        decodeURIComponent(
+          req.path,
+        );
+    } catch {
+      return res
+        .status(400)
+        .type('text')
+        .send('Bad Request');
     }
-    next(error);
+
+    const normalizedPath =
+      decodedPath
+        .replace(/^\/+|\/+$/g, '');
+
+    const resolvedClientDir =
+      path.resolve(
+        clientDir,
+      );
+
+    const candidates = [];
+
+    if (!normalizedPath) {
+      candidates.push(
+        path.join(
+          resolvedClientDir,
+          'index.html',
+        ),
+      );
+    } else {
+      candidates.push(
+        path.join(
+          resolvedClientDir,
+          normalizedPath,
+          'index.html',
+        ),
+      );
+
+      if (
+        !path.extname(
+          normalizedPath,
+        )
+      ) {
+        candidates.push(
+          path.join(
+            resolvedClientDir,
+            `${normalizedPath}.html`,
+          ),
+        );
+      }
+    }
+
+    for (const candidate of candidates) {
+      const resolvedCandidate =
+        path.resolve(
+          candidate,
+        );
+
+      const insideClientDir =
+        resolvedCandidate ===
+          resolvedClientDir ||
+        resolvedCandidate.startsWith(
+          `${resolvedClientDir}${path.sep}`,
+        );
+
+      if (!insideClientDir) {
+        continue;
+      }
+
+      try {
+        const html =
+          await fs.readFile(
+            resolvedCandidate,
+            'utf8',
+          );
+
+        return res
+          .status(200)
+          .type('html')
+          .send(html);
+      } catch (error) {
+        if (
+          error?.code !==
+          'ENOENT'
+        ) {
+          throw error;
+        }
+      }
+    }
+
+    const notFoundPath =
+      path.join(
+        resolvedClientDir,
+        '404.html',
+      );
+
+    try {
+      const notFoundHtml =
+        await fs.readFile(
+          notFoundPath,
+          'utf8',
+        );
+
+      return res
+        .status(404)
+        .type('html')
+        .send(notFoundHtml);
+    } catch (error) {
+      if (
+        error?.code !==
+        'ENOENT'
+      ) {
+        throw error;
+      }
+    }
+
+    return res
+      .status(404)
+      .type('text')
+      .send('404 Not Found');
+
+  } catch (error) {
+
+    if (
+      error?.code ===
+      'ENOENT'
+    ) {
+      return res
+        .status(503)
+        .type('text')
+        .send(
+          'Frontend build not found. Run npm run build first.',
+        );
+    }
+
+    return next(error);
   }
 });
 

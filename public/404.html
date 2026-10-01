@@ -1,72 +1,115 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex, follow">
-  <title>Страница не найдена — БОЙКОВГРУПП</title>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>
+    Страница не найдена — БОЙКОВГРУПП
+  </title>
+
+  <meta
+    name="robots"
+    content="noindex,follow"
+  />
+
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
     body {
       margin: 0;
-      background: #f5f7fb;
-      color: #102246;
-      font: 16px/1.6 Arial, sans-serif;
+      min-height: 100%;
     }
-    main {
+
+    body {
       min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px;
+      font-family:
+        Inter,
+        Arial,
+        sans-serif;
+      color: #10243e;
+      background: #f5f7fa;
     }
-    section {
-      width: min(100%, 640px);
-      padding: clamp(28px, 6vw, 56px);
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 16px 48px rgba(16, 34, 70, .08);
+
+    .page {
+      width: min(760px, 100%);
     }
-    .brand {
-      margin: 0 0 32px;
-      color: #102c60;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: .08em;
-    }
-    .number {
-      display: inline-block;
+
+    .code {
       margin: 0 0 16px;
-      color: #102c60;
-      font-size: clamp(76px, 16vw, 120px);
+      font-size: clamp(72px, 16vw, 150px);
+      line-height: .85;
       font-weight: 800;
-      line-height: 1;
+      letter-spacing: -.06em;
+      color: #163f73;
     }
+
     h1 {
-      margin: 0 0 12px;
-      font-size: clamp(28px, 5vw, 40px);
-      line-height: 1.2;
+      margin: 0 0 18px;
+      font-size: clamp(30px, 5vw, 54px);
+      line-height: 1.05;
+      letter-spacing: -.03em;
     }
-    p { margin: 0 0 28px; }
+
+    p {
+      max-width: 600px;
+      margin: 0 0 30px;
+      font-size: 18px;
+      line-height: 1.55;
+      color: #53657a;
+    }
+
     a {
-      display: inline-block;
-      padding: 12px 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 24px;
       border-radius: 8px;
-      background: #102c60;
       color: #fff;
+      background: #163f73;
+      font-weight: 700;
       text-decoration: none;
     }
-    a:focus-visible { outline: 3px solid #699cf5; outline-offset: 3px; }
+
+    a:hover {
+      opacity: .92;
+    }
   </style>
 </head>
+
 <body>
-  <main>
-    <section>
-      <p class="brand">БОЙКОВГРУПП</p>
-      <div class="number" aria-hidden="true">404</div>
-      <h1>Страница не найдена</h1>
-      <p>Проверьте адрес или перейдите на главную страницу.</p>
-      <a href="/">На главную</a>
-    </section>
+  <main class="page">
+    <div
+      class="code"
+      aria-hidden="true"
+    >
+      404
+    </div>
+
+    <h1>
+      Страница не найдена
+    </h1>
+
+    <p>
+      Возможно, адрес страницы изменился
+      или был указан неправильно.
+      Перейдите на главную страницу сайта.
+    </p>
+
+    <a href="/">
+      Перейти на главную
+    </a>
   </main>
 </body>
 </html>
