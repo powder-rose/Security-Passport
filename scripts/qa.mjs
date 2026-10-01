@@ -135,6 +135,207 @@ if (mode === 'source') {
   }
 
 
+  /*
+   * ----------------------------------------------------------
+   * Open Graph / social preview QA
+   * ----------------------------------------------------------
+   */
+
+  const blogDir =
+    path.join(
+      distDir,
+      'blog',
+    );
+
+
+  const validateSocialPreview =
+    (
+      html,
+      pageLabel,
+    ) => {
+
+      const ogImageMatch =
+        html.match(
+          /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i,
+        );
+
+      if (!ogImageMatch) {
+
+        addError(
+          `${pageLabel} is missing og:image.`,
+        );
+
+      }
+      else if (
+        !/^https:\/\//i.test(
+          ogImageMatch[1],
+        )
+      ) {
+
+        addError(
+          `${pageLabel} og:image must use an absolute HTTPS URL; found ${ogImageMatch[1]}.`,
+        );
+
+      }
+
+
+      const twitterCardMatch =
+        html.match(
+          /<meta[^>]+name=["']twitter:card["'][^>]+content=["']([^"']+)["']/i,
+        );
+
+      if (
+        !twitterCardMatch ||
+        twitterCardMatch[1] !==
+          'summary_large_image'
+      ) {
+
+        addError(
+          `${pageLabel} must use twitter:card=summary_large_image.`,
+        );
+
+      }
+
+
+      const twitterImageMatch =
+        html.match(
+          /<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["']/i,
+        );
+
+      if (!twitterImageMatch) {
+
+        addError(
+          `${pageLabel} is missing twitter:image.`,
+        );
+
+      }
+      else if (
+        !/^https:\/\//i.test(
+          twitterImageMatch[1],
+        )
+      ) {
+
+        addError(
+          `${pageLabel} twitter:image must use an absolute HTTPS URL; found ${twitterImageMatch[1]}.`,
+        );
+
+      }
+
+    };
+
+
+  const blogIndexPath =
+    path.join(
+      blogDir,
+      'index.html',
+    );
+
+
+  if (
+    !(await exists(blogIndexPath))
+  ) {
+
+    addError(
+      'Blog prerender is missing: dist/client/blog/index.html.',
+    );
+
+  }
+  else {
+
+    const blogHtml =
+      await readFile(
+        blogIndexPath,
+        'utf8',
+      );
+
+    validateSocialPreview(
+      blogHtml,
+      '/blog/',
+    );
+
+  }
+
+
+  if (
+    await exists(blogDir)
+  ) {
+
+    const blogEntries =
+      await readdir(
+        blogDir,
+        {
+          withFileTypes: true,
+        },
+      );
+
+
+    for (
+      const entry
+      of blogEntries
+    ) {
+
+      if (
+        !entry.isDirectory()
+      ) {
+        continue;
+      }
+
+
+      const articleIndexPath =
+        path.join(
+          blogDir,
+          entry.name,
+          'index.html',
+        );
+
+
+      if (
+        !(await exists(
+          articleIndexPath,
+        ))
+      ) {
+        continue;
+      }
+
+
+      const articleHtml =
+        await readFile(
+          articleIndexPath,
+          'utf8',
+        );
+
+
+      validateSocialPreview(
+        articleHtml,
+        `/blog/${entry.name}/`,
+      );
+
+    }
+
+  }
+
+
+  const fallbackOgImage =
+    path.join(
+      publicDir,
+      'images',
+      'og-passport-security.png',
+    );
+
+
+  if (
+    !(await exists(
+      fallbackOgImage,
+    ))
+  ) {
+
+    addError(
+      'Fallback OG image is missing: public/images/og-passport-security.png.',
+    );
+
+  }
+
+
   const legalPages = [
     'oferta',
     'personal-data',

@@ -229,11 +229,22 @@ export default function ArticlePage({
     );
 
 
-  const ogImage =
+  const articleImage =
     absoluteImageUrl(
       article?.ogImage ||
       article?.image
     );
+
+
+  const ogImage =
+    articleImage ||
+    `${SITE.federalUrl}/images/og-passport-security.png`;
+
+
+  const ogImageAlt =
+    article?.imageAlt ||
+    article?.title ||
+    'Материал о безопасности объектов — БОЙКОВГРУПП';
 
 
   const articleSchema =
@@ -529,16 +540,15 @@ export default function ArticlePage({
         />
 
 
-        {
-          ogImage
-          &&
-          (
-            <meta
-              property="og:image"
-              content={ogImage}
-            />
-          )
-        }
+        <meta
+          property="og:image"
+          content={ogImage}
+        />
+
+        <meta
+          property="og:image:alt"
+          content={ogImageAlt}
+        />
 
 
         <meta
@@ -563,16 +573,15 @@ export default function ArticlePage({
         />
 
 
-        {
-          ogImage
-          &&
-          (
-            <meta
-              name="twitter:image"
-              content={ogImage}
-            />
-          )
-        }
+        <meta
+          name="twitter:image"
+          content={ogImage}
+        />
+
+        <meta
+          name="twitter:image:alt"
+          content={ogImageAlt}
+        />
 
 
         {
