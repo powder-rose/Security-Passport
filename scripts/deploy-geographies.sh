@@ -361,8 +361,7 @@ echo "[6/7] Обновляем общую статику..."
 
 mkdir -p \
   "${SHARED}/assets" \
-  "${SHARED}/images" \
-  "${SHARED}/styles"
+  "${SHARED}/images"
 
 # Старые hashed assets специально не удаляем:
 # старые HTML и браузерный кеш продолжат работать.
@@ -373,16 +372,6 @@ cp -a \
 cp -a \
   dist/client/images/. \
   "${SHARED}/images/"
-
-if [ ! -d dist/client/styles ]; then
-    echo "ОШИБКА: dist/client/styles отсутствует после build."
-    exit 1
-fi
-
-cp -a \
-  dist/client/styles/. \
-  "${SHARED}/styles/"
-
 
 cp -a \
   dist/client/favicon.png \
