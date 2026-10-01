@@ -55,7 +55,7 @@ const sportPageCssUrl =
   '/styles/SportPage.css';
 
 const tradePageCssUrl =
-  '/styles/TradePage.css?v=20261001-mobile-2';
+  '/styles/TradePage.css?v=20261001-mobile-3';
 
 const healthPageCssUrl =
   '/styles/HealthPage.css';

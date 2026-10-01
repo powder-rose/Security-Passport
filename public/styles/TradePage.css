@@ -7543,3 +7543,18 @@ strong {
 }
 
 /* /TRADE_MOBILE_FAQ_LAYOUT_FIX_V1 */
+
+
+/* ========================================================
+   TRADE_MOBILE_FAQ_STICKY_FIX_V1
+   Disable sticky FAQ heading on mobile
+   ======================================================== */
+
+@media (max-width: 768px) {
+  .trade-faq__heading {
+    position: static !important;
+    top: auto !important;
+  }
+}
+
+/* /TRADE_MOBILE_FAQ_STICKY_FIX_V1 */
