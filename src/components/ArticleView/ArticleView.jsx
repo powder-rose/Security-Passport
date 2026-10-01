@@ -475,7 +475,7 @@ function RelatedArticles({
               const href =
                 preview
                   ? `/admin/articles/edit/${item.id}`
-                  : `/articles/${item.slug}/`;
+                  : `/blog/${item.slug}/`;
 
 
               return (
