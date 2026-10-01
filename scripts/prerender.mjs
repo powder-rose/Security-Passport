@@ -184,6 +184,53 @@ await writeFile(
   'utf8',
 );
 
+const clientManifestPath =
+  path.join(
+    projectRoot,
+    'dist',
+    'client',
+    '.vite',
+    'manifest.json',
+  );
+
+const clientManifest =
+  JSON.parse(
+    await readFile(
+      clientManifestPath,
+      'utf8',
+    ),
+  );
+
+
+function getClientCssLinks(
+  sourceFile,
+) {
+  const manifestEntry =
+    clientManifest[sourceFile];
+
+  if (!manifestEntry) {
+    throw new Error(
+      `Client manifest entry not found: ${sourceFile}`,
+    );
+  }
+
+  const cssFiles =
+    manifestEntry.css || [];
+
+  if (cssFiles.length === 0) {
+    throw new Error(
+      `Client CSS not found in manifest: ${sourceFile}`,
+    );
+  }
+
+  return cssFiles
+    .map(
+      (cssFile) =>
+        `<link rel="stylesheet" crossorigin href="/${cssFile}">`,
+    )
+    .join('\n');
+}
+
 
 template = template
   .replace(
@@ -625,12 +672,22 @@ if (canonical) {
         );
 
 
+    const objectRouteCssTags =
+      objectType.id === 'trade'
+        ? getClientCssLinks(
+            'src/pages/TradePage/TradePage.jsx',
+          )
+        : '';
+
     const objectHeadTags = [
       objectResult.helmet?.title?.toString() || '',
       objectResult.helmet?.meta?.toString() || '',
       objectResult.helmet?.link?.toString() || '',
       objectResult.helmet?.script?.toString() || '',
-    ].join('\n');
+      objectRouteCssTags,
+    ]
+      .filter(Boolean)
+      .join('\n');
 
 
     const objectSerializedCity =

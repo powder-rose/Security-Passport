@@ -6,6 +6,8 @@ export default defineConfig({
   plugins: [react()],
 
   build: {
+    manifest: true,
+
     rollupOptions: {
       input: {
         main: path.resolve(

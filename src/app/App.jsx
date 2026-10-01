@@ -305,23 +305,27 @@ export default function App({
       GenericObjectTypePage;
 
     const objectPageCssUrl =
-      getRuntimeStylesheetUrl(
-        objectTypeCssUrls[
-          objectType.id
-        ] ||
-        objectTypePageCssUrl,
-      );
+      objectType.id === 'trade'
+        ? null
+        : getRuntimeStylesheetUrl(
+            objectTypeCssUrls[
+              objectType.id
+            ] ||
+            objectTypePageCssUrl,
+          );
 
     return (
       <>
         <Seo pathname={resolvedPathname} />
 
-        <Helmet>
-          <link
-            rel="stylesheet"
-            href={objectPageCssUrl}
-          />
-        </Helmet>
+        {objectPageCssUrl ? (
+          <Helmet>
+            <link
+              rel="stylesheet"
+              href={objectPageCssUrl}
+            />
+          </Helmet>
+        ) : null}
 
         <Analytics />
         <Header pathname={resolvedPathname} />
