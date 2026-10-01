@@ -1,152 +1,542 @@
-# Passport Security — base
+# Паспорт безопасности
 
-Базовый каркас одностраничного сайта БОЙКОВГРУПП на React + Vite + Redux Toolkit.
+Production-проект сайта по разработке и сопровождению паспортов безопасности объектов.
 
-## Что уже заложено
+Проект построен на React и Vite, но не является обычным client-only SPA. Production-сборка включает SSR/prerender, SEO-генерацию, Express backend, административную панель, блог, региональные страницы и автоматический QA.
 
-- React + Vite
-- Redux Toolkit / React Redux
-- SEO-компонент через `react-helmet-async`
-- JSON-LD для `Organization`, `Service`, `WebPage`, `FAQPage`
-- конфигурация города для будущих поддоменов
-- семантическая HTML-структура
-- skip-link, `aria-label`, `aria-live`, `focus-visible`, `prefers-reduced-motion`
-- базовая editorial design-system
-- фотография Николая Бойкова оптимизирована в WebP и встроена в editorial Hero
-- собственные Blush-inspired SVG-иллюстрации без внешних библиотек
-- полностью собранные контентные секции лендинга
+## Технологический стек
 
-## Запуск
+### Frontend
 
-```bash
-npm install
-npm run dev
-```
+- React 18
+- Redux Toolkit
+- React Redux
+- Vite
+- react-helmet-async
+- Yup
+- Tiptap
+- react-easy-crop
 
-## Сборка
+### Backend
 
-```bash
-npm run qa
-npm run build
-npm run preview
-```
+- Node.js 20+
+- Express
+- Nodemailer
+- Formidable
+- Sharp
+- MaxMind
 
-`npm run build` автоматически запускает source-QA до сборки и dist-QA после prerender. Проверяются внутренние якоря, изображения, единственный H1, canonical, JSON-LD, robots.txt и sitemap.xml.
+### Build и SEO
 
-## Главные точки настройки
+- Vite client build
+- Vite SSR build
+- server-side rendering
+- custom prerender
+- Vite manifest
+- route-level code splitting
+- автоматический QA
+- генерация robots.txt
+- генерация sitemap.xml
 
-- `src/config/city.js` — город / регион / поддомен
-- `src/config/site.js` — бренд, домен, контакты
-- `src/config/seo.js` — title/description/canonical/schema
-- `src/data/*` — контентные данные
-- `src/styles/variables.css` — дизайн-токены
+## Требования
 
-## Важно для SEO городских поддоменов
+    Node.js >= 20
+    npm
 
-Production-build уже делает prerender: городские `<title>`, `<meta>`, canonical, schema и основной текст страницы попадают в исходный HTML. Для каждого городского поддомена делайте отдельную сборку с его `VITE_CITY_*` значениями и добавляйте действительно полезный локальный контент, а не только замену названия города.
+Установка зависимостей:
 
-## Реализовано на шаге ObjectQuiz
+    npm ci
 
-- Полная 6-шаговая экспресс-проверка объекта из исходной страницы.
-- Ответы хранятся в Redux Toolkit (`features/quiz`).
-- Прогресс, возврат назад, валидация обязательных полей.
-- Семантические `fieldset`, `legend`, `label`, `role=progressbar`, `role=alert`.
-- Адаптивная editorial-композиция.
-- Финальная отправка подключена к встроенному `POST /api/leads`; квиз передаёт все ответы и контактные данные на backend.
+Использование `npm ci` предпочтительно, поскольку в проекте хранится `package-lock.json`.
 
-## Production SEO build
+## Локальный запуск
 
-`npm run build` now produces a prerendered version in `dist/client`. The final `index.html` already contains the page HTML, canonical/meta tags and JSON-LD before JavaScript executes. The same build also generates `robots.txt` and `sitemap.xml` from the canonical URL.
+Для полноценной разработки нужны frontend и backend.
 
-For city subdomains, create a separate build with the matching `VITE_CITY_*` values. Do not only replace the city name visually: keep city-specific metadata and local content where it is genuinely useful.
+В первом терминале:
 
-## Responsive audit
+    npm run dev:api
 
-Финальный адаптивный слой находится в `src/styles/responsive-audit.css` и подключается последним.
-Проверочные диапазоны: 1440 px, 1024 px, 768 px и 390 px.
+Во втором:
 
-- hamburger-навигация включается раньше на планшетах;
-- на узких экранах CTA из шапки переносится внутрь меню;
-- тесные двухколоночные секции раньше переходят в одну колонку;
-- крупные editorial-заголовки ограничены безопасными мобильными размерами;
-- карточки, квиз, цены, FAQ и footer получают отдельную полировку для 390 px;
-- hover-сдвиги отключаются на touch-устройствах;
-- декоративные элементы не создают горизонтальный скролл.
+    npm run dev
 
-## Release checklist
+Backend в development-режиме запускается через:
 
-Перед публикацией:
+    node --watch server/index.mjs
 
-1. Заполнить `.env` для нужного города/домена.
-2. Создать `.env.server`, включить Telegram и/или SMTP и проверить `GET /api/health` + реальную отправку формы.
-3. Выполнить `npm run build` и убедиться, что QA проходит без ошибок.
-4. Публиковать содержимое `dist/client`.
-5. Проверить HTTP 200, HTTPS, canonical, robots.txt и sitemap.xml уже на боевом домене.
-6. После публикации прогнать Lighthouse/PageSpeed и Яндекс Вебмастер.
+По умолчанию backend использует порт 8787.
 
-## Заявки и Яндекс Метрика
+Vite проксирует запросы:
 
-Проект теперь готов к реальной отправке обеих форм и к отслеживанию рекламных конверсий.
+    /api/*
 
-В `.env` нужно заполнить:
+на:
 
-```bash
-VITE_LEAD_ENDPOINT=/api/leads
-VITE_YANDEX_METRICA_ID=12345678
-VITE_YANDEX_METRICA_ENABLED=true
-VITE_YANDEX_METRICA_WEBVISOR=true
-```
+    http://127.0.0.1:8787
 
-`VITE_LEAD_ENDPOINT` должен принимать `POST` с JSON. Одинаковая транспортная функция используется для финальной формы и 6-шагового квиза. Каждая заявка содержит `requestId`, дату, страницу, referrer и сохранённые рекламные метки (`utm_*`, `yclid`, `gclid`). Кнопки блокируются во время отправки, поэтому случайный двойной submit не создаётся из интерфейса.
+## Production build
 
-Цели Метрики, которые используются в коде:
+Основная команда:
 
-- `lead_submit_success` — успешно отправлена основная форма;
-- `quiz_submit_success` — успешно отправлена заявка из квиза;
-- `quiz_start` — пользователь начал квиз;
-- `quiz_step_completed` — пройден очередной шаг квиза;
-- `contact_cta_click` — клик по CTA, ведущему к форме;
-- `phone_click` — клик по телефону;
-- `email_click` — клик по email;
-- `lead_submit_error` и `quiz_submit_error` — технические ошибки отправки для диагностики.
+    npm run build
 
-В интерфейсе Яндекс Метрики для рекламных конверсий имеет смысл создать JavaScript-цели прежде всего для `lead_submit_success` и `quiz_submit_success`. Остальные удобно использовать как микроцели и для анализа воронки.
+Это полный pipeline проекта, а не только Vite build.
 
-По умолчанию фронтенд использует встроенный `/api/leads`. Если API недоступен или не смог доставить заявку ни в один рабочий канал, интерфейс не показывает ложный успех: пользователю выводятся телефон и email компании.
+Последовательность:
 
-## Backend API для заявок
+    npm run qa
+        ↓
+    npm run build:client
+        ↓
+    npm run build:ssr
+        ↓
+    npm run prerender
+        ↓
+    npm run qa:dist
 
-В проект добавлен production-сервер `server/index.mjs`. Он одновременно раздаёт готовую сборку из `dist/client` и принимает заявки через `POST /api/leads`.
+Отдельные команды:
 
-### Локальный запуск
+    npm run qa
+    npm run build:client
+    npm run build:ssr
+    npm run prerender
+    npm run qa:dist
 
-В двух терминалах:
+Client build создаётся в:
 
-```bash
-npm run dev:api
-npm run dev
-```
+    dist/client/
 
-Vite проксирует `/api/*` на `http://127.0.0.1:8787`, поэтому фронтенду не нужен отдельный CORS-URL.
+SSR bundle создаётся в:
 
-### Production
+    dist/server/
 
-```bash
-cp .env.example .env
-cp .env.server.example .env.server
-npm install
-npm run build
-npm start
-```
+## Production server
 
-По умолчанию фронтенд отправляет заявки на `/api/leads`. API проверяет обязательные контакты и согласие, ограничивает частоту запросов, отбрасывает honeypot-спам и не создаёт повторную заявку при повторной отправке того же `requestId`.
+После успешной сборки:
 
-Доступные каналы доставки:
+    npm start
 
-- локальная резервная копия `data/leads.jsonl`;
-- Telegram — `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID`;
-- email по SMTP — `SMTP_*` + `LEAD_EMAIL_TO`.
+Запускается:
 
-Можно включить Telegram и SMTP одновременно. API отвечает успехом, если хотя бы один настроенный канал принял заявку. Проверка состояния без секретов: `GET /api/health`.
+    server/index.mjs
 
-**Важно:** `data/leads.jsonl` содержит персональные данные. Папка `data` не раздаётся как статика и добавлена в `.gitignore`. На сервере ограничьте доступ к ней и настройте срок хранения в соответствии с вашей политикой обработки персональных данных.
+Сервер обслуживает frontend и API.
+
+## Основные entrypoints
+
+### Публичный сайт
+
+    index.html
+        ↓
+    src/main.jsx
+        ↓
+    src/entry-client.jsx
+
+### SSR
+
+    src/entry-server.jsx
+
+### Административная панель
+
+    admin.html
+        ↓
+    src/admin/main.jsx
+
+### Предпросмотр статьи
+
+    article-preview.html
+        ↓
+    src/article-preview/main.jsx
+
+Предпросмотр статьи имеет robots `noindex,nofollow`.
+
+## Структура проекта
+
+    src/
+    ├── admin/
+    ├── app/
+    ├── article-preview/
+    ├── components/
+    ├── config/
+    ├── content/
+    ├── context/
+    ├── data/
+    ├── features/
+    ├── lib/
+    ├── pages/
+    ├── sections/
+    ├── styles/
+    ├── entry-client.jsx
+    ├── entry-server.jsx
+    └── main.jsx
+
+    server/
+    scripts/
+    public/
+    config/
+    data/
+    deploy/
+
+## Routing
+
+Проект не использует React Router.
+
+Маршрут определяется через pathname и внутренние route/data-модули.
+
+Основные источники маршрутов:
+
+    src/data/objectTypes.js
+    src/data/servicePages.js
+    src/content/
+
+Client-side route components загружаются через dynamic import в:
+
+    src/entry-client.jsx
+
+SSR использует отдельный mapping route components в:
+
+    src/entry-server.jsx
+
+При добавлении новой страницы client routing, SSR и prerender должны изменяться согласованно.
+
+## Страницы
+
+Основные page modules находятся в:
+
+    src/pages/
+
+На текущий момент в проекте присутствуют:
+
+    ActualizationPage
+    ArticlePage
+    BlogPage
+    CategorizationActPage
+    CrowdPage
+    CulturePage
+    EducationPage
+    HealthPage
+    HotelPage
+    LegalPage
+    ObjectTypePage
+    SportPage
+    TradePage
+
+## CSS-архитектура
+
+Page-specific CSS хранится рядом с компонентом.
+
+Пример:
+
+    src/pages/TradePage/
+    ├── TradePage.jsx
+    └── TradePage.css
+
+Компонент импортирует собственный CSS:
+
+    import './TradePage.css';
+
+Старая архитектура с отдельными page styles в:
+
+    public/styles/
+
+удалена и больше не используется.
+
+Production CSS формируется Vite в hashed assets:
+
+    /assets/<name>-<hash>.css
+
+Prerender получает generated CSS через Vite manifest.
+
+Глобальные стили находятся в:
+
+    src/styles/
+
+В проекте используются:
+
+    reset.css
+    variables.css
+    typography.css
+    global.css
+    responsive-audit.css
+
+`responsive-audit.css` является финальным общим responsive-слоем.
+
+## SSR и prerender
+
+Основные файлы:
+
+    src/entry-server.jsx
+    scripts/prerender.mjs
+
+Production HTML формируется до выполнения клиентского JavaScript.
+
+Prerender отвечает, в частности, за:
+
+- server-rendered HTML;
+- title;
+- meta description;
+- canonical;
+- robots;
+- Open Graph metadata;
+- Twitter metadata;
+- JSON-LD;
+- route-specific CSS;
+- legal pages;
+- object pages;
+- service pages;
+- blog pages;
+- sitemap;
+- robots.txt.
+
+## SEO
+
+Основные точки SEO:
+
+    src/components/Seo/Seo.jsx
+    src/config/seo.js
+    scripts/prerender.mjs
+
+SEO metadata должны присутствовать в prerendered HTML.
+
+Нельзя рассчитывать только на client-side Helmet после hydration.
+
+## QA
+
+Основная проверка:
+
+    npm run qa
+
+Полный production QA выполняется автоматически командой:
+
+    npm run build
+
+Используются:
+
+    scripts/qa.mjs
+    scripts/qa-regulations.mjs
+    node --check server/index.mjs
+
+Проверяются, среди прочего:
+
+- изображения;
+- внутренние anchors;
+- внутренние ссылки;
+- broken internal links;
+- heading hierarchy;
+- H1;
+- canonical;
+- robots;
+- Open Graph;
+- Twitter metadata;
+- JSON-LD;
+- legal pages;
+- 404;
+- robots.txt;
+- sitemap.xml;
+- нормативные документы;
+- синтаксис backend.
+
+Если `npm run build` завершается ошибкой, production deploy выполнять нельзя.
+
+## Backend
+
+Главный backend entrypoint:
+
+    server/index.mjs
+
+Отдельные модули:
+
+    server/admin-articles.mjs
+    server/admin-auth.mjs
+    server/admin-leads.mjs
+    server/admin-regulations.mjs
+    server/blog-publication.mjs
+    server/bot-detection.mjs
+    server/geo-location.mjs
+    server/lead-storage.mjs
+    server/regulation-date-sync.mjs
+    server/regulation-number-sync.mjs
+    server/regulation-publisher.mjs
+    server/regulation-reminders.mjs
+    server/regulation-title-sync.mjs
+    server/site-region.mjs
+    server/statistics.mjs
+
+## Основные API
+
+Публичные endpoints:
+
+    GET  /api/health
+    GET  /api/geo
+    GET  /api/articles
+    GET  /api/articles/:slug
+    POST /api/leads
+    POST /api/visits
+
+Admin API используется для:
+
+- авторизации;
+- заявок;
+- статистики;
+- статей;
+- загрузки изображений;
+- нормативных документов;
+- публикации контента.
+
+## Заявки
+
+Основной endpoint:
+
+    POST /api/leads
+
+Backend поддерживает:
+
+- нормализацию входных данных;
+- валидацию;
+- rate limiting;
+- request deduplication;
+- honeypot/spam-защиту;
+- локальное резервное сохранение;
+- Telegram delivery;
+- SMTP email delivery.
+
+Runtime-файлы с заявками не должны попадать в Git.
+
+## Статистика
+
+Посещения отправляются через:
+
+    POST /api/visits
+
+Основной server-модуль:
+
+    server/statistics.mjs
+
+Admin получает статистику через:
+
+    GET /api/admin/statistics
+
+## Административная панель
+
+Entry:
+
+    admin.html
+    src/admin/main.jsx
+
+Административная панель используется для работы с:
+
+- заявками;
+- статистикой;
+- статьями;
+- публикацией блога;
+- нормативными документами.
+
+## Блог
+
+Публичные статьи prerenderятся для SEO.
+
+Общий rendering статьи находится в:
+
+    src/components/ArticleView/
+
+Предпросмотр статьи имеет отдельный Vite entrypoint и не индексируется.
+
+## География
+
+Проект поддерживает федеральную и региональную архитектуру.
+
+Подробная документация:
+
+    GEOGRAPHY_PIPELINE.md
+
+Основные элементы:
+
+    config/geography/
+    scripts/check-geography.mjs
+    scripts/generate-geo-pages.mjs
+    scripts/deploy-geographies.sh
+    server/geo-location.mjs
+    src/lib/geoRedirect.js
+
+После изменения географической базы обязательно выполнить:
+
+    node scripts/check-geography.mjs
+    npm run build
+
+## Deployment
+
+В проекте имеются production scripts:
+
+    scripts/deploy-federal.sh
+    scripts/deploy-region.sh
+    scripts/deploy-geographies.sh
+    scripts/publish-blog.sh
+    scripts/redeploy-all-regions.sh
+    scripts/rollback-federal.sh
+
+Они рассчитаны на production-окружение проекта.
+
+Не запускайте production deployment scripts на неподготовленной локальной машине.
+
+## Environment
+
+Frontend-шаблон:
+
+    .env.example
+
+Backend по умолчанию загружает:
+
+    .env.server
+
+если `SERVER_ENV_FILE` не задаёт другой путь.
+
+Секреты не должны попадать в Git.
+
+Переменные с префиксом `VITE_` попадают в client bundle и не должны содержать секретные значения.
+
+## Что не должно попадать в Git
+
+- .env;
+- .env.server;
+- API tokens;
+- passwords;
+- SMTP credentials;
+- session secrets;
+- реальные персональные данные;
+- runtime JSONL;
+- dist;
+- node_modules;
+- runtime uploads.
+
+## Правила внесения изменений
+
+Перед commit:
+
+    git status --short
+    git diff
+    git diff --check
+    npm run build
+
+При параллельной разработке предпочтительно добавлять изменённые файлы явно:
+
+    git add path/to/file
+
+вместо безусловного:
+
+    git add .
+
+Не смешивайте в одном commit независимые архитектурные изменения.
+
+## Основной инженерный принцип
+
+Изменение страницы считается завершённым только если оно:
+
+1. работает в client;
+2. собирается;
+3. корректно рендерится через SSR;
+4. prerenderится;
+5. получает правильный CSS;
+6. имеет корректные SEO metadata;
+7. проходит QA;
+8. корректно обслуживается production server.

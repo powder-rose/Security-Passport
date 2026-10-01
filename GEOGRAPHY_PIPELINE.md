@@ -170,18 +170,40 @@ Noindex-регионы не должны создавать индексируе
 
     /var/www/pasport-bezopasnosty.ru/shared
 
-CSS service pages копируется из:
+После перехода на локальные CSS-импорты page styles собираются Vite вместе с остальными hashed assets:
 
-    dist/client/styles/
+    dist/client/assets/
+
+Имена production CSS содержат hash и не должны использоваться в deploy-скриптах напрямую.
+
+Prerender определяет необходимые route-specific CSS через Vite manifest:
+
+    dist/client/.vite/manifest.json
+
+Массовый regional deploy копирует общие Vite assets из:
+
+    dist/client/assets/
 
 в:
 
+    /var/www/pasport-bezopasnosty.ru/shared/assets/
+
+Изображения копируются из:
+
+    dist/client/images/
+
+в:
+
+    /var/www/pasport-bezopasnosty.ru/shared/images/
+
+Старая схема:
+
+    dist/client/styles/
     /var/www/pasport-bezopasnosty.ru/shared/styles/
 
-Критические CSS:
+больше не является частью текущего build/deploy pipeline.
 
-    CategorizationActPage.css
-    ActualizationPage.css
+Каталог `shared/styles`, если он сохранился на production от старых releases, не следует удалять вслепую: старые HTML из rollback-release могут всё ещё содержать ссылки на legacy CSS. Новые releases его не используют и не обновляют.
 
 ---
 
