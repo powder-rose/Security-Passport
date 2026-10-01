@@ -476,6 +476,18 @@ export async function updatePublishedArticlesYear(
   let updated = 0;
 
 
+  const now =
+    new Date();
+
+
+  const todayUtc =
+    Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate()
+    );
+
+
   const nextArticles =
     articles.map(
       article => {
@@ -498,6 +510,64 @@ export async function updatePublishedArticlesYear(
           Number.isNaN(
             date.getTime()
           )
+        ) {
+          return article;
+        }
+
+
+        /*
+         * Если статья уже имеет нужный год,
+         * повторно её не обновляем.
+         */
+        if (
+          date.getUTCFullYear() === year
+        ) {
+          return article;
+        }
+
+
+        const month =
+          date.getUTCMonth();
+
+        const day =
+          date.getUTCDate();
+
+
+        /*
+         * Проверяем день и месяц отдельно.
+         * Это также защищает 29 февраля:
+         * в невисокосном году дата не превратится
+         * автоматически в 1 марта.
+         */
+        const candidateDate =
+          new Date(
+            Date.UTC(
+              year,
+              month,
+              day
+            )
+          );
+
+
+        if (
+          candidateDate.getUTCFullYear() !== year ||
+          candidateDate.getUTCMonth() !== month ||
+          candidateDate.getUTCDate() !== day
+        ) {
+          return article;
+        }
+
+
+        /*
+         * Нельзя создавать дату публикации из будущего.
+         *
+         * Например, 1 января статья от 15 августа
+         * останется в прошлом году и обновится только
+         * после наступления 15 августа.
+         */
+        if (
+          candidateDate.getTime() >
+          todayUtc
         ) {
           return article;
         }
