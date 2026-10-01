@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useMemo, useState } from 'react';
 import Container from '../../components/ui/Container/Container';
 import { SITE } from '../../config/site';
 import { METRICA_GOALS, reachGoal } from '../../lib/analytics';
@@ -9,15 +8,7 @@ import {
   quizLocationSchema,
   quizMetricsSchema,
 } from '../../lib/validation/leadValidation';
-import {
-  answerQuestion,
-  completeQuiz,
-  goToStep,
-  nextStep,
-  previousStep,
-  resetQuiz,
-} from '../../features/quiz/quizSlice';
-import { quizQuestions, quizResultPoints } from '../../features/quiz/quizData';
+import { quizResultPoints } from '../../features/quiz/quizData';
 
 import QuizStepFields
 from './components/QuizStepFields';
@@ -29,9 +20,10 @@ import {
 import useQuizGeography
 from './useQuizGeography';
 
-import './ObjectQuiz.css';
+import useQuizNavigation
+from './useQuizNavigation';
 
-const emptyObject = {};
+import './ObjectQuiz.css';
 
 export default function ObjectQuiz({
   presetObjectType = null,
@@ -43,16 +35,53 @@ export default function ObjectQuiz({
       ? 'object-quiz object-quiz--article'
       : 'object-quiz';
 
-  const dispatch = useDispatch();
-  const { currentStep, answers, completed } = useSelector((state) => state.quiz);
-  const [showError, setShowError] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState('idle');
-  const [submitMessage, setSubmitMessage] = useState('');
-  const quizStartedRef = useRef(false);
-  const quizCardRef = useRef(null);
-  const quizCompleteRef = useRef(null);
-  const question = quizQuestions[currentStep];
-  const answer = answers[question.id] ?? emptyObject;
+  const [
+    showError,
+    setShowError,
+  ] =
+    useState(false);
+
+  const [
+    submitStatus,
+    setSubmitStatus,
+  ] =
+    useState('idle');
+
+  const [
+    submitMessage,
+    setSubmitMessage,
+  ] =
+    useState('');
+
+
+  const {
+    currentStep,
+    answers,
+    completed,
+
+    question,
+    answer,
+
+    hasPresetObjectType,
+    visibleTotal,
+    visibleStep,
+    progress,
+    displayQuestionNumber,
+    isLastStep,
+
+    quizCardRef,
+    quizCompleteRef,
+
+    updateCurrentAnswer,
+    goForward,
+    goBack,
+    markCompleted,
+    restartQuiz,
+  } =
+    useQuizNavigation({
+      presetObjectType,
+    });
+
 
   const {
     regionOptions,
@@ -67,44 +96,6 @@ export default function ObjectQuiz({
         answer?.region,
     });
 
-  const hasPresetObjectType =
-    Boolean(
-      presetObjectType,
-    );
-
-  const visibleTotal =
-    hasPresetObjectType
-      ? quizQuestions.length - 1
-      : quizQuestions.length;
-
-  const visibleStep =
-    hasPresetObjectType
-      ? Math.max(
-          1,
-          currentStep,
-        )
-      : currentStep + 1;
-
-  const progress =
-    (
-      visibleStep /
-      visibleTotal
-    ) * 100;
-
-  const displayQuestionNumber =
-    hasPresetObjectType
-      ? String(
-          visibleStep,
-        ).padStart(
-          2,
-          '0',
-        )
-      : question.number;
-
-  const isLastStep =
-    currentStep ===
-    quizQuestions.length - 1;
-
   const valid =
     useMemo(
       () =>
@@ -118,116 +109,14 @@ export default function ObjectQuiz({
       ],
     );
 
-  useEffect(() => {
-    if (!hasPresetObjectType) {
-      return;
-    }
-
-    const existingObjectType =
-      answers.objectType;
-
-    const existingSelected =
-      typeof existingObjectType === 'string'
-        ? existingObjectType
-        : existingObjectType?.selected;
-
-    if (
-      existingSelected !==
-      presetObjectType
-    ) {
-      dispatch(
-        answerQuestion({
-          questionId:
-            'objectType',
-
-          value: {
-            selected:
-              presetObjectType,
-
-            other:
-              '',
-          },
-        }),
-      );
-    }
-
-    if (currentStep === 0) {
-      dispatch(
-        goToStep(1),
-      );
-    }
-  }, [
-    answers.objectType,
-    currentStep,
-    dispatch,
-    hasPresetObjectType,
-    presetObjectType,
-  ]);
-
-
-  useEffect(() => {
-    if (
-      !completed ||
-      typeof window === 'undefined' ||
-      !window.matchMedia('(max-width: 768px)').matches
-    ) {
-      return;
-    }
-
-    const frameId = window.requestAnimationFrame(() => {
-      const completeBlock = quizCompleteRef.current;
-
-      if (!completeBlock) return;
-
-      const top =
-        completeBlock.getBoundingClientRect().top +
-        window.scrollY -
-        96;
-
-      window.scrollTo(
-        0,
-        Math.max(0, top),
-      );
-    });
-
-    return () => window.cancelAnimationFrame(frameId);
-  }, [completed]);
-
-  const scrollToCurrentQuestion = () => {
-    if (
-      typeof window === 'undefined' ||
-      !window.matchMedia('(max-width: 768px)').matches
-    ) {
-      return;
-    }
-
-    window.requestAnimationFrame(() => {
-      const card = quizCardRef.current;
-
-      if (!card) return;
-
-      const top =
-        card.getBoundingClientRect().top +
-        window.scrollY -
-        96;
-
-      window.scrollTo(
-        0,
-        Math.max(0, top),
-      );
-    });
-  };
-
   const updateAnswer = (value) => {
     setShowError(false);
     setSubmitStatus('idle');
     setSubmitMessage('');
 
-    if (!quizStartedRef.current) {
-      quizStartedRef.current = true;
-      reachGoal(METRICA_GOALS.quizStart, { step: visibleStep });
-    }
-    dispatch(answerQuestion({ questionId: question.id, value }));
+    updateCurrentAnswer(
+      value,
+    );
   };
 
   const handleNext = async () => {
@@ -294,8 +183,7 @@ export default function ObjectQuiz({
     });
 
     if (!isLastStep) {
-      dispatch(nextStep());
-      scrollToCurrentQuestion();
+      goForward();
       return;
     }
 
@@ -326,7 +214,7 @@ export default function ObjectQuiz({
       });
 
       reachGoal(METRICA_GOALS.quizSubmitSuccess, { source: 'object_quiz' });
-      dispatch(completeQuiz());
+      markCompleted();
     } catch (error) {
       reachGoal(METRICA_GOALS.quizSubmitError, {
         source: 'object_quiz',
@@ -340,16 +228,9 @@ export default function ObjectQuiz({
   };
 
   const handleBack = () => {
-    if (
-      hasPresetObjectType &&
-      currentStep <= 1
-    ) {
-      return;
+    if (goBack()) {
+      setShowError(false);
     }
-
-    setShowError(false);
-    dispatch(previousStep());
-    scrollToCurrentQuestion();
   };
 
   if (completed) {
@@ -364,7 +245,7 @@ export default function ObjectQuiz({
               Ответы отправлены специалисту. Мы проверим сведения об объекте и свяжемся с вами
               по указанным контактам для уточнения деталей и предварительного заключения.
             </p>
-            <button className="button button--primary" type="button" onClick={() => dispatch(resetQuiz())}>
+            <button className="button button--primary" type="button" onClick={restartQuiz}>
               Пройти проверку заново
             </button>
           </div>
