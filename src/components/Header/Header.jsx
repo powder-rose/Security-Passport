@@ -6,24 +6,25 @@ import {
 
 import Container from '../ui/Container/Container';
 
-import DirectoryContent
-from './DirectoryContent';
+import HeaderBrand
+from './HeaderBrand';
 
-import MobileMenuPortal
-from './MobileMenuPortal';
+import HeaderActions
+from './HeaderActions';
+
+import SiteDirectory
+from './SiteDirectory';
+
+import SiteNavigation
+from './SiteNavigation';
 
 import {
   MOBILE_BREAKPOINT,
   getNavigationTarget,
   isDirectoryActive,
   normalizePathname,
-  quickNavLinks,
   scrollToNavigationTarget,
 } from './headerNavigation';
-
-import {
-  SITE,
-} from '../../config/site';
 
 import './Header.css';
 
@@ -333,14 +334,11 @@ export default function Header({
 
       <Container className="site-header__inner">
 
-        <a
-          className="brand"
-          href="/"
-          aria-label={`${SITE.brand}: на главную`}
-          onClick={closeMenus}
-        >
-          {SITE.brand}
-        </a>
+        <HeaderBrand
+          onNavigate={
+            closeMenus
+          }
+        />
 
 
         <button
@@ -371,220 +369,69 @@ export default function Header({
         </button>
 
 
-        <MobileMenuPortal
-          active={mobileMenuOpen}
-        >
-          <nav
-            ref={mobileNavRef}
-            id="site-navigation"
-          className={
-            `site-nav${
-              mobileMenuOpen
-                ? ' site-nav--open'
-                : ''
-            }`
+        <SiteNavigation
+          mobileMenuOpen={
+            mobileMenuOpen
           }
-          aria-label="Основная навигация"
-        >
-
-          {
-            quickNavLinks.map(
-              ([
-                href,
-                label,
-              ]) => (
-                <a
-                  key={href}
-                  className="site-nav__quick-link"
-                  href={
-                    currentPathname === '/'
-                      ? href
-                      : `/${href}`
-                  }
-                  onClick={
-                    event =>
-                      handleNavigation(
-                        event,
-                        href
-                      )
-                  }
-                >
-                  {label}
-                </a>
-              )
-            )
+          mobileNavRef={
+            mobileNavRef
           }
-
-
-          <a
-            className={
-              `site-nav__quick-link site-nav__blog${
-                blogActive
-                  ? ' is-current'
-                  : ''
-              }`
-            }
-            href="/blog/"
-            aria-current={
-              blogActive
-                ? 'page'
-                : undefined
-            }
-            onClick={closeMenus}
-          >
-            Блог
-          </a>
-
-
-          <button
-            ref={directoryButtonRef}
-            className={
-              `site-nav__directory-toggle${
-                directoryActive
-                  ? ' is-current'
-                  : ''
-              }`
-            }
-            type="button"
-            aria-expanded={
-              directoryOpen
-            }
-            aria-controls="site-directory"
-            onClick={() => {
-
-              setMobileMenuOpen(false);
-
-              setDirectoryOpen(
-                value => !value
-              );
-
-            }}
-          >
-            <span>
-              Все разделы
-            </span>
-
-            <span
-              className="site-nav__directory-chevron"
-              aria-hidden="true"
-            />
-          </button>
-
-
-          <div className="site-nav__mobile-directory">
-
-            <div className="site-nav__mobile-title">
-              Все разделы
-            </div>
-
-            <DirectoryContent
-              currentPathname={
-                currentPathname
-              }
-              onNavigate={
-                closeMenus
-              }
-              mobile
-            />
-
-          </div>
-
-
-          <a
-            className="site-nav__mobile-cta"
-            href="/#contact"
-            onClick={closeMenus}
-          >
-            Обсудить объект
-          </a>
-
-          </nav>
-        </MobileMenuPortal>
-
-
-        <div className="site-header__actions">
-
-          <a
-            className="site-header__phone"
-            href={SITE.phoneHref}
-          >
-            {SITE.phone}
-          </a>
-
-          <a
-            className="header-contact"
-            href={
-              currentPathname === '/'
-                ? '#contact'
-                : '/#contact'
-            }
-            onClick={
-              event =>
-                handleNavigation(
-                  event,
-                  '#contact'
-                )
-            }
-          >
-            Обсудить объект
-          </a>
-
-        </div>
-
-
-        <div
-          id="site-directory"
-          className={
-            `site-directory${
-              directoryOpen
-                ? ' site-directory--open'
-                : ''
-            }`
+          currentPathname={
+            currentPathname
           }
-          aria-hidden={
-            !directoryOpen
+          blogActive={
+            blogActive
           }
-        >
+          directoryActive={
+            directoryActive
+          }
+          directoryOpen={
+            directoryOpen
+          }
+          directoryButtonRef={
+            directoryButtonRef
+          }
+          onNavigate={
+            handleNavigation
+          }
+          onCloseMenus={
+            closeMenus
+          }
+          onToggleDirectory={() => {
+            setMobileMenuOpen(false);
 
-          <div className="site-directory__panel">
+            setDirectoryOpen(
+              value => !value,
+            );
+          }}
+        />
 
-            <div className="site-directory__top">
 
-              <div>
-                <span>
-                  Навигация по сайту
-                </span>
+        <HeaderActions
+          currentPathname={
+            currentPathname
+          }
+          onNavigate={
+            handleNavigation
+          }
+        />
 
-                <strong>
-                  Все направления
-                </strong>
-              </div>
 
-              <button
-                className="site-directory__close"
-                type="button"
-                aria-label="Закрыть меню"
-                onClick={() =>
-                  setDirectoryOpen(false)
-                }
-              >
-                ×
-              </button>
+        <SiteDirectory
+          open={
+            directoryOpen
+          }
+          currentPathname={
+            currentPathname
+          }
+          onClose={() =>
+            setDirectoryOpen(false)
+          }
+          onNavigate={
+            closeMenus
+          }
+        />
 
-            </div>
-
-            <DirectoryContent
-              currentPathname={
-                currentPathname
-              }
-              onNavigate={
-                closeMenus
-              }
-            />
-
-          </div>
-
-        </div>
 
       </Container>
 
