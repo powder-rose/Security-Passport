@@ -255,7 +255,10 @@ export default function LegalPage({
           </Container>
         </header>
 
-        <main className="legal-main">
+        <main
+          id="main-content"
+          className="legal-main"
+        >
           <Container>
             <div className="legal-hero">
               <p className="legal-hero__eyebrow">

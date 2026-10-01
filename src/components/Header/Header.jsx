@@ -470,7 +470,9 @@ function DirectoryContent({
 }
 
 
-export default function Header() {
+export default function Header({
+  pathname = '/',
+}) {
 
   const [
     mobileMenuOpen,
@@ -490,7 +492,12 @@ export default function Header() {
     currentPathname,
     setCurrentPathname,
   ] =
-    useState('/');
+    useState(
+      () =>
+        normalizePathname(
+          pathname
+        )
+    );
 
 
   const headerRef =
@@ -797,6 +804,7 @@ export default function Header() {
 
   return (
     <header
+      id="top"
       ref={headerRef}
       className="site-header"
     >
@@ -862,7 +870,11 @@ export default function Header() {
                 <a
                   key={href}
                   className="site-nav__quick-link"
-                  href={href}
+                  href={
+                    currentPathname === '/'
+                      ? href
+                      : `/${href}`
+                  }
                   onClick={
                     event =>
                       handleNavigation(
@@ -974,7 +986,11 @@ export default function Header() {
 
           <a
             className="header-contact"
-            href="#contact"
+            href={
+              currentPathname === '/'
+                ? '#contact'
+                : '/#contact'
+            }
             onClick={
               event =>
                 handleNavigation(

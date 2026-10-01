@@ -336,6 +336,639 @@ if (mode === 'source') {
   }
 
 
+  /*
+   * ----------------------------------------------------------
+   * Internal links / broken links QA
+   * ----------------------------------------------------------
+   *
+   * Проверяем ссылки уже в итоговом prerender HTML.
+   *
+   * Контролируем:
+   * - относительные внутренние ссылки;
+   * - ссылки от корня /...;
+   * - абсолютные ссылки на production-домен;
+   * - ссылки на статические файлы;
+   * - hash-якоря #... на HTML-страницах.
+   *
+   * Не проверяем:
+   * - внешние сайты;
+   * - mailto:, tel:, javascript:, data:;
+   * - /api/;
+   * - /admin/.
+   */
+
+  const linkQaIgnoredFiles =
+    new Set([
+      'admin.html',
+      'article-preview.html',
+    ]);
+
+
+  const linkQaHtmlFiles =
+    (
+      await walk(
+        distDir,
+        file =>
+          file.endsWith('.html'),
+      )
+    )
+      .filter(
+        file => {
+
+          const relative =
+            path.relative(
+              distDir,
+              file,
+            )
+              .split(path.sep)
+              .join('/');
+
+          return (
+            !linkQaIgnoredFiles.has(
+              relative,
+            )
+          );
+
+        },
+      );
+
+
+  function htmlFileToPublicPath(
+    file,
+  ) {
+
+    const relative =
+      path.relative(
+        distDir,
+        file,
+      )
+        .split(path.sep)
+        .join('/');
+
+
+    if (
+      relative ===
+      'index.html'
+    ) {
+      return '/';
+    }
+
+
+    if (
+      relative.endsWith(
+        '/index.html',
+      )
+    ) {
+
+      return (
+        '/' +
+        relative.slice(
+          0,
+          -'index.html'.length,
+        )
+      );
+
+    }
+
+
+    return `/${relative}`;
+
+  }
+
+
+  const rootHtmlForLinks =
+    await exists(indexPath)
+      ? await readFile(
+          indexPath,
+          'utf8',
+        )
+      : '';
+
+
+  const rootCanonicalMatch =
+    rootHtmlForLinks.match(
+      /<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i,
+    );
+
+
+  let linkQaOrigin =
+    'https://pasport-bezopasnosty.ru';
+
+
+  if (
+    rootCanonicalMatch?.[1]
+  ) {
+
+    try {
+
+      linkQaOrigin =
+        new URL(
+          rootCanonicalMatch[1],
+        ).origin;
+
+    }
+    catch {
+
+      addError(
+        `Invalid root canonical URL: ${rootCanonicalMatch[1]}.`,
+      );
+
+    }
+
+  }
+
+
+  function getPathVariants(
+    pathname,
+  ) {
+
+    const variants =
+      new Set([
+        pathname,
+      ]);
+
+
+    try {
+
+      variants.add(
+        decodeURIComponent(
+          pathname,
+        ),
+      );
+
+    }
+    catch {
+      // Некорректное percent-encoding
+      // будет поймано как отсутствующая цель.
+    }
+
+
+    return [
+      ...variants,
+    ];
+
+  }
+
+
+  async function resolveInternalTarget(
+    pathname,
+  ) {
+
+    for (
+      const pathnameVariant
+      of getPathVariants(
+        pathname,
+      )
+    ) {
+
+      const clean =
+        pathnameVariant
+          .replace(
+            /^\/+/,
+            '',
+          );
+
+
+      const candidates =
+        [];
+
+
+      if (
+        pathnameVariant === '/'
+      ) {
+
+        candidates.push(
+          path.join(
+            distDir,
+            'index.html',
+          ),
+        );
+
+      }
+      else if (
+        pathnameVariant.endsWith('/')
+      ) {
+
+        candidates.push(
+          path.join(
+            distDir,
+            clean,
+            'index.html',
+          ),
+        );
+
+      }
+      else {
+
+        /*
+         * Например:
+         *
+         * /robots.txt
+         * /images/file.webp
+         * /some-page
+         */
+
+        candidates.push(
+          path.join(
+            distDir,
+            clean,
+          ),
+        );
+
+
+        if (
+          !path.posix.extname(
+            pathnameVariant,
+          )
+        ) {
+
+          candidates.push(
+            path.join(
+              distDir,
+              clean,
+              'index.html',
+            ),
+          );
+
+          candidates.push(
+            path.join(
+              distDir,
+              `${clean}.html`,
+            ),
+          );
+
+        }
+
+      }
+
+
+      for (
+        const candidate
+        of candidates
+      ) {
+
+        if (
+          await exists(
+            candidate,
+          )
+        ) {
+
+          return candidate;
+
+        }
+
+      }
+
+    }
+
+
+    return null;
+
+  }
+
+
+  const linkQaHtmlCache =
+    new Map();
+
+
+  async function getHtmlIds(
+    htmlPath,
+  ) {
+
+    if (
+      linkQaHtmlCache.has(
+        htmlPath,
+      )
+    ) {
+
+      return linkQaHtmlCache.get(
+        htmlPath,
+      );
+
+    }
+
+
+    const html =
+      await readFile(
+        htmlPath,
+        'utf8',
+      );
+
+
+    const ids =
+      new Set(
+        [
+          ...html.matchAll(
+            /\bid=["']([^"']+)["']/gi,
+          ),
+        ].map(
+          match =>
+            match[1],
+        ),
+      );
+
+
+    linkQaHtmlCache.set(
+      htmlPath,
+      ids,
+    );
+
+
+    return ids;
+
+  }
+
+
+  const brokenInternalLinks =
+    new Map();
+
+  const checkedInternalLinks =
+    new Set();
+
+
+  function registerBrokenLink({
+    source,
+    href,
+    target,
+    reason,
+  }) {
+
+    const key =
+      `${source} -> ${target}`;
+
+
+    if (
+      !brokenInternalLinks.has(
+        key,
+      )
+    ) {
+
+      brokenInternalLinks.set(
+        key,
+        {
+          source,
+          href,
+          target,
+          reason,
+        },
+      );
+
+    }
+
+  }
+
+
+  for (
+    const htmlFile
+    of linkQaHtmlFiles
+  ) {
+
+    const sourcePage =
+      htmlFileToPublicPath(
+        htmlFile,
+      );
+
+
+    const html =
+      await readFile(
+        htmlFile,
+        'utf8',
+      );
+
+
+    const hrefMatches =
+      html.matchAll(
+        /<a\b[^>]*\bhref\s*=\s*(["'])(.*?)\1/gi,
+      );
+
+
+    for (
+      const match
+      of hrefMatches
+    ) {
+
+      const rawHref =
+        String(
+          match[2] ||
+          '',
+        )
+          .replace(
+            /&amp;/g,
+            '&',
+          )
+          .trim();
+
+
+      if (
+        !rawHref ||
+        rawHref.startsWith('//') ||
+        /^(?:mailto|tel|javascript|data):/i
+          .test(
+            rawHref,
+          )
+      ) {
+        continue;
+      }
+
+
+      let targetUrl;
+
+
+      try {
+
+        targetUrl =
+          new URL(
+            rawHref,
+            new URL(
+              sourcePage,
+              `${linkQaOrigin}/`,
+            ),
+          );
+
+      }
+      catch {
+
+        registerBrokenLink({
+          source:
+            sourcePage,
+
+          href:
+            rawHref,
+
+          target:
+            rawHref,
+
+          reason:
+            'invalid URL',
+        });
+
+        continue;
+
+      }
+
+
+      /*
+       * Внешний домен — это уже не внутренняя
+       * broken-link проверка.
+       */
+      if (
+        targetUrl.origin !==
+        linkQaOrigin
+      ) {
+        continue;
+      }
+
+
+      if (
+        targetUrl.pathname ===
+          '/admin' ||
+        targetUrl.pathname.startsWith(
+          '/admin/',
+        ) ||
+        targetUrl.pathname ===
+          '/api' ||
+        targetUrl.pathname.startsWith(
+          '/api/',
+        )
+      ) {
+        continue;
+      }
+
+
+      const targetLabel =
+        (
+          targetUrl.pathname ||
+          '/'
+        ) +
+        (
+          targetUrl.hash ||
+          ''
+        );
+
+
+      checkedInternalLinks.add(
+        `${sourcePage} -> ${targetLabel}`,
+      );
+
+
+      const targetFile =
+        await resolveInternalTarget(
+          targetUrl.pathname,
+        );
+
+
+      if (
+        !targetFile
+      ) {
+
+        registerBrokenLink({
+          source:
+            sourcePage,
+
+          href:
+            rawHref,
+
+          target:
+            targetLabel,
+
+          reason:
+            'target does not exist in dist/client',
+        });
+
+        continue;
+
+      }
+
+
+      /*
+       * Если указан #fragment и цель —
+       * HTML, проверяем существование id.
+       */
+      if (
+        targetUrl.hash &&
+        targetFile.endsWith(
+          '.html',
+        )
+      ) {
+
+        let fragment =
+          targetUrl.hash.slice(1);
+
+
+        try {
+
+          fragment =
+            decodeURIComponent(
+              fragment,
+            );
+
+        }
+        catch {
+          // Оставляем исходный fragment.
+        }
+
+
+        const ids =
+          await getHtmlIds(
+            targetFile,
+          );
+
+
+        if (
+          !ids.has(
+            fragment,
+          )
+        ) {
+
+          registerBrokenLink({
+            source:
+              sourcePage,
+
+            href:
+              rawHref,
+
+            target:
+              targetLabel,
+
+            reason:
+              `missing #${fragment} anchor`,
+          });
+
+        }
+
+      }
+
+    }
+
+  }
+
+
+  for (
+    const {
+      source,
+      href,
+      target,
+      reason,
+    }
+    of brokenInternalLinks.values()
+  ) {
+
+    addError(
+      `Broken internal link on ${source}: ` +
+      `"${href}" -> ${target} (${reason}).`,
+    );
+
+  }
+
+
+  console.log(
+    `Internal link QA: ` +
+    `${linkQaHtmlFiles.length} HTML pages, ` +
+    `${checkedInternalLinks.size} internal links checked, ` +
+    `${brokenInternalLinks.size} broken.`,
+  );
+
+
   const legalPages = [
     'oferta',
     'personal-data',

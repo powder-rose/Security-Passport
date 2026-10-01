@@ -245,7 +245,7 @@ export default function App({
       <>
         <Analytics />
 
-        <Header />
+        <Header pathname={resolvedPathname} />
 
         <BlogPage
           initialArticles={initialBlogArticles}
@@ -289,7 +289,7 @@ export default function App({
       <>
         <Analytics />
 
-        <Header />
+        <Header pathname={resolvedPathname} />
 
         <ArticlePage
           slug={articleSlug}
@@ -364,7 +364,7 @@ export default function App({
         </Helmet>
 
         <Analytics />
-        <Header />
+        <Header pathname={resolvedPathname} />
 
         <ObjectPageComponent
           objectType={objectType}
@@ -413,7 +413,7 @@ export default function App({
         </Helmet>
 
         <Analytics />
-        <Header />
+        <Header pathname={resolvedPathname} />
 
         <ServicePageComponent
           servicePage={servicePage}
@@ -430,7 +430,7 @@ export default function App({
     <>
       <Seo pathname="/" />
       <Analytics />
-      <Header />
+      <Header pathname={resolvedPathname} />
 
       <main id="main-content">
         <Hero />

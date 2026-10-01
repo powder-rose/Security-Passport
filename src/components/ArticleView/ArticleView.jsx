@@ -604,7 +604,10 @@ export default function ArticleView({
 
     <>
 
-      <main className="article-view">
+      <main
+        id="main-content"
+        className="article-view"
+      >
 
         <article className="article-view__article">
 

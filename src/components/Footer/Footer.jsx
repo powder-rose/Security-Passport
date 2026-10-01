@@ -40,7 +40,11 @@ export default function Footer() {
             <p>Разделы</p>
             <ul>
               {navLinks.map(([href, label]) => (
-                <li key={href}><a href={href}>{label}</a></li>
+                <li key={href}>
+                  <a href={`/${href}`}>
+                    {label}
+                  </a>
+                </li>
               ))}
             </ul>
           </nav>
@@ -56,7 +60,7 @@ export default function Footer() {
                 <strong>{city.address}</strong>
               </div>
             ) : null}
-            <a className="site-footer__contact-action" href="#contact">Обсудить объект ↗</a>
+            <a className="site-footer__contact-action" href="/#contact">Обсудить объект ↗</a>
           </div>
         </div>
 
