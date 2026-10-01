@@ -672,10 +672,23 @@ if (canonical) {
         );
 
 
+    const objectRouteCssSources = {
+      trade:
+        'src/pages/TradePage/TradePage.jsx',
+
+      crowd:
+        'src/pages/CrowdPage/CrowdPage.jsx',
+    };
+
+    const objectRouteCssSource =
+      objectRouteCssSources[
+        objectType.id
+      ];
+
     const objectRouteCssTags =
-      objectType.id === 'trade'
+      objectRouteCssSource
         ? getClientCssLinks(
-            'src/pages/TradePage/TradePage.jsx',
+            objectRouteCssSource,
           )
         : '';
 
@@ -836,12 +849,32 @@ if (canonical) {
 
 
 
+    const serviceRouteCssSources = {
+      'categorization-act':
+        'src/pages/CategorizationActPage/CategorizationActPage.jsx',
+    };
+
+    const serviceRouteCssSource =
+      serviceRouteCssSources[
+        servicePage.id
+      ];
+
+    const serviceRouteCssTags =
+      serviceRouteCssSource
+        ? getClientCssLinks(
+            serviceRouteCssSource,
+          )
+        : '';
+
     const serviceHeadTags = [
       serviceResult.helmet?.title?.toString() || '',
       serviceResult.helmet?.meta?.toString() || '',
       serviceResult.helmet?.link?.toString() || '',
       serviceResult.helmet?.script?.toString() || '',
-    ].join('\n');
+      serviceRouteCssTags,
+    ]
+      .filter(Boolean)
+      .join('\n');
 
 
 

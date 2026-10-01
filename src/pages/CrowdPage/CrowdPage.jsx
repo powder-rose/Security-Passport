@@ -1,3 +1,4 @@
+import './CrowdPage.css';
 import Container from '../../components/ui/Container/Container';
 import FinalCTA from '../../sections/FinalCTA/FinalCTA';
 import { getRegulationClaim } from '../../data/regulationClaims';

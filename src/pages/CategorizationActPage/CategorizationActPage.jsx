@@ -1,3 +1,4 @@
+import './CategorizationActPage.css';
 import Container from '../../components/ui/Container/Container';
 
 import Expert from '../../sections/Expert/Expert';
