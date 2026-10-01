@@ -1,27 +1,17 @@
-import { useMemo, useState } from 'react';
 import Container from '../../components/ui/Container/Container';
-import { SITE } from '../../config/site';
-import { METRICA_GOALS, reachGoal } from '../../lib/analytics';
-import { getLeadEndpoint, submitLead } from '../../lib/lead';
-import {
-  quizContactSchema,
-  quizLocationSchema,
-  quizMetricsSchema,
-} from '../../lib/validation/leadValidation';
 import { quizResultPoints } from '../../features/quiz/quizData';
 
 import QuizStepFields
 from './components/QuizStepFields';
-
-import {
-  isQuizStepValid,
-} from './quizStepValidation';
 
 import useQuizGeography
 from './useQuizGeography';
 
 import useQuizNavigation
 from './useQuizNavigation';
+
+import useQuizSubmission
+from './useQuizSubmission';
 
 import './ObjectQuiz.css';
 
@@ -34,25 +24,6 @@ export default function ObjectQuiz({
     variant === 'article'
       ? 'object-quiz object-quiz--article'
       : 'object-quiz';
-
-  const [
-    showError,
-    setShowError,
-  ] =
-    useState(false);
-
-  const [
-    submitStatus,
-    setSubmitStatus,
-  ] =
-    useState('idle');
-
-  const [
-    submitMessage,
-    setSubmitMessage,
-  ] =
-    useState('');
-
 
   const {
     currentStep,
@@ -96,140 +67,32 @@ export default function ObjectQuiz({
         answer?.region,
     });
 
-  const valid =
-    useMemo(
-      () =>
-        isQuizStepValid(
-          question,
-          answer,
-        ),
-      [
-        question,
-        answer,
-      ],
-    );
+  const {
+    showError,
+    submitStatus,
+    submitMessage,
 
-  const updateAnswer = (value) => {
-    setShowError(false);
-    setSubmitStatus('idle');
-    setSubmitMessage('');
-
-    updateCurrentAnswer(
-      value,
-    );
-  };
-
-  const handleNext = async () => {
-    if (!valid || submitStatus === 'loading') {
-      if (!valid) setShowError(true);
-      return;
-    }
-
-    const validationSchema =
-      question.type === 'location'
-        ? quizLocationSchema
-        : question.type === 'metrics'
-          ? quizMetricsSchema
-          : question.type === 'contact'
-            ? quizContactSchema
-            : null;
-
-    if (validationSchema) {
-      try {
-        await validationSchema.validate(answer, {
-          abortEarly: false,
-        });
-      } catch (error) {
-        setShowError(true);
-        setSubmitStatus('error');
-        setSubmitMessage(
-          error?.errors?.[0] ||
-            'Проверьте правильность заполнения данных.',
-        );
-        return;
-      }
-    }
-
-    if (
-      question.type ===
-      'location'
-    ) {
-      const locationError =
-        validateLocation(
-          answer,
-        );
-
-      if (locationError) {
-        setShowError(
-          true,
-        );
-
-        setSubmitStatus(
-          'error',
-        );
-
-        setSubmitMessage(
-          locationError,
-        );
-
-        return;
-      }
-    }
-
-    setShowError(false);
-    reachGoal(METRICA_GOALS.quizStepCompleted, {
-      step: visibleStep,
-      question: question.id,
+    updateAnswer,
+    handleNext,
+    clearStepError,
+  } =
+    useQuizSubmission({
+      question,
+      answer,
+      answers,
+      visibleStep,
+      isLastStep,
+      preview,
+      validateLocation,
+      updateCurrentAnswer,
+      goForward,
+      markCompleted,
     });
 
-    if (!isLastStep) {
-      goForward();
-      return;
-    }
-
-    if (preview) {
-      setSubmitStatus('notice');
-      setSubmitMessage(
-        'Режим предпросмотра: ответы заполнены корректно, но заявка не отправлена.'
-      );
-      return;
-    }
-
-    const endpoint = getLeadEndpoint();
-    if (!endpoint) {
-      setSubmitStatus('notice');
-      setSubmitMessage(
-        `Онлайн-отправка пока не подключена. Позвоните ${SITE.phone} или напишите на ${SITE.email}.`,
-      );
-      return;
-    }
-
-    try {
-      setSubmitStatus('loading');
-      setSubmitMessage('Отправляем ответы специалисту…');
-
-      await submitLead({
-        source: 'passport-security-quiz',
-        data: { answers },
-      });
-
-      reachGoal(METRICA_GOALS.quizSubmitSuccess, { source: 'object_quiz' });
-      markCompleted();
-    } catch (error) {
-      reachGoal(METRICA_GOALS.quizSubmitError, {
-        source: 'object_quiz',
-        reason: error?.name === 'AbortError' ? 'timeout' : 'request_error',
-      });
-      setSubmitStatus('error');
-      setSubmitMessage(
-        `Не удалось отправить ответы. Позвоните ${SITE.phone} или напишите на ${SITE.email}.`,
-      );
-    }
-  };
 
   const handleBack = () => {
     if (goBack()) {
-      setShowError(false);
+      clearStepError();
     }
   };
 
