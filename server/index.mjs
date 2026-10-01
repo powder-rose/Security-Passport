@@ -47,6 +47,7 @@ import {
   getRegulationPublication,
 } from './regulation-publisher.mjs';
 import formidable from 'formidable';
+import sharp from 'sharp';
 
 
 
@@ -1531,91 +1532,177 @@ app.delete(
 app.post(
   '/api/admin/upload/article-image',
   adminAuth.requireAdmin,
-  async (req,res)=>{
-
+  async (req, res) => {
 
     const uploadDir =
       path.resolve(
-        'public/uploads/articles'
+        'public/uploads/articles',
       );
-
 
     await fs.mkdir(
       uploadDir,
       {
-        recursive:true
-      }
+        recursive: true,
+      },
     );
-
-
 
     const form =
       formidable({
         uploadDir,
-        keepExtensions:true,
+        keepExtensions: true,
+        maxFiles: 1,
+        maxFileSize:
+          20 * 1024 * 1024,
       });
-
-
 
     form.parse(
       req,
-      async(err,fields,files)=>{
+      async (err, fields, files) => {
 
+        if (err) {
+          console.error(
+            '[article-image] upload failed:',
+            err?.message || err,
+          );
 
-        if(err){
-
-          return res.status(500)
+          return res
+            .status(400)
             .json({
-              ok:false,
-              error:'UPLOAD_ERROR'
+              ok: false,
+              error: 'UPLOAD_ERROR',
             });
-
         }
-
-
 
         const file =
           files.image?.[0];
 
-
-
-        if(!file){
-
-          return res.status(400)
+        if (!file) {
+          return res
+            .status(400)
             .json({
-              ok:false,
-              error:'FILE_REQUIRED'
+              ok: false,
+              error: 'FILE_REQUIRED',
             });
-
         }
 
+        const sourcePath =
+          file.filepath;
 
+        const optimizedName =
+          `${crypto.randomUUID()}.webp`;
 
-        const filename =
-          path.basename(
-            file.filepath
+        const optimizedPath =
+          path.join(
+            uploadDir,
+            optimizedName,
           );
 
+        try {
 
+          const metadata =
+            await sharp(
+              sourcePath,
+            ).metadata();
 
-        res.json({
+          if (
+            !metadata.width ||
+            !metadata.height
+          ) {
+            throw new Error(
+              'INVALID_IMAGE',
+            );
+          }
 
-          ok:true,
+          const sourceStat =
+            await fs.stat(
+              sourcePath,
+            );
 
-          url:
-            `/uploads/articles/${filename}`
+          const result =
+            await sharp(
+              sourcePath,
+            )
+              .rotate()
+              .resize({
+                width: 1920,
+                height: 1920,
+                fit: 'inside',
+                withoutEnlargement: true,
+              })
+              .webp({
+                quality: 82,
+                effort: 4,
+                smartSubsample: true,
+              })
+              .toFile(
+                optimizedPath,
+              );
 
-        });
+          await fs.rm(
+            sourcePath,
+            {
+              force: true,
+            },
+          );
 
+          console.info(
+            '[article-image] optimized',
+            {
+              beforeBytes:
+                sourceStat.size,
 
-      }
+              afterBytes:
+                result.size,
+
+              width:
+                result.width,
+
+              height:
+                result.height,
+            },
+          );
+
+          return res.json({
+            ok: true,
+
+            url:
+              `/uploads/articles/${optimizedName}`,
+          });
+
+        } catch (error) {
+
+          await fs.rm(
+            sourcePath,
+            {
+              force: true,
+            },
+          );
+
+          await fs.rm(
+            optimizedPath,
+            {
+              force: true,
+            },
+          );
+
+          console.error(
+            '[article-image] optimization failed:',
+            error?.message || error,
+          );
+
+          return res
+            .status(400)
+            .json({
+              ok: false,
+              error: 'INVALID_IMAGE',
+            });
+        }
+
+      },
     );
 
-
-  }
+  },
 );
-
-
 
 
 app.get('/api/geo', async (req, res) => {
