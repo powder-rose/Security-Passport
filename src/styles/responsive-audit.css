@@ -1,9 +1,21 @@
 /* Final responsive polish: 1440 / 1024 / 768 / 390 px.
    Imported after section styles so these are deliberate finishing overrides. */
 
+/* ROOT_HORIZONTAL_OVERFLOW_FIX_V1 */
+html,
 body {
+  width: 100%;
+  max-width: 100%;
   overflow-x: clip;
 }
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: clip;
+}
+/* /ROOT_HORIZONTAL_OVERFLOW_FIX_V1 */
 
 /* Avoid persistent hover movement on touch screens. */
 @media (hover: none) {
