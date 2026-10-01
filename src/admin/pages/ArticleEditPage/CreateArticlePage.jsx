@@ -728,6 +728,8 @@ URL статьи
       <img
         src={form.image}
         alt="Превью изображения статьи"
+        width="1200"
+        height="675"
         className="admin-image-preview"
       />
 

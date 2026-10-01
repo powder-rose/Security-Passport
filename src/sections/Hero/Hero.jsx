@@ -110,6 +110,7 @@ export default function Hero() {
               alt="Николай Бойков, руководитель БОЙКОВГРУПП"
               width="930"
               height="1400"
+              fetchpriority="high"
               decoding="async"
               onError={handlePortraitError}
             />
