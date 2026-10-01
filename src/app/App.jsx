@@ -22,20 +22,6 @@ import Expert from '../sections/Expert/Expert';
 import FAQ from '../sections/FAQ/FAQ';
 import FinalCTA from '../sections/FinalCTA/FinalCTA';
 
-import LegalPage from '../pages/LegalPage/LegalPage';
-import ObjectTypePage from '../pages/ObjectTypePage/ObjectTypePage';
-import HotelPage from '../pages/HotelPage/HotelPage';
-import CulturePage from '../pages/CulturePage/CulturePage';
-import EducationPage from '../pages/EducationPage/EducationPage';
-import SportPage from '../pages/SportPage/SportPage';
-import TradePage from '../pages/TradePage/TradePage';
-import HealthPage from '../pages/HealthPage/HealthPage';
-import CrowdPage from '../pages/CrowdPage/CrowdPage';
-import ActualizationPage from '../pages/ActualizationPage/ActualizationPage';
-import CategorizationActPage from '../pages/CategorizationActPage/CategorizationActPage';
-import BlogPage from '../pages/BlogPage/BlogPage';
-import ArticlePage from '../pages/ArticlePage/ArticlePage';
-
 const legalPageCssUrl =
   '/styles/LegalPage.css';
 
@@ -119,81 +105,36 @@ function getRuntimeStylesheetUrl(
 }
 
 
-const objectTypeViews = {
-  hotel: {
-    Component:
-      HotelPage,
+const objectTypeCssUrls = {
+  hotel:
+    hotelPageCssUrl,
 
-    cssUrl:
-      hotelPageCssUrl,
-  },
+  culture:
+    culturePageCssUrl,
 
-  culture: {
-    Component:
-      CulturePage,
+  education:
+    educationPageCssUrl,
 
-    cssUrl:
-      culturePageCssUrl,
-  },
+  sport:
+    sportPageCssUrl,
 
-  education: {
-    Component:
-      EducationPage,
+  trade:
+    tradePageCssUrl,
 
-    cssUrl:
-      educationPageCssUrl,
-  },
+  health:
+    healthPageCssUrl,
 
-  sport: {
-    Component:
-      SportPage,
-
-    cssUrl:
-      sportPageCssUrl,
-  },
-
-  trade: {
-    Component:
-      TradePage,
-
-    cssUrl:
-      tradePageCssUrl,
-  },
-
-  health: {
-    Component:
-      HealthPage,
-
-    cssUrl:
-      healthPageCssUrl,
-  },
-
-  crowd: {
-    Component:
-      CrowdPage,
-
-    cssUrl:
-      crowdPageCssUrl,
-  },
+  crowd:
+    crowdPageCssUrl,
 };
 
 
-const servicePageViews = {
-  'categorization-act': {
-    Component:
-      CategorizationActPage,
+const servicePageCssUrls = {
+  'categorization-act':
+    categorizationActPageCssUrl,
 
-    cssUrl:
-      categorizationActPageCssUrl,
-  },
-
-  'passport-actualization': {
-    Component:
-      ActualizationPage,
-
-    cssUrl:
-      actualizationPageCssUrl,
-  },
+  'passport-actualization':
+    actualizationPageCssUrl,
 };
 
 import {
@@ -217,6 +158,7 @@ export default function App({
   pathname,
   initialBlogArticles = null,
   initialArticle = null,
+  routeComponents = {},
 }) {
   const city =
     useCity();
@@ -236,6 +178,25 @@ export default function App({
     ) || '/';
 
 
+  const {
+    LegalPage:
+      LegalPageComponent,
+
+    ObjectTypePage:
+      GenericObjectTypePage,
+
+    BlogPage:
+      BlogPageComponent,
+
+    ArticlePage:
+      ArticlePageComponent,
+
+    objectTypeComponents = {},
+
+    servicePageComponents = {},
+  } = routeComponents;
+
+
   if(
     normalizedPathname ===
     '/blog'
@@ -247,7 +208,7 @@ export default function App({
 
         <Header pathname={resolvedPathname} />
 
-        <BlogPage
+        <BlogPageComponent
           initialArticles={initialBlogArticles}
         />
 
@@ -291,7 +252,7 @@ export default function App({
 
         <Header pathname={resolvedPathname} />
 
-        <ArticlePage
+        <ArticlePageComponent
           slug={articleSlug}
           initialArticle={initialArticle}
           initialArticles={initialBlogArticles}
@@ -323,7 +284,7 @@ export default function App({
 
         <Analytics />
 
-        <LegalPage
+        <LegalPageComponent
           document={legalDocument}
         />
       </>
@@ -337,18 +298,17 @@ export default function App({
     );
 
   if (objectType) {
-    const objectTypeView =
-      objectTypeViews[
-        objectType.id
-      ];
-
     const ObjectPageComponent =
-      objectTypeView?.Component ||
-      ObjectTypePage;
+      objectTypeComponents[
+        objectType.id
+      ] ||
+      GenericObjectTypePage;
 
     const objectPageCssUrl =
       getRuntimeStylesheetUrl(
-        objectTypeView?.cssUrl ||
+        objectTypeCssUrls[
+          objectType.id
+        ] ||
         objectTypePageCssUrl,
       );
 
@@ -381,9 +341,9 @@ export default function App({
       resolvedPathname,
     );
 
-  const servicePageView =
+  const ServicePageComponent =
     servicePage
-      ? servicePageViews[
+      ? servicePageComponents[
           servicePage.id
         ]
       : null;
@@ -391,14 +351,13 @@ export default function App({
 
   if (
     servicePage &&
-    servicePageView
+    ServicePageComponent
   ) {
-    const ServicePageComponent =
-      servicePageView.Component;
-
     const servicePageCssUrl =
       getRuntimeStylesheetUrl(
-        servicePageView.cssUrl,
+        servicePageCssUrls[
+          servicePage.id
+        ],
       );
 
     return (
