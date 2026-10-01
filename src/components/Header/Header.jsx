@@ -4,6 +4,10 @@ import {
   useState,
 } from 'react';
 
+import {
+  createPortal,
+} from 'react-dom';
+
 import Container from '../ui/Container/Container';
 
 import {
@@ -22,6 +26,27 @@ import './Header.css';
 
 
 const MOBILE_BREAKPOINT = 1180;
+
+
+function MobileMenuPortal({
+  active,
+  children,
+}) {
+
+  if (
+    !active
+    ||
+    typeof document === 'undefined'
+  ) {
+    return children;
+  }
+
+  return createPortal(
+    children,
+    document.body
+  );
+
+}
 
 
 const quickNavLinks = [
@@ -506,6 +531,9 @@ export default function Header({
   const mobileButtonRef =
     useRef(null);
 
+  const mobileNavRef =
+    useRef(null);
+
   const directoryButtonRef =
     useRef(null);
 
@@ -588,6 +616,11 @@ export default function Header({
           ?.contains(
             event.target
           )
+          ||
+          mobileNavRef.current
+          ?.contains(
+            event.target
+          )
         ) {
           return;
         }
@@ -634,38 +667,6 @@ export default function Header({
 
   }, [
     directoryOpen,
-    mobileMenuOpen,
-  ]);
-
-
-  useEffect(() => {
-
-    if (
-      !mobileMenuOpen
-      ||
-      typeof window === 'undefined'
-      ||
-      window.innerWidth
-      >
-      MOBILE_BREAKPOINT
-    ) {
-      return undefined;
-    }
-
-    const previousOverflow =
-      document.body.style.overflow;
-
-    document.body.style.overflow =
-      'hidden';
-
-    return () => {
-
-      document.body.style.overflow =
-        previousOverflow;
-
-    };
-
-  }, [
     mobileMenuOpen,
   ]);
 
@@ -849,8 +850,12 @@ export default function Header({
         </button>
 
 
-        <nav
-          id="site-navigation"
+        <MobileMenuPortal
+          active={mobileMenuOpen}
+        >
+          <nav
+            ref={mobileNavRef}
+            id="site-navigation"
           className={
             `site-nav${
               mobileMenuOpen
@@ -972,7 +977,8 @@ export default function Header({
             Обсудить объект
           </a>
 
-        </nav>
+          </nav>
+        </MobileMenuPortal>
 
 
         <div className="site-header__actions">

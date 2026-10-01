@@ -838,14 +838,13 @@ span:last-child {
     max-height:
       calc(100dvh - 82px);
 
-    position: absolute;
+    position: fixed;
 
-    top:
-      calc(100% + 8px);
+    top: 76px;
 
     left: 50%;
 
-    z-index: 90;
+    z-index: 100;
 
     display: block;
 
@@ -1051,6 +1050,8 @@ span:last-child {
 
 
   .site-nav {
+    top: 72px;
+
     width:
       calc(100vw - 20px);
 
