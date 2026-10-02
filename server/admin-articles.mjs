@@ -37,6 +37,37 @@ async function saveArticles(articles) {
 }
 
 
+const ARTICLE_CATEGORIES =
+  new Set([
+    'passport',
+    'categorization',
+    'requirements',
+    'actualization',
+    'practice',
+  ]);
+
+
+function normalizeArticleCategory(
+  value
+) {
+
+  const category =
+    String(
+      value || ''
+    )
+      .trim()
+      .toLowerCase();
+
+
+  return ARTICLE_CATEGORIES.has(
+    category
+  )
+    ? category
+    : '';
+
+}
+
+
 const SLUG_TRANSLIT = {
   а: 'a',
   б: 'b',
@@ -220,6 +251,12 @@ export async function createArticle(data) {
         : 'draft',
 
 
+    category:
+      normalizeArticleCategory(
+        data.category
+      ),
+
+
     slug:
       createUniqueSlug(
         articles,
@@ -397,6 +434,17 @@ export async function updateArticle(
     status:
       data.status ??
       article.status,
+
+
+    category:
+      data.category !== undefined
+        ? normalizeArticleCategory(
+            data.category
+          )
+        : (
+            article.category ||
+            ''
+          ),
 
 
     slug:

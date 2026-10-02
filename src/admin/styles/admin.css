@@ -3616,3 +3616,112 @@ cursor:pointer;
   }
 
 }
+
+/* =========================================
+   ADMIN ARTICLE CATEGORIES
+========================================= */
+
+.admin-category-hint {
+  display: block;
+
+  margin-top: -2px;
+
+  color:
+    rgba(17, 17, 17, .48);
+
+  font-size: 12px;
+
+  line-height: 1.45;
+}
+
+
+.admin-article-category {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin-top: 5px;
+}
+
+
+.admin-article-category > span {
+  color:
+    rgba(17, 17, 17, .42);
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: .06em;
+}
+
+
+.admin-article-category select {
+  width: auto;
+
+  max-width: 260px;
+
+  min-height: 34px;
+
+  padding:
+    6px 30px
+    6px 10px;
+
+  border:
+    1px solid
+    rgba(17, 17, 17, .11);
+
+  border-radius: 9px;
+
+  background:
+    #f6f5f2;
+
+  color:
+    #111;
+
+  font: inherit;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+
+.admin-article-category select:focus {
+  outline:
+    2px solid
+    rgba(18, 96, 255, .18);
+
+  border-color:
+    #1260ff;
+}
+
+
+.admin-article-category select:disabled {
+  opacity: .55;
+
+  cursor: wait;
+}
+
+
+@media (max-width: 800px) {
+
+  .admin-article-category {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+
+  .admin-article-category select {
+    width: 100%;
+
+    max-width: none;
+  }
+
+}
+

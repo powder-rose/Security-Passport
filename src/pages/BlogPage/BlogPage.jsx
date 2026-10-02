@@ -451,7 +451,33 @@ export default function BlogPage({
 
 
           setArticles(
-            result
+            currentArticles => {
+
+              const categoryById =
+                new Map(
+                  currentArticles.map(
+                    article => [
+                      article.id,
+                      article.category || '',
+                    ]
+                  )
+                );
+
+
+              return result.map(
+                article => ({
+                  ...article,
+
+                  category:
+                    article.category ||
+                    categoryById.get(
+                      article.id
+                    ) ||
+                    '',
+                })
+              );
+
+            }
           );
 
           setError(

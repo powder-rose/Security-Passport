@@ -1348,6 +1348,9 @@ app.get(
               seoDescription:
                 article.seoDescription || '',
 
+              category:
+                article.category || '',
+
               createdAt:
                 article.createdAt,
 

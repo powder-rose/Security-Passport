@@ -19,6 +19,30 @@ import ImageCropper from '../../components/ImageCropper/ImageCropper.jsx';
 
 
 
+const BLOG_CATEGORIES = [
+  {
+    id: 'passport',
+    label: 'Паспорта безопасности',
+  },
+  {
+    id: 'categorization',
+    label: 'Категорирование объектов',
+  },
+  {
+    id: 'requirements',
+    label: 'Требования и законодательство',
+  },
+  {
+    id: 'actualization',
+    label: 'Актуализация паспорта',
+  },
+  {
+    id: 'practice',
+    label: 'Практика и документы',
+  },
+];
+
+
 const SLUG_TRANSLIT = {
   а:'a', б:'b', в:'v', г:'g', д:'d',
   е:'e', ё:'e', ж:'zh', з:'z', и:'i',
@@ -119,6 +143,7 @@ const [form,setForm] = useState(()=>{
     content:'',
     image:'',
     imageAlt:'',
+    category:'',
     status:'draft',
     seoTitle:'',
     seoDescription:'',
@@ -810,6 +835,58 @@ placeholder="Например: Специалисты проводят обсл�
 
 </div>
 
+
+
+
+<label>
+
+<span>
+Категория статьи
+</span>
+
+
+<select
+
+ value={
+   form.category || ''
+ }
+
+ onChange={
+   e =>
+   change(
+    'category',
+    e.target.value
+   )
+ }
+
+>
+
+<option value="">
+Определить автоматически
+</option>
+
+{
+  BLOG_CATEGORIES.map(
+    category => (
+
+      <option
+        key={category.id}
+        value={category.id}
+      >
+        {category.label}
+      </option>
+
+    )
+  )
+}
+
+</select>
+
+<small className="admin-category-hint">
+Категория определяет раздел статьи в блоге.
+</small>
+
+</label>
 
 
 

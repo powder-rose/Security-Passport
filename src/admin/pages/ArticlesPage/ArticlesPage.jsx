@@ -7,9 +7,34 @@ import {
 import {
   getArticles,
   deleteArticle,
+  updateArticle,
   updateArticlesYear,
 } from '../../api/adminApi';
 
+
+
+const BLOG_CATEGORIES = [
+  {
+    id: 'passport',
+    label: 'Паспорта безопасности',
+  },
+  {
+    id: 'categorization',
+    label: 'Категорирование объектов',
+  },
+  {
+    id: 'requirements',
+    label: 'Требования и законодательство',
+  },
+  {
+    id: 'actualization',
+    label: 'Актуализация паспорта',
+  },
+  {
+    id: 'practice',
+    label: 'Практика и документы',
+  },
+];
 
 
 function formatDate(date){
@@ -95,6 +120,12 @@ export default function ArticlesPage() {
   ] = useState(false);
 
 
+  const [
+    updatingCategoryId,
+    setUpdatingCategoryId,
+  ] = useState(null);
+
+
 
   async function updateYear(){
 
@@ -145,6 +176,72 @@ export default function ArticlesPage() {
     finally {
 
       setUpdatingYear(false);
+
+    }
+
+  }
+
+
+
+  async function changeArticleCategory(
+    id,
+    category
+  ){
+
+    setUpdatingCategoryId(
+      id
+    );
+
+
+    try {
+
+      const result =
+        await updateArticle(
+          id,
+          {
+            category,
+          }
+        );
+
+
+      if(
+        result?.ok
+        &&
+        result.article
+      ){
+
+        setArticles(
+          current =>
+            current.map(
+              article =>
+                article.id === id
+                  ? result.article
+                  : article
+            )
+        );
+
+      }
+      else {
+
+        alert(
+          'Не удалось изменить категорию статьи'
+        );
+
+      }
+
+    }
+    catch{
+
+      alert(
+        'Не удалось изменить категорию статьи'
+      );
+
+    }
+    finally {
+
+      setUpdatingCategoryId(
+        null
+      );
 
     }
 
@@ -411,6 +508,53 @@ export default function ArticlesPage() {
                         : 'Черновик'
                       }
                     </span>
+
+
+                    <label className="admin-article-category">
+
+                      <span>
+                        Категория
+                      </span>
+
+                      <select
+                        value={
+                          article.category || ''
+                        }
+                        disabled={
+                          updatingCategoryId ===
+                          article.id
+                        }
+                        onChange={
+                          e =>
+                            changeArticleCategory(
+                              article.id,
+                              e.target.value
+                            )
+                        }
+                      >
+
+                        <option value="">
+                          Автоматически
+                        </option>
+
+                        {
+                          BLOG_CATEGORIES.map(
+                            category => (
+
+                              <option
+                                key={category.id}
+                                value={category.id}
+                              >
+                                {category.label}
+                              </option>
+
+                            )
+                          )
+                        }
+
+                      </select>
+
+                    </label>
 
 
                     <div className="admin-article-date">

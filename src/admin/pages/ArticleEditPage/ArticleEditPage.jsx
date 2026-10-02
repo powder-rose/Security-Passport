@@ -15,6 +15,30 @@ import ArticleEditor from '../../components/Editor/ArticleEditor.jsx';
 import ImageCropper from '../../components/ImageCropper/ImageCropper.jsx';
 
 
+const BLOG_CATEGORIES = [
+  {
+    id: 'passport',
+    label: 'Паспорта безопасности',
+  },
+  {
+    id: 'categorization',
+    label: 'Категорирование объектов',
+  },
+  {
+    id: 'requirements',
+    label: 'Требования и законодательство',
+  },
+  {
+    id: 'actualization',
+    label: 'Актуализация паспорта',
+  },
+  {
+    id: 'practice',
+    label: 'Практика и документы',
+  },
+];
+
+
 const SLUG_TRANSLIT = {
   а:'a', б:'b', в:'v', г:'g', д:'d',
   е:'e', ё:'e', ж:'zh', з:'z', и:'i',
@@ -70,6 +94,7 @@ export default function ArticleEditPage() {
     content: '',
     image: '',
     imageAlt: '',
+    category: '',
     status: 'draft',
     seoTitle: '',
     seoDescription: '',
@@ -147,6 +172,9 @@ export default function ArticleEditPage() {
 
             imageAlt:
               result.article.imageAlt || '',
+
+            category:
+              result.article.category || '',
 
             status:
               result.article.status || 'draft',
@@ -805,6 +833,53 @@ export default function ArticleEditPage() {
           />
 
         </div>
+
+
+        <label>
+          <span>
+            Категория статьи
+          </span>
+
+          <select
+            value={
+              form.category || ''
+            }
+            onChange={
+              e =>
+                change(
+                  'category',
+                  e.target.value
+                )
+            }
+          >
+
+            <option value="">
+              Определить автоматически
+            </option>
+
+            {
+              BLOG_CATEGORIES.map(
+                category => (
+
+                  <option
+                    key={category.id}
+                    value={category.id}
+                  >
+                    {category.label}
+                  </option>
+
+                )
+              )
+            }
+
+          </select>
+
+          <small className="admin-category-hint">
+            Выбранная категория определяет,
+            в каком разделе блога будет показана статья.
+          </small>
+
+        </label>
 
 
         <label>
