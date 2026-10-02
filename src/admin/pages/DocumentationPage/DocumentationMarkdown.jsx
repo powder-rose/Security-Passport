@@ -154,6 +154,7 @@ function isBlockStart(line) {
 
 export default function DocumentationMarkdown({
   markdown,
+  headings = [],
 }) {
   const lines =
     String(markdown || '')
@@ -162,6 +163,16 @@ export default function DocumentationMarkdown({
         '\n',
       )
       .split('\n');
+
+  const headingsByLine =
+    new Map(
+      headings.map(
+        heading => [
+          heading.lineIndex,
+          heading,
+        ],
+      ),
+    );
 
   const blocks = [];
 
@@ -199,12 +210,23 @@ export default function DocumentationMarkdown({
       const Tag =
         `h${level}`;
 
+      const heading =
+        headingsByLine.get(
+          index,
+        );
+
       blocks.push(
         React.createElement(
           Tag,
           {
             key:
               `heading-${blockIndex}`,
+
+            id:
+              heading?.id,
+
+            className:
+              'documentation-content__heading',
           },
           renderInline(
             headingMatch[2],

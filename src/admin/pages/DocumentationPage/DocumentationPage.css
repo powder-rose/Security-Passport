@@ -445,3 +445,383 @@
   }
 
 }
+
+
+/* =========================================================
+   Documentation navigation
+   ========================================================= */
+
+.documentation-page {
+  max-width: 1480px;
+}
+
+
+.documentation-layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(250px, 300px)
+    minmax(0, 1fr);
+
+  align-items: start;
+
+  gap: 28px;
+}
+
+
+.documentation-nav {
+  position: sticky;
+
+  top: 24px;
+
+  max-height:
+    calc(
+      100vh - 48px
+    );
+
+  padding: 20px;
+
+  overflow-y: auto;
+
+  background: #111;
+
+  border-radius: 22px;
+}
+
+
+.documentation-nav__head {
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 18px;
+}
+
+
+.documentation-nav__eyebrow {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      .45
+    );
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: .12em;
+
+  text-transform: uppercase;
+}
+
+
+.documentation-nav h2 {
+  margin: 0;
+
+  color: #fff;
+
+  font-size: 20px;
+
+  line-height: 1.2;
+
+  letter-spacing: -.025em;
+}
+
+
+.documentation-nav__count {
+  display: grid;
+
+  min-width: 32px;
+  height: 32px;
+
+  place-items: center;
+
+  color: #111;
+
+  background: #a9f04a;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+
+.documentation-search {
+  display: block;
+
+  margin-bottom: 17px;
+}
+
+
+.documentation-search__label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      .5
+    );
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+
+.documentation-search input {
+  width: 100%;
+
+  padding:
+    11px
+    12px;
+
+  color: #fff;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      .07
+    );
+
+  border:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      .11
+    );
+
+  border-radius: 10px;
+
+  outline: none;
+
+  font: inherit;
+  font-size: 13px;
+
+  transition:
+    border-color .18s ease,
+    background .18s ease;
+}
+
+
+.documentation-search input::placeholder {
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      .32
+    );
+}
+
+
+.documentation-search input:focus {
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      .1
+    );
+
+  border-color:
+    rgba(
+      169,
+      240,
+      74,
+      .7
+    );
+}
+
+
+.documentation-toc {
+  display: grid;
+
+  gap: 3px;
+}
+
+
+.documentation-toc__link {
+  display: block;
+
+  padding:
+    8px
+    10px;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      .7
+    );
+
+  border-radius: 8px;
+
+  font-size: 12px;
+
+  line-height: 1.35;
+
+  text-decoration: none;
+
+  transition:
+    color .16s ease,
+    background .16s ease,
+    transform .16s ease;
+}
+
+
+.documentation-toc__link:hover {
+  color: #fff;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      .08
+    );
+}
+
+
+.documentation-toc__link--secondary {
+  padding-left: 20px;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      .48
+    );
+
+  font-size: 11.5px;
+}
+
+
+.documentation-toc__link--active {
+  color: #111;
+
+  background: #a9f04a;
+
+  font-weight: 750;
+}
+
+
+.documentation-toc__link--active:hover {
+  color: #111;
+
+  background: #a9f04a;
+}
+
+
+.documentation-toc__empty {
+  margin: 0;
+
+  padding: 14px 10px;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      .45
+    );
+
+  font-size: 12px;
+}
+
+
+.documentation-content {
+  min-width: 0;
+}
+
+
+.documentation-content__heading {
+  scroll-margin-top: 30px;
+}
+
+
+/* scrollbar */
+
+.documentation-nav {
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    rgba(
+      255,
+      255,
+      255,
+      .18
+    )
+    transparent;
+}
+
+
+.documentation-nav::-webkit-scrollbar {
+  width: 6px;
+}
+
+
+.documentation-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+.documentation-nav::-webkit-scrollbar-thumb {
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      .18
+    );
+
+  border-radius: 999px;
+}
+
+
+@media (max-width: 1100px) {
+
+  .documentation-layout {
+    grid-template-columns:
+      240px
+      minmax(0, 1fr);
+
+    gap: 20px;
+  }
+
+}
+
+
+@media (max-width: 850px) {
+
+  .documentation-layout {
+    grid-template-columns: 1fr;
+  }
+
+
+  .documentation-nav {
+    position: relative;
+
+    top: auto;
+
+    max-height: 360px;
+  }
+
+}
