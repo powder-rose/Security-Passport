@@ -1,9 +1,6 @@
 import './CategorizationActPage.css';
 
 import {
-  processItems,
-  serviceItems,
-  sourceDataItems,
   sampleStructure,
   faqItems,
 } from './categorizationActPageData';
@@ -16,6 +13,19 @@ from './components/CategorizationActObjectTypes';
 
 import CategorizationActRequirements
 from './components/CategorizationActRequirements';
+
+
+import CategorizationActProcess
+from './components/CategorizationActProcess';
+
+import CategorizationActServiceScope
+from './components/CategorizationActServiceScope';
+
+import CategorizationActPricing
+from './components/CategorizationActPricing';
+
+import CategorizationActSourceData
+from './components/CategorizationActSourceData';
 import Container from '../../components/ui/Container/Container';
 
 import Expert from '../../sections/Expert/Expert';
@@ -37,208 +47,13 @@ export default function CategorizationActPage() {
       <CategorizationActRequirements />
 
 
-      <section className="categorization-act-process">
-        <Container>
-          <div className="categorization-act-process__heading">
-            <div>
-              <p className="categorization-act-kicker">
-                Логика процедуры
-              </p>
+      <CategorizationActProcess />
 
-              <h2>
-                От объекта
-                до оформленного акта
-              </h2>
-            </div>
+      <CategorizationActServiceScope />
 
-            <p>
-              Категорию не «назначает специалист».
-              Решение принимается комиссией,
-              а мы готовим документацию и сопровождаем
-              процедуру в рамках применимых требований.
-            </p>
-          </div>
+      <CategorizationActPricing />
 
-
-          <div className="categorization-act-flow">
-            {[
-              'Объект',
-              'Комиссия',
-              'Обследование',
-              'Категория',
-              'Акт',
-              'Паспорт',
-            ].map((item, index) => (
-              <div
-                className="categorization-act-flow__item"
-                key={item}
-              >
-                <span>
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-
-                <strong>
-                  {item}
-                </strong>
-              </div>
-            ))}
-          </div>
-
-
-          <div className="categorization-act-process__details">
-            {processItems.map((item, index) => (
-              <article key={item.title}>
-                <span>
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-
-                <div>
-                  <h3>
-                    {item.title}
-                  </h3>
-
-                  <p>
-                    {item.text}
-                  </p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-
-      <section className="categorization-act-service">
-        <Container>
-          <div className="categorization-act-service__grid">
-            <div>
-              <p className="categorization-act-kicker">
-                Состав услуги
-              </p>
-
-              <h2>
-                Что мы подготовим
-              </h2>
-
-              <p>
-                Состав документов уточняется после
-                определения требований, применимых
-                к конкретному объекту.
-              </p>
-            </div>
-
-            <ol>
-              {serviceItems.map((item, index) => (
-                <li key={item}>
-                  <span>
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-
-                  <p>
-                    {item}
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </Container>
-      </section>
-
-
-      <section className="categorization-act-cost">
-        <Container>
-          <div className="categorization-act-cost__card">
-            <div>
-              <p className="categorization-act-kicker">
-                Стоимость
-              </p>
-
-              <h2>
-                Стоимость акта обследования и категорирования
-              </h2>
-
-              <p>
-                Стоимость подготовки документации
-                для категорирования одного объекта.
-                При нестандартном составе работ
-                или необходимости дополнительных
-                выездных мероприятий стоимость
-                согласовывается до начала работ.
-              </p>
-            </div>
-
-            <div className="categorization-act-cost__price">
-              <strong>
-                9 500 ₽
-              </strong>
-
-              <span>
-                за объект
-              </span>
-
-              <a
-                className="button button--primary"
-                href="#lead-form"
-              >
-                Заказать подготовку акта
-              </a>
-            </div>
-          </div>
-
-          <div className="categorization-act-passport-link">
-            <div>
-              <span>
-                Следующий этап
-              </span>
-
-              <h3>
-                После категорирования может потребоваться паспорт безопасности
-              </h3>
-
-              <p>
-                Необходимость паспорта определяется
-                требованиями, распространяющимися
-                на конкретный объект.
-              </p>
-            </div>
-
-            <a href="/">
-              Разработка паспорта безопасности объекта →
-            </a>
-          </div>
-        </Container>
-      </section>
-
-
-      <section className="categorization-act-source-data">
-        <Container>
-          <div className="categorization-act-source-data__grid">
-            <div>
-              <p className="categorization-act-kicker">
-                До начала работ
-              </p>
-
-              <h2>
-                Какие данные потребуются
-              </h2>
-
-              <p>
-                Окончательный перечень исходных данных
-                зависит от требований, распространяющихся
-                на конкретный объект.
-              </p>
-            </div>
-
-            <ul>
-              {sourceDataItems.map((item) => (
-                <li key={item}>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Container>
-      </section>
+      <CategorizationActSourceData />
 
 
       <section className="categorization-act-sample">
