@@ -5,9 +5,6 @@ import {
 } from './educationRegion';
 
 import {
-  educationSourceData,
-  educationPassportStructure,
-  educationActualizationReasons,
   educationAudienceItems,
   educationFaqItems,
 } from './educationPageData';
@@ -40,6 +37,16 @@ from './components/EducationServiceScope';
 
 import EducationPricing
 from './components/EducationPricing';
+
+
+import EducationRequiredDocuments
+from './components/EducationRequiredDocuments';
+
+import EducationPassportForm
+from './components/EducationPassportForm';
+
+import EducationPassportActualization
+from './components/EducationPassportActualization';
 import Container from '../../components/ui/Container/Container';
 import FinalCTA from '../../sections/FinalCTA/FinalCTA';
 import { useCity } from '../../context/GeoContext';
@@ -114,252 +121,11 @@ export default function EducationPage({
 
       {/* EDUCATION_STAGE_4_V1:sections */}
 
-      <section className="education-source-data">
-        <Container>
-          <div className="education-source-data__layout">
-            <div className="education-source-data__heading">
-              <p className="education-kicker">
-                Исходные данные
-              </p>
+      <EducationRequiredDocuments />
 
-              <h2>
-                Что желательно подготовить
-                образовательной организации
-              </h2>
+      <EducationPassportForm />
 
-              <p>
-                На старте нужны основные сведения,
-                позволяющие определить применимые
-                требования и понять текущее состояние
-                документов по объекту.
-              </p>
-
-
-              <aside className="education-source-data__note">
-                <span aria-hidden="true">
-                  ✓
-                </span>
-
-                <p>
-                  Точный перечень уточняем после
-                  идентификации конкретного объекта
-                  и его нормативного режима.
-                </p>
-              </aside>
-            </div>
-
-
-            <ol className="education-source-data__list">
-              {educationSourceData.map(
-                (item) => (
-                  <li
-                    className="education-source-data__item"
-                    key={item.number}
-                  >
-                    <span>
-                      {item.number}
-                    </span>
-
-                    <div>
-                      <h3>
-                        {item.title}
-                      </h3>
-
-                      <p>
-                        {item.text}
-                      </p>
-                    </div>
-                  </li>
-                ),
-              )}
-            </ol>
-          </div>
-        </Container>
-      </section>
-
-
-      <section className="education-form">
-        <Container>
-          <div className="education-form__header">
-            <div>
-              <p className="education-kicker">
-                Форма и образец
-              </p>
-
-              <h2>
-                Форма паспорта безопасности
-                образовательной организации
-              </h2>
-            </div>
-
-            <p>
-              ПП РФ №1006 содержит утверждённую
-              форму паспорта для объектов,
-              подпадающих под этот нормативный режим.
-            </p>
-          </div>
-
-
-          <div className="education-form__layout">
-            <div className="education-form__intro">
-              <span className="education-form__index">
-                08
-              </span>
-
-              <h3>
-                Основные разделы
-                формы паспорта
-              </h3>
-
-              <p>
-                Показываем структуру документа
-                и поясняем состав сведений.
-                Заполненный паспорт конкретного
-                клиента публично не размещаем.
-              </p>
-
-              <a
-                className="button button--primary"
-                href="#lead-form"
-              >
-                Получить форму паспорта
-              </a>
-            </div>
-
-
-            <ol className="education-form__structure">
-              {educationPassportStructure.map(
-                (item, index) => (
-                  <li key={item}>
-                    <span>
-                      {String(
-                        index + 1,
-                      ).padStart(2, '0')}
-                    </span>
-
-                    <p>
-                      {item}
-                    </p>
-                  </li>
-                ),
-              )}
-            </ol>
-          </div>
-        </Container>
-      </section>
-
-
-      <section className="education-actualization">
-        <Container>
-          <div className="education-actualization__header">
-            <div>
-              <p className="education-kicker">
-                Актуализация по №1006
-              </p>
-
-              <h2>
-                Как часто актуализируется
-                паспорт образовательной организации
-              </h2>
-            </div>
-
-
-            <div className="education-actualization__period">
-              <span>
-                Не реже
-              </span>
-
-              <strong>
-                1 раз
-                <small>
-                  в 5 лет
-                </small>
-              </strong>
-            </div>
-          </div>
-
-
-          <div className="education-actualization__body">
-            <div>
-              <h3>
-                Также актуализация проводится
-                при изменении
-              </h3>
-
-              <div className="education-actualization__reasons">
-                {educationActualizationReasons.map(
-                  (item) => (
-                    <article
-                      className="education-actualization__reason"
-                      key={item.number}
-                    >
-                      <span>
-                        {item.number}
-                      </span>
-
-                      <p>
-                        {item.title}
-                      </p>
-                    </article>
-                  ),
-                )}
-              </div>
-            </div>
-
-
-            <aside className="education-actualization__aside">
-              <p className="education-actualization__aside-kicker">
-                После актуализации
-              </p>
-
-              <h3>
-                Изменения должны быть отражены
-                во всех экземплярах
-              </h3>
-
-              <p>
-                Изменения прилагаются ко всем
-                экземплярам паспорта с указанием
-                причины и даты их внесения.
-              </p>
-
-              <div className="education-actualization__storage">
-                <strong>
-                  Ещё 5 лет
-                </strong>
-
-                <p>
-                  хранится на объекте паспорт,
-                  который был заменён
-                  по результатам актуализации.
-                </p>
-              </div>
-            </aside>
-          </div>
-
-
-          <div className="education-actualization__footer">
-            <p>
-              Для объекта, подпадающего под другой
-              нормативный режим, основания и порядок
-              актуализации проверяются отдельно.
-            </p>
-
-            <a
-              className="education-text-link"
-              href="/aktualizaciya-pasporta-bezopasnosti-obekta/"
-            >
-              Подробнее об актуализации
-              паспорта безопасности
-
-              <span aria-hidden="true">
-                →
-              </span>
-            </a>
-          </div>
-        </Container>
-      </section>
-
+      <EducationPassportActualization />
 
       {/* EDUCATION_STAGE_5_V1:sections */}
 
