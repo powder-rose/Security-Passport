@@ -2216,3 +2216,181 @@
 
 }
 
+/* =========================================
+   BLOG CATEGORIES — HOVER DESCRIPTION OVERRIDE
+========================================= */
+
+.blog-categories {
+  overflow: visible;
+  padding-bottom: clamp(70px, 8vw, 110px);
+}
+
+
+.blog-categories__grid {
+  position: relative;
+  overflow: visible;
+  align-items: start;
+  row-gap: 18px;
+}
+
+
+.blog-category-card {
+  position: relative;
+  overflow: visible;
+  min-height: 170px;
+  z-index: 1;
+}
+
+
+.blog-category-card:hover,
+.blog-category-card:focus-within {
+  z-index: 30;
+}
+
+
+.blog-category-card h3 {
+  margin-bottom: 0;
+}
+
+
+.blog-category-card > p {
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  top: calc(100% - 10px);
+
+  display: block;
+  margin: 0;
+  padding:
+    14px
+    18px
+    16px;
+
+  border:
+    1px solid
+    var(--color-border);
+
+  border-top: 0;
+
+  border-radius:
+    0 0 18px 18px;
+
+  background:
+    var(--color-surface);
+
+  color:
+    var(--color-text-secondary);
+
+  box-shadow:
+    0 18px 36px rgba(15, 23, 42, .08);
+
+  font-size: 13px;
+  line-height: 1.52;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transform: translateY(-8px);
+
+  transition:
+    opacity .18s ease,
+    visibility .18s ease,
+    transform .18s ease;
+}
+
+
+.blog-category-card:hover > p,
+.blog-category-card:focus-within > p {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+
+.blog-category-card__action {
+  position: relative;
+  z-index: 2;
+  margin-top: 14px;
+  padding-top: 0;
+}
+
+
+.blog-category-card__meta {
+  margin-bottom: 16px;
+}
+
+
+.blog-category-card::before {
+  z-index: 2;
+}
+
+
+@media (max-width: 1180px) {
+
+  .blog-categories {
+    padding-bottom: 84px;
+  }
+
+}
+
+
+@media (max-width: 640px) {
+
+  .blog-categories {
+    padding-bottom: 54px;
+  }
+
+
+  .blog-categories__grid {
+    row-gap: 10px;
+  }
+
+
+  .blog-category-card {
+    min-height: 0;
+  }
+
+
+  .blog-category-card > p {
+    position: static;
+
+    margin-top: 10px;
+    padding: 0;
+
+    border: 0;
+    border-radius: 0;
+
+    background: transparent;
+    box-shadow: none;
+
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+
+    transform: none;
+
+    display: -webkit-box;
+    overflow: hidden;
+
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+
+  .blog-category-card__action {
+    margin-top: 14px;
+  }
+
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+  .blog-category-card > p {
+    transition: none;
+  }
+
+}
+
