@@ -1,3 +1,88 @@
+/* ==========================================================================
+   EDUCATION PAGE
+   ==========================================================================
+
+   Route:
+   /pasport-bezopasnosti-obrazovatelnoj-organizacii/
+
+   React entry:
+   EducationPage.jsx
+
+   COMPONENT OWNERSHIP
+
+   01. EducationHeroAndObjects.jsx
+       .education-hero*
+       .education-objects*
+       .education-object*
+       .education-breadcrumbs
+       .education-button-secondary
+       .education-section-heading
+
+   02. EducationRegulation.jsx
+       .education-regulation*
+
+   03. EducationCategories.jsx
+       .education-categories*
+       .education-category*
+
+   04. EducationPassportProcess.jsx
+       .education-process*
+
+   05. EducationApproval.jsx
+       .education-approval*
+
+   06. EducationPassportCopies.jsx
+       .education-copies*
+
+   07. EducationRestrictedDocuments.jsx
+       .education-restricted*
+
+   08. EducationServiceScope.jsx
+       .education-service*
+
+   09. EducationPricing.jsx
+       .education-price*
+
+   10. EducationRequiredDocuments.jsx
+       .education-source-data*
+
+   11. EducationPassportForm.jsx
+       .education-form*
+
+   12. EducationPassportActualization.jsx
+       .education-actualization*
+
+   13. EducationAudience.jsx
+       .education-audience*
+
+   14. EducationCurrentRequirements.jsx
+       .education-current*
+
+   15. EducationRelatedLinks.jsx
+       .education-related*
+
+   16. EducationFaq.jsx
+       .education-faq*
+
+   Shared page selectors:
+       .education-page
+       .education-kicker
+       .education-text-link
+
+   External section:
+       FinalCTA keeps its own component styles and is not owned here.
+
+   FILE ORGANIZATION
+
+   - Component-owned sections
+   - Responsive rules for those component groups
+   - Cross-component desktop layout refinements
+   - No historical stage/version layers
+
+   This file describes the CURRENT rendered EducationPage.
+   ========================================================================== */
+
+
 .education-page {
   color: var(--color-text);
   background: var(--color-bg);
@@ -26,7 +111,9 @@
 }
 
 
-/* HERO */
+/* ==========================================================================
+   EducationHeroAndObjects.jsx — HERO
+   ========================================================================== */
 
 .education-hero {
   padding: 34px 0 96px;
@@ -224,7 +311,9 @@
 }
 
 
-/* OBJECTS */
+/* ==========================================================================
+   EducationHeroAndObjects.jsx — OBJECTS
+   ========================================================================== */
 
 .education-objects {
   padding: 104px 0;
@@ -248,9 +337,12 @@
 .education-regulation__intro > p:last-child {
   max-width: 760px;
   margin: 26px 0 0;
-  color: var(--color-text-secondary);
   font-size: 1.05rem;
   line-height: 1.7;
+}
+
+.education-section-heading > p:last-child {
+  color: var(--color-text-secondary);
 }
 
 .education-objects__layout {
@@ -355,7 +447,9 @@
 }
 
 
-/* REGULATION */
+/* ==========================================================================
+   EducationRegulation.jsx — REGULATION
+   ========================================================================== */
 
 .education-regulation {
   padding: 112px 0;
@@ -517,7 +611,6 @@
 
 
 @media (max-width: 768px) {
-  .education-hero,
   .education-objects,
   .education-regulation {
     padding-top: 72px;
@@ -526,6 +619,7 @@
 
   .education-hero {
     padding-top: 24px;
+    padding-bottom: 72px;
   }
 
   .education-hero h1 {
@@ -658,13 +752,9 @@
 }
 
 
-/* ========================================
-   EDUCATION_STAGE_2_V1
-   Categories + Process + Approval
-   ======================================== */
-
-
-/* CATEGORIES */
+/* ==========================================================================
+   EducationCategories.jsx — CATEGORIES
+   ========================================================================== */
 
 .education-categories {
   padding: 112px 0;
@@ -849,7 +939,9 @@
 }
 
 
-/* PROCESS */
+/* ==========================================================================
+   EducationPassportProcess.jsx — PASSPORT PROCESS
+   ========================================================================== */
 
 .education-process {
   padding: 112px 0;
@@ -947,7 +1039,9 @@
 }
 
 
-/* APPROVAL */
+/* ==========================================================================
+   EducationApproval.jsx — APPROVAL
+   ========================================================================== */
 
 .education-approval {
   padding: 112px 0;
@@ -1027,11 +1121,14 @@
 
 .education-approval__timing span,
 .education-approval__finish > span {
-  color: rgb(255 255 255 / 50%);
   font-size: .76rem;
   font-weight: 700;
   letter-spacing: .08em;
   text-transform: uppercase;
+}
+
+.education-approval__timing span {
+  color: rgb(255 255 255 / 50%);
 }
 
 .education-approval__timing strong {
@@ -1069,7 +1166,9 @@
 }
 
 
-/* STAGE 2 RESPONSIVE */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — categories, passport process and approval
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1024px) {
   .education-categories__heading,
@@ -1206,13 +1305,9 @@
 }
 
 
-/* ========================================
-   EDUCATION_STAGE_3_V1
-   Copies + DSP + Service + Prices
-   ======================================== */
-
-
-/* COPIES */
+/* ==========================================================================
+   EducationPassportCopies.jsx — PASSPORT COPIES
+   ========================================================================== */
 
 .education-copies {
   padding: 112px 0;
@@ -1367,7 +1462,9 @@
 }
 
 
-/* DSP */
+/* ==========================================================================
+   EducationRestrictedDocuments.jsx — RESTRICTED DOCUMENTS
+   ========================================================================== */
 
 .education-restricted {
   padding: 112px 0;
@@ -1431,7 +1528,9 @@
 }
 
 
-/* SERVICE */
+/* ==========================================================================
+   EducationServiceScope.jsx — SERVICE SCOPE
+   ========================================================================== */
 
 .education-service {
   padding: 112px 0;
@@ -1488,7 +1587,9 @@
 }
 
 
-/* PRICE */
+/* ==========================================================================
+   EducationPricing.jsx — PRICING
+   ========================================================================== */
 
 .education-price {
   padding: 112px 0;
@@ -1576,7 +1677,9 @@
 }
 
 
-/* STAGE 3 RESPONSIVE */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — passport copies, restricted documents, service and pricing
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1024px) {
   .education-price__layout {
@@ -1684,13 +1787,9 @@
 }
 
 
-/* ========================================
-   EDUCATION_STAGE_4_V1
-   Source data + Form + Actualization
-   ======================================== */
-
-
-/* SOURCE DATA */
+/* ==========================================================================
+   EducationRequiredDocuments.jsx — REQUIRED DOCUMENTS
+   ========================================================================== */
 
 .education-source-data {
   padding: 112px 0;
@@ -1805,7 +1904,9 @@
 }
 
 
-/* FORM */
+/* ==========================================================================
+   EducationPassportForm.jsx — PASSPORT FORM
+   ========================================================================== */
 
 .education-form {
   padding: 112px 0;
@@ -1905,7 +2006,9 @@
 }
 
 
-/* ACTUALIZATION */
+/* ==========================================================================
+   EducationPassportActualization.jsx — ACTUALIZATION
+   ========================================================================== */
 
 .education-actualization {
   padding: 112px 0;
@@ -2074,7 +2177,9 @@
 }
 
 
-/* STAGE 4 RESPONSIVE */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — required documents, passport form and actualization
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1024px) {
   .education-source-data__layout,
@@ -2174,13 +2279,9 @@
 }
 
 
-/* ========================================
-   EDUCATION_STAGE_5_V1
-   SEO + 2026 + FAQ + Related links
-   ======================================== */
-
-
-/* AUDIENCE SEO */
+/* ==========================================================================
+   EducationAudience.jsx — AUDIENCE
+   ========================================================================== */
 
 .education-audience {
   padding: 112px 0;
@@ -2198,8 +2299,7 @@
 
 .education-audience__header h2,
 .education-current__content h2,
-.education-related__header h2,
-.education-faq__heading h2 {
+.education-related__header h2 {
   margin: 0;
   font-size: clamp(2.5rem, 4.1vw, 4.6rem);
   line-height: 1.02;
@@ -2264,7 +2364,9 @@
 }
 
 
-/* 2026 */
+/* ==========================================================================
+   EducationCurrentRequirements.jsx — CURRENT REQUIREMENTS
+   ========================================================================== */
 
 .education-current {
   padding: 112px 0;
@@ -2383,7 +2485,9 @@
 }
 
 
-/* RELATED */
+/* ==========================================================================
+   EducationRelatedLinks.jsx — RELATED LINKS
+   ========================================================================== */
 
 .education-related {
   padding: 104px 0;
@@ -2435,120 +2539,567 @@
 }
 
 
-/* FAQ */
+/* ==========================================================================
+   EducationFaq.jsx — FAQ
+   ==========================================================================
+
+   Current FAQ presentation.
+
+   Base FAQ, desktop containment, Trade-style presentation,
+   toggle alignment and answer spacing are consolidated here.
+   ========================================================================== */
 
 .education-faq {
-  padding: 112px 0;
-  background: #fff;
+  padding:
+    116px
+    0
+    126px !important;
+
+  background:
+    #f5f5f1 !important;
 }
 
+
 .education-faq__layout {
-  display: grid;
+  display:
+    grid !important;
+
   grid-template-columns:
     minmax(300px, .62fr)
-    minmax(0, 1.38fr);
-  gap: clamp(50px, 8vw, 120px);
+    minmax(0, 1.15fr) !important;
+
+  gap:
+    clamp(
+      70px,
+      10vw,
+      165px
+    ) !important;
+
   align-items: start;
 }
 
+
 .education-faq__heading {
-  position: sticky;
-  top: 112px;
+  position:
+    sticky !important;
+
+  top:
+    110px !important;
+
+  min-width: 0;
+
+  align-self:
+    start !important;
 }
 
-.education-faq__heading > p {
-  max-width: 590px;
-  margin: 28px 0 0;
-  color: var(--color-text-secondary);
-  line-height: 1.7;
+
+.education-faq__heading h2 {
+  max-width:
+    600px !important;
+
+  margin:
+    0 !important;
+
+  font-size:
+    clamp(
+      2.65rem,
+      3.9vw,
+      4.25rem
+    ) !important;
+
+  line-height:
+    1 !important;
+
+  letter-spacing:
+    -.055em !important;
+
+  text-wrap: balance;
 }
+
+
+.education-faq__heading
+> p:not([class]) {
+  max-width:
+    560px !important;
+
+  margin:
+    30px
+    0
+    0 !important;
+
+  color:
+    var(--color-text-secondary) !important;
+
+  line-height:
+    1.72 !important;
+}
+
 
 .education-faq__list {
-  border-top: 1px solid var(--color-border);
+  min-width: 0;
+
+  overflow:
+    hidden !important;
+
+  padding:
+    0
+    26px !important;
+
+  border:
+    1px solid
+    var(--color-border) !important;
+
+  border-radius:
+    var(--radius-lg) !important;
+
+  background:
+    #fff !important;
+
+  box-shadow:
+    var(--shadow-soft) !important;
 }
+
 
 .education-faq__item {
-  border-bottom: 1px solid var(--color-border);
+  margin:
+    0 !important;
+
+  border:
+    0 !important;
+
+  border-bottom:
+    1px solid
+    var(--color-border) !important;
+
+  border-radius:
+    0 !important;
+
+  background:
+    transparent !important;
+
+  box-shadow:
+    none !important;
 }
+
+
+.education-faq__item:last-child {
+  border-bottom:
+    0 !important;
+}
+
 
 .education-faq__item summary {
-  display: grid;
+  display:
+    grid !important;
+
   grid-template-columns:
-    48px
+    54px
     minmax(0, 1fr)
-    42px;
-  gap: 18px;
-  align-items: center;
-  min-height: 96px;
-  padding: 22px 4px;
-  cursor: pointer;
-  list-style: none;
+    36px !important;
+
+  gap:
+    18px !important;
+
+  align-items:
+    center !important;
+
+  min-height:
+    94px !important;
+
+  margin:
+    0
+    -10px !important;
+
+  padding:
+    23px
+    10px !important;
+
+  border-radius:
+    14px !important;
+
+  background:
+    transparent !important;
+
+  cursor:
+    pointer !important;
+
+  list-style:
+    none !important;
+
   transition:
-    padding .2s ease,
-    background .2s ease;
+    background-color
+    180ms
+    ease !important;
 }
 
-.education-faq__item summary::-webkit-details-marker {
-  display: none;
+
+.education-faq__item
+summary::-webkit-details-marker {
+  display:
+    none !important;
 }
 
-.education-faq__item summary:hover {
-  padding-right: 14px;
-  padding-left: 14px;
-  background: var(--color-bg);
-}
 
 .education-faq__number {
-  color: var(--color-primary);
-  font-size: .72rem;
-  font-weight: 800;
-  letter-spacing: .08em;
+  color:
+    var(--color-text-secondary) !important;
+
+  font-size:
+    .72rem !important;
+
+  font-weight:
+    800 !important;
+
+  line-height:
+    1 !important;
+
+  letter-spacing:
+    .09em !important;
 }
+
 
 .education-faq__question {
-  font-size: clamp(1.05rem, 1.45vw, 1.3rem);
-  font-weight: 750;
-  line-height: 1.35;
+  color:
+    var(--color-text) !important;
+
+  font-size:
+    1.08rem !important;
+
+  font-weight:
+    750 !important;
+
+  line-height:
+    1.4 !important;
 }
 
+
+/* --------------------------------------------------------------------------
+   Toggle
+   -------------------------------------------------------------------------- */
+
 .education-faq__toggle {
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  border: 1px solid var(--color-border);
-  border-radius: 50%;
-  font-size: 1.35rem;
+  position:
+    relative !important;
+
+  display:
+    block !important;
+
+  width:
+    28px !important;
+
+  height:
+    28px !important;
+
+  padding:
+    0 !important;
+
+  border:
+    0 !important;
+
+  border-radius:
+    50% !important;
+
+  background:
+    transparent !important;
+
+  color:
+    var(--color-text) !important;
+
+  font-size:
+    0 !important;
+
+  transform:
+    none !important;
+
   transition:
-    transform .22s ease,
-    background .2s ease,
-    border-color .2s ease;
+    background-color 180ms ease,
+    color 180ms ease !important;
 }
+
+
+.education-faq__toggle::before {
+  position:
+    absolute !important;
+
+  top:
+    50% !important;
+
+  left:
+    50% !important;
+
+  display:
+    block !important;
+
+  width:
+    16px !important;
+
+  height:
+    2px !important;
+
+  border-radius:
+    999px !important;
+
+  background:
+    currentColor !important;
+
+  content:
+    "" !important;
+
+  transform:
+    translate(-50%, -50%) !important;
+
+  transition:
+    transform
+    180ms
+    ease !important;
+}
+
+
+.education-faq__toggle::after {
+  position:
+    absolute !important;
+
+  top:
+    50% !important;
+
+  left:
+    50% !important;
+
+  display:
+    block !important;
+
+  width:
+    16px !important;
+
+  height:
+    2px !important;
+
+  border-radius:
+    999px !important;
+
+  background:
+    currentColor !important;
+
+  content:
+    "" !important;
+
+  transform:
+    translate(-50%, -50%)
+    rotate(90deg) !important;
+
+  transition:
+    transform
+    180ms
+    ease !important;
+}
+
 
 .education-faq__item[open]
 .education-faq__toggle {
-  transform: rotate(45deg);
-  border-color: var(--color-accent);
-  background: var(--color-accent);
+  border-radius:
+    50% !important;
+
+  background:
+    #a9f04a !important;
+
+  color:
+    #151515 !important;
+
+  transform:
+    none !important;
 }
+
+
+.education-faq__item[open]
+.education-faq__toggle::after {
+  transform:
+    translate(-50%, -50%)
+    rotate(0deg) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   Answer
+   -------------------------------------------------------------------------- */
 
 .education-faq__answer {
   padding:
-    0
-    60px
-    30px
-    66px;
+    18px
+    54px
+    28px
+    72px !important;
+
+  border:
+    0 !important;
+
+  background:
+    transparent !important;
 }
+
 
 .education-faq__answer p {
-  max-width: 760px;
-  margin: 0;
-  color: var(--color-text-secondary);
-  line-height: 1.7;
+  max-width:
+    750px !important;
+
+  margin:
+    0 !important;
+
+  color:
+    var(--color-text-secondary) !important;
+
+  line-height:
+    1.72 !important;
 }
 
 
-/* STAGE 5 RESPONSIVE */
+@media (hover: hover) {
+  .education-faq__item
+  summary:hover {
+    background:
+      #f5f5f1 !important;
+  }
+}
+
+
+.education-faq__item[open]
+summary {
+  background:
+    #f5f5f1 !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .education-faq__layout {
+    grid-template-columns:
+      1fr !important;
+  }
+
+
+  .education-faq__heading {
+    position:
+      static !important;
+
+    max-width:
+      740px !important;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .education-faq {
+    padding-top:
+      80px !important;
+
+    padding-bottom:
+      86px !important;
+  }
+
+
+  .education-faq__list {
+    padding:
+      0
+      18px !important;
+  }
+
+
+  .education-faq__item summary {
+    grid-template-columns:
+      44px
+      minmax(0, 1fr)
+      32px !important;
+  }
+
+
+  .education-faq__answer {
+    padding-left:
+      62px !important;
+  }
+}
+
+
+@media (max-width: 620px) {
+  .education-faq__answer {
+    padding-top:
+      14px !important;
+  }
+}
+
+
+@media (max-width: 430px) {
+  .education-faq__heading h2 {
+    font-size:
+      2.4rem !important;
+  }
+
+
+  .education-faq__list {
+    padding:
+      0
+      12px !important;
+
+    border-radius:
+      18px !important;
+  }
+
+
+  .education-faq__item summary {
+    grid-template-columns:
+      34px
+      minmax(0, 1fr)
+      28px !important;
+
+    gap:
+      12px !important;
+  }
+
+
+  .education-faq__answer {
+    padding:
+      14px
+      28px
+      26px
+      46px !important;
+  }
+}
+
+
+@media (max-width: 320px) {
+  .education-faq__heading h2 {
+    font-size:
+      2.05rem !important;
+  }
+
+
+  .education-faq__number {
+    display:
+      none !important;
+  }
+
+
+  .education-faq__item summary {
+    grid-template-columns:
+      minmax(0, 1fr)
+      28px !important;
+  }
+
+
+  .education-faq__answer {
+    padding:
+      14px
+      28px
+      26px
+      0 !important;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — audience, current requirements, related links and FAQ
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .education-audience__list {
@@ -2560,13 +3111,11 @@
 
 @media (max-width: 1024px) {
   .education-audience__header,
-  .education-current__layout,
-  .education-faq__layout {
+.education-current__layout {
     grid-template-columns: 1fr;
   }
 
-  .education-current__year,
-  .education-faq__heading {
+  .education-current__year {
     position: static;
   }
 
@@ -2578,9 +3127,8 @@
 
 @media (max-width: 768px) {
   .education-audience,
-  .education-current,
-  .education-related,
-  .education-faq {
+.education-current,
+.education-related {
     padding-top: 72px;
     padding-bottom: 72px;
   }
@@ -2593,17 +3141,14 @@
     grid-template-columns: 1fr;
   }
 
-  .education-faq__layout {
-    gap: 42px;
-  }
+
 }
 
 
 @media (max-width: 430px) {
   .education-audience__header h2,
-  .education-current__content h2,
-  .education-related__header h2,
-  .education-faq__heading h2 {
+.education-current__content h2,
+.education-related__header h2 {
     font-size: clamp(2.1rem, 10vw, 3rem);
   }
 
@@ -2633,34 +3178,14 @@
     min-height: 82px;
   }
 
-  .education-faq__item summary {
-    grid-template-columns:
-      36px
-      minmax(0, 1fr)
-      36px;
-    gap: 10px;
-  }
 
-  .education-faq__toggle {
-    width: 34px;
-    height: 34px;
-  }
-
-  .education-faq__answer {
-    padding:
-      0
-      4px
-      26px
-      46px;
-  }
 }
 
 
 @media (max-width: 320px) {
   .education-audience__header h2,
-  .education-current__content h2,
-  .education-related__header h2,
-  .education-faq__heading h2 {
+.education-current__content h2,
+.education-related__header h2 {
     font-size: 2rem;
   }
 
@@ -2669,23 +3194,19 @@
     padding: 20px;
   }
 
-  .education-faq__item summary {
-    grid-template-columns:
-      30px
-      minmax(0, 1fr)
-      32px;
-  }
 
-  .education-faq__answer {
-    padding-left: 40px;
-  }
 }
 
 
-/* ==========================================================
-   EDUCATION_LAYOUT_OVERLAP_FIX_V1
-   Desktop heading containment + hero regulation number
-   ========================================================== */
+/* ==========================================================================
+   CROSS-COMPONENT DESKTOP LAYOUT REFINEMENTS
+
+   Current desktop containment and two-column layout rules shared by
+   Hero, Approval, Pricing and Required Documents.
+
+   These rules prevent intrinsic-width overflow and keep the hero
+   regulation number contained without changing the mobile layout.
+   ========================================================================== */
 
 
 /*
@@ -2698,9 +3219,7 @@
 .education-price__heading,
 .education-price__content,
 .education-source-data__heading,
-.education-source-data__list,
-.education-faq__heading,
-.education-faq__list {
+.education-source-data__list {
   min-width: 0;
 }
 
@@ -2724,7 +3243,9 @@
 
 @media (min-width: 1025px) {
 
-  /* HERO */
+  /* --------------------------------------------------------------------------
+   Hero desktop refinement
+   -------------------------------------------------------------------------- */
 
   .education-hero__layout {
     grid-template-columns:
@@ -2763,7 +3284,9 @@
   }
 
 
-  /* APPROVAL */
+  /* --------------------------------------------------------------------------
+   Approval desktop refinement
+   -------------------------------------------------------------------------- */
 
   .education-approval__layout {
     grid-template-columns:
@@ -2775,7 +3298,9 @@
   }
 
 
-  /* PRICE */
+  /* --------------------------------------------------------------------------
+   Pricing desktop refinement
+   -------------------------------------------------------------------------- */
 
   .education-price__layout {
     grid-template-columns:
@@ -2787,7 +3312,9 @@
   }
 
 
-  /* SOURCE DATA */
+  /* --------------------------------------------------------------------------
+   Required documents desktop refinement
+   -------------------------------------------------------------------------- */
 
   .education-source-data__layout {
     grid-template-columns:
@@ -2799,16 +3326,9 @@
   }
 
 
-  /* FAQ */
-
-  .education-faq__layout {
-    grid-template-columns:
-      minmax(420px, .85fr)
-      minmax(0, 1.15fr);
-
-    gap:
-      clamp(54px, 6vw, 96px);
-  }
+  /* ==========================================================================
+   EducationFaq.jsx — FAQ
+   ========================================================================== */
 
 
   /*
@@ -2818,9 +3338,8 @@
    */
 
   .education-approval__heading h2,
-  .education-price__heading h2,
-  .education-source-data__heading h2,
-  .education-faq__heading h2 {
+.education-price__heading h2,
+.education-source-data__heading h2 {
     max-width: 100%;
 
     font-size:
@@ -2859,9 +3378,8 @@
   }
 
   .education-approval__layout,
-  .education-price__layout,
-  .education-source-data__layout,
-  .education-faq__layout {
+.education-price__layout,
+.education-source-data__layout {
     grid-template-columns:
       minmax(360px, .8fr)
       minmax(0, 1.2fr);
@@ -2870,417 +3388,9 @@
   }
 
   .education-approval__heading h2,
-  .education-price__heading h2,
-  .education-source-data__heading h2,
-  .education-faq__heading h2 {
+.education-price__heading h2,
+.education-source-data__heading h2 {
     font-size:
       clamp(2.65rem, 4vw, 3rem);
   }
 }
-
-
-/* ========================================================
-   UNIFIED_FAQ_TRADE_STYLE_V1
-   Reference: TradePage FAQ
-   ======================================================== */
-
-.education-faq {
-  padding: 116px 0 126px !important;
-  background: #f5f5f1 !important;
-}
-
-.education-faq__layout {
-  display: grid !important;
-  grid-template-columns:
-    minmax(300px, .62fr)
-    minmax(0, 1.15fr) !important;
-  gap: clamp(70px, 10vw, 165px) !important;
-}
-
-.education-faq__heading {
-  position: sticky !important;
-  top: 110px !important;
-  align-self: start !important;
-}
-
-.education-faq__heading h2 {
-  max-width: 600px !important;
-  margin: 0 !important;
-
-  font-size:
-    clamp(
-      2.65rem,
-      3.9vw,
-      4.25rem
-    ) !important;
-
-  line-height: 1 !important;
-  letter-spacing: -.055em !important;
-  text-wrap: balance;
-}
-
-.education-faq__heading > p:not([class]) {
-  max-width: 560px !important;
-  margin: 30px 0 0 !important;
-
-  color:
-    var(--color-text-secondary) !important;
-
-  line-height: 1.72 !important;
-}
-
-.education-faq__list {
-  overflow: hidden !important;
-
-  padding: 0 26px !important;
-
-  border:
-    1px solid
-    var(--color-border) !important;
-
-  border-radius:
-    var(--radius-lg) !important;
-
-  background: #fff !important;
-
-  box-shadow:
-    var(--shadow-soft) !important;
-}
-
-.education-faq__item {
-  margin: 0 !important;
-
-  border: 0 !important;
-  border-bottom:
-    1px solid
-    var(--color-border) !important;
-
-  border-radius: 0 !important;
-
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-.education-faq__item:last-child {
-  border-bottom: 0 !important;
-}
-
-.education-faq__item summary {
-  display: grid !important;
-
-  grid-template-columns:
-    54px
-    minmax(0, 1fr)
-    36px !important;
-
-  gap: 18px !important;
-  align-items: center !important;
-
-  min-height: 94px !important;
-
-  margin: 0 -10px !important;
-
-  padding:
-    23px
-    10px !important;
-
-  border-radius: 14px !important;
-
-  background: transparent !important;
-
-  cursor: pointer !important;
-  list-style: none !important;
-
-  transition:
-    background-color 180ms ease !important;
-}
-
-.education-faq__item summary::-webkit-details-marker {
-  display: none !important;
-}
-
-.education-faq__number {
-  color:
-    var(--color-text-secondary) !important;
-
-  font-size: .72rem !important;
-  font-weight: 800 !important;
-  line-height: 1 !important;
-  letter-spacing: .09em !important;
-}
-
-.education-faq__question {
-  color:
-    var(--color-text) !important;
-
-  font-size: 1.08rem !important;
-  font-weight: 750 !important;
-  line-height: 1.4 !important;
-}
-
-.education-faq__toggle {
-  position: relative !important;
-
-  display: block !important;
-
-  width: 28px !important;
-  height: 28px !important;
-
-  padding: 0 !important;
-
-  border: 0 !important;
-  border-radius: 0;
-
-  background: transparent !important;
-
-  color:
-    var(--color-text) !important;
-
-  font-size: 0 !important;
-
-  transition:
-    background-color 180ms ease,
-    color 180ms ease !important;
-}
-
-.education-faq__toggle::before,
-.education-faq__toggle::after {
-  position: absolute !important;
-
-  top: 50% !important;
-  left: 50% !important;
-
-  display: block !important;
-
-  width: 16px !important;
-  height: 2px !important;
-
-  border-radius: 999px !important;
-
-  background:
-    currentColor !important;
-
-  content: '' !important;
-
-  transform:
-    translate(-50%, -50%) !important;
-
-  transition:
-    transform 180ms ease !important;
-}
-
-.education-faq__toggle::after {
-  transform:
-    translate(-50%, -50%)
-    rotate(90deg) !important;
-}
-
-.education-faq__item[open]
-.education-faq__toggle {
-  border-radius: 50% !important;
-
-  background: #a9f04a !important;
-  color: #151515 !important;
-}
-
-.education-faq__item[open]
-.education-faq__toggle::after {
-  transform:
-    translate(-50%, -50%)
-    rotate(0deg) !important;
-}
-
-.education-faq__answer {
-  padding:
-    0
-    54px
-    28px
-    72px !important;
-
-  border: 0 !important;
-
-  background: transparent !important;
-}
-
-.education-faq__answer p {
-  max-width: 750px !important;
-
-  margin: 0 !important;
-
-  color:
-    var(--color-text-secondary) !important;
-
-  line-height: 1.72 !important;
-}
-
-@media (hover: hover) {
-  .education-faq__item summary:hover {
-    background: #f5f5f1 !important;
-  }
-}
-
-.education-faq__item[open] summary {
-  background: #f5f5f1 !important;
-}
-
-@media (max-width: 1024px) {
-  .education-faq__layout {
-    grid-template-columns: 1fr !important;
-  }
-
-  .education-faq__heading {
-    position: static !important;
-    max-width: 740px !important;
-  }
-}
-
-@media (max-width: 768px) {
-  .education-faq {
-    padding-top: 80px !important;
-    padding-bottom: 86px !important;
-  }
-
-  .education-faq__list {
-    padding:
-      0
-      18px !important;
-  }
-
-  .education-faq__item summary {
-    grid-template-columns:
-      44px
-      minmax(0, 1fr)
-      32px !important;
-  }
-
-  .education-faq__answer {
-    padding-left: 62px !important;
-  }
-}
-
-@media (max-width: 430px) {
-  .education-faq__heading h2 {
-    font-size: 2.4rem !important;
-  }
-
-  .education-faq__list {
-    padding:
-      0
-      12px !important;
-
-    border-radius: 18px !important;
-  }
-
-  .education-faq__item summary {
-    grid-template-columns:
-      34px
-      minmax(0, 1fr)
-      28px !important;
-
-    gap: 12px !important;
-  }
-
-  .education-faq__answer {
-    padding:
-      0
-      28px
-      26px
-      46px !important;
-  }
-}
-
-@media (max-width: 320px) {
-  .education-faq__heading h2 {
-    font-size: 2.05rem !important;
-  }
-
-  .education-faq__number {
-    display: none !important;
-  }
-
-  .education-faq__item summary {
-    grid-template-columns:
-      minmax(0, 1fr)
-      28px !important;
-  }
-
-  .education-faq__answer {
-    padding-left: 0 !important;
-  }
-}
-
-/* ========================================================
-   /UNIFIED_FAQ_TRADE_STYLE_V1
-   ======================================================== */
-
-
-/* ========================================================
-   UNIFIED_FAQ_TOGGLE_FIX_V1
-   Keep FAQ +/- icon perfectly aligned
-   ======================================================== */
-
-.education-faq__toggle,
-.education-faq__item[open]
-.education-faq__toggle {
-  transform: none !important;
-}
-
-
-.education-faq__toggle::before {
-  transform:
-    translate(-50%, -50%) !important;
-}
-
-
-.education-faq__toggle::after {
-  transform:
-    translate(-50%, -50%)
-    rotate(90deg) !important;
-}
-
-
-.education-faq__item[open]
-.education-faq__toggle::before {
-  transform:
-    translate(-50%, -50%) !important;
-}
-
-
-.education-faq__item[open]
-.education-faq__toggle::after {
-  transform:
-    translate(-50%, -50%)
-    rotate(0deg) !important;
-}
-
-/* ========================================================
-   /UNIFIED_FAQ_TOGGLE_FIX_V1
-   ======================================================== */
-
-/* ========================================================
-   FAQ_ANSWER_TOP_SPACING_V1
-   Extra breathing room between FAQ question and answer
-   ======================================================== */
-
-.education-faq__answer {
-  padding-top: 18px !important;
-}
-
-@media (max-width: 620px) {
-  .education-faq__answer {
-    padding-top: 14px !important;
-  }
-}
-
-/* /FAQ_ANSWER_TOP_SPACING_V1 */
-
-/* ========================================================
-   FAQ_ICON_ALWAYS_ROUND_V1
-   Keep FAQ toggle round in every state
-   ======================================================== */
-
-.education-faq__toggle {
-  border-radius: 50% !important;
-}
-
-/* /FAQ_ICON_ALWAYS_ROUND_V1 */
