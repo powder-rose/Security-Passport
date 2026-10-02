@@ -1798,3 +1798,85 @@
 
 }
 
+/* =========================================
+   BLOG — CATEGORY LINES CLEANUP
+========================================= */
+
+/*
+ * Оставляем только одну горизонтальную линию —
+ * под заголовком "Категории статей".
+ */
+
+.blog-categories .blog-section-heading {
+  border-bottom:
+    1px solid
+    var(--color-border);
+}
+
+
+/* описание удалено из JSX */
+
+.blog-categories__description {
+  display: none;
+}
+
+
+/* категории поднимаем ближе к заголовку */
+
+.blog-category-chips {
+  margin-top: 20px;
+}
+
+
+/*
+ * Убираем линию над выбранным материалом.
+ */
+
+.blog-category-results .blog-section-heading {
+  border-bottom: 0;
+
+  padding-bottom: 0;
+}
+
+
+/*
+ * Убираем ещё одну линию
+ * под названием/описанием выбранной категории.
+ */
+
+.blog-results-context {
+  margin:
+    18px 0
+    26px;
+
+  padding-bottom: 0;
+
+  border-bottom: 0;
+}
+
+
+/*
+ * Чуть уменьшаем вертикальный шум
+ * между категориями и результатами.
+ */
+
+.blog-category-results .blog-featured {
+  padding-top: 0;
+}
+
+
+@media (max-width: 640px) {
+
+  .blog-category-chips {
+    margin-top: 16px;
+  }
+
+
+  .blog-results-context {
+    margin:
+      16px 0
+      22px;
+  }
+
+}
+
