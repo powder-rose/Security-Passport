@@ -1,6 +1,13 @@
 import './ActualizationPage.css';
 
 import {
+  getLocationText,
+} from './actualizationRegion';
+
+import useActualizationTimeline
+from './useActualizationTimeline';
+
+import {
   triggerRows,
   checklistItems,
   processItems,
@@ -10,7 +17,6 @@ import {
   objectTypes,
   faqItems,
 } from './actualizationPageData';
-import { useEffect } from 'react';
 
 import Container from '../../components/ui/Container/Container';
 
@@ -22,25 +28,6 @@ import {
 } from '../../context/GeoContext';
 
 
-function getLocationText(city) {
-  if (
-    city.isDefault ||
-    city.type === 'country'
-  ) {
-    return 'по России';
-  }
-
-  if (
-    city.hasTrustedInflection &&
-    !city.seoNeedsSubject
-  ) {
-    return city.locationPhrase;
-  }
-
-  return `в регионе: ${city.locationSeo}`;
-}
-
-
 export default function ActualizationPage() {
   const city =
     useCity();
@@ -49,66 +36,7 @@ export default function ActualizationPage() {
     getLocationText(city);
 
 
-  useEffect(() => {
-    const items =
-      Array.from(
-        document.querySelectorAll(
-          '.actualization-work__timeline li',
-        ),
-      );
-
-    if (!items.length) {
-      return undefined;
-    }
-
-    if (
-      !('IntersectionObserver' in window)
-    ) {
-      items.forEach(
-        (item) => {
-          item.classList.add('is-active');
-        },
-      );
-
-      return undefined;
-    }
-
-    const observer =
-      new IntersectionObserver(
-        (entries) => {
-          entries.forEach(
-            (entry) => {
-              if (!entry.isIntersecting) {
-                return;
-              }
-
-              entry.target.classList.add(
-                'is-active',
-              );
-
-              observer.unobserve(
-                entry.target,
-              );
-            },
-          );
-        },
-        {
-          threshold: 0.42,
-          rootMargin:
-            '0px 0px -18% 0px',
-        },
-      );
-
-    items.forEach(
-      (item) => {
-        observer.observe(item);
-      },
-    );
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
+  useActualizationTimeline();
 
 
   return (
