@@ -1,92 +1,109 @@
 /* ==========================================================================
-   TRADE PAGE — CSS MAP ↔ JSX
+   TRADE PAGE — CURRENT CSS STRUCTURE
    ==========================================================================
 
-   Entry:
+   Entry component:
    TradePage.jsx
 
-   Shared page styles:
+   This stylesheet belongs to TradePage and its local components.
+
+   COMPONENT MAP
+
+   01. TradeHeroAndObjects.jsx
+       .trade-hero
+       .trade-breadcrumbs
+       .trade-applicability
+       .trade-objects
+       .trade-object
+
+   02. TradeRegulation.jsx
+       .trade-regulation
+
+   03. TradeRegulationChanges.jsx
+       .trade-changes
+       .trade-change
+
+   04. TradeCategorizationAndAct.jsx
+       .trade-categorization
+       .trade-act
+
+   05. TradePassportDevelopment.jsx
+       .trade-passport
+
+   06. TradeApprovalAndCopies.jsx
+       .trade-approval
+       .trade-copies
+
+   07. TradeOwnership.jsx
+       .trade-owners
+
+   08. TradeRestrictedDocuments.jsx
+       .trade-restricted
+
+   09. TradeServiceScope.jsx
+       .trade-service
+
+   10. TradePricing.jsx
+       .trade-prices
+       .trade-price
+
+   11. TradeRequiredDocuments.jsx
+       .trade-documents
+
+   12. TradePassportForm.jsx
+       .trade-form
+
+   13. TradePassportActualization.jsx
+       .trade-actualization
+
+   14. TradeShoppingCenterInfo.jsx
+       .trade-mall
+
+   15. TradeWorkApproach.jsx
+       .trade-why
+
+   16. TradeFaq.jsx
+       .trade-faq
+
+
+   SHARED TRADE PAGE STYLES
+
    .trade-page
    .trade-kicker
    .trade-inline-link
 
-   Component → CSS prefixes:
 
-   TradeHeroAndObjects.jsx
-   → .trade-hero
-   → .trade-breadcrumbs
-   → .trade-applicability
-   → .trade-objects
-   → .trade-object
+   EXTERNAL COMPONENT
 
-   TradeRegulation.jsx
-   → .trade-regulation
+   FinalCTA is rendered by TradePage.jsx,
+   but its styles are maintained outside TradePage.css.
 
-   TradeRegulationChanges.jsx
-   → .trade-changes
-   → .trade-change
 
-   TradeCategorizationAndAct.jsx
-   → .trade-categorization
-   → .trade-act
+   HOW THIS FILE IS ORGANIZED
 
-   TradePassportDevelopment.jsx
-   → .trade-passport
+   BASE COMPONENT STYLES
+   Primary styles following the component order above.
 
-   TradeApprovalAndCopies.jsx
-   → .trade-approval
-   → .trade-copies
+   RESPONSIVE
+   Breakpoint-specific rules for those same components.
 
-   TradeOwnership.jsx
-   → .trade-owners
+   CROSS-COMPONENT OVERRIDES
+   Active visual refinements added after the base styles.
+   They are not separate React components.
+   Ownership is determined by the CSS prefix.
 
-   TradeRestrictedDocuments.jsx
-   → .trade-restricted
-
-   TradeServiceScope.jsx
-   → .trade-service
-
-   TradePricing.jsx
-   → .trade-prices
-   → .trade-price
-
-   TradeRequiredDocuments.jsx
-   → .trade-documents
-
-   TradePassportForm.jsx
-   → .trade-form
-
-   TradePassportActualization.jsx
-   → .trade-actualization
-
-   TradeShoppingCenterInfo.jsx
-   → .trade-mall
-
-   TradeWorkApproach.jsx
-   → .trade-why
-
-   TradeFaq.jsx
-   → .trade-faq
-
-   FinalCTA:
-   Компонент подключён в TradePage.jsx,
-   но его стили находятся вне TradePage.css.
-
-   Структура файла:
-   1. Базовые стили блоков в порядке JSX.
-   2. Responsive-правила соответствующих stage.
-   3. TRADE_UI_POLISH — поздние визуальные уточнения.
-   4. Final consolidated state — точечные финальные overrides.
+   FINAL OVERRIDE
+   The current final cascade state for a specific component detail.
+   During future refactoring these rules can be folded back into
+   the owning component block.
 
    ========================================================================== */
 
 
 /* --------------------------------------------------------------------------
-   TradePage.jsx — общие стили страницы
+   TradePage.jsx — shared page styles
 
-   Используются несколькими дочерними компонентами.
-   Здесь находятся базовая оболочка страницы и общие элементы
-   визуального языка TradePage.
+   Common styles used across several TradePage components.
    -------------------------------------------------------------------------- */
 
 .trade-page {
@@ -121,14 +138,10 @@
 
 
 /* ==========================================================================
-   TRADE_STAGE_1_V1 — первый экран и нормативное основание
+   BASE COMPONENT STYLES — HERO / OBJECTS / REGULATION
 
-   TradePage.jsx:
-   → TradeHeroAndObjects
-   → TradeRegulation
-
-   Содержит hero, применимость требований, типы торговых объектов
-   и карточку ПП РФ №1273.
+   TradeHeroAndObjects.jsx
+   TradeRegulation.jsx
    ========================================================================== */
 
 
@@ -938,7 +951,9 @@
 }
 
 
-/* RESPONSIVE */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — hero / applicability / objects / regulation
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .trade-hero__layout {
@@ -1156,14 +1171,10 @@
 
 
 /* ==========================================================================
-   TRADE_STAGE_2_V1 — изменения, категорирование и акт
+   BASE COMPONENT STYLES — CHANGES / CATEGORIZATION / ACT
 
-   TradePage.jsx:
-   → TradeRegulationChanges
-   → TradeCategorizationAndAct
-
-   Содержит изменения требований, процесс категорирования
-   и блок результата обследования / акта.
+   TradeRegulationChanges.jsx
+   TradeCategorizationAndAct.jsx
    ========================================================================== */
 
 
@@ -1626,7 +1637,9 @@
 }
 
 
-/* STAGE 2 RESPONSIVE */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — regulation changes / categorization / act
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .trade-changes__grid {
@@ -1805,15 +1818,11 @@
 
 
 /* ==========================================================================
-   TRADE_STAGE_3_V1 — разработка и согласование паспорта
+   BASE COMPONENT STYLES — PASSPORT / APPROVAL / OWNERSHIP
 
-   TradePage.jsx:
-   → TradePassportDevelopment
-   → TradeApprovalAndCopies
-   → TradeOwnership
-
-   Содержит сроки разработки, согласование, экземпляры паспорта
-   и правила для нескольких собственников.
+   TradePassportDevelopment.jsx
+   TradeApprovalAndCopies.jsx
+   TradeOwnership.jsx
    ========================================================================== */
 
 
@@ -2335,7 +2344,9 @@
 }
 
 
-/* STAGE 3 RESPONSIVE */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — passport / approval / copies / ownership
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .trade-passport__heading,
@@ -2476,16 +2487,12 @@
 
 
 /* ==========================================================================
-   TRADE_STAGE_4_V1 — ограничения, услуги, стоимость и документы
+   BASE COMPONENT STYLES — RESTRICTED / SERVICE / PRICING / DOCUMENTS
 
-   TradePage.jsx:
-   → TradeRestrictedDocuments
-   → TradeServiceScope
-   → TradePricing
-   → TradeRequiredDocuments
-
-   Содержит правила работы с ограниченной информацией,
-   состав услуги, цены и перечень исходных документов.
+   TradeRestrictedDocuments.jsx
+   TradeServiceScope.jsx
+   TradePricing.jsx
+   TradeRequiredDocuments.jsx
    ========================================================================== */
 
 
@@ -2972,7 +2979,9 @@
 }
 
 
-/* STAGE 4 RESPONSIVE */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — restricted / service / pricing / documents
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .trade-restricted__layout,
@@ -3108,17 +3117,13 @@
 
 
 /* ==========================================================================
-   TRADE_STAGE_5_V1 — форма паспорта, актуализация и справочные блоки
+   BASE COMPONENT STYLES — FORM / ACTUALIZATION / INFO / FAQ
 
-   TradePage.jsx:
-   → TradePassportForm
-   → TradePassportActualization
-   → TradeShoppingCenterInfo
-   → TradeWorkApproach
-   → TradeFaq
-
-   Содержит форму документа, актуализацию, особенности ТЦ,
-   преимущества работы и FAQ.
+   TradePassportForm.jsx
+   TradePassportActualization.jsx
+   TradeShoppingCenterInfo.jsx
+   TradeWorkApproach.jsx
+   TradeFaq.jsx
    ========================================================================== */
 
 
@@ -3791,7 +3796,9 @@
 }
 
 
-/* STAGE 5 RESPONSIVE */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — form / actualization / shopping center / approach / FAQ
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .trade-form__layout,
@@ -3972,13 +3979,10 @@
 
 
 /* ==========================================================================
-   TRADE_UI_POLISH_V1 — cross-component visual refinement
+   CROSS-COMPONENT OVERRIDES — LAYOUT / HIERARCHY / INTERACTION
 
-   Поздний слой визуальных уточнений поверх базовых компонентов:
-   ритм, иерархия, карточки и interaction states.
-
-   Принадлежность правила определяется теми же CSS-prefix,
-   которые перечислены в карте компонентов в начале файла.
+   Active refinements shared across several TradePage components.
+   These rules belong to the component identified by their CSS prefix.
    ========================================================================== */
 
 
@@ -5343,19 +5347,14 @@ summary {
 }
 
 
-/* ========================================
-   TRADE_UI_POLISH_V1:end
-   ======================================== */
+
 
 
 /* ==========================================================================
-   TRADE_UI_POLISH_V2 — visual language pass
+   CROSS-COMPONENT OVERRIDES — COLOR / SURFACE / ACCENT SYSTEM
 
-   Общий поздний слой для компонентов TradePage:
-   нейтральные поверхности, чёрные блоки и lime-accent.
-
-   Это не отдельный JSX-компонент — правила ниже уточняют
-   существующие component-prefix из основной структуры файла.
+   Current neutral, black and lime visual language for TradePage.
+   These rules refine existing component styles.
    ========================================================================== */
 
 
@@ -6244,14 +6243,15 @@ article > span {
 }
 
 
-/* ========================================
-   TRADE_UI_POLISH_V2:end
-   ======================================== */
 
 
-/* ========================================
-   TRADE_IMPORTANT_CARD_FIX_V1:start
-   ======================================== */
+
+/* --------------------------------------------------------------------------
+   TradeHeroAndObjects.jsx — objects notice refinement
+
+   Final visual treatment of the important notice
+   below the list of trading object types.
+   -------------------------------------------------------------------------- */
 
 
 /*
@@ -6299,18 +6299,14 @@ article > span {
 }
 
 
-/* ========================================
-   TRADE_IMPORTANT_CARD_FIX_V1:end
-   ======================================== */
+
 
 
 /* ==========================================================================
-   TRADE_UI_POLISH_V3 — targeted composition fixes
+   CROSS-COMPONENT OVERRIDES — COMPOSITION
 
-   Точечные финальные правки композиции отдельных компонентов:
-   regulation, categorization, act и связанных карточек.
-
-   Новых компонентов этот слой не создаёт.
+   Current composition corrections for selected TradePage components.
+   No separate React component is represented by this section.
    ========================================================================== */
 
 
@@ -6923,19 +6919,19 @@ strong {
 }
 
 
-/* ========================================
-   TRADE_UI_POLISH_V3:end
-   ======================================== */
+
 
 /* Remove gray background from trade objects section */
 .trade-objects {
   background: #fff;
 }
 
-/* ========================================
-   TRADE REGULATION IDENTITY
-   Final consolidated state
-   ======================================== */
+/* --------------------------------------------------------------------------
+   TradeRegulation.jsx — regulation identity
+
+   FINAL OVERRIDE:
+   current visual state of the PP RF / number / date card.
+   -------------------------------------------------------------------------- */
 
 .trade-regulation__identity {
   position: sticky;
@@ -7045,10 +7041,12 @@ strong {
 }
 
 
-/* ========================================
-   TRADE REGULATION NOTICE ALIGNMENT
-   Final consolidated state
-   ======================================== */
+/* --------------------------------------------------------------------------
+   TradeRegulation.jsx — regulation notice alignment
+
+   FINAL OVERRIDE:
+   current notice grid and icon alignment.
+   -------------------------------------------------------------------------- */
 
 .trade-regulation__notice {
   grid-template-columns:
@@ -7070,10 +7068,12 @@ strong {
 }
 
 
-/* ========================================
-   TRADE COPIES NOTE
-   Final consolidated state
-   ======================================== */
+/* --------------------------------------------------------------------------
+   TradeApprovalAndCopies.jsx — copies note
+
+   FINAL OVERRIDE:
+   current note layout and plus icon.
+   -------------------------------------------------------------------------- */
 
 .trade-copies__note {
   grid-template-columns:
@@ -7138,10 +7138,12 @@ strong {
 }
 
 
-/* ========================================
-   TRADE EXPERT NOTE
-   Final consolidated state
-   ======================================== */
+/* --------------------------------------------------------------------------
+   TradeCategorizationAndAct.jsx — expert note
+
+   FINAL OVERRIDE:
+   current expert note layout and icon.
+   -------------------------------------------------------------------------- */
 
 .trade-categorization__expert-note {
   grid-template-columns:
@@ -7203,10 +7205,12 @@ strong {
 }
 
 
-/* ========================================
-   TRADE MALL DIVIDER
-   Final consolidated state
-   ======================================== */
+/* --------------------------------------------------------------------------
+   TradeShoppingCenterInfo.jsx — column divider
+
+   FINAL OVERRIDE:
+   divider between the index and content columns.
+   -------------------------------------------------------------------------- */
 
 /*
  * Старый декоративный ::before больше
@@ -7292,9 +7296,11 @@ strong {
 }
 
 
-/* ========================================
-   UNIFIED SECTION LABEL COLOR
-======================================== */
+/* --------------------------------------------------------------------------
+   Shared TradePage — section kicker accent
+
+   Shared final color treatment for section labels.
+   -------------------------------------------------------------------------- */
 
 .trade-page .trade-kicker {
   color: var(--color-primary);
@@ -7347,10 +7353,9 @@ strong {
 
 /* === /trade form CTA arrow === */
 
-/* ========================================================
-   FAQ_ANSWER_TOP_SPACING_V1
-   Extra breathing room between FAQ question and answer
-   ======================================================== */
+/* --------------------------------------------------------------------------
+   TradeFaq.jsx — answer spacing
+   -------------------------------------------------------------------------- */
 
 .trade-faq__answer {
   padding-top: 18px !important;
@@ -7362,24 +7367,22 @@ strong {
   }
 }
 
-/* /FAQ_ANSWER_TOP_SPACING_V1 */
 
-/* ========================================================
-   FAQ_ICON_ALWAYS_ROUND_V1
-   Keep FAQ toggle round in every state
-   ======================================================== */
+
+/* --------------------------------------------------------------------------
+   TradeFaq.jsx — toggle icon shape
+   -------------------------------------------------------------------------- */
 
 .trade-faq__toggle {
   border-radius: 50% !important;
 }
 
-/* /FAQ_ICON_ALWAYS_ROUND_V1 */
 
 
-/* ========================================================
-   TRADE_MOBILE_APPLICABILITY_FIX_V1
-   Fix applicability cards on mobile
-   ======================================================== */
+
+/* --------------------------------------------------------------------------
+   TradeHeroAndObjects.jsx — applicability mobile layout
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 768px) {
 
@@ -7426,13 +7429,12 @@ strong {
   }
 }
 
-/* /TRADE_MOBILE_APPLICABILITY_FIX_V1 */
 
 
-/* ========================================================
-   TRADE_MOBILE_FAQ_LAYOUT_FIX_V1
-   Prevent FAQ heading/intro/list overlap on mobile
-   ======================================================== */
+
+/* --------------------------------------------------------------------------
+   TradeFaq.jsx — mobile layout
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 768px) {
 
@@ -7512,13 +7514,12 @@ strong {
   }
 }
 
-/* /TRADE_MOBILE_FAQ_LAYOUT_FIX_V1 */
 
 
-/* ========================================================
-   TRADE_MOBILE_FAQ_STICKY_FIX_V1
-   Disable sticky FAQ heading on mobile
-   ======================================================== */
+
+/* --------------------------------------------------------------------------
+   TradeFaq.jsx — mobile sticky behavior
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 768px) {
   .trade-faq__heading {
@@ -7526,5 +7527,3 @@ strong {
     top: auto !important;
   }
 }
-
-/* /TRADE_MOBILE_FAQ_STICKY_FIX_V1 */
