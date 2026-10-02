@@ -5,8 +5,6 @@ import {
 } from './educationRegion';
 
 import {
-  educationServiceItems,
-  educationPrices,
   educationSourceData,
   educationPassportStructure,
   educationActualizationReasons,
@@ -29,6 +27,19 @@ from './components/EducationPassportProcess';
 
 import EducationApproval
 from './components/EducationApproval';
+
+
+import EducationPassportCopies
+from './components/EducationPassportCopies';
+
+import EducationRestrictedDocuments
+from './components/EducationRestrictedDocuments';
+
+import EducationServiceScope
+from './components/EducationServiceScope';
+
+import EducationPricing
+from './components/EducationPricing';
 import Container from '../../components/ui/Container/Container';
 import FinalCTA from '../../sections/FinalCTA/FinalCTA';
 import { useCity } from '../../context/GeoContext';
@@ -93,280 +104,13 @@ export default function EducationPage({
 
       {/* EDUCATION_STAGE_3_V1:sections */}
 
-      <section className="education-copies">
-        <Container>
-          <div className="education-copies__heading">
-            <p className="education-kicker">
-              Экземпляры и хранение
-            </p>
+      <EducationPassportCopies />
 
-            <h2>
-              Сколько экземпляров паспорта оформляется
-            </h2>
+      <EducationRestrictedDocuments />
 
-            <p>
-              Порядок зависит от нормативного режима
-              конкретного образовательного объекта.
-            </p>
-          </div>
+      <EducationServiceScope />
 
-
-          <div className="education-copies__comparison">
-            <article className="education-copies__card education-copies__card--primary">
-              <div className="education-copies__card-top">
-                <span>
-                  ПП РФ №1006
-                </span>
-
-                <strong>
-                  2 экземпляра
-                </strong>
-              </div>
-
-              <ol>
-                <li>
-                  <span>
-                    01
-                  </span>
-
-                  <p>
-                    Первый экземпляр хранится
-                    непосредственно на объекте.
-                  </p>
-                </li>
-
-                <li>
-                  <span>
-                    02
-                  </span>
-
-                  <p>
-                    Второй направляется организации
-                    или органу, являющемуся
-                    правообладателем объекта.
-                  </p>
-                </li>
-              </ol>
-
-              <div className="education-copies__extra">
-                <strong>
-                  Дополнительно
-                </strong>
-
-                <p>
-                  Копия паспорта направляется
-                  в территориальный орган безопасности.
-                </p>
-              </div>
-            </article>
-
-
-            <article className="education-copies__card">
-              <div className="education-copies__card-top">
-                <span>
-                  ПП РФ №1421
-                </span>
-
-                <strong>
-                  1 экземпляр
-                </strong>
-              </div>
-
-              <p className="education-copies__card-text">
-                Для объекта, подпадающего под этот
-                нормативный режим, порядок оформления
-                отличается от правил ПП РФ №1006.
-              </p>
-
-              <div className="education-copies__warning">
-                <span aria-hidden="true">
-                  !
-                </span>
-
-                <p>
-                  Количество экземпляров и порядок
-                  хранения нельзя автоматически
-                  переносить с одного вида
-                  образовательного объекта на другой.
-                </p>
-              </div>
-            </article>
-          </div>
-        </Container>
-      </section>
-
-
-      <section className="education-restricted">
-        <Container>
-          <div className="education-restricted__layout">
-            <div className="education-restricted__marker">
-              ДСП
-            </div>
-
-            <div className="education-restricted__content">
-              <p className="education-kicker">
-                Ограниченное распространение
-              </p>
-
-              <h2>
-                Можно ли публиковать паспорт
-                образовательной организации
-              </h2>
-
-              <p className="education-restricted__lead">
-                Для объектов по ПП РФ №1006 паспорт
-                является документом со служебной
-                информацией ограниченного
-                распространения и имеет пометку
-                «Для служебного пользования».
-              </p>
-
-
-              <div className="education-restricted__rule">
-                <strong>
-                  Поэтому реальный заполненный
-                  паспорт клиента не публикуем.
-                </strong>
-
-                <p>
-                  Для ознакомления используем
-                  официальную форму, обезличенную
-                  структуру документа и пояснения
-                  по заполнению.
-                </p>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-
-      <section className="education-service">
-        <Container>
-          <div className="education-service__heading">
-            <p className="education-kicker">
-              Что входит в работу
-            </p>
-
-            <h2>
-              Разработка документов
-              для образовательной организации
-            </h2>
-
-            <p>
-              Состав работ определяется после
-              проверки применимых требований
-              и текущего состояния документов
-              конкретного объекта.
-            </p>
-          </div>
-
-
-          <div className="education-service__list">
-            {educationServiceItems.map(
-              (item) => (
-                <article
-                  className="education-service__item"
-                  key={item.number}
-                >
-                  <span className="education-service__number">
-                    {item.number}
-                  </span>
-
-                  <div>
-                    <h3>
-                      {item.title}
-                    </h3>
-
-                    <p>
-                      {item.text}
-                    </p>
-                  </div>
-                </article>
-              ),
-            )}
-          </div>
-        </Container>
-      </section>
-
-
-      <section className="education-price">
-        <Container>
-          <div className="education-price__layout">
-            <div className="education-price__heading">
-              <p className="education-kicker">
-                Стоимость
-              </p>
-
-              <h2>
-                Стоимость разработки паспорта
-                образовательной организации
-              </h2>
-
-              <p>
-                Можно заказать отдельный документ
-                или комплекс работ в зависимости
-                от текущего состояния объекта
-                и имеющейся документации.
-              </p>
-            </div>
-
-
-            <div className="education-price__content">
-              <div className="education-price__list">
-                {educationPrices.map(
-                  (item) => (
-                    <article
-                      className="education-price__item"
-                      key={item.title}
-                    >
-                      <div>
-                        <h3>
-                          {item.title}
-                        </h3>
-
-                        <p>
-                          {item.note}
-                        </p>
-                      </div>
-
-                      <strong>
-                        {item.price}
-                      </strong>
-                    </article>
-                  ),
-                )}
-              </div>
-
-
-              <div className="education-price__note">
-                <span aria-hidden="true">
-                  ✓
-                </span>
-
-                <p>
-                  Если у образовательной организации
-                  уже имеется актуальный акт
-                  категорирования, можно заказать
-                  только разработку паспорта.
-                  Если объект ещё не категорирован,
-                  сначала проводится соответствующая
-                  процедура.
-                </p>
-              </div>
-
-
-              <a
-                className="button button--primary"
-                href="#lead-form"
-              >
-                Рассчитать стоимость
-              </a>
-            </div>
-          </div>
-        </Container>
-      </section>
-
+      <EducationPricing />
 
       {/* EDUCATION_STAGE_4_V1:sections */}
 
