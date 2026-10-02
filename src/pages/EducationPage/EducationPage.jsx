@@ -5,9 +5,6 @@ import {
 } from './educationRegion';
 
 import {
-  educationCategories,
-  educationProcess,
-  approvalAuthorities,
   educationServiceItems,
   educationPrices,
   educationSourceData,
@@ -22,6 +19,16 @@ from './components/EducationHeroAndObjects';
 
 import EducationRegulation
 from './components/EducationRegulation';
+
+
+import EducationCategories
+from './components/EducationCategories';
+
+import EducationPassportProcess
+from './components/EducationPassportProcess';
+
+import EducationApproval
+from './components/EducationApproval';
 import Container from '../../components/ui/Container/Container';
 import FinalCTA from '../../sections/FinalCTA/FinalCTA';
 import { useCity } from '../../context/GeoContext';
@@ -78,261 +85,11 @@ export default function EducationPage({
 
       {/* EDUCATION_STAGE_2_V1:sections */}
 
-      <section className="education-categories">
-        <Container>
-          <div className="education-categories__heading">
-            <div>
-              <p className="education-kicker">
-                Категорирование
-              </p>
+      <EducationCategories />
 
-              <h2>
-                Категорирование образовательной организации
-              </h2>
-            </div>
+      <EducationPassportProcess />
 
-            <p className="education-categories__lead">
-              Для объектов, подпадающих под ПП РФ №1006,
-              предусмотрены четыре категории опасности.
-              Категория определяется с учётом
-              прогнозируемого количества пострадавших
-              и численности населения населённого пункта.
-            </p>
-          </div>
-
-
-          <div className="education-categories__notice">
-            <span
-              className="education-categories__notice-mark"
-              aria-hidden="true"
-            >
-              !
-            </span>
-
-            <div>
-              <strong>
-                Категорию определяет комиссия
-                по обследованию и категорированию
-              </strong>
-
-              <p>
-                Подрядчик может готовить исходные
-                материалы, расчёты и проекты документов,
-                но не присваивает категорию объекту
-                единолично.
-              </p>
-            </div>
-          </div>
-
-
-          <div className="education-categories__list">
-            {educationCategories.map(
-              (category) => (
-                <details
-                  className="education-category"
-                  key={category.id}
-                >
-                  <summary>
-                    <span className="education-category__title">
-                      {category.title}
-                    </span>
-
-                    <span className="education-category__summary">
-                      {category.summary}
-                    </span>
-
-                    <span
-                      className="education-category__toggle"
-                      aria-hidden="true"
-                    >
-                      +
-                    </span>
-                  </summary>
-
-                  <div className="education-category__body">
-                    <ul>
-                      {category.criteria.map(
-                        (criterion) => (
-                          <li key={criterion}>
-                            {criterion}
-                          </li>
-                        ),
-                      )}
-                    </ul>
-                  </div>
-                </details>
-              ),
-            )}
-          </div>
-
-
-          <a
-            className="education-text-link"
-            href="/akt-obsledovaniya-i-kategorirovaniya-obekta/"
-          >
-            Акт обследования и категорирования объекта
-
-            <span aria-hidden="true">
-              →
-            </span>
-          </a>
-        </Container>
-      </section>
-
-
-      <section className="education-process">
-        <Container>
-          <div className="education-process__heading">
-            <p className="education-kicker">
-              Порядок работы
-            </p>
-
-            <h2>
-              Как оформить паспорт безопасности
-              образовательной организации
-            </h2>
-
-            <p>
-              Сначала определяем нормативный режим
-              конкретного объекта. После этого
-              последовательно проходим этапы
-              категорирования и подготовки паспорта.
-            </p>
-          </div>
-
-
-          <ol className="education-process__list">
-            {educationProcess.map(
-              (item, index) => (
-                <li
-                  className="education-process__step"
-                  key={item}
-                >
-                  <span className="education-process__number">
-                    {String(
-                      index + 1,
-                    ).padStart(2, '0')}
-                  </span>
-
-                  <p>
-                    {item}
-                  </p>
-                </li>
-              ),
-            )}
-          </ol>
-
-
-          <aside className="education-process__term">
-            <span>
-              Для объектов по ПП РФ №1006
-            </span>
-
-            <strong>
-              Паспорт составляется
-              в течение 30 дней
-            </strong>
-
-            <p>
-              Срок отсчитывается после проведения
-              обследования и категорирования объекта.
-            </p>
-          </aside>
-        </Container>
-      </section>
-
-
-      <section className="education-approval">
-        <Container>
-          <div className="education-approval__layout">
-            <div className="education-approval__heading">
-              <p className="education-kicker">
-                Согласование по №1006
-              </p>
-
-              <h2>
-                С кем согласовывается паспорт
-                образовательной организации
-              </h2>
-
-              <p>
-                По ПП РФ №1006 паспорт подписывает
-                лицо, непосредственно руководящее
-                деятельностью работников на объекте.
-                После этого документ проходит
-                установленное согласование.
-              </p>
-            </div>
-
-
-            <div className="education-approval__content">
-              <div className="education-approval__authorities">
-                {approvalAuthorities.map(
-                  (item) => (
-                    <article
-                      className="education-approval__authority"
-                      key={item.number}
-                    >
-                      <span>
-                        {item.number}
-                      </span>
-
-                      <h3>
-                        {item.title}
-                      </h3>
-                    </article>
-                  ),
-                )}
-              </div>
-
-
-              <div className="education-approval__timing">
-                <div>
-                  <span>
-                    Общий срок согласования
-                  </span>
-
-                  <strong>
-                    не более 45 рабочих дней
-                  </strong>
-
-                  <p>
-                    Со дня подписания паспорта.
-                  </p>
-                </div>
-
-                <div>
-                  <span>
-                    Рассмотрение каждым органом
-                  </span>
-
-                  <strong>
-                    не более 10 дней
-                  </strong>
-
-                  <p>
-                    С момента поступления документа.
-                  </p>
-                </div>
-              </div>
-
-
-              <div className="education-approval__finish">
-                <span>
-                  После согласования
-                </span>
-
-                <p>
-                  Паспорт утверждает руководитель
-                  организации-правообладателя
-                  либо уполномоченное лицо.
-                </p>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-
+      <EducationApproval />
 
       {/* EDUCATION_STAGE_3_V1:sections */}
 
