@@ -1,10 +1,8 @@
 import './CulturePage.css';
 
 import {
-  cultureActualizationReasons,
   cultureWhyItems,
   cultureFaqItems,
-  cultureFormStructure,
 } from './culturePageData';
 
 import CultureHeroAndObjects
@@ -31,6 +29,16 @@ from './components/CulturePricing';
 
 import CultureRequiredDocuments
 from './components/CultureRequiredDocuments';
+
+
+import CulturePassportForm
+from './components/CulturePassportForm';
+
+import CulturePassportActualization
+from './components/CulturePassportActualization';
+
+import CultureCurrentRequirements
+from './components/CultureCurrentRequirements';
 import Container from '../../components/ui/Container/Container';
 import FinalCTA from '../../sections/FinalCTA/FinalCTA';
 import { useCity } from '../../context/GeoContext';
@@ -257,317 +265,11 @@ export default function CulturePage({
       <CultureRequiredDocuments />
 
 
-      <section
-        className="culture-form"
-        id="culture-form"
-      >
-        <Container>
-          <div className="culture-form__header">
-            <div>
-              <p className="culture-kicker">
-                Форма и образец
-              </p>
+      <CulturePassportForm />
 
-              <h2>
-                Форма паспорта безопасности
-                объекта культуры
-              </h2>
-            </div>
+      <CulturePassportActualization />
 
-            <div className="culture-form__intro">
-              <p>
-                Официальная форма паспорта
-                утверждена ПП РФ №176.
-                После изменений 2025 года
-                для нового документа необходимо
-                использовать актуальную форму.
-              </p>
-
-              <p>
-                Заполненный паспорт действующего
-                объекта в открытом доступе
-                не публикуем из-за ограниченного
-                характера содержащихся в нём сведений.
-              </p>
-            </div>
-          </div>
-
-          <div className="culture-form__layout">
-            <div className="culture-form__document">
-              <div className="culture-form__document-head">
-                <span>
-                  Паспорт безопасности
-                </span>
-
-                <strong>
-                  №176
-                </strong>
-              </div>
-
-              <div className="culture-form__document-body">
-                <span>
-                  Обезличенная структура
-                </span>
-
-                <p>
-                  Показываем состав разделов,
-                  а не сведения конкретного
-                  учреждения культуры.
-                </p>
-              </div>
-
-              <div className="culture-form__document-footer">
-                <span>
-                  ДСП
-                </span>
-
-                <span>
-                  актуальная форма
-                </span>
-              </div>
-            </div>
-
-            <div className="culture-form__structure">
-              <p className="culture-form__structure-label">
-                Основные разделы формы
-              </p>
-
-              <ol>
-                {cultureFormStructure.map(
-                  (item, index) => (
-                    <li key={item}>
-                      <span>
-                        {String(
-                          index + 1,
-                        ).padStart(
-                          2,
-                          '0',
-                        )}
-                      </span>
-
-                      <strong>
-                        {item}
-                      </strong>
-                    </li>
-                  ),
-                )}
-              </ol>
-
-              <a
-                className="button button--primary"
-                href="#contact"
-              >
-                Получить форму для объекта культуры
-              </a>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-
-      <section
-        className="culture-actualization"
-        id="culture-actualization"
-      >
-        <Container>
-          <div className="culture-actualization__header">
-            <div>
-              <p className="culture-kicker">
-                Актуализация
-              </p>
-
-              <h2>
-                Как часто актуализировать
-                паспорт объекта культуры
-              </h2>
-            </div>
-
-            <div className="culture-actualization__periods">
-              <div>
-                <span>
-                  Периодически
-                </span>
-
-                <strong>
-                  3 года
-                </strong>
-
-                <p>
-                  не реже одного раза
-                </p>
-              </div>
-
-              <div>
-                <span>
-                  При изменениях
-                </span>
-
-                <strong>
-                  5 дней
-                </strong>
-
-                <p>
-                  рабочих дней
-                  на актуализацию
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="culture-actualization__layout">
-            <div className="culture-actualization__reasons">
-              <p className="culture-actualization__label">
-                Актуализация требуется также
-                при изменении
-              </p>
-
-              {cultureActualizationReasons.map(
-                (item) => (
-                  <article
-                    className="culture-actualization__reason"
-                    key={item.number}
-                  >
-                    <span>
-                      {item.number}
-                    </span>
-
-                    <div>
-                      <h3>
-                        {item.title}
-                      </h3>
-
-                      <p>
-                        {item.text}
-                      </p>
-                    </div>
-                  </article>
-                ),
-              )}
-            </div>
-
-            <aside className="culture-actualization__aside">
-              <div>
-                <span className="culture-actualization__aside-kicker">
-                  После актуализации
-                </span>
-
-                <p>
-                  Изменения заверяются подписью
-                  руководителя организации
-                  в сфере культуры —
-                  правообладателя объекта.
-                </p>
-
-                <p>
-                  После завершения актуализации
-                  паспорт снова направляется
-                  на предусмотренное согласование.
-                </p>
-              </div>
-
-              <a
-                className="culture-inline-link"
-                href="/aktualizaciya-pasporta-bezopasnosti-obekta/"
-              >
-                Подробнее об актуализации
-                паспорта безопасности
-
-                <span aria-hidden="true">
-                  ↗
-                </span>
-              </a>
-            </aside>
-          </div>
-        </Container>
-      </section>
-
-
-      <section
-        className="culture-standard"
-        id="culture-standard"
-      >
-        <Container>
-          <div className="culture-standard__panel">
-            <div className="culture-standard__identity">
-              <p className="culture-kicker">
-                Требования 2026 года
-              </p>
-
-              <span>
-                ГОСТ
-              </span>
-
-              <strong>
-                Р 72551-2026
-              </strong>
-            </div>
-
-            <div className="culture-standard__content">
-              <div className="culture-standard__date">
-                <span>
-                  Действует с
-                </span>
-
-                <strong>
-                  01.05.2026
-                </strong>
-              </div>
-
-              <h2>
-                Что учитывать
-                при разработке в 2026 году
-              </h2>
-
-              <p className="culture-standard__lead">
-                ГОСТ Р 72551-2026 устанавливает
-                общие требования к услугам
-                по категорированию объектов
-                и разработке паспортов безопасности.
-              </p>
-
-              <div className="culture-standard__important">
-                <span>
-                  Важно
-                </span>
-
-                <p>
-                  ГОСТ Р 72551-2026 не заменяет
-                  специальные требования
-                  ПП РФ №176. Для объекта культуры
-                  конкретный порядок категорирования
-                  и форма паспорта определяются
-                  прежде всего применимыми
-                  обязательными требованиями №176.
-                </p>
-              </div>
-
-              <div className="culture-standard__facts">
-                <div>
-                  <span>
-                    ПП РФ №176
-                  </span>
-
-                  <p>
-                    Действующая редакция —
-                    от 08.05.2025.
-                  </p>
-                </div>
-
-                <div>
-                  <span>
-                    Форма паспорта
-                  </span>
-
-                  <p>
-                    Изменённая форма применяется
-                    после изменений мая 2025 года.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
+      <CultureCurrentRequirements />
 
 
       <section
