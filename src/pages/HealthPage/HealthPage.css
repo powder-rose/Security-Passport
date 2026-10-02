@@ -1,3 +1,76 @@
+/* ==========================================================================
+   HEALTH PAGE
+   ==========================================================================
+
+   React entry:
+   HealthPage.jsx
+
+   COMPONENT OWNERSHIP
+
+   01. HealthHeroAndObjects.jsx
+       .health-hero*
+       .health-objects*
+       .health-object*
+       .health-breadcrumbs
+       .health-inline-link
+
+   02. HealthRegulationAndCategories.jsx
+       .health-regulation*
+       .health-categories*
+       .health-category*
+
+   03. HealthCommissionAndAct.jsx
+       .health-commission*
+       .health-act*
+
+   04. HealthPassportProcess.jsx
+       .health-process*
+       .health-approval*
+       .health-copies*
+
+   05. HealthRestrictedDocuments.jsx
+       .health-restricted*
+
+   06. HealthServiceScope.jsx
+       .health-service*
+
+   07. HealthPricing.jsx
+       .health-prices*
+       .health-price-primary
+
+   08. HealthRequiredDocuments.jsx
+       .health-documents*
+
+   09. HealthPassportStructure.jsx
+       .health-form*
+
+   10. HealthPassportActualization.jsx
+       .health-actualization*
+
+   11. HealthMedicalOrganizations.jsx
+       .health-medical*
+
+   12. HealthCurrentRequirements.jsx
+       .health-current*
+
+   13. HealthWorkApproach.jsx
+       .health-why*
+
+   14. HealthFaq.jsx
+       .health-faq*
+
+   Shared page selectors:
+       .health-page
+       .health-kicker
+
+   External section:
+       FinalCTA owns its own styles.
+
+   The file describes the CURRENT rendered HealthPage.
+   Historical stage/version layers are intentionally absent.
+   ========================================================================== */
+
+
 .health-page {
   --health-accent:
     var(--color-accent);
@@ -28,6 +101,10 @@
 /* ========================================
    HERO
    ======================================== */
+
+/* ==========================================================================
+   HealthHeroAndObjects.jsx — HERO AND OBJECTS
+   ========================================================================== */
 
 .health-hero {
   padding:
@@ -942,15 +1019,13 @@
 }
 
 
-/* ========================================
-   HEALTH_STAGE_2_V1
-   Regulation + category matrix
-   ======================================== */
-
-
 /* ----------------------------------------
    REGULATION
    ---------------------------------------- */
+
+/* ==========================================================================
+   HealthRegulationAndCategories.jsx — REGULATION AND CATEGORIES
+   ========================================================================== */
 
 .health-regulation {
   padding:
@@ -1595,9 +1670,9 @@ article > span {
 }
 
 
-/* ----------------------------------------
-   STAGE 2 RESPONSIVE
-   ---------------------------------------- */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — regulation and categories
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .health-regulation__layout {
@@ -1823,15 +1898,13 @@ article > span {
 }
 
 
-/* ========================================
-   HEALTH_STAGE_3_V1
-   Commission + categorization act
-   ======================================== */
-
-
 /* ----------------------------------------
    COMMISSION
    ---------------------------------------- */
+
+/* ==========================================================================
+   HealthCommissionAndAct.jsx — COMMISSION AND ACT
+   ========================================================================== */
 
 .health-commission {
   padding:
@@ -1930,9 +2003,7 @@ article > span {
     1px solid
     var(--color-border);
 
-  border-bottom:
-    1px solid
-    var(--color-border);
+  border-bottom: 0;
 }
 
 
@@ -2046,9 +2117,7 @@ article > span {
   padding:
     24px 4px;
 
-  border-bottom:
-    1px solid
-    var(--color-border);
+  border-bottom: 0;
 
   transition:
     padding-left 190ms ease,
@@ -2496,9 +2565,9 @@ article > span {
 }
 
 
-/* ----------------------------------------
-   STAGE 3 RESPONSIVE
-   ---------------------------------------- */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — commission and categorization act
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .health-commission__layout {
@@ -2686,15 +2755,13 @@ article > span {
 }
 
 
-/* ========================================
-   HEALTH_STAGE_4_V1
-   Process + approval + passport copies
-   ======================================== */
-
-
 /* ----------------------------------------
    PROCESS
    ---------------------------------------- */
+
+/* ==========================================================================
+   HealthPassportProcess.jsx — PASSPORT PROCESS
+   ========================================================================== */
 
 .health-process {
   padding:
@@ -2998,9 +3065,7 @@ article > span {
     1px solid
     rgb(255 255 255 / 18%);
 
-  border-bottom:
-    1px solid
-    rgb(255 255 255 / 18%);
+  border-bottom: 0;
 }
 
 
@@ -3084,9 +3149,7 @@ article > span {
 
 
 .health-approval__authorities {
-  border-top:
-    1px solid
-    rgb(255 255 255 / 18%);
+  border-top: 0;
 }
 
 
@@ -3195,9 +3258,7 @@ article > span {
     1px solid
     rgb(255 255 255 / 18%);
 
-  border-bottom:
-    1px solid
-    rgb(255 255 255 / 18%);
+  border-bottom: 0;
 }
 
 
@@ -3492,9 +3553,9 @@ article > span {
 }
 
 
-/* ----------------------------------------
-   STAGE 4 RESPONSIVE
-   ---------------------------------------- */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — process, approval and passport copies
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .health-process__layout,
@@ -3667,15 +3728,13 @@ article > span {
 }
 
 
-/* ========================================
-   HEALTH_STAGE_5_V1
-   DSP + service + prices + input data
-   ======================================== */
-
-
 /* ----------------------------------------
    RESTRICTED INFORMATION
    ---------------------------------------- */
+
+/* ==========================================================================
+   HealthRestrictedDocuments.jsx — RESTRICTED DOCUMENTS
+   ========================================================================== */
 
 .health-restricted {
   padding:
@@ -3953,6 +4012,10 @@ article > span {
    SERVICE SCOPE
    ---------------------------------------- */
 
+/* ==========================================================================
+   HealthServiceScope.jsx — SERVICE SCOPE
+   ========================================================================== */
+
 .health-service {
   padding:
     118px 0 126px;
@@ -4109,6 +4172,10 @@ article > span {
 /* ----------------------------------------
    PRICES
    ---------------------------------------- */
+
+/* ==========================================================================
+   HealthPricing.jsx — PRICING
+   ========================================================================== */
 
 .health-prices {
   padding:
@@ -4421,6 +4488,10 @@ article > strong {
    INPUT DATA
    ---------------------------------------- */
 
+/* ==========================================================================
+   HealthRequiredDocuments.jsx — REQUIRED DOCUMENTS
+   ========================================================================== */
+
 .health-documents {
   padding:
     118px 0 126px;
@@ -4633,9 +4704,9 @@ article > span {
 }
 
 
-/* ----------------------------------------
-   STAGE 5 RESPONSIVE
-   ---------------------------------------- */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — restricted documents, service, pricing and required documents
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .health-restricted__layout,
@@ -4857,15 +4928,13 @@ article > span {
 }
 
 
-/* ========================================
-   HEALTH_STAGE_6_V1
-   Form + actualization + medical + 2026
-   ======================================== */
-
-
 /* ----------------------------------------
    FORM
    ---------------------------------------- */
+
+/* ==========================================================================
+   HealthPassportStructure.jsx — PASSPORT STRUCTURE
+   ========================================================================== */
 
 .health-form {
   padding:
@@ -5111,6 +5180,10 @@ li:nth-child(even) {
 /* ----------------------------------------
    ACTUALIZATION
    ---------------------------------------- */
+
+/* ==========================================================================
+   HealthPassportActualization.jsx — ACTUALIZATION
+   ========================================================================== */
 
 .health-actualization {
   padding:
@@ -5423,6 +5496,10 @@ strong {
    MEDICAL ORGANIZATIONS
    ---------------------------------------- */
 
+/* ==========================================================================
+   HealthMedicalOrganizations.jsx — MEDICAL ORGANIZATIONS
+   ========================================================================== */
+
 .health-medical {
   padding:
     118px 0 126px;
@@ -5628,6 +5705,10 @@ strong {
    2026
    ---------------------------------------- */
 
+/* ==========================================================================
+   HealthCurrentRequirements.jsx — CURRENT REQUIREMENTS
+   ========================================================================== */
+
 .health-current {
   padding:
     118px 0 126px;
@@ -5660,13 +5741,15 @@ strong {
   position: sticky;
   top: 110px;
 
-  overflow: hidden;
+  overflow: visible;
 
   padding-top: 24px;
 
   border-top:
     1px solid
     rgb(255 255 255 / 18%);
+
+  padding-bottom: 12px;
 }
 
 
@@ -5714,8 +5797,12 @@ strong {
       9rem
     );
 
-  line-height: .72;
+  line-height: .92;
   letter-spacing: -.09em;
+
+  overflow: visible;
+
+  padding-bottom: .08em;
 }
 
 
@@ -5872,9 +5959,9 @@ article + article {
 }
 
 
-/* ----------------------------------------
-   STAGE 6 RESPONSIVE
-   ---------------------------------------- */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — passport structure, actualization, medical and current requirements
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .health-form__layout,
@@ -6089,15 +6176,13 @@ article + article {
 }
 
 
-/* ========================================
-   HEALTH_STAGE_7_V1
-   Why BOYKOVGROUP + FAQ
-   ======================================== */
-
-
 /* ----------------------------------------
    WHY
    ---------------------------------------- */
+
+/* ==========================================================================
+   HealthWorkApproach.jsx — WORK APPROACH
+   ========================================================================== */
 
 .health-why {
   padding:
@@ -6293,224 +6378,416 @@ article > span {
    FAQ
    ---------------------------------------- */
 
+/* ==========================================================================
+   HealthFaq.jsx — FAQ
+   ==========================================================================
+
+   Current FAQ presentation.
+
+   Base FAQ, desktop spacing, Trade-style presentation,
+   toggle alignment and answer-spacing fixes are consolidated here.
+   ========================================================================== */
+
 .health-faq {
   padding:
-    118px 0 126px;
+    116px
+    0
+    126px !important;
 
-  background: #fff;
+  background:
+    #f5f5f1 !important;
 }
 
 
 .health-faq__layout {
-  display: grid;
+  display:
+    grid !important;
 
   grid-template-columns:
-    minmax(300px, .55fr)
-    minmax(0, 1fr);
+    minmax(300px, .62fr)
+    minmax(0, 1.15fr) !important;
 
   gap:
     clamp(
-      72px,
+      70px,
       10vw,
-      155px
-    );
+      165px
+    ) !important;
 
   align-items: start;
 }
 
 
 .health-faq__heading {
-  position: sticky;
-  top: 110px;
+  position:
+    sticky !important;
+
+  top:
+    110px !important;
+
+  align-self:
+    start !important;
 }
 
 
 .health-faq__heading h2 {
-  max-width: 590px;
+  max-width:
+    600px !important;
 
-  margin: 0;
+  margin:
+    0 !important;
 
   font-size:
     clamp(
-      2.8rem,
-      4.15vw,
-      4.55rem
-    );
+      2.65rem,
+      3.9vw,
+      4.25rem
+    ) !important;
 
-  line-height: .98;
-  letter-spacing: -.06em;
+  line-height:
+    1 !important;
+
+  letter-spacing:
+    -.055em !important;
 
   text-wrap: balance;
 }
 
 
-.health-faq__heading > p {
-  max-width: 500px;
+.health-faq__heading
+> p:not([class]) {
+  max-width:
+    560px !important;
 
   margin:
-    28px 0 0;
+    30px
+    0
+    0 !important;
 
   color:
-    var(--color-text-secondary);
+    var(--color-text-secondary) !important;
 
-  line-height: 1.72;
+  line-height:
+    1.72 !important;
 }
 
 
 .health-faq__list {
-  border-top:
+  overflow:
+    hidden !important;
+
+  padding:
+    0
+    26px !important;
+
+  border:
     1px solid
-    var(--color-border);
+    var(--color-border) !important;
+
+  border-radius:
+    var(--radius-lg) !important;
+
+  background:
+    #fff !important;
+
+  box-shadow:
+    var(--shadow-soft) !important;
 }
 
 
 .health-faq__item {
+  margin:
+    0 !important;
+
+  border:
+    0 !important;
+
   border-bottom:
     1px solid
-    var(--color-border);
+    var(--color-border) !important;
+
+  border-radius:
+    0 !important;
+
+  background:
+    transparent !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+.health-faq__item:last-child {
+  border-bottom:
+    0 !important;
 }
 
 
 .health-faq__item summary {
-  display: grid;
+  display:
+    grid !important;
 
   grid-template-columns:
-    48px
+    54px
     minmax(0, 1fr)
-    42px;
+    36px !important;
 
-  gap: 20px;
+  gap:
+    18px !important;
 
-  min-height: 92px;
+  align-items:
+    center !important;
+
+  min-height:
+    94px !important;
+
+  margin:
+    0
+    -10px !important;
 
   padding:
-    25px 4px;
+    23px
+    10px !important;
 
-  align-items: center;
+  border-radius:
+    14px !important;
 
-  cursor: pointer;
+  background:
+    transparent !important;
 
-  list-style: none;
+  cursor:
+    pointer !important;
+
+  list-style:
+    none !important;
 
   transition:
-    padding-left 190ms ease,
-    background-color 190ms ease;
+    background-color
+    180ms
+    ease !important;
 }
 
 
 .health-faq__item
 summary::-webkit-details-marker {
-  display: none;
+  display:
+    none !important;
 }
 
 
 .health-faq__number {
   color:
-    var(--color-text-secondary);
+    var(--color-text-secondary) !important;
 
-  font-size: .68rem;
-  font-weight: 850;
-  letter-spacing: .08em;
+  font-size:
+    .72rem !important;
+
+  font-weight:
+    800 !important;
+
+  line-height:
+    1 !important;
+
+  letter-spacing:
+    .09em !important;
 }
 
 
 .health-faq__question {
   max-width: 650px;
 
-  font-size:
-    clamp(
-      1.02rem,
-      1.4vw,
-      1.22rem
-    );
+  color:
+    var(--color-text) !important;
 
-  font-weight: 750;
-  line-height: 1.35;
+  font-size:
+    1.08rem !important;
+
+  font-weight:
+    750 !important;
+
+  line-height:
+    1.4 !important;
 }
 
 
+/* --------------------------------------------------------------------------
+   Toggle
+   -------------------------------------------------------------------------- */
+
 .health-faq__toggle {
-  position: relative;
+  position:
+    relative !important;
 
-  display: inline-flex;
+  display:
+    block !important;
 
-  width: 34px;
-  height: 34px;
+  width:
+    28px !important;
+
+  height:
+    28px !important;
+
+  padding:
+    0 !important;
 
   border:
-    1px solid
-    var(--color-border);
+    0 !important;
 
-  border-radius: 50%;
-
-  background: transparent;
-
-  align-items: center;
-  justify-content: center;
-
-  transition:
-    border-color 190ms ease,
-    background-color 190ms ease,
-    transform 190ms ease;
-}
-
-
-.health-faq__toggle::before,
-.health-faq__toggle::after {
-  position: absolute;
-
-  width: 12px;
-  height: 1.5px;
+  border-radius:
+    50% !important;
 
   background:
-    var(--color-text);
+    transparent !important;
 
-  content: '';
+  color:
+    var(--color-text) !important;
+
+  font-size:
+    0 !important;
+
+  transform:
+    none !important;
 
   transition:
-    transform 190ms ease;
+    background-color 180ms ease,
+    color 180ms ease !important;
+}
+
+
+.health-faq__toggle::before {
+  position:
+    absolute !important;
+
+  top:
+    50% !important;
+
+  left:
+    50% !important;
+
+  display:
+    block !important;
+
+  width:
+    16px !important;
+
+  height:
+    2px !important;
+
+  border-radius:
+    999px !important;
+
+  background:
+    currentColor !important;
+
+  content:
+    "" !important;
+
+  transform:
+    translate(-50%, -50%) !important;
+
+  transition:
+    transform
+    180ms
+    ease !important;
 }
 
 
 .health-faq__toggle::after {
+  position:
+    absolute !important;
+
+  top:
+    50% !important;
+
+  left:
+    50% !important;
+
+  display:
+    block !important;
+
+  width:
+    16px !important;
+
+  height:
+    2px !important;
+
+  border-radius:
+    999px !important;
+
+  background:
+    currentColor !important;
+
+  content:
+    "" !important;
+
   transform:
-    rotate(90deg);
+    translate(-50%, -50%)
+    rotate(90deg) !important;
+
+  transition:
+    transform
+    180ms
+    ease !important;
 }
 
 
 .health-faq__item[open]
 .health-faq__toggle {
-  border-color:
-    var(--health-accent);
+  border-radius:
+    50% !important;
 
   background:
-    var(--health-accent);
+    #a9f04a !important;
+
+  color:
+    #151515 !important;
+
+  transform:
+    none !important;
 }
 
 
 .health-faq__item[open]
 .health-faq__toggle::after {
   transform:
-    rotate(0deg);
+    translate(-50%, -50%)
+    rotate(0deg) !important;
 }
 
+
+/* --------------------------------------------------------------------------
+   Answer
+   -------------------------------------------------------------------------- */
 
 .health-faq__answer {
   padding:
-    0 64px 30px 72px;
+    18px
+    54px
+    28px
+    72px !important;
+
+  border:
+    0 !important;
+
+  background:
+    transparent !important;
 }
 
 
 .health-faq__answer p {
-  max-width: 680px;
+  max-width:
+    750px !important;
 
-  margin: 0;
+  margin:
+    0 !important;
 
   color:
-    var(--color-text-secondary);
+    var(--color-text-secondary) !important;
 
   font-size: .94rem;
-  line-height: 1.72;
+
+  line-height:
+    1.72 !important;
 }
 
 
@@ -6527,43 +6804,63 @@ summary:focus-visible {
 @media (hover: hover) {
   .health-faq__item
   summary:hover {
-    padding-left: 14px;
-
     background:
-      #f7f7f4;
+      #f5f5f1 !important;
   }
 }
 
 
-/* ----------------------------------------
-   STAGE 7 RESPONSIVE
-   ---------------------------------------- */
+.health-faq__item[open]
+summary {
+  background:
+    #f5f5f1 !important;
+}
 
-@media (max-width: 1180px) {
-  .health-why__layout,
-  .health-faq__layout {
-    gap: 70px;
+
+/* --------------------------------------------------------------------------
+   Desktop spacing inherited from the former layout-polish layer
+   -------------------------------------------------------------------------- */
+
+@media (min-width: 1181px) {
+  .health-faq__heading {
+    min-width: 0;
+
+    padding-right: 10px;
   }
 }
 
+
+@media (
+  min-width: 1025px
+) and (
+  max-width: 1180px
+) {
+  .health-faq__heading {
+    min-width: 0;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1024px) {
-  .health-why__layout,
   .health-faq__layout {
-    grid-template-columns: 1fr;
+    grid-template-columns:
+      1fr !important;
   }
 
 
-  .health-why__heading,
   .health-faq__heading {
-    position: relative;
-    top: auto;
+    position:
+      static !important;
 
-    max-width: 760px;
+    max-width:
+      740px !important;
   }
 
 
-  .health-why__list,
   .health-faq__list {
     margin-top: 52px;
   }
@@ -6571,33 +6868,156 @@ summary:focus-visible {
 
 
 @media (max-width: 768px) {
-  .health-why,
   .health-faq {
+    padding-top:
+      80px !important;
+
+    padding-bottom:
+      86px !important;
+  }
+
+
+  .health-faq__list {
     padding:
-      82px 0 88px;
+      0
+      18px !important;
   }
 
 
   .health-faq__item summary {
     grid-template-columns:
-      38px
+      44px
       minmax(0, 1fr)
-      38px;
-
-    gap: 14px;
+      32px !important;
   }
 
 
   .health-faq__answer {
-    padding:
-      0 52px 28px 52px;
+    padding-left:
+      62px !important;
+  }
+}
+
+
+@media (max-width: 620px) {
+  .health-faq__answer {
+    padding-top:
+      14px !important;
   }
 }
 
 
 @media (max-width: 430px) {
-  .health-why__heading h2,
   .health-faq__heading h2 {
+    font-size:
+      2.4rem !important;
+  }
+
+
+  .health-faq__list {
+    padding:
+      0
+      12px !important;
+
+    border-radius:
+      18px !important;
+  }
+
+
+  .health-faq__item summary {
+    grid-template-columns:
+      34px
+      minmax(0, 1fr)
+      28px !important;
+
+    gap:
+      12px !important;
+  }
+
+
+  .health-faq__answer {
+    padding:
+      14px
+      28px
+      26px
+      46px !important;
+  }
+}
+
+
+@media (max-width: 320px) {
+  .health-faq__heading h2 {
+    font-size:
+      2.05rem !important;
+  }
+
+
+  .health-faq__number {
+    display:
+      none !important;
+  }
+
+
+  .health-faq__item summary {
+    grid-template-columns:
+      minmax(0, 1fr)
+      28px !important;
+  }
+
+
+  .health-faq__answer {
+    padding:
+      14px
+      28px
+      26px
+      0 !important;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — work approach and FAQ
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1180px) {
+  .health-why__layout {
+    gap: 70px;
+  }
+}
+
+
+@media (max-width: 1024px) {
+  .health-why__layout {
+    grid-template-columns: 1fr;
+  }
+
+
+  .health-why__heading {
+    position: relative;
+    top: auto;
+
+    max-width: 760px;
+  }
+
+
+  .health-why__list {
+    margin-top: 52px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .health-why {
+    padding:
+      82px 0 88px;
+  }
+
+
+}
+
+
+@media (max-width: 430px) {
+  .health-why__heading h2 {
     font-size: 2.5rem;
   }
 
@@ -6613,71 +7033,31 @@ summary:focus-visible {
   }
 
 
-  .health-faq__item summary {
-    grid-template-columns:
-      30px
-      minmax(0, 1fr)
-      34px;
-
-    gap: 10px;
-
-    min-height: 82px;
-
-    padding:
-      22px 0;
-  }
-
-
-  .health-faq__toggle {
-    width: 32px;
-    height: 32px;
-  }
-
-
-  .health-faq__answer {
-    padding:
-      0 34px 26px 40px;
-  }
 }
 
 
 @media (max-width: 390px) {
-  .health-why__heading h2,
-  .health-faq__heading h2 {
+  .health-why__heading h2 {
     font-size: 2.3rem;
   }
 }
 
 
 @media (max-width: 320px) {
-  .health-why__heading h2,
-  .health-faq__heading h2 {
+  .health-why__heading h2 {
     font-size: 2rem;
   }
 
 
-  .health-faq__item summary {
-    grid-template-columns:
-      minmax(0, 1fr)
-      32px;
-  }
-
-
-  .health-faq__number {
-    display: none;
-  }
-
-
-  .health-faq__answer {
-    padding:
-      0 32px 24px 0;
-  }
 }
 
 
-/* ========================================
-   HEALTH_LAYOUT_POLISH_20260922_V1:start
-   ======================================== */
+/* ==========================================================================
+   CROSS-COMPONENT DESKTOP LAYOUT REFINEMENTS
+
+   Current additive rules shared by several HealthPage components.
+   They coordinate desktop typography, spacing and wide layouts.
+   ========================================================================== */
 
 /*
  * Desktop typography:
@@ -6759,10 +7139,6 @@ summary:focus-visible {
    Fewer visual separators.
    ---------------------------------------- */
 
-.health-commission__member {
-  border-bottom: 0;
-}
-
 
 .health-commission__member
 + .health-commission__member {
@@ -6774,10 +7150,6 @@ summary:focus-visible {
  * Keep the term block structured,
  * but remove the unnecessary second line.
  */
-
-.health-commission__term {
-  border-bottom: 0;
-}
 
 
 /* ----------------------------------------
@@ -6817,23 +7189,9 @@ summary:focus-visible {
    Keep hierarchy, remove repeated rules.
    ---------------------------------------- */
 
-.health-approval__term {
-  border-bottom: 0;
-}
-
-
-.health-approval__authorities {
-  border-top: 0;
-}
-
 
 .health-approval__authorities > * {
   border-bottom: 0 !important;
-}
-
-
-.health-approval__final {
-  border-bottom: 0;
 }
 
 
@@ -6847,32 +7205,6 @@ summary:focus-visible {
    Prevent large year from being clipped.
    ---------------------------------------- */
 
-.health-current__year {
-  overflow: visible;
-
-  padding-bottom: 12px;
-}
-
-
-.health-current__year strong {
-  display: block;
-
-  overflow: visible;
-
-  padding-bottom: .08em;
-
-  line-height: .92;
-}
-
-
-/* ========================================
-   HEALTH_LAYOUT_POLISH_20260922_V1:end
-   ======================================== */
-
-
-/* ========================================
-   HEALTH_FAQ_SPACING_20260922_V1:start
-   ======================================== */
 
 /*
  * FAQ desktop:
@@ -6881,487 +7213,9 @@ summary:focus-visible {
  * before the accordion.
  */
 
-@media (min-width: 1181px) {
-  .health-faq__layout {
-    grid-template-columns:
-      minmax(0, 430px)
-      minmax(0, 1fr);
-
-    column-gap:
-      clamp(
-        110px,
-        8vw,
-        145px
-      );
-  }
-
-
-  .health-faq__heading {
-    min-width: 0;
-    padding-right: 10px;
-  }
-
-
-  .health-faq__heading h2 {
-    max-width: 430px;
-
-    font-size:
-      clamp(
-        2.55rem,
-        3.15vw,
-        3.55rem
-      );
-
-    line-height: 1.02;
-    letter-spacing: -.05em;
-
-    text-wrap: balance;
-  }
-}
-
 
 /*
  * Intermediate desktop/tablet landscape:
  * preserve two columns but prevent the title
  * from approaching the accordion.
  */
-
-@media (
-  min-width: 1025px
-) and (
-  max-width: 1180px
-) {
-  .health-faq__layout {
-    grid-template-columns:
-      minmax(0, 360px)
-      minmax(0, 1fr);
-
-    column-gap: 76px;
-  }
-
-
-  .health-faq__heading {
-    min-width: 0;
-  }
-
-
-  .health-faq__heading h2 {
-    max-width: 360px;
-
-    font-size: 3rem;
-    line-height: 1.03;
-    letter-spacing: -.05em;
-  }
-}
-
-
-/* ========================================
-   HEALTH_FAQ_SPACING_20260922_V1:end
-   ======================================== */
-
-
-/* ========================================================
-   UNIFIED_FAQ_TRADE_STYLE_V1
-   Reference: TradePage FAQ
-   ======================================================== */
-
-.health-faq {
-  padding: 116px 0 126px !important;
-  background: #f5f5f1 !important;
-}
-
-.health-faq__layout {
-  display: grid !important;
-  grid-template-columns:
-    minmax(300px, .62fr)
-    minmax(0, 1.15fr) !important;
-  gap: clamp(70px, 10vw, 165px) !important;
-}
-
-.health-faq__heading {
-  position: sticky !important;
-  top: 110px !important;
-  align-self: start !important;
-}
-
-.health-faq__heading h2 {
-  max-width: 600px !important;
-  margin: 0 !important;
-
-  font-size:
-    clamp(
-      2.65rem,
-      3.9vw,
-      4.25rem
-    ) !important;
-
-  line-height: 1 !important;
-  letter-spacing: -.055em !important;
-  text-wrap: balance;
-}
-
-.health-faq__heading > p:not([class]) {
-  max-width: 560px !important;
-  margin: 30px 0 0 !important;
-
-  color:
-    var(--color-text-secondary) !important;
-
-  line-height: 1.72 !important;
-}
-
-.health-faq__list {
-  overflow: hidden !important;
-
-  padding: 0 26px !important;
-
-  border:
-    1px solid
-    var(--color-border) !important;
-
-  border-radius:
-    var(--radius-lg) !important;
-
-  background: #fff !important;
-
-  box-shadow:
-    var(--shadow-soft) !important;
-}
-
-.health-faq__item {
-  margin: 0 !important;
-
-  border: 0 !important;
-  border-bottom:
-    1px solid
-    var(--color-border) !important;
-
-  border-radius: 0 !important;
-
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-.health-faq__item:last-child {
-  border-bottom: 0 !important;
-}
-
-.health-faq__item summary {
-  display: grid !important;
-
-  grid-template-columns:
-    54px
-    minmax(0, 1fr)
-    36px !important;
-
-  gap: 18px !important;
-  align-items: center !important;
-
-  min-height: 94px !important;
-
-  margin: 0 -10px !important;
-
-  padding:
-    23px
-    10px !important;
-
-  border-radius: 14px !important;
-
-  background: transparent !important;
-
-  cursor: pointer !important;
-  list-style: none !important;
-
-  transition:
-    background-color 180ms ease !important;
-}
-
-.health-faq__item summary::-webkit-details-marker {
-  display: none !important;
-}
-
-.health-faq__number {
-  color:
-    var(--color-text-secondary) !important;
-
-  font-size: .72rem !important;
-  font-weight: 800 !important;
-  line-height: 1 !important;
-  letter-spacing: .09em !important;
-}
-
-.health-faq__question {
-  color:
-    var(--color-text) !important;
-
-  font-size: 1.08rem !important;
-  font-weight: 750 !important;
-  line-height: 1.4 !important;
-}
-
-.health-faq__toggle {
-  position: relative !important;
-
-  display: block !important;
-
-  width: 28px !important;
-  height: 28px !important;
-
-  padding: 0 !important;
-
-  border: 0 !important;
-  border-radius: 0;
-
-  background: transparent !important;
-
-  color:
-    var(--color-text) !important;
-
-  font-size: 0 !important;
-
-  transition:
-    background-color 180ms ease,
-    color 180ms ease !important;
-}
-
-.health-faq__toggle::before,
-.health-faq__toggle::after {
-  position: absolute !important;
-
-  top: 50% !important;
-  left: 50% !important;
-
-  display: block !important;
-
-  width: 16px !important;
-  height: 2px !important;
-
-  border-radius: 999px !important;
-
-  background:
-    currentColor !important;
-
-  content: '' !important;
-
-  transform:
-    translate(-50%, -50%) !important;
-
-  transition:
-    transform 180ms ease !important;
-}
-
-.health-faq__toggle::after {
-  transform:
-    translate(-50%, -50%)
-    rotate(90deg) !important;
-}
-
-.health-faq__item[open]
-.health-faq__toggle {
-  border-radius: 50% !important;
-
-  background: #a9f04a !important;
-  color: #151515 !important;
-}
-
-.health-faq__item[open]
-.health-faq__toggle::after {
-  transform:
-    translate(-50%, -50%)
-    rotate(0deg) !important;
-}
-
-.health-faq__answer {
-  padding:
-    0
-    54px
-    28px
-    72px !important;
-
-  border: 0 !important;
-
-  background: transparent !important;
-}
-
-.health-faq__answer p {
-  max-width: 750px !important;
-
-  margin: 0 !important;
-
-  color:
-    var(--color-text-secondary) !important;
-
-  line-height: 1.72 !important;
-}
-
-@media (hover: hover) {
-  .health-faq__item summary:hover {
-    background: #f5f5f1 !important;
-  }
-}
-
-.health-faq__item[open] summary {
-  background: #f5f5f1 !important;
-}
-
-@media (max-width: 1024px) {
-  .health-faq__layout {
-    grid-template-columns: 1fr !important;
-  }
-
-  .health-faq__heading {
-    position: static !important;
-    max-width: 740px !important;
-  }
-}
-
-@media (max-width: 768px) {
-  .health-faq {
-    padding-top: 80px !important;
-    padding-bottom: 86px !important;
-  }
-
-  .health-faq__list {
-    padding:
-      0
-      18px !important;
-  }
-
-  .health-faq__item summary {
-    grid-template-columns:
-      44px
-      minmax(0, 1fr)
-      32px !important;
-  }
-
-  .health-faq__answer {
-    padding-left: 62px !important;
-  }
-}
-
-@media (max-width: 430px) {
-  .health-faq__heading h2 {
-    font-size: 2.4rem !important;
-  }
-
-  .health-faq__list {
-    padding:
-      0
-      12px !important;
-
-    border-radius: 18px !important;
-  }
-
-  .health-faq__item summary {
-    grid-template-columns:
-      34px
-      minmax(0, 1fr)
-      28px !important;
-
-    gap: 12px !important;
-  }
-
-  .health-faq__answer {
-    padding:
-      0
-      28px
-      26px
-      46px !important;
-  }
-}
-
-@media (max-width: 320px) {
-  .health-faq__heading h2 {
-    font-size: 2.05rem !important;
-  }
-
-  .health-faq__number {
-    display: none !important;
-  }
-
-  .health-faq__item summary {
-    grid-template-columns:
-      minmax(0, 1fr)
-      28px !important;
-  }
-
-  .health-faq__answer {
-    padding-left: 0 !important;
-  }
-}
-
-/* ========================================================
-   /UNIFIED_FAQ_TRADE_STYLE_V1
-   ======================================================== */
-
-
-/* ========================================================
-   UNIFIED_FAQ_TOGGLE_FIX_V1
-   Keep FAQ +/- icon perfectly aligned
-   ======================================================== */
-
-.health-faq__toggle,
-.health-faq__item[open]
-.health-faq__toggle {
-  transform: none !important;
-}
-
-
-.health-faq__toggle::before {
-  transform:
-    translate(-50%, -50%) !important;
-}
-
-
-.health-faq__toggle::after {
-  transform:
-    translate(-50%, -50%)
-    rotate(90deg) !important;
-}
-
-
-.health-faq__item[open]
-.health-faq__toggle::before {
-  transform:
-    translate(-50%, -50%) !important;
-}
-
-
-.health-faq__item[open]
-.health-faq__toggle::after {
-  transform:
-    translate(-50%, -50%)
-    rotate(0deg) !important;
-}
-
-/* ========================================================
-   /UNIFIED_FAQ_TOGGLE_FIX_V1
-   ======================================================== */
-
-/* ========================================================
-   FAQ_ANSWER_TOP_SPACING_V1
-   Extra breathing room between FAQ question and answer
-   ======================================================== */
-
-.health-faq__answer {
-  padding-top: 18px !important;
-}
-
-@media (max-width: 620px) {
-  .health-faq__answer {
-    padding-top: 14px !important;
-  }
-}
-
-/* /FAQ_ANSWER_TOP_SPACING_V1 */
-
-/* ========================================================
-   FAQ_ICON_ALWAYS_ROUND_V1
-   Keep FAQ toggle round in every state
-   ======================================================== */
-
-.health-faq__toggle {
-  border-radius: 50% !important;
-}
-
-/* /FAQ_ICON_ALWAYS_ROUND_V1 */
