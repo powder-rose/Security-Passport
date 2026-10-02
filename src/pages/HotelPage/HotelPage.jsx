@@ -14,8 +14,6 @@ import {
   hotelAccommodationTypes,
   hotelServiceItems,
   hotelSourceData,
-  hotelCategories,
-  hotelProcess,
 } from './hotelPageData';
 
 import HotelHeroAndApplicability
@@ -23,6 +21,16 @@ from './components/HotelHeroAndApplicability';
 
 import HotelRegulation
 from './components/HotelRegulation';
+
+
+import HotelCategories
+from './components/HotelCategories';
+
+import HotelPassportProcess
+from './components/HotelPassportProcess';
+
+import HotelApproval
+from './components/HotelApproval';
 import Container from '../../components/ui/Container/Container';
 import FinalCTA from '../../sections/FinalCTA/FinalCTA';
 import { useCity } from '../../context/GeoContext';
@@ -51,268 +59,11 @@ export default function HotelPage({
       <HotelRegulation />
 
 
-      <section
-        className="hotel-categories"
-        id="hotel-categories"
-      >
-        <Container>
-          <div className="hotel-categories__header">
-            <div className="hotel-section-heading">
-              <p className="hotel-kicker">
-                Категорирование
-              </p>
+      <HotelCategories />
 
-              <h2>
-                Категории опасности гостиниц
-              </h2>
-            </div>
+      <HotelPassportProcess />
 
-            <p className="hotel-categories__lead">
-              Категория гостиницы определяется
-              комиссией по результатам обследования
-              с учётом возможных последствий
-              террористического акта.
-            </p>
-          </div>
-
-          <div className="hotel-categories__table">
-            <div className="hotel-categories__table-head">
-              <span>
-                Категория
-              </span>
-
-              <span>
-                Прогнозируемое количество пострадавших
-              </span>
-            </div>
-
-            {hotelCategories.map(
-              (item, index) => (
-                <div
-                  className="hotel-categories__row"
-                  key={item.category}
-                >
-                  <span className="hotel-categories__index">
-                    {String(
-                      index + 1,
-                    ).padStart(
-                      2,
-                      '0',
-                    )}
-                  </span>
-
-                  <strong>
-                    {item.category}
-                  </strong>
-
-                  <p>
-                    {item.value}
-                  </p>
-                </div>
-              ),
-            )}
-          </div>
-
-          <div className="hotel-categories__footer">
-            <p>
-              Комиссия изучает характеристики объекта,
-              существующие меры защиты, потенциально
-              опасные участки и критические элементы.
-            </p>
-
-            <a
-              className="hotel-inline-link"
-              href="/akt-obsledovaniya-i-kategorirovaniya-obekta/"
-            >
-              Подробнее об акте обследования
-              и категорирования
-
-              <span aria-hidden="true">
-                ↗
-              </span>
-            </a>
-          </div>
-        </Container>
-      </section>
-
-
-      <section
-        className="hotel-process"
-        id="hotel-process"
-      >
-        <Container>
-          <div className="hotel-process__layout">
-            <div className="hotel-process__intro">
-              <div className="hotel-section-heading">
-                <p className="hotel-kicker">
-                  Порядок работы
-                </p>
-
-                <h2>
-                  Как оформить паспорт
-                  безопасности гостиницы
-                </h2>
-              </div>
-
-              <div className="hotel-process__note">
-                <span aria-hidden="true">
-                  !
-                </span>
-
-                <p>
-                  Категорию определяет комиссия,
-                  а не подрядчик единолично.
-                </p>
-              </div>
-            </div>
-
-            <ol className="hotel-process__steps">
-              {hotelProcess.map(
-                (item, index) => (
-                  <li key={item.title}>
-                    <span className="hotel-process__number">
-                      {String(
-                        index + 1,
-                      ).padStart(
-                        2,
-                        '0',
-                      )}
-                    </span>
-
-                    <div>
-                      <span className="hotel-process__label">
-                        Этап
-                      </span>
-
-                      <h3>
-                        {item.title}
-                      </h3>
-                    </div>
-
-                    <span
-                      className="hotel-process__arrow"
-                      aria-hidden="true"
-                    >
-                      ↓
-                    </span>
-                  </li>
-                ),
-              )}
-            </ol>
-          </div>
-        </Container>
-      </section>
-
-
-      <section
-        className="hotel-approval"
-        id="hotel-approval"
-      >
-        <Container>
-          <div className="hotel-approval__panel">
-            <div className="hotel-approval__heading">
-              <p className="hotel-kicker">
-                Согласование
-              </p>
-
-              <h2>
-                С кем согласовывается паспорт
-                безопасности гостиницы
-              </h2>
-
-              <p>
-                По действующей редакции требований
-                паспорт составляется в трёх экземплярах,
-                проходит предусмотренное согласование,
-                после чего утверждается ответственным
-                лицом.
-              </p>
-            </div>
-
-            <div className="hotel-approval__scheme">
-              <div className="hotel-approval__item">
-                <span>
-                  01
-                </span>
-
-                <div>
-                  <strong>
-                    Территориальный орган безопасности
-                  </strong>
-
-                  <p>
-                    Паспорт согласовывается
-                    с руководителем соответствующего
-                    территориального органа безопасности
-                    или уполномоченным им лицом.
-                  </p>
-                </div>
-              </div>
-
-              <div className="hotel-approval__item">
-                <span>
-                  02
-                </span>
-
-                <div>
-                  <strong>
-                    Росгвардия
-                  </strong>
-
-                  <p>
-                    Также предусмотрено согласование
-                    с руководителем соответствующего
-                    территориального органа Росгвардии
-                    или подразделения вневедомственной
-                    охраны.
-                  </p>
-                </div>
-              </div>
-
-              <div className="hotel-approval__item">
-                <span>
-                  03
-                </span>
-
-                <div>
-                  <strong>
-                    Утверждение
-                  </strong>
-
-                  <p>
-                    После предусмотренных согласований
-                    паспорт утверждается ответственным
-                    лицом.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="hotel-approval__footer">
-              <strong>
-                3 экземпляра
-              </strong>
-
-              <p>
-                Количество экземпляров установлено
-                требованиями к паспорту безопасности
-                гостиницы.
-              </p>
-
-              <a
-                className="hotel-approval__action"
-                href="#contact"
-              >
-                Заказать разработку паспорта
-
-                <span aria-hidden="true">
-                  ↗
-                </span>
-              </a>
-            </div>
-          </div>
-        </Container>
-      </section>
+      <HotelApproval />
 
 
       <section
