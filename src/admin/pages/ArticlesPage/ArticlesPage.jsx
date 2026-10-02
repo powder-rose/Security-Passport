@@ -15,26 +15,60 @@ import {
 
 const BLOG_CATEGORIES = [
   {
-    id: 'passport',
-    label: 'Паспорта безопасности',
+    id: 'hotels',
+    label: 'Гостиницы',
   },
   {
-    id: 'categorization',
-    label: 'Категорирование объектов',
-  },
-  {
-    id: 'requirements',
-    label: 'Требования и законодательство',
-  },
-  {
-    id: 'actualization',
-    label: 'Актуализация паспорта',
-  },
-  {
-    id: 'practice',
-    label: 'Практика и документы',
+    id: 'culture',
+    label: 'Культура',
   },
 ];
+
+
+const LEGACY_CATEGORY_VALUES =
+  new Set([
+    'passport',
+    'categorization',
+    'requirements',
+    'actualization',
+    'practice',
+    'паспорта безопасности',
+    'категорирование объектов',
+    'требования и законодательство',
+    'актуализация паспорта',
+    'практика и документы',
+  ]);
+
+
+function getEditableCategory(
+  value
+){
+
+  const category =
+    String(
+      value || ''
+    )
+      .replace(
+        /\s+/g,
+        ' '
+      )
+      .trim();
+
+
+  if(
+    LEGACY_CATEGORY_VALUES.has(
+      category.toLocaleLowerCase(
+        'ru-RU'
+      )
+    )
+  ){
+    return '';
+  }
+
+
+  return category;
+
+}
 
 
 function formatDate(date){
@@ -220,14 +254,18 @@ export default function ArticlesPage() {
             )
         );
 
-      }
-      else {
 
-        alert(
-          'Не удалось изменить категорию статьи'
-        );
+        return true;
 
       }
+
+
+      alert(
+        'Не удалось изменить категорию статьи'
+      );
+
+
+      return false;
 
     }
     catch{
@@ -235,6 +273,9 @@ export default function ArticlesPage() {
       alert(
         'Не удалось изменить категорию статьи'
       );
+
+
+      return false;
 
     }
     finally {
@@ -301,6 +342,24 @@ export default function ArticlesPage() {
   return (
 
     <div className="admin-page">
+
+
+      <datalist id="admin-blog-category-options">
+
+        {
+          BLOG_CATEGORIES.map(
+            category => (
+
+              <option
+                key={category.id}
+                value={category.label}
+              />
+
+            )
+          )
+        }
+
+      </datalist>
 
 
       <div className="admin-page-header">
@@ -516,43 +575,87 @@ export default function ArticlesPage() {
                         Категория
                       </span>
 
-                      <select
-                        value={
-                          article.category || ''
+                      <input
+                        type="text"
+                        list="admin-blog-category-options"
+                        defaultValue={
+                          getEditableCategory(
+                            article.category
+                          )
                         }
+                        maxLength="80"
+                        placeholder="Без категории"
+                        autoComplete="off"
                         disabled={
                           updatingCategoryId ===
                           article.id
                         }
-                        onChange={
-                          e =>
-                            changeArticleCategory(
-                              article.id,
-                              e.target.value
-                            )
+                        onKeyDown={
+                          e => {
+
+                            if(
+                              e.key ===
+                              'Enter'
+                            ){
+
+                              e.preventDefault();
+
+                              e.currentTarget.blur();
+
+                            }
+
+                          }
                         }
-                      >
+                        onBlur={
+                          async e => {
 
-                        <option value="">
-                          Автоматически
-                        </option>
+                            const input =
+                              e.currentTarget;
 
-                        {
-                          BLOG_CATEGORIES.map(
-                            category => (
+                            const previous =
+                              getEditableCategory(
+                                article.category
+                              );
 
-                              <option
-                                key={category.id}
-                                value={category.id}
-                              >
-                                {category.label}
-                              </option>
+                            const next =
+                              input.value
+                                .replace(
+                                  /\s+/g,
+                                  ' '
+                                )
+                                .trim();
 
-                            )
-                          )
+
+                            input.value =
+                              next;
+
+
+                            if(
+                              next === previous
+                            ){
+                              return;
+                            }
+
+
+                            const saved =
+                              await changeArticleCategory(
+                                article.id,
+                                next
+                              );
+
+
+                            if(
+                              !saved
+                            ){
+
+                              input.value =
+                                previous;
+
+                            }
+
+                          }
                         }
-
-                      </select>
+                      />
 
                     </label>
 

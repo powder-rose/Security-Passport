@@ -27,63 +27,52 @@ import './BlogPage.css';
 
 const BLOG_CATEGORIES = [
   {
-    id: 'passport',
-    label: 'Паспорта безопасности',
+    id: 'hotels',
+    label: 'Гостиницы',
     description:
-      'Раздел о разработке, структуре и согласовании паспортов безопасности объектов: кому нужен документ, что в него входит и как правильно подготовить материалы.',
+      'Материалы о категорировании, требованиях антитеррористической защищённости и паспортах безопасности гостиниц и других средств размещения.',
   },
 
   {
-    id: 'categorization',
-    label: 'Категорирование объектов',
+    id: 'culture',
+    label: 'Культура',
     description:
-      'Материалы об обследовании и категорировании объектов: критерии категорий, работа комиссии, оформление акта и применение требований к разным типам объектов.',
-  },
-
-  {
-    id: 'requirements',
-    label: 'Требования и законодательство',
-    description:
-      'Разбор постановлений Правительства РФ и требований антитеррористической защищённости: на кого они распространяются, что устанавливают и как применять нормы на практике.',
-  },
-
-  {
-    id: 'actualization',
-    label: 'Актуализация паспорта',
-    description:
-      'Материалы об актуализации паспорта безопасности: когда требуется пересмотр документа, какие сведения обновлять и в каких случаях необходимо повторное согласование.',
-  },
-
-  {
-    id: 'practice',
-    label: 'Практика и документы',
-    description:
-      'Практические разборы документов и рабочих ситуаций: порядок действий, типовые ошибки и рекомендации по подготовке материалов для согласования.',
+      'Материалы о категорировании, обследовании, требованиях и паспортах безопасности объектов культуры.',
   },
 ];
 
 
-const BLOG_CATEGORY_IDS =
-  new Set(
-    BLOG_CATEGORIES.map(
-      category =>
-        category.id
-    )
-  );
+const LEGACY_BLOG_CATEGORY_VALUES =
+  new Set([
+    'passport',
+    'categorization',
+    'requirements',
+    'actualization',
+    'practice',
+    'паспорта безопасности',
+    'категорирование объектов',
+    'требования и законодательство',
+    'актуализация паспорта',
+    'практика и документы',
+  ]);
 
 
-function getBlogCategory(
-  categoryId
+function normalizeCategoryLabel(
+  value
 ){
 
-  return (
-    BLOG_CATEGORIES.find(
-      category =>
-        category.id === categoryId
+  return String(
+    value || ''
+  )
+    .replace(
+      /\s+/g,
+      ' '
     )
-    ||
-    null
-  );
+    .trim()
+    .slice(
+      0,
+      80
+    );
 
 }
 
@@ -92,73 +81,66 @@ function resolveArticleCategory(
   article
 ){
 
-  const explicitCategory =
-    String(
-      article?.category ||
-      ''
-    )
-      .trim()
-      .toLowerCase();
+  const label =
+    normalizeCategoryLabel(
+      article?.category
+    );
 
 
   if(
-    BLOG_CATEGORY_IDS.has(
-      explicitCategory
-    )
+    !label
   ){
-    return explicitCategory;
+    return null;
   }
 
 
-  const source =
-    [
-      article?.title,
-      article?.slug,
-      article?.seoTitle,
-      article?.seoDescription,
-    ]
-      .filter(Boolean)
-      .join(' ')
-      .toLowerCase();
+  const normalized =
+    label.toLocaleLowerCase(
+      'ru-RU'
+    );
 
 
   if(
-    /актуализ|actualiz|пересмотр/.test(
-      source
+    LEGACY_BLOG_CATEGORY_VALUES.has(
+      normalized
     )
   ){
-    return 'actualization';
+    return null;
   }
+
+
+  const predefined =
+    BLOG_CATEGORIES.find(
+      category =>
+        category.id ===
+          normalized
+        ||
+        category.label
+          .toLocaleLowerCase(
+            'ru-RU'
+          ) ===
+          normalized
+    );
 
 
   if(
-    /категор|categor|обследован|obsledovan/.test(
-      source
-    )
+    predefined
   ){
-    return 'categorization';
+    return predefined;
   }
 
 
-  if(
-    /паспорт|pasport|форма\s+паспорта|forma[-\s]?pasporta/.test(
-      source
-    )
-  ){
-    return 'passport';
-  }
+  return {
+    id:
+      `custom-${encodeURIComponent(
+        normalized
+      )}`,
 
+    label,
 
-  if(
-    /постановлен|пп\s*рф|pp[-\s]?rf|требован|антитеррор|antiterror|защищ|zashchit/.test(
-      source
-    )
-  ){
-    return 'requirements';
-  }
-
-
-  return 'practice';
+    description:
+      `Материалы по теме «${label}»: практические разборы требований, документов и подготовки материалов.`,
+  };
 
 }
 
@@ -295,14 +277,8 @@ function ArticleImage({
 
 function ArticleCard({
   article,
-  categoryId,
+  category,
 }){
-
-  const category =
-    getBlogCategory(
-      categoryId
-    );
-
 
   const articleDate =
     article.publishedAt ||
@@ -573,9 +549,7 @@ export default function BlogPage({
 
 
     if(
-      BLOG_CATEGORY_IDS.has(
-        categoryId
-      )
+      categoryId
     ){
 
       setSelectedCategory(
@@ -595,7 +569,7 @@ export default function BlogPage({
           article => ({
             article,
 
-            categoryId:
+            category:
               resolveArticleCategory(
                 article
               ),
@@ -609,66 +583,100 @@ export default function BlogPage({
     );
 
 
-  const categoryCounts =
+  const visibleCategories =
     useMemo(
       () => {
 
-        const counts =
-          Object.fromEntries(
-            BLOG_CATEGORIES.map(
-              category => [
-                category.id,
-                0,
-              ]
-            )
-          );
+        const categories =
+          new Map();
 
 
         categorizedArticles.forEach(
           ({
-            categoryId,
+            category,
           }) => {
 
             if(
-              Object.prototype.hasOwnProperty.call(
-                counts,
-                categoryId
+              !category
+            ){
+              return;
+            }
+
+
+            if(
+              categories.has(
+                category.id
               )
             ){
-
-              counts[
-                categoryId
-              ] += 1;
-
+              return;
             }
+
+
+            categories.set(
+              category.id,
+              category
+            );
 
           }
         );
 
 
-        return counts;
+        const predefinedOrder =
+          new Map(
+            BLOG_CATEGORIES.map(
+              (
+                category,
+                index
+              ) => [
+                category.id,
+                index,
+              ]
+            )
+          );
 
-      },
-      [
-        categorizedArticles,
-      ]
-    );
+
+        return [
+          ...categories.values(),
+        ].sort(
+          (a,b) => {
+
+            const aOrder =
+              predefinedOrder.has(
+                a.id
+              )
+                ? predefinedOrder.get(
+                    a.id
+                  )
+                : 999;
+
+            const bOrder =
+              predefinedOrder.has(
+                b.id
+              )
+                ? predefinedOrder.get(
+                    b.id
+                  )
+                : 999;
 
 
-  const visibleCategories =
-    useMemo(
-      () => {
+            if(
+              aOrder !== bOrder
+            ){
+              return aOrder - bOrder;
+            }
 
-        return BLOG_CATEGORIES.filter(
-          category =>
-            categoryCounts[
-              category.id
-            ] > 0
+
+            return a.label.localeCompare(
+              b.label,
+              'ru'
+            );
+
+          }
         );
 
       },
       [
-        categoryCounts,
+        categorizedArticles,
       ]
     );
 
@@ -726,7 +734,7 @@ export default function BlogPage({
 
         return categorizedArticles.filter(
           item =>
-            item.categoryId ===
+            item.category?.id ===
             selectedCategory
         );
 
@@ -753,8 +761,14 @@ export default function BlogPage({
     selectedCategory ===
     'all'
       ? null
-      : getBlogCategory(
-          selectedCategory
+      : (
+          visibleCategories.find(
+            category =>
+              category.id ===
+              selectedCategory
+          )
+          ||
+          null
         );
 
 
@@ -1304,9 +1318,7 @@ export default function BlogPage({
                       <div className="blog-featured-card__category">
 
                         {
-                          getBlogCategory(
-                            featuredEntry.categoryId
-                          )?.label
+                          featuredEntry.category?.label
                         }
 
                       </div>
@@ -1414,8 +1426,8 @@ export default function BlogPage({
                                 article={
                                   item.article
                                 }
-                                categoryId={
-                                  item.categoryId
+                                category={
+                                  item.category
                                 }
                               />
 

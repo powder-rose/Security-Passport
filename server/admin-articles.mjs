@@ -37,33 +37,26 @@ async function saveArticles(articles) {
 }
 
 
-const ARTICLE_CATEGORIES =
-  new Set([
-    'passport',
-    'categorization',
-    'requirements',
-    'actualization',
-    'practice',
-  ]);
-
-
 function normalizeArticleCategory(
   value
 ) {
 
-  const category =
-    String(
-      value || ''
-    )
-      .trim()
-      .toLowerCase();
-
-
-  return ARTICLE_CATEGORIES.has(
-    category
+  return String(
+    value || ''
   )
-    ? category
-    : '';
+    .replace(
+      /[\u0000-\u001F\u007F]/g,
+      ''
+    )
+    .replace(
+      /\s+/g,
+      ' '
+    )
+    .trim()
+    .slice(
+      0,
+      80
+    );
 
 }
 

@@ -17,26 +17,60 @@ import ImageCropper from '../../components/ImageCropper/ImageCropper.jsx';
 
 const BLOG_CATEGORIES = [
   {
-    id: 'passport',
-    label: 'Паспорта безопасности',
+    id: 'hotels',
+    label: 'Гостиницы',
   },
   {
-    id: 'categorization',
-    label: 'Категорирование объектов',
-  },
-  {
-    id: 'requirements',
-    label: 'Требования и законодательство',
-  },
-  {
-    id: 'actualization',
-    label: 'Актуализация паспорта',
-  },
-  {
-    id: 'practice',
-    label: 'Практика и документы',
+    id: 'culture',
+    label: 'Культура',
   },
 ];
+
+
+const LEGACY_CATEGORY_VALUES =
+  new Set([
+    'passport',
+    'categorization',
+    'requirements',
+    'actualization',
+    'practice',
+    'паспорта безопасности',
+    'категорирование объектов',
+    'требования и законодательство',
+    'актуализация паспорта',
+    'практика и документы',
+  ]);
+
+
+function getEditableCategory(
+  value
+){
+
+  const category =
+    String(
+      value || ''
+    )
+      .replace(
+        /\s+/g,
+        ' '
+      )
+      .trim();
+
+
+  if(
+    LEGACY_CATEGORY_VALUES.has(
+      category.toLocaleLowerCase(
+        'ru-RU'
+      )
+    )
+  ){
+    return '';
+  }
+
+
+  return category;
+
+}
 
 
 const SLUG_TRANSLIT = {
@@ -174,7 +208,9 @@ export default function ArticleEditPage() {
               result.article.imageAlt || '',
 
             category:
-              result.article.category || '',
+              getEditableCategory(
+                result.article.category
+              ),
 
             status:
               result.article.status || 'draft',
@@ -836,14 +872,20 @@ export default function ArticleEditPage() {
 
 
         <label>
+
           <span>
             Категория статьи
           </span>
 
-          <select
+          <input
+            type="text"
+            list="blog-category-suggestions-edit"
             value={
               form.category || ''
             }
+            maxLength="80"
+            placeholder="Например: Культура"
+            autoComplete="off"
             onChange={
               e =>
                 change(
@@ -851,11 +893,9 @@ export default function ArticleEditPage() {
                   e.target.value
                 )
             }
-          >
+          />
 
-            <option value="">
-              Определить автоматически
-            </option>
+          <datalist id="blog-category-suggestions-edit">
 
             {
               BLOG_CATEGORIES.map(
@@ -863,20 +903,18 @@ export default function ArticleEditPage() {
 
                   <option
                     key={category.id}
-                    value={category.id}
-                  >
-                    {category.label}
-                  </option>
+                    value={category.label}
+                  />
 
                 )
               )
             }
 
-          </select>
+          </datalist>
 
           <small className="admin-category-hint">
-            Выбранная категория определяет,
-            в каком разделе блога будет показана статья.
+            Выберите готовую категорию или
+            впишите новую самостоятельно.
           </small>
 
         </label>

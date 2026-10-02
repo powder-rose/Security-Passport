@@ -3990,3 +3990,62 @@ cursor:pointer;
   }
 
 }
+
+
+/* =========================================
+   ADMIN CATEGORY FREE INPUT
+========================================= */
+
+.admin-article-category input {
+  width: 190px;
+  min-width: 0;
+
+  margin: 0;
+
+  padding:
+    0 4px;
+
+  border: 0;
+
+  background:
+    transparent;
+
+  color:
+    #111;
+
+  font: inherit;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  line-height: 1.2;
+
+  outline: none;
+
+  box-shadow: none;
+}
+
+
+.admin-article-category input::placeholder {
+  color:
+    rgba(17,17,17,.38);
+}
+
+
+.admin-article-category:focus-within {
+  border-color:
+    rgba(18,96,255,.28);
+
+  background:
+    rgba(18,96,255,.045);
+}
+
+
+@media (max-width: 640px) {
+
+  .admin-article-category input {
+    width: 180px;
+    max-width: 100%;
+  }
+
+}

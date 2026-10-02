@@ -21,24 +21,12 @@ import ImageCropper from '../../components/ImageCropper/ImageCropper.jsx';
 
 const BLOG_CATEGORIES = [
   {
-    id: 'passport',
-    label: 'Паспорта безопасности',
+    id: 'hotels',
+    label: 'Гостиницы',
   },
   {
-    id: 'categorization',
-    label: 'Категорирование объектов',
-  },
-  {
-    id: 'requirements',
-    label: 'Требования и законодательство',
-  },
-  {
-    id: 'actualization',
-    label: 'Актуализация паспорта',
-  },
-  {
-    id: 'practice',
-    label: 'Практика и документы',
+    id: 'culture',
+    label: 'Культура',
   },
 ];
 
@@ -845,25 +833,26 @@ placeholder="Например: Специалисты проводят обсл�
 </span>
 
 
-<select
+<input
+  type="text"
+  list="blog-category-suggestions-create"
+  value={
+    form.category || ''
+  }
+  maxLength="80"
+  placeholder="Например: Культура"
+  autoComplete="off"
+  onChange={
+    e =>
+      change(
+        'category',
+        e.target.value
+      )
+  }
+/>
 
- value={
-   form.category || ''
- }
 
- onChange={
-   e =>
-   change(
-    'category',
-    e.target.value
-   )
- }
-
->
-
-<option value="">
-Определить автоматически
-</option>
+<datalist id="blog-category-suggestions-create">
 
 {
   BLOG_CATEGORIES.map(
@@ -871,19 +860,19 @@ placeholder="Например: Специалисты проводят обсл�
 
       <option
         key={category.id}
-        value={category.id}
-      >
-        {category.label}
-      </option>
+        value={category.label}
+      />
 
     )
   )
 }
 
-</select>
+</datalist>
+
 
 <small className="admin-category-hint">
-Категория определяет раздел статьи в блоге.
+Выберите готовую категорию или
+впишите новую самостоятельно.
 </small>
 
 </label>
