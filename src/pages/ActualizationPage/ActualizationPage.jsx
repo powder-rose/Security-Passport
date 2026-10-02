@@ -8,9 +8,6 @@ import useActualizationTimeline
 from './useActualizationTimeline';
 
 import {
-  processItems,
-  scopeItems,
-  documentItems,
   periodicityItems,
   objectTypes,
   faqItems,
@@ -27,6 +24,19 @@ from './components/ActualizationChecklist';
 
 import ActualizationCategorization
 from './components/ActualizationCategorization';
+
+
+import ActualizationWorkProcess
+from './components/ActualizationWorkProcess';
+
+import ActualizationServiceScope
+from './components/ActualizationServiceScope';
+
+import ActualizationPricing
+from './components/ActualizationPricing';
+
+import ActualizationRequiredDocuments
+from './components/ActualizationRequiredDocuments';
 
 import Container from '../../components/ui/Container/Container';
 
@@ -63,217 +73,13 @@ export default function ActualizationPage() {
       <ActualizationCategorization />
 
 
-      <section className="actualization-work">
-        <Container>
-          <div className="actualization-section-head">
-            <p className="actualization-kicker">
-              Порядок работы
-            </p>
+      <ActualizationWorkProcess />
 
-            <h2>
-              Как мы актуализируем паспорт безопасности
-            </h2>
-          </div>
+      <ActualizationServiceScope />
 
+      <ActualizationPricing />
 
-          <ol className="actualization-work__timeline">
-            {processItems.map(
-              (item, index) => (
-                <li key={item.title}>
-                  <span className="actualization-work__number">
-                    {String(
-                      index + 1,
-                    ).padStart(2, '0')}
-                  </span>
-
-                  <div>
-                    <h3>
-                      {item.title}
-                    </h3>
-
-                    <p>
-                      {item.text}
-                    </p>
-                  </div>
-                </li>
-              ),
-            )}
-          </ol>
-        </Container>
-      </section>
-
-
-      <section className="actualization-scope">
-        <Container>
-          <div className="actualization-scope__layout">
-            <div>
-              <p className="actualization-kicker">
-                Состав работы
-              </p>
-
-              <h2>
-                Что мы сделаем
-              </h2>
-
-              <p>
-                Состав действий определяем после
-                проверки паспорта и требований
-                к конкретному виду объекта.
-              </p>
-            </div>
-
-
-            <ul className="actualization-scope__list">
-              {scopeItems.map(
-                (item, index) => (
-                  <li key={item}>
-                    <span>
-                      {String(
-                        index + 1,
-                      ).padStart(2, '0')}
-                    </span>
-
-                    <p>
-                      {item}
-                    </p>
-                  </li>
-                ),
-              )}
-            </ul>
-          </div>
-        </Container>
-      </section>
-
-
-      <section
-        className="actualization-price"
-        id="actualization-price"
-      >
-        <Container>
-          <div className="actualization-price__panel">
-            <div className="actualization-price__heading">
-              <p className="actualization-kicker">
-                Стоимость
-              </p>
-
-              <h2>
-                Стоимость актуализации паспорта безопасности
-              </h2>
-
-              <p className="actualization-price__intro">
-                Состав работ определяем после проверки
-                действующего паспорта и изменений
-                на объекте.
-              </p>
-            </div>
-
-
-            <aside className="actualization-price__card">
-              <p className="actualization-price__card-label">
-                На расчёт влияют
-              </p>
-
-              <div className="actualization-price__factor">
-                <span>
-                  01
-                </span>
-
-                <div>
-                  <strong>
-                    Объём необходимых изменений
-                  </strong>
-
-                  <p>
-                    Проверяем, какие сведения
-                    действующего паспорта требуется
-                    актуализировать.
-                  </p>
-                </div>
-              </div>
-
-
-              <div className="actualization-price__factor">
-                <span>
-                  02
-                </span>
-
-                <div>
-                  <strong>
-                    Повторное категорирование
-                  </strong>
-
-                  <p>
-                    Отдельно определяем, требуется ли
-                    оно для конкретного объекта.
-                  </p>
-                </div>
-              </div>
-
-
-              <a
-                className="actualization-price__action"
-                href="#lead-form"
-              >
-                Уточнить стоимость
-
-                <span aria-hidden="true">
-                  ↗
-                </span>
-              </a>
-            </aside>
-          </div>
-        </Container>
-      </section>
-
-
-      <section className="actualization-documents">
-        <Container>
-          <div className="actualization-documents__grid">
-            <div>
-              <p className="actualization-kicker">
-                Для первичной проверки
-              </p>
-
-              <h2>
-                Что потребуется для актуализации
-              </h2>
-
-              <p>
-                Сначала достаточно действующего
-                паспорта и основных сведений.
-                Дополнительный комплект определяем
-                после проверки применимых требований.
-              </p>
-
-              <a
-                className="button button--primary"
-                href="#lead-form"
-              >
-                Отправить паспорт на предварительную проверку
-              </a>
-            </div>
-
-
-            <ol>
-              {documentItems.map(
-                (item, index) => (
-                  <li key={item}>
-                    <span>
-                      {String(
-                        index + 1,
-                      ).padStart(2, '0')}
-                    </span>
-
-                    <p>
-                      {item}
-                    </p>
-                  </li>
-                ),
-              )}
-            </ol>
-          </div>
-        </Container>
-      </section>
+      <ActualizationRequiredDocuments />
 
 
       <section className="actualization-periods">
