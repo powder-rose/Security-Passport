@@ -3725,3 +3725,212 @@ cursor:pointer;
 
 }
 
+/* =========================================
+   ADMIN ARTICLE CATEGORY UI REFINEMENT
+========================================= */
+
+/*
+ * Под заголовком статьи собираем статус,
+ * категорию и дату в более аккуратный meta-row.
+ */
+
+.admin-status,
+.admin-article-category,
+.admin-article-date {
+  display: inline-flex;
+
+  vertical-align: middle;
+}
+
+
+/* -----------------------------------------
+   STATUS
+----------------------------------------- */
+
+.admin-status {
+  margin-top: 10px;
+}
+
+
+/* -----------------------------------------
+   CATEGORY
+----------------------------------------- */
+
+.admin-article-category {
+  align-items: center;
+
+  gap: 8px;
+
+  margin-top: 10px;
+  margin-left: 10px;
+
+  padding:
+    4px 10px;
+
+  border:
+    1px solid
+    rgba(17, 17, 17, .08);
+
+  border-radius: 999px;
+
+  background:
+    rgba(17, 17, 17, .03);
+}
+
+
+.admin-article-category > span {
+  margin: 0;
+
+  color:
+    rgba(17, 17, 17, .42);
+
+  font-size: 10px;
+  font-weight: 800;
+
+  line-height: 1;
+
+  letter-spacing: .08em;
+
+  text-transform: uppercase;
+}
+
+
+.admin-article-category select {
+  width: auto;
+
+  max-width: 230px;
+
+  min-height: auto;
+
+  margin: 0;
+  padding:
+    0 18px 0 0;
+
+  border: 0;
+
+  background:
+    transparent;
+
+  color:
+    #111;
+
+  font: inherit;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  line-height: 1.2;
+
+  cursor: pointer;
+
+  appearance: auto;
+
+  box-shadow: none;
+}
+
+
+.admin-article-category select:focus {
+  outline: none;
+  border: 0;
+  box-shadow: none;
+}
+
+
+/* hover / focus даём мягкий фирменный акцент */
+
+.admin-article-category:hover,
+.admin-article-category:focus-within {
+  border-color:
+    rgba(18, 96, 255, .22);
+
+  background:
+    rgba(18, 96, 255, .04);
+}
+
+
+/* -----------------------------------------
+   DATE
+----------------------------------------- */
+
+.admin-article-date {
+  margin-top: 10px;
+  margin-left: 12px;
+
+  color:
+    rgba(17, 17, 17, .42);
+
+  font-size: 13px;
+
+  line-height: 1.2;
+}
+
+
+/* -----------------------------------------
+   EDIT / CREATE hint
+----------------------------------------- */
+
+.admin-category-hint {
+  margin-top: 6px;
+
+  color:
+    rgba(17, 17, 17, .48);
+
+  font-size: 12px;
+
+  line-height: 1.45;
+}
+
+
+/* -----------------------------------------
+   MOBILE
+----------------------------------------- */
+
+@media (max-width: 900px) {
+
+  .admin-article-category {
+    margin-left: 0;
+  }
+
+
+  .admin-article-date {
+    display: block;
+
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+}
+
+
+@media (max-width: 640px) {
+
+  .admin-status,
+  .admin-article-category,
+  .admin-article-date {
+    display: flex;
+  }
+
+
+  .admin-article-category {
+    width: 100%;
+
+    justify-content: space-between;
+
+    margin-top: 10px;
+
+    padding:
+      8px 10px;
+  }
+
+
+  .admin-article-category select {
+    max-width: 58%;
+  }
+
+
+  .admin-article-date {
+    width: 100%;
+  }
+
+}
+
