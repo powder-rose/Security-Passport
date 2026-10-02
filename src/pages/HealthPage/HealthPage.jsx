@@ -14,17 +14,17 @@ import {
   healthFaqItems,
 } from './healthPageData';
 
-import HealthStageOne
-from './components/HealthStageOne';
+import HealthHeroAndObjects
+from './components/HealthHeroAndObjects';
 
-import HealthStageTwo
-from './components/HealthStageTwo';
+import HealthRegulationAndCategories
+from './components/HealthRegulationAndCategories';
 
-import HealthStageThree
-from './components/HealthStageThree';
+import HealthCommissionAndAct
+from './components/HealthCommissionAndAct';
 
-import HealthStageFour
-from './components/HealthStageFour';
+import HealthPassportProcess
+from './components/HealthPassportProcess';
 
 
 export default function HealthPage() {
@@ -39,7 +39,7 @@ export default function HealthPage() {
     >
       {/* HEALTH_STAGE_1_V1:start */}
 
-      <HealthStageOne
+      <HealthHeroAndObjects
         city={city}
       />
 
@@ -48,21 +48,21 @@ export default function HealthPage() {
 
       {/* HEALTH_STAGE_2_V1:start */}
 
-      <HealthStageTwo />
+      <HealthRegulationAndCategories />
 
       {/* HEALTH_STAGE_2_V1:end */}
 
 
       {/* HEALTH_STAGE_3_V1:start */}
 
-      <HealthStageThree />
+      <HealthCommissionAndAct />
 
       {/* HEALTH_STAGE_3_V1:end */}
 
 
       {/* HEALTH_STAGE_4_V1:start */}
 
-      <HealthStageFour />
+      <HealthPassportProcess />
 
       {/* HEALTH_STAGE_4_V1:end */}
 

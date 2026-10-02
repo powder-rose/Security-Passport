@@ -6,7 +6,7 @@ import {
 } from '../healthPageData';
 
 
-export default function HealthStageOne({
+export default function HealthHeroAndObjects({
   city,
 }) {
   return (

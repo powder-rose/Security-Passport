@@ -2,7 +2,7 @@ import Container
 from '../../../components/ui/Container/Container';
 
 
-export default function HealthStageFour() {
+export default function HealthPassportProcess() {
   return (
     <>
       <section

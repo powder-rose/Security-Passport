@@ -2,7 +2,7 @@ import Container
 from '../../../components/ui/Container/Container';
 
 
-export default function HealthStageThree() {
+export default function HealthCommissionAndAct() {
   return (
     <>
       <section className="health-commission">

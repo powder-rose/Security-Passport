@@ -2,7 +2,7 @@ import Container
 from '../../../components/ui/Container/Container';
 
 
-export default function HealthStageTwo() {
+export default function HealthRegulationAndCategories() {
   return (
     <>
       <section
