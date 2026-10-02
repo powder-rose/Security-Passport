@@ -8,8 +8,6 @@ import useActualizationTimeline
 from './useActualizationTimeline';
 
 import {
-  triggerRows,
-  checklistItems,
   processItems,
   scopeItems,
   documentItems,
@@ -17,6 +15,18 @@ import {
   objectTypes,
   faqItems,
 } from './actualizationPageData';
+
+import ActualizationHeroAndDefinition
+from './components/ActualizationHeroAndDefinition';
+
+import ActualizationReasons
+from './components/ActualizationReasons';
+
+import ActualizationChecklist
+from './components/ActualizationChecklist';
+
+import ActualizationCategorization
+from './components/ActualizationCategorization';
 
 import Container from '../../components/ui/Container/Container';
 
@@ -44,343 +54,13 @@ export default function ActualizationPage() {
       id="main-content"
       className="actualization-page"
     >
-      <section className="actualization-hero">
-        <Container>
-          <nav
-            className="actualization-breadcrumbs"
-            aria-label="Хлебные крошки"
-          >
-            <a href="/">
-              Главная
-            </a>
+      <ActualizationHeroAndDefinition />
 
-            <span aria-hidden="true">
-              /
-            </span>
+      <ActualizationReasons />
 
-            <span>
-              Актуализация паспорта
-            </span>
-          </nav>
+      <ActualizationChecklist />
 
-
-          <div className="actualization-hero__grid">
-            <div className="actualization-hero__copy">
-              <p className="actualization-kicker">
-                Проверка действующего документа
-              </p>
-
-              <h1>
-                Актуализация паспорта безопасности объекта
-              </h1>
-
-              <p className="actualization-hero__lead">
-                Проверим действующий паспорт безопасности,
-                определим основания и порядок его
-                актуализации по требованиям, применимым
-                к вашему объекту. Подготовим изменения
-                либо новую редакцию документа.
-                {' '}
-                <span className="coverage-emphasis">Работаем по всей России</span>.
-              </p>
-
-
-              <ul className="actualization-hero__benefits">
-                <li>
-                  Определим, действительно ли требуется актуализация
-                </li>
-
-                <li>
-                  Проверим необходимость повторного категорирования
-                </li>
-
-                <li>
-                  Учтём требования именно для вашего типа объекта
-                </li>
-              </ul>
-
-
-              <div className="actualization-hero__actions">
-                <a
-                  className="button button--primary"
-                  href="#lead-form"
-                >
-                  Проверить паспорт
-                </a>
-
-                <a
-                  className="actualization-hero__secondary"
-                  href="#lead-form"
-                >
-                  Заказать актуализацию
-                  <span aria-hidden="true">
-                    ↗
-                  </span>
-                </a>
-              </div>
-            </div>
-
-
-            <aside className="actualization-hero__note">
-              <span>
-                Важно
-              </span>
-
-              <h2>
-                Актуализация — не просто замена даты
-              </h2>
-
-              <p>
-                Сначала определяем нормативный режим
-                объекта, проверяем действующий паспорт
-                и выясняем, какой порядок внесения
-                изменений применяется именно в вашем
-                случае.
-              </p>
-            </aside>
-          </div>
-        </Container>
-      </section>
-
-
-      <section className="actualization-definition">
-        <Container>
-          <div className="actualization-section-head">
-            <p className="actualization-kicker">
-              Что это значит
-            </p>
-
-            <h2>
-              Что такое актуализация паспорта безопасности
-            </h2>
-
-            <p>
-              Актуализация — это приведение действующего
-              паспорта безопасности в соответствие
-              с текущими характеристиками объекта
-              и применимыми требованиями.
-            </p>
-          </div>
-
-
-          <div className="actualization-definition__paths">
-            <article>
-              <span>
-                01
-              </span>
-
-              <h3>
-                Внесение изменений
-              </h3>
-
-              <p>
-                В предусмотренных случаях необходимые
-                сведения могут быть изменены
-                в существующем документе.
-              </p>
-            </article>
-
-            <div
-              className="actualization-definition__or"
-              aria-hidden="true"
-            >
-              или
-            </div>
-
-            <article>
-              <span>
-                02
-              </span>
-
-              <h3>
-                Новая редакция паспорта
-              </h3>
-
-              <p>
-                Если применимый порядок этого требует,
-                может потребоваться переработка
-                документа или подготовка новой редакции.
-              </p>
-            </article>
-          </div>
-        </Container>
-      </section>
-
-
-      <section
-        className="actualization-reasons"
-        id="when-update"
-      >
-        <Container>
-          <div className="actualization-section-head">
-            <p className="actualization-kicker">
-              Сроки, основания и причины
-            </p>
-
-            <h2>
-              Когда требуется актуализация паспорта безопасности
-            </h2>
-
-            <p>
-              Конкретные основания зависят от вида
-              объекта и требований, по которым
-              разработан его паспорт.
-            </p>
-          </div>
-
-
-          <div
-            className="actualization-reasons-table"
-            role="table"
-            aria-label="Основания для проверки актуальности паспорта"
-          >
-            <div
-              className="actualization-reasons-table__head"
-              role="row"
-            >
-              <span role="columnheader">
-                Что изменилось
-              </span>
-
-              <span role="columnheader">
-                Может потребоваться актуализация
-              </span>
-            </div>
-
-            {triggerRows.map(
-              (item) => (
-                <div
-                  className="actualization-reasons-table__row"
-                  role="row"
-                  key={item.change}
-                >
-                  <span role="cell">
-                    {item.change}
-                  </span>
-
-                  <strong role="cell">
-                    {item.result}
-                  </strong>
-                </div>
-              ),
-            )}
-          </div>
-
-
-          <aside className="actualization-reasons__notice">
-            <strong>
-              Основания и сроки актуализации зависят
-              от вида объекта и нормативного акта,
-              который устанавливает требования
-              к его антитеррористической защищённости.
-            </strong>
-
-            <p>
-              Поэтому мы не просто меняем дату
-              в паспорте — сначала определяем
-              применимые требования.
-            </p>
-          </aside>
-        </Container>
-      </section>
-
-
-      <section className="actualization-checklist">
-        <Container>
-          <div className="actualization-checklist__layout">
-            <div>
-              <p className="actualization-kicker">
-                Быстрая самопроверка
-              </p>
-
-              <h2>
-                Как понять, нужно ли актуализировать ваш паспорт
-              </h2>
-
-              <p>
-                Проверьте документ, если после
-                его разработки произошло хотя бы
-                одно из перечисленных изменений.
-              </p>
-
-              <a
-                className="button button--primary actualization-check-button"
-                href="#lead-form"
-              >
-              <span className="actualization-check-button__label">
-                Отправить паспорт на проверку
-              </span>
-
-              <span
-                className="actualization-check-button__arrow"
-                aria-hidden="true"
-              >
-                ↗
-              </span>
-            </a>
-            </div>
-
-
-            <ul className="actualization-checklist__items">
-              {checklistItems.map(
-                (item, index) => (
-                  <li key={item}>
-                    <span aria-hidden="true">
-                      {String(
-                        index + 1,
-                      ).padStart(2, '0')}
-                    </span>
-
-                    <p>
-                      {item}
-                    </p>
-                  </li>
-                ),
-              )}
-            </ul>
-          </div>
-        </Container>
-      </section>
-
-
-      <section className="actualization-category">
-        <Container>
-          <div className="actualization-category__panel">
-            <div>
-              <p className="actualization-kicker">
-                Важный вопрос
-              </p>
-
-              <h2>
-                Всегда ли нужно заново проводить категорирование?
-              </h2>
-            </div>
-
-            <div className="actualization-category__answer">
-              <strong>
-                Нет, не всегда.
-              </strong>
-
-              <p>
-                Это зависит от основания актуализации
-                и требований для конкретного объекта.
-                При одних изменениях может потребоваться
-                подтверждение или изменение категории,
-                при других — изменения могут оформляться
-                без полной процедуры повторного
-                категорирования.
-              </p>
-
-              <a href="/akt-obsledovaniya-i-kategorirovaniya-obekta/">
-                Подробнее об обследовании и категорировании
-                <span aria-hidden="true">
-                  ↗
-                </span>
-              </a>
-            </div>
-          </div>
-        </Container>
-      </section>
+      <ActualizationCategorization />
 
 
       <section className="actualization-work">
