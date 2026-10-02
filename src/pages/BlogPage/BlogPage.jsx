@@ -1083,43 +1083,31 @@ export default function BlogPage({
                     Категории статей
                   </h2>
 
-
-                  <span>
-                    {
-                      String(
-                        visibleCategories.length
-                      ).padStart(
-                        2,
-                        '0'
-                      )
-                    }
-                  </span>
-
                 </div>
 
 
-                <div className="blog-categories__intro">
+                <p className="blog-categories__description">
+                  Материалы сгруппированы по практической
+                  задаче: от требований законодательства
+                  и категорирования до подготовки и
+                  актуализации паспорта безопасности.
+                </p>
 
-                  <p>
-                    Материалы сгруппированы по практической
-                    задаче: от требований законодательства
-                    и категорирования до подготовки и
-                    актуализации паспорта безопасности.
-                  </p>
 
+                <nav
+                  className="blog-category-chips"
+                  aria-label="Категории статей"
+                >
 
                   <button
-                    id="blog-category-all"
                     type="button"
                     className={
-                      selectedCategory ===
-                      'all'
-                        ? 'blog-categories__all is-active'
-                        : 'blog-categories__all'
+                      selectedCategory === 'all'
+                        ? 'blog-category-chip is-active'
+                        : 'blog-category-chip'
                     }
                     aria-pressed={
-                      selectedCategory ===
-                      'all'
+                      selectedCategory === 'all'
                     }
                     onClick={
                       () =>
@@ -1128,29 +1116,9 @@ export default function BlogPage({
                         )
                     }
                   >
-
-                    <span>
-                      Все материалы
-                    </span>
-
-
-                    <strong>
-                      {
-                        String(
-                          articles.length
-                        ).padStart(
-                          2,
-                          '0'
-                        )
-                      }
-                    </strong>
-
+                    Все материалы
                   </button>
 
-                </div>
-
-
-                <div className="blog-categories__grid">
 
                   {
                     visibleCategories.map(
@@ -1163,75 +1131,61 @@ export default function BlogPage({
 
                         return (
 
-                          <article
+                          <button
                             key={category.id}
                             id={
                               `blog-category-${category.id}`
                             }
+                            type="button"
                             className={
                               isActive
-                                ? 'blog-category-card is-active'
-                                : 'blog-category-card'
+                                ? 'blog-category-chip is-active'
+                                : 'blog-category-chip'
+                            }
+                            aria-pressed={
+                              isActive
+                            }
+                            aria-label={
+                              `${category.label}. ${category.description}`
+                            }
+                            onClick={
+                              () =>
+                                chooseCategory(
+                                  category.id
+                                )
                             }
                           >
-
-                            <div className="blog-category-card__meta">
-
-                              <span>
-                                {
-                                  formatMaterialsCount(
-                                    categoryCounts[
-                                      category.id
-                                    ]
-                                  )
-                                }
-                              </span>
-
-                            </div>
-
-
-                            <h3>
-                              {category.label}
-                            </h3>
-
-
-                            <p>
-                              {category.description}
-                            </p>
-
-
-                            <button
-                              type="button"
-                              className="blog-category-card__action"
-                              aria-pressed={
-                                isActive
-                              }
-                              onClick={
-                                () =>
-                                  chooseCategory(
-                                    category.id
-                                  )
-                              }
-                            >
-
-                              {
-                                isActive
-                                  ? 'Раздел выбран'
-                                  : 'Показать статьи'
-                              }
-
-
-                              <span aria-hidden="true">
-                                →
-                              </span>
-
-                            </button>
-
-                          </article>
+                            {category.label}
+                          </button>
 
                         );
 
                       }
+                    )
+                  }
+
+                </nav>
+
+
+                <div className="blog-category-seo-descriptions">
+
+                  {
+                    visibleCategories.map(
+                      category => (
+
+                        <p
+                          key={
+                            `seo-${category.id}`
+                          }
+                        >
+                          <strong>
+                            {category.label}.
+                          </strong>
+                          {' '}
+                          {category.description}
+                        </p>
+
+                      )
                     )
                   }
 
