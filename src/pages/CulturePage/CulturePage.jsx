@@ -4,8 +4,6 @@ import {
   cultureActualizationReasons,
   cultureWhyItems,
   cultureFaqItems,
-  cultureServiceItems,
-  cultureSourceData,
   cultureFormStructure,
 } from './culturePageData';
 
@@ -23,6 +21,16 @@ from './components/CultureActAndPassport';
 
 import CultureApprovalAndRestrictions
 from './components/CultureApprovalAndRestrictions';
+
+
+import CultureServiceScope
+from './components/CultureServiceScope';
+
+import CulturePricing
+from './components/CulturePricing';
+
+import CultureRequiredDocuments
+from './components/CultureRequiredDocuments';
 import Container from '../../components/ui/Container/Container';
 import FinalCTA from '../../sections/FinalCTA/FinalCTA';
 import { useCity } from '../../context/GeoContext';
@@ -242,222 +250,11 @@ export default function CulturePage({
       <CultureApprovalAndRestrictions />
 
 
-      <section
-        className="culture-service"
-        id="culture-service"
-      >
-        <Container>
-          <div className="culture-service__header">
-            <div>
-              <p className="culture-kicker">
-                Состав работ
-              </p>
+      <CultureServiceScope />
 
-              <h2>
-                Что входит в услугу
-              </h2>
-            </div>
+      <CulturePricing />
 
-            <div className="culture-service__intro">
-              <p>
-                Состав работ зависит от того,
-                категорирован ли объект,
-                есть ли действующий акт
-                и требуется ли только разработка
-                паспорта или прохождение
-                предыдущих этапов.
-              </p>
-
-              <strong>
-                Точный состав определяем
-                после первичной проверки объекта
-                и имеющихся документов.
-              </strong>
-            </div>
-          </div>
-
-          <div className="culture-service__grid">
-            {cultureServiceItems.map(
-              (item) => (
-                <article
-                  className="culture-service__item"
-                  key={item.number}
-                >
-                  <div className="culture-service__item-head">
-                    <span>
-                      {item.number}
-                    </span>
-
-                    <span
-                      className="culture-service__check"
-                      aria-hidden="true"
-                    >
-                      ✓
-                    </span>
-                  </div>
-
-                  <h3>
-                    {item.title}
-                  </h3>
-
-                  <p>
-                    {item.text}
-                  </p>
-                </article>
-              ),
-            )}
-          </div>
-
-          <p className="culture-service__note">
-            Перечень выше описывает возможный
-            состав работы по объекту и не означает,
-            что все этапы автоматически входят
-            в базовую стоимость разработки паспорта.
-          </p>
-        </Container>
-      </section>
-
-
-      <section
-        className="culture-price"
-        id="culture-price"
-      >
-        <Container>
-          <div className="culture-price__panel">
-            <div className="culture-price__main">
-              <p className="culture-kicker">
-                Стоимость
-              </p>
-
-              <h2>
-                Стоимость разработки
-                паспорта объекта культуры
-              </h2>
-
-              <div className="culture-price__value">
-                <span>
-                  от
-                </span>
-
-                <strong>
-                  9 500 ₽
-                </strong>
-              </div>
-
-              <p className="culture-price__description">
-                Итоговый объём работ зависит
-                от исходного состояния документации
-                и того, прошёл ли объект
-                обследование и категорирование.
-              </p>
-
-              <a
-                className="button button--primary"
-                href="#contact"
-              >
-                Получить точную стоимость
-              </a>
-            </div>
-
-            <div className="culture-price__scenarios">
-              <article>
-                <span>
-                  Сценарий 01
-                </span>
-
-                <h3>
-                  Акт уже есть
-                  и остаётся актуальным
-                </h3>
-
-                <p>
-                  Если обследование и категорирование
-                  уже проведены, можно рассматривать
-                  отдельную разработку паспорта
-                  по действующей форме.
-                </p>
-              </article>
-
-              <article>
-                <span>
-                  Сценарий 02
-                </span>
-
-                <h3>
-                  Объект ещё
-                  не категорирован
-                </h3>
-
-                <p>
-                  Если действующего акта нет,
-                  работу начинаем с подготовки
-                  к обследованию и категорированию,
-                  после чего оформляется паспорт.
-                </p>
-              </article>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-
-      <section
-        className="culture-source"
-        id="culture-source"
-      >
-        <Container>
-          <div className="culture-source__layout">
-            <div className="culture-source__heading">
-              <p className="culture-kicker">
-                Подготовка
-              </p>
-
-              <h2>
-                Какие данные нужны
-                для разработки
-              </h2>
-
-              <p>
-                Для начала работы собираем
-                основные сведения об организации,
-                объекте, людях, режимах,
-                защите и существующей документации.
-              </p>
-
-              <aside className="culture-source__notice">
-                Точный перечень определяем
-                после первичной проверки объекта
-                и имеющихся документов.
-              </aside>
-            </div>
-
-            <div className="culture-source__list">
-              {cultureSourceData.map(
-                (item) => (
-                  <article
-                    className="culture-source__item"
-                    key={item.number}
-                  >
-                    <span>
-                      {item.number}
-                    </span>
-
-                    <div>
-                      <h3>
-                        {item.title}
-                      </h3>
-
-                      <p>
-                        {item.text}
-                      </p>
-                    </div>
-                  </article>
-                ),
-              )}
-            </div>
-          </div>
-        </Container>
-      </section>
+      <CultureRequiredDocuments />
 
 
       <section
