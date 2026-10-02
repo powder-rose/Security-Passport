@@ -118,56 +118,6 @@ export function resolveArticleCategory(
 }
 
 
-function formatMaterialsCount(
-  count
-){
-
-  const value =
-    Math.abs(
-      Number(count) || 0
-    );
-
-
-  const mod100 =
-    value % 100;
-
-  const mod10 =
-    value % 10;
-
-
-  let word =
-    'материалов';
-
-
-  if(
-    mod100 < 11
-    ||
-    mod100 > 14
-  ){
-
-    if(
-      mod10 === 1
-    ){
-      word =
-        'материал';
-    }
-    else if(
-      mod10 >= 2
-      &&
-      mod10 <= 4
-    ){
-      word =
-        'материала';
-    }
-
-  }
-
-
-  return `${value} ${word}`;
-
-}
-
-
 export function formatDate(
   value
 ){
