@@ -1,9 +1,5 @@
 import './CulturePage.css';
 
-import {
-  cultureWhyItems,
-  cultureFaqItems,
-} from './culturePageData';
 
 import CultureHeroAndObjects
 from './components/CultureHeroAndObjects';
@@ -39,8 +35,13 @@ from './components/CulturePassportActualization';
 
 import CultureCurrentRequirements
 from './components/CultureCurrentRequirements';
-import Container from '../../components/ui/Container/Container';
-import FinalCTA from '../../sections/FinalCTA/FinalCTA';
+
+
+import CultureWorkApproach
+from './components/CultureWorkApproach';
+
+import CultureFaq
+from './components/CultureFaq';import FinalCTA from '../../sections/FinalCTA/FinalCTA';
 import { useCity } from '../../context/GeoContext';
 
 
@@ -272,154 +273,9 @@ export default function CulturePage({
       <CultureCurrentRequirements />
 
 
-      <section
-        className="culture-why"
-        id="culture-why"
-      >
-        <Container>
-          <div className="culture-why__header">
-            <div>
-              <p className="culture-kicker">
-                Подход к работе
-              </p>
+      <CultureWorkApproach />
 
-              <h2>
-                Почему БОЙКОВГРУПП
-              </h2>
-            </div>
-
-            <p>
-              Для объекта культуры важно
-              правильно определить нормативный
-              режим и последовательно пройти
-              категорирование, оформление акта,
-              разработку паспорта
-              и предусмотренное согласование.
-            </p>
-          </div>
-
-          <div className="culture-why__grid">
-            {cultureWhyItems.map(
-              (item) => (
-                <article
-                  className="culture-why__item"
-                  key={item.number}
-                >
-                  <span>
-                    {item.number}
-                  </span>
-
-                  <div>
-                    <h3>
-                      {item.title}
-                    </h3>
-
-                    <p>
-                      {item.text}
-                    </p>
-                  </div>
-                </article>
-              ),
-            )}
-          </div>
-
-          <nav
-            className="culture-why__links"
-            aria-label="Связанные услуги"
-          >
-            <a href="/">
-              Паспорт безопасности объекта
-              <span aria-hidden="true">
-                ↗
-              </span>
-            </a>
-
-            <a href="/akt-obsledovaniya-i-kategorirovaniya-obekta/">
-              Акт обследования и категорирования
-              <span aria-hidden="true">
-                ↗
-              </span>
-            </a>
-
-            <a href="/aktualizaciya-pasporta-bezopasnosti-obekta/">
-              Актуализация паспорта безопасности
-              <span aria-hidden="true">
-                ↗
-              </span>
-            </a>
-          </nav>
-        </Container>
-      </section>
-
-
-      <section
-        className="culture-faq"
-        id="culture-faq"
-      >
-        <Container>
-          <div className="culture-faq__layout">
-            <div className="culture-faq__heading">
-              <div>
-                <p className="culture-kicker">
-                  Вопросы и ответы
-                </p>
-
-                <h2>
-                  Частые вопросы
-                  о паспорте безопасности
-                  объекта культуры
-                </h2>
-              </div>
-
-              <p>
-                Ответы по ПП РФ №176,
-                категорированию, актуализации,
-                форме паспорта, ДСП
-                и согласованию.
-              </p>
-            </div>
-
-            <div className="culture-faq__list">
-              {cultureFaqItems.map(
-                (item, index) => (
-                  <details
-                    className="culture-faq__item"
-                    key={item.question}
-                  >
-                    <summary>
-                      <span className="culture-faq__number">
-                        {String(
-                          index + 1,
-                        ).padStart(
-                          2,
-                          '0',
-                        )}
-                      </span>
-
-                      <span className="culture-faq__question">
-                        {item.question}
-                      </span>
-
-                      <span
-                        className="culture-faq__toggle"
-                        aria-hidden="true"
-                      >
-                        +
-                      </span>
-                    </summary>
-
-                    <div className="culture-faq__answer">
-                      <p>
-                        {item.answer}
-                      </p>
-                    </div>
-                  </details>
-                ),
-              )}
-            </div>
-          </div>
-        </Container>
-      </section>
+      <CultureFaq />
 
 
       <FinalCTA />
