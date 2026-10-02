@@ -1,4 +1,79 @@
-/* CULTURE_PAGE_STAGE_1:start */
+/* ==========================================================================
+   CULTURE PAGE
+   ==========================================================================
+
+   Route:
+   /pasport-bezopasnosti-obekta-kultury/
+
+   React entry:
+   CulturePage.jsx
+
+   COMPONENT OWNERSHIP
+
+   01. CultureHeroAndObjects.jsx
+       .culture-hero*
+       .culture-scope*
+       .culture-breadcrumbs
+       .culture-inline-link
+
+   02. CultureRegulationAndCategories.jsx
+       .culture-regulation*
+       .culture-categories*
+
+   03. CultureCategorization.jsx
+       .culture-categorization*
+
+   04. CultureActAndPassport.jsx
+       .culture-act*
+       .culture-passport*
+
+   05. CultureApprovalAndRestrictions.jsx
+       .culture-approval*
+       .culture-restricted*
+
+   06. CultureServiceScope.jsx
+       .culture-service*
+
+   07. CulturePricing.jsx
+       .culture-price*
+
+   08. CultureRequiredDocuments.jsx
+       .culture-source*
+
+   09. CulturePassportForm.jsx
+       .culture-form*
+
+   10. CulturePassportActualization.jsx
+       .culture-actualization*
+
+   11. CultureCurrentRequirements.jsx
+       .culture-standard*
+
+   12. CultureWorkApproach.jsx
+       .culture-why*
+
+   13. CultureFaq.jsx
+       .culture-faq*
+
+   Shared page selectors:
+       .culture-page
+       .culture-kicker
+       .culture-inline-link
+       .coverage-emphasis
+
+   External section:
+       FinalCTA keeps its own component styles and is not owned here.
+
+   FILE ORGANIZATION
+
+   - Component-owned sections
+   - Responsive rules for those component groups
+   - Cross-component typography / kicker synchronization
+   - No historical stage/version layers
+
+   This file describes the CURRENT rendered CulturePage.
+   ========================================================================== */
+
 
 .culture-page {
   overflow: clip;
@@ -47,7 +122,9 @@
 }
 
 
-/* HERO */
+/* ==========================================================================
+   CultureHeroAndObjects.jsx — HERO
+   ========================================================================== */
 
 .culture-hero {
   padding: 34px 0 96px;
@@ -111,29 +188,6 @@
   letter-spacing: -.045em;
 }
 
-.culture-hero__country {
-  display: flex;
-  gap: 11px;
-  align-items: center;
-}
-
-.culture-hero__country > span {
-  display: grid;
-  width: 31px;
-  height: 31px;
-  flex: 0 0 31px;
-  place-items: center;
-  border-radius: 50%;
-  background: #a9f04a;
-  font-size: 13px;
-  font-weight: 900;
-}
-
-.culture-hero__country p {
-  margin: 0;
-  font-size: 15px;
-  font-weight: 650;
-}
 
 .culture-hero__actions {
   display: flex;
@@ -166,7 +220,9 @@
 }
 
 
-/* HERO — REGULATION PANEL */
+/* --------------------------------------------------------------------------
+   CultureHeroAndObjects.jsx — HERO REGULATION PANEL
+   -------------------------------------------------------------------------- */
 
 .culture-hero__regulation {
   position: relative;
@@ -270,7 +326,9 @@
 }
 
 
-/* SCOPE */
+/* --------------------------------------------------------------------------
+   CultureHeroAndObjects.jsx — OBJECT SCOPE
+   -------------------------------------------------------------------------- */
 
 .culture-scope {
   padding: 108px 0 116px;
@@ -451,7 +509,9 @@
 }
 
 
-/* REGULATION */
+/* ==========================================================================
+   CultureRegulationAndCategories.jsx — REGULATION
+   ========================================================================== */
 
 .culture-regulation {
   padding: 118px 0 124px;
@@ -841,13 +901,9 @@ article > span {
 }
 
 
-/* CULTURE_PAGE_STAGE_1:end */
-
-
-/* CULTURE_PAGE_STAGE_2:start */
-
-
-/* CATEGORIES */
+/* ==========================================================================
+   CultureRegulationAndCategories.jsx — CATEGORIES
+   ========================================================================== */
 
 .culture-categories {
   padding: 116px 0 124px;
@@ -1010,7 +1066,9 @@ article > span {
 }
 
 
-/* CATEGORIZATION */
+/* ==========================================================================
+   CultureCategorization.jsx — CATEGORIZATION
+   ========================================================================== */
 
 .culture-categorization {
   padding: 118px 0 124px;
@@ -1184,7 +1242,9 @@ article > span {
 }
 
 
-/* ACT */
+/* ==========================================================================
+   CultureActAndPassport.jsx — CATEGORIZATION ACT
+   ========================================================================== */
 
 .culture-act {
   padding: 0 0 124px;
@@ -1313,7 +1373,9 @@ article > span {
 }
 
 
-/* STAGE 2 — 1180 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — categories, categorization and act — 1180
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .culture-categorization__layout {
@@ -1330,7 +1392,9 @@ article > span {
 }
 
 
-/* STAGE 2 — 1024 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — categories, categorization and act — 1024
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1024px) {
   .culture-categories__header,
@@ -1363,7 +1427,9 @@ article > span {
 }
 
 
-/* STAGE 2 — 768 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — categories, categorization and act — 768
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 768px) {
   .culture-categories,
@@ -1389,7 +1455,9 @@ article > span {
 }
 
 
-/* STAGE 2 — 430 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — categories, categorization and act — 430
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 430px) {
   .culture-categories__header h2,
@@ -1470,7 +1538,9 @@ article > span {
 }
 
 
-/* STAGE 2 — 390 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — categories, categorization and act — 390
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 390px) {
   .culture-categories__header h2,
@@ -1485,7 +1555,9 @@ article > span {
 }
 
 
-/* STAGE 2 — 320 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — categories, categorization and act — 320
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 320px) {
   .culture-categories__header h2,
@@ -1512,13 +1584,9 @@ article > span {
 }
 
 
-/* CULTURE_PAGE_STAGE_2:end */
-
-
-/* CULTURE_PAGE_STAGE_3:start */
-
-
-/* PASSPORT DEVELOPMENT */
+/* --------------------------------------------------------------------------
+   CultureActAndPassport.jsx — PASSPORT DEVELOPMENT
+   -------------------------------------------------------------------------- */
 
 .culture-passport {
   padding: 116px 0 124px;
@@ -1683,7 +1751,9 @@ span:first-child {
 }
 
 
-/* APPROVAL */
+/* ==========================================================================
+   CultureApprovalAndRestrictions.jsx — APPROVAL
+   ========================================================================== */
 
 .culture-approval {
   padding: 118px 0 124px;
@@ -1872,7 +1942,9 @@ article > span {
 }
 
 
-/* RESTRICTED / DСП */
+/* --------------------------------------------------------------------------
+   CultureApprovalAndRestrictions.jsx — RESTRICTED DOCUMENTS
+   -------------------------------------------------------------------------- */
 
 .culture-restricted {
   padding: 0 0 124px;
@@ -2000,7 +2072,9 @@ article > span {
 }
 
 
-/* STAGE 3 — 1180 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — passport development, approval and restrictions — 1180
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .culture-approval__heading,
@@ -2010,7 +2084,9 @@ article > span {
 }
 
 
-/* STAGE 3 — 1024 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — passport development, approval and restrictions — 1024
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1024px) {
   .culture-passport__header,
@@ -2046,7 +2122,9 @@ article > span {
 }
 
 
-/* STAGE 3 — 768 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — passport development, approval and restrictions — 768
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 768px) {
   .culture-passport,
@@ -2086,7 +2164,9 @@ article > span {
 }
 
 
-/* STAGE 3 — 430 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — passport development, approval and restrictions — 430
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 430px) {
   .culture-passport__header h2,
@@ -2163,7 +2243,9 @@ article > span {
 }
 
 
-/* STAGE 3 — 390 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — passport development, approval and restrictions — 390
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 390px) {
   .culture-passport__header h2,
@@ -2178,7 +2260,9 @@ article > span {
 }
 
 
-/* STAGE 3 — 320 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — passport development, approval and restrictions — 320
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 320px) {
   .culture-passport__header h2,
@@ -2201,13 +2285,9 @@ article > span {
 }
 
 
-/* CULTURE_PAGE_STAGE_3:end */
-
-
-/* CULTURE_PAGE_STAGE_4:start */
-
-
-/* SERVICE */
+/* ==========================================================================
+   CultureServiceScope.jsx — SERVICE SCOPE
+   ========================================================================== */
 
 .culture-service {
   padding: 116px 0 124px;
@@ -2326,7 +2406,9 @@ article > span {
 }
 
 
-/* PRICE */
+/* ==========================================================================
+   CulturePricing.jsx — PRICING
+   ========================================================================== */
 
 .culture-price {
   padding: 118px 0 124px;
@@ -2445,7 +2527,9 @@ article > span {
 }
 
 
-/* SOURCE DATA */
+/* ==========================================================================
+   CultureRequiredDocuments.jsx — REQUIRED DOCUMENTS
+   ========================================================================== */
 
 .culture-source {
   padding: 118px 0 124px;
@@ -2534,7 +2618,9 @@ article > span {
 }
 
 
-/* FORM */
+/* ==========================================================================
+   CulturePassportForm.jsx — PASSPORT FORM
+   ========================================================================== */
 
 .culture-form {
   padding: 118px 0 124px;
@@ -2701,7 +2787,9 @@ span:first-child {
 }
 
 
-/* STAGE 4 — 1180 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — service, pricing, required documents and passport form — 1180
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .culture-price__main {
@@ -2714,7 +2802,9 @@ span:first-child {
 }
 
 
-/* STAGE 4 — 1024 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — service, pricing, required documents and passport form — 1024
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1024px) {
   .culture-service__header,
@@ -2743,7 +2833,9 @@ span:first-child {
 }
 
 
-/* STAGE 4 — 768 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — service, pricing, required documents and passport form — 768
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 768px) {
   .culture-service,
@@ -2764,7 +2856,9 @@ span:first-child {
 }
 
 
-/* STAGE 4 — 430 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — service, pricing, required documents and passport form — 430
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 430px) {
   .culture-service__header h2,
@@ -2840,7 +2934,9 @@ span:first-child {
 }
 
 
-/* STAGE 4 — 390 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — service, pricing, required documents and passport form — 390
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 390px) {
   .culture-service__header h2,
@@ -2856,7 +2952,9 @@ span:first-child {
 }
 
 
-/* STAGE 4 — 320 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — service, pricing, required documents and passport form — 320
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 320px) {
   .culture-service__header h2,
@@ -2877,13 +2975,9 @@ span:first-child {
 }
 
 
-/* CULTURE_PAGE_STAGE_4:end */
-
-
-/* CULTURE_PAGE_STAGE_5:start */
-
-
-/* ACTUALIZATION */
+/* ==========================================================================
+   CulturePassportActualization.jsx — ACTUALIZATION
+   ========================================================================== */
 
 .culture-actualization {
   padding: 116px 0 124px;
@@ -3051,7 +3145,9 @@ span:first-child {
 }
 
 
-/* STANDARD */
+/* ==========================================================================
+   CultureCurrentRequirements.jsx — CURRENT REQUIREMENTS
+   ========================================================================== */
 
 .culture-standard {
   padding: 118px 0 124px;
@@ -3200,7 +3296,9 @@ span:first-child {
 }
 
 
-/* WHY */
+/* ==========================================================================
+   CultureWorkApproach.jsx — WORK APPROACH
+   ========================================================================== */
 
 .culture-why {
   padding: 116px 0 124px;
@@ -3328,153 +3426,612 @@ span:first-child {
 }
 
 
-/* FAQ */
+/* ==========================================================================
+   CultureFaq.jsx — FAQ
+   ==========================================================================
+
+   Current FAQ presentation.
+
+   Base FAQ, Trade-style presentation, toggle alignment
+   and answer-spacing fixes are consolidated here.
+   ========================================================================== */
 
 .culture-faq {
-  padding: 118px 0 124px;
+  padding:
+    116px
+    0
+    126px !important;
+
+  background:
+    #f5f5f1 !important;
 }
 
+
 .culture-faq__layout {
-  display: grid;
+  display:
+    grid !important;
+
   grid-template-columns:
-    minmax(300px, .68fr)
-    minmax(0, 1.32fr);
-  gap: clamp(60px, 9vw, 150px);
+    minmax(300px, .62fr)
+    minmax(0, 1.15fr) !important;
+
+  gap:
+    clamp(
+      70px,
+      10vw,
+      165px
+    ) !important;
+
   align-items: start;
 }
 
+
 .culture-faq__heading {
-  position: sticky;
-  top: 32px;
+  position:
+    sticky !important;
+
+  top:
+    110px !important;
+
+  align-self:
+    start !important;
 }
 
+
 .culture-faq__heading h2 {
-  max-width: 620px;
-  margin: 0;
+  max-width:
+    600px !important;
+
+  margin:
+    0 !important;
+
   font-size:
-    clamp(39px, 4.1vw, 63px);
+    clamp(
+      2.65rem,
+      3.9vw,
+      4.25rem
+    ) !important;
+
   font-weight: 600;
-  line-height: 1;
-  letter-spacing: -.04em;
+
+  line-height:
+    1 !important;
+
+  letter-spacing:
+    -.055em !important;
+
   text-wrap: balance;
 }
 
-.culture-faq__heading > p {
-  max-width: 480px;
-  margin: 28px 0 0;
+
+.culture-faq__heading
+> p:not([class]) {
+  max-width:
+    560px !important;
+
+  margin:
+    30px
+    0
+    0 !important;
+
+  color:
+    var(--color-text-secondary) !important;
+
   font-size: 15px;
-  line-height: 1.65;
+
+  line-height:
+    1.72 !important;
+
   opacity: .66;
 }
 
+
 .culture-faq__list {
-  border-top:
-    1px solid rgb(21 21 21 / 16%);
+  overflow:
+    hidden !important;
+
+  padding:
+    0
+    26px !important;
+
+  border:
+    1px solid
+    var(--color-border) !important;
+
+  border-radius:
+    var(--radius-lg) !important;
+
+  background:
+    #fff !important;
+
+  box-shadow:
+    var(--shadow-soft) !important;
 }
+
 
 .culture-faq__item {
+  margin:
+    0 !important;
+
+  border:
+    0 !important;
+
   border-bottom:
-    1px solid rgb(21 21 21 / 16%);
+    1px solid
+    var(--color-border) !important;
+
+  border-radius:
+    0 !important;
+
+  background:
+    transparent !important;
+
+  box-shadow:
+    none !important;
 }
+
+
+.culture-faq__item:last-child {
+  border-bottom:
+    0 !important;
+}
+
 
 .culture-faq__item summary {
-  display: grid;
+  display:
+    grid !important;
+
   grid-template-columns:
-    45px
+    54px
     minmax(0, 1fr)
-    36px;
-  gap: 18px;
-  align-items: center;
-  min-height: 93px;
-  padding: 21px 0;
-  cursor: pointer;
-  list-style: none;
+    36px !important;
+
+  gap:
+    18px !important;
+
+  align-items:
+    center !important;
+
+  min-height:
+    94px !important;
+
+  margin:
+    0
+    -10px !important;
+
+  padding:
+    23px
+    10px !important;
+
+  border-radius:
+    14px !important;
+
+  background:
+    transparent !important;
+
+  cursor:
+    pointer !important;
+
+  list-style:
+    none !important;
+
+  transition:
+    background-color
+    180ms
+    ease !important;
 }
 
-.culture-faq__item summary::-webkit-details-marker {
-  display: none;
+
+.culture-faq__item
+summary::-webkit-details-marker {
+  display:
+    none !important;
 }
+
 
 .culture-faq__number {
-  font-size: 11px;
-  font-weight: 800;
+  color:
+    var(--color-text-secondary) !important;
+
+  font-size:
+    .72rem !important;
+
+  font-weight:
+    800 !important;
+
+  line-height:
+    1 !important;
+
+  letter-spacing:
+    .09em !important;
+
   opacity: .4;
 }
 
+
 .culture-faq__question {
   max-width: 760px;
+
+  color:
+    var(--color-text) !important;
+
   font-size:
-    clamp(18px, 1.45vw, 22px);
-  font-weight: 650;
-  line-height: 1.3;
+    1.08rem !important;
+
+  font-weight:
+    750 !important;
+
+  line-height:
+    1.4 !important;
 }
 
+
+/* --------------------------------------------------------------------------
+   Toggle
+   -------------------------------------------------------------------------- */
+
 .culture-faq__toggle {
-  display: grid;
-  width: 32px;
-  height: 32px;
-  place-items: center;
+  position:
+    relative !important;
+
+  display:
+    block !important;
+
   justify-self: end;
-  border-radius: 50%;
-  background: #f1f1ec;
-  font-size: 21px;
+
+  width:
+    28px !important;
+
+  height:
+    28px !important;
+
+  padding:
+    0 !important;
+
+  border:
+    0 !important;
+
+  border-radius:
+    50% !important;
+
+  background:
+    transparent !important;
+
+  color:
+    var(--color-text) !important;
+
+  font-size:
+    0 !important;
+
+  transform:
+    none !important;
+
   transition:
-    background-color .2s ease,
-    transform .25s ease;
+    background-color 180ms ease,
+    color 180ms ease !important;
 }
+
+
+.culture-faq__toggle::before {
+  position:
+    absolute !important;
+
+  top:
+    50% !important;
+
+  left:
+    50% !important;
+
+  display:
+    block !important;
+
+  width:
+    16px !important;
+
+  height:
+    2px !important;
+
+  border-radius:
+    999px !important;
+
+  background:
+    currentColor !important;
+
+  content:
+    "" !important;
+
+  transform:
+    translate(-50%, -50%) !important;
+
+  transition:
+    transform
+    180ms
+    ease !important;
+}
+
+
+.culture-faq__toggle::after {
+  position:
+    absolute !important;
+
+  top:
+    50% !important;
+
+  left:
+    50% !important;
+
+  display:
+    block !important;
+
+  width:
+    16px !important;
+
+  height:
+    2px !important;
+
+  border-radius:
+    999px !important;
+
+  background:
+    currentColor !important;
+
+  content:
+    "" !important;
+
+  transform:
+    translate(-50%, -50%)
+    rotate(90deg) !important;
+
+  transition:
+    transform
+    180ms
+    ease !important;
+}
+
 
 .culture-faq__item[open]
 .culture-faq__toggle {
-  background: #a9f04a;
-  transform: rotate(45deg);
+  border-radius:
+    50% !important;
+
+  background:
+    #a9f04a !important;
+
+  color:
+    #151515 !important;
+
+  transform:
+    none !important;
 }
+
+
+.culture-faq__item[open]
+.culture-faq__toggle::after {
+  transform:
+    translate(-50%, -50%)
+    rotate(0deg) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   Answer
+   -------------------------------------------------------------------------- */
 
 .culture-faq__answer {
   padding:
-    0 54px 28px 63px;
+    18px
+    54px
+    28px
+    72px !important;
+
+  border:
+    0 !important;
+
+  background:
+    transparent !important;
 }
 
+
 .culture-faq__answer p {
-  max-width: 740px;
-  margin: 0;
+  max-width:
+    750px !important;
+
+  margin:
+    0 !important;
+
+  color:
+    var(--color-text-secondary) !important;
+
   font-size: 15px;
-  line-height: 1.7;
+
+  line-height:
+    1.72 !important;
+
   opacity: .72;
 }
 
-.culture-faq__item summary:focus-visible {
+
+.culture-faq__item
+summary:focus-visible {
   outline:
-    2px solid #151515;
+    2px solid
+    #151515;
+
   outline-offset: 4px;
 }
 
 
-/* STAGE 5 — 1180 */
+@media (hover: hover) {
+  .culture-faq__item
+  summary:hover {
+    background:
+      #f5f5f1 !important;
+  }
+}
+
+
+.culture-faq__item[open]
+summary {
+  background:
+    #f5f5f1 !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .culture-faq__layout {
+    grid-template-columns:
+      1fr !important;
+  }
+
+
+  .culture-faq__heading {
+    position:
+      static !important;
+
+    max-width:
+      740px !important;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .culture-faq {
+    padding-top:
+      80px !important;
+
+    padding-bottom:
+      86px !important;
+  }
+
+
+  .culture-faq__list {
+    padding:
+      0
+      18px !important;
+  }
+
+
+  .culture-faq__item summary {
+    grid-template-columns:
+      44px
+      minmax(0, 1fr)
+      32px !important;
+  }
+
+
+  .culture-faq__answer {
+    padding-left:
+      62px !important;
+  }
+}
+
+
+@media (max-width: 620px) {
+  .culture-faq__answer {
+    padding-top:
+      14px !important;
+  }
+}
+
+
+@media (max-width: 430px) {
+  .culture-faq__heading h2 {
+    font-size:
+      2.4rem !important;
+  }
+
+
+  .culture-faq__list {
+    padding:
+      0
+      12px !important;
+
+    border-radius:
+      18px !important;
+  }
+
+
+  .culture-faq__item summary {
+    grid-template-columns:
+      34px
+      minmax(0, 1fr)
+      28px !important;
+
+    gap:
+      12px !important;
+  }
+
+
+  .culture-faq__answer {
+    padding:
+      14px
+      28px
+      26px
+      46px !important;
+  }
+}
+
+
+@media (max-width: 320px) {
+  .culture-faq__heading h2 {
+    font-size:
+      2.05rem !important;
+  }
+
+
+  .culture-faq__number {
+    display:
+      none !important;
+  }
+
+
+  .culture-faq__item summary {
+    grid-template-columns:
+      minmax(0, 1fr)
+      28px !important;
+  }
+
+
+  .culture-faq__answer {
+    padding:
+      14px
+      28px
+      26px
+      0 !important;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — actualization, current requirements, work approach and FAQ — 1180
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .culture-standard__content {
     padding: 44px;
   }
 
-  .culture-faq__layout {
-    gap: 80px;
-  }
+
 }
 
 
-/* STAGE 5 — 1024 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — actualization, current requirements, work approach and FAQ — 1024
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1024px) {
   .culture-actualization__header,
-  .culture-actualization__layout,
-  .culture-standard__panel,
-  .culture-why__header,
-  .culture-faq__layout {
+.culture-actualization__layout,
+.culture-standard__panel,
+.culture-why__header {
     grid-template-columns: 1fr;
   }
 
-  .culture-actualization__aside,
-  .culture-faq__heading {
+  .culture-actualization__aside {
     position: relative;
     top: auto;
   }
@@ -3494,13 +4051,14 @@ span:first-child {
 }
 
 
-/* STAGE 5 — 768 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — actualization, current requirements, work approach and FAQ — 768
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 768px) {
   .culture-actualization,
-  .culture-standard,
-  .culture-why,
-  .culture-faq {
+.culture-standard,
+.culture-why {
     padding: 84px 0 94px;
   }
 
@@ -3511,13 +4069,14 @@ span:first-child {
 }
 
 
-/* STAGE 5 — 430 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — actualization, current requirements, work approach and FAQ — 430
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 430px) {
   .culture-actualization__header h2,
-  .culture-standard__content h2,
-  .culture-why__header h2,
-  .culture-faq__heading h2 {
+.culture-standard__content h2,
+.culture-why__header h2 {
     font-size: 35px;
   }
 
@@ -3571,49 +4130,33 @@ span:first-child {
     transform: none;
   }
 
-  .culture-faq__item summary {
-    grid-template-columns:
-      32px minmax(0, 1fr) 29px;
-    gap: 10px;
-    min-height: 83px;
-  }
 
-  .culture-faq__toggle {
-    width: 28px;
-    height: 28px;
-    font-size: 18px;
-  }
-
-  .culture-faq__answer {
-    padding:
-      0 39px 24px 42px;
-  }
 }
 
 
-/* STAGE 5 — 390 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — actualization, current requirements, work approach and FAQ — 390
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 390px) {
   .culture-actualization__header h2,
-  .culture-standard__content h2,
-  .culture-why__header h2,
-  .culture-faq__heading h2 {
+.culture-standard__content h2,
+.culture-why__header h2 {
     font-size: 32px;
   }
 
-  .culture-faq__question {
-    font-size: 17px;
-  }
+
 }
 
 
-/* STAGE 5 — 320 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — actualization, current requirements, work approach and FAQ — 320
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 320px) {
   .culture-actualization__header h2,
-  .culture-standard__content h2,
-  .culture-why__header h2,
-  .culture-faq__heading h2 {
+.culture-standard__content h2,
+.culture-why__header h2 {
     font-size: 29px;
   }
 
@@ -3625,25 +4168,18 @@ span:first-child {
     font-size: 62px;
   }
 
-  .culture-faq__item summary {
-    grid-template-columns:
-      1fr 28px;
-  }
 
-  .culture-faq__number {
-    grid-column: 1 / -1;
-  }
-
-  .culture-faq__answer {
-    padding:
-      0 0 23px;
-  }
 }
 
 
-/* CULTURE_PAGE_STAGE_5:end */
+/* ==========================================================================
+   CROSS-COMPONENT TYPOGRAPHY AND KICKER SYNC
 
-/* CULTURE_MAIN_STYLE_SYNC_V1:start */
+   Current shared CulturePage presentation rules.
+   Typography follows the page-wide type system while light sections
+   use the shared primary kicker color. Dark sections retain their
+   own contrasting kicker styles.
+   ========================================================================== */
 
 /*
  * Типографика как на основной странице.
@@ -3670,416 +4206,6 @@ span:first-child {
 .culture-service .culture-kicker,
 .culture-source .culture-kicker,
 .culture-form .culture-kicker,
-.culture-why .culture-kicker,
-.culture-faq .culture-kicker {
+.culture-why .culture-kicker {
   color: var(--color-primary);
 }
-
-/* CULTURE_MAIN_STYLE_SYNC_V1:end */
-
-
-/* ========================================================
-   UNIFIED_FAQ_TRADE_STYLE_V1
-   Reference: TradePage FAQ
-   ======================================================== */
-
-.culture-faq {
-  padding: 116px 0 126px !important;
-  background: #f5f5f1 !important;
-}
-
-.culture-faq__layout {
-  display: grid !important;
-  grid-template-columns:
-    minmax(300px, .62fr)
-    minmax(0, 1.15fr) !important;
-  gap: clamp(70px, 10vw, 165px) !important;
-}
-
-.culture-faq__heading {
-  position: sticky !important;
-  top: 110px !important;
-  align-self: start !important;
-}
-
-.culture-faq__heading h2 {
-  max-width: 600px !important;
-  margin: 0 !important;
-
-  font-size:
-    clamp(
-      2.65rem,
-      3.9vw,
-      4.25rem
-    ) !important;
-
-  line-height: 1 !important;
-  letter-spacing: -.055em !important;
-  text-wrap: balance;
-}
-
-.culture-faq__heading > p:not([class]) {
-  max-width: 560px !important;
-  margin: 30px 0 0 !important;
-
-  color:
-    var(--color-text-secondary) !important;
-
-  line-height: 1.72 !important;
-}
-
-.culture-faq__list {
-  overflow: hidden !important;
-
-  padding: 0 26px !important;
-
-  border:
-    1px solid
-    var(--color-border) !important;
-
-  border-radius:
-    var(--radius-lg) !important;
-
-  background: #fff !important;
-
-  box-shadow:
-    var(--shadow-soft) !important;
-}
-
-.culture-faq__item {
-  margin: 0 !important;
-
-  border: 0 !important;
-  border-bottom:
-    1px solid
-    var(--color-border) !important;
-
-  border-radius: 0 !important;
-
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-.culture-faq__item:last-child {
-  border-bottom: 0 !important;
-}
-
-.culture-faq__item summary {
-  display: grid !important;
-
-  grid-template-columns:
-    54px
-    minmax(0, 1fr)
-    36px !important;
-
-  gap: 18px !important;
-  align-items: center !important;
-
-  min-height: 94px !important;
-
-  margin: 0 -10px !important;
-
-  padding:
-    23px
-    10px !important;
-
-  border-radius: 14px !important;
-
-  background: transparent !important;
-
-  cursor: pointer !important;
-  list-style: none !important;
-
-  transition:
-    background-color 180ms ease !important;
-}
-
-.culture-faq__item summary::-webkit-details-marker {
-  display: none !important;
-}
-
-.culture-faq__number {
-  color:
-    var(--color-text-secondary) !important;
-
-  font-size: .72rem !important;
-  font-weight: 800 !important;
-  line-height: 1 !important;
-  letter-spacing: .09em !important;
-}
-
-.culture-faq__question {
-  color:
-    var(--color-text) !important;
-
-  font-size: 1.08rem !important;
-  font-weight: 750 !important;
-  line-height: 1.4 !important;
-}
-
-.culture-faq__toggle {
-  position: relative !important;
-
-  display: block !important;
-
-  width: 28px !important;
-  height: 28px !important;
-
-  padding: 0 !important;
-
-  border: 0 !important;
-  border-radius: 0;
-
-  background: transparent !important;
-
-  color:
-    var(--color-text) !important;
-
-  font-size: 0 !important;
-
-  transition:
-    background-color 180ms ease,
-    color 180ms ease !important;
-}
-
-.culture-faq__toggle::before,
-.culture-faq__toggle::after {
-  position: absolute !important;
-
-  top: 50% !important;
-  left: 50% !important;
-
-  display: block !important;
-
-  width: 16px !important;
-  height: 2px !important;
-
-  border-radius: 999px !important;
-
-  background:
-    currentColor !important;
-
-  content: '' !important;
-
-  transform:
-    translate(-50%, -50%) !important;
-
-  transition:
-    transform 180ms ease !important;
-}
-
-.culture-faq__toggle::after {
-  transform:
-    translate(-50%, -50%)
-    rotate(90deg) !important;
-}
-
-.culture-faq__item[open]
-.culture-faq__toggle {
-  border-radius: 50% !important;
-
-  background: #a9f04a !important;
-  color: #151515 !important;
-}
-
-.culture-faq__item[open]
-.culture-faq__toggle::after {
-  transform:
-    translate(-50%, -50%)
-    rotate(0deg) !important;
-}
-
-.culture-faq__answer {
-  padding:
-    0
-    54px
-    28px
-    72px !important;
-
-  border: 0 !important;
-
-  background: transparent !important;
-}
-
-.culture-faq__answer p {
-  max-width: 750px !important;
-
-  margin: 0 !important;
-
-  color:
-    var(--color-text-secondary) !important;
-
-  line-height: 1.72 !important;
-}
-
-@media (hover: hover) {
-  .culture-faq__item summary:hover {
-    background: #f5f5f1 !important;
-  }
-}
-
-.culture-faq__item[open] summary {
-  background: #f5f5f1 !important;
-}
-
-@media (max-width: 1024px) {
-  .culture-faq__layout {
-    grid-template-columns: 1fr !important;
-  }
-
-  .culture-faq__heading {
-    position: static !important;
-    max-width: 740px !important;
-  }
-}
-
-@media (max-width: 768px) {
-  .culture-faq {
-    padding-top: 80px !important;
-    padding-bottom: 86px !important;
-  }
-
-  .culture-faq__list {
-    padding:
-      0
-      18px !important;
-  }
-
-  .culture-faq__item summary {
-    grid-template-columns:
-      44px
-      minmax(0, 1fr)
-      32px !important;
-  }
-
-  .culture-faq__answer {
-    padding-left: 62px !important;
-  }
-}
-
-@media (max-width: 430px) {
-  .culture-faq__heading h2 {
-    font-size: 2.4rem !important;
-  }
-
-  .culture-faq__list {
-    padding:
-      0
-      12px !important;
-
-    border-radius: 18px !important;
-  }
-
-  .culture-faq__item summary {
-    grid-template-columns:
-      34px
-      minmax(0, 1fr)
-      28px !important;
-
-    gap: 12px !important;
-  }
-
-  .culture-faq__answer {
-    padding:
-      0
-      28px
-      26px
-      46px !important;
-  }
-}
-
-@media (max-width: 320px) {
-  .culture-faq__heading h2 {
-    font-size: 2.05rem !important;
-  }
-
-  .culture-faq__number {
-    display: none !important;
-  }
-
-  .culture-faq__item summary {
-    grid-template-columns:
-      minmax(0, 1fr)
-      28px !important;
-  }
-
-  .culture-faq__answer {
-    padding-left: 0 !important;
-  }
-}
-
-/* ========================================================
-   /UNIFIED_FAQ_TRADE_STYLE_V1
-   ======================================================== */
-
-
-/* ========================================================
-   UNIFIED_FAQ_TOGGLE_FIX_V1
-   Keep FAQ +/- icon perfectly aligned
-   ======================================================== */
-
-.culture-faq__toggle,
-.culture-faq__item[open]
-.culture-faq__toggle {
-  transform: none !important;
-}
-
-
-.culture-faq__toggle::before {
-  transform:
-    translate(-50%, -50%) !important;
-}
-
-
-.culture-faq__toggle::after {
-  transform:
-    translate(-50%, -50%)
-    rotate(90deg) !important;
-}
-
-
-.culture-faq__item[open]
-.culture-faq__toggle::before {
-  transform:
-    translate(-50%, -50%) !important;
-}
-
-
-.culture-faq__item[open]
-.culture-faq__toggle::after {
-  transform:
-    translate(-50%, -50%)
-    rotate(0deg) !important;
-}
-
-/* ========================================================
-   /UNIFIED_FAQ_TOGGLE_FIX_V1
-   ======================================================== */
-
-/* ========================================================
-   FAQ_ANSWER_TOP_SPACING_V1
-   Extra breathing room between FAQ question and answer
-   ======================================================== */
-
-.culture-faq__answer {
-  padding-top: 18px !important;
-}
-
-@media (max-width: 620px) {
-  .culture-faq__answer {
-    padding-top: 14px !important;
-  }
-}
-
-/* /FAQ_ANSWER_TOP_SPACING_V1 */
-
-/* ========================================================
-   FAQ_ICON_ALWAYS_ROUND_V1
-   Keep FAQ toggle round in every state
-   ======================================================== */
-
-.culture-faq__toggle {
-  border-radius: 50% !important;
-}
-
-/* /FAQ_ICON_ALWAYS_ROUND_V1 */
