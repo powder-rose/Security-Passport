@@ -163,6 +163,56 @@ function resolveArticleCategory(
 }
 
 
+function formatMaterialsCount(
+  count
+){
+
+  const value =
+    Math.abs(
+      Number(count) || 0
+    );
+
+
+  const mod100 =
+    value % 100;
+
+  const mod10 =
+    value % 10;
+
+
+  let word =
+    'материалов';
+
+
+  if(
+    mod100 < 11
+    ||
+    mod100 > 14
+  ){
+
+    if(
+      mod10 === 1
+    ){
+      word =
+        'материал';
+    }
+    else if(
+      mod10 >= 2
+      &&
+      mod10 <= 4
+    ){
+      word =
+        'материала';
+    }
+
+  }
+
+
+  return `${value} ${word}`;
+
+}
+
+
 function formatDate(
   value
 ){
@@ -1104,10 +1154,7 @@ export default function BlogPage({
 
                   {
                     visibleCategories.map(
-                      (
-                        category,
-                        index
-                      ) => {
+                      category => {
 
                         const isActive =
                           selectedCategory ===
@@ -1132,29 +1179,11 @@ export default function BlogPage({
 
                               <span>
                                 {
-                                  String(
-                                    index + 1
-                                  ).padStart(
-                                    2,
-                                    '0'
+                                  formatMaterialsCount(
+                                    categoryCounts[
+                                      category.id
+                                    ]
                                   )
-                                }
-                              </span>
-
-
-                              <span>
-                                {
-                                  categoryCounts[
-                                    category.id
-                                  ]
-                                }
-                                {' '}
-                                {
-                                  categoryCounts[
-                                    category.id
-                                  ] === 1
-                                    ? 'материал'
-                                    : 'материалов'
                                 }
                               </span>
 
