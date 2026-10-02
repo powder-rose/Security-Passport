@@ -515,31 +515,140 @@
 }
 
 
+/* ----------------------------------------
+   OBJECTS NOTICE
+   Final consolidated state
+   ---------------------------------------- */
+
 .trade-objects__notice {
+  position: relative;
+
   display: grid;
-  grid-template-columns: 110px minmax(0, 1fr);
-  gap: 26px;
-  max-width: 920px;
-  margin: 36px 0 0 auto;
-  padding-top: 25px;
-  border-top: 1px solid var(--color-border);
+  grid-template-columns:
+    118px
+    minmax(0, 1fr);
+
+  gap: 34px;
+  align-items: center;
+
+  width: 100%;
+  max-width: none;
+
+  margin:
+    36px 0 0;
+
+  padding:
+    28px 32px;
+
+  overflow: hidden;
+
+  border: 0;
+  border-radius:
+    var(--radius-md);
+
+  background: #151515;
+  color: #fff;
+
+  box-shadow:
+    var(--shadow-soft);
 }
 
 
-.trade-objects__notice span {
-  color: var(--color-primary);
-  font-size: .76rem;
+.trade-objects__notice > span {
+  display: inline-flex;
+
+  width: fit-content;
+
+  padding:
+    7px 12px;
+
+  border-radius: 999px;
+
+  background:
+    var(--trade-accent);
+
+  color: #151515;
+
+  font-size: .72rem;
   font-weight: 850;
-  letter-spacing: .1em;
+  line-height: 1;
+  letter-spacing: .08em;
   text-transform: uppercase;
 }
 
 
-.trade-objects__notice p {
+.trade-objects__notice > p {
+  max-width: 900px;
+
   margin: 0;
-  color: var(--color-text-secondary);
-  line-height: 1.7;
+
+  color:
+    rgb(255 255 255 / 72%);
+
+  font-size: .98rem;
+  line-height: 1.68;
 }
+
+
+.trade-objects__notice::after {
+  position: absolute;
+
+  top: 0;
+  right: 32px;
+
+  width: 74px;
+  height: 6px;
+
+  border-radius:
+    0 0 6px 6px;
+
+  background:
+    var(--trade-accent);
+
+  content: '';
+}
+
+
+@media (max-width: 768px) {
+  .trade-objects__notice {
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+
+    padding:
+      24px;
+  }
+
+
+  .trade-objects__notice > p {
+    max-width: none;
+  }
+}
+
+
+@media (max-width: 430px) {
+  .trade-objects__notice {
+    padding:
+      22px 20px;
+
+    border-radius: 18px;
+  }
+
+
+  .trade-objects__notice::after {
+    right: 22px;
+    width: 58px;
+  }
+}
+
+
+
+
+
+
+
+
+
 
 
 /* REGULATION */
@@ -881,10 +990,7 @@
     margin-top: 36px;
   }
 
-  .trade-objects__notice {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
+
 
   .trade-regulation__identity > strong {
     font-size: 4.7rem;
@@ -3604,7 +3710,6 @@
   background: #fff;
 }
 
-.trade-objects-old,
 .trade-act,
 .trade-copies,
 .trade-actualization,
@@ -3841,15 +3946,7 @@
 }
 
 
-.trade-objects__notice {
-  border:
-    1px solid
-    var(--color-border);
-  border-radius: 22px;
-  background: #fff;
-  box-shadow:
-    var(--shadow-soft);
-}
+
 
 
 /* ----------------------------------------
@@ -4278,18 +4375,19 @@
 
 /* ----------------------------------------
    RESTRICTED INFORMATION
-   Fix collision + stronger composition
+   Final consolidated desktop state
    ---------------------------------------- */
 
 .trade-restricted__layout {
   grid-template-columns:
-    minmax(250px, .38fr)
-    minmax(0, 1.15fr);
+    minmax(340px, 370px)
+    minmax(0, 1fr);
+
   gap:
     clamp(
-      70px,
-      9vw,
-      145px
+      62px,
+      8vw,
+      125px
     );
 }
 
@@ -4297,29 +4395,66 @@
 .trade-restricted__identity {
   position: sticky;
   top: 110px;
+
+  width: 100%;
+  max-width: 370px;
   min-width: 0;
+
   align-self: start;
+
+  box-sizing: border-box;
+
   padding: 30px;
+
   border:
     1px solid
     rgb(255 255 255 / 13%);
+
   border-radius: 24px;
+
   background:
     rgb(255 255 255 / 3%);
 }
 
 
+.trade-restricted__identity::before {
+  display: block;
+
+  width: 64px;
+  height: 6px;
+
+  margin-bottom: 30px;
+
+  border-radius: 999px;
+
+  background:
+    var(--trade-accent);
+
+  content: '';
+}
+
+
 .trade-restricted__identity > strong {
+  display: block;
+
+  width: 100%;
   max-width: 100%;
+
   font-size:
     clamp(
-      2.15rem,
-      2.8vw,
-      3rem
+      1.55rem,
+      1.75vw,
+      1.85rem
     );
-  line-height: .96;
+
+  line-height: 1.08;
+  letter-spacing: -.03em;
+
+  overflow: hidden;
   overflow-wrap: break-word;
-  hyphens: auto;
+
+  word-break: normal;
+  hyphens: none;
 }
 
 
@@ -4330,6 +4465,7 @@
 
 .trade-restricted__content h2 {
   max-width: 780px;
+
   font-size:
     clamp(
       2.55rem,
@@ -4349,9 +4485,83 @@
   border:
     1px solid
     rgb(255 255 255 / 13%);
+
   border-radius: 22px;
+
   background:
     rgb(255 255 255 / 3%);
+}
+
+
+/*
+ * Знаки + / −.
+ * Текстовый символ скрыт, форма рисуется CSS.
+ */
+
+.trade-restricted__sign {
+  position: relative;
+
+  border-color:
+    var(--trade-accent);
+
+  color:
+    var(--trade-accent);
+
+  font-size: 0;
+}
+
+
+.trade-restricted__rules
+article:not(
+  .trade-restricted__rule--negative
+)
+.trade-restricted__sign::before,
+.trade-restricted__rules
+article:not(
+  .trade-restricted__rule--negative
+)
+.trade-restricted__sign::after {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 12px;
+  height: 2px;
+
+  border-radius: 999px;
+
+  background:
+    var(--trade-accent);
+
+  content: '';
+
+  transform:
+    translate(-50%, -50%);
+}
+
+
+.trade-restricted__rules
+article:not(
+  .trade-restricted__rule--negative
+)
+.trade-restricted__sign::after {
+  transform:
+    translate(-50%, -50%)
+    rotate(90deg);
+}
+
+
+.trade-restricted__rule--negative
+.trade-restricted__sign::before {
+  background:
+    var(--trade-accent);
+}
+
+
+.trade-restricted__rule--negative
+.trade-restricted__sign::after {
+  display: none;
 }
 
 
@@ -5009,19 +5219,10 @@ summary {
 }
 
 
-.trade-objects__notice {
-  border: 0;
-  background:
-    var(--trade-accent);
-  box-shadow: none;
-  color: #151515;
-}
 
 
-.trade-objects__notice span,
-.trade-objects__notice p {
-  color: #151515;
-}
+
+
 
 
 /* ----------------------------------------
@@ -5408,65 +5609,6 @@ article:nth-child(2) {
 
 
 /* ----------------------------------------
-   RESTRICTED INFORMATION
-   ---------------------------------------- */
-
-.trade-restricted__layout {
-  grid-template-columns:
-    minmax(300px, .46fr)
-    minmax(0, 1.1fr);
-}
-
-
-.trade-restricted__identity {
-  min-width: 0;
-}
-
-
-.trade-restricted__identity::before {
-  display: block;
-  width: 64px;
-  height: 6px;
-  margin-bottom: 30px;
-  border-radius: 999px;
-  background:
-    var(--trade-accent);
-  content: '';
-}
-
-
-.trade-restricted__identity > strong {
-  max-width: none;
-  font-size:
-    clamp(
-      1.9rem,
-      2.25vw,
-      2.55rem
-    );
-  line-height: 1;
-  letter-spacing: -.045em;
-  overflow-wrap: normal;
-  word-break: normal;
-  hyphens: none;
-}
-
-
-.trade-restricted__sign {
-  border-color:
-    var(--trade-accent);
-  color:
-    var(--trade-accent);
-}
-
-
-.trade-restricted__rule--negative
-.trade-restricted__sign::before {
-  background:
-    var(--trade-accent);
-}
-
-
-/* ----------------------------------------
    SERVICE / DOCUMENTS
    Lime numerical markers
    ---------------------------------------- */
@@ -5826,68 +5968,13 @@ article > span {
  * сама поверхность — спокойная чёрная.
  */
 
-.trade-objects__notice {
-  display: grid;
-  grid-template-columns:
-    118px
-    minmax(0, 1fr);
-  gap: 34px;
-  align-items: center;
-
-  width: 100%;
-  max-width: none;
-
-  margin:
-    36px 0 0;
-
-  padding:
-    28px 32px;
-
-  border: 0;
-  border-radius:
-    var(--radius-md);
-
-  background: #151515;
-  color: #fff;
-
-  box-shadow:
-    var(--shadow-soft);
-}
 
 
-.trade-objects__notice > span {
-  display: inline-flex;
-  width: fit-content;
-
-  padding:
-    7px 12px;
-
-  border-radius: 999px;
-
-  background:
-    var(--trade-accent);
-
-  color: #151515;
-
-  font-size: .72rem;
-  font-weight: 850;
-  line-height: 1;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
 
 
-.trade-objects__notice > p {
-  max-width: 900px;
 
-  margin: 0;
 
-  color:
-    rgb(255 255 255 / 72%);
 
-  font-size: .98rem;
-  line-height: 1.68;
-}
 
 
 /*
@@ -5896,60 +5983,25 @@ article > span {
  * с остальными акцентами страницы.
  */
 
-.trade-objects__notice {
-  position: relative;
-  overflow: hidden;
-}
 
 
-.trade-objects__notice::after {
-  position: absolute;
 
-  top: 0;
-  right: 32px;
 
-  width: 74px;
-  height: 6px;
-
-  border-radius:
-    0 0 6px 6px;
-
-  background:
-    var(--trade-accent);
-
-  content: '';
-}
 
 
 @media (max-width: 768px) {
-  .trade-objects__notice {
-    grid-template-columns: 1fr;
-    gap: 18px;
-
-    padding:
-      24px;
-  }
 
 
-  .trade-objects__notice > p {
-    max-width: none;
-  }
+
+
 }
 
 
 @media (max-width: 430px) {
-  .trade-objects__notice {
-    padding:
-      22px 20px;
-
-    border-radius: 18px;
-  }
 
 
-  .trade-objects__notice::after {
-    right: 22px;
-    width: 58px;
-  }
+
+
 }
 
 
@@ -6333,56 +6385,6 @@ strong {
 
 
 /* ----------------------------------------
-   04. RESTRICTED INFORMATION
-   Prevent title overflow
-   ---------------------------------------- */
-
-.trade-restricted__layout {
-  grid-template-columns:
-    minmax(340px, 370px)
-    minmax(0, 1fr);
-
-  gap:
-    clamp(
-      62px,
-      8vw,
-      125px
-    );
-}
-
-
-.trade-restricted__identity {
-  width: 100%;
-  max-width: 370px;
-
-  box-sizing: border-box;
-}
-
-
-.trade-restricted__identity > strong {
-  display: block;
-
-  width: 100%;
-  max-width: 100%;
-
-  font-size:
-    clamp(
-      1.55rem,
-      1.75vw,
-      1.85rem
-    );
-
-  line-height: 1.08;
-  letter-spacing: -.03em;
-
-  overflow: hidden;
-  overflow-wrap: break-word;
-  word-break: normal;
-  hyphens: none;
-}
-
-
-/* ----------------------------------------
    REDUCE LARGE LIME SURFACES
    Lime = accent, not a background system
    ---------------------------------------- */
@@ -6633,14 +6635,24 @@ strong {
 }
 
 /* ========================================
-   TRADE REGULATION IDENTITY REF STYLE
+   TRADE REGULATION IDENTITY
+   Final consolidated state
    ======================================== */
 
 .trade-regulation__identity {
-  min-height: 584px;
-  padding: 38px 34px;
+  position: sticky;
+  top: 120px;
+  align-self: start;
+
+  min-height: 260px;
+  height: 260px;
+
+  padding: 34px;
+
   border-radius: 34px;
+
   background: #151515;
+
   overflow: hidden;
 }
 
@@ -6653,345 +6665,129 @@ strong {
   height: 74px;
 
   border-radius: 999px;
-  background: var(--trade-accent);
+
+  background:
+    var(--trade-accent);
 }
 
 
-/* НОРМАТИВНОЕ ОСНОВАНИЕ */
-.trade-regulation__identity .trade-kicker {
-  color: var(--trade-accent);
-  font-size: .72rem;
-  letter-spacing: .16em;
-}
+/* Нормативное основание */
 
-
-/* ПП РФ */
-.trade-regulation__identity > span {
-  margin-top: 54px;
-  color: rgb(255 255 255 / 45%);
-  font-size: .85rem;
-}
-
-
-/* №1273 */
-.trade-regulation__identity > strong {
-  margin-top: 26px;
-
-  color: #fff;
-
-  font-size: clamp(
-    4.4rem,
-    6vw,
-    5.8rem
-  );
-
-  line-height: .9;
-  letter-spacing: -.07em;
-}
-
-
-/* дата */
-.trade-regulation__identity > small {
-  margin-top: 20px;
-  color: rgb(255 255 255 / 45%);
-}
-/* ========================================
-   TRADE REGULATION CARD REF FIX
-   ======================================== */
-
-
-/* Верхний заголовок */
-.trade-regulation__identity .trade-kicker {
+.trade-regulation__identity
+.trade-kicker {
   width: 150px;
 
   color: #fff;
 
   font-size: .85rem;
-  line-height: 1.35;
-
+  line-height: 1.25;
   letter-spacing: .08em;
 }
 
 
 /* ПП РФ */
-.trade-regulation__identity > span {
-  margin-top: 58px;
 
-  color: var(--trade-accent);
+.trade-regulation__identity
+> span {
+  margin-top: 28px;
 
-  font-size: .9rem;
-  font-weight: 800;
-}
+  color:
+    var(--trade-accent);
 
-
-/* №1273 */
-.trade-regulation__identity > strong {
-  margin-top: 14px;
-
-  color: #fff;
-}
-
-
-/* дата */
-.trade-regulation__identity > small {
-  margin-top: 14px;
-
-  color: var(--trade-accent);
-
-  font-weight: 700;
-}
-
-
-/* TEMP: increase PP and date size */
-.trade-regulation__identity > span {
-  margin-top: 58px;
-  color: var(--trade-accent);
-  font-size: 1.15rem;
+  font-size: .85rem;
   font-weight: 850;
 }
 
-.trade-regulation__identity > small {
-  margin-top: 18px;
-  color: var(--trade-accent);
-  font-size: 1rem;
-  font-weight: 750;
-}
 
+/* № постановления */
 
-/* TEMP: fix date position */
-.trade-regulation__identity > small {
-  display: block;
-
-  margin-top: 18px;
-  margin-left: 0;
-
-  color: var(--trade-accent);
-
-  font-size: 1rem;
-  font-weight: 750;
-
-  text-transform: uppercase;
-  text-align: left;
-}
-
-
-/* TEMP: move date like reference */
-.trade-regulation__identity {
-  position: relative;
-}
-
-.trade-regulation__identity > small {
-  position: absolute;
-
-  left: auto;
-  right: 34px;
-  bottom: 70px;
-
-  margin: 0;
-
-  color: var(--trade-accent);
-
-  font-size: 1rem;
-  font-weight: 750;
-
-  text-transform: uppercase;
-}
-
-
-/* TEMP: reduce regulation card height */
-.trade-regulation__identity {
-  min-height: 430px;
-  padding-top: 34px;
-  padding-bottom: 34px;
-}
-
-
-/* TEMP: reduce regulation card height */
-.trade-regulation__identity {
-  min-height: 220px;
-  padding-top: 34px;
-  padding-bottom: 34px;
-}
-
-
-/* TEMP: reduce regulation card height */
-.trade-regulation__identity {
-  min-height: 430px;
-  padding-top: 34px;
-  padding-bottom: 34px;
-}
-
-
-/* TEMP: final regulation card adjustment */
-
-.trade-regulation__identity {
-  min-height: 390px;
-}
-
-
-/* №1273 center position */
-.trade-regulation__identity > strong {
-  margin-top: 90px;
-}
-
-
-/* keep date inside shorter card */
-.trade-regulation__identity > small {
-  bottom: 55px;
-}
-
-
-/* TEMP: center number in regulation card */
-
-.trade-regulation__identity {
-  position: relative;
-}
-
-.trade-regulation__identity > strong {
-  position: absolute;
-
-  left: 34px;
-  top: 175px;
-
-  margin: 0;
-}
-
-
-/* CARD NORMALIZE TO REFERENCE */
-
-.trade-regulation__identity {
-  min-height: 260px;
-  height: 260px;
-
-  padding: 34px 34px;
-}
-
-
-/* header */
-.trade-regulation__identity .trade-kicker {
-  width: 150px;
-
-  color: #fff;
-  line-height: 1.25;
-}
-
-
-/* PP RF */
-.trade-regulation__identity > span {
-  margin-top: 28px;
-
-  font-size: 0.85rem;
-}
-
-
-/* number */
-.trade-regulation__identity > strong {
+.trade-regulation__identity
+> strong {
   position: static;
 
   margin-top: 12px;
 
+  color: #fff;
+
   font-size: 3.5rem;
   line-height: .95;
+  letter-spacing: -.07em;
 }
 
 
-/* date */
-.trade-regulation__identity > small {
+/* Дата */
+
+.trade-regulation__identity
+> small {
+  position: absolute;
+
+  left: auto;
   right: 34px;
   bottom: 28px;
 
+  display: block;
+
+  margin: 0;
+
+  color:
+    var(--trade-accent);
+
   font-size: .8rem;
+  font-weight: 750;
+
+  text-align: left;
+  text-transform: uppercase;
 }
 
 
-/* sticky regulation card */
-.trade-regulation__identity {
-  position: sticky;
-  top: 120px;
-  align-self: start;
-}
-
-
-/* center notice icon */
-
-.trade-regulation__notice {
-  align-items: center;
-  column-gap: 36px;
-}
-
-.trade-regulation__notice > span {
-  align-self: center;
-}
-
-
-/* move notice icon into left space center */
-
-.trade-regulation__notice {
-  grid-template-columns: 90px minmax(0, 1fr);
-}
-
-.trade-regulation__notice > span {
-  justify-self: center;
-}
-
-
-/* final notice icon position */
-
-.trade-regulation__notice {
-  grid-template-columns: 42px minmax(0, 1fr);
-}
-
-.trade-regulation__notice > span {
-  transform: translateX(0);
-}
-
-
-/* disable sticky on tablet */
 @media (max-width: 1024px) {
-
   .trade-regulation__identity {
     position: static;
   }
-
 }
 
 
-/* center copies note icon */
-.trade-copies__note {
+/* ========================================
+   TRADE REGULATION NOTICE ALIGNMENT
+   Final consolidated state
+   ======================================== */
+
+.trade-regulation__notice {
   grid-template-columns:
-    72px minmax(0, 1fr);
+    42px
+    minmax(0, 1fr);
+
+  column-gap: 36px;
+
   align-items: center;
 }
 
-.trade-copies__note > span {
-  justify-self: center;
+
+.trade-regulation__notice > span {
   align-self: center;
+  justify-self: center;
+
+  transform:
+    translateX(0);
 }
 
 
-/* reduce space between plus icon and text */
-.trade-copies__note {
-  gap: 12px;
-}
+/* ========================================
+   TRADE COPIES NOTE
+   Final consolidated state
+   ======================================== */
 
-
-/* align copies note icon closer to text */
 .trade-copies__note {
   grid-template-columns:
-    42px minmax(0, 1fr);
-}
+    42px
+    minmax(0, 1fr);
 
+  gap: 12px;
 
-/* center plus inside copies note circle */
-.trade-copies__note > span {
-  line-height: 1;
-  display: inline-flex;
   align-items: center;
-  justify-content: center;
 }
 
 
-/* copies note plus like FAQ toggle */
 .trade-copies__note > span {
   position: relative;
 
@@ -7000,8 +6796,20 @@ strong {
   width: 28px;
   height: 28px;
 
+  justify-self: center;
+  align-self: center;
+
   font-size: 0;
+  line-height: 1;
+
+  color:
+    color-mix(
+      in srgb,
+      var(--color-text-secondary) 70%,
+      #000 30%
+    );
 }
+
 
 .trade-copies__note > span::before,
 .trade-copies__note > span::after {
@@ -7015,12 +6823,15 @@ strong {
 
   border-radius: 999px;
 
-  background: currentColor;
+  background:
+    currentColor;
 
   content: '';
 
-  transform: translate(-50%, -50%);
+  transform:
+    translate(-50%, -50%);
 }
+
 
 .trade-copies__note > span::after {
   transform:
@@ -7029,294 +6840,156 @@ strong {
 }
 
 
-/* copies note plus gray */
-.trade-copies__note > span {
-  color: #8a8a8a;
-}
+/* ========================================
+   TRADE EXPERT NOTE
+   Final consolidated state
+   ======================================== */
 
-
-/* copies note plus: 50% darker than text */
-.trade-copies__note > span {
-  color: color-mix(
-    in srgb,
-    var(--color-text-secondary) 50%,
-    #000 50%
-  );
-}
-
-
-/* copies note plus: 30% darker than text */
-.trade-copies__note > span {
-  color: color-mix(
-    in srgb,
-    var(--color-text-secondary) 70%,
-    #000 30%
-  );
-}
-
-
-/* center expert note icon vertically */
-.trade-categorization__expert-note {
-  align-items: center;
-}
-
-
-/* compact expert note layout */
 .trade-categorization__expert-note {
   grid-template-columns:
-    34px minmax(0, 1fr);
+    34px
+    minmax(0, 1fr);
 
   gap: 14px;
-}
 
-.trade-categorization__expert-note > span {
-  width: 34px;
-  height: 34px;
-}
+  align-items: center;
 
-
-/* expert note plus like FAQ */
-.trade-categorization__expert-note > span {
-  position: relative;
-  display: block;
-  width: 34px;
-  height: 34px;
-  font-size: 0;
-  line-height: 0;
-}
-
-.trade-categorization__expert-note > span::before,
-.trade-categorization__expert-note > span::after {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 14px;
-  height: 2px;
-  border-radius: 999px;
-  background: currentColor;
-  content: '';
-  transform: translate(-50%, -50%);
-}
-
-.trade-categorization__expert-note > span::after {
-  transform: translate(-50%, -50%) rotate(90deg);
-}
-
-
-/* expert note transparent like page background */
-.trade-categorization__expert-note {
-  background: var(--color-background);
-}
-
-
-/* force page background for expert note */
-.trade-categorization__expert-note {
+  /*
+   * Сохраняем фактическое текущее состояние:
+   * прежний #fff !important перекрывал
+   * последующий #eaeae6.
+   */
   background: #fff !important;
 }
 
 
-/* expert note slightly darker background */
-.trade-categorization__expert-note {
-  background: #eaeae6;
-}
-
-
-/* replace restricted plus with centered css icon */
-.trade-restricted__sign {
+.trade-categorization__expert-note > span {
   position: relative;
-  font-size: 0;
-}
 
-.trade-restricted__sign::before,
-.trade-restricted__sign::after {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 12px;
-  height: 2px;
-  border-radius: 999px;
-  background: var(--trade-accent);
-  content: '';
-  transform: translate(-50%, -50%);
-}
-
-.trade-restricted__sign::after {
-  transform:
-    translate(-50%, -50%)
-    rotate(90deg);
-}
-
-
-/* restricted signs fix */
-
-.trade-restricted__sign {
-  position: relative;
-  font-size: 0;
-}
-
-
-/* plus */
-.trade-restricted__rules article:not(.trade-restricted__rule--negative)
-.trade-restricted__sign::before,
-.trade-restricted__rules article:not(.trade-restricted__rule--negative)
-.trade-restricted__sign::after {
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
-  width: 12px;
-  height: 2px;
-
-  border-radius: 999px;
-
-  background:
-    var(--trade-accent);
-
-  content: '';
-
-  transform:
-    translate(-50%, -50%);
-}
-
-
-.trade-restricted__rules article:not(.trade-restricted__rule--negative)
-.trade-restricted__sign::after {
-
-  transform:
-    translate(-50%, -50%)
-    rotate(90deg);
-}
-
-
-/* minus */
-.trade-restricted__rule--negative
-.trade-restricted__sign::before {
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
-  width: 12px;
-  height: 2px;
-
-  border-radius: 999px;
-
-  background:
-    var(--trade-accent);
-
-  content: '';
-
-  transform:
-    translate(-50%, -50%);
-}
-
-
-.trade-restricted__rule--negative
-.trade-restricted__sign::after {
-  display: none;
-}
-
-
-/* TC letters divider */
-.trade-mall::before {
-  display: none;
-}
-
-
-.trade-mall__index strong {
-  position: relative;
-  display: inline-block;
-  padding: 0 18px;
-}
-
-
-.trade-mall__index strong::after {
-  position: absolute;
-
-  top: 8%;
-  bottom: 8%;
-
-  left: 50%;
-
-  width: 8px;
-
-  border-radius: 999px;
-
-  background:
-    var(--trade-accent);
-
-  content: "";
-
-  transform: translateX(-50%);
-}
-
-
-/* TC divider between columns */
-.trade-mall::before {
   display: block;
 
+  width: 34px;
+  height: 34px;
+
+  font-size: 0;
+  line-height: 0;
+}
+
+
+.trade-categorization__expert-note > span::before,
+.trade-categorization__expert-note > span::after {
+  position: absolute;
+
   top: 50%;
-  left: clamp(240px, 23vw, 360px);
+  left: 50%;
 
-  width: 8px;
-  height: 220px;
+  width: 14px;
+  height: 2px;
 
-  transform: translateY(-50%);
+  border-radius: 999px;
+
+  background:
+    currentColor;
+
+  content: '';
+
+  transform:
+    translate(-50%, -50%);
 }
 
 
-/* restore TC mark */
-.trade-mall__index strong {
-  padding: 0;
-}
-
-.trade-mall__index strong::after {
-  display: none;
+.trade-categorization__expert-note > span::after {
+  transform:
+    translate(-50%, -50%)
+    rotate(90deg);
 }
 
 
-/* TRADE MALL divider: full-height and centered in real column gap */
+/* ========================================
+   TRADE MALL DIVIDER
+   Final consolidated state
+   ======================================== */
+
+/*
+ * Старый декоративный ::before больше
+ * не используется. Финальный разделитель
+ * находится между колонками через
+ * .trade-mall__index::after.
+ */
+
 .trade-mall::before {
   content: none;
 }
 
+
 .trade-mall__layout {
-  --trade-mall-gap: clamp(80px, 11vw, 180px);
-  gap: var(--trade-mall-gap);
+  --trade-mall-gap:
+    clamp(
+      80px,
+      11vw,
+      180px
+    );
+
+  gap:
+    var(--trade-mall-gap);
+
   align-items: stretch;
 }
+
 
 .trade-mall__index {
   position: relative;
   align-self: stretch;
 }
 
-.trade-mall__index::after {
-  content: '';
-  position: absolute;
-  top: 16px;
-  bottom: 16px;
-  right: calc(var(--trade-mall-gap) / -2);
-  transform: translateX(50%);
-  width: 8px;
-  border-radius: 999px;
-  background: var(--trade-accent);
+
+.trade-mall__index strong {
+  position: relative;
+  display: inline-block;
+  padding: 0;
 }
+
+
+.trade-mall__index::after {
+  position: absolute;
+
+  top: 16px;
+  right:
+    calc(
+      var(--trade-mall-gap) / -2
+    );
+  bottom: 16px;
+
+  width: 8px;
+
+  border-radius: 999px;
+
+  background:
+    var(--trade-accent);
+
+  content: '';
+
+  transform:
+    translateX(50%);
+}
+
 
 @media (max-width: 768px) {
   .trade-mall__index::after {
-    width: 6px;
     top: 12px;
     bottom: 12px;
+
+    width: 6px;
   }
 }
 
+
 @media (max-width: 430px) {
   .trade-mall__index::after {
-    width: 5px;
     top: 10px;
     bottom: 10px;
+
+    width: 5px;
   }
 }
 
