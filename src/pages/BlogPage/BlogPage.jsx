@@ -1,5 +1,6 @@
 import {
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 
@@ -24,7 +25,147 @@ import {
 import './BlogPage.css';
 
 
-function formatDate(value){
+const BLOG_CATEGORIES = [
+  {
+    id: 'passport',
+    label: 'Паспорта безопасности',
+    description:
+      'Раздел о разработке, структуре и согласовании паспортов безопасности объектов: кому нужен документ, что в него входит и как правильно подготовить материалы.',
+  },
+
+  {
+    id: 'categorization',
+    label: 'Категорирование объектов',
+    description:
+      'Материалы об обследовании и категорировании объектов: критерии категорий, работа комиссии, оформление акта и применение требований к разным типам объектов.',
+  },
+
+  {
+    id: 'requirements',
+    label: 'Требования и законодательство',
+    description:
+      'Разбор постановлений Правительства РФ и требований антитеррористической защищённости: на кого они распространяются, что устанавливают и как применять нормы на практике.',
+  },
+
+  {
+    id: 'actualization',
+    label: 'Актуализация паспорта',
+    description:
+      'Материалы об актуализации паспорта безопасности: когда требуется пересмотр документа, какие сведения обновлять и в каких случаях необходимо повторное согласование.',
+  },
+
+  {
+    id: 'practice',
+    label: 'Практика и документы',
+    description:
+      'Практические разборы документов и рабочих ситуаций: порядок действий, типовые ошибки и рекомендации по подготовке материалов для согласования.',
+  },
+];
+
+
+const BLOG_CATEGORY_IDS =
+  new Set(
+    BLOG_CATEGORIES.map(
+      category =>
+        category.id
+    )
+  );
+
+
+function getBlogCategory(
+  categoryId
+){
+
+  return (
+    BLOG_CATEGORIES.find(
+      category =>
+        category.id === categoryId
+    )
+    ||
+    null
+  );
+
+}
+
+
+function resolveArticleCategory(
+  article
+){
+
+  const explicitCategory =
+    String(
+      article?.category ||
+      ''
+    )
+      .trim()
+      .toLowerCase();
+
+
+  if(
+    BLOG_CATEGORY_IDS.has(
+      explicitCategory
+    )
+  ){
+    return explicitCategory;
+  }
+
+
+  const source =
+    [
+      article?.title,
+      article?.slug,
+      article?.seoTitle,
+      article?.seoDescription,
+    ]
+      .filter(Boolean)
+      .join(' ')
+      .toLowerCase();
+
+
+  if(
+    /актуализ|actualiz|пересмотр/.test(
+      source
+    )
+  ){
+    return 'actualization';
+  }
+
+
+  if(
+    /категор|categor|обследован|obsledovan/.test(
+      source
+    )
+  ){
+    return 'categorization';
+  }
+
+
+  if(
+    /паспорт|pasport|форма\s+паспорта|forma[-\s]?pasporta/.test(
+      source
+    )
+  ){
+    return 'passport';
+  }
+
+
+  if(
+    /постановлен|пп\s*рф|pp[-\s]?rf|требован|антитеррор|antiterror|защищ|zashchit/.test(
+      source
+    )
+  ){
+    return 'requirements';
+  }
+
+
+  return 'practice';
+
+}
+
+
+function formatDate(
+  value
+){
 
   if(!value){
     return '';
@@ -32,7 +173,9 @@ function formatDate(value){
 
 
   const date =
-    new Date(value);
+    new Date(
+      value
+    );
 
 
   if(
@@ -47,11 +190,13 @@ function formatDate(value){
   return new Intl.DateTimeFormat(
     'ru-RU',
     {
-      day:'numeric',
-      month:'long',
-      year:'numeric',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
     }
-  ).format(date);
+  ).format(
+    date
+  );
 
 }
 
@@ -60,7 +205,9 @@ function ArticleImage({
   article,
 }){
 
-  if(article.image){
+  if(
+    article.image
+  ){
 
     return (
 
@@ -98,7 +245,19 @@ function ArticleImage({
 
 function ArticleCard({
   article,
+  categoryId,
 }){
+
+  const category =
+    getBlogCategory(
+      categoryId
+    );
+
+
+  const articleDate =
+    article.publishedAt ||
+    article.createdAt;
+
 
   return (
 
@@ -118,11 +277,26 @@ function ArticleCard({
 
       <div className="blog-card__body">
 
-        <time>
+        {
+          category
+          &&
+          (
+            <div className="blog-card__category">
+              {category.label}
+            </div>
+          )
+        }
+
+
+        <time
+          dateTime={
+            articleDate ||
+            undefined
+          }
+        >
           {
             formatDate(
-              article.publishedAt ||
-              article.createdAt
+              articleDate
             )
           }
         </time>
@@ -145,10 +319,13 @@ function ArticleCard({
 
 
         <span className="blog-card__link">
+
           Читать
+
           <span aria-hidden="true">
             →
           </span>
+
         </span>
 
       </div>
@@ -169,7 +346,9 @@ export default function BlogPage({
     setArticles,
   ] =
     useState(
-      Array.isArray(initialArticles)
+      Array.isArray(
+        initialArticles
+      )
         ? initialArticles
         : []
     );
@@ -180,7 +359,9 @@ export default function BlogPage({
     setLoading,
   ] =
     useState(
-      !Array.isArray(initialArticles)
+      !Array.isArray(
+        initialArticles
+      )
     );
 
 
@@ -188,7 +369,18 @@ export default function BlogPage({
     error,
     setError,
   ] =
-    useState(false);
+    useState(
+      false
+    );
+
+
+  const [
+    selectedCategory,
+    setSelectedCategory,
+  ] =
+    useState(
+      'all'
+    );
 
 
   useEffect(()=>{
@@ -201,7 +393,9 @@ export default function BlogPage({
       .then(
         result => {
 
-          if(cancelled){
+          if(
+            cancelled
+          ){
             return;
           }
 
@@ -219,10 +413,14 @@ export default function BlogPage({
       .catch(
         () => {
 
-          if(!cancelled){
+          if(
+            !cancelled
+          ){
+
             setError(
               true
             );
+
           }
 
         }
@@ -230,10 +428,14 @@ export default function BlogPage({
       .finally(
         () => {
 
-          if(!cancelled){
+          if(
+            !cancelled
+          ){
+
             setLoading(
               false
             );
+
           }
 
         }
@@ -250,13 +452,302 @@ export default function BlogPage({
   },[]);
 
 
-  const featured =
-    articles[0] ||
+  useEffect(()=>{
+
+    if(
+      typeof window ===
+      'undefined'
+    ){
+      return;
+    }
+
+
+    const prefix =
+      '#blog-category-';
+
+
+    if(
+      !window.location.hash.startsWith(
+        prefix
+      )
+    ){
+      return;
+    }
+
+
+    const categoryId =
+      window.location.hash
+        .slice(
+          prefix.length
+        );
+
+
+    if(
+      categoryId ===
+      'all'
+    ){
+
+      setSelectedCategory(
+        'all'
+      );
+
+      return;
+
+    }
+
+
+    if(
+      BLOG_CATEGORY_IDS.has(
+        categoryId
+      )
+    ){
+
+      setSelectedCategory(
+        categoryId
+      );
+
+    }
+
+  },[]);
+
+
+  const categorizedArticles =
+    useMemo(
+      () => {
+
+        return articles.map(
+          article => ({
+            article,
+
+            categoryId:
+              resolveArticleCategory(
+                article
+              ),
+          })
+        );
+
+      },
+      [
+        articles,
+      ]
+    );
+
+
+  const categoryCounts =
+    useMemo(
+      () => {
+
+        const counts =
+          Object.fromEntries(
+            BLOG_CATEGORIES.map(
+              category => [
+                category.id,
+                0,
+              ]
+            )
+          );
+
+
+        categorizedArticles.forEach(
+          ({
+            categoryId,
+          }) => {
+
+            if(
+              Object.prototype.hasOwnProperty.call(
+                counts,
+                categoryId
+              )
+            ){
+
+              counts[
+                categoryId
+              ] += 1;
+
+            }
+
+          }
+        );
+
+
+        return counts;
+
+      },
+      [
+        categorizedArticles,
+      ]
+    );
+
+
+  const visibleCategories =
+    useMemo(
+      () => {
+
+        return BLOG_CATEGORIES.filter(
+          category =>
+            categoryCounts[
+              category.id
+            ] > 0
+        );
+
+      },
+      [
+        categoryCounts,
+      ]
+    );
+
+
+  useEffect(()=>{
+
+    if(
+      loading
+      ||
+      selectedCategory ===
+        'all'
+    ){
+      return;
+    }
+
+
+    const categoryExists =
+      visibleCategories.some(
+        category =>
+          category.id ===
+          selectedCategory
+      );
+
+
+    if(
+      !categoryExists
+    ){
+
+      setSelectedCategory(
+        'all'
+      );
+
+    }
+
+  },[
+    loading,
+    selectedCategory,
+    visibleCategories,
+  ]);
+
+
+  const filteredArticles =
+    useMemo(
+      () => {
+
+        if(
+          selectedCategory ===
+          'all'
+        ){
+
+          return categorizedArticles;
+
+        }
+
+
+        return categorizedArticles.filter(
+          item =>
+            item.categoryId ===
+            selectedCategory
+        );
+
+      },
+      [
+        categorizedArticles,
+        selectedCategory,
+      ]
+    );
+
+
+  const featuredEntry =
+    filteredArticles[0] ||
     null;
 
 
-  const rest =
-    articles.slice(1);
+  const restEntries =
+    filteredArticles.slice(
+      1
+    );
+
+
+  const activeCategory =
+    selectedCategory ===
+    'all'
+      ? null
+      : getBlogCategory(
+          selectedCategory
+        );
+
+
+  function chooseCategory(
+    categoryId
+  ){
+
+    setSelectedCategory(
+      categoryId
+    );
+
+
+    if(
+      typeof window ===
+      'undefined'
+    ){
+      return;
+    }
+
+
+    const hash =
+      `#blog-category-${categoryId}`;
+
+
+    window.history.replaceState(
+      null,
+      '',
+      `${window.location.pathname}${window.location.search}${hash}`
+    );
+
+
+    window.requestAnimationFrame(
+      () => {
+
+        const target =
+          document.getElementById(
+            'blog-category-results'
+          );
+
+
+        if(
+          !target
+        ){
+          return;
+        }
+
+
+        const reduceMotion =
+          window
+            .matchMedia?.(
+              '(prefers-reduced-motion: reduce)'
+            )
+            .matches;
+
+
+        target.scrollIntoView({
+          behavior:
+            reduceMotion
+              ? 'auto'
+              : 'smooth',
+
+          block:
+            'start',
+        });
+
+      }
+    );
+
+  }
 
 
   const canonical =
@@ -281,70 +772,84 @@ export default function BlogPage({
           Статьи о безопасности объектов — БОЙКОВГРУПП
         </title>
 
+
         <meta
           name="description"
           content="Практические статьи БОЙКОВГРУПП об антитеррористической защищённости, паспортах безопасности, категорировании объектов и документации."
         />
+
 
         <meta
           name="robots"
           content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
         />
 
+
         <link
           rel="canonical"
           href={canonical}
         />
+
 
         <meta
           property="og:type"
           content="website"
         />
 
+
         <meta
           property="og:title"
           content="Статьи о безопасности объектов — БОЙКОВГРУПП"
         />
+
 
         <meta
           property="og:description"
           content="Разбираем требования, документы и практические вопросы безопасности объектов."
         />
 
+
         <meta
           property="og:url"
           content={canonical}
         />
+
 
         <meta
           property="og:locale"
           content="ru_RU"
         />
 
+
         <meta
           property="og:site_name"
           content={SITE.brand}
         />
+
 
         <meta
           property="og:image"
           content={ogImage}
         />
 
+
         <meta
           property="og:image:type"
           content="image/png"
         />
+
 
         <meta
           property="og:image:width"
           content="1200"
         />
 
+
         <meta
           property="og:image:height"
           content="630"
         />
+
 
         <meta
           property="og:image:alt"
@@ -357,20 +862,24 @@ export default function BlogPage({
           content="summary_large_image"
         />
 
+
         <meta
           name="twitter:title"
           content="Статьи о безопасности объектов — БОЙКОВГРУПП"
         />
+
 
         <meta
           name="twitter:description"
           content="Разбираем требования, документы и практические вопросы безопасности объектов."
         />
 
+
         <meta
           name="twitter:image"
           content={ogImage}
         />
+
 
         <meta
           name="twitter:image:alt"
@@ -450,13 +959,16 @@ export default function BlogPage({
 
 
                 <a
-                  href="#blog-materials"
+                  href="#blog-categories"
                   className="blog-hero__aside-link"
                 >
-                  Все статьи
+
+                  Выбрать тему
+
                   <span aria-hidden="true">
                     ↓
                   </span>
+
                 </a>
 
               </aside>
@@ -504,77 +1016,197 @@ export default function BlogPage({
           &&
           !error
           &&
-          featured
+          articles.length > 0
           &&
           (
-            <section className="blog-featured">
+            <section
+              className="blog-categories"
+              id="blog-categories"
+              aria-labelledby="blog-categories-title"
+            >
 
               <Container>
 
                 <div className="blog-section-heading">
 
-                  <span>
-                    НОВЫЙ МАТЕРИАЛ
-                  </span>
+                  <h2 id="blog-categories-title">
+                    Категории статей
+                  </h2>
+
 
                   <span>
-                    01
+                    {
+                      String(
+                        visibleCategories.length
+                      ).padStart(
+                        2,
+                        '0'
+                      )
+                    }
                   </span>
 
                 </div>
 
 
-                <a
-                  className="blog-featured-card"
-                  href={`/blog/${featured.slug}/`}
-                >
+                <div className="blog-categories__intro">
 
-                  <div className="blog-featured-card__image">
-
-                    <ArticleImage
-                      article={featured}
-                    />
-
-                  </div>
+                  <p>
+                    Материалы сгруппированы по практической
+                    задаче: от требований законодательства
+                    и категорирования до подготовки и
+                    актуализации паспорта безопасности.
+                  </p>
 
 
-                  <div className="blog-featured-card__body">
-
-                    <time>
-
-                      {
-                        formatDate(
-                          featured.publishedAt ||
-                          featured.createdAt
-                        )
-                      }
-
-                    </time>
-
-
-                    <h2>
-                      {featured.title}
-                    </h2>
-
-
-                    {
-                      featured.seoDescription
-                      &&
-                      (
-                        <p>
-                          {featured.seoDescription}
-                        </p>
-                      )
+                  <button
+                    id="blog-category-all"
+                    type="button"
+                    className={
+                      selectedCategory ===
+                      'all'
+                        ? 'blog-categories__all is-active'
+                        : 'blog-categories__all'
                     }
-
+                    aria-pressed={
+                      selectedCategory ===
+                      'all'
+                    }
+                    onClick={
+                      () =>
+                        chooseCategory(
+                          'all'
+                        )
+                    }
+                  >
 
                     <span>
-                      Читать статью →
+                      Все материалы
                     </span>
 
-                  </div>
 
-                </a>
+                    <strong>
+                      {
+                        String(
+                          articles.length
+                        ).padStart(
+                          2,
+                          '0'
+                        )
+                      }
+                    </strong>
+
+                  </button>
+
+                </div>
+
+
+                <div className="blog-categories__grid">
+
+                  {
+                    visibleCategories.map(
+                      (
+                        category,
+                        index
+                      ) => {
+
+                        const isActive =
+                          selectedCategory ===
+                          category.id;
+
+
+                        return (
+
+                          <article
+                            key={category.id}
+                            id={
+                              `blog-category-${category.id}`
+                            }
+                            className={
+                              isActive
+                                ? 'blog-category-card is-active'
+                                : 'blog-category-card'
+                            }
+                          >
+
+                            <div className="blog-category-card__meta">
+
+                              <span>
+                                {
+                                  String(
+                                    index + 1
+                                  ).padStart(
+                                    2,
+                                    '0'
+                                  )
+                                }
+                              </span>
+
+
+                              <span>
+                                {
+                                  categoryCounts[
+                                    category.id
+                                  ]
+                                }
+                                {' '}
+                                {
+                                  categoryCounts[
+                                    category.id
+                                  ] === 1
+                                    ? 'материал'
+                                    : 'материалов'
+                                }
+                              </span>
+
+                            </div>
+
+
+                            <h3>
+                              {category.label}
+                            </h3>
+
+
+                            <p>
+                              {category.description}
+                            </p>
+
+
+                            <button
+                              type="button"
+                              className="blog-category-card__action"
+                              aria-pressed={
+                                isActive
+                              }
+                              onClick={
+                                () =>
+                                  chooseCategory(
+                                    category.id
+                                  )
+                              }
+                            >
+
+                              {
+                                isActive
+                                  ? 'Раздел выбран'
+                                  : 'Показать статьи'
+                              }
+
+
+                              <span aria-hidden="true">
+                                →
+                              </span>
+
+                            </button>
+
+                          </article>
+
+                        );
+
+                      }
+                    )
+                  }
+
+                </div>
 
               </Container>
 
@@ -588,56 +1220,209 @@ export default function BlogPage({
           &&
           !error
           &&
-          articles.length > 0
+          featuredEntry
           &&
           (
-            <section
-              className="blog-list"
-              id="blog-materials"
+            <div
+              key={
+                selectedCategory
+              }
+              id="blog-category-results"
+              className="blog-category-results"
             >
 
-              <Container>
+              <section className="blog-featured">
 
-                <div className="blog-section-heading">
+                <Container>
 
-                  <span>
-                    ВСЕ МАТЕРИАЛЫ
-                  </span>
+                  <div className="blog-section-heading">
 
-                  <span>
-                    {
-                      String(
-                        articles.length
-                      ).padStart(
-                        2,
-                        '0'
-                      )
-                    }
-                  </span>
-
-                </div>
+                    <span>
+                      {
+                        activeCategory
+                          ? 'ПОСЛЕДНЕЕ В РАЗДЕЛЕ'
+                          : 'НОВЫЙ МАТЕРИАЛ'
+                      }
+                    </span>
 
 
-                <div className="blog-grid">
+                    <span>
+                      01
+                    </span>
+
+                  </div>
+
 
                   {
-                    rest.map(
-                      article => (
+                    activeCategory
+                    &&
+                    (
+                      <div className="blog-results-context">
 
-                        <ArticleCard
-                          key={article.id}
-                          article={article}
-                        />
+                        <strong>
+                          {activeCategory.label}
+                        </strong>
 
-                      )
+                        <p>
+                          {activeCategory.description}
+                        </p>
+
+                      </div>
                     )
                   }
 
-                </div>
 
-              </Container>
+                  <a
+                    className="blog-featured-card"
+                    href={
+                      `/blog/${featuredEntry.article.slug}/`
+                    }
+                  >
 
-            </section>
+                    <div className="blog-featured-card__image">
+
+                      <ArticleImage
+                        article={
+                          featuredEntry.article
+                        }
+                      />
+
+                    </div>
+
+
+                    <div className="blog-featured-card__body">
+
+                      <div className="blog-featured-card__category">
+
+                        {
+                          getBlogCategory(
+                            featuredEntry.categoryId
+                          )?.label
+                        }
+
+                      </div>
+
+
+                      <time
+                        dateTime={
+                          featuredEntry.article.publishedAt ||
+                          featuredEntry.article.createdAt ||
+                          undefined
+                        }
+                      >
+
+                        {
+                          formatDate(
+                            featuredEntry.article.publishedAt ||
+                            featuredEntry.article.createdAt
+                          )
+                        }
+
+                      </time>
+
+
+                      <h2>
+                        {
+                          featuredEntry.article.title
+                        }
+                      </h2>
+
+
+                      {
+                        featuredEntry.article.seoDescription
+                        &&
+                        (
+                          <p>
+                            {
+                              featuredEntry
+                                .article
+                                .seoDescription
+                            }
+                          </p>
+                        )
+                      }
+
+
+                      <span>
+                        Читать статью →
+                      </span>
+
+                    </div>
+
+                  </a>
+
+                </Container>
+
+              </section>
+
+
+              {
+                restEntries.length > 0
+                &&
+                (
+                  <section
+                    className="blog-list"
+                    id="blog-materials"
+                  >
+
+                    <Container>
+
+                      <div className="blog-section-heading">
+
+                        <span>
+                          {
+                            activeCategory
+                              ? activeCategory.label
+                              : 'ВСЕ МАТЕРИАЛЫ'
+                          }
+                        </span>
+
+
+                        <span>
+                          {
+                            String(
+                              filteredArticles.length
+                            ).padStart(
+                              2,
+                              '0'
+                            )
+                          }
+                        </span>
+
+                      </div>
+
+
+                      <div className="blog-grid">
+
+                        {
+                          restEntries.map(
+                            item => (
+
+                              <ArticleCard
+                                key={
+                                  `${selectedCategory}-${item.article.id}`
+                                }
+                                article={
+                                  item.article
+                                }
+                                categoryId={
+                                  item.categoryId
+                                }
+                              />
+
+                            )
+                          )
+                        }
+
+                      </div>
+
+                    </Container>
+
+                  </section>
+                )
+              }
+
+            </div>
           )
         }
 
