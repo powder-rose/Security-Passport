@@ -5,12 +5,8 @@ import {
 } from './hotelRegion';
 
 import {
-  hotelUpdatePeriod,
-  hotelUpdateDeadline,
   hotelWhyItems,
   hotelFaqItems,
-  hotelFormStructure,
-  hotelActualizationReasons,
   hotelAccommodationTypes,
 } from './hotelPageData';
 
@@ -39,6 +35,13 @@ from './components/HotelPricing';
 
 import HotelRequiredDocuments
 from './components/HotelRequiredDocuments';
+
+
+import HotelPassportForm
+from './components/HotelPassportForm';
+
+import HotelPassportActualization
+from './components/HotelPassportActualization';
 import Container from '../../components/ui/Container/Container';
 import FinalCTA from '../../sections/FinalCTA/FinalCTA';
 import { useCity } from '../../context/GeoContext';
@@ -81,179 +84,9 @@ export default function HotelPage({
       <HotelRequiredDocuments />
 
 
-      <section
-        className="hotel-form"
-        id="hotel-form"
-      >
-        <Container>
-          <div className="hotel-form__layout">
-            <div className="hotel-form__copy">
-              <div className="hotel-section-heading">
-                <p className="hotel-kicker">
-                  Форма документа
-                </p>
+      <HotelPassportForm />
 
-                <h2>
-                  Форма и образец паспорта
-                  безопасности гостиницы
-                </h2>
-              </div>
-
-              <p className="hotel-form__lead">
-                Форма паспорта безопасности гостиницы
-                или иного средства размещения утверждена
-                Постановлением Правительства РФ от 13.04.2017 №447.
-              </p>
-
-              <p>
-                На странице мы показываем структуру
-                документа без публикации заполненного
-                паспорта действующего объекта.
-              </p>
-
-              <a
-                className="hotel-form__action"
-                href="#contact"
-              >
-                Получить образец формы
-
-                <span aria-hidden="true">
-                  ↗
-                </span>
-              </a>
-            </div>
-
-            <div
-              className="hotel-form__document"
-              aria-label="Структура паспорта безопасности гостиницы"
-            >
-              <div className="hotel-form__document-top">
-                <span>
-                  Постановление Правительства РФ от 13.04.2017 №447
-                </span>
-
-                <strong>
-                  Паспорт безопасности
-                </strong>
-              </div>
-
-              <ol className="hotel-form__structure">
-                {hotelFormStructure.map(
-                  (item, index) => (
-                    <li key={item}>
-                      <span>
-                        {String(
-                          index + 1,
-                        ).padStart(
-                          2,
-                          '0',
-                        )}
-                      </span>
-
-                      <p>
-                        {item}
-                      </p>
-                    </li>
-                  ),
-                )}
-              </ol>
-
-              <div className="hotel-form__document-note">
-                <span aria-hidden="true">
-                  !
-                </span>
-
-                <p>
-                  Конкретное содержание оформляется
-                  по официальной форме и исходным
-                  сведениям конкретной гостиницы.
-                </p>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-
-      <section
-        className="hotel-actualization"
-        id="hotel-actualization"
-      >
-        <Container>
-          <div className="hotel-actualization__header">
-            <div className="hotel-section-heading">
-              <p className="hotel-kicker">
-                Действующий паспорт
-              </p>
-
-              <h2>
-                Когда нужно актуализировать
-                паспорт гостиницы
-              </h2>
-            </div>
-
-            <div className="hotel-actualization__deadline">
-              <strong>
-                {hotelUpdateDeadline}
-              </strong>
-
-              <p>
-                со дня возникновения обстоятельства,
-                являющегося основанием для актуализации
-              </p>
-            </div>
-          </div>
-
-          <div className="hotel-actualization__grid">
-            {hotelActualizationReasons.map(
-              (item, index) => (
-                <article
-                  className="hotel-actualization__item"
-                  key={item.title}
-                >
-                  <span>
-                    {String(
-                      index + 1,
-                    ).padStart(
-                      2,
-                      '0',
-                    )}
-                  </span>
-
-                  <h3>
-                    {item.title}
-                  </h3>
-
-                  <p>
-                    {item.text}
-                  </p>
-                </article>
-              ),
-            )}
-          </div>
-
-          <div className="hotel-actualization__footer">
-            <p>
-              Постановление Правительства РФ от 13.04.2017 №447 также предусматривает
-              периодическую актуализацию паспорта
-              безопасности гостиницы не реже
-              одного раза в {hotelUpdatePeriod}.
-            </p>
-
-            <a
-              className="hotel-inline-link"
-              href="/aktualizaciya-pasporta-bezopasnosti-obekta/"
-            >
-              Подробнее об актуализации
-              паспорта безопасности
-
-              <span aria-hidden="true">
-                ↗
-              </span>
-            </a>
-          </div>
-        </Container>
-      </section>
+      <HotelPassportActualization />
 
 
       <section
