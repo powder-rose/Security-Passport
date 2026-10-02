@@ -11,6 +11,19 @@ from './components/CrowdApplicability';
 
 import CrowdRegime
 from './components/CrowdRegime';
+
+
+import CrowdRegulation
+from './components/CrowdRegulation';
+
+import CrowdListing
+from './components/CrowdListing';
+
+import CrowdCategories
+from './components/CrowdCategories';
+
+import CrowdPeopleCount
+from './components/CrowdPeopleCount';
 import { getRegulationClaim } from '../../data/regulationClaims';
 
 
@@ -35,403 +48,14 @@ export default function CrowdPage() {
 
       {/* CROWD_STAGE_2_V1:start */}
 
-      <section
-        className="crowd-regulation"
-        id="regulation"
-      >
-        <Container>
-          <div className="crowd-regulation__layout">
-            <aside className="crowd-regulation__identity">
-              <p className="crowd-kicker">
-                Нормативная база
-              </p>
+      <CrowdRegulation />
 
-              <div className="crowd-regulation__number">
-                272
-              </div>
+      <CrowdListing />
 
-              <p className="crowd-regulation__date">
-                Постановление Правительства РФ
-                от 25.03.2015
-              </p>
-            </aside>
+      <CrowdCategories />
 
+      <CrowdPeopleCount />
 
-            <div className="crowd-regulation__content">
-              <h2>
-                Когда применяется
-                ПП РФ №272
-              </h2>
-
-              <p className="crowd-regulation__lead">
-                Постановление устанавливает
-                требования к антитеррористической
-                защищённости мест массового
-                пребывания людей и официальную
-                форму паспорта безопасности.
-              </p>
-
-              <div className="crowd-regulation__points">
-                <article>
-                  <span>
-                    01
-                  </span>
-
-                  <div>
-                    <h3>
-                      Сначала определяется
-                      применимый режим
-                    </h3>
-
-                    <p>
-                      Паспорт ММПЛ не является
-                      универсальным документом
-                      для любого объекта
-                      с высокой посещаемостью.
-                    </p>
-                  </div>
-                </article>
-
-
-                <article>
-                  <span>
-                    02
-                  </span>
-
-                  <div>
-                    <h3>
-                      Затем проверяется
-                      перечень ММПЛ
-                    </h3>
-
-                    <p>
-                      Для применения порядка
-                      по №272 важно, относится ли
-                      конкретное место
-                      к сформированному перечню.
-                    </p>
-                  </div>
-                </article>
-
-
-                <article>
-                  <span>
-                    03
-                  </span>
-
-                  <div>
-                    <h3>
-                      После этого проводится
-                      обследование
-                    </h3>
-
-                    <p>
-                      Категория определяется
-                      по результатам установленной
-                      процедуры обследования
-                      и категорирования.
-                    </p>
-                  </div>
-                </article>
-              </div>
-
-
-              <aside className="crowd-regulation__edition">
-                <span>
-                  Редакция
-                </span>
-
-                <p>
-                  В ТЗ используется справочная
-                  редакция ПП РФ №272
-                  от 24.10.2023.
-                </p>
-              </aside>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-
-      <section className="crowd-listing">
-        <Container>
-          <div className="crowd-listing__heading">
-            <div>
-              <p className="crowd-kicker">
-                Перечень ММПЛ
-              </p>
-
-              <h2>
-                Как место включается
-                в перечень
-              </h2>
-            </div>
-
-            <p>
-              Перечень формируется
-              исполнительными органами субъекта РФ
-              или органами местного самоуправления
-              по установленной процедуре.
-            </p>
-          </div>
-
-
-          <div className="crowd-listing__flow">
-            <div className="crowd-listing__step">
-              <span>
-                01
-              </span>
-
-              <div>
-                <h3>
-                  Формирование перечня
-                </h3>
-
-                <p>
-                  Решение принимается
-                  уполномоченным исполнительным
-                  органом субъекта РФ либо органом
-                  местного самоуправления.
-                </p>
-              </div>
-            </div>
-
-
-            <div className="crowd-listing__step">
-              <span>
-                02
-              </span>
-
-              <div>
-                <h3>
-                  Согласование
-                </h3>
-
-                <p>
-                  Перечень согласовывается
-                  с предусмотренными
-                  территориальными органами.
-                </p>
-              </div>
-            </div>
-
-
-            <div className="crowd-listing__step">
-              <span>
-                03
-              </span>
-
-              <div>
-                <h3>
-                  Работа с конкретным местом
-                </h3>
-
-                <p>
-                  После определения применимости
-                  требований проводится
-                  обследование и категорирование
-                  конкретного ММПЛ.
-                </p>
-              </div>
-            </div>
-          </div>
-
-
-          <div className="crowd-listing__authorities">
-            <span>
-              Территориальный орган безопасности
-            </span>
-
-            <span>
-              МВД России
-            </span>
-
-            <span>
-              Росгвардия
-            </span>
-
-            <span>
-              МЧС России
-            </span>
-          </div>
-        </Container>
-      </section>
-
-
-      <section
-        className="crowd-categories"
-        id="categories"
-      >
-        <Container>
-          <div className="crowd-categories__heading">
-            <div>
-              <p className="crowd-kicker">
-                Категорирование
-              </p>
-
-              <h2>
-                3 категории ММПЛ
-              </h2>
-            </div>
-
-            <p>
-              Базовый критерий —
-              максимальное одновременное
-              количество людей.
-            </p>
-          </div>
-
-
-          <div className="crowd-categories__table">
-            <article className="crowd-category">
-              <span className="crowd-category__number">
-                01
-              </span>
-
-              <h3>
-                1 категория
-              </h3>
-
-              <div className="crowd-category__metric">
-                <strong>
-                  &gt; 1 000
-                </strong>
-
-                <span>
-                  человек
-                </span>
-              </div>
-            </article>
-
-
-            <article className="crowd-category">
-              <span className="crowd-category__number">
-                02
-              </span>
-
-              <h3>
-                2 категория
-              </h3>
-
-              <div className="crowd-category__metric">
-                <strong>
-                  200–1 000
-                </strong>
-
-                <span>
-                  человек
-                </span>
-              </div>
-            </article>
-
-
-            <article className="crowd-category">
-              <span className="crowd-category__number">
-                03
-              </span>
-
-              <h3>
-                3 категория
-              </h3>
-
-              <div className="crowd-category__metric">
-                <strong>
-                  50–200
-                </strong>
-
-                <span>
-                  человек
-                </span>
-              </div>
-            </article>
-          </div>
-
-
-          <aside className="crowd-categories__note">
-            <span>
-              Решение комиссии
-            </span>
-
-            <p>
-              При предусмотренных обстоятельствах
-              комиссия вправе присвоить категорию
-              выше или ниже исходной с учётом
-              оперативной обстановки и угроз.
-            </p>
-          </aside>
-        </Container>
-      </section>
-
-
-      <section
-        className="crowd-count"
-        id="counting"
-      >
-        <Container>
-          <div className="crowd-count__layout">
-            <div className="crowd-count__heading">
-              <p className="crowd-kicker">
-                Расчёт категории
-              </p>
-
-              <h2>
-                Как определяется
-                количество людей
-              </h2>
-
-              <p>
-                Учитывается одновременное
-                пребывание или передвижение людей,
-                а не только паспортная вместимость
-                объекта.
-              </p>
-            </div>
-
-
-            <div className="crowd-count__metrics">
-              <article>
-                <strong>
-                  3
-                </strong>
-
-                <div>
-                  <span>
-                    дня мониторинга
-                  </span>
-
-                  <p>
-                    Наблюдение проводится
-                    в течение трёх дней,
-                    включая рабочие
-                    и выходные или праздничные дни.
-                  </p>
-                </div>
-              </article>
-
-
-              <article>
-                <strong>
-                  0,5
-                </strong>
-
-                <div>
-                  <span>
-                    м² на человека
-                  </span>
-
-                  <p>
-                    Этот показатель применяется
-                    для расчёта прогнозируемого
-                    количества людей,
-                    если отсутствуют иные
-                    нормативы площади.
-                  </p>
-                </div>
-              </article>
-            </div>
-          </div>
-        </Container>
-      </section>
 
       {/* CROWD_STAGE_2_V1:end */}
 
@@ -590,7 +214,6 @@ export default function CrowdPage() {
       {/* CROWD_STAGE_3_V1:end */}
 
 
-
 <section
   className="crowd-faq"
   id="faq"
@@ -644,7 +267,6 @@ export default function CrowdPage() {
         </details>
 
 
-
         <details className="crowd-faq__item">
 
           <summary>
@@ -675,7 +297,6 @@ export default function CrowdPage() {
           </div>
 
         </details>
-
 
 
         <details className="crowd-faq__item">
