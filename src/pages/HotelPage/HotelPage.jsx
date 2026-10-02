@@ -12,8 +12,6 @@ import {
   hotelFormStructure,
   hotelActualizationReasons,
   hotelAccommodationTypes,
-  hotelServiceItems,
-  hotelSourceData,
 } from './hotelPageData';
 
 import HotelHeroAndApplicability
@@ -31,6 +29,16 @@ from './components/HotelPassportProcess';
 
 import HotelApproval
 from './components/HotelApproval';
+
+
+import HotelServiceScope
+from './components/HotelServiceScope';
+
+import HotelPricing
+from './components/HotelPricing';
+
+import HotelRequiredDocuments
+from './components/HotelRequiredDocuments';
 import Container from '../../components/ui/Container/Container';
 import FinalCTA from '../../sections/FinalCTA/FinalCTA';
 import { useCity } from '../../context/GeoContext';
@@ -66,183 +74,11 @@ export default function HotelPage({
       <HotelApproval />
 
 
-      <section
-        className="hotel-service"
-        id="hotel-service"
-      >
-        <Container>
-          <div className="hotel-service__layout">
-            <div className="hotel-service__heading">
-              <div className="hotel-section-heading">
-                <p className="hotel-kicker">
-                  Состав услуги
-                </p>
+      <HotelServiceScope />
 
-                <h2>
-                  Что входит в разработку
-                  паспорта безопасности гостиницы
-                </h2>
-              </div>
+      <HotelPricing />
 
-              <p>
-                Работа строится вокруг конкретного объекта:
-                сначала определяем применимые требования,
-                затем готовим документы для категорирования,
-                паспорта и предусмотренного согласования.
-              </p>
-            </div>
-
-            <ol className="hotel-service__list">
-              {hotelServiceItems.map(
-                (item, index) => (
-                  <li key={item}>
-                    <span className="hotel-service__number">
-                      {String(
-                        index + 1,
-                      ).padStart(
-                        2,
-                        '0',
-                      )}
-                    </span>
-
-                    <strong>
-                      {item}
-                    </strong>
-
-                    <span
-                      className="hotel-service__check"
-                      aria-hidden="true"
-                    >
-                      ✓
-                    </span>
-                  </li>
-                ),
-              )}
-            </ol>
-          </div>
-        </Container>
-      </section>
-
-
-      <section
-        className="hotel-price"
-        id="hotel-price"
-      >
-        <Container>
-          <div className="hotel-price__panel">
-            <div className="hotel-price__copy">
-              <p className="hotel-kicker">
-                Стоимость
-              </p>
-
-              <h2>
-                Стоимость паспорта
-                безопасности гостиницы
-              </h2>
-
-              <p>
-                Итоговый состав работ зависит
-                от состояния исходных документов,
-                необходимости подготовки к категорированию
-                и объёма сопровождения.
-              </p>
-            </div>
-
-            <div className="hotel-price__value">
-              <span>
-                Разработка паспорта
-              </span>
-
-              <strong>
-                от 9 500 ₽
-              </strong>
-
-              <p>
-                Точную стоимость определяем
-                после первичной проверки объекта
-                и исходных данных.
-              </p>
-
-              <a
-                className="hotel-price__action"
-                href="#contact"
-              >
-                Получить точную стоимость
-
-                <span aria-hidden="true">
-                  ↗
-                </span>
-              </a>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-
-      <section
-        className="hotel-source"
-        id="hotel-source"
-      >
-        <Container>
-          <div className="hotel-source__header">
-            <div className="hotel-section-heading">
-              <p className="hotel-kicker">
-                Исходные данные
-              </p>
-
-              <h2>
-                Что потребуется
-                от гостиницы
-              </h2>
-            </div>
-
-            <div className="hotel-source__intro">
-              <p>
-                Для начала не требуется собирать
-                большой комплект документов.
-                Достаточно основных сведений,
-                чтобы проверить объект и определить
-                дальнейший порядок работы.
-              </p>
-
-              <strong>
-                Точный перечень определяем
-                после первичной проверки объекта.
-              </strong>
-            </div>
-          </div>
-
-          <div className="hotel-source__grid">
-            {hotelSourceData.map(
-              (item, index) => (
-                <article
-                  className="hotel-source__item"
-                  key={item.title}
-                >
-                  <span>
-                    {String(
-                      index + 1,
-                    ).padStart(
-                      2,
-                      '0',
-                    )}
-                  </span>
-
-                  <div>
-                    <h3>
-                      {item.title}
-                    </h3>
-
-                    <p>
-                      {item.text}
-                    </p>
-                  </div>
-                </article>
-              ),
-            )}
-          </div>
-        </Container>
-      </section>
+      <HotelRequiredDocuments />
 
 
       <section
