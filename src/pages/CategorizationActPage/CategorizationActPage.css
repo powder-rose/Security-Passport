@@ -1,7 +1,77 @@
-/* =========================================================
+/* ==========================================================================
    CATEGORIZATION ACT PAGE
-   Clean visual system / v2
-   ========================================================= */
+   ==========================================================================
+
+   Page:
+   /akt-obsledovaniya-i-kategorirovaniya-obekta/
+
+   React entry:
+   CategorizationActPage.jsx
+
+   COMPONENT OWNERSHIP
+
+   01. CategorizationActHeroAndIntro.jsx
+       .categorization-act-hero*
+       .categorization-act-breadcrumbs
+       .categorization-act-kicker
+       .categorization-act-expert-visual*
+       .categorization-act-intro*
+       .categorization-act-section-head
+
+   02. CategorizationActObjectTypes.jsx
+       .categorization-act-types*
+
+   03. CategorizationActRequirements.jsx
+       .categorization-act-requirements*
+
+   04. CategorizationActProcess.jsx
+       .categorization-act-process*
+       .categorization-act-flow*
+
+   05. CategorizationActServiceScope.jsx
+       .categorization-act-service*
+
+   06. CategorizationActPricing.jsx
+       .categorization-act-cost*
+       .categorization-act-passport-link*
+
+   07. CategorizationActSourceData.jsx
+       .categorization-act-source-data*
+
+   08. CategorizationActSample.jsx
+       .categorization-act-sample*
+
+   09. CategorizationActStandard.jsx
+       .categorization-act-standard*
+
+   10. CategorizationActDifference.jsx
+       .categorization-act-difference*
+
+   11. CategorizationActFaq.jsx
+       .categorization-act-faq*
+
+   External sections:
+   Expert and FinalCTA keep their own component styles and are not owned here.
+
+   FILE ORGANIZATION
+
+   - Shared page tokens and typography
+   - Hero and intro
+   - Object types
+   - Requirements
+   - Process and flow
+   - Service scope
+   - Pricing and passport link
+   - Source data
+   - Sample act
+   - Standard
+   - Act vs passport
+   - FAQ
+   - Responsive rules live with the component they affect where consolidated
+
+   This file describes the CURRENT rendered page.
+   Historical redesign/version layers are intentionally not documented here.
+   ========================================================================== */
 
 
 /* ---------------------------------------------------------
@@ -62,8 +132,6 @@
 
 
 .categorization-act-section-head h2,
-.categorization-act-service h2,
-.categorization-act-source-data h2,
 .categorization-act-cost h2,
 .categorization-act-requirements h2,
 .categorization-act-standard h2 {
@@ -240,20 +308,68 @@
 }
 
 
-.categorization-act-hero__layout {
-  position: relative;
-  z-index: 1;
+/* ==========================================================================
+   CategorizationActHeroAndIntro.jsx — HERO LAYOUT
+   ==========================================================================
 
+   Current hero grid and responsive composition.
+
+   Previous spacing/layout override layers are consolidated here.
+   ========================================================================== */
+
+/* ==========================================================================
+   CategorizationActHeroAndIntro.jsx — HERO LAYOUT
+   ==========================================================================
+
+   Current hero grid and responsive composition.
+
+   Previous spacing/layout override layers are consolidated here.
+   ========================================================================== */
+
+.categorization-act-hero__layout {
   display: grid;
 
   grid-template-columns:
     minmax(0, 1.28fr)
-    minmax(350px, 430px);
+    minmax(320px, 360px);
 
   gap:
-    clamp(54px, 6vw, 100px);
+    clamp(70px, 7vw, 115px);
 
   align-items: center;
+
+  padding-bottom: 45px;
+}
+
+
+@media (min-width: 1201px) {
+  .categorization-act-hero__layout {
+    grid-template-columns:
+      minmax(0, 1.30fr)
+      minmax(360px, 410px);
+
+    gap:
+      clamp(64px, 6vw, 100px);
+  }
+}
+
+
+@media (max-width: 1200px) {
+  .categorization-act-hero__layout {
+    grid-template-columns:
+      minmax(0, 1.2fr)
+      minmax(300px, 340px);
+
+    gap:
+      clamp(50px, 5vw, 80px);
+  }
+}
+
+
+@media (max-width: 1100px) {
+  .categorization-act-hero__layout {
+    grid-template-columns: 1fr;
+  }
 }
 
 
@@ -373,249 +489,16 @@
 
 
 /* ---------------------------------------------------------
-   HERO DOCUMENT
-   --------------------------------------------------------- */
-
-.categorization-act-document {
-  position: relative;
-
-  width: 100%;
-  min-width: 0;
-
-  min-height: 555px;
-
-  padding:
-    31px
-    32px
-    35px;
-
-  border:
-    1px solid
-    rgba(17, 17, 17, .11);
-
-  border-radius: 12px;
-
-  background:
-    #ffffff;
-
-  isolation: isolate;
-
-  box-shadow:
-    0 34px 80px
-    rgba(17, 17, 17, .14);
-
-  transform:
-    rotate(1.2deg);
-
-  transform-origin:
-    center;
-
-  transition:
-    transform .35s cubic-bezier(.2,.75,.2,1),
-    box-shadow .35s ease;
-}
-
-
-.categorization-act-document::before {
-  content: "";
-
-  position: absolute;
-
-  top: 0;
-  left: 0;
-  right: 0;
-
-  height: 8px;
-
-  border-radius:
-    12px
-    12px
-    0
-    0;
-
-  background: var(--color-primary);
-}
-
-
-.categorization-act-document::after {
-  content: "";
-
-  position: absolute;
-
-  z-index: -1;
-
-  inset:
-    18px
-    -18px
-    -18px
-    18px;
-
-  border-radius: 14px;
-
-  background:
-    rgba(169, 240, 74, .23);
-}
-
-
-@media (hover: hover) {
-  .categorization-act-document:hover {
-    transform:
-      translateY(-7px)
-      rotate(.25deg);
-
-    box-shadow:
-      0 45px 95px
-      rgba(17, 17, 17, .18);
-  }
-}
-
-
-.categorization-act-document__top {
-  display: flex;
-
-  justify-content: space-between;
-
-  gap: 20px;
-
-  padding-bottom: 22px;
-
-  border-bottom:
-    1px solid
-    var(--act-line);
-
-  color: var(--color-text-secondary);
-
-  font-size: .64rem;
-  font-weight: 900;
-
-  letter-spacing: .11em;
-}
-
-
-.categorization-act-document__title {
-  padding:
-    37px
-    0
-    29px;
-}
-
-
-.categorization-act-document__title small {
-  display: block;
-
-  margin-bottom: 12px;
-
-  color: var(--color-text-secondary);
-
-  font-size: .69rem;
-  font-weight: 700;
-
-  letter-spacing: .12em;
-
-  text-transform: uppercase;
-}
-
-
-.categorization-act-document__title strong {
-  display: block;
-
-  max-width: 330px;
-
-  font-size:
-    clamp(1.9rem, 2.35vw, 2.6rem);
-
-  line-height: .98;
-
-  letter-spacing: -.048em;
-
-  text-wrap: balance;
-}
-
-
-.categorization-act-document__fields {
-  margin: 0;
-}
-
-
-.categorization-act-document__fields > div {
-  display: grid;
-
-  grid-template-columns:
-    92px
-    minmax(0, 1fr);
-
-  gap: 14px;
-
-  padding:
-    15px
-    0;
-
-  border-top:
-    1px solid
-    rgba(17, 17, 17, .09);
-}
-
-
-.categorization-act-document__fields dt {
-  color: var(--color-text-secondary);
-
-  font-size: .7rem;
-  font-weight: 700;
-}
-
-
-.categorization-act-document__fields dd {
-  min-width: 0;
-
-  margin: 0;
-
-  font-size: .84rem;
-  font-weight: 820;
-
-  line-height: 1.3;
-}
-
-
-.categorization-act-document__stamp {
-  position: absolute;
-
-  right: 28px;
-  bottom: 25px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 102px;
-  height: 102px;
-
-  padding: 14px;
-
-  border:
-    2px solid
-    var(--color-primary);
-
-  border-radius: 50%;
-
-  color: var(--color-primary);
-
-  font-size: .61rem;
-  font-weight: 900;
-
-  line-height: 1.17;
-
-  text-align: center;
-  text-transform: uppercase;
-
-  transform:
-    rotate(-7deg);
-}
-
-
-/* ---------------------------------------------------------
    HERO FACTS
    --------------------------------------------------------- */
+
+/* ==========================================================================
+   CategorizationActHeroAndIntro.jsx — HERO FACTS
+   ==========================================================================
+
+   Three facts form one integrated information panel.
+   Previous card-style and later override layers are consolidated here.
+   ========================================================================== */
 
 .categorization-act-hero__facts {
   position: relative;
@@ -626,73 +509,178 @@
   grid-template-columns:
     repeat(3, minmax(0, 1fr));
 
-  gap: 12px;
+  gap: 0;
 
   margin-top:
-    clamp(50px, 6vw, 78px);
+    clamp(22px, 2.4vw, 34px);
+
+  padding: 10px;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(17, 17, 17, .10);
+
+  border-radius: 26px;
+
+  background:
+    rgba(255, 255, 255, .50);
+
+  box-shadow:
+    0
+    14px
+    35px
+    rgba(17, 17, 17, .035);
+}
+
+
+.categorization-act-hero__facts::before {
+  position: absolute;
+
+  top: 0;
+  left: 24px;
+  right: 24px;
+
+  height: 2px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #2f5bff 0%,
+      #2f5bff 35%,
+      #a9f04a 100%
+    );
+
+  content: "";
+
+  opacity: .78;
 }
 
 
 .categorization-act-hero__facts > div {
+  position: relative;
+
   display: grid;
 
   grid-template-columns:
     38px
     minmax(0, 1fr);
 
-  gap: 14px;
+  gap: 13px;
 
   align-items: start;
 
-  min-height: 104px;
+  min-height: 96px;
 
-  padding: 22px;
+  padding:
+    22px
+    24px;
 
-  border:
-    1px solid
-    var(--act-line);
-
-  border-radius:
-    var(--act-radius-sm);
+  border: 0;
+  border-radius: 0;
 
   background:
-    rgba(255, 255, 255, .62);
+    transparent;
+
+  box-shadow: none;
 
   transition:
-    transform .22s ease,
-    background-color .22s ease,
-    box-shadow .22s ease;
+    background-color .2s ease;
+}
+
+
+.categorization-act-hero__facts
+> div + div {
+  border-left:
+    1px solid
+    rgba(17, 17, 17, .09);
 }
 
 
 .categorization-act-hero__facts span {
-  color: var(--color-primary);
+  position: relative;
+  z-index: 1;
 
-  font-size: .72rem;
+  color:
+    #2f5bff;
+
+  font-size: .7rem;
   font-weight: 900;
 }
 
 
 .categorization-act-hero__facts p {
-  max-width: 240px;
+  position: relative;
+  z-index: 1;
+
+  max-width: 230px;
 
   margin: 0;
 
-  font-size: .89rem;
+  font-size: .88rem;
 
-  line-height: 1.45;
+  line-height: 1.46;
 }
 
 
 @media (hover: hover) {
   .categorization-act-hero__facts > div:hover {
-    transform:
-      translateY(-4px);
+    transform: none;
 
-    background: #fff;
+    background:
+      rgba(255, 255, 255, .52);
 
-    box-shadow:
-      var(--act-shadow);
+    box-shadow: none;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — hero facts
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 850px) {
+  .categorization-act-hero__facts {
+    grid-template-columns: 1fr;
+
+    padding: 8px;
+  }
+
+
+  .categorization-act-hero__facts
+  > div + div {
+    border-left: 0;
+
+    border-top:
+      1px solid
+      rgba(17, 17, 17, .09);
+  }
+
+
+  .categorization-act-hero__facts > div {
+    min-height: auto;
+
+    padding:
+      19px
+      20px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .categorization-act-hero__facts {
+    margin-top: 19px;
+
+    border-radius: 21px;
+  }
+
+
+  .categorization-act-hero__facts::before {
+    left: 18px;
+    right: 18px;
   }
 }
 
@@ -701,12 +689,22 @@
    INTRO
    --------------------------------------------------------- */
 
+/* ==========================================================================
+   CategorizationActHeroAndIntro.jsx — INTRO
+   ==========================================================================
+
+   Current explanation block below the hero.
+
+   Previous editorial and spacing override layers
+   are consolidated into this component-owned block.
+   ========================================================================== */
+
 .categorization-act-intro {
   padding:
-    clamp(95px, 10vw, 150px)
+    clamp(100px, 10vw, 155px)
     0;
 
-  background: #fff;
+  background: #ffffff;
 }
 
 
@@ -714,11 +712,11 @@
   display: grid;
 
   grid-template-columns:
-    minmax(0, .88fr)
-    minmax(430px, .92fr);
+    minmax(0, 1.04fr)
+    minmax(440px, .96fr);
 
   gap:
-    clamp(60px, 9vw, 140px);
+    clamp(66px, 8vw, 125px);
 
   align-items: start;
 }
@@ -726,7 +724,26 @@
 
 .categorization-act-intro
 .categorization-act-section-head {
+  max-width: none;
+
   margin-bottom: 0;
+}
+
+
+.categorization-act-intro
+.categorization-act-section-head h2 {
+  max-width: 12.6ch;
+
+  margin: 0;
+
+  font-size:
+    clamp(2.65rem, 3.75vw, 4.35rem);
+
+  line-height: .96;
+
+  letter-spacing: -.057em;
+
+  text-wrap: pretty;
 }
 
 
@@ -736,37 +753,39 @@
   max-width: none;
 
   padding:
-    clamp(27px, 4vw, 46px);
+    clamp(36px, 4vw, 50px);
+
+  overflow: hidden;
 
   border:
     1px solid
-    var(--act-line);
+    rgba(17, 17, 17, .10);
 
-  border-radius:
-    var(--act-radius-lg);
+  border-radius: 30px;
 
   background:
     linear-gradient(
       145deg,
-      var(--act-paper),
-      #fff
+      #faf8f3 0%,
+      #ffffff 100%
     );
 
   box-shadow:
-    var(--act-shadow);
+    0
+    22px
+    55px
+    rgba(17, 17, 17, .055);
 }
 
 
 .categorization-act-intro__text::before {
-  content: "";
-
   position: absolute;
 
+  top: 38px;
   left: 0;
-  top: 42px;
 
   width: 5px;
-  height: 70px;
+  height: 68px;
 
   border-radius:
     0
@@ -775,31 +794,113 @@
     0;
 
   background:
-    var(--act-lime);
+    linear-gradient(
+      180deg,
+      #a9f04a,
+      #84ca2c
+    );
+
+  content: "";
+}
+
+
+.categorization-act-intro__text::after {
+  position: absolute;
+
+  right: -95px;
+  bottom: -115px;
+
+  width: 230px;
+  height: 230px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(169, 240, 74, .08);
+
+  content: "";
+
+  pointer-events: none;
 }
 
 
 .categorization-act-intro__text p {
+  position: relative;
+  z-index: 1;
+
   margin: 0;
 
   color:
     var(--color-text-secondary);
 
   font-size:
-    clamp(1.02rem, 1.25vw, 1.14rem);
+    clamp(1.01rem, 1.15vw, 1.1rem);
 
   line-height: 1.78;
 }
 
 
 .categorization-act-intro__text p + p {
-  margin-top: 21px;
+  margin-top: 22px;
+}
+
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — intro
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1150px) {
+  .categorization-act-intro .container {
+    grid-template-columns: 1fr;
+  }
+
+
+  .categorization-act-intro
+  .categorization-act-section-head {
+    margin-bottom: 40px;
+  }
+
+
+  .categorization-act-intro
+  .categorization-act-section-head h2 {
+    max-width: 11ch;
+  }
+}
+
+
+@media (max-width: 1100px) {
+  .categorization-act-intro
+  .categorization-act-section-head h2 {
+    max-width: 12ch;
+  }
+}
+
+
+@media (max-width: 760px) {
+  .categorization-act-intro
+  .categorization-act-section-head h2 {
+    max-width: none;
+
+    font-size:
+      clamp(2.3rem, 11vw, 3.4rem);
+  }
+}
+
+
+@media (max-width: 480px) {
+  .categorization-act-intro__text {
+    border-radius: 22px;
+  }
 }
 
 
 /* ---------------------------------------------------------
    OBJECT DIRECTORY
    --------------------------------------------------------- */
+
+/* ==========================================================================
+   CategorizationActObjectTypes.jsx — OBJECT TYPES
+   ========================================================================== */
 
 .categorization-act-types {
   padding:
@@ -978,6 +1079,10 @@
    REQUIREMENTS
    --------------------------------------------------------- */
 
+/* ==========================================================================
+   CategorizationActRequirements.jsx — REQUIREMENTS
+   ========================================================================== */
+
 .categorization-act-requirements {
   padding:
     clamp(95px, 10vw, 150px)
@@ -1127,6 +1232,11 @@
 /* ---------------------------------------------------------
    PROCESS
    --------------------------------------------------------- */
+
+/* ==========================================================================
+   CategorizationActProcess.jsx — PROCESS
+   Includes .categorization-act-flow* step navigation.
+   ========================================================================== */
 
 .categorization-act-process {
   padding:
@@ -1365,13 +1475,23 @@
    SERVICE
    --------------------------------------------------------- */
 
+/* ==========================================================================
+   CategorizationActServiceScope.jsx — SERVICE SCOPE
+   ==========================================================================
+
+   Current service composition.
+
+   Previous card, spacing and layout override layers
+   are consolidated into this component-owned block.
+   ========================================================================== */
+
 .categorization-act-service {
   padding:
-    clamp(95px, 10vw, 150px)
+    clamp(100px, 10vw, 155px)
     0;
 
   background:
-    var(--act-paper);
+    #f6f2e9;
 }
 
 
@@ -1379,11 +1499,11 @@
   display: grid;
 
   grid-template-columns:
-    minmax(0, .55fr)
-    minmax(620px, 1.45fr);
+    minmax(280px, .50fr)
+    minmax(650px, 1.50fr);
 
   gap:
-    clamp(55px, 7vw, 110px);
+    clamp(105px, 10vw, 165px);
 
   align-items: start;
 }
@@ -1393,29 +1513,61 @@
   position: sticky;
 
   top: 110px;
+
+  padding-top: 7px;
+  padding-right: 8px;
 }
 
 
-.categorization-act-service__grid > div > p:last-child {
-  max-width: 520px;
+.categorization-act-service h2 {
+  max-width: 6.3ch;
 
-  margin: 25px 0 0;
+  margin: 0;
 
-  color: var(--color-text-secondary);
+  font-size:
+    clamp(2.7rem, 4.4vw, 4.9rem);
+
+  line-height: .94;
+
+  letter-spacing: -.058em;
+
+  text-wrap: pretty;
+}
+
+
+.categorization-act-service__grid
+> div
+> p:last-child {
+  max-width: 390px;
+
+  margin:
+    27px
+    0
+    0;
+
+  color:
+    var(--color-text-secondary);
 
   line-height: 1.72;
 }
 
 
 .categorization-act-service ol {
+  position: relative;
+
   display: grid;
 
   grid-template-columns:
     repeat(3, minmax(0, 1fr));
 
-  gap: 12px;
+  gap: 15px;
 
-  margin: 0;
+  margin:
+    0
+    0
+    0
+    clamp(12px, 1.5vw, 24px);
+
   padding: 0;
 
   list-style: none;
@@ -1423,57 +1575,243 @@
 
 
 .categorization-act-service li {
-  min-height: 162px;
+  position: relative;
 
-  padding: 22px;
+  display: flex;
+
+  flex-direction: column;
+
+  min-height: 170px;
+
+  padding:
+    23px
+    23px
+    25px;
+
+  overflow: hidden;
 
   border:
     1px solid
-    var(--act-line);
+    rgba(17, 17, 17, .10);
 
-  border-radius:
-    var(--act-radius-sm);
+  border-radius: 22px;
 
-  background: #fff;
+  background:
+    #ffffff;
+
+  box-shadow:
+    0
+    7px
+    22px
+    rgba(17, 17, 17, .025);
 
   transition:
-    transform .22s ease,
-    border-color .22s ease,
-    box-shadow .22s ease;
+    transform .24s ease,
+    border-color .24s ease,
+    box-shadow .24s ease,
+    background-color .24s ease;
+}
+
+
+.categorization-act-service li::before {
+  position: absolute;
+
+  right: -55px;
+  bottom: -65px;
+
+  width: 125px;
+  height: 125px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(169, 240, 74, 0);
+
+  content: "";
+
+  transition:
+    background-color .25s ease,
+    transform .25s ease;
+}
+
+
+.categorization-act-service li::after {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 3px;
+
+  background:
+    #a9f04a;
+
+  content: "";
+
+  transform:
+    scaleX(0);
+
+  transform-origin: left;
+
+  transition:
+    transform .25s ease;
 }
 
 
 .categorization-act-service li span {
-  display: block;
+  position: relative;
+  z-index: 1;
 
-  margin-bottom: 25px;
+  display: flex;
 
-  color: var(--color-primary);
+  align-items: center;
+  justify-content: center;
 
-  font-size: .69rem;
+  width: 34px;
+  height: 34px;
+
+  margin: 0;
+
+  border-radius: 50%;
+
+  background:
+    rgba(47, 91, 255, .08);
+
+  color:
+    var(--color-primary);
+
+  font-size: .68rem;
   font-weight: 900;
 }
 
 
 .categorization-act-service li p {
-  margin: 0;
+  position: relative;
+  z-index: 1;
+
+  margin:
+    auto
+    0
+    0;
+
+  padding-top: 30px;
 
   font-size: .94rem;
 
-  line-height: 1.5;
+  line-height: 1.48;
 }
 
 
 @media (hover: hover) {
   .categorization-act-service li:hover {
     transform:
-      translateY(-4px);
+      translateY(-5px);
 
     border-color:
-      var(--act-line-strong);
+      rgba(17, 17, 17, .17);
+
+    background:
+      #ffffff;
 
     box-shadow:
-      var(--act-shadow);
+      0
+      20px
+      42px
+      rgba(17, 17, 17, .08);
+  }
+
+
+  .categorization-act-service
+  li:hover::before {
+    background:
+      rgba(169, 240, 74, .13);
+
+    transform:
+      scale(1.18);
+  }
+
+
+  .categorization-act-service
+  li:hover::after {
+    transform:
+      scaleX(1);
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — service scope
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1200px) {
+  .categorization-act-service__grid {
+    gap:
+      clamp(65px, 6vw, 90px);
+  }
+
+
+  .categorization-act-service ol {
+    margin-left: 0;
+  }
+}
+
+
+@media (max-width: 1150px) {
+  .categorization-act-service__grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .categorization-act-service__grid > div {
+    position: static;
+
+    padding-right: 0;
+  }
+
+
+  .categorization-act-service h2 {
+    max-width: 11ch;
+  }
+}
+
+
+@media (max-width: 1100px) {
+  .categorization-act-service__grid {
+    gap: 45px;
+  }
+}
+
+
+@media (max-width: 900px) {
+  .categorization-act-service ol {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+@media (max-width: 760px) {
+  .categorization-act-service h2 {
+    max-width: none;
+
+    font-size:
+      clamp(2.25rem, 11vw, 3.5rem);
+  }
+
+
+  .categorization-act-service ol {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
+  .categorization-act-service li {
+    transition: none !important;
   }
 }
 
@@ -1481,6 +1819,11 @@
 /* ---------------------------------------------------------
    COST
    --------------------------------------------------------- */
+
+/* ==========================================================================
+   CategorizationActPricing.jsx — PRICING
+   Includes pricing cards and .categorization-act-passport-link*.
+   ========================================================================== */
 
 .categorization-act-cost {
   padding:
@@ -1847,12 +2190,23 @@
    SOURCE DATA
    --------------------------------------------------------- */
 
+/* ==========================================================================
+   CategorizationActSourceData.jsx — SOURCE DATA
+   ==========================================================================
+
+   Current checklist of source information required from the client.
+
+   Previous card, checklist, spacing and surface overrides
+   are consolidated into this component-owned block.
+   ========================================================================== */
+
 .categorization-act-source-data {
   padding:
-    clamp(95px, 10vw, 150px)
+    clamp(100px, 10vw, 155px)
     0;
 
-  background: #fff;
+  background:
+    #ffffff;
 }
 
 
@@ -1860,40 +2214,88 @@
   display: grid;
 
   grid-template-columns:
-    minmax(0, .7fr)
-    minmax(460px, 1.15fr);
+    minmax(280px, .57fr)
+    minmax(580px, 1.43fr);
 
   gap:
-    clamp(60px, 9vw, 135px);
+    clamp(105px, 10vw, 165px);
 
   align-items: start;
 }
 
 
-.categorization-act-source-data__grid > div > p:last-child {
-  max-width: 520px;
+.categorization-act-source-data__grid > div {
+  padding-right: 8px;
+}
+
+
+.categorization-act-source-data h2 {
+  max-width: 6.3ch;
+
+  margin: 0;
+
+  font-size:
+    clamp(2.7rem, 4.4vw, 4.9rem);
+
+  line-height: .94;
+
+  letter-spacing: -.057em;
+
+  text-wrap: pretty;
+}
+
+
+.categorization-act-source-data__grid
+> div
+> p:last-child {
+  max-width: 420px;
 
   margin:
-    25px
+    26px
     0
     0;
 
-  color: var(--color-text-secondary);
+  color:
+    var(--color-text-secondary);
 
-  line-height: 1.7;
+  line-height: 1.72;
 }
 
 
 .categorization-act-source-data ul {
+  position: relative;
+
   display: grid;
 
   grid-template-columns:
     repeat(2, minmax(0, 1fr));
 
-  gap: 12px;
+  gap: 0;
 
-  margin: 0;
+  margin:
+    0
+    0
+    0
+    clamp(12px, 1.5vw, 24px);
+
   padding: 0;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(17, 17, 17, .11);
+
+  border-radius: 28px;
+
+  background:
+    #ffffff;
+
+  box-shadow:
+    0
+    20px
+    48px
+    rgba(17, 17, 17, .045);
 
   list-style: none;
 }
@@ -1902,40 +2304,57 @@
 .categorization-act-source-data li {
   position: relative;
 
-  min-height: 98px;
+  display: flex;
+
+  align-items: center;
+
+  min-height: 112px;
 
   padding:
-    22px
-    22px
-    22px
-    47px;
+    24px
+    26px
+    24px
+    58px;
 
-  border:
+  border: 0;
+
+  border-bottom:
     1px solid
-    var(--act-line);
+    rgba(17, 17, 17, .09);
 
-  border-radius:
-    var(--act-radius-sm);
+  border-radius: 0;
 
   background:
-    var(--act-paper);
+    transparent;
 
-  line-height: 1.48;
+  box-shadow: none;
+
+  line-height: 1.5;
 
   transition:
-    transform .22s ease,
-    background-color .22s ease,
-    box-shadow .22s ease;
+    background-color .22s ease;
+}
+
+
+.categorization-act-source-data
+li:nth-child(odd) {
+  border-right:
+    1px solid
+    rgba(17, 17, 17, .09);
+}
+
+
+.categorization-act-source-data
+li:nth-last-child(-n + 2) {
+  border-bottom: 0;
 }
 
 
 .categorization-act-source-data li::before {
-  content: "";
-
   position: absolute;
 
-  left: 22px;
-  top: 27px;
+  top: 50%;
+  left: 27px;
 
   width: 9px;
   height: 9px;
@@ -1943,19 +2362,126 @@
   border-radius: 50%;
 
   background:
-    var(--act-lime);
+    #a9f04a;
+
+  box-shadow:
+    0
+    0
+    0
+    6px
+    rgba(169, 240, 74, .14);
+
+  content: "";
+
+  transform:
+    translateY(-50%);
 }
 
 
 @media (hover: hover) {
   .categorization-act-source-data li:hover {
-    transform:
-      translateY(-3px);
+    transform: none;
 
-    background: #fff;
+    border-color:
+      rgba(169, 240, 74, .42);
 
-    box-shadow:
-      var(--act-shadow);
+    background:
+      #f4f9eb;
+
+    box-shadow: none;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — source data
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1200px) {
+  .categorization-act-source-data__grid {
+    gap:
+      clamp(65px, 6vw, 90px);
+  }
+
+
+  .categorization-act-source-data ul {
+    margin-left: 0;
+  }
+}
+
+
+@media (max-width: 1150px) {
+  .categorization-act-source-data__grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .categorization-act-source-data h2 {
+    max-width: 11ch;
+  }
+}
+
+
+@media (max-width: 1100px) {
+  .categorization-act-source-data__grid {
+    gap: 45px;
+  }
+
+
+  .categorization-act-source-data__grid > div {
+    padding-right: 0;
+  }
+}
+
+
+@media (max-width: 760px) {
+  .categorization-act-source-data h2 {
+    max-width: none;
+
+    font-size:
+      clamp(2.25rem, 11vw, 3.5rem);
+  }
+
+
+  .categorization-act-source-data ul {
+    grid-template-columns: 1fr;
+
+    border-radius: 24px;
+  }
+
+
+  .categorization-act-source-data li,
+  .categorization-act-source-data
+  li:nth-child(odd) {
+    border-right: 0;
+
+    border-bottom:
+      1px solid
+      rgba(17, 17, 17, .09);
+  }
+
+
+  .categorization-act-source-data
+  li:nth-last-child(-n + 2) {
+    border-bottom:
+      1px solid
+      rgba(17, 17, 17, .09);
+  }
+
+
+  .categorization-act-source-data
+  li:last-child {
+    border-bottom: 0;
+  }
+}
+
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
+  .categorization-act-source-data li {
+    transition: none !important;
   }
 }
 
@@ -1964,25 +2490,121 @@
    SAMPLE / DOCUMENT STRUCTURE
    --------------------------------------------------------- */
 
+/* ==========================================================================
+   CategorizationActSample.jsx — SAMPLE ACT
+   ==========================================================================
+
+   Current visual structure of the resulting categorization act.
+
+   The section is presented as one document surface rather
+   than a collection of unrelated cards.
+   Previous sample-design override layers are consolidated here.
+   ========================================================================== */
+
 .categorization-act-sample {
+  position: relative;
+
   padding:
-    clamp(95px, 10vw, 150px)
+    clamp(100px, 10vw, 155px)
     0;
 
   background:
-    var(--act-paper);
+    #f5f1e8;
+}
+
+
+.categorization-act-sample
+.categorization-act-section-head {
+  max-width: 1180px;
+
+  margin-bottom:
+    clamp(48px, 6vw, 72px);
+}
+
+
+.categorization-act-sample
+.categorization-act-section-head h2 {
+  max-width: 15ch;
+
+  margin: 0;
+
+  font-size:
+    clamp(2.7rem, 4vw, 4.55rem);
+
+  line-height: .95;
+
+  letter-spacing: -.058em;
+
+  text-wrap: pretty;
 }
 
 
 .categorization-act-sample__grid {
+  position: relative;
+
   display: grid;
 
   grid-template-columns:
     repeat(3, minmax(0, 1fr));
 
-  gap: 12px;
+  gap: 0;
 
-  margin-bottom: 38px;
+  margin:
+    0
+    0
+    35px;
+
+  padding: 20px;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(17, 17, 17, .11);
+
+  border-radius: 28px;
+
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(17, 17, 17, .018)
+      0,
+      rgba(17, 17, 17, .018)
+      1px,
+      transparent
+      1px,
+      transparent
+      48px
+    ),
+    #ffffff;
+
+  box-shadow:
+    0
+    24px
+    58px
+    rgba(17, 17, 17, .055);
+}
+
+
+.categorization-act-sample__grid::before {
+  position: absolute;
+  z-index: 2;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 6px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #2f5bff 0%,
+      #2f5bff 38%,
+      #a9f04a 100%
+    );
+
+  content: "";
 }
 
 
@@ -1992,64 +2614,81 @@
   display: grid;
 
   grid-template-columns:
-    37px
+    39px
     minmax(0, 1fr);
 
   gap: 13px;
 
-  align-items: start;
+  align-items: center;
 
   min-height: 112px;
 
-  padding: 22px;
+  padding:
+    23px
+    21px;
 
-  overflow: hidden;
+  overflow: visible;
 
-  border:
+  border: 0;
+
+  border-right:
     1px solid
-    var(--act-line);
+    rgba(17, 17, 17, .09);
 
-  border-radius:
-    var(--act-radius-sm);
+  border-bottom:
+    1px solid
+    rgba(17, 17, 17, .09);
 
-  background: #fff;
+  border-radius: 0;
+
+  background:
+    rgba(255, 255, 255, .72);
+
+  box-shadow: none;
 
   transition:
-    transform .22s ease,
-    box-shadow .22s ease,
-    border-color .22s ease;
+    background-color .22s ease;
 }
 
 
-.categorization-act-sample__grid article::after {
-  content: "";
+.categorization-act-sample__grid
+article:nth-child(3n) {
+  border-right: 0;
+}
 
-  position: absolute;
 
-  left: 0;
-  right: 0;
-  bottom: 0;
+.categorization-act-sample__grid
+article:nth-child(n + 7) {
+  border-bottom: 0;
+}
 
-  height: 3px;
 
-  background:
-    var(--act-lime);
+.categorization-act-sample__grid
+article::after {
+  display: none;
 
-  transform:
-    scaleX(0);
-
-  transform-origin:
-    left;
-
-  transition:
-    transform .25s ease;
+  content: none;
 }
 
 
 .categorization-act-sample__grid span {
-  color: var(--color-primary);
+  display: flex;
 
-  font-size: .7rem;
+  align-items: center;
+  justify-content: center;
+
+  width: 31px;
+  height: 31px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(47, 91, 255, .08);
+
+  color:
+    #2f5bff;
+
+  font-size: .67rem;
   font-weight: 900;
 }
 
@@ -2057,25 +2696,187 @@
 .categorization-act-sample__grid p {
   margin: 0;
 
-  line-height: 1.5;
+  color:
+    #111111;
+
+  font-size: .94rem;
+  font-weight: 640;
+
+  line-height: 1.45;
 }
 
 
 @media (hover: hover) {
-  .categorization-act-sample__grid article:hover {
-    transform:
-      translateY(-4px);
+  .categorization-act-sample__grid
+  article:hover {
+    transform: none;
 
-    border-color:
-      var(--act-line-strong);
+    background:
+      rgba(169, 240, 74, .13);
+
+    box-shadow: none;
+  }
+}
+
+
+.categorization-act-sample
+.button--secondary {
+  min-height: 52px;
+
+  padding:
+    0
+    27px;
+
+  border:
+    1px solid
+    rgba(17, 17, 17, .78);
+
+  border-radius: 999px;
+
+  background:
+    transparent;
+
+  color:
+    #111111;
+
+  font-weight: 800;
+
+  transition:
+    transform .22s ease,
+    background-color .22s ease,
+    color .22s ease,
+    box-shadow .22s ease;
+}
+
+
+@media (hover: hover) {
+  .categorization-act-sample
+  .button--secondary:hover {
+    transform:
+      translateY(-3px);
+
+    background:
+      #111111;
+
+    color:
+      #ffffff;
 
     box-shadow:
-      var(--act-shadow);
+      0
+      13px
+      28px
+      rgba(17, 17, 17, .15);
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — sample act
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1100px) {
+  .categorization-act-sample
+  .categorization-act-section-head h2 {
+    max-width: 12ch;
+  }
+}
+
+
+@media (max-width: 900px) {
+  .categorization-act-sample__grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
   }
 
-  .categorization-act-sample__grid article:hover::after {
-    transform:
-      scaleX(1);
+
+  .categorization-act-sample__grid
+  article {
+    border-right:
+      1px solid
+      rgba(17, 17, 17, .09);
+
+    border-bottom:
+      1px solid
+      rgba(17, 17, 17, .09);
+  }
+
+
+  .categorization-act-sample__grid
+  article:nth-child(3n) {
+    border-right:
+      1px solid
+      rgba(17, 17, 17, .09);
+  }
+
+
+  .categorization-act-sample__grid
+  article:nth-child(2n) {
+    border-right: 0;
+  }
+
+
+  .categorization-act-sample__grid
+  article:nth-child(n + 7) {
+    border-bottom:
+      1px solid
+      rgba(17, 17, 17, .09);
+  }
+
+
+  .categorization-act-sample__grid
+  article:nth-last-child(-n + 1) {
+    border-bottom: 0;
+  }
+}
+
+
+@media (max-width: 760px) {
+  .categorization-act-sample
+  .categorization-act-section-head h2 {
+    max-width: none;
+
+    font-size:
+      clamp(2.3rem, 11vw, 3.4rem);
+  }
+
+
+  .categorization-act-sample__grid {
+    grid-template-columns: 1fr;
+
+    padding: 16px;
+  }
+
+
+  .categorization-act-sample__grid article,
+  .categorization-act-sample__grid
+  article:nth-child(2n),
+  .categorization-act-sample__grid
+  article:nth-child(3n),
+  .categorization-act-sample__grid
+  article:nth-child(n + 7) {
+    border-right: 0;
+
+    border-bottom:
+      1px solid
+      rgba(17, 17, 17, .09);
+  }
+
+
+  .categorization-act-sample__grid
+  article:last-child {
+    border-bottom: 0;
+  }
+}
+
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
+  .categorization-act-sample__grid article,
+  .categorization-act-sample
+  .button--secondary {
+    transition: none !important;
   }
 }
 
@@ -2083,6 +2884,10 @@
 /* ---------------------------------------------------------
    STANDARD
    --------------------------------------------------------- */
+
+/* ==========================================================================
+   CategorizationActStandard.jsx — STANDARD
+   ========================================================================== */
 
 .categorization-act-standard {
   padding:
@@ -2174,6 +2979,10 @@
 /* ---------------------------------------------------------
    ACT VS PASSPORT
    --------------------------------------------------------- */
+
+/* ==========================================================================
+   CategorizationActDifference.jsx — ACT VS PASSPORT
+   ========================================================================== */
 
 .categorization-act-difference {
   padding:
@@ -2339,13 +3148,74 @@
    FAQ
    --------------------------------------------------------- */
 
+/* ==========================================================================
+   CategorizationActFaq.jsx — FAQ
+   ==========================================================================
+
+   Current FAQ composition shared visually with the trade-page FAQ.
+
+   The original card FAQ and the later unified FAQ override
+   are consolidated into one component-owned implementation.
+   ========================================================================== */
+
 .categorization-act-faq {
   padding:
-    clamp(95px, 10vw, 150px)
-    0;
+    116px
+    0
+    126px !important;
 
   background:
-    var(--act-paper);
+    #f5f5f1 !important;
+}
+
+
+.categorization-act-faq > div {
+  display: grid !important;
+
+  grid-template-columns:
+    minmax(300px, .62fr)
+    minmax(0, 1.15fr) !important;
+
+  gap:
+    clamp(
+      70px,
+      10vw,
+      165px
+    ) !important;
+}
+
+
+.categorization-act-faq
+.categorization-act-section-head {
+  position: sticky !important;
+
+  top: 110px !important;
+
+  align-self: start !important;
+
+  margin: 0 !important;
+}
+
+
+.categorization-act-faq
+.categorization-act-section-head h2 {
+  max-width: 600px !important;
+
+  margin: 0 !important;
+
+  font-size:
+    clamp(
+      2.65rem,
+      3.9vw,
+      4.25rem
+    ) !important;
+
+  line-height: 1 !important;
+
+  letter-spacing:
+    -.055em !important;
+
+  text-wrap: balance;
 }
 
 
@@ -2355,20 +3225,54 @@
   gap: 10px;
 
   max-width: 1030px;
-}
 
+  overflow: hidden !important;
 
-.categorization-act-faq details {
-  overflow: hidden;
+  padding:
+    0
+    26px !important;
 
   border:
     1px solid
-    var(--act-line);
+    var(--color-border) !important;
 
   border-radius:
-    var(--act-radius-sm);
+    var(--radius-lg) !important;
 
-  background: #fff;
+  background:
+    #fff !important;
+
+  box-shadow:
+    var(--shadow-soft) !important;
+
+  counter-reset:
+    faq-counter;
+}
+
+
+.categorization-act-faq__list details {
+  overflow: hidden;
+
+  margin: 0 !important;
+
+  border:
+    0 !important;
+
+  border-bottom:
+    1px solid
+    var(--color-border) !important;
+
+  border-radius:
+    0 !important;
+
+  background:
+    transparent !important;
+
+  box-shadow:
+    none !important;
+
+  counter-increment:
+    faq-counter;
 
   transition:
     border-color .22s ease,
@@ -2376,74 +3280,173 @@
 }
 
 
-.categorization-act-faq details[open] {
-  border-color:
-    var(--act-line-strong);
-
-  box-shadow:
-    var(--act-shadow);
+.categorization-act-faq__list
+details:last-child {
+  border-bottom:
+    0 !important;
 }
 
 
-.categorization-act-faq summary {
+.categorization-act-faq__list summary {
   position: relative;
 
+  display: grid !important;
+
+  grid-template-columns:
+    54px
+    minmax(0, 1fr)
+    36px !important;
+
+  gap:
+    18px !important;
+
+  align-items:
+    center !important;
+
+  min-height:
+    94px !important;
+
+  margin:
+    0
+    -10px !important;
+
   padding:
-    24px
-    65px
-    24px
-    24px;
+    23px
+    10px !important;
 
-  cursor: pointer;
-
-  list-style: none;
-
-  font-size:
-    clamp(1.08rem, 1.6vw, 1.35rem);
-
-  font-weight: 780;
-
-  line-height: 1.28;
-
-  transition:
-    color .2s ease,
-    background-color .2s ease;
-}
-
-
-.categorization-act-faq summary::-webkit-details-marker {
-  display: none;
-}
-
-
-.categorization-act-faq summary::after {
-  content: "+";
-
-  position: absolute;
-
-  top: 50%;
-  right: 23px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 30px;
-  height: 30px;
-
-  border-radius: 50%;
+  border-radius:
+    14px !important;
 
   background:
-    var(--act-lime-soft);
+    transparent !important;
 
-  color: var(--act-ink);
+  color:
+    var(--color-text) !important;
 
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size:
+    1.08rem !important;
+
+  font-weight:
+    750 !important;
+
+  line-height:
+    1.4 !important;
+
+  cursor:
+    pointer !important;
+
+  list-style:
+    none !important;
+
+  transition:
+    background-color
+    180ms
+    ease !important;
+}
+
+
+.categorization-act-faq__list
+summary::-webkit-details-marker {
+  display:
+    none !important;
+}
+
+
+.categorization-act-faq__list
+summary::before {
+  position:
+    static !important;
+
+  display:
+    block !important;
+
+  width:
+    auto !important;
+
+  height:
+    auto !important;
+
+  border:
+    0 !important;
+
+  background:
+    transparent !important;
+
+  color:
+    var(--color-text-secondary) !important;
+
+  content:
+    counter(
+      faq-counter,
+      decimal-leading-zero
+    ) !important;
+
+  font-size:
+    .72rem !important;
+
+  font-weight:
+    800 !important;
+
+  line-height:
+    1 !important;
+
+  letter-spacing:
+    .09em !important;
 
   transform:
-    translateY(-50%);
+    none !important;
+}
+
+
+.categorization-act-faq__list
+summary::after {
+  position:
+    static !important;
+
+  display:
+    inline-flex !important;
+
+  align-items:
+    center !important;
+
+  justify-content:
+    center !important;
+
+  width:
+    28px !important;
+
+  height:
+    28px !important;
+
+  padding:
+    0 !important;
+
+  border:
+    0 !important;
+
+  border-radius:
+    0 !important;
+
+  background:
+    transparent !important;
+
+  color:
+    var(--color-text) !important;
+
+  content:
+    "+" !important;
+
+  font-size:
+    20px !important;
+
+  font-weight:
+    500 !important;
+
+  line-height:
+    1 !important;
+
+  transform:
+    none !important;
 
   transition:
     transform .22s ease,
@@ -2451,36 +3454,192 @@
 }
 
 
-.categorization-act-faq details[open] summary::after {
-  content: "−";
+.categorization-act-faq__list
+details[open]
+summary::after {
+  border-radius:
+    50% !important;
 
   background:
-    var(--act-lime);
+    #a9f04a !important;
 
-  transform:
-    translateY(-50%)
-    rotate(180deg);
+  color:
+    #151515 !important;
+
+  content:
+    "−" !important;
 }
 
 
-.categorization-act-faq details p {
-  max-width: 850px;
+.categorization-act-faq__list
+details > p {
+  max-width:
+    750px !important;
 
   margin:
+    0 !important;
+
+  padding:
     0
-    24px
-    27px;
+    54px
+    28px
+    72px !important;
 
-  color: var(--color-text-secondary);
+  border:
+    0 !important;
 
-  line-height: 1.7;
+  background:
+    transparent !important;
+
+  color:
+    var(--color-text-secondary) !important;
+
+  line-height:
+    1.72 !important;
 }
 
 
 @media (hover: hover) {
-  .categorization-act-faq summary:hover {
+  .categorization-act-faq__list
+  summary:hover {
     background:
-      rgba(169,240,74,.055);
+      #f5f5f1 !important;
+  }
+}
+
+
+.categorization-act-faq__list
+details[open]
+summary {
+  background:
+    #f5f5f1 !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — FAQ
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .categorization-act-faq > div {
+    grid-template-columns:
+      1fr !important;
+  }
+
+
+  .categorization-act-faq
+  .categorization-act-section-head {
+    position:
+      static !important;
+
+    max-width:
+      740px !important;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .categorization-act-faq {
+    padding-top:
+      80px !important;
+
+    padding-bottom:
+      86px !important;
+  }
+
+
+  .categorization-act-faq__list {
+    padding:
+      0
+      18px !important;
+  }
+
+
+  .categorization-act-faq__list
+  summary {
+    grid-template-columns:
+      44px
+      minmax(0, 1fr)
+      32px !important;
+  }
+
+
+  .categorization-act-faq__list
+  details > p {
+    padding-left:
+      62px !important;
+  }
+}
+
+
+@media (max-width: 430px) {
+  .categorization-act-faq
+  .categorization-act-section-head h2 {
+    font-size:
+      2.4rem !important;
+  }
+
+
+  .categorization-act-faq__list {
+    padding:
+      0
+      12px !important;
+
+    border-radius:
+      18px !important;
+  }
+
+
+  .categorization-act-faq__list
+  summary {
+    grid-template-columns:
+      34px
+      minmax(0, 1fr)
+      28px !important;
+
+    gap:
+      12px !important;
+  }
+
+
+  .categorization-act-faq__list
+  details > p {
+    padding:
+      0
+      28px
+      26px
+      46px !important;
+  }
+}
+
+
+@media (max-width: 320px) {
+  .categorization-act-faq
+  .categorization-act-section-head h2 {
+    font-size:
+      2.05rem !important;
+  }
+
+
+  .categorization-act-faq__list
+  summary {
+    grid-template-columns:
+      minmax(0, 1fr)
+      28px !important;
+  }
+
+
+  .categorization-act-faq__list
+  summary::before {
+    display:
+      none !important;
+  }
+
+
+  .categorization-act-faq__list
+  details > p {
+    padding-left:
+      0 !important;
   }
 }
 
@@ -2490,48 +3649,15 @@
    --------------------------------------------------------- */
 
 @media (max-width: 1100px) {
-  .categorization-act-hero__layout,
   .categorization-act-requirements__grid,
-  .categorization-act-process__heading,
-  .categorization-act-standard__grid,
-  .categorization-act-service__grid,
-  .categorization-act-source-data__grid,
-  .categorization-act-cost__card {
+.categorization-act-process__heading,
+.categorization-act-standard__grid,
+.categorization-act-cost__card {
     grid-template-columns: 1fr;
-  }
-
-
-  .categorization-act-document {
-    max-width: 520px;
-
-    margin-top: 10px;
-  }
-
-
-  .categorization-act-intro .container {
-    grid-template-columns: 1fr;
-  }
-
-
-  .categorization-act-intro
-  .categorization-act-section-head {
-    margin-bottom:
-      clamp(42px, 6vw, 70px);
   }
 
 
   .categorization-act-requirements__list {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-  }
-
-
-  .categorization-act-service__grid > div {
-    position: static;
-  }
-
-
-  .categorization-act-service ol {
     grid-template-columns:
       repeat(2, minmax(0, 1fr));
   }
@@ -2554,11 +3680,9 @@
 
 @media (max-width: 760px) {
   .categorization-act-section-head h2,
-  .categorization-act-service h2,
-  .categorization-act-source-data h2,
-  .categorization-act-cost h2,
-  .categorization-act-requirements h2,
-  .categorization-act-standard h2 {
+.categorization-act-cost h2,
+.categorization-act-requirements h2,
+.categorization-act-standard h2 {
     font-size:
       clamp(2.25rem, 11vw, 3.5rem);
   }
@@ -2582,59 +3706,6 @@
 
   .categorization-act-hero__price-row {
     align-items: flex-start;
-  }
-
-
-  .categorization-act-document {
-    min-height: 520px;
-
-    padding:
-      27px
-      24px
-      31px;
-
-    transform: none;
-  }
-
-
-  .categorization-act-document::after {
-    right: -12px;
-    bottom: -14px;
-  }
-
-
-  .categorization-act-document__title strong {
-    font-size:
-      clamp(1.8rem, 9vw, 2.35rem);
-  }
-
-
-  .categorization-act-document__stamp {
-    right: 22px;
-
-    width: 88px;
-    height: 88px;
-  }
-
-
-  .categorization-act-hero__facts {
-    grid-template-columns: 1fr;
-  }
-
-
-  .categorization-act-hero__facts > div {
-    padding:
-      18px
-      0;
-
-    border-bottom:
-      1px solid
-      var(--act-line);
-  }
-
-
-  .categorization-act-hero__facts > div:not(:last-child)::after {
-    display: none;
   }
 
 
@@ -2664,10 +3735,7 @@
 
 
   .categorization-act-process__details,
-  .categorization-act-service ol,
-  .categorization-act-source-data ul,
-  .categorization-act-sample__grid,
-  .categorization-act-difference__grid {
+.categorization-act-difference__grid {
     grid-template-columns: 1fr;
   }
 
@@ -2712,13 +3780,6 @@
   }
 
 
-  .categorization-act-document__fields > div {
-    grid-template-columns:
-      78px
-      minmax(0, 1fr);
-  }
-
-
   .categorization-act-process__details article {
     grid-template-columns:
       34px
@@ -2729,8 +3790,7 @@
 
 
   .categorization-act-cost__price,
-  .categorization-act-passport-link,
-  .categorization-act-intro__text {
+.categorization-act-passport-link {
     border-radius:
       22px;
   }
@@ -2740,38 +3800,6 @@
 /* ---------------------------------------------------------
    MOTION
    --------------------------------------------------------- */
-
-@media (
-  prefers-reduced-motion:
-  no-preference
-) {
-  .categorization-act-document {
-    animation:
-      categorization-document-enter
-      .65s
-      cubic-bezier(.2,.75,.2,1)
-      both;
-  }
-
-
-  @keyframes categorization-document-enter {
-    from {
-      opacity: 0;
-
-      transform:
-        translateY(18px)
-        rotate(2deg);
-    }
-
-    to {
-      opacity: 1;
-
-      transform:
-        translateY(0)
-        rotate(1.2deg);
-    }
-  }
-}
 
 
 @media (
@@ -2790,64 +3818,11 @@
   }
 }
 
-/* === FINAL FEEDBACK V3 START === */
-
 
 /* =========================================================
    1. INTRO
    Fix orphan "и" + stronger editorial balance
    ========================================================= */
-
-.categorization-act-intro .container {
-  display: grid;
-
-  grid-template-columns:
-    minmax(0, 1.06fr)
-    minmax(410px, .94fr);
-
-  gap:
-    clamp(60px, 7vw, 105px);
-
-  align-items: start;
-}
-
-
-.categorization-act-intro
-.categorization-act-section-head {
-  margin-bottom: 0;
-}
-
-
-.categorization-act-intro
-.categorization-act-section-head h2 {
-  max-width: 11ch;
-
-  font-size:
-    clamp(2.65rem, 3.9vw, 4.55rem);
-
-  line-height: .96;
-
-  letter-spacing: -.055em;
-
-  text-wrap: pretty;
-}
-
-
-.categorization-act-intro__text {
-  max-width: none;
-
-  padding:
-    clamp(34px, 3vw, 44px);
-
-  border-radius: 30px;
-}
-
-
-.categorization-act-intro__text::before {
-  top: 38px;
-
-  height: 64px;
-}
 
 
 /* =========================================================
@@ -2855,2711 +3830,18 @@
    Nikolay instead of document illustration
    ========================================================= */
 
-.categorization-act-expert-visual {
-  position: relative;
+/* ==========================================================================
+   CategorizationActHeroAndIntro.jsx — EXPERT VISUAL
+   ==========================================================================
 
-  justify-self: end;
+   Current hero portrait composition.
 
-  width:
-    min(100%, 430px);
+   Previous experimental visual layers have been folded
+   into this single component-owned block.
 
-  margin: 0;
-
-  border-radius: 34px;
-
-  isolation: isolate;
-}
-
-
-.categorization-act-expert-visual::before {
-  content: "";
-
-  position: absolute;
-
-  z-index: -2;
-
-  width: 82%;
-  aspect-ratio: 1 / 1;
-
-  right: -20%;
-  top: -9%;
-
-  border-radius: 50%;
-
-  background:
-    rgba(169, 240, 74, .26);
-}
-
-
-.categorization-act-expert-visual::after {
-  content: "";
-
-  position: absolute;
-
-  z-index: -1;
-
-  left: 18px;
-  right: -18px;
-  top: 18px;
-  bottom: -18px;
-
-  border-radius: 32px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(169, 240, 74, .24),
-      rgba(169, 240, 74, .08)
-    );
-
-  transition:
-    transform .3s ease;
-}
-
-
-.categorization-act-expert-visual img {
-  position: relative;
-
-  display: block;
-
-  width: 100%;
-  height: auto;
-
-  aspect-ratio:
-    930 / 1400;
-
-  object-fit: cover;
-  object-position: center top;
-
-  overflow: hidden;
-
-  border:
-    1px solid
-    rgba(17, 17, 17, .09);
-
-  border-radius: 30px;
-
-  background:
-    #edf7d7;
-
-  box-shadow:
-    0
-    35px
-    85px
-    rgba(17, 17, 17, .14);
-
-  transform:
-    rotate(.7deg);
-
-  transition:
-    transform .32s
-    cubic-bezier(.2,.75,.2,1),
-    box-shadow .32s ease;
-}
-
-
-@media (hover: hover) {
-  .categorization-act-expert-visual:hover img {
-    transform:
-      translateY(-6px)
-      rotate(0deg);
-
-    box-shadow:
-      0
-      45px
-      95px
-      rgba(17, 17, 17, .18);
-  }
-
-
-  .categorization-act-expert-visual:hover::after {
-    transform:
-      translate(4px, 5px);
-  }
-}
-
-
-/* =========================================================
-   3. SERVICE
-   More space between title and 3x3 cards
-   ========================================================= */
-
-.categorization-act-service__grid {
-  grid-template-columns:
-    minmax(280px, .5fr)
-    minmax(650px, 1.5fr);
-
-  gap:
-    clamp(80px, 8vw, 135px);
-
-  align-items: start;
-}
-
-
-.categorization-act-service__grid > div {
-  padding-top: 9px;
-  padding-right: 12px;
-}
-
-
-.categorization-act-service h2 {
-  max-width: 6.3ch;
-
-  line-height: .94;
-
-  text-wrap: pretty;
-}
-
-
-.categorization-act-service ol {
-  gap: 15px;
-}
-
-
-.categorization-act-service li {
-  position: relative;
-
-  min-height: 172px;
-
-  padding:
-    25px
-    23px;
-
-  overflow: hidden;
-}
-
-
-.categorization-act-service li::after {
-  content: "";
-
-  position: absolute;
-
-  left: 0;
-  bottom: 0;
-
-  width: 100%;
-  height: 3px;
-
-  background:
-    var(--act-lime);
-
-  transform:
-    scaleX(0);
-
-  transform-origin: left;
-
-  transition:
-    transform .25s ease;
-}
-
-
-@media (hover: hover) {
-  .categorization-act-service li:hover::after {
-    transform:
-      scaleX(1);
-  }
-}
-
-
-/* =========================================================
-   4. SOURCE DATA
-   Turn loose boxes into one coherent checklist surface
-   ========================================================= */
-
-.categorization-act-source-data__grid {
-  grid-template-columns:
-    minmax(280px, .62fr)
-    minmax(560px, 1.38fr);
-
-  gap:
-    clamp(70px, 8vw, 125px);
-
-  align-items: start;
-}
-
-
-.categorization-act-source-data h2 {
-  max-width: 6.6ch;
-
-  text-wrap: pretty;
-}
-
-
-.categorization-act-source-data ul {
-  display: grid;
-
-  grid-template-columns:
-    repeat(2, minmax(0, 1fr));
-
-  gap: 12px;
-
-  margin: 0;
-
-  padding: 14px;
-
-  border:
-    1px solid
-    var(--act-line);
-
-  border-radius: 32px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #f6f3ec,
-      #f0ece3
-    );
-
-  box-shadow:
-    inset
-    0
-    1px
-    0
-    rgba(255,255,255,.65);
-}
-
-
-.categorization-act-source-data li {
-  position: relative;
-
-  display: flex;
-
-  align-items: center;
-
-  min-height: 108px;
-
-  padding:
-    22px
-    22px
-    22px
-    51px;
-
-  border:
-    1px solid
-    rgba(17,17,17,.08);
-
-  border-radius: 19px;
-
-  background: #fff;
-
-  box-shadow:
-    0
-    5px
-    18px
-    rgba(17,17,17,.025);
-
-  line-height: 1.48;
-
-  transition:
-    transform .22s ease,
-    border-color .22s ease,
-    box-shadow .22s ease;
-}
-
-
-.categorization-act-source-data li::before {
-  content: "";
-
-  position: absolute;
-
-  left: 22px;
-  top: 50%;
-
-  width: 9px;
-  height: 9px;
-
-  border-radius: 50%;
-
-  background:
-    var(--act-lime);
-
-  box-shadow:
-    0
-    0
-    0
-    6px
-    rgba(169, 240, 74, .16);
-
-  transform:
-    translateY(-50%);
-}
-
-
-@media (hover: hover) {
-  .categorization-act-source-data li:hover {
-    transform:
-      translateY(-3px);
-
-    border-color:
-      rgba(169, 240, 74, .42);
-
-    box-shadow:
-      0
-      13px
-      30px
-      rgba(17,17,17,.07);
-  }
-}
-
-
-/* =========================================================
-   5. SAMPLE
-   Make it read as a document index, not another card grid
-   ========================================================= */
-
-.categorization-act-sample {
-  position: relative;
-}
-
-
-.categorization-act-sample
-.categorization-act-section-head {
-  max-width: 1060px;
-}
-
-
-.categorization-act-sample
-.categorization-act-section-head h2 {
-  max-width: 12ch;
-
-  text-wrap: pretty;
-}
-
-
-.categorization-act-sample__grid {
-  position: relative;
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
-  gap: 0;
-
-  margin-bottom: 36px;
-
-  padding:
-    18px;
-
-  overflow: hidden;
-
-  border:
-    1px solid
-    var(--act-line);
-
-  border-radius:
-    30px;
-
-  background:
-    repeating-linear-gradient(
-      180deg,
-      rgba(17,17,17,.025)
-      0,
-      rgba(17,17,17,.025)
-      1px,
-      transparent
-      1px,
-      transparent
-      46px
-    ),
-    #fff;
-
-  box-shadow:
-    0
-    22px
-    55px
-    rgba(17,17,17,.06);
-}
-
-
-.categorization-act-sample__grid::before {
-  content: "";
-
-  position: absolute;
-
-  left: 0;
-  right: 0;
-  top: 0;
-
-  height: 6px;
-
-  background:
-    linear-gradient(
-      90deg,
-      var(--color-primary),
-      var(--act-lime)
-    );
-}
-
-
-.categorization-act-sample__grid article {
-  position: relative;
-
-  display: grid;
-
-  grid-template-columns:
-    36px
-    minmax(0, 1fr);
-
-  gap: 12px;
-
-  align-items: center;
-
-  min-height: 112px;
-
-  padding:
-    23px
-    20px;
-
-  border: 0;
-
-  border-right:
-    1px solid
-    var(--act-line);
-
-  border-bottom:
-    1px solid
-    var(--act-line);
-
-  border-radius: 0;
-
-  background:
-    rgba(255,255,255,.76);
-
-  box-shadow: none;
-
-  transition:
-    background-color .22s ease;
-}
-
-
-.categorization-act-sample__grid
-article:nth-child(3n) {
-  border-right: 0;
-}
-
-
-.categorization-act-sample__grid
-article:nth-child(n + 7) {
-  border-bottom: 0;
-}
-
-
-.categorization-act-sample__grid
-article::after {
-  display: none;
-}
-
-
-.categorization-act-sample__grid span {
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 30px;
-  height: 30px;
-
-  border-radius: 50%;
-
-  background:
-    rgba(47,91,255,.09);
-
-  color:
-    var(--color-primary);
-
-  font-size: .68rem;
-  font-weight: 900;
-}
-
-
-.categorization-act-sample__grid p {
-  margin: 0;
-
-  font-weight: 630;
-
-  line-height: 1.45;
-}
-
-
-@media (hover: hover) {
-  .categorization-act-sample__grid article:hover {
-    transform: none;
-
-    background:
-      rgba(169, 240, 74, .13);
-
-    box-shadow: none;
-  }
-}
-
-
-.categorization-act-sample
-.button--secondary {
-  min-height: 52px;
-
-  padding:
-    0
-    27px;
-
-  border-radius:
-    999px;
-}
-
-
-/* =========================================================
-   6. RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 1100px) {
-  .categorization-act-intro .container,
-  .categorization-act-service__grid,
-  .categorization-act-source-data__grid {
-    grid-template-columns: 1fr;
-  }
-
-
-  .categorization-act-intro
-  .categorization-act-section-head {
-    margin-bottom:
-      38px;
-  }
-
-
-  .categorization-act-intro
-  .categorization-act-section-head h2,
-  .categorization-act-service h2,
-  .categorization-act-source-data h2 {
-    max-width: 11ch;
-  }
-
-
-  .categorization-act-expert-visual {
-    justify-self: start;
-
-    max-width: 520px;
-  }
-
-
-  .categorization-act-service__grid {
-    gap: 44px;
-  }
-
-
-  .categorization-act-service ol {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-  }
-}
-
-
-@media (max-width: 760px) {
-  .categorization-act-intro
-  .categorization-act-section-head h2,
-  .categorization-act-service h2,
-  .categorization-act-source-data h2 {
-    max-width: none;
-  }
-
-
-  .categorization-act-expert-visual {
-    width: 100%;
-  }
-
-
-  .categorization-act-source-data ul {
-    grid-template-columns: 1fr;
-
-    padding: 10px;
-
-    border-radius: 24px;
-  }
-
-
-  .categorization-act-service ol,
-  .categorization-act-sample__grid {
-    grid-template-columns: 1fr;
-  }
-
-
-  .categorization-act-sample__grid article {
-    border-right: 0;
-
-    border-bottom:
-      1px solid
-      var(--act-line);
-  }
-
-
-  .categorization-act-sample__grid
-  article:nth-child(n + 7) {
-    border-bottom:
-      1px solid
-      var(--act-line);
-  }
-
-
-  .categorization-act-sample__grid
-  article:last-child {
-    border-bottom: 0;
-  }
-}
-
-
-/* =========================================================
-   MOTION ACCESSIBILITY
-   ========================================================= */
-
-@media (
-  prefers-reduced-motion:
-  reduce
-) {
-  .categorization-act-expert-visual *,
-  .categorization-act-service li,
-  .categorization-act-source-data li,
-  .categorization-act-sample__grid article {
-    transition: none !important;
-  }
-}
-
-
-/* === FINAL FEEDBACK V3 END === */
-
-/* === FOUR BLOCKS DESIGN V4 START === */
-
-
-/* =========================================================
-   1. WHAT IS THE ACT
-   Editorial split: title + expert explanation
-   ========================================================= */
-
-.categorization-act-intro {
-  padding:
-    clamp(100px, 10vw, 155px)
-    0;
-
-  background:
-    #ffffff;
-}
-
-
-.categorization-act-intro .container {
-  display: grid;
-
-  grid-template-columns:
-    minmax(0, .88fr)
-    minmax(440px, 1.12fr);
-
-  gap:
-    clamp(66px, 8vw, 125px);
-
-  align-items: start;
-}
-
-
-.categorization-act-intro
-.categorization-act-section-head {
-  max-width: none;
-
-  margin-bottom: 0;
-}
-
-
-.categorization-act-intro
-.categorization-act-section-head h2 {
-  max-width: 9.4ch;
-
-  margin: 0;
-
-  font-size:
-    clamp(2.7rem, 4.3vw, 4.9rem);
-
-  line-height: .95;
-
-  letter-spacing: -.057em;
-
-  text-wrap: pretty;
-}
-
-
-.categorization-act-intro__text {
-  position: relative;
-
-  max-width: none;
-
-  padding:
-    clamp(36px, 4vw, 50px);
-
-  overflow: hidden;
-
-  border:
-    1px solid
-    rgba(17, 17, 17, .10);
-
-  border-radius:
-    30px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #faf8f3 0%,
-      #ffffff 100%
-    );
-
-  box-shadow:
-    0
-    22px
-    55px
-    rgba(17, 17, 17, .055);
-}
-
-
-.categorization-act-intro__text::before {
-  content: "";
-
-  position: absolute;
-
-  left: 0;
-  top: 38px;
-
-  width: 5px;
-  height: 68px;
-
-  border-radius:
-    0
-    999px
-    999px
-    0;
-
-  background:
-    linear-gradient(
-      180deg,
-      #a9f04a,
-      #84ca2c
-    );
-}
-
-
-.categorization-act-intro__text::after {
-  content: "";
-
-  position: absolute;
-
-  right: -95px;
-  bottom: -115px;
-
-  width: 230px;
-  height: 230px;
-
-  border-radius: 50%;
-
-  background:
-    rgba(169, 240, 74, .08);
-
-  pointer-events: none;
-}
-
-
-.categorization-act-intro__text p {
-  position: relative;
-
-  z-index: 1;
-
-  margin: 0;
-
-  color:
-    var(--color-text-secondary);
-
-  font-size:
-    clamp(1.01rem, 1.15vw, 1.1rem);
-
-  line-height: 1.78;
-}
-
-
-.categorization-act-intro__text p + p {
-  margin-top: 22px;
-}
-
-
-/* =========================================================
-   2. WHAT WE PREPARE
-   Strong 3 x 3 service cards
-   ========================================================= */
-
-.categorization-act-service {
-  padding:
-    clamp(100px, 10vw, 155px)
-    0;
-
-  background:
-    #f6f2e9;
-}
-
-
-.categorization-act-service__grid {
-  display: grid;
-
-  grid-template-columns:
-    minmax(280px, .56fr)
-    minmax(650px, 1.44fr);
-
-  gap:
-    clamp(78px, 8vw, 130px);
-
-  align-items: start;
-}
-
-
-.categorization-act-service__grid > div {
-  position: sticky;
-
-  top: 110px;
-
-  padding-top: 7px;
-}
-
-
-.categorization-act-service h2 {
-  max-width: 6.3ch;
-
-  margin: 0;
-
-  font-size:
-    clamp(2.7rem, 4.4vw, 4.9rem);
-
-  line-height: .94;
-
-  letter-spacing: -.058em;
-
-  text-wrap: pretty;
-}
-
-
-.categorization-act-service__grid
-> div
-> p:last-child {
-  max-width: 390px;
-
-  margin:
-    27px
-    0
-    0;
-
-  color:
-    var(--color-text-secondary);
-
-  line-height: 1.72;
-}
-
-
-.categorization-act-service ol {
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
-  gap: 15px;
-
-  margin: 0;
-
-  padding: 0;
-
-  list-style: none;
-}
-
-
-.categorization-act-service li {
-  position: relative;
-
-  display: flex;
-
-  flex-direction: column;
-
-  min-height: 178px;
-
-  padding:
-    23px
-    23px
-    25px;
-
-  overflow: hidden;
-
-  border:
-    1px solid
-    rgba(17, 17, 17, .10);
-
-  border-radius:
-    22px;
-
-  background:
-    #ffffff;
-
-  box-shadow:
-    0
-    7px
-    22px
-    rgba(17, 17, 17, .025);
-
-  transition:
-    transform .24s ease,
-    border-color .24s ease,
-    box-shadow .24s ease,
-    background-color .24s ease;
-}
-
-
-.categorization-act-service li::before {
-  content: "";
-
-  position: absolute;
-
-  right: -55px;
-  bottom: -65px;
-
-  width: 125px;
-  height: 125px;
-
-  border-radius: 50%;
-
-  background:
-    rgba(169, 240, 74, .00);
-
-  transition:
-    background-color .25s ease,
-    transform .25s ease;
-}
-
-
-.categorization-act-service li::after {
-  content: "";
-
-  position: absolute;
-
-  left: 0;
-  bottom: 0;
-
-  width: 100%;
-  height: 3px;
-
-  background:
-    #a9f04a;
-
-  transform:
-    scaleX(0);
-
-  transform-origin: left;
-
-  transition:
-    transform .25s ease;
-}
-
-
-.categorization-act-service li span {
-  position: relative;
-
-  z-index: 1;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 34px;
-  height: 34px;
-
-  margin: 0;
-
-  border-radius: 50%;
-
-  background:
-    rgba(47, 91, 255, .08);
-
-  color:
-    var(--color-primary);
-
-  font-size: .68rem;
-  font-weight: 900;
-}
-
-
-.categorization-act-service li p {
-  position: relative;
-
-  z-index: 1;
-
-  margin:
-    auto
-    0
-    0;
-
-  padding-top: 30px;
-
-  font-size:
-    .94rem;
-
-  line-height: 1.48;
-}
-
-
-@media (hover: hover) {
-  .categorization-act-service li:hover {
-    transform:
-      translateY(-5px);
-
-    border-color:
-      rgba(17, 17, 17, .17);
-
-    background:
-      #ffffff;
-
-    box-shadow:
-      0
-      20px
-      42px
-      rgba(17, 17, 17, .08);
-  }
-
-
-  .categorization-act-service li:hover::before {
-    background:
-      rgba(169, 240, 74, .13);
-
-    transform:
-      scale(1.18);
-  }
-
-
-  .categorization-act-service li:hover::after {
-    transform:
-      scaleX(1);
-  }
-}
-
-
-/* =========================================================
-   3. SOURCE DATA
-   One coherent checklist instead of another card grid
-   ========================================================= */
-
-.categorization-act-source-data {
-  padding:
-    clamp(100px, 10vw, 155px)
-    0;
-
-  background:
-    #ffffff;
-}
-
-
-.categorization-act-source-data__grid {
-  display: grid;
-
-  grid-template-columns:
-    minmax(280px, .62fr)
-    minmax(580px, 1.38fr);
-
-  gap:
-    clamp(72px, 8vw, 125px);
-
-  align-items: start;
-}
-
-
-.categorization-act-source-data h2 {
-  max-width: 6.3ch;
-
-  margin: 0;
-
-  font-size:
-    clamp(2.7rem, 4.4vw, 4.9rem);
-
-  line-height: .94;
-
-  letter-spacing: -.057em;
-
-  text-wrap: pretty;
-}
-
-
-.categorization-act-source-data__grid
-> div
-> p:last-child {
-  max-width: 420px;
-
-  margin:
-    26px
-    0
-    0;
-
-  color:
-    var(--color-text-secondary);
-
-  line-height: 1.72;
-}
-
-
-/* Общая поверхность */
-
-.categorization-act-source-data ul {
-  display: grid;
-
-  grid-template-columns:
-    repeat(2, minmax(0, 1fr));
-
-  gap: 0;
-
-  margin: 0;
-
-  padding: 0;
-
-  overflow: hidden;
-
-  border:
-    1px solid
-    rgba(17, 17, 17, .11);
-
-  border-radius:
-    28px;
-
-  background:
-    #ffffff;
-
-  box-shadow:
-    0
-    22px
-    55px
-    rgba(17, 17, 17, .055);
-
-  list-style: none;
-}
-
-
-/* Элемент теперь не отдельная карточка,
-   а часть единого checklist */
-
-.categorization-act-source-data li {
-  position: relative;
-
-  display: flex;
-
-  align-items: center;
-
-  min-height: 112px;
-
-  padding:
-    24px
-    26px
-    24px
-    58px;
-
-  border: 0;
-
-  border-bottom:
-    1px solid
-    rgba(17, 17, 17, .09);
-
-  border-radius: 0;
-
-  background:
-    transparent;
-
-  box-shadow: none;
-
-  line-height: 1.5;
-
-  transition:
-    background-color .22s ease;
-}
-
-
-/* Вертикальная разделительная линия */
-
-.categorization-act-source-data
-li:nth-child(odd) {
-  border-right:
-    1px solid
-    rgba(17, 17, 17, .09);
-}
-
-
-/* В списке 10 элементов — нижние два
-   без нижней границы */
-
-.categorization-act-source-data
-li:nth-last-child(-n + 2) {
-  border-bottom: 0;
-}
-
-
-/* Маркер */
-
-.categorization-act-source-data li::before {
-  content: "";
-
-  position: absolute;
-
-  left: 27px;
-  top: 50%;
-
-  width: 9px;
-  height: 9px;
-
-  border-radius: 50%;
-
-  background:
-    #a9f04a;
-
-  box-shadow:
-    0
-    0
-    0
-    6px
-    rgba(169, 240, 74, .14);
-
-  transform:
-    translateY(-50%);
-}
-
-
-@media (hover: hover) {
-  .categorization-act-source-data li:hover {
-    transform: none;
-
-    background:
-      #f4f9eb;
-
-    box-shadow: none;
-  }
-}
-
-
-/* =========================================================
-   4. SAMPLE ACT
-   A "document contents" surface, not service cards
-   ========================================================= */
-
-.categorization-act-sample {
-  position: relative;
-
-  padding:
-    clamp(100px, 10vw, 155px)
-    0;
-
-  background:
-    #f5f1e8;
-}
-
-
-.categorization-act-sample
-.categorization-act-section-head {
-  max-width: 1040px;
-
-  margin-bottom:
-    clamp(48px, 6vw, 72px);
-}
-
-
-.categorization-act-sample
-.categorization-act-section-head h2 {
-  max-width: 12ch;
-
-  margin: 0;
-
-  font-size:
-    clamp(2.7rem, 4.5vw, 5rem);
-
-  line-height: .94;
-
-  letter-spacing: -.058em;
-
-  text-wrap: pretty;
-}
-
-
-/* Один большой "лист документа" */
-
-.categorization-act-sample__grid {
-  position: relative;
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
-  gap: 0;
-
-  margin:
-    0
-    0
-    35px;
-
-  padding:
-    20px;
-
-  overflow: hidden;
-
-  border:
-    1px solid
-    rgba(17, 17, 17, .11);
-
-  border-radius:
-    28px;
-
-  background:
-    repeating-linear-gradient(
-      180deg,
-      rgba(17, 17, 17, .018)
-      0,
-      rgba(17, 17, 17, .018)
-      1px,
-      transparent
-      1px,
-      transparent
-      48px
-    ),
-    #ffffff;
-
-  box-shadow:
-    0
-    28px
-    65px
-    rgba(17, 17, 17, .07);
-}
-
-
-/* Верхняя полоса "документа" */
-
-.categorization-act-sample__grid::before {
-  content: "";
-
-  position: absolute;
-
-  z-index: 2;
-
-  left: 0;
-  right: 0;
-  top: 0;
-
-  height: 6px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #2f5bff 0%,
-      #2f5bff 38%,
-      #a9f04a 100%
-    );
-}
-
-
-/* Внутренние разделы документа */
-
-.categorization-act-sample__grid article {
-  position: relative;
-
-  display: grid;
-
-  grid-template-columns:
-    39px
-    minmax(0, 1fr);
-
-  gap: 13px;
-
-  align-items: center;
-
-  min-height: 112px;
-
-  padding:
-    23px
-    21px;
-
-  overflow: visible;
-
-  border: 0;
-
-  border-right:
-    1px solid
-    rgba(17, 17, 17, .09);
-
-  border-bottom:
-    1px solid
-    rgba(17, 17, 17, .09);
-
-  border-radius: 0;
-
-  background:
-    rgba(255, 255, 255, .72);
-
-  box-shadow: none;
-
-  transition:
-    background-color .22s ease;
-}
-
-
-/* Каждая третья ячейка —
-   край документа */
-
-.categorization-act-sample__grid
-article:nth-child(3n) {
-  border-right: 0;
-}
-
-
-/* Последний ряд */
-
-.categorization-act-sample__grid
-article:nth-child(n + 7) {
-  border-bottom: 0;
-}
-
-
-/* Убираем старую нижнюю hover-линию */
-
-.categorization-act-sample__grid
-article::after {
-  display: none;
-}
-
-
-/* Номер как индекс раздела */
-
-.categorization-act-sample__grid span {
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 31px;
-  height: 31px;
-
-  border-radius: 50%;
-
-  background:
-    rgba(47, 91, 255, .08);
-
-  color:
-    #2f5bff;
-
-  font-size: .67rem;
-  font-weight: 900;
-}
-
-
-.categorization-act-sample__grid p {
-  margin: 0;
-
-  color:
-    #111111;
-
-  font-size: .94rem;
-  font-weight: 640;
-
-  line-height: 1.45;
-}
-
-
-@media (hover: hover) {
-  .categorization-act-sample__grid article:hover {
-    transform: none;
-
-    background:
-      rgba(169, 240, 74, .13);
-
-    box-shadow: none;
-  }
-}
-
-
-/* CTA остаётся pill-кнопкой,
-   но здесь она вторичная */
-
-.categorization-act-sample
-.button--secondary {
-  min-height: 52px;
-
-  padding:
-    0
-    27px;
-
-  border:
-    1px solid
-    rgba(17, 17, 17, .78);
-
-  border-radius: 999px;
-
-  background:
-    transparent;
-
-  color:
-    #111111;
-
-  font-weight: 800;
-
-  transition:
-    transform .22s ease,
-    background-color .22s ease,
-    color .22s ease,
-    box-shadow .22s ease;
-}
-
-
-@media (hover: hover) {
-  .categorization-act-sample
-  .button--secondary:hover {
-    transform:
-      translateY(-3px);
-
-    background:
-      #111111;
-
-    color:
-      #ffffff;
-
-    box-shadow:
-      0
-      13px
-      28px
-      rgba(17, 17, 17, .15);
-  }
-}
-
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 1150px) {
-  .categorization-act-intro .container,
-  .categorization-act-service__grid,
-  .categorization-act-source-data__grid {
-    grid-template-columns: 1fr;
-  }
-
-
-  .categorization-act-intro
-  .categorization-act-section-head {
-    margin-bottom: 40px;
-  }
-
-
-  .categorization-act-intro
-  .categorization-act-section-head h2,
-  .categorization-act-service h2,
-  .categorization-act-source-data h2 {
-    max-width: 11ch;
-  }
-
-
-  .categorization-act-service__grid {
-    gap: 44px;
-  }
-
-
-  .categorization-act-service__grid > div {
-    position: static;
-
-    padding-right: 0;
-  }
-
-
-  .categorization-act-service ol {
-    grid-template-columns:
-      repeat(3, minmax(0, 1fr));
-  }
-}
-
-
-@media (max-width: 900px) {
-  .categorization-act-service ol,
-  .categorization-act-sample__grid {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-  }
-
-
-  .categorization-act-sample__grid
-  article {
-    border-right:
-      1px solid
-      rgba(17, 17, 17, .09);
-
-    border-bottom:
-      1px solid
-      rgba(17, 17, 17, .09);
-  }
-
-
-  .categorization-act-sample__grid
-  article:nth-child(3n) {
-    border-right:
-      1px solid
-      rgba(17, 17, 17, .09);
-  }
-
-
-  .categorization-act-sample__grid
-  article:nth-child(2n) {
-    border-right: 0;
-  }
-
-
-  .categorization-act-sample__grid
-  article:nth-child(n + 7) {
-    border-bottom:
-      1px solid
-      rgba(17, 17, 17, .09);
-  }
-
-
-  .categorization-act-sample__grid
-  article:nth-last-child(-n + 1) {
-    border-bottom: 0;
-  }
-}
-
-
-@media (max-width: 760px) {
-  .categorization-act-intro
-  .categorization-act-section-head h2,
-  .categorization-act-service h2,
-  .categorization-act-source-data h2,
-  .categorization-act-sample
-  .categorization-act-section-head h2 {
-    max-width: none;
-  }
-
-
-  .categorization-act-service ol,
-  .categorization-act-source-data ul,
-  .categorization-act-sample__grid {
-    grid-template-columns: 1fr;
-  }
-
-
-  .categorization-act-source-data ul {
-    border-radius: 24px;
-  }
-
-
-  .categorization-act-source-data li,
-  .categorization-act-source-data
-  li:nth-child(odd) {
-    border-right: 0;
-
-    border-bottom:
-      1px solid
-      rgba(17, 17, 17, .09);
-  }
-
-
-  .categorization-act-source-data
-  li:nth-last-child(-n + 2) {
-    border-bottom:
-      1px solid
-      rgba(17, 17, 17, .09);
-  }
-
-
-  .categorization-act-source-data
-  li:last-child {
-    border-bottom: 0;
-  }
-
-
-  .categorization-act-sample__grid {
-    padding:
-      16px;
-  }
-
-
-  .categorization-act-sample__grid article,
-  .categorization-act-sample__grid
-  article:nth-child(2n),
-  .categorization-act-sample__grid
-  article:nth-child(3n),
-  .categorization-act-sample__grid
-  article:nth-child(n + 7) {
-    border-right: 0;
-
-    border-bottom:
-      1px solid
-      rgba(17, 17, 17, .09);
-  }
-
-
-  .categorization-act-sample__grid
-  article:last-child {
-    border-bottom: 0;
-  }
-}
-
-
-/* =========================================================
-   ACCESSIBILITY / PERFORMANCE
-   ========================================================= */
-
-@media (
-  prefers-reduced-motion:
-  reduce
-) {
-  .categorization-act-service li,
-  .categorization-act-source-data li,
-  .categorization-act-sample__grid article,
-  .categorization-act-sample
-  .button--secondary {
-    transition: none !important;
-  }
-}
-
-
-/* === FOUR BLOCKS DESIGN V4 END === */
-
-/* === FINAL UI POLISH V5 START === */
-
-
-/* =========================================================
-   HERO EXPERT VISUAL
-   ========================================================= */
-
-.categorization-act-expert-visual {
-  width:
-    min(100%, 380px);
-
-  border-radius: 30px;
-}
-
-
-.categorization-act-expert-visual::before {
-  width: 66%;
-
-  right: -16%;
-  top: -7%;
-
-  background:
-    rgba(169, 240, 74, .18);
-}
-
-
-.categorization-act-expert-visual::after {
-  left: 14px;
-  right: -12px;
-  top: 14px;
-  bottom: -12px;
-
-  border-radius: 30px;
-
-  background:
-    rgba(169, 240, 74, .11);
-}
-
-
-.categorization-act-expert-visual img {
-  border-radius: 28px;
-
-  background:
-    #f7f4ed;
-
-  box-shadow:
-    0
-    28px
-    70px
-    rgba(17, 17, 17, .12);
-}
-
-
-/* Caption */
-
-.categorization-act-expert-visual__caption {
-  position: absolute;
-
-  z-index: 4;
-
-  left: 18px;
-  bottom: 18px;
-
-  display: inline-flex;
-
-  align-items: center;
-
-  gap: 12px;
-
-  max-width:
-    calc(100% - 36px);
-
-  padding:
-    12px
-    15px;
-
-  border:
-    1px solid
-    rgba(17, 17, 17, .08);
-
-  border-radius: 17px;
-
-  background:
-    rgba(255, 255, 255, .93);
-
-  box-shadow:
-    0
-    14px
-    34px
-    rgba(17, 17, 17, .10);
-
-  backdrop-filter:
-    blur(8px);
-}
-
-
-.categorization-act-expert-visual__caption-dot {
-  flex:
-    0 0 auto;
-
-  width: 9px;
-  height: 9px;
-
-  border-radius: 50%;
-
-  background:
-    #a9f04a;
-
-  box-shadow:
-    0
-    0
-    0
-    5px
-    rgba(169, 240, 74, .16);
-}
-
-
-.categorization-act-expert-visual__caption > span:last-child {
-  display: flex;
-
-  flex-direction: column;
-
-  min-width: 0;
-}
-
-
-.categorization-act-expert-visual__caption strong {
-  color:
-    #111111;
-
-  font-size: .88rem;
-  font-weight: 850;
-
-  line-height: 1.2;
-}
-
-
-.categorization-act-expert-visual__caption small {
-  margin-top: 3px;
-
-  color:
-    var(--color-text-secondary);
-
-  font-size: .7rem;
-
-  line-height: 1.25;
-}
-
-
-/* =========================================================
-   INTRO H2
-   Prevent orphan "и"
-   ========================================================= */
-
-.categorization-act-intro .container {
-  grid-template-columns:
-    minmax(0, 1.04fr)
-    minmax(440px, .96fr);
-}
-
-
-.categorization-act-intro
-.categorization-act-section-head h2 {
-  max-width: 12.6ch;
-
-  font-size:
-    clamp(2.65rem, 3.75vw, 4.35rem);
-
-  line-height: .96;
-
-  text-wrap: pretty;
-}
-
-
-/* =========================================================
-   SERVICE
-   Preserve current design, refine spacing only
-   ========================================================= */
-
-.categorization-act-service__grid {
-  gap:
-    clamp(88px, 8vw, 138px);
-}
-
-
-.categorization-act-service li {
-  min-height: 170px;
-}
-
-
-/* =========================================================
-   SOURCE DATA
-   Current design is good — only subtle refinement
-   ========================================================= */
-
-.categorization-act-source-data ul {
-  box-shadow:
-    0
-    20px
-    48px
-    rgba(17, 17, 17, .045);
-}
-
-
-/* =========================================================
-   SAMPLE H2
-   Prevent orphan "и"
-   ========================================================= */
-
-.categorization-act-sample
-.categorization-act-section-head {
-  max-width: 1180px;
-}
-
-
-.categorization-act-sample
-.categorization-act-section-head h2 {
-  max-width: 15ch;
-
-  font-size:
-    clamp(2.7rem, 4vw, 4.55rem);
-
-  line-height: .95;
-
-  text-wrap: pretty;
-}
-
-
-/* Slightly lighter document surface */
-
-.categorization-act-sample__grid {
-  box-shadow:
-    0
-    24px
-    58px
-    rgba(17, 17, 17, .055);
-}
-
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 1100px) {
-  .categorization-act-expert-visual {
-    width:
-      min(100%, 420px);
-  }
-
-
-  .categorization-act-intro .container {
-    grid-template-columns: 1fr;
-  }
-
-
-  .categorization-act-intro
-  .categorization-act-section-head h2,
-  .categorization-act-sample
-  .categorization-act-section-head h2 {
-    max-width: 12ch;
-  }
-}
-
-
-@media (max-width: 760px) {
-  .categorization-act-expert-visual {
-    width: 100%;
-  }
-
-
-  .categorization-act-expert-visual__caption {
-    left: 14px;
-    bottom: 14px;
-
-    max-width:
-      calc(100% - 28px);
-  }
-
-
-  .categorization-act-intro
-  .categorization-act-section-head h2,
-  .categorization-act-sample
-  .categorization-act-section-head h2 {
-    max-width: none;
-
-    font-size:
-      clamp(2.3rem, 11vw, 3.4rem);
-  }
-}
-
-
-/* === FINAL UI POLISH V5 END === */
-
-/* === HERO AND SPACING V6 START === */
-
-
-/* =========================================================
-   1. HERO — lighter expert composition
-   ========================================================= */
-
-/* Немного увеличиваем расстояние между оффером и экспертом */
-
-.categorization-act-hero__layout {
-  grid-template-columns:
-    minmax(0, 1.28fr)
-    minmax(320px, 360px);
-
-  gap:
-    clamp(70px, 7vw, 115px);
-
-  align-items: center;
-}
-
-
-/* Карточка эксперта становится компактнее */
-
-.categorization-act-expert-visual {
-  position: relative;
-
-  justify-self: end;
-
-  width:
-    min(100%, 350px);
-
-  margin: 0;
-
-  border-radius: 30px;
-
-  isolation: isolate;
-}
-
-
-/* Зелёный круг — меньше и дальше от лица */
-
-.categorization-act-expert-visual::before {
-  content: "";
-
-  position: absolute;
-
-  z-index: -2;
-
-  width: 190px;
-  height: 190px;
-
-  right: -48px;
-  top: -32px;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(169, 240, 74, .20) 0%,
-      rgba(169, 240, 74, .13) 45%,
-      rgba(169, 240, 74, 0) 75%
-    );
-
-  pointer-events: none;
-}
-
-
-/* Задняя зелёная подложка становится почти нейтральной */
-
-.categorization-act-expert-visual::after {
-  content: "";
-
-  position: absolute;
-
-  z-index: -1;
-
-  left: 13px;
-  right: -10px;
-  top: 13px;
-  bottom: -10px;
-
-  border-radius: 29px;
-
-  background:
-    rgba(169, 240, 74, .085);
-
-  pointer-events: none;
-}
-
-
-/* Нейтральная карточка вместо "зелёного на зелёном" */
-
-.categorization-act-expert-visual img {
-  display: block;
-
-  width: 100%;
-  height: auto;
-
-  aspect-ratio:
-    930 / 1400;
-
-  object-fit: cover;
-  object-position: center top;
-
-  border:
-    1px solid
-    rgba(17, 17, 17, .08);
-
-  border-radius: 27px;
-
-  background:
-    #f7f4ed;
-
-  box-shadow:
-    0
-    27px
-    66px
-    rgba(17, 17, 17, .11);
-
-  transform:
-    rotate(.25deg);
-
-  transition:
-    transform .3s
-    cubic-bezier(.2,.75,.2,1),
-    box-shadow .3s ease;
-}
-
-
-@media (hover: hover) {
-  .categorization-act-expert-visual:hover img {
-    transform:
-      translateY(-4px)
-      rotate(0);
-
-    box-shadow:
-      0
-      34px
-      78px
-      rgba(17, 17, 17, .14);
-  }
-}
-
-
-/* Подпись Николая — компактнее и спокойнее */
-
-.categorization-act-expert-visual__caption {
-  position: absolute;
-
-  z-index: 4;
-
-  left: 15px;
-  bottom: 15px;
-
-  display: inline-flex;
-
-  align-items: center;
-
-  gap: 11px;
-
-  max-width:
-    calc(100% - 30px);
-
-  padding:
-    10px
-    13px;
-
-  border:
-    1px solid
-    rgba(17, 17, 17, .075);
-
-  border-radius: 16px;
-
-  background:
-    rgba(255, 255, 255, .94);
-
-  box-shadow:
-    0
-    11px
-    26px
-    rgba(17, 17, 17, .085);
-
-  backdrop-filter:
-    blur(8px);
-}
-
-
-.categorization-act-expert-visual__caption-dot {
-  flex:
-    0 0 auto;
-
-  width: 8px;
-  height: 8px;
-
-  border-radius: 50%;
-
-  background:
-    #a9f04a;
-
-  box-shadow:
-    0
-    0
-    0
-    5px
-    rgba(169, 240, 74, .15);
-}
-
-
-.categorization-act-expert-visual__caption strong {
-  font-size: .85rem;
-
-  line-height: 1.15;
-}
-
-
-.categorization-act-expert-visual__caption small {
-  margin-top: 3px;
-
-  font-size: .68rem;
-
-  line-height: 1.2;
-}
-
-
-
-/* =========================================================
-   2. "ЧТО МЫ ПОДГОТОВИМ"
-   Больше воздуха между колонками
-   ========================================================= */
-
-.categorization-act-service__grid {
-  grid-template-columns:
-    minmax(280px, .50fr)
-    minmax(650px, 1.50fr);
-
-  gap:
-    clamp(105px, 10vw, 165px);
-
-  align-items: start;
-}
-
-
-/* Левой части даём собственное пространство */
-
-.categorization-act-service__grid > div {
-  padding-right: 8px;
-}
-
-
-/* Сетка немного смещается вправо */
-
-.categorization-act-service ol {
-  position: relative;
-
-  margin-left:
-    clamp(12px, 1.5vw, 24px);
-}
-
-
-
-/* =========================================================
-   3. "КАКИЕ ДАННЫЕ ПОТРЕБУЮТСЯ"
-   Такой же спокойный отступ между колонками
-   ========================================================= */
-
-.categorization-act-source-data__grid {
-  grid-template-columns:
-    minmax(280px, .57fr)
-    minmax(580px, 1.43fr);
-
-  gap:
-    clamp(105px, 10vw, 165px);
-
-  align-items: start;
-}
-
-
-.categorization-act-source-data__grid > div {
-  padding-right: 8px;
-}
-
-
-.categorization-act-source-data ul {
-  position: relative;
-
-  margin-left:
-    clamp(12px, 1.5vw, 24px);
-}
-
-
-
-/* =========================================================
-   4. RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 1200px) {
-  .categorization-act-hero__layout {
-    grid-template-columns:
-      minmax(0, 1.2fr)
-      minmax(300px, 340px);
-
-    gap:
-      clamp(50px, 5vw, 80px);
-  }
-
-
-  .categorization-act-expert-visual {
-    width:
-      min(100%, 330px);
-  }
-
-
-  .categorization-act-expert-visual::before {
-    width: 165px;
-    height: 165px;
-
-    right: -35px;
-    top: -24px;
-  }
-
-
-  .categorization-act-service__grid,
-  .categorization-act-source-data__grid {
-    gap:
-      clamp(65px, 6vw, 90px);
-  }
-
-
-  .categorization-act-service ol,
-  .categorization-act-source-data ul {
-    margin-left: 0;
-  }
-}
-
-
-@media (max-width: 1100px) {
-  .categorization-act-hero__layout,
-  .categorization-act-service__grid,
-  .categorization-act-source-data__grid {
-    grid-template-columns: 1fr;
-  }
-
-
-  .categorization-act-expert-visual {
-    justify-self: start;
-
-    width:
-      min(100%, 390px);
-  }
-
-
-  .categorization-act-service__grid,
-  .categorization-act-source-data__grid {
-    gap: 45px;
-  }
-
-
-  .categorization-act-service__grid > div,
-  .categorization-act-source-data__grid > div {
-    padding-right: 0;
-  }
-}
-
-
-@media (max-width: 760px) {
-  .categorization-act-expert-visual {
-    justify-self: center;
-
-    width:
-      min(100%, 315px);
-  }
-
-
-  .categorization-act-expert-visual::before {
-    width: 145px;
-    height: 145px;
-
-    top: -17px;
-    right: -20px;
-  }
-
-
-  .categorization-act-expert-visual::after {
-    left: 9px;
-    right: -7px;
-    top: 9px;
-    bottom: -7px;
-
-    border-radius: 24px;
-  }
-
-
-  .categorization-act-expert-visual img {
-    border-radius: 23px;
-  }
-
-
-  .categorization-act-expert-visual__caption {
-    left: 11px;
-    bottom: 11px;
-
-    max-width:
-      calc(100% - 22px);
-
-    padding:
-      9px
-      11px;
-  }
-}
-
-
-
-/* =========================================================
-   5. ACCESSIBILITY
-   ========================================================= */
-
-@media (
-  prefers-reduced-motion:
-  reduce
-) {
-  .categorization-act-expert-visual img {
-    transition: none !important;
-  }
-}
-
-
-/* === HERO AND SPACING V6 END === */
-
-/* === HERO FACTS V7 START === */
-
-
-/* =========================================================
-   HERO FACTS
-   Three facts become one integrated information panel
-   ========================================================= */
-
-.categorization-act-hero__facts {
-  position: relative;
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
-  gap: 0;
-
-  margin-top:
-    clamp(22px, 2.4vw, 34px);
-
-  padding:
-    10px;
-
-  overflow: hidden;
-
-  border:
-    1px solid
-    rgba(17, 17, 17, .10);
-
-  border-radius:
-    26px;
-
-  background:
-    rgba(255, 255, 255, .50);
-
-  box-shadow:
-    0
-    14px
-    35px
-    rgba(17, 17, 17, .035);
-}
-
-
-/* Очень тонкий фирменный акцент */
-
-.categorization-act-hero__facts::before {
-  content: "";
-
-  position: absolute;
-
-  left: 24px;
-  right: 24px;
-  top: 0;
-
-  height: 2px;
-
-  border-radius:
-    999px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #2f5bff 0%,
-      #2f5bff 35%,
-      #a9f04a 100%
-    );
-
-  opacity: .78;
-}
-
-
-/* Теперь каждый факт — часть общего блока,
-   а не отдельная карточка */
-
-.categorization-act-hero__facts > div {
-  position: relative;
-
-  display: grid;
-
-  grid-template-columns:
-    38px
-    minmax(0, 1fr);
-
-  gap: 13px;
-
-  align-items: start;
-
-  min-height: 96px;
-
-  padding:
-    22px
-    24px;
-
-  border: 0;
-
-  border-radius: 0;
-
-  background:
-    transparent;
-
-  box-shadow: none;
-
-  transition:
-    background-color .2s ease;
-}
-
-
-/* Только внутренние разделители */
-
-.categorization-act-hero__facts
-> div + div {
-  border-left:
-    1px solid
-    rgba(17, 17, 17, .09);
-}
-
-
-/* Номер */
-
-.categorization-act-hero__facts span {
-  position: relative;
-
-  z-index: 1;
-
-  color:
-    #2f5bff;
-
-  font-size: .7rem;
-  font-weight: 900;
-}
-
-
-/* Текст */
-
-.categorization-act-hero__facts p {
-  position: relative;
-
-  z-index: 1;
-
-  max-width: 230px;
-
-  margin: 0;
-
-  font-size: .88rem;
-
-  line-height: 1.46;
-}
-
-
-/* Очень мягкий hover без поднятия карточек */
-
-@media (hover: hover) {
-  .categorization-act-hero__facts > div:hover {
-    transform: none;
-
-    background:
-      rgba(255, 255, 255, .52);
-
-    box-shadow: none;
-  }
-}
-
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 850px) {
-  .categorization-act-hero__facts {
-    grid-template-columns: 1fr;
-
-    padding:
-      8px;
-  }
-
-
-  .categorization-act-hero__facts
-  > div + div {
-    border-left: 0;
-
-    border-top:
-      1px solid
-      rgba(17, 17, 17, .09);
-  }
-
-
-  .categorization-act-hero__facts > div {
-    min-height: auto;
-
-    padding:
-      19px
-      20px;
-  }
-}
-
-
-@media (max-width: 480px) {
-  .categorization-act-hero__facts {
-    margin-top: 19px;
-
-    border-radius: 21px;
-  }
-
-
-  .categorization-act-hero__facts::before {
-    left: 18px;
-    right: 18px;
-  }
-}
-
-
-/* === HERO FACTS V7 END === */
-
-/* === HERO VISUAL V12 START === */
-
-
-/* =========================================================
-   EXPERT VISUAL
-   Same compositional logic as the homepage:
-   portrait dominates, geometry supports it.
-   ========================================================= */
+   Decorative ::before / ::after circles are intentionally
+   not generated in the current design.
+   ========================================================================== */
 
 .categorization-act-expert-visual {
   position: relative;
@@ -5570,10 +3852,16 @@ article::after {
 
   display: block;
 
-  width: min(100%, 410px);
+  width:
+    min(100%, 410px);
+
   height: 500px;
 
-  margin: 0 18px 30px 0;
+  margin:
+    0
+    18px
+    30px
+    0;
 
   padding: 0;
 
@@ -5585,90 +3873,6 @@ article::after {
 
   border-radius: 34px;
 
-  background:
-    linear-gradient(
-      145deg,
-      #ffffff 0%,
-      #faf8f3 100%
-    );
-
-  box-shadow:
-    0
-    26px
-    65px
-    rgba(17, 17, 17, .075);
-}
-
-
-/* =========================================================
-   BACKGROUND COMPOSITION
-
-   Beige circle now sits BEHIND the shoulders,
-   not above the head.
-   ========================================================= */
-
-.categorization-act-expert-visual::before {
-  content: "";
-
-  position: absolute;
-
-  z-index: 0;
-
-  left: 50%;
-  top: 43%;
-
-  width: 72%;
-  aspect-ratio: 1;
-
-  transform:
-    translate(-50%, -50%);
-
-  border-radius: 50%;
-
-  background:
-    rgba(215, 208, 195, .74);
-
-  pointer-events: none;
-}
-
-
-/* Lime outline — shifted right, like the homepage,
-   but slightly smaller so this page has its own identity. */
-
-.categorization-act-expert-visual::after {
-  content: "";
-
-  position: absolute;
-
-  z-index: 1;
-
-  right: 22px;
-  top: 70px;
-
-  width: 58%;
-  aspect-ratio: 1;
-
-  border:
-    1.5px solid
-    rgba(145, 207, 37, .86);
-
-  border-radius: 50%;
-
-  background:
-    transparent;
-
-  pointer-events: none;
-}
-
-
-/* =========================================================
-   SUBTLE BLUE DOT GRID
-
-   Uses background layers on the card itself,
-   therefore no additional HTML is required.
-   ========================================================= */
-
-.categorization-act-expert-visual {
   background-color:
     #fbfaf7;
 
@@ -5680,8 +3884,8 @@ article::after {
     ),
     linear-gradient(
       145deg,
-      rgba(255,255,255,.98),
-      rgba(250,248,243,.98)
+      rgba(255, 255, 255, .98),
+      rgba(250, 248, 243, .98)
     );
 
   background-size:
@@ -5695,14 +3899,16 @@ article::after {
   background-repeat:
     repeat,
     no-repeat;
+
+  box-shadow:
+    0
+    26px
+    65px
+    rgba(17, 17, 17, .075);
 }
 
 
-/* Restrict the visual area of the dot grid
-   by covering most of it with a soft overlay. */
-
-.categorization-act-expert-visual
-> img {
+.categorization-act-expert-visual > img {
   position: absolute;
 
   z-index: 3;
@@ -5719,7 +3925,6 @@ article::after {
   max-height: none;
 
   margin: 0;
-
   padding: 0;
 
   object-fit: contain;
@@ -5750,24 +3955,14 @@ article::after {
 }
 
 
-/* Large portrait, but no horizontal drift. */
-
 @media (hover: hover) {
-  .categorization-act-expert-visual:hover
-  > img {
+  .categorization-act-expert-visual:hover > img {
     transform:
       translateX(-50%)
       translateY(-3px);
   }
 }
 
-
-/* =========================================================
-   CAPTION
-
-   Closer to the homepage:
-   overlaps the bottom edge instead of floating inside.
-   ========================================================= */
 
 .categorization-act-expert-visual__caption {
   position: absolute;
@@ -5810,8 +4005,6 @@ article::after {
 }
 
 
-/* Blue vertical accent instead of green point */
-
 .categorization-act-expert-visual__caption-dot {
   flex:
     0
@@ -5846,7 +4039,6 @@ article::after {
     #111111;
 
   font-size: .95rem;
-
   font-weight: 800;
 
   line-height: 1.15;
@@ -5865,73 +4057,40 @@ article::after {
 }
 
 
-/* =========================================================
-   HERO LAYOUT BALANCE
-   ========================================================= */
-
-.categorization-act-hero__layout {
-  align-items: center;
-
-  padding-bottom: 45px;
-}
-
-
-/* The expert image should not feel detached
-   too far to the right. */
-
-@media (min-width: 1201px) {
-  .categorization-act-hero__layout {
-    grid-template-columns:
-      minmax(0, 1.30fr)
-      minmax(360px, 410px);
-
-    gap:
-      clamp(64px, 6vw, 100px);
-  }
-}
-
-
-/* =========================================================
-   TABLET
-   ========================================================= */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — expert visual
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1200px) {
   .categorization-act-expert-visual {
-    width: min(100%, 385px);
+    width:
+      min(100%, 385px);
+
     height: 470px;
 
     margin-right: 0;
   }
 
 
-  .categorization-act-expert-visual
-  > img {
+  .categorization-act-expert-visual > img {
     width: 305px;
-  }
-
-
-  .categorization-act-expert-visual::before {
-    width: 72%;
-  }
-
-
-  .categorization-act-expert-visual::after {
-    right: 20px;
-
-    width: 57%;
   }
 }
 
 
-/* =========================================================
-   MOBILE / STACKED
-   ========================================================= */
+@media (max-width: 1100px) {
+  .categorization-act-expert-visual {
+    justify-self: start;
+  }
+}
+
 
 @media (max-width: 900px) {
   .categorization-act-expert-visual {
     justify-self: center;
 
-    width: min(100%, 390px);
+    width:
+      min(100%, 390px);
 
     margin:
       24px
@@ -5943,31 +4102,17 @@ article::after {
 
 @media (max-width: 600px) {
   .categorization-act-expert-visual {
-    width: min(100%, 330px);
+    width:
+      min(100%, 330px);
+
     height: 410px;
 
     border-radius: 28px;
   }
 
 
-  .categorization-act-expert-visual
-  > img {
+  .categorization-act-expert-visual > img {
     width: 265px;
-  }
-
-
-  .categorization-act-expert-visual::before {
-    top: 44%;
-
-    width: 73%;
-  }
-
-
-  .categorization-act-expert-visual::after {
-    top: 62px;
-    right: 16px;
-
-    width: 57%;
   }
 
 
@@ -5992,16 +4137,11 @@ article::after {
 }
 
 
-/* =========================================================
-   ACCESSIBILITY
-   ========================================================= */
-
 @media (
   prefers-reduced-motion:
   reduce
 ) {
-  .categorization-act-expert-visual
-  > img {
+  .categorization-act-expert-visual > img {
     transition: none !important;
 
     transform:
@@ -6010,383 +4150,304 @@ article::after {
 }
 
 
-/* === HERO VISUAL V12 END === */
-
-/* === HERO VISUAL V13 FIX START === */
-
-/*
-  V12 already contains the correct dotted background,
-  portrait positioning and bottom caption.
-
-  We ONLY remove the two decorative circles.
-*/
-
-.categorization-act-expert-visual::before,
-.categorization-act-expert-visual::after {
-  content: none !important;
-  display: none !important;
-}
-
-/* === HERO VISUAL V13 FIX END === */
+/* =========================================================
+   3. SERVICE
+   More space between title and 3x3 cards
+   ========================================================= */
 
 
-/* ========================================================
-   UNIFIED_FAQ_TRADE_STYLE_V1
-   Reference: TradePage FAQ
-   ======================================================== */
+/* =========================================================
+   4. SOURCE DATA
+   Turn loose boxes into one coherent checklist surface
+   ========================================================= */
 
-.categorization-act-faq {
-  padding: 116px 0 126px !important;
-  background: #f5f5f1 !important;
-}
+
+/* =========================================================
+   5. SAMPLE
+   Make it read as a document index, not another card grid
+   ========================================================= */
+
+
+/* =========================================================
+   6. RESPONSIVE
+   ========================================================= */
+
+
+/* =========================================================
+   MOTION ACCESSIBILITY
+   ========================================================= */
+
+
+/* =========================================================
+   1. WHAT IS THE ACT
+   Editorial split: title + expert explanation
+   ========================================================= */
+
+
+/* =========================================================
+   2. WHAT WE PREPARE
+   Strong 3 x 3 service cards
+   ========================================================= */
+
+
+/* =========================================================
+   3. SOURCE DATA
+   One coherent checklist instead of another card grid
+   ========================================================= */
+
+
+/* Общая поверхность */
+
+
+/* Элемент теперь не отдельная карточка,
+   а часть единого checklist */
+
+
+/* Вертикальная разделительная линия */
+
+
+/* В списке 10 элементов — нижние два
+   без нижней границы */
+
+
+/* Маркер */
+
+
+/* =========================================================
+   4. SAMPLE ACT
+   A "document contents" surface, not service cards
+   ========================================================= */
+
+
+/* Один большой "лист документа" */
+
+
+/* Верхняя полоса "документа" */
+
+
+/* Внутренние разделы документа */
+
+
+/* Каждая третья ячейка —
+   край документа */
+
+
+/* Последний ряд */
+
+
+/* Убираем старую нижнюю hover-линию */
+
+
+/* Номер как индекс раздела */
+
+
+/* CTA остаётся pill-кнопкой,
+   но здесь она вторичная */
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+
+/* =========================================================
+   ACCESSIBILITY / PERFORMANCE
+   ========================================================= */
+
+
+/* =========================================================
+   HERO EXPERT VISUAL
+   ========================================================= */
+
+
+/* Caption */
+
+
+/* =========================================================
+   INTRO H2
+   Prevent orphan "и"
+   ========================================================= */
+
+
+/* =========================================================
+   SERVICE
+   Preserve current design, refine spacing only
+   ========================================================= */
+
+
+/* =========================================================
+   SOURCE DATA
+   Current design is good — only subtle refinement
+   ========================================================= */
+
+
+/* =========================================================
+   SAMPLE H2
+   Prevent orphan "и"
+   ========================================================= */
+
+
+/* Slightly lighter document surface */
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+
+/* =========================================================
+   1. HERO — lighter expert composition
+   ========================================================= */
+
+/* Немного увеличиваем расстояние между оффером и экспертом */
+
+
+/* Карточка эксперта становится компактнее */
+
+
+/* Зелёный круг — меньше и дальше от лица */
+
+
+/* Задняя зелёная подложка становится почти нейтральной */
+
+
+/* Нейтральная карточка вместо "зелёного на зелёном" */
+
+
+/* Подпись Николая — компактнее и спокойнее */
+
+
+/* =========================================================
+   2. "ЧТО МЫ ПОДГОТОВИМ"
+   Больше воздуха между колонками
+   ========================================================= */
+
+
+/* Левой части даём собственное пространство */
+
+
+/* Сетка немного смещается вправо */
+
+
+/* =========================================================
+   3. "КАКИЕ ДАННЫЕ ПОТРЕБУЮТСЯ"
+   Такой же спокойный отступ между колонками
+   ========================================================= */
+
+
+/* =========================================================
+   4. RESPONSIVE
+   ========================================================= */
+
+
+/* =========================================================
+   5. ACCESSIBILITY
+   ========================================================= */
+
+
+/* =========================================================
+   HERO FACTS
+   Three facts become one integrated information panel
+   ========================================================= */
+
+
+/* Очень тонкий фирменный акцент */
+
+
+/* Теперь каждый факт — часть общего блока,
+   а не отдельная карточка */
+
+
+/* Только внутренние разделители */
+
+
+/* Номер */
+
+
+/* Текст */
+
+
+/* Очень мягкий hover без поднятия карточек */
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+
+/* =========================================================
+   EXPERT VISUAL
+   Same compositional logic as the homepage:
+   portrait dominates, geometry supports it.
+   ========================================================= */
+
+
+/* =========================================================
+   BACKGROUND COMPOSITION
+
+   Beige circle now sits BEHIND the shoulders,
+   not above the head.
+   ========================================================= */
+
+
+/* Lime outline — shifted right, like the homepage,
+   but slightly smaller so this page has its own identity. */
+
+
+/* =========================================================
+   SUBTLE BLUE DOT GRID
+
+   Uses background layers on the card itself,
+   therefore no additional HTML is required.
+   ========================================================= */
+
+
+/* Restrict the visual area of the dot grid
+   by covering most of it with a soft overlay. */
+
+
+/* Large portrait, but no horizontal drift. */
+
+
+/* =========================================================
+   CAPTION
+
+   Closer to the homepage:
+   overlaps the bottom edge instead of floating inside.
+   ========================================================= */
+
+
+/* Blue vertical accent instead of green point */
+
+
+/* =========================================================
+   HERO LAYOUT BALANCE
+   ========================================================= */
+
+
+/* The expert image should not feel detached
+   too far to the right. */
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+
+/* =========================================================
+   MOBILE / STACKED
+   ========================================================= */
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
 
 
 /* Container = layout */
 
-.categorization-act-faq > div {
-  display: grid !important;
-
-  grid-template-columns:
-    minmax(300px, .62fr)
-    minmax(0, 1.15fr) !important;
-
-  gap:
-    clamp(
-      70px,
-      10vw,
-      165px
-    ) !important;
-}
-
-
-.categorization-act-faq
-.categorization-act-section-head {
-  position: sticky !important;
-
-  top: 110px !important;
-
-  align-self: start !important;
-
-  margin: 0 !important;
-}
-
-
-.categorization-act-faq
-.categorization-act-section-head h2 {
-  max-width: 600px !important;
-
-  margin: 0 !important;
-
-  font-size:
-    clamp(
-      2.65rem,
-      3.9vw,
-      4.25rem
-    ) !important;
-
-  line-height: 1 !important;
-  letter-spacing: -.055em !important;
-
-  text-wrap: balance;
-}
-
-
-.categorization-act-faq__list {
-  overflow: hidden !important;
-
-  padding: 0 26px !important;
-
-  border:
-    1px solid
-    var(--color-border) !important;
-
-  border-radius:
-    var(--radius-lg) !important;
-
-  background: #fff !important;
-
-  box-shadow:
-    var(--shadow-soft) !important;
-
-  counter-reset: faq-counter;
-}
-
-
-.categorization-act-faq__list details {
-  margin: 0 !important;
-
-  border: 0 !important;
-
-  border-bottom:
-    1px solid
-    var(--color-border) !important;
-
-  border-radius: 0 !important;
-
-  background: transparent !important;
-
-  box-shadow: none !important;
-
-  counter-increment: faq-counter;
-}
-
-
-.categorization-act-faq__list details:last-child {
-  border-bottom: 0 !important;
-}
-
-
-.categorization-act-faq__list summary {
-  display: grid !important;
-
-  grid-template-columns:
-    54px
-    minmax(0, 1fr)
-    36px !important;
-
-  gap: 18px !important;
-  align-items: center !important;
-
-  min-height: 94px !important;
-
-  margin: 0 -10px !important;
-
-  padding:
-    23px
-    10px !important;
-
-  border-radius: 14px !important;
-
-  background: transparent !important;
-
-  color:
-    var(--color-text) !important;
-
-  font-size: 1.08rem !important;
-  font-weight: 750 !important;
-  line-height: 1.4 !important;
-
-  cursor: pointer !important;
-  list-style: none !important;
-
-  transition:
-    background-color 180ms ease !important;
-}
-
-
-.categorization-act-faq__list
-summary::-webkit-details-marker {
-  display: none !important;
-}
-
 
 /* 01 / 02 / 03 */
 
-.categorization-act-faq__list summary::before {
-  position: static !important;
-
-  display: block !important;
-
-  width: auto !important;
-  height: auto !important;
-
-  border: 0 !important;
-
-  background: transparent !important;
-
-  color:
-    var(--color-text-secondary) !important;
-
-  content:
-    counter(
-      faq-counter,
-      decimal-leading-zero
-    ) !important;
-
-  font-size: .72rem !important;
-  font-weight: 800 !important;
-  line-height: 1 !important;
-  letter-spacing: .09em !important;
-
-  transform: none !important;
-}
-
 
 /* + справа */
-
-.categorization-act-faq__list summary::after {
-  position: static !important;
-
-  display: inline-flex !important;
-
-  align-items: center !important;
-  justify-content: center !important;
-
-  width: 28px !important;
-  height: 28px !important;
-
-  padding: 0 !important;
-
-  border: 0 !important;
-  border-radius: 0 !important;
-
-  background: transparent !important;
-
-  color:
-    var(--color-text) !important;
-
-  content: '+' !important;
-
-  font-size: 20px !important;
-  font-weight: 500 !important;
-  line-height: 1 !important;
-
-  transform: none !important;
-}
-
-
-.categorization-act-faq__list
-details[open]
-summary::after {
-  border-radius: 50% !important;
-
-  background: #a9f04a !important;
-  color: #151515 !important;
-
-  content: '−' !important;
-}
-
-
-.categorization-act-faq__list details > p {
-  max-width: 750px !important;
-
-  margin: 0 !important;
-
-  padding:
-    0
-    54px
-    28px
-    72px !important;
-
-  border: 0 !important;
-
-  background: transparent !important;
-
-  color:
-    var(--color-text-secondary) !important;
-
-  line-height: 1.72 !important;
-}
-
-
-@media (hover: hover) {
-  .categorization-act-faq__list summary:hover {
-    background: #f5f5f1 !important;
-  }
-}
-
-
-.categorization-act-faq__list
-details[open]
-summary {
-  background: #f5f5f1 !important;
-}
-
-
-@media (max-width: 1024px) {
-  .categorization-act-faq > div {
-    grid-template-columns: 1fr !important;
-  }
-
-  .categorization-act-faq
-  .categorization-act-section-head {
-    position: static !important;
-
-    max-width: 740px !important;
-  }
-}
-
-
-@media (max-width: 768px) {
-  .categorization-act-faq {
-    padding-top: 80px !important;
-    padding-bottom: 86px !important;
-  }
-
-  .categorization-act-faq__list {
-    padding:
-      0
-      18px !important;
-  }
-
-  .categorization-act-faq__list summary {
-    grid-template-columns:
-      44px
-      minmax(0, 1fr)
-      32px !important;
-  }
-
-  .categorization-act-faq__list details > p {
-    padding-left: 62px !important;
-  }
-}
-
-
-@media (max-width: 430px) {
-  .categorization-act-faq
-  .categorization-act-section-head h2 {
-    font-size: 2.4rem !important;
-  }
-
-  .categorization-act-faq__list {
-    padding:
-      0
-      12px !important;
-
-    border-radius: 18px !important;
-  }
-
-  .categorization-act-faq__list summary {
-    grid-template-columns:
-      34px
-      minmax(0, 1fr)
-      28px !important;
-
-    gap: 12px !important;
-  }
-
-  .categorization-act-faq__list details > p {
-    padding:
-      0
-      28px
-      26px
-      46px !important;
-  }
-}
-
-
-@media (max-width: 320px) {
-  .categorization-act-faq
-  .categorization-act-section-head h2 {
-    font-size: 2.05rem !important;
-  }
-
-  .categorization-act-faq__list summary {
-    grid-template-columns:
-      minmax(0, 1fr)
-      28px !important;
-  }
-
-  .categorization-act-faq__list
-  summary::before {
-    display: none !important;
-  }
-
-  .categorization-act-faq__list details > p {
-    padding-left: 0 !important;
-  }
-}
-
-/* ========================================================
-   /UNIFIED_FAQ_TRADE_STYLE_V1
-   ======================================================== */
