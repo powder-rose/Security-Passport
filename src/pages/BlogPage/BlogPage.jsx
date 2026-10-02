@@ -1,16 +1,15 @@
-import {
-  Helmet,
-} from 'react-helmet-async';
-
 import Container
 from '../../components/ui/Container/Container.jsx';
 
 import FinalCTA
 from '../../sections/FinalCTA/FinalCTA.jsx';
 
-import {
-  SITE,
-} from '../../config/site.js';
+
+import BlogSeo
+from './components/BlogSeo';
+
+import BlogHero
+from './components/BlogHero';
 
 import './BlogPage.css';
 
@@ -50,143 +49,11 @@ export default function BlogPage({
     });
 
 
-  const canonical =
-    `${SITE.federalUrl}/blog/`;
-
-
-  const ogImage =
-    `${SITE.federalUrl}/images/og-passport-security.png`;
-
-
-  const ogImageAlt =
-    'Статьи о безопасности объектов — БОЙКОВГРУПП';
-
-
   return (
 
     <>
 
-      <Helmet>
-
-        <title>
-          Статьи о безопасности объектов — БОЙКОВГРУПП
-        </title>
-
-
-        <meta
-          name="description"
-          content="Практические статьи БОЙКОВГРУПП об антитеррористической защищённости, паспортах безопасности, категорировании объектов и документации."
-        />
-
-
-        <meta
-          name="robots"
-          content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
-        />
-
-
-        <link
-          rel="canonical"
-          href={canonical}
-        />
-
-
-        <meta
-          property="og:type"
-          content="website"
-        />
-
-
-        <meta
-          property="og:title"
-          content="Статьи о безопасности объектов — БОЙКОВГРУПП"
-        />
-
-
-        <meta
-          property="og:description"
-          content="Разбираем требования, документы и практические вопросы безопасности объектов."
-        />
-
-
-        <meta
-          property="og:url"
-          content={canonical}
-        />
-
-
-        <meta
-          property="og:locale"
-          content="ru_RU"
-        />
-
-
-        <meta
-          property="og:site_name"
-          content={SITE.brand}
-        />
-
-
-        <meta
-          property="og:image"
-          content={ogImage}
-        />
-
-
-        <meta
-          property="og:image:type"
-          content="image/png"
-        />
-
-
-        <meta
-          property="og:image:width"
-          content="1200"
-        />
-
-
-        <meta
-          property="og:image:height"
-          content="630"
-        />
-
-
-        <meta
-          property="og:image:alt"
-          content={ogImageAlt}
-        />
-
-
-        <meta
-          name="twitter:card"
-          content="summary_large_image"
-        />
-
-
-        <meta
-          name="twitter:title"
-          content="Статьи о безопасности объектов — БОЙКОВГРУПП"
-        />
-
-
-        <meta
-          name="twitter:description"
-          content="Разбираем требования, документы и практические вопросы безопасности объектов."
-        />
-
-
-        <meta
-          name="twitter:image"
-          content={ogImage}
-        />
-
-
-        <meta
-          name="twitter:image:alt"
-          content={ogImageAlt}
-        />
-
-      </Helmet>
+      <BlogSeo />
 
 
       <main
@@ -194,90 +61,7 @@ export default function BlogPage({
         id="main-content"
       >
 
-        <section className="blog-hero">
-
-          <Container>
-
-            <div className="blog-hero__eyebrow">
-
-              <span>
-                БАЗА ЗНАНИЙ
-              </span>
-
-              <span>
-                БОЙКОВГРУПП
-              </span>
-
-            </div>
-
-
-            <div className="blog-hero__grid">
-
-              <h1>
-                Статьи о
-                <br />
-                безопасности
-                <br />
-                объектов
-              </h1>
-
-
-              <aside
-                className="blog-hero__aside"
-                aria-label="О блоге"
-              >
-
-                <div className="blog-hero__aside-label">
-                  О блоге
-                </div>
-
-
-                <p>
-                  Блог <strong>Николая Бойкова</strong>,
-                  эксперта по безопасности объектов.
-                  Практические разборы требований,
-                  категорирования, паспортов безопасности
-                  и подготовки документов.
-                </p>
-
-
-                <div className="blog-hero__tags">
-
-                  <span>
-                    Практика
-                  </span>
-
-                  <span>
-                    Требования
-                  </span>
-
-                  <span>
-                    Документы
-                  </span>
-
-                </div>
-
-
-                <a
-                  href="#blog-categories"
-                  className="blog-hero__aside-link"
-                >
-
-                  Выбрать тему
-
-                  <span aria-hidden="true">
-                    ↓
-                  </span>
-
-                </a>
-
-              </aside>
-
-            </div>
-
-          </Container>
-
-        </section>
+        <BlogHero />
 
 
         {
