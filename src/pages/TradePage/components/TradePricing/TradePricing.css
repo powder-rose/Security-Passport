@@ -1,8 +1,6 @@
-/*
- * TradePricing.jsx
- *
- * Local styles for this TradePage component.
- */
+/* ==========================================================================
+   TradePricing.jsx — PRICING
+   ========================================================================== */
 
 .trade-prices__heading {
   display: grid;

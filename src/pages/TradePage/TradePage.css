@@ -1,6 +1,82 @@
-/*
- * Shared TradePage styles.
- */
+/* ==========================================================================
+   TRADE PAGE
+   ==========================================================================
+
+   React entry:
+   TradePage.jsx
+
+   COMPONENT OWNERSHIP
+
+   01. TradeHeroAndObjects.jsx
+       .trade-hero*
+       .trade-breadcrumbs
+       .trade-applicability*
+       .trade-objects*
+       .trade-object*
+       .trade-text-action
+
+   02. TradeRegulation.jsx
+       .trade-regulation*
+
+   03. TradeRegulationChanges.jsx
+       .trade-changes*
+       .trade-change*
+
+   04. TradeCategorizationAndAct.jsx
+       .trade-categorization*
+       .trade-act*
+
+   05. TradePassportDevelopment.jsx
+       .trade-passport*
+
+   06. TradeApprovalAndCopies.jsx
+       .trade-approval*
+       .trade-copies*
+
+   07. TradeOwnership.jsx
+       .trade-owners*
+
+   08. TradeRestrictedDocuments.jsx
+       .trade-restricted*
+
+   09. TradeServiceScope.jsx
+       .trade-service*
+
+   10. TradePricing.jsx
+       .trade-prices*
+       .trade-price*
+
+   11. TradeRequiredDocuments.jsx
+       .trade-documents*
+
+   12. TradePassportForm.jsx
+       .trade-form*
+
+   13. TradePassportActualization.jsx
+       .trade-actualization*
+
+   14. TradeShoppingCenterInfo.jsx
+       .trade-mall*
+
+   15. TradeWorkApproach.jsx
+       .trade-why*
+
+   16. TradeFaq.jsx
+       .trade-faq*
+
+   Shared page selectors:
+       .trade-page
+       .trade-kicker
+       .trade-inline-link
+
+   External section:
+       FinalCTA keeps its own component styles and is not owned here.
+
+   Component-specific styles live next to their React components.
+
+   This file describes the CURRENT rendered TradePage shared styles.
+   Historical stage/version layers are intentionally not documented here.
+   ========================================================================== */
 
 .trade-page {
   color: var(--color-text);
