@@ -13,10 +13,8 @@
    01. CategorizationActHeroAndIntro.jsx
        .categorization-act-hero*
        .categorization-act-breadcrumbs
-       .categorization-act-kicker
        .categorization-act-expert-visual*
        .categorization-act-intro*
-       .categorization-act-section-head
 
    02. CategorizationActObjectTypes.jsx
        .categorization-act-types*
@@ -50,27 +48,38 @@
    11. CategorizationActFaq.jsx
        .categorization-act-faq*
 
+   Shared page selectors:
+       .categorization-act-page
+       .categorization-act-kicker
+       .categorization-act-section-head
+
+   Global utilities referenced here:
+       .container
+       .button
+       .button--primary
+       .button--secondary
+
    External sections:
-   Expert and FinalCTA keep their own component styles and are not owned here.
+       Expert owns its styles outside this file.
+       FinalCTA owns its styles outside this file.
 
    FILE ORGANIZATION
 
-   - Shared page tokens and typography
-   - Hero and intro
+   - Shared page foundations
+   - Hero and introduction
    - Object types
    - Requirements
-   - Process and flow
+   - Process
    - Service scope
-   - Pricing and passport link
+   - Pricing
    - Source data
    - Sample act
-   - Standard
+   - Current standard
    - Act vs passport
    - FAQ
-   - Responsive rules live with the component they affect where consolidated
+   - Responsive and motion rules
 
-   This file describes the CURRENT rendered page.
-   Historical redesign/version layers are intentionally not documented here.
+   Only the CURRENT rendered implementation is documented.
    ========================================================================== */
 
 
@@ -313,18 +322,9 @@
    ==========================================================================
 
    Current hero grid and responsive composition.
-
-   Previous spacing/layout override layers are consolidated here.
-   ========================================================================== */
-
-/* ==========================================================================
-   CategorizationActHeroAndIntro.jsx — HERO LAYOUT
    ==========================================================================
+*/
 
-   Current hero grid and responsive composition.
-
-   Previous spacing/layout override layers are consolidated here.
-   ========================================================================== */
 
 .categorization-act-hero__layout {
   display: grid;
@@ -497,8 +497,8 @@
    ==========================================================================
 
    Three facts form one integrated information panel.
-   Previous card-style and later override layers are consolidated here.
-   ========================================================================== */
+   ==========================================================================
+*/
 
 .categorization-act-hero__facts {
   position: relative;
@@ -693,11 +693,9 @@
    CategorizationActHeroAndIntro.jsx — INTRO
    ==========================================================================
 
-   Current explanation block below the hero.
-
-   Previous editorial and spacing override layers
-   are consolidated into this component-owned block.
-   ========================================================================== */
+   Explanation block directly below the hero.
+   ==========================================================================
+*/
 
 .categorization-act-intro {
   padding:
@@ -1479,11 +1477,9 @@
    CategorizationActServiceScope.jsx — SERVICE SCOPE
    ==========================================================================
 
-   Current service composition.
-
-   Previous card, spacing and layout override layers
-   are consolidated into this component-owned block.
-   ========================================================================== */
+   Current service-scope composition.
+   ==========================================================================
+*/
 
 .categorization-act-service {
   padding:
@@ -2194,11 +2190,9 @@
    CategorizationActSourceData.jsx — SOURCE DATA
    ==========================================================================
 
-   Current checklist of source information required from the client.
-
-   Previous card, checklist, spacing and surface overrides
-   are consolidated into this component-owned block.
-   ========================================================================== */
+   Source information required from the client.
+   ==========================================================================
+*/
 
 .categorization-act-source-data {
   padding:
@@ -2494,12 +2488,9 @@ li:nth-last-child(-n + 2) {
    CategorizationActSample.jsx — SAMPLE ACT
    ==========================================================================
 
-   Current visual structure of the resulting categorization act.
-
-   The section is presented as one document surface rather
-   than a collection of unrelated cards.
-   Previous sample-design override layers are consolidated here.
-   ========================================================================== */
+   Visual structure of the resulting categorization act.
+   ==========================================================================
+*/
 
 .categorization-act-sample {
   position: relative;
@@ -3152,11 +3143,9 @@ article::after {
    CategorizationActFaq.jsx — FAQ
    ==========================================================================
 
-   Current FAQ composition shared visually with the trade-page FAQ.
-
-   The original card FAQ and the later unified FAQ override
-   are consolidated into one component-owned implementation.
-   ========================================================================== */
+   Current FAQ composition.
+   ==========================================================================
+*/
 
 .categorization-act-faq {
   padding:
@@ -3819,29 +3808,13 @@ summary {
 }
 
 
-/* =========================================================
-   1. INTRO
-   Fix orphan "и" + stronger editorial balance
-   ========================================================= */
-
-
-/* =========================================================
-   2. HERO VISUAL
-   Nikolay instead of document illustration
-   ========================================================= */
-
 /* ==========================================================================
    CategorizationActHeroAndIntro.jsx — EXPERT VISUAL
    ==========================================================================
 
-   Current hero portrait composition.
-
-   Previous experimental visual layers have been folded
-   into this single component-owned block.
-
-   Decorative ::before / ::after circles are intentionally
-   not generated in the current design.
-   ========================================================================== */
+   Portrait composition used in the hero.
+   ==========================================================================
+*/
 
 .categorization-act-expert-visual {
   position: relative;
@@ -4148,306 +4121,3 @@ summary {
       translateX(-50%) !important;
   }
 }
-
-
-/* =========================================================
-   3. SERVICE
-   More space between title and 3x3 cards
-   ========================================================= */
-
-
-/* =========================================================
-   4. SOURCE DATA
-   Turn loose boxes into one coherent checklist surface
-   ========================================================= */
-
-
-/* =========================================================
-   5. SAMPLE
-   Make it read as a document index, not another card grid
-   ========================================================= */
-
-
-/* =========================================================
-   6. RESPONSIVE
-   ========================================================= */
-
-
-/* =========================================================
-   MOTION ACCESSIBILITY
-   ========================================================= */
-
-
-/* =========================================================
-   1. WHAT IS THE ACT
-   Editorial split: title + expert explanation
-   ========================================================= */
-
-
-/* =========================================================
-   2. WHAT WE PREPARE
-   Strong 3 x 3 service cards
-   ========================================================= */
-
-
-/* =========================================================
-   3. SOURCE DATA
-   One coherent checklist instead of another card grid
-   ========================================================= */
-
-
-/* Общая поверхность */
-
-
-/* Элемент теперь не отдельная карточка,
-   а часть единого checklist */
-
-
-/* Вертикальная разделительная линия */
-
-
-/* В списке 10 элементов — нижние два
-   без нижней границы */
-
-
-/* Маркер */
-
-
-/* =========================================================
-   4. SAMPLE ACT
-   A "document contents" surface, not service cards
-   ========================================================= */
-
-
-/* Один большой "лист документа" */
-
-
-/* Верхняя полоса "документа" */
-
-
-/* Внутренние разделы документа */
-
-
-/* Каждая третья ячейка —
-   край документа */
-
-
-/* Последний ряд */
-
-
-/* Убираем старую нижнюю hover-линию */
-
-
-/* Номер как индекс раздела */
-
-
-/* CTA остаётся pill-кнопкой,
-   но здесь она вторичная */
-
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-
-/* =========================================================
-   ACCESSIBILITY / PERFORMANCE
-   ========================================================= */
-
-
-/* =========================================================
-   HERO EXPERT VISUAL
-   ========================================================= */
-
-
-/* Caption */
-
-
-/* =========================================================
-   INTRO H2
-   Prevent orphan "и"
-   ========================================================= */
-
-
-/* =========================================================
-   SERVICE
-   Preserve current design, refine spacing only
-   ========================================================= */
-
-
-/* =========================================================
-   SOURCE DATA
-   Current design is good — only subtle refinement
-   ========================================================= */
-
-
-/* =========================================================
-   SAMPLE H2
-   Prevent orphan "и"
-   ========================================================= */
-
-
-/* Slightly lighter document surface */
-
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-
-/* =========================================================
-   1. HERO — lighter expert composition
-   ========================================================= */
-
-/* Немного увеличиваем расстояние между оффером и экспертом */
-
-
-/* Карточка эксперта становится компактнее */
-
-
-/* Зелёный круг — меньше и дальше от лица */
-
-
-/* Задняя зелёная подложка становится почти нейтральной */
-
-
-/* Нейтральная карточка вместо "зелёного на зелёном" */
-
-
-/* Подпись Николая — компактнее и спокойнее */
-
-
-/* =========================================================
-   2. "ЧТО МЫ ПОДГОТОВИМ"
-   Больше воздуха между колонками
-   ========================================================= */
-
-
-/* Левой части даём собственное пространство */
-
-
-/* Сетка немного смещается вправо */
-
-
-/* =========================================================
-   3. "КАКИЕ ДАННЫЕ ПОТРЕБУЮТСЯ"
-   Такой же спокойный отступ между колонками
-   ========================================================= */
-
-
-/* =========================================================
-   4. RESPONSIVE
-   ========================================================= */
-
-
-/* =========================================================
-   5. ACCESSIBILITY
-   ========================================================= */
-
-
-/* =========================================================
-   HERO FACTS
-   Three facts become one integrated information panel
-   ========================================================= */
-
-
-/* Очень тонкий фирменный акцент */
-
-
-/* Теперь каждый факт — часть общего блока,
-   а не отдельная карточка */
-
-
-/* Только внутренние разделители */
-
-
-/* Номер */
-
-
-/* Текст */
-
-
-/* Очень мягкий hover без поднятия карточек */
-
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-
-/* =========================================================
-   EXPERT VISUAL
-   Same compositional logic as the homepage:
-   portrait dominates, geometry supports it.
-   ========================================================= */
-
-
-/* =========================================================
-   BACKGROUND COMPOSITION
-
-   Beige circle now sits BEHIND the shoulders,
-   not above the head.
-   ========================================================= */
-
-
-/* Lime outline — shifted right, like the homepage,
-   but slightly smaller so this page has its own identity. */
-
-
-/* =========================================================
-   SUBTLE BLUE DOT GRID
-
-   Uses background layers on the card itself,
-   therefore no additional HTML is required.
-   ========================================================= */
-
-
-/* Restrict the visual area of the dot grid
-   by covering most of it with a soft overlay. */
-
-
-/* Large portrait, but no horizontal drift. */
-
-
-/* =========================================================
-   CAPTION
-
-   Closer to the homepage:
-   overlaps the bottom edge instead of floating inside.
-   ========================================================= */
-
-
-/* Blue vertical accent instead of green point */
-
-
-/* =========================================================
-   HERO LAYOUT BALANCE
-   ========================================================= */
-
-
-/* The expert image should not feel detached
-   too far to the right. */
-
-
-/* =========================================================
-   TABLET
-   ========================================================= */
-
-
-/* =========================================================
-   MOBILE / STACKED
-   ========================================================= */
-
-
-/* =========================================================
-   ACCESSIBILITY
-   ========================================================= */
-
-
-/* Container = layout */
-
-
-/* 01 / 02 / 03 */
-
-
-/* + справа */
