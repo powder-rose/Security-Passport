@@ -1,4 +1,78 @@
-/* HOTEL_PAGE_STAGE_1:start */
+/* ==========================================================================
+   HOTEL PAGE
+   ==========================================================================
+
+   React entry:
+   HotelPage.jsx
+
+   COMPONENT OWNERSHIP
+
+   01. HotelHeroAndApplicability.jsx
+       .hotel-hero*
+       .hotel-check*
+       .hotel-breadcrumbs
+       .hotel-inline-link
+       .hotel-section-heading
+
+   02. HotelRegulation.jsx
+       .hotel-regulation*
+
+   03. HotelCategories.jsx
+       .hotel-categories*
+
+   04. HotelPassportProcess.jsx
+       .hotel-process*
+
+   05. HotelApproval.jsx
+       .hotel-approval*
+
+   06. HotelServiceScope.jsx
+       .hotel-service*
+
+   07. HotelPricing.jsx
+       .hotel-price*
+
+   08. HotelRequiredDocuments.jsx
+       .hotel-source*
+
+   09. HotelPassportForm.jsx
+       .hotel-form*
+
+   10. HotelPassportActualization.jsx
+       .hotel-actualization*
+
+   11. HotelAccommodationTypes.jsx
+       .hotel-accommodation*
+
+   12. HotelCurrentRequirements.jsx
+       .hotel-standard*
+
+   13. HotelWorkApproach.jsx
+       .hotel-why*
+
+   14. HotelFaq.jsx
+       .hotel-faq*
+
+   Shared page selectors:
+       .hotel-page
+       .hotel-kicker
+       .hotel-section-heading
+       .hotel-inline-link
+
+   External section:
+       FinalCTA owns its styles outside HotelPage.css.
+
+   FILE ORGANIZATION
+
+   - Component-owned sections
+   - Responsive rules for component groups
+   - Cross-component typography
+   - Local responsive refinements
+   - No historical stage/version layers
+
+   This file describes the CURRENT rendered HotelPage.
+   ========================================================================== */
+
 
 .hotel-page {
   overflow: clip;
@@ -48,7 +122,9 @@
 }
 
 
-/* HERO */
+/* ==========================================================================
+   HotelHeroAndApplicability.jsx — HERO
+   ========================================================================== */
 
 .hotel-hero {
   padding: 34px 0 92px;
@@ -108,29 +184,6 @@
   font-size: clamp(35px, 3vw, 48px);
   line-height: 1;
   letter-spacing: -.04em;
-}
-
-.hotel-hero__geo {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.hotel-hero__geo-mark {
-  display: grid;
-  width: 30px;
-  height: 30px;
-  flex: 0 0 30px;
-  place-items: center;
-  border-radius: 50%;
-  background: #a9f04a;
-  font-weight: 800;
-}
-
-.hotel-hero__geo p {
-  margin: 0;
-  font-size: 15px;
-  font-weight: 600;
 }
 
 .hotel-hero__actions {
@@ -241,7 +294,9 @@
 }
 
 
-/* CHECK */
+/* ==========================================================================
+   HotelHeroAndApplicability.jsx — APPLICABILITY
+   ========================================================================== */
 
 .hotel-check {
   padding: 96px 0;
@@ -298,12 +353,14 @@
 }
 
 .hotel-check__important-mark {
-  align-self: start;
+  align-self: center;
+  justify-self: center;
   color: #a9f04a;
-  font-size: 12px;
+  font-size: clamp(4rem, 5vw, 5.2rem);
   font-weight: 800;
-  letter-spacing: .08em;
-  text-transform: uppercase;
+  line-height: .8;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .hotel-check__important h3 {
@@ -339,7 +396,9 @@
 }
 
 
-/* REGULATION */
+/* ==========================================================================
+   HotelRegulation.jsx — REGULATION
+   ========================================================================== */
 
 .hotel-regulation {
   padding: 110px 0 118px;
@@ -433,7 +492,9 @@
 }
 
 
-/* 1180 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — hero, applicability and regulation — ≤ 1180px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .hotel-hero__layout {
@@ -454,7 +515,9 @@
 }
 
 
-/* 1024 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — hero, applicability and regulation — ≤ 1024px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1024px) {
   .hotel-hero {
@@ -491,7 +554,9 @@
 }
 
 
-/* 768 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — hero, applicability and regulation — ≤ 768px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 768px) {
   .hotel-breadcrumbs {
@@ -534,7 +599,9 @@
 }
 
 
-/* 430 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — hero, applicability and regulation — ≤ 430px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 430px) {
   .hotel-kicker {
@@ -616,7 +683,9 @@
 }
 
 
-/* 390 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — hero, applicability and regulation — ≤ 390px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 390px) {
   .hotel-hero h1 {
@@ -637,7 +706,9 @@
 }
 
 
-/* 320 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — hero, applicability and regulation — ≤ 320px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 320px) {
   .hotel-hero h1 {
@@ -660,13 +731,9 @@
 }
 
 
-/* HOTEL_PAGE_STAGE_1:end */
-
-
-/* HOTEL_PAGE_STAGE_2:start */
-
-
-/* CATEGORIES */
+/* ==========================================================================
+   HotelCategories.jsx — CATEGORIES
+   ========================================================================== */
 
 .hotel-categories {
   padding: 110px 0;
@@ -775,7 +842,9 @@
 }
 
 
-/* PROCESS */
+/* ==========================================================================
+   HotelPassportProcess.jsx — PASSPORT PROCESS
+   ========================================================================== */
 
 .hotel-process {
   padding: 118px 0;
@@ -908,7 +977,9 @@
 }
 
 
-/* APPROVAL */
+/* ==========================================================================
+   HotelApproval.jsx — APPROVAL
+   ========================================================================== */
 
 .hotel-approval {
   padding: 0 0 120px;
@@ -1053,7 +1124,9 @@
 }
 
 
-/* STAGE 2 — 1180 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — categories, passport process and approval — ≤ 1180px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .hotel-process__layout {
@@ -1071,7 +1144,9 @@
 }
 
 
-/* STAGE 2 — 1024 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — categories, passport process and approval — ≤ 1024px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1024px) {
   .hotel-categories__header,
@@ -1125,7 +1200,9 @@
 }
 
 
-/* STAGE 2 — 768 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — categories, passport process and approval — ≤ 768px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 768px) {
   .hotel-categories,
@@ -1170,7 +1247,9 @@
 }
 
 
-/* STAGE 2 — 430 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — categories, passport process and approval — ≤ 430px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 430px) {
   .hotel-categories__table {
@@ -1230,7 +1309,9 @@
 }
 
 
-/* STAGE 2 — 390 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — categories, passport process and approval — ≤ 390px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 390px) {
   .hotel-approval__heading h2 {
@@ -1239,7 +1320,9 @@
 }
 
 
-/* STAGE 2 — 320 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — categories, passport process and approval — ≤ 320px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 320px) {
   .hotel-categories__row {
@@ -1264,13 +1347,9 @@
 }
 
 
-/* HOTEL_PAGE_STAGE_2:end */
-
-
-/* HOTEL_PAGE_STAGE_3:start */
-
-
-/* SERVICE */
+/* ==========================================================================
+   HotelServiceScope.jsx — SERVICE SCOPE
+   ========================================================================== */
 
 .hotel-service {
   padding: 116px 0;
@@ -1358,7 +1437,9 @@
 }
 
 
-/* PRICE */
+/* ==========================================================================
+   HotelPricing.jsx — PRICING
+   ========================================================================== */
 
 .hotel-price {
   padding: 0 0 118px;
@@ -1463,7 +1544,9 @@
 }
 
 
-/* SOURCE DATA */
+/* ==========================================================================
+   HotelRequiredDocuments.jsx — REQUIRED DOCUMENTS
+   ========================================================================== */
 
 .hotel-source {
   padding: 110px 0 124px;
@@ -1545,7 +1628,9 @@
 }
 
 
-/* STAGE 3 — 1180 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — service scope, pricing and required documents — ≤ 1180px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .hotel-service__layout {
@@ -1559,7 +1644,9 @@
 }
 
 
-/* STAGE 3 — 1024 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — service scope, pricing and required documents — ≤ 1024px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1024px) {
   .hotel-service__layout,
@@ -1579,7 +1666,9 @@
 }
 
 
-/* STAGE 3 — 768 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — service scope, pricing and required documents — ≤ 768px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 768px) {
   .hotel-service {
@@ -1609,7 +1698,9 @@
 }
 
 
-/* STAGE 3 — 430 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — service scope, pricing and required documents — ≤ 430px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 430px) {
   .hotel-service__layout {
@@ -1658,7 +1749,9 @@
 }
 
 
-/* STAGE 3 — 390 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — service scope, pricing and required documents — ≤ 390px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 390px) {
   .hotel-price__copy h2 {
@@ -1671,7 +1764,9 @@
 }
 
 
-/* STAGE 3 — 320 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — service scope, pricing and required documents — ≤ 320px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 320px) {
   .hotel-service__list li {
@@ -1693,13 +1788,9 @@
 }
 
 
-/* HOTEL_PAGE_STAGE_3:end */
-
-
-/* HOTEL_PAGE_STAGE_4:start */
-
-
-/* FORM */
+/* ==========================================================================
+   HotelPassportForm.jsx — PASSPORT FORM
+   ========================================================================== */
 
 .hotel-form {
   padding: 118px 0;
@@ -1854,7 +1945,9 @@
 }
 
 
-/* ACTUALIZATION */
+/* ==========================================================================
+   HotelPassportActualization.jsx — ACTUALIZATION
+   ========================================================================== */
 
 .hotel-actualization {
   padding: 110px 0 118px;
@@ -1966,7 +2059,9 @@
 }
 
 
-/* ACCOMMODATION */
+/* ==========================================================================
+   HotelAccommodationTypes.jsx — ACCOMMODATION TYPES
+   ========================================================================== */
 
 .hotel-accommodation {
   padding: 118px 0;
@@ -2070,7 +2165,9 @@
 }
 
 
-/* STANDARD */
+/* ==========================================================================
+   HotelCurrentRequirements.jsx — CURRENT REQUIREMENTS
+   ========================================================================== */
 
 .hotel-standard {
   padding: 0 0 124px;
@@ -2158,7 +2255,9 @@
 }
 
 
-/* STAGE 4 — 1180 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — passport form, actualization, accommodation types and current requirements — ≤ 1180px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .hotel-form__layout,
@@ -2172,7 +2271,9 @@
 }
 
 
-/* STAGE 4 — 1024 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — passport form, actualization, accommodation types and current requirements — ≤ 1024px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1024px) {
   .hotel-form__layout,
@@ -2202,7 +2303,9 @@
 }
 
 
-/* STAGE 4 — 768 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — passport form, actualization, accommodation types and current requirements — ≤ 768px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 768px) {
   .hotel-form,
@@ -2229,7 +2332,9 @@
 }
 
 
-/* STAGE 4 — 430 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — passport form, actualization, accommodation types and current requirements — ≤ 430px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 430px) {
   .hotel-form__layout {
@@ -2306,7 +2411,9 @@
 }
 
 
-/* STAGE 4 — 390 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — passport form, actualization, accommodation types and current requirements — ≤ 390px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 390px) {
   .hotel-standard__content h2 {
@@ -2315,7 +2422,9 @@
 }
 
 
-/* STAGE 4 — 320 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — passport form, actualization, accommodation types and current requirements — ≤ 320px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 320px) {
   .hotel-form__structure li,
@@ -2333,13 +2442,9 @@
 }
 
 
-/* HOTEL_PAGE_STAGE_4:end */
-
-
-/* HOTEL_PAGE_STAGE_5:start */
-
-
-/* WHY */
+/* ==========================================================================
+   HotelWorkApproach.jsx — WORK APPROACH
+   ========================================================================== */
 
 .hotel-why {
   padding: 116px 0 124px;
@@ -2419,148 +2524,615 @@
 }
 
 
-/* FAQ */
+/* ==========================================================================
+   HotelFaq.jsx — FAQ
+   ==========================================================================
+
+   Current FAQ presentation.
+
+   Base FAQ structure, Trade-style presentation, toggle alignment
+   and answer spacing are consolidated into one ownership block.
+   ========================================================================== */
 
 .hotel-faq {
-  padding: 118px 0 124px;
-  background: #fff;
+  padding:
+    116px
+    0
+    126px !important;
+
+  background:
+    #f5f5f1 !important;
 }
 
+
 .hotel-faq__layout {
-  display: grid;
+  display:
+    grid !important;
+
   grid-template-columns:
-    minmax(300px, .7fr)
-    minmax(0, 1.3fr);
-  gap: clamp(60px, 9vw, 150px);
+    minmax(300px, .62fr)
+    minmax(0, 1.15fr) !important;
+
+  gap:
+    clamp(
+      70px,
+      10vw,
+      165px
+    ) !important;
+
   align-items: start;
 }
 
+
 .hotel-faq__heading {
-  position: sticky;
-  top: 32px;
+  position:
+    sticky !important;
+
+  top:
+    110px !important;
+
+  align-self:
+    start !important;
 }
 
-.hotel-faq__heading > p {
-  max-width: 500px;
-  margin: 30px 0 0;
+
+.hotel-faq__heading h2 {
+  max-width:
+    600px !important;
+
+  margin:
+    0 !important;
+
+  font-size:
+    clamp(
+      2.65rem,
+      3.9vw,
+      4.25rem
+    ) !important;
+
+  line-height:
+    1 !important;
+
+  letter-spacing:
+    -.055em !important;
+
+  text-wrap: balance;
+}
+
+
+.hotel-faq__heading
+> p:not([class]) {
+  max-width:
+    560px !important;
+
+  margin:
+    30px
+    0
+    0 !important;
+
+  color:
+    var(--color-text-secondary) !important;
+
   font-size: 16px;
-  line-height: 1.65;
+
+  line-height:
+    1.72 !important;
+
   opacity: .68;
 }
 
+
 .hotel-faq__list {
-  border-top:
-    1px solid rgb(21 21 21 / 16%);
+  overflow:
+    hidden !important;
+
+  padding:
+    0
+    26px !important;
+
+  border:
+    1px solid
+    var(--color-border) !important;
+
+  border-radius:
+    var(--radius-lg) !important;
+
+  background:
+    #fff !important;
+
+  box-shadow:
+    var(--shadow-soft) !important;
 }
+
 
 .hotel-faq__item {
+  margin:
+    0 !important;
+
+  border:
+    0 !important;
+
   border-bottom:
-    1px solid rgb(21 21 21 / 16%);
+    1px solid
+    var(--color-border) !important;
+
+  border-radius:
+    0 !important;
+
+  background:
+    transparent !important;
+
+  box-shadow:
+    none !important;
 }
+
+
+.hotel-faq__item:last-child {
+  border-bottom:
+    0 !important;
+}
+
 
 .hotel-faq__item summary {
-  display: grid;
+  display:
+    grid !important;
+
   grid-template-columns:
-    46px
+    54px
     minmax(0, 1fr)
-    36px;
-  gap: 18px;
-  align-items: center;
-  min-height: 94px;
-  padding: 22px 0;
-  cursor: pointer;
-  list-style: none;
+    36px !important;
+
+  gap:
+    18px !important;
+
+  align-items:
+    center !important;
+
+  min-height:
+    94px !important;
+
+  margin:
+    0
+    -10px !important;
+
+  padding:
+    23px
+    10px !important;
+
+  border-radius:
+    14px !important;
+
+  background:
+    transparent !important;
+
+  cursor:
+    pointer !important;
+
+  list-style:
+    none !important;
+
+  transition:
+    background-color
+    180ms
+    ease !important;
 }
 
-.hotel-faq__item summary::-webkit-details-marker {
-  display: none;
+
+.hotel-faq__item
+summary::-webkit-details-marker {
+  display:
+    none !important;
 }
+
+
+.hotel-faq__item
+summary:focus-visible {
+  outline:
+    2px solid #151515;
+
+  outline-offset:
+    4px;
+}
+
 
 .hotel-faq__number {
-  font-size: 11px;
-  font-weight: 800;
+  color:
+    var(--color-text-secondary) !important;
+
+  font-size:
+    .72rem !important;
+
+  font-weight:
+    800 !important;
+
+  line-height:
+    1 !important;
+
+  letter-spacing:
+    .09em !important;
+
   opacity: .4;
 }
 
+
 .hotel-faq__question {
   max-width: 720px;
+
+  color:
+    var(--color-text) !important;
+
   font-size:
-    clamp(18px, 1.45vw, 22px);
-  font-weight: 650;
-  line-height: 1.3;
+    1.08rem !important;
+
+  font-weight:
+    750 !important;
+
+  line-height:
+    1.4 !important;
 }
 
+
+/* --------------------------------------------------------------------------
+   Toggle
+   -------------------------------------------------------------------------- */
+
 .hotel-faq__toggle {
-  display: grid;
-  width: 32px;
-  height: 32px;
-  place-items: center;
+  position:
+    relative !important;
+
+  display:
+    block !important;
+
+  width:
+    28px !important;
+
+  height:
+    28px !important;
+
   justify-self: end;
-  border-radius: 50%;
-  background: #f1f1ec;
-  font-size: 21px;
+
+  padding:
+    0 !important;
+
+  border:
+    0 !important;
+
+  border-radius:
+    50% !important;
+
+  background:
+    transparent !important;
+
+  color:
+    var(--color-text) !important;
+
+  font-size:
+    0 !important;
+
   font-weight: 400;
   line-height: 1;
+
+  transform:
+    none !important;
+
   transition:
-    background-color .2s ease,
-    transform .25s ease;
+    background-color 180ms ease,
+    color 180ms ease !important;
 }
+
+
+.hotel-faq__toggle::before {
+  position:
+    absolute !important;
+
+  top:
+    50% !important;
+
+  left:
+    50% !important;
+
+  display:
+    block !important;
+
+  width:
+    16px !important;
+
+  height:
+    2px !important;
+
+  border-radius:
+    999px !important;
+
+  background:
+    currentColor !important;
+
+  content:
+    "" !important;
+
+  transform:
+    translate(-50%, -50%) !important;
+
+  transition:
+    transform
+    180ms
+    ease !important;
+}
+
+
+.hotel-faq__toggle::after {
+  position:
+    absolute !important;
+
+  top:
+    50% !important;
+
+  left:
+    50% !important;
+
+  display:
+    block !important;
+
+  width:
+    16px !important;
+
+  height:
+    2px !important;
+
+  border-radius:
+    999px !important;
+
+  background:
+    currentColor !important;
+
+  content:
+    "" !important;
+
+  transform:
+    translate(-50%, -50%)
+    rotate(90deg) !important;
+
+  transition:
+    transform
+    180ms
+    ease !important;
+}
+
 
 .hotel-faq__item[open]
 .hotel-faq__toggle {
-  background: #a9f04a;
-  transform: rotate(45deg);
+  border-radius:
+    50% !important;
+
+  background:
+    #a9f04a !important;
+
+  color:
+    #151515 !important;
+
+  transform:
+    none !important;
 }
+
+
+.hotel-faq__item[open]
+.hotel-faq__toggle::after {
+  transform:
+    translate(-50%, -50%)
+    rotate(0deg) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   Answer
+   -------------------------------------------------------------------------- */
 
 .hotel-faq__answer {
   padding:
-    0 54px 28px 64px;
+    18px
+    54px
+    28px
+    72px !important;
+
+  border:
+    0 !important;
+
+  background:
+    transparent !important;
 }
 
+
 .hotel-faq__answer p {
-  max-width: 720px;
-  margin: 0;
+  max-width:
+    750px !important;
+
+  margin:
+    0 !important;
+
+  color:
+    var(--color-text-secondary) !important;
+
   font-size: 15px;
-  line-height: 1.7;
+
+  line-height:
+    1.72 !important;
+
   opacity: .72;
 }
 
-.hotel-faq__item summary:focus-visible {
-  outline: 2px solid #151515;
-  outline-offset: 4px;
-}
 
-
-/* STAGE 5 — 1180 */
-
-@media (max-width: 1180px) {
-  .hotel-faq__layout {
-    gap: 80px;
+@media (hover: hover) {
+  .hotel-faq__item
+  summary:hover {
+    background:
+      #f5f5f1 !important;
   }
 }
 
 
-/* STAGE 5 — 1024 */
+.hotel-faq__item[open]
+summary {
+  background:
+    #f5f5f1 !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1024px) {
-  .hotel-why__header,
   .hotel-faq__layout {
+    grid-template-columns:
+      1fr !important;
+  }
+
+
+  .hotel-faq__heading {
+    position:
+      static !important;
+
+    max-width:
+      740px !important;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .hotel-faq {
+    padding-top:
+      80px !important;
+
+    padding-bottom:
+      86px !important;
+  }
+
+
+  .hotel-faq__list {
+    padding:
+      0
+      18px !important;
+  }
+
+
+  .hotel-faq__item summary {
+    grid-template-columns:
+      44px
+      minmax(0, 1fr)
+      32px !important;
+  }
+
+
+  .hotel-faq__answer {
+    padding-left:
+      62px !important;
+  }
+}
+
+
+@media (max-width: 620px) {
+  .hotel-faq__answer {
+    padding-top:
+      14px !important;
+  }
+}
+
+
+@media (max-width: 430px) {
+  .hotel-faq__heading h2 {
+    font-size:
+      2.4rem !important;
+  }
+
+
+  .hotel-faq__list {
+    padding:
+      0
+      12px !important;
+
+    border-radius:
+      18px !important;
+  }
+
+
+  .hotel-faq__item summary {
+    grid-template-columns:
+      34px
+      minmax(0, 1fr)
+      28px !important;
+
+    gap:
+      12px !important;
+  }
+
+
+  .hotel-faq__answer {
+    padding:
+      14px
+      28px
+      26px
+      46px !important;
+  }
+}
+
+
+@media (max-width: 320px) {
+  .hotel-faq__heading h2 {
+    font-size:
+      2.05rem !important;
+  }
+
+
+  .hotel-faq__number {
+    display:
+      none !important;
+
+    grid-column:
+      1 / -1;
+  }
+
+
+  .hotel-faq__item summary {
+    grid-template-columns:
+      minmax(0, 1fr)
+      28px !important;
+  }
+
+
+  .hotel-faq__answer {
+    padding:
+      14px
+      28px
+      26px
+      0 !important;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — work approach and FAQ — ≤ 1180px
+   -------------------------------------------------------------------------- */
+
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — work approach and FAQ — ≤ 1024px
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .hotel-why__header {
     grid-template-columns: 1fr;
     gap: 42px;
   }
 
-  .hotel-faq__heading {
-    position: relative;
-    top: auto;
-  }
+
 }
 
 
-/* STAGE 5 — 768 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — work approach and FAQ — ≤ 768px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 768px) {
-  .hotel-why,
-  .hotel-faq {
+  .hotel-why {
     padding: 84px 0 96px;
   }
 
@@ -2575,7 +3147,9 @@
 }
 
 
-/* STAGE 5 — 430 */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — work approach and FAQ — ≤ 430px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 430px) {
   .hotel-why__item {
@@ -2588,65 +3162,30 @@
     transform: none;
   }
 
-  .hotel-faq__item summary {
-    grid-template-columns:
-      32px minmax(0, 1fr) 30px;
-    gap: 10px;
-    min-height: 84px;
-  }
 
-  .hotel-faq__toggle {
-    width: 28px;
-    height: 28px;
-    font-size: 18px;
-  }
-
-  .hotel-faq__answer {
-    padding:
-      0 40px 24px 42px;
-  }
 }
 
 
-/* STAGE 5 — 390 */
-
-@media (max-width: 390px) {
-  .hotel-faq__question {
-    font-size: 17px;
-  }
-
-  .hotel-faq__answer {
-    padding-left: 42px;
-  }
-}
+/* --------------------------------------------------------------------------
+   RESPONSIVE — work approach and FAQ — ≤ 390px
+   -------------------------------------------------------------------------- */
 
 
-/* STAGE 5 — 320 */
-
-@media (max-width: 320px) {
-  .hotel-faq__item summary {
-    grid-template-columns:
-      1fr 28px;
-  }
-
-  .hotel-faq__number {
-    grid-column: 1 / -1;
-  }
-
-  .hotel-faq__answer {
-    padding:
-      0 0 22px;
-  }
-}
+/* --------------------------------------------------------------------------
+   RESPONSIVE — work approach and FAQ — ≤ 320px
+   -------------------------------------------------------------------------- */
 
 
-/* HOTEL_PAGE_STAGE_5:end */
+/* ==========================================================================
+   CROSS-COMPONENT TYPOGRAPHY
 
-/* HOTEL_MAIN_TYPOGRAPHY_SYNC_V1:start */
+   Shared heading weight and kicker presentation used across
+   the current HotelPage component sections.
+   ========================================================================== */
 
 /*
- * Синхронизация типографики с главной страницей.
- * Семейство Inter уже наследуется от глобального body.
+ * Heading typography shared by HotelPage sections.
+ * Font family continues to inherit from the global page styles.
  */
 
 .hotel-page h1,
@@ -2656,413 +3195,16 @@
 }
 
 /*
- * Служебные подзаголовки:
- * «Нормативная основа», «Категорирование»,
- * «Стоимость», «Исходные данные» и т. п.
+ * Shared kicker presentation used by HotelPage sections.
  */
 .hotel-page .hotel-kicker {
   color: var(--color-primary);
 }
 
-/* HOTEL_MAIN_TYPOGRAPHY_SYNC_V1:end */
 
-
-/* ========================================================
-   UNIFIED_FAQ_TRADE_STYLE_V1
-   Reference: TradePage FAQ
-   ======================================================== */
-
-.hotel-faq {
-  padding: 116px 0 126px !important;
-  background: #f5f5f1 !important;
-}
-
-.hotel-faq__layout {
-  display: grid !important;
-  grid-template-columns:
-    minmax(300px, .62fr)
-    minmax(0, 1.15fr) !important;
-  gap: clamp(70px, 10vw, 165px) !important;
-}
-
-.hotel-faq__heading {
-  position: sticky !important;
-  top: 110px !important;
-  align-self: start !important;
-}
-
-.hotel-faq__heading h2 {
-  max-width: 600px !important;
-  margin: 0 !important;
-
-  font-size:
-    clamp(
-      2.65rem,
-      3.9vw,
-      4.25rem
-    ) !important;
-
-  line-height: 1 !important;
-  letter-spacing: -.055em !important;
-  text-wrap: balance;
-}
-
-.hotel-faq__heading > p:not([class]) {
-  max-width: 560px !important;
-  margin: 30px 0 0 !important;
-
-  color:
-    var(--color-text-secondary) !important;
-
-  line-height: 1.72 !important;
-}
-
-.hotel-faq__list {
-  overflow: hidden !important;
-
-  padding: 0 26px !important;
-
-  border:
-    1px solid
-    var(--color-border) !important;
-
-  border-radius:
-    var(--radius-lg) !important;
-
-  background: #fff !important;
-
-  box-shadow:
-    var(--shadow-soft) !important;
-}
-
-.hotel-faq__item {
-  margin: 0 !important;
-
-  border: 0 !important;
-  border-bottom:
-    1px solid
-    var(--color-border) !important;
-
-  border-radius: 0 !important;
-
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-.hotel-faq__item:last-child {
-  border-bottom: 0 !important;
-}
-
-.hotel-faq__item summary {
-  display: grid !important;
-
-  grid-template-columns:
-    54px
-    minmax(0, 1fr)
-    36px !important;
-
-  gap: 18px !important;
-  align-items: center !important;
-
-  min-height: 94px !important;
-
-  margin: 0 -10px !important;
-
-  padding:
-    23px
-    10px !important;
-
-  border-radius: 14px !important;
-
-  background: transparent !important;
-
-  cursor: pointer !important;
-  list-style: none !important;
-
-  transition:
-    background-color 180ms ease !important;
-}
-
-.hotel-faq__item summary::-webkit-details-marker {
-  display: none !important;
-}
-
-.hotel-faq__number {
-  color:
-    var(--color-text-secondary) !important;
-
-  font-size: .72rem !important;
-  font-weight: 800 !important;
-  line-height: 1 !important;
-  letter-spacing: .09em !important;
-}
-
-.hotel-faq__question {
-  color:
-    var(--color-text) !important;
-
-  font-size: 1.08rem !important;
-  font-weight: 750 !important;
-  line-height: 1.4 !important;
-}
-
-.hotel-faq__toggle {
-  position: relative !important;
-
-  display: block !important;
-
-  width: 28px !important;
-  height: 28px !important;
-
-  padding: 0 !important;
-
-  border: 0 !important;
-  border-radius: 0;
-
-  background: transparent !important;
-
-  color:
-    var(--color-text) !important;
-
-  font-size: 0 !important;
-
-  transition:
-    background-color 180ms ease,
-    color 180ms ease !important;
-}
-
-.hotel-faq__toggle::before,
-.hotel-faq__toggle::after {
-  position: absolute !important;
-
-  top: 50% !important;
-  left: 50% !important;
-
-  display: block !important;
-
-  width: 16px !important;
-  height: 2px !important;
-
-  border-radius: 999px !important;
-
-  background:
-    currentColor !important;
-
-  content: '' !important;
-
-  transform:
-    translate(-50%, -50%) !important;
-
-  transition:
-    transform 180ms ease !important;
-}
-
-.hotel-faq__toggle::after {
-  transform:
-    translate(-50%, -50%)
-    rotate(90deg) !important;
-}
-
-.hotel-faq__item[open]
-.hotel-faq__toggle {
-  border-radius: 50% !important;
-
-  background: #a9f04a !important;
-  color: #151515 !important;
-}
-
-.hotel-faq__item[open]
-.hotel-faq__toggle::after {
-  transform:
-    translate(-50%, -50%)
-    rotate(0deg) !important;
-}
-
-.hotel-faq__answer {
-  padding:
-    0
-    54px
-    28px
-    72px !important;
-
-  border: 0 !important;
-
-  background: transparent !important;
-}
-
-.hotel-faq__answer p {
-  max-width: 750px !important;
-
-  margin: 0 !important;
-
-  color:
-    var(--color-text-secondary) !important;
-
-  line-height: 1.72 !important;
-}
-
-@media (hover: hover) {
-  .hotel-faq__item summary:hover {
-    background: #f5f5f1 !important;
-  }
-}
-
-.hotel-faq__item[open] summary {
-  background: #f5f5f1 !important;
-}
-
-@media (max-width: 1024px) {
-  .hotel-faq__layout {
-    grid-template-columns: 1fr !important;
-  }
-
-  .hotel-faq__heading {
-    position: static !important;
-    max-width: 740px !important;
-  }
-}
-
-@media (max-width: 768px) {
-  .hotel-faq {
-    padding-top: 80px !important;
-    padding-bottom: 86px !important;
-  }
-
-  .hotel-faq__list {
-    padding:
-      0
-      18px !important;
-  }
-
-  .hotel-faq__item summary {
-    grid-template-columns:
-      44px
-      minmax(0, 1fr)
-      32px !important;
-  }
-
-  .hotel-faq__answer {
-    padding-left: 62px !important;
-  }
-}
-
-@media (max-width: 430px) {
-  .hotel-faq__heading h2 {
-    font-size: 2.4rem !important;
-  }
-
-  .hotel-faq__list {
-    padding:
-      0
-      12px !important;
-
-    border-radius: 18px !important;
-  }
-
-  .hotel-faq__item summary {
-    grid-template-columns:
-      34px
-      minmax(0, 1fr)
-      28px !important;
-
-    gap: 12px !important;
-  }
-
-  .hotel-faq__answer {
-    padding:
-      0
-      28px
-      26px
-      46px !important;
-  }
-}
-
-@media (max-width: 320px) {
-  .hotel-faq__heading h2 {
-    font-size: 2.05rem !important;
-  }
-
-  .hotel-faq__number {
-    display: none !important;
-  }
-
-  .hotel-faq__item summary {
-    grid-template-columns:
-      minmax(0, 1fr)
-      28px !important;
-  }
-
-  .hotel-faq__answer {
-    padding-left: 0 !important;
-  }
-}
-
-/* ========================================================
-   /UNIFIED_FAQ_TRADE_STYLE_V1
-   ======================================================== */
-
-
-/* ========================================================
-   UNIFIED_FAQ_TOGGLE_FIX_V1
-   Keep FAQ +/- icon perfectly aligned
-   ======================================================== */
-
-.hotel-faq__toggle,
-.hotel-faq__item[open]
-.hotel-faq__toggle {
-  transform: none !important;
-}
-
-
-.hotel-faq__toggle::before {
-  transform:
-    translate(-50%, -50%) !important;
-}
-
-
-.hotel-faq__toggle::after {
-  transform:
-    translate(-50%, -50%)
-    rotate(90deg) !important;
-}
-
-
-.hotel-faq__item[open]
-.hotel-faq__toggle::before {
-  transform:
-    translate(-50%, -50%) !important;
-}
-
-
-.hotel-faq__item[open]
-.hotel-faq__toggle::after {
-  transform:
-    translate(-50%, -50%)
-    rotate(0deg) !important;
-}
-
-/* ========================================================
-   /UNIFIED_FAQ_TOGGLE_FIX_V1
-   ======================================================== */
-
-
-/* ========================================================
-   HOTEL_IMPORTANT_MARK_EXCLAMATION_V2
-   ======================================================== */
-
-.hotel-check__important-mark {
-  align-self: center;
-  justify-self: center;
-
-  color: #a9f04a;
-
-  font-size: clamp(4rem, 5vw, 5.2rem);
-  font-weight: 800;
-  line-height: .8;
-
-  letter-spacing: 0;
-  text-transform: none;
-}
+/* --------------------------------------------------------------------------
+   HotelHeroAndApplicability.jsx — IMPORTANT MARK RESPONSIVE REFINEMENT
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 768px) {
   .hotel-check__important-mark {
@@ -3077,34 +3219,6 @@
   }
 }
 
-/* ========================================================
-   /HOTEL_IMPORTANT_MARK_EXCLAMATION_V2
-   ======================================================== */
-
-/* ========================================================
-   FAQ_ANSWER_TOP_SPACING_V1
-   Extra breathing room between FAQ question and answer
-   ======================================================== */
-
-.hotel-faq__answer {
-  padding-top: 18px !important;
-}
-
-@media (max-width: 620px) {
-  .hotel-faq__answer {
-    padding-top: 14px !important;
-  }
-}
-
-/* /FAQ_ANSWER_TOP_SPACING_V1 */
-
-/* ========================================================
-   FAQ_ICON_ALWAYS_ROUND_V1
-   Keep FAQ toggle round in every state
-   ======================================================== */
-
-.hotel-faq__toggle {
-  border-radius: 50% !important;
-}
-
-/* /FAQ_ICON_ALWAYS_ROUND_V1 */
+/* --------------------------------------------------------------------------
+   HotelHeroAndApplicability.jsx — IMPORTANT MARK RESPONSIVE REFINEMENT
+   -------------------------------------------------------------------------- */
