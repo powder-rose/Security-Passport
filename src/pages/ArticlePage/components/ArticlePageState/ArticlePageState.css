@@ -1,0 +1,13 @@
+/* ==========================================================================
+   ArticlePageState.jsx — PAGE STATES
+   ========================================================================== */
+
+.article-page-state__inner h2 {
+  margin: 0;
+
+  font-size: clamp(42px, 7vw, 80px);
+
+  line-height: 0.95;
+
+  letter-spacing: -0.05em;
+}
