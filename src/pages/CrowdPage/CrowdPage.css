@@ -1,7 +1,58 @@
-/* ========================================
+/* ==========================================================================
    CROWD PAGE
-   Stage 1 — hero + applicability
-   ======================================== */
+   ==========================================================================
+
+   React entry:
+   CrowdPage.jsx
+
+   COMPONENT OWNERSHIP
+
+   01. CrowdHero.jsx
+       .crowd-hero*
+       .crowd-breadcrumbs
+       .crowd-text-action
+
+   02. CrowdApplicability.jsx
+       .crowd-applicability*
+
+   03. CrowdRegime.jsx
+       .crowd-regime*
+
+   04. CrowdRegulation.jsx
+       .crowd-regulation*
+
+   05. CrowdListing.jsx
+       .crowd-listing*
+
+   06. CrowdCategories.jsx
+       .crowd-categories*
+       .crowd-category*
+
+   07. CrowdPeopleCount.jsx
+       .crowd-count*
+
+   08. CrowdPassportProcess.jsx
+       .crowd-process*
+
+   09. CrowdFaq.jsx
+       .crowd-faq*
+
+   Shared page selectors:
+       .crowd-page
+       .crowd-kicker
+
+   External section:
+       FinalCTA owns its styles outside CrowdPage.css.
+
+   FILE ORGANIZATION
+
+   - Component-owned base styles
+   - Responsive rules for related component groups
+   - CrowdFaq owns one consolidated FAQ block
+   - No historical stage/version layers
+
+   This file describes the CURRENT rendered CrowdPage.
+   ========================================================================== */
 
 .crowd-page {
   --crowd-accent:
@@ -30,9 +81,9 @@
 }
 
 
-/* ========================================
-   HERO
-   ======================================== */
+/* ==========================================================================
+   CrowdHero.jsx — HERO
+   ========================================================================== */
 
 .crowd-hero {
   padding:
@@ -269,7 +320,7 @@
 }
 
 
-/* Hero regulation panel */
+/* CrowdHero.jsx — regulation panel */
 
 .crowd-hero__regulation {
   position: relative;
@@ -428,9 +479,9 @@
 }
 
 
-/* ========================================
-   APPLICABILITY
-   ======================================== */
+/* ==========================================================================
+   CrowdApplicability.jsx — APPLICABILITY
+   ========================================================================== */
 
 .crowd-applicability {
   padding:
@@ -675,9 +726,9 @@
 }
 
 
-/* ========================================
-   REGIME DISTINCTION
-   ======================================== */
+/* ==========================================================================
+   CrowdRegime.jsx — REGIME
+   ========================================================================== */
 
 .crowd-regime {
   padding:
@@ -811,9 +862,9 @@
 }
 
 
-/* ========================================
-   RESPONSIVE
-   ======================================== */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — hero, applicability and regime
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .crowd-hero__layout {
@@ -1181,15 +1232,9 @@
 }
 
 
-/* ========================================
-   CROWD_STAGE_2_V1:start
-   Regulation / list / categories / count
-   ======================================== */
-
-
-/* ========================================
-   REGULATION
-   ======================================== */
+/* ==========================================================================
+   CrowdRegulation.jsx — REGULATION
+   ========================================================================== */
 
 .crowd-regulation {
   padding:
@@ -1396,9 +1441,9 @@
 }
 
 
-/* ========================================
-   LISTING
-   ======================================== */
+/* ==========================================================================
+   CrowdListing.jsx — LISTING
+   ========================================================================== */
 
 .crowd-listing {
   padding:
@@ -1556,9 +1601,9 @@
 }
 
 
-/* ========================================
-   CATEGORIES
-   ======================================== */
+/* ==========================================================================
+   CrowdCategories.jsx — CATEGORIES
+   ========================================================================== */
 
 .crowd-categories {
   padding:
@@ -1763,9 +1808,9 @@
 }
 
 
-/* ========================================
-   COUNTING
-   ======================================== */
+/* ==========================================================================
+   CrowdPeopleCount.jsx — PEOPLE COUNT
+   ========================================================================== */
 
 .crowd-count {
   padding:
@@ -1886,9 +1931,9 @@
 }
 
 
-/* ========================================
-   STAGE 2 RESPONSIVE
-   ======================================== */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — regulation, listing, categories and people count
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .crowd-regulation__layout,
@@ -2164,12 +2209,9 @@
 }
 
 
-/* CROWD_STAGE_2_V1:end */
-
-
-/* ========================================
-   CROWD_STAGE_3_V1:start
-======================================== */
+/* ==========================================================================
+   CrowdPassportProcess.jsx — PASSPORT PROCESS
+   ========================================================================== */
 
 
 .crowd-process {
@@ -2354,165 +2396,66 @@
 }
 
 
-/* CROWD_STAGE_3_V1:end */
+/* ==========================================================================
+   CrowdFaq.jsx — FAQ
+   ==========================================================================
 
+   Current FAQ presentation.
 
-
-
-
-
-
-/* ========================================
-   CROWD_STAGE_4_V1:start
-   ======================================== */
-
-
-.crowd-documents,
-.crowd-faq {
-  padding: 96px 0;
-}
-
-
-.crowd-documents__heading,
-.crowd-faq__heading {
-  max-width: 760px;
-  margin-bottom: 48px;
-}
-
-
-.crowd-documents__heading h2,
-.crowd-faq__heading h2 {
-  max-width: 720px;
-}
-
-
-.crowd-documents__list {
-  display: grid;
-  gap: 20px;
-}
-
-
-.crowd-documents__item {
-  display: flex;
-  gap: 28px;
-  padding: 28px;
-  border-radius: 24px;
-  background: #ffffff;
-}
-
-
-.crowd-documents__item span {
-  font-size: 28px;
-  font-weight: 700;
-}
-
-
-.crowd-documents__item h3 {
-  margin-bottom: 8px;
-}
-
-
-.crowd-faq__list {
-  display: grid;
-  gap: 16px;
-}
-
-
-.crowd-faq details {
-  padding: 24px;
-  border-radius: 20px;
-  background: #ffffff;
-}
-
-
-.crowd-faq summary {
-  cursor: pointer;
-  font-weight: 600;
-}
-
-
-.crowd-faq p {
-  margin-top: 16px;
-}
-
-
-@media (max-width: 768px) {
-
-  .crowd-documents,
-  .crowd-faq {
-    padding: 64px 0;
-  }
-
-
-  .crowd-documents__item {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-}
-
-
-/* CROWD_STAGE_4_V1:end */
-
-
-
-/* CROWD_STAGE_5_FAQ:start */
-
-
-.crowd-faq__item {
-  border-radius: 20px;
-  background: #ffffff;
-  padding: 24px;
-}
-
-
-.crowd-faq__item summary {
-  list-style: none;
-  cursor: pointer;
-}
-
-
-.crowd-faq__item summary::-webkit-details-marker {
-  display: none;
-}
-
-
-.crowd-faq__answer {
-  margin-top: 18px;
-  max-width: 760px;
-}
-
-
-/* CROWD_STAGE_5_FAQ:end */
-
-
-/* ========================================================
-   UNIFIED_FAQ_TRADE_STYLE_V1
-   Reference: TradePage FAQ
-   ======================================================== */
+   Previous base FAQ rules, Trade-style presentation,
+   toggle alignment and answer spacing are consolidated here.
+   ========================================================================== */
 
 .crowd-faq {
-  padding: 116px 0 126px !important;
-  background: #f5f5f1 !important;
+  padding:
+    116px
+    0
+    126px !important;
+
+  background:
+    #f5f5f1 !important;
 }
+
 
 .crowd-faq__layout {
-  display: grid !important;
+  display:
+    grid !important;
+
   grid-template-columns:
     minmax(300px, .62fr)
     minmax(0, 1.15fr) !important;
-  gap: clamp(70px, 10vw, 165px) !important;
+
+  gap:
+    clamp(
+      70px,
+      10vw,
+      165px
+    ) !important;
 }
+
 
 .crowd-faq__heading {
-  position: sticky !important;
-  top: 110px !important;
-  align-self: start !important;
+  position:
+    sticky !important;
+
+  top:
+    110px !important;
+
+  max-width: 760px;
+
+  margin-bottom: 48px;
+
+  align-self:
+    start !important;
 }
 
+
 .crowd-faq__heading h2 {
-  max-width: 600px !important;
-  margin: 0 !important;
+  max-width:
+    600px !important;
+
+  margin:
+    0 !important;
 
   font-size:
     clamp(
@@ -2521,25 +2464,44 @@
       4.25rem
     ) !important;
 
-  line-height: 1 !important;
-  letter-spacing: -.055em !important;
+  line-height:
+    1 !important;
+
+  letter-spacing:
+    -.055em !important;
+
   text-wrap: balance;
 }
 
-.crowd-faq__heading > p:not([class]) {
-  max-width: 560px !important;
-  margin: 30px 0 0 !important;
+
+.crowd-faq__heading
+> p:not([class]) {
+  max-width:
+    560px !important;
+
+  margin:
+    30px
+    0
+    0 !important;
 
   color:
     var(--color-text-secondary) !important;
 
-  line-height: 1.72 !important;
+  line-height:
+    1.72 !important;
 }
 
-.crowd-faq__list {
-  overflow: hidden !important;
 
-  padding: 0 26px !important;
+.crowd-faq__list {
+  display: grid;
+  gap: 16px;
+
+  overflow:
+    hidden !important;
+
+  padding:
+    0
+    26px !important;
 
   border:
     1px solid
@@ -2548,147 +2510,267 @@
   border-radius:
     var(--radius-lg) !important;
 
-  background: #fff !important;
+  background:
+    #fff !important;
 
   box-shadow:
     var(--shadow-soft) !important;
 }
 
-.crowd-faq__item {
-  margin: 0 !important;
 
-  border: 0 !important;
+.crowd-faq__item {
+  margin:
+    0 !important;
+
+  padding: 24px;
+
+  border:
+    0 !important;
+
   border-bottom:
     1px solid
     var(--color-border) !important;
 
-  border-radius: 0 !important;
+  border-radius:
+    0 !important;
 
-  background: transparent !important;
-  box-shadow: none !important;
+  background:
+    transparent !important;
+
+  box-shadow:
+    none !important;
 }
+
 
 .crowd-faq__item:last-child {
-  border-bottom: 0 !important;
+  border-bottom:
+    0 !important;
 }
 
+
 .crowd-faq__item summary {
-  display: grid !important;
+  display:
+    grid !important;
 
   grid-template-columns:
     54px
     minmax(0, 1fr)
     36px !important;
 
-  gap: 18px !important;
-  align-items: center !important;
+  gap:
+    18px !important;
 
-  min-height: 94px !important;
+  align-items:
+    center !important;
 
-  margin: 0 -10px !important;
+  min-height:
+    94px !important;
+
+  margin:
+    0
+    -10px !important;
 
   padding:
     23px
     10px !important;
 
-  border-radius: 14px !important;
+  border-radius:
+    14px !important;
 
-  background: transparent !important;
+  background:
+    transparent !important;
 
-  cursor: pointer !important;
-  list-style: none !important;
+  cursor:
+    pointer !important;
+
+  list-style:
+    none !important;
+
+  font-weight: 600;
 
   transition:
-    background-color 180ms ease !important;
+    background-color
+    180ms
+    ease !important;
 }
 
-.crowd-faq__item summary::-webkit-details-marker {
-  display: none !important;
+
+.crowd-faq__item
+summary::-webkit-details-marker {
+  display:
+    none !important;
 }
+
 
 .crowd-faq__number {
   color:
     var(--color-text-secondary) !important;
 
-  font-size: .72rem !important;
-  font-weight: 800 !important;
-  line-height: 1 !important;
-  letter-spacing: .09em !important;
+  font-size:
+    .72rem !important;
+
+  font-weight:
+    800 !important;
+
+  line-height:
+    1 !important;
+
+  letter-spacing:
+    .09em !important;
 }
+
 
 .crowd-faq__question {
   color:
     var(--color-text) !important;
 
-  font-size: 1.08rem !important;
-  font-weight: 750 !important;
-  line-height: 1.4 !important;
+  font-size:
+    1.08rem !important;
+
+  font-weight:
+    750 !important;
+
+  line-height:
+    1.4 !important;
 }
 
+
+/* --------------------------------------------------------------------------
+   Toggle
+   -------------------------------------------------------------------------- */
+
 .crowd-faq__toggle {
-  position: relative !important;
+  position:
+    relative !important;
 
-  display: block !important;
+  display:
+    block !important;
 
-  width: 28px !important;
-  height: 28px !important;
+  width:
+    28px !important;
 
-  padding: 0 !important;
+  height:
+    28px !important;
 
-  border: 0 !important;
-  border-radius: 0;
+  padding:
+    0 !important;
 
-  background: transparent !important;
+  border:
+    0 !important;
+
+  border-radius:
+    50% !important;
+
+  background:
+    transparent !important;
 
   color:
     var(--color-text) !important;
 
-  font-size: 0 !important;
+  font-size:
+    0 !important;
+
+  transform:
+    none !important;
 
   transition:
     background-color 180ms ease,
     color 180ms ease !important;
 }
 
-.crowd-faq__toggle::before,
-.crowd-faq__toggle::after {
-  position: absolute !important;
 
-  top: 50% !important;
-  left: 50% !important;
+.crowd-faq__toggle::before {
+  position:
+    absolute !important;
 
-  display: block !important;
+  top:
+    50% !important;
 
-  width: 16px !important;
-  height: 2px !important;
+  left:
+    50% !important;
 
-  border-radius: 999px !important;
+  display:
+    block !important;
+
+  width:
+    16px !important;
+
+  height:
+    2px !important;
+
+  border-radius:
+    999px !important;
 
   background:
     currentColor !important;
 
-  content: '' !important;
+  content:
+    "" !important;
 
   transform:
     translate(-50%, -50%) !important;
 
   transition:
-    transform 180ms ease !important;
+    transform
+    180ms
+    ease !important;
 }
 
+
 .crowd-faq__toggle::after {
+  position:
+    absolute !important;
+
+  top:
+    50% !important;
+
+  left:
+    50% !important;
+
+  display:
+    block !important;
+
+  width:
+    16px !important;
+
+  height:
+    2px !important;
+
+  border-radius:
+    999px !important;
+
+  background:
+    currentColor !important;
+
+  content:
+    "" !important;
+
   transform:
     translate(-50%, -50%)
     rotate(90deg) !important;
+
+  transition:
+    transform
+    180ms
+    ease !important;
 }
+
 
 .crowd-faq__item[open]
 .crowd-faq__toggle {
-  border-radius: 50% !important;
+  border-radius:
+    50% !important;
 
-  background: #a9f04a !important;
-  color: #151515 !important;
+  background:
+    #a9f04a !important;
+
+  color:
+    #151515 !important;
+
+  transform:
+    none !important;
 }
+
 
 .crowd-faq__item[open]
 .crowd-faq__toggle::after {
@@ -2697,61 +2779,98 @@
     rotate(0deg) !important;
 }
 
+
+/* --------------------------------------------------------------------------
+   Answer
+   -------------------------------------------------------------------------- */
+
 .crowd-faq__answer {
+  max-width: 760px;
+
+  margin-top: 18px;
+
   padding:
-    0
+    18px
     54px
     28px
     72px !important;
 
-  border: 0 !important;
+  border:
+    0 !important;
 
-  background: transparent !important;
+  background:
+    transparent !important;
 }
 
-.crowd-faq__answer p {
-  max-width: 750px !important;
 
-  margin: 0 !important;
+.crowd-faq__answer p {
+  max-width:
+    750px !important;
+
+  margin:
+    0 !important;
 
   color:
     var(--color-text-secondary) !important;
 
-  line-height: 1.72 !important;
+  line-height:
+    1.72 !important;
 }
 
+
 @media (hover: hover) {
-  .crowd-faq__item summary:hover {
-    background: #f5f5f1 !important;
+  .crowd-faq__item
+  summary:hover {
+    background:
+      #f5f5f1 !important;
   }
 }
 
-.crowd-faq__item[open] summary {
-  background: #f5f5f1 !important;
+
+.crowd-faq__item[open]
+summary {
+  background:
+    #f5f5f1 !important;
 }
+
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1024px) {
   .crowd-faq__layout {
-    grid-template-columns: 1fr !important;
+    grid-template-columns:
+      1fr !important;
   }
 
+
   .crowd-faq__heading {
-    position: static !important;
-    max-width: 740px !important;
+    position:
+      static !important;
+
+    max-width:
+      740px !important;
   }
 }
 
+
 @media (max-width: 768px) {
   .crowd-faq {
-    padding-top: 80px !important;
-    padding-bottom: 86px !important;
+    padding-top:
+      80px !important;
+
+    padding-bottom:
+      86px !important;
   }
+
 
   .crowd-faq__list {
     padding:
       0
       18px !important;
   }
+
 
   .crowd-faq__item summary {
     grid-template-columns:
@@ -2760,23 +2879,38 @@
       32px !important;
   }
 
+
   .crowd-faq__answer {
-    padding-left: 62px !important;
+    padding-left:
+      62px !important;
   }
 }
 
+
+@media (max-width: 620px) {
+  .crowd-faq__answer {
+    padding-top:
+      14px !important;
+  }
+}
+
+
 @media (max-width: 430px) {
   .crowd-faq__heading h2 {
-    font-size: 2.4rem !important;
+    font-size:
+      2.4rem !important;
   }
+
 
   .crowd-faq__list {
     padding:
       0
       12px !important;
 
-    border-radius: 18px !important;
+    border-radius:
+      18px !important;
   }
+
 
   .crowd-faq__item summary {
     grid-template-columns:
@@ -2784,26 +2918,33 @@
       minmax(0, 1fr)
       28px !important;
 
-    gap: 12px !important;
+    gap:
+      12px !important;
   }
+
 
   .crowd-faq__answer {
     padding:
-      0
+      14px
       28px
       26px
       46px !important;
   }
 }
 
+
 @media (max-width: 320px) {
   .crowd-faq__heading h2 {
-    font-size: 2.05rem !important;
+    font-size:
+      2.05rem !important;
   }
 
+
   .crowd-faq__number {
-    display: none !important;
+    display:
+      none !important;
   }
+
 
   .crowd-faq__item summary {
     grid-template-columns:
@@ -2811,83 +2952,12 @@
       28px !important;
   }
 
+
   .crowd-faq__answer {
-    padding-left: 0 !important;
+    padding:
+      14px
+      28px
+      26px
+      0 !important;
   }
 }
-
-/* ========================================================
-   /UNIFIED_FAQ_TRADE_STYLE_V1
-   ======================================================== */
-
-
-/* ========================================================
-   UNIFIED_FAQ_TOGGLE_FIX_V1
-   Keep FAQ +/- icon perfectly aligned
-   ======================================================== */
-
-.crowd-faq__toggle,
-.crowd-faq__item[open]
-.crowd-faq__toggle {
-  transform: none !important;
-}
-
-
-.crowd-faq__toggle::before {
-  transform:
-    translate(-50%, -50%) !important;
-}
-
-
-.crowd-faq__toggle::after {
-  transform:
-    translate(-50%, -50%)
-    rotate(90deg) !important;
-}
-
-
-.crowd-faq__item[open]
-.crowd-faq__toggle::before {
-  transform:
-    translate(-50%, -50%) !important;
-}
-
-
-.crowd-faq__item[open]
-.crowd-faq__toggle::after {
-  transform:
-    translate(-50%, -50%)
-    rotate(0deg) !important;
-}
-
-/* ========================================================
-   /UNIFIED_FAQ_TOGGLE_FIX_V1
-   ======================================================== */
-
-/* ========================================================
-   FAQ_ANSWER_TOP_SPACING_V1
-   Extra breathing room between FAQ question and answer
-   ======================================================== */
-
-.crowd-faq__answer {
-  padding-top: 18px !important;
-}
-
-@media (max-width: 620px) {
-  .crowd-faq__answer {
-    padding-top: 14px !important;
-  }
-}
-
-/* /FAQ_ANSWER_TOP_SPACING_V1 */
-
-/* ========================================================
-   FAQ_ICON_ALWAYS_ROUND_V1
-   Keep FAQ toggle round in every state
-   ======================================================== */
-
-.crowd-faq__toggle {
-  border-radius: 50% !important;
-}
-
-/* /FAQ_ICON_ALWAYS_ROUND_V1 */
