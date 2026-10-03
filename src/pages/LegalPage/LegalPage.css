@@ -1,3 +1,33 @@
+/* ==========================================================================
+   LEGAL PAGE
+
+   React entry:
+   - LegalPage.jsx
+
+   Local components:
+   - LegalSeo.jsx
+     document metadata only; no visual CSS ownership
+
+   - LegalHeader.jsx
+     .legal-header*
+     sticky navigation/header
+
+   - LegalContent.jsx
+     .legal-main
+     .legal-hero*
+     .legal-document*
+     .legal-page__after
+
+   - LegalFooter.jsx
+     .legal-footer*
+
+   Page root:
+   - .legal-page
+
+   File organization follows the current rendered React composition.
+   ========================================================================== */
+
+
 .legal-page {
   min-height: 100vh;
   background:
@@ -9,6 +39,10 @@
     var(--color-bg);
   color: var(--color-text);
 }
+
+/* ==========================================================================
+   LegalHeader.jsx — HEADER
+   ========================================================================== */
 
 .legal-header {
   position: sticky;
@@ -72,6 +106,10 @@
   transform: translateY(-1px);
   background: #fff;
 }
+
+/* ==========================================================================
+   LegalContent.jsx — DOCUMENT CONTENT
+   ========================================================================== */
 
 .legal-main {
   padding:
@@ -217,6 +255,10 @@
   text-decoration: none;
 }
 
+/* ==========================================================================
+   LegalFooter.jsx — FOOTER
+   ========================================================================== */
+
 .legal-footer {
   padding: 38px 0 28px;
   border-top:
@@ -231,10 +273,18 @@
   padding-bottom: 28px;
 }
 
-.legal-footer__top > div:first-child,
-.legal-footer__contacts {
+.legal-footer__top > div:first-child {
   display: grid;
   gap: 5px;
+}
+
+
+.legal-footer__contacts {
+  display: grid;
+
+  gap: 5px;
+
+  text-align: right;
 }
 
 .legal-footer__top strong {
@@ -248,9 +298,6 @@
   font-size: .8rem;
 }
 
-.legal-footer__contacts {
-  text-align: right;
-}
 
 .legal-footer__contacts a {
   color: inherit;
@@ -289,6 +336,10 @@
   font-size: .76rem;
 }
 
+
+/* ==========================================================================
+   RESPONSIVE — MOBILE
+   ========================================================================== */
 
 @media (max-width: 640px) {
   .legal-header__inner {
