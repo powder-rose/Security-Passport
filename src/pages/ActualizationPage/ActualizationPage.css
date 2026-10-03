@@ -1,6 +1,78 @@
-/* ==========================================================
-   Actualization Page
-   ========================================================== */
+/* ==========================================================================
+   ACTUALIZATION PAGE
+   ==========================================================================
+
+   React entry:
+   ActualizationPage.jsx
+
+   Supporting behavior:
+   useActualizationTimeline.js
+
+   COMPONENT OWNERSHIP
+
+   01. ActualizationHeroAndDefinition.jsx
+       .actualization-hero*
+       .actualization-definition*
+       .actualization-breadcrumbs
+
+   02. ActualizationReasons.jsx
+       .actualization-reasons*
+       .actualization-reasons-table*
+
+   03. ActualizationChecklist.jsx
+       .actualization-checklist*
+       .actualization-check-button*
+
+   04. ActualizationCategorization.jsx
+       .actualization-category*
+
+   05. ActualizationWorkProcess.jsx
+       .actualization-work*
+
+   06. ActualizationServiceScope.jsx
+       .actualization-scope*
+
+   07. ActualizationPricing.jsx
+       .actualization-price*
+
+   08. ActualizationRequiredDocuments.jsx
+       .actualization-documents*
+
+   09. ActualizationPeriodicity.jsx
+       .actualization-period*
+       .actualization-periods*
+
+   10. ActualizationReplacement.jsx
+       .actualization-replacement*
+
+   11. ActualizationObjectTypes.jsx
+       .actualization-objects*
+
+   12. ActualizationCurrentRequirements.jsx
+       .actualization-standard*
+
+   13. ActualizationFaq.jsx
+       .actualization-faq*
+
+   Shared page selectors:
+       .actualization-page
+       .actualization-kicker
+       .actualization-section-head
+
+   External sections:
+       Expert owns its styles outside ActualizationPage.css.
+       FinalCTA owns its styles outside ActualizationPage.css.
+
+   FILE ORGANIZATION
+
+   - Component-owned base styles
+   - Shared interaction and responsive rules
+   - Component-specific refinements
+   - Consolidated ActualizationFaq block
+   - No historical stage/version layers
+
+   This file describes the CURRENT rendered ActualizationPage.
+   ========================================================================== */
 
 .actualization-page {
   overflow: clip;
@@ -15,9 +87,9 @@
 }
 
 
-/* ==========================================================
-   Shared
-   ========================================================== */
+/* ==========================================================================
+   SHARED PAGE FOUNDATIONS
+   ========================================================================== */
 
 .actualization-kicker {
   display: flex;
@@ -91,9 +163,9 @@
 }
 
 
-/* ==========================================================
-   Hero
-   ========================================================== */
+/* ==========================================================================
+   ActualizationHeroAndDefinition.jsx — HERO
+   ========================================================================== */
 
 .actualization-hero {
   padding:
@@ -342,9 +414,9 @@
 }
 
 
-/* ==========================================================
-   Definition
-   ========================================================== */
+/* ==========================================================================
+   ActualizationHeroAndDefinition.jsx — DEFINITION
+   ========================================================================== */
 
 .actualization-definition {
   padding:
@@ -466,9 +538,9 @@
 }
 
 
-/* ==========================================================
-   Reasons table
-   ========================================================== */
+/* ==========================================================================
+   ActualizationReasons.jsx — REASONS
+   ========================================================================== */
 
 .actualization-reasons {
   padding:
@@ -590,9 +662,9 @@
 }
 
 
-/* ==========================================================
-   Checklist
-   ========================================================== */
+/* ==========================================================================
+   ActualizationChecklist.jsx — CHECKLIST
+   ========================================================================== */
 
 .actualization-checklist {
   padding:
@@ -702,9 +774,9 @@
 }
 
 
-/* ==========================================================
-   Categorization expert block
-   ========================================================== */
+/* ==========================================================================
+   ActualizationCategorization.jsx — CATEGORIZATION
+   ========================================================================== */
 
 .actualization-category {
   padding:
@@ -801,9 +873,9 @@
 }
 
 
-/* ==========================================================
-   Process timeline
-   ========================================================== */
+/* ==========================================================================
+   ActualizationWorkProcess.jsx — WORK PROCESS
+   ========================================================================== */
 
 .actualization-work {
   padding:
@@ -906,9 +978,9 @@
 }
 
 
-/* ==========================================================
-   Scope
-   ========================================================== */
+/* ==========================================================================
+   ActualizationServiceScope.jsx — SERVICE SCOPE
+   ========================================================================== */
 
 .actualization-scope {
   padding:
@@ -1010,13 +1082,13 @@
 }
 
 
-/* ==========================================================
-   Price
-   ========================================================== */
+/* ==========================================================================
+   ActualizationPricing.jsx — PRICING
+   ========================================================================== */
 
 .actualization-price {
   padding:
-    clamp(76px, 7vw, 106px)
+    clamp(96px, 9vw, 145px)
     0;
 
   background: #ffffff;
@@ -1073,9 +1145,9 @@
 }
 
 
-/* ==========================================================
-   Documents
-   ========================================================== */
+/* ==========================================================================
+   ActualizationRequiredDocuments.jsx — REQUIRED DOCUMENTS
+   ========================================================================== */
 
 .actualization-documents {
   padding:
@@ -1116,17 +1188,24 @@
 }
 
 .actualization-documents h2 {
-  max-width: 560px;
+  width: 100%;
+  max-width: 100%;
 
   margin: 0;
 
   color: #ffffff;
 
   font-size:
-    clamp(2.45rem, 4vw, 4.3rem);
+    clamp(2.4rem, 2.8vw, 3.25rem);
 
-  line-height: .96;
-  letter-spacing: -.055em;
+  line-height: .99;
+  letter-spacing: -.05em;
+
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+
+  text-wrap: balance;
 }
 
 .actualization-documents__grid > div:first-child > p:not(.actualization-kicker) {
@@ -1195,9 +1274,9 @@
 }
 
 
-/* ==========================================================
-   Periodicity
-   ========================================================== */
+/* ==========================================================================
+   ActualizationPeriodicity.jsx — PERIODICITY
+   ========================================================================== */
 
 .actualization-periods {
   padding:
@@ -1388,9 +1467,9 @@
 }
 
 
-/* ==========================================================
-   Replacement
-   ========================================================== */
+/* ==========================================================================
+   ActualizationReplacement.jsx — REPLACEMENT
+   ========================================================================== */
 
 .actualization-replacement {
   padding:
@@ -1484,9 +1563,9 @@
 }
 
 
-/* ==========================================================
-   Object types
-   ========================================================== */
+/* ==========================================================================
+   ActualizationObjectTypes.jsx — OBJECT TYPES
+   ========================================================================== */
 
 .actualization-objects {
   padding:
@@ -1560,9 +1639,9 @@
 }
 
 
-/* ==========================================================
-   Standard 2026
-   ========================================================== */
+/* ==========================================================================
+   ActualizationCurrentRequirements.jsx — CURRENT REQUIREMENTS
+   ========================================================================== */
 
 .actualization-standard {
   padding:
@@ -1641,125 +1720,513 @@
 }
 
 
-/* ==========================================================
-   FAQ
-   ========================================================== */
+/* ==========================================================================
+   ActualizationFaq.jsx — FAQ
+   ==========================================================================
+
+   Current FAQ presentation.
+
+   Base FAQ behavior and Trade-style presentation are consolidated
+   into one component-owned block.
+   ========================================================================== */
 
 .actualization-faq {
   padding:
-    clamp(90px, 10vw, 150px)
-    0;
+    116px
+    0
+    126px !important;
 
-  background: #ffffff;
+  background:
+    #f5f5f1 !important;
 }
+
+
+/* Container layout */
+
+.actualization-faq > div {
+  display:
+    grid !important;
+
+  grid-template-columns:
+    minmax(300px, .62fr)
+    minmax(0, 1.15fr) !important;
+
+  gap:
+    clamp(
+      70px,
+      10vw,
+      165px
+    ) !important;
+}
+
+
+.actualization-faq
+.actualization-section-head {
+  position:
+    sticky !important;
+
+  top:
+    110px !important;
+
+  align-self:
+    start !important;
+
+  margin:
+    0 !important;
+}
+
+
+.actualization-faq
+.actualization-section-head h2 {
+  max-width:
+    600px !important;
+
+  margin:
+    0 !important;
+
+  font-size:
+    clamp(
+      2.65rem,
+      3.9vw,
+      4.25rem
+    ) !important;
+
+  line-height:
+    1 !important;
+
+  letter-spacing:
+    -.055em !important;
+
+  text-wrap: balance;
+}
+
+
+/* FAQ list */
 
 .actualization-faq__list {
   max-width: 1040px;
 
-  border-top:
-    1px solid rgba(17, 17, 17, .12);
-}
-
-.actualization-faq details {
-  border-bottom:
-    1px solid rgba(17, 17, 17, .12);
-}
-
-.actualization-faq summary {
-  position: relative;
+  overflow:
+    hidden !important;
 
   padding:
-    27px
-    58px
-    27px
-    0;
+    0
+    26px !important;
 
-  cursor: pointer;
+  border:
+    1px solid
+    var(--color-border) !important;
 
-  list-style: none;
+  border-radius:
+    var(--radius-lg) !important;
+
+  background:
+    #fff !important;
+
+  box-shadow:
+    var(--shadow-soft) !important;
+
+  counter-reset: faq-counter;
+}
+
+
+.actualization-faq__list details {
+  margin:
+    0 !important;
+
+  border:
+    0 !important;
+
+  border-bottom:
+    1px solid
+    var(--color-border) !important;
+
+  border-radius:
+    0 !important;
+
+  background:
+    transparent !important;
+
+  box-shadow:
+    none !important;
+
+  counter-increment: faq-counter;
+}
+
+
+.actualization-faq__list details:last-child {
+  border-bottom:
+    0 !important;
+}
+
+
+/* Question */
+
+.actualization-faq__list summary {
+  position: relative;
+
+  display:
+    grid !important;
+
+  grid-template-columns:
+    54px
+    minmax(0, 1fr)
+    36px !important;
+
+  gap:
+    18px !important;
+
+  align-items:
+    center !important;
+
+  min-height:
+    94px !important;
+
+  margin:
+    0
+    -10px !important;
+
+  padding:
+    23px
+    10px !important;
+
+  border-radius:
+    14px !important;
+
+  background:
+    transparent !important;
+
+  color:
+    var(--color-text) !important;
 
   font-size:
-    clamp(1.12rem, 1.75vw, 1.45rem);
+    1.08rem !important;
 
-  font-weight: 760;
-  line-height: 1.27;
+  font-weight:
+    750 !important;
+
+  line-height:
+    1.4 !important;
+
+  cursor:
+    pointer !important;
+
+  list-style:
+    none !important;
 
   transition:
-    color 180ms ease,
-    padding-left 180ms ease;
+    background-color
+    180ms
+    ease !important;
 }
 
-.actualization-faq summary::-webkit-details-marker {
-  display: none;
+
+.actualization-faq__list
+summary::-webkit-details-marker {
+  display:
+    none !important;
 }
 
-.actualization-faq summary::after {
-  content: "";
 
-  position: absolute;
+/* Question number */
+
+.actualization-faq__list
+summary::before {
+  position:
+    static !important;
+
+  display:
+    block !important;
+
+  width:
+    auto !important;
+
+  height:
+    auto !important;
+
+  border:
+    0 !important;
+
+  background:
+    transparent !important;
+
+  color:
+    var(--color-text-secondary) !important;
+
+  content:
+    counter(
+      faq-counter,
+      decimal-leading-zero
+    ) !important;
+
+  font-size:
+    .72rem !important;
+
+  font-weight:
+    800 !important;
+
+  line-height:
+    1 !important;
+
+  letter-spacing:
+    .09em !important;
+
+  transform:
+    none !important;
+}
+
+
+/* Toggle */
+
+.actualization-faq__list
+summary::after {
+  position:
+    static !important;
 
   top: 50%;
   right: 0;
 
-  width: 32px;
-  height: 32px;
+  display:
+    inline-flex !important;
 
-  border-radius: 50%;
+  align-items:
+    center !important;
+
+  justify-content:
+    center !important;
+
+  width:
+    28px !important;
+
+  height:
+    28px !important;
+
+  padding:
+    0 !important;
+
+  border:
+    0 !important;
+
+  border-radius:
+    0 !important;
 
   background:
-    linear-gradient(
-      #a9f04a,
-      #a9f04a
-    )
-    center / 10px 2px
-    no-repeat,
+    transparent !important;
 
-    linear-gradient(
-      #a9f04a,
-      #a9f04a
-    )
-    center / 2px 10px
-    no-repeat,
+  color:
+    var(--color-text) !important;
 
-    #111111;
+  content:
+    "+" !important;
+
+  font-size:
+    20px !important;
+
+  font-weight:
+    500 !important;
+
+  line-height:
+    1 !important;
 
   transform:
-    translateY(-50%);
+    none !important;
 
   transition:
     transform 180ms ease,
     background-color 180ms ease;
 }
 
-.actualization-faq details[open] summary::after {
-  background:
-    linear-gradient(
-      #a9f04a,
-      #a9f04a
-    )
-    center / 10px 2px
-    no-repeat,
 
-    #111111;
+.actualization-faq__list
+details[open]
+summary::after {
+  border-radius:
+    50% !important;
+
+  background:
+    #a9f04a !important;
+
+  color:
+    #151515 !important;
+
+  content:
+    "−" !important;
 }
 
-.actualization-faq details p {
-  max-width: 840px;
+
+/* Answer */
+
+.actualization-faq__list
+details > p {
+  max-width:
+    750px !important;
 
   margin:
-    -3px
+    0 !important;
+
+  padding:
     0
-    29px;
+    54px
+    28px
+    72px !important;
 
-  color: var(--color-text-secondary);
+  border:
+    0 !important;
 
-  line-height: 1.7;
+  background:
+    transparent !important;
+
+  color:
+    var(--color-text-secondary) !important;
+
+  line-height:
+    1.72 !important;
 }
 
 
-/* ==========================================================
-   Hover / desktop interaction
-   ========================================================== */
+@media (hover: hover) {
+  .actualization-faq__list
+  summary:hover {
+    background:
+      #f5f5f1 !important;
+  }
+}
+
+
+.actualization-faq__list
+details[open]
+summary {
+  background:
+    #f5f5f1 !important;
+}
+
+
+/* Responsive */
+
+@media (max-width: 1024px) {
+  .actualization-faq > div {
+    grid-template-columns:
+      1fr !important;
+  }
+
+
+  .actualization-faq
+  .actualization-section-head {
+    position:
+      static !important;
+
+    max-width:
+      740px !important;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .actualization-faq {
+    padding-top:
+      80px !important;
+
+    padding-bottom:
+      86px !important;
+  }
+
+
+  .actualization-faq__list {
+    padding:
+      0
+      18px !important;
+  }
+
+
+  .actualization-faq__list summary {
+    grid-template-columns:
+      44px
+      minmax(0, 1fr)
+      32px !important;
+  }
+
+
+  .actualization-faq__list
+  details > p {
+    padding-left:
+      62px !important;
+  }
+}
+
+
+@media (max-width: 430px) {
+  .actualization-faq
+  .actualization-section-head h2 {
+    font-size:
+      2.4rem !important;
+  }
+
+
+  .actualization-faq__list {
+    padding:
+      0
+      12px !important;
+
+    border-radius:
+      18px !important;
+  }
+
+
+  .actualization-faq__list summary {
+    grid-template-columns:
+      34px
+      minmax(0, 1fr)
+      28px !important;
+
+    gap:
+      12px !important;
+  }
+
+
+  .actualization-faq__list
+  details > p {
+    padding:
+      0
+      28px
+      26px
+      46px !important;
+  }
+}
+
+
+@media (max-width: 320px) {
+  .actualization-faq
+  .actualization-section-head h2 {
+    font-size:
+      2.05rem !important;
+  }
+
+
+  .actualization-faq__list summary {
+    grid-template-columns:
+      minmax(0, 1fr)
+      28px !important;
+  }
+
+
+  .actualization-faq__list
+  summary::before {
+    display:
+      none !important;
+  }
+
+
+  .actualization-faq__list
+  details > p {
+    padding-left:
+      0 !important;
+  }
+}
+
+
+/* ==========================================================================
+   DESKTOP INTERACTIONS
+   ========================================================================== */
 
 @media (hover: hover) and (pointer: fine) {
   .actualization-breadcrumbs a:hover {
@@ -1822,15 +2289,13 @@
     padding-left: 34px;
   }
 
-  .actualization-faq summary:hover {
-    padding-left: 8px;
-  }
+
 }
 
 
-/* ==========================================================
-   Entry animation
-   ========================================================== */
+/* ==========================================================================
+   ENTRY ANIMATION
+   ========================================================================== */
 
 @keyframes actualization-rise {
   from {
@@ -1858,9 +2323,9 @@
 }
 
 
-/* ==========================================================
-   1180
-   ========================================================== */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — ≤ 1180px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
   .actualization-hero__grid {
@@ -1892,9 +2357,9 @@
 }
 
 
-/* ==========================================================
-   1024
-   ========================================================== */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — ≤ 1024px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1024px) {
   .actualization-hero__grid,
@@ -1927,9 +2392,11 @@
 
   .actualization-checklist__layout > div:first-child {
     position: static;
+
+    width: auto;
+    max-width: none;
   }
 
-  .actualization-checklist__layout > div:first-child,
   .actualization-scope__layout > div:first-child {
     max-width: 720px;
   }
@@ -1963,9 +2430,9 @@
 }
 
 
-/* ==========================================================
-   768
-   ========================================================== */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — ≤ 768px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 768px) {
   .actualization-hero {
@@ -2081,9 +2548,9 @@
 }
 
 
-/* ==========================================================
-   430
-   ========================================================== */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — ≤ 430px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 430px) {
   .actualization-kicker {
@@ -2162,25 +2629,29 @@
   }
 
   .actualization-definition,
-  .actualization-reasons,
-  .actualization-checklist,
-  .actualization-work,
-  .actualization-scope,
-  .actualization-documents,
-  .actualization-periods,
-  .actualization-replacement,
-  .actualization-objects,
-  .actualization-faq {
+.actualization-reasons,
+.actualization-checklist,
+.actualization-work,
+.actualization-scope,
+.actualization-documents,
+.actualization-periods,
+.actualization-replacement,
+.actualization-objects {
     padding:
       76px
       0;
   }
 
   .actualization-category,
-  .actualization-standard,
-  .actualization-price {
+  .actualization-standard {
     padding:
       64px
+      0;
+  }
+
+  .actualization-price {
+    padding:
+      70px
       0;
   }
 
@@ -2209,11 +2680,15 @@
 
   .actualization-checklist h2,
   .actualization-scope h2,
-  .actualization-documents h2,
   .actualization-price h2,
   .actualization-standard h2 {
     font-size:
       clamp(2.25rem, 10.5vw, 3rem);
+  }
+
+  .actualization-documents h2 {
+    font-size:
+      clamp(2rem, 9.2vw, 2.5rem);
   }
 
   .actualization-checklist__items li {
@@ -2325,26 +2800,13 @@
     min-height: 94px;
   }
 
-  .actualization-faq summary {
-    padding:
-      23px
-      48px
-      23px
-      0;
 
-    font-size: 1.06rem;
-  }
-
-  .actualization-faq summary::after {
-    width: 30px;
-    height: 30px;
-  }
 }
 
 
-/* ==========================================================
-   390
-   ========================================================== */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — ≤ 390px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 390px) {
   .actualization-hero h1 {
@@ -2376,9 +2838,9 @@
 }
 
 
-/* ==========================================================
-   320
-   ========================================================== */
+/* --------------------------------------------------------------------------
+   RESPONSIVE — ≤ 320px
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 320px) {
   .actualization-hero {
@@ -2440,9 +2902,9 @@
 }
 
 
-/* ==========================================================
-   Reduced motion
-   ========================================================== */
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
   .actualization-page *,
@@ -2457,12 +2919,14 @@
   }
 }
 
-/* ACTUALIZATION_PAGE_REFINEMENTS:start */
+/* ==========================================================================
+   COMPONENT REFINEMENTS
+   ========================================================================== */
 
 
-/* ==========================================================
-   Hero
-   ========================================================== */
+/* --------------------------------------------------------------------------
+   ActualizationHeroAndDefinition.jsx — HERO REFINEMENT
+   -------------------------------------------------------------------------- */
 
 @media (min-width: 1180px) {
   .actualization-hero__grid {
@@ -2480,9 +2944,9 @@
 }
 
 
-/* ==========================================================
-   Definition — "или"
-   ========================================================== */
+/* --------------------------------------------------------------------------
+   ActualizationHeroAndDefinition.jsx — DEFINITION CONTROL REFINEMENT
+   -------------------------------------------------------------------------- */
 
 .actualization-definition__or {
   transition:
@@ -2510,14 +2974,9 @@
 }
 
 
-/* ==========================================================
-   Checklist
-   ========================================================== */
-
-.actualization-checklist__layout {
-  align-items: start;
-}
-
+/* --------------------------------------------------------------------------
+   ActualizationChecklist.jsx — LAYOUT REFINEMENT
+   -------------------------------------------------------------------------- */
 
 .actualization-checklist__layout > div:first-child,
 .actualization-checklist__items {
@@ -2587,12 +3046,6 @@
 
 
 @media (max-width: 1024px) {
-  .actualization-checklist__layout > div:first-child {
-    width: auto;
-    max-width: none;
-  }
-
-
   .actualization-checklist h2 {
     width: auto;
     max-width: 680px;
@@ -2605,9 +3058,9 @@
 }
 
 
-/* ==========================================================
-   Work timeline
-   ========================================================== */
+/* --------------------------------------------------------------------------
+   ActualizationWorkProcess.jsx — TIMELINE INTERACTION
+   -------------------------------------------------------------------------- */
 
 .actualization-work__number {
   background: #111111;
@@ -2657,18 +3110,9 @@
 }
 
 
-/* ==========================================================
-   Price
-   ========================================================== */
-
-.actualization-price {
-  padding:
-    clamp(96px, 9vw, 145px)
-    0;
-
-  background: #ffffff;
-}
-
+/* --------------------------------------------------------------------------
+   ActualizationPricing.jsx — PRESENTATION REFINEMENT
+   -------------------------------------------------------------------------- */
 
 .actualization-page
 .actualization-price__panel {
@@ -2732,7 +3176,7 @@
 }
 
 
-/* Price heading */
+/* ActualizationPricing.jsx — heading */
 
 .actualization-price__heading {
   position: relative;
@@ -2781,7 +3225,7 @@
 }
 
 
-/* Price card */
+/* ActualizationPricing.jsx — pricing card */
 
 .actualization-page
 .actualization-price__card {
@@ -2852,7 +3296,7 @@
 }
 
 
-/* Price factor */
+/* ActualizationPricing.jsx — price factor */
 
 .actualization-page
 .actualization-price__factor {
@@ -2930,7 +3374,7 @@
 }
 
 
-/* Price CTA */
+/* ActualizationPricing.jsx — CTA */
 
 .actualization-page
 .actualization-price__action {
@@ -3003,30 +3447,12 @@
 }
 
 
-/* ==========================================================
-   Documents
-   ========================================================== */
+/* --------------------------------------------------------------------------
+   ActualizationRequiredDocuments.jsx — LAYOUT REFINEMENT
+   -------------------------------------------------------------------------- */
 
 .actualization-documents__grid > div:first-child {
   min-width: 0;
-}
-
-
-.actualization-documents h2 {
-  width: 100%;
-  max-width: 100%;
-
-  font-size:
-    clamp(2.4rem, 2.8vw, 3.25rem);
-
-  line-height: .99;
-  letter-spacing: -.05em;
-
-  overflow-wrap: normal;
-  word-break: normal;
-  hyphens: none;
-
-  text-wrap: balance;
 }
 
 
@@ -3042,9 +3468,9 @@
 }
 
 
-/* ==========================================================
-   Tablet
-   ========================================================== */
+/* --------------------------------------------------------------------------
+   RESPONSIVE REFINEMENTS — TABLET
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1024px) {
   .actualization-page
@@ -3061,16 +3487,11 @@
 }
 
 
-/* ==========================================================
-   Mobile
-   ========================================================== */
+/* --------------------------------------------------------------------------
+   RESPONSIVE REFINEMENTS — MOBILE
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 430px) {
-  .actualization-price {
-    padding: 70px 0;
-  }
-
-
   .actualization-page
   .actualization-price__panel {
     gap: 30px;
@@ -3105,16 +3526,12 @@
   }
 
 
-  .actualization-documents h2 {
-    font-size:
-      clamp(2rem, 9.2vw, 2.5rem);
-  }
 }
 
 
-/* ==========================================================
-   Reduced motion
-   ========================================================== */
+/* --------------------------------------------------------------------------
+   COMPONENT REFINEMENTS — REDUCED MOTION
+   -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
   .actualization-work__number,
@@ -3124,10 +3541,9 @@
 }
 
 
-/* ACTUALIZATION_PAGE_REFINEMENTS:end */
-
-
-/* EDUCATION_ACTUALIZATION_BACKLINK_V1:start */
+/* --------------------------------------------------------------------------
+   ActualizationObjectTypes.jsx — RELATED-PAGE LINK
+   -------------------------------------------------------------------------- */
 
 .actualization-objects__list h3 a {
   color: inherit;
@@ -3141,374 +3557,19 @@
   color: #76b922;
 }
 
-/* EDUCATION_ACTUALIZATION_BACKLINK_V1:end */
-
-
-/* ========================================================
-   UNIFIED_FAQ_TRADE_STYLE_V1
-   Reference: TradePage FAQ
-   ======================================================== */
-
-.actualization-faq {
-  padding: 116px 0 126px !important;
-  background: #f5f5f1 !important;
-}
-
 
 /* Container = layout */
-
-.actualization-faq > div {
-  display: grid !important;
-
-  grid-template-columns:
-    minmax(300px, .62fr)
-    minmax(0, 1.15fr) !important;
-
-  gap:
-    clamp(
-      70px,
-      10vw,
-      165px
-    ) !important;
-}
-
-
-.actualization-faq
-.actualization-section-head {
-  position: sticky !important;
-
-  top: 110px !important;
-
-  align-self: start !important;
-
-  margin: 0 !important;
-}
-
-
-.actualization-faq
-.actualization-section-head h2 {
-  max-width: 600px !important;
-
-  margin: 0 !important;
-
-  font-size:
-    clamp(
-      2.65rem,
-      3.9vw,
-      4.25rem
-    ) !important;
-
-  line-height: 1 !important;
-  letter-spacing: -.055em !important;
-
-  text-wrap: balance;
-}
-
-
-.actualization-faq__list {
-  overflow: hidden !important;
-
-  padding: 0 26px !important;
-
-  border:
-    1px solid
-    var(--color-border) !important;
-
-  border-radius:
-    var(--radius-lg) !important;
-
-  background: #fff !important;
-
-  box-shadow:
-    var(--shadow-soft) !important;
-
-  counter-reset: faq-counter;
-}
-
-
-.actualization-faq__list details {
-  margin: 0 !important;
-
-  border: 0 !important;
-
-  border-bottom:
-    1px solid
-    var(--color-border) !important;
-
-  border-radius: 0 !important;
-
-  background: transparent !important;
-
-  box-shadow: none !important;
-
-  counter-increment: faq-counter;
-}
-
-
-.actualization-faq__list details:last-child {
-  border-bottom: 0 !important;
-}
-
-
-.actualization-faq__list summary {
-  display: grid !important;
-
-  grid-template-columns:
-    54px
-    minmax(0, 1fr)
-    36px !important;
-
-  gap: 18px !important;
-  align-items: center !important;
-
-  min-height: 94px !important;
-
-  margin: 0 -10px !important;
-
-  padding:
-    23px
-    10px !important;
-
-  border-radius: 14px !important;
-
-  background: transparent !important;
-
-  color:
-    var(--color-text) !important;
-
-  font-size: 1.08rem !important;
-  font-weight: 750 !important;
-  line-height: 1.4 !important;
-
-  cursor: pointer !important;
-  list-style: none !important;
-
-  transition:
-    background-color 180ms ease !important;
-}
-
-
-.actualization-faq__list
-summary::-webkit-details-marker {
-  display: none !important;
-}
 
 
 /* 01 / 02 / 03 */
 
-.actualization-faq__list summary::before {
-  position: static !important;
-
-  display: block !important;
-
-  width: auto !important;
-  height: auto !important;
-
-  border: 0 !important;
-
-  background: transparent !important;
-
-  color:
-    var(--color-text-secondary) !important;
-
-  content:
-    counter(
-      faq-counter,
-      decimal-leading-zero
-    ) !important;
-
-  font-size: .72rem !important;
-  font-weight: 800 !important;
-  line-height: 1 !important;
-  letter-spacing: .09em !important;
-
-  transform: none !important;
-}
-
 
 /* + справа */
 
-.actualization-faq__list summary::after {
-  position: static !important;
 
-  display: inline-flex !important;
-
-  align-items: center !important;
-  justify-content: center !important;
-
-  width: 28px !important;
-  height: 28px !important;
-
-  padding: 0 !important;
-
-  border: 0 !important;
-  border-radius: 0 !important;
-
-  background: transparent !important;
-
-  color:
-    var(--color-text) !important;
-
-  content: '+' !important;
-
-  font-size: 20px !important;
-  font-weight: 500 !important;
-  line-height: 1 !important;
-
-  transform: none !important;
-}
-
-
-.actualization-faq__list
-details[open]
-summary::after {
-  border-radius: 50% !important;
-
-  background: #a9f04a !important;
-  color: #151515 !important;
-
-  content: '−' !important;
-}
-
-
-.actualization-faq__list details > p {
-  max-width: 750px !important;
-
-  margin: 0 !important;
-
-  padding:
-    0
-    54px
-    28px
-    72px !important;
-
-  border: 0 !important;
-
-  background: transparent !important;
-
-  color:
-    var(--color-text-secondary) !important;
-
-  line-height: 1.72 !important;
-}
-
-
-@media (hover: hover) {
-  .actualization-faq__list summary:hover {
-    background: #f5f5f1 !important;
-  }
-}
-
-
-.actualization-faq__list
-details[open]
-summary {
-  background: #f5f5f1 !important;
-}
-
-
-@media (max-width: 1024px) {
-  .actualization-faq > div {
-    grid-template-columns: 1fr !important;
-  }
-
-  .actualization-faq
-  .actualization-section-head {
-    position: static !important;
-
-    max-width: 740px !important;
-  }
-}
-
-
-@media (max-width: 768px) {
-  .actualization-faq {
-    padding-top: 80px !important;
-    padding-bottom: 86px !important;
-  }
-
-  .actualization-faq__list {
-    padding:
-      0
-      18px !important;
-  }
-
-  .actualization-faq__list summary {
-    grid-template-columns:
-      44px
-      minmax(0, 1fr)
-      32px !important;
-  }
-
-  .actualization-faq__list details > p {
-    padding-left: 62px !important;
-  }
-}
-
-
-@media (max-width: 430px) {
-  .actualization-faq
-  .actualization-section-head h2 {
-    font-size: 2.4rem !important;
-  }
-
-  .actualization-faq__list {
-    padding:
-      0
-      12px !important;
-
-    border-radius: 18px !important;
-  }
-
-  .actualization-faq__list summary {
-    grid-template-columns:
-      34px
-      minmax(0, 1fr)
-      28px !important;
-
-    gap: 12px !important;
-  }
-
-  .actualization-faq__list details > p {
-    padding:
-      0
-      28px
-      26px
-      46px !important;
-  }
-}
-
-
-@media (max-width: 320px) {
-  .actualization-faq
-  .actualization-section-head h2 {
-    font-size: 2.05rem !important;
-  }
-
-  .actualization-faq__list summary {
-    grid-template-columns:
-      minmax(0, 1fr)
-      28px !important;
-  }
-
-  .actualization-faq__list
-  summary::before {
-    display: none !important;
-  }
-
-  .actualization-faq__list details > p {
-    padding-left: 0 !important;
-  }
-}
-
-/* ========================================================
-   /UNIFIED_FAQ_TRADE_STYLE_V1
-   ======================================================== */
-
-
-/* ========================================================
-   ACTUALIZATION_CHECK_BUTTON_ARROW_V1
-   ======================================================== */
+/* --------------------------------------------------------------------------
+   ActualizationChecklist.jsx — CHECK BUTTON ARROW
+   -------------------------------------------------------------------------- */
 
 .actualization-check-button {
   display: inline-flex;
@@ -3550,7 +3611,3 @@ summary {
     font-size: 20px;
   }
 }
-
-/* ========================================================
-   /ACTUALIZATION_CHECK_BUTTON_ARROW_V1
-   ======================================================== */
