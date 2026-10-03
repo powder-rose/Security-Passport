@@ -1,6 +1,31 @@
 
 
-/* Error state heading */
+/* ==========================================================================
+   ARTICLE PAGE
+
+   React entry:
+   - ArticlePage.jsx
+
+   Local components:
+   - ArticleSeo.jsx
+     document metadata only; no visual CSS ownership
+
+   - ArticlePageState.jsx
+     loading, not-found and error states
+     .article-page-state
+     .article-page-state__inner
+
+   External content component:
+   - ArticleView.jsx
+     article presentation styles are owned outside ArticlePage.css
+
+   This file contains only ArticlePage-specific state styling.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   ArticlePageState.jsx — STATE HEADING
+   ========================================================================== */
 
 .article-page-state__inner h2 {
   margin: 0;
