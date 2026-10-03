@@ -1,6 +1,6 @@
-import Container from "../../../components/ui/Container/Container";
+import Container from "../../../../components/ui/Container/Container";
 
-import { tradeObjects } from "../tradePageData";
+import { tradeObjects } from "../../tradePageData";
 
 export default function TradeHeroAndObjects({ city }) {
   return (

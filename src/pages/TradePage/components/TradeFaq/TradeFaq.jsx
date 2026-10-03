@@ -1,6 +1,6 @@
-import Container from "../../../components/ui/Container/Container";
+import Container from "../../../../components/ui/Container/Container";
 
-import { tradeFaqItems } from "../tradePageData";
+import { tradeFaqItems } from "../../tradePageData";
 
 export default function TradeFaq() {
   return (
