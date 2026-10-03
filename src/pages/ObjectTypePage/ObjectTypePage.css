@@ -1,12 +1,79 @@
+/* ==========================================================================
+   OBJECT TYPE PAGE
+   ==========================================================================
+
+   React entry:
+   ObjectTypePage.jsx
+
+   LOCAL COMPONENT OWNERSHIP
+
+   01. ObjectTypeHero.jsx
+       .object-service-hero*
+       .object-service-breadcrumbs
+
+   02. ObjectTypeServiceScope.jsx
+       .object-service-scope*
+
+   03. ObjectTypeLegalGuide.jsx
+       .object-legal*
+
+   PAGE ROOT
+       .object-service-page
+
+   SHARED / GLOBAL UTILITIES REFERENCED HERE
+       .container
+       .button
+       .button--primary
+       .coverage-emphasis
+
+   EXTERNAL SECTIONS
+
+       ObjectQuiz
+       Process
+       Advantages
+       Prices
+       RequiredDocuments
+       Expert
+       FAQ
+       FinalCTA
+
+   The shared FAQ component keeps its base styles in:
+       src/sections/FAQ/FAQ.css
+
+   ObjectTypePage.css contains only the page-specific FAQ
+   presentation scoped through .object-service-page > .faq.
+
+   FILE ORGANIZATION
+
+   - Page and Hero
+   - Service scope
+   - Object-specific legal guide
+   - Legal checklist
+   - Hero responsive rules
+   - Shared FAQ presentation scoped to ObjectTypePage
+
+   This file documents the CURRENT rendered implementation.
+   ========================================================================== */
+
+
 .object-service-page {
   overflow: hidden;
 }
 
+/* ==========================================================================
+   ObjectTypeHero.jsx — HERO
+   ==========================================================================
+
+   Hero composition, breadcrumbs, offer content and
+   information card.
+   ========================================================================== */
+
 .object-service-hero {
   padding:
-    clamp(130px, 14vw, 190px)
+    clamp(120px, 10vw, 155px)
     0
-    clamp(76px, 8vw, 120px);
+    clamp(76px, 7vw, 105px);
+
   background:
     radial-gradient(
       circle at 82% 18%,
@@ -37,15 +104,20 @@
 
 .object-service-hero__grid {
   display: grid;
+
   grid-template-columns:
-    minmax(0, 1.5fr)
-    minmax(300px, .65fr);
-  gap: clamp(36px, 7vw, 100px);
-  align-items: end;
+    minmax(0, 1fr)
+    minmax(300px, 370px);
+
+  gap:
+    clamp(56px, 6vw, 96px);
+
+  align-items: center;
 }
 
 .object-service-hero__copy {
   min-width: 0;
+  max-width: 980px;
 }
 
 .object-service-hero__kicker,
@@ -60,24 +132,43 @@
 }
 
 .object-service-hero h1 {
-  max-width: 1000px;
+  max-width: 940px;
+
   margin: 0;
-  font-size: clamp(3rem, 6vw, 6.4rem);
-  line-height: .92;
-  letter-spacing: -.065em;
+
+  font-size:
+    clamp(3rem, 4.65vw, 5.25rem);
+
+  line-height: .95;
+  letter-spacing: -.058em;
 }
 
 .object-service-hero__lead {
-  max-width: 850px;
-  margin: 30px 0 0;
-  color: var(--color-text-secondary);
-  font-size: clamp(1.08rem, 1.6vw, 1.35rem);
+  max-width: 760px;
+
+  margin:
+    28px
+    0
+    0;
+
+  color:
+    var(--color-text-secondary);
+
+  font-size:
+    clamp(1.05rem, 1.3vw, 1.22rem);
+
   line-height: 1.55;
 }
 
 .object-service-hero__price {
-  margin: 24px 0 0;
-  font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+  margin:
+    24px
+    0
+    0;
+
+  font-size:
+    clamp(1.15rem, 1.45vw, 1.4rem);
+
   line-height: 1.2;
   font-weight: 850;
   letter-spacing: -.025em;
@@ -85,10 +176,14 @@
 
 .object-service-hero__actions {
   display: flex;
+
   flex-wrap: wrap;
+
   align-items: center;
+
   gap: 22px;
-  margin-top: 32px;
+
+  margin-top: 30px;
 }
 
 .object-service-hero__back {
@@ -110,25 +205,53 @@
 }
 
 .object-service-hero__card {
-  padding: clamp(24px, 3vw, 36px);
-  border: 1px solid rgba(21,21,21,.09);
-  border-radius: 30px;
+  width: 100%;
+  max-width: 370px;
+
+  justify-self: end;
+  align-self: center;
+
+  padding:
+    clamp(26px, 2.4vw, 34px);
+
+  border:
+    1px solid rgba(21,21,21,.09);
+
+  border-radius: 28px;
+
   background: #fff;
-  box-shadow: var(--shadow-soft);
+
+  box-shadow:
+    var(--shadow-soft);
 }
 
 .object-service-hero__card h2 {
-  margin: 0 0 16px;
-  font-size: clamp(1.7rem, 2.5vw, 2.55rem);
+  margin:
+    0
+    0
+    16px;
+
+  font-size:
+    clamp(1.65rem, 2.1vw, 2.25rem);
+
   line-height: 1.02;
   letter-spacing: -.04em;
 }
 
 .object-service-hero__card p:last-child {
   margin: 0;
-  color: var(--color-text-secondary);
-  line-height: 1.65;
+
+  color:
+    var(--color-text-secondary);
+
+  font-size: .96rem;
+
+  line-height: 1.6;
 }
+
+/* ==========================================================================
+   ObjectTypeServiceScope.jsx — SERVICE SCOPE
+   ========================================================================== */
 
 .object-service-scope {
   padding: clamp(84px, 10vw, 150px) 0;
@@ -191,14 +314,6 @@
 }
 
 @media (max-width: 980px) {
-  .object-service-hero__grid {
-    grid-template-columns: 1fr;
-  }
-
-  .object-service-hero__card {
-    max-width: 700px;
-  }
-
   .object-service-scope__grid {
     grid-template-columns:
       repeat(2, minmax(0, 1fr));
@@ -206,16 +321,8 @@
 }
 
 @media (max-width: 620px) {
-  .object-service-hero {
-    padding-top: 112px;
-  }
-
   .object-service-breadcrumbs {
     margin-bottom: 26px;
-  }
-
-  .object-service-hero h1 {
-    font-size: clamp(2.55rem, 13vw, 4rem);
   }
 
   .object-service-hero__actions {
@@ -237,9 +344,13 @@
 }
 
 
-/* ==========================================================
-   Object-specific legal content
-   ========================================================== */
+/* ==========================================================================
+   ObjectTypeLegalGuide.jsx — LEGAL GUIDE
+   ==========================================================================
+
+   Normative sources, details, notices and source-data checklist.
+   ==========================================================================
+*/
 
 .object-legal {
   padding:
@@ -273,8 +384,7 @@
     uppercase;
 }
 
-.object-legal__head h2,
-.object-legal__checklist-head h2 {
+.object-legal__head h2 {
   margin:
     0;
   font-size:
@@ -330,6 +440,8 @@
     #fff;
   color:
     var(--color-text);
+  cursor:
+    default;
   text-decoration:
     none;
   transition:
@@ -340,7 +452,7 @@
 
 .object-legal__source:hover {
   transform:
-    translateY(-3px);
+    none;
   border-color:
     rgba(169,240,74,.9);
   box-shadow:
@@ -373,11 +485,9 @@
     1.18;
 }
 
-.object-legal__source > span:not(
-  .object-legal__source-label
-):not(
-  .object-legal__source-link
-) {
+.object-legal__source-description {
+  display:
+    block;
   margin-top:
     10px;
   color:
@@ -394,31 +504,6 @@
   font-size:
     .84rem;
 }
-
-.object-legal__source-link {
-  display:
-    inline-flex;
-  align-items:
-    center;
-  gap:
-    8px;
-  margin-top:
-    auto;
-  padding-top:
-    28px;
-  font-size:
-    .88rem;
-  font-weight:
-    800;
-}
-
-.object-legal__source-link span {
-  color:
-    var(--color-primary);
-  font-size:
-    1.15rem;
-}
-
 
 .object-legal__details {
   display:
@@ -536,27 +621,49 @@
 .object-legal__checklist {
   display:
     grid;
+
   grid-template-columns:
-    minmax(0, .85fr)
-    minmax(400px, 1fr);
+    minmax(320px, .78fr)
+    minmax(0, 1.22fr);
+
   gap:
-    clamp(40px, 7vw, 100px);
-  margin-top:
-    clamp(80px, 9vw, 130px);
+    clamp(72px, 7vw, 120px);
+
   align-items:
     start;
+
+  margin-top:
+    clamp(88px, 9vw, 138px);
+
+  padding:
+    clamp(40px, 4.5vw, 58px);
+
+  border: 0;
+  border-radius: 32px;
+
+  background: #f8f5ef;
 }
 
 .object-legal__checklist-head {
   position:
-    sticky;
+    static;
+
   top:
     110px;
+
+  min-width: 0;
 }
 
 .object-legal__checklist-head h2 {
+  max-width: 590px;
+
+  margin: 0;
+
   font-size:
-    clamp(2.2rem, 3.7vw, 4rem);
+    clamp(2.35rem, 3.4vw, 3.75rem);
+
+  line-height: 1.01;
+  letter-spacing: -.052em;
 }
 
 .object-legal__checklist-head > p:last-child {
@@ -571,31 +678,52 @@
 .object-legal__checklist-list {
   display:
     grid;
-  gap:
-    0;
-  margin:
-    0;
-  padding:
-    0;
-  list-style:
-    none;
-  border-top:
-    1px solid rgba(21,21,21,.12);
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 14px;
+
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+
+  list-style: none;
 }
 
 .object-legal__checklist-list li {
   display:
-    grid;
+    flex;
+
+  flex-direction: column;
+
   grid-template-columns:
     44px minmax(0, 1fr);
-  gap:
-    18px;
+
+  gap: 18px;
+
   align-items:
     start;
+
+  min-height: 148px;
+
   padding:
-    22px 0;
-  border-bottom:
-    1px solid rgba(21,21,21,.12);
+    20px
+    22px
+    22px;
+
+  border:
+    1px solid rgba(21,21,21,.08);
+
+  border-radius: 20px;
+
+  background: #fff;
+
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease;
 }
 
 .object-legal__checklist-list li > span {
@@ -639,16 +767,6 @@
     grid-template-columns:
       1fr;
   }
-
-  .object-legal__checklist {
-    grid-template-columns:
-      1fr;
-  }
-
-  .object-legal__checklist-head {
-    position:
-      static;
-  }
 }
 
 
@@ -658,26 +776,25 @@
       78px 0;
   }
 
-  .object-legal__source,
-  .object-legal__detail,
-  .object-legal__important {
+  .object-legal__source {
+    min-height:
+      auto;
+
     border-radius:
       22px;
   }
 
-  .object-legal__source {
-    min-height:
-      auto;
+  .object-legal__detail {
+    border-radius:
+      22px;
   }
 
   .object-legal__important {
     grid-template-columns:
       1fr;
-  }
 
-  .object-legal__checklist {
-    margin-top:
-      72px;
+    border-radius:
+      22px;
   }
 
   .object-legal__public-note {
@@ -686,51 +803,19 @@
   }
 }
 
-/* ==========================================================
-   /Object-specific legal content
-   ========================================================== */
 
+/* ==========================================================================
+   ObjectTypeLegalGuide.jsx — CHECKLIST
+   ==========================================================================
 
-/* ==========================================================
-   Refined object checklist
-   ========================================================== */
+   Current source-data checklist composition.
+   ==========================================================================
+*/
 
-.object-legal__checklist {
-  display: grid;
-  grid-template-columns:
-    minmax(320px, .78fr)
-    minmax(0, 1.22fr);
-  gap: clamp(72px, 7vw, 120px);
-  align-items: start;
-
-  margin-top: clamp(88px, 9vw, 138px);
-  padding: clamp(40px, 4.5vw, 58px);
-
-  border: 0;
-  border-radius: 32px;
-
-  background: #f8f5ef;
-}
-
-
-/* LEFT */
-
-.object-legal__checklist-head {
-  position: static;
-  min-width: 0;
-}
+/* Checklist introduction */
 
 .object-legal__checklist-head .object-legal__kicker {
   margin-bottom: 20px;
-}
-
-.object-legal__checklist-head h2 {
-  max-width: 590px;
-  margin: 0;
-
-  font-size: clamp(2.35rem, 3.4vw, 3.75rem);
-  line-height: 1.01;
-  letter-spacing: -.052em;
 }
 
 .object-legal__checklist-head > p {
@@ -745,7 +830,7 @@
 }
 
 
-/* SMALL NOTE */
+/* Checklist note */
 
 .object-legal__checklist-note {
   display: flex;
@@ -789,41 +874,7 @@
 }
 
 
-/* RIGHT GRID */
-
-.object-legal__checklist-list {
-  display: grid;
-  grid-template-columns:
-    repeat(2, minmax(0, 1fr));
-
-  gap: 14px;
-
-  margin: 0;
-  padding: 0;
-
-  border: 0;
-
-  list-style: none;
-}
-
-.object-legal__checklist-list li {
-  display: flex;
-  flex-direction: column;
-
-  min-height: 148px;
-
-  padding: 20px 22px 22px;
-
-  border: 1px solid rgba(21,21,21,.08);
-  border-radius: 20px;
-
-  background: #fff;
-
-  transition:
-    transform .18s ease,
-    border-color .18s ease,
-    box-shadow .18s ease;
-}
+/* Checklist items */
 
 .object-legal__checklist-list li:hover {
   transform: translateY(-2px);
@@ -835,7 +886,7 @@
 }
 
 
-/* Fifth item fills the last row */
+/* Final checklist item spans the full row */
 .object-legal__checklist-list li:nth-child(5) {
   grid-column: 1 / -1;
 
@@ -843,7 +894,7 @@
 }
 
 
-/* NUMBER */
+/* Checklist item number */
 
 .object-legal__checklist-number {
   display: inline-flex;
@@ -867,7 +918,7 @@
 }
 
 
-/* CARD TEXT */
+/* Checklist item text */
 
 .object-legal__checklist-list li p {
   max-width: 360px;
@@ -886,7 +937,7 @@
 }
 
 
-/* TABLET */
+/* Responsive — tablet */
 
 @media (max-width: 980px) {
   .object-legal__checklist {
@@ -905,7 +956,7 @@
 }
 
 
-/* MOBILE */
+/* Responsive — mobile */
 
 @media (max-width: 620px) {
   .object-legal__checklist {
@@ -942,124 +993,16 @@
   }
 }
 
-/* ==========================================================
-   /Refined object checklist
-   ========================================================== */
 
+/* ==========================================================================
+   ObjectTypeHero.jsx — RESPONSIVE
+   ==========================================================================
 
-/* Normative cards are informational, not links */
+   Responsive Hero composition.
+   ==========================================================================
+*/
 
-.object-legal__source {
-  cursor: default;
-  text-decoration: none;
-}
-
-.object-legal__source:hover {
-  transform: none;
-}
-
-.object-legal__source-description {
-  display: block;
-  margin-top: 10px;
-  color: var(--color-text-secondary);
-  line-height: 1.5;
-}
-
-.object-legal__source-link {
-  display: none !important;
-}
-
-
-/* ==========================================================
-   Object page hero — balanced layout
-   ========================================================== */
-
-.object-service-hero {
-  padding:
-    clamp(120px, 10vw, 155px)
-    0
-    clamp(76px, 7vw, 105px);
-}
-
-.object-service-hero__grid {
-  grid-template-columns:
-    minmax(0, 1fr)
-    minmax(300px, 370px);
-
-  gap:
-    clamp(56px, 6vw, 96px);
-
-  align-items:
-    center;
-}
-
-.object-service-hero__copy {
-  min-width: 0;
-  max-width: 980px;
-}
-
-.object-service-hero h1 {
-  max-width: 940px;
-
-  font-size:
-    clamp(3rem, 4.65vw, 5.25rem);
-
-  line-height: .95;
-  letter-spacing: -.058em;
-}
-
-.object-service-hero__lead {
-  max-width: 760px;
-
-  margin-top: 28px;
-
-  font-size:
-    clamp(1.05rem, 1.3vw, 1.22rem);
-
-  line-height: 1.55;
-}
-
-.object-service-hero__price {
-  margin-top: 24px;
-
-  font-size:
-    clamp(1.15rem, 1.45vw, 1.4rem);
-}
-
-.object-service-hero__actions {
-  margin-top: 30px;
-}
-
-
-/* Right information card */
-
-.object-service-hero__card {
-  width: 100%;
-  max-width: 370px;
-
-  justify-self: end;
-  align-self: center;
-
-  padding:
-    clamp(26px, 2.4vw, 34px);
-
-  border-radius: 28px;
-}
-
-.object-service-hero__card h2 {
-  font-size:
-    clamp(1.65rem, 2.1vw, 2.25rem);
-
-  line-height: 1.02;
-}
-
-.object-service-hero__card p:last-child {
-  font-size: .96rem;
-  line-height: 1.6;
-}
-
-
-/* Medium screens */
+/* Responsive — medium screens */
 
 @media (max-width: 1100px) {
   .object-service-hero__grid {
@@ -1077,7 +1020,7 @@
 }
 
 
-/* Tablet */
+/* Responsive — tablet */
 
 @media (max-width: 900px) {
   .object-service-hero__grid {
@@ -1097,7 +1040,7 @@
 }
 
 
-/* Mobile */
+/* Responsive — mobile */
 
 @media (max-width: 620px) {
   .object-service-hero {
@@ -1127,33 +1070,35 @@
   }
 }
 
-/* ==========================================================
-   /Object page hero — balanced layout
-   ========================================================== */
 
+/* ==========================================================================
+   FAQ — shared FAQ.jsx scoped to ObjectTypePage
+   ==========================================================================
 
-/* ========================================================
-   SOCIAL_FAQ_TRADE_STYLE_V1
-   Trade FAQ style for generic ObjectTypePage only.
-   Main page FAQ is not affected.
-   ======================================================== */
+   ObjectTypePage renders the shared FAQ section.
 
-
-/* SECTION */
+   This block owns only the page-specific presentation of that
+   shared component. The generic FAQ component keeps its base
+   styles in src/sections/FAQ/FAQ.css.
+   ========================================================================== */
 
 .object-service-page > .faq {
-  padding: 116px 0 126px !important;
+  padding:
+    116px
+    0
+    126px !important;
 
-  border-top: 0 !important;
+  border-top:
+    0 !important;
 
-  background: #f5f5f1 !important;
+  background:
+    #f5f5f1 !important;
 }
 
 
-/* Two-column TradePage layout */
-
 .object-service-page > .faq > .container {
-  display: grid !important;
+  display:
+    grid !important;
 
   grid-template-columns:
     minmax(300px, .62fr)
@@ -1166,41 +1111,62 @@
       165px
     ) !important;
 
-  align-items: start !important;
+  align-items:
+    start !important;
 }
 
 
-/* LEFT COLUMN */
+/* --------------------------------------------------------------------------
+   Heading
+   -------------------------------------------------------------------------- */
 
 .object-service-page > .faq .faq__heading {
-  position: sticky !important;
-  top: 110px !important;
+  position:
+    sticky !important;
 
-  display: block !important;
+  top:
+    110px !important;
 
-  align-self: start !important;
+  display:
+    block !important;
 
-  margin: 0 !important;
+  align-self:
+    start !important;
+
+  margin:
+    0 !important;
 }
 
 
 .object-service-page > .faq .faq__kicker {
-  margin: 0 0 20px !important;
+  margin:
+    0
+    0
+    20px !important;
 
-  color: var(--color-primary) !important;
+  color:
+    var(--color-primary) !important;
 
-  font-size: .76rem !important;
-  font-weight: 800 !important;
+  font-size:
+    .76rem !important;
 
-  letter-spacing: .14em !important;
-  text-transform: uppercase !important;
+  font-weight:
+    800 !important;
+
+  letter-spacing:
+    .14em !important;
+
+  text-transform:
+    uppercase !important;
 }
 
 
 .object-service-page > .faq h2 {
-  max-width: 600px !important;
+  max-width:
+    600px !important;
 
-  margin: 0 !important;
+  margin:
+    0 !important;
 
   font-size:
     clamp(
@@ -1209,63 +1175,87 @@
       4.25rem
     ) !important;
 
-  line-height: 1 !important;
-  letter-spacing: -.055em !important;
+  line-height:
+    1 !important;
 
-  text-wrap: balance;
+  letter-spacing:
+    -.055em !important;
+
+  text-wrap:
+    balance;
 }
 
 
-/* На главной вторая часть заголовка серая.
-   Здесь делаем как в TradePage. */
-
 .object-service-page > .faq h2 em {
-  display: inline !important;
+  display:
+    inline !important;
 
-  color: inherit !important;
+  color:
+    inherit !important;
 
-  font-style: normal !important;
+  font-style:
+    normal !important;
 }
 
 
 .object-service-page > .faq .faq__intro {
-  max-width: 560px !important;
+  max-width:
+    560px !important;
 
-  margin: 30px 0 0 !important;
-  padding: 0 !important;
+  margin:
+    30px
+    0
+    0 !important;
+
+  padding:
+    0 !important;
 }
 
 
 .object-service-page > .faq .faq__intro p {
-  margin: 0 !important;
+  margin:
+    0 !important;
 
   color:
     var(--color-text-secondary) !important;
 
-  line-height: 1.72 !important;
+  line-height:
+    1.72 !important;
 }
 
 
 .object-service-page > .faq .faq__intro a {
-  display: inline-block !important;
+  display:
+    inline-block !important;
 
-  margin-top: 18px !important;
+  margin-top:
+    18px !important;
 
-  color: var(--color-text) !important;
+  color:
+    var(--color-text) !important;
 
-  font-size: .88rem !important;
-  font-weight: 750 !important;
+  font-size:
+    .88rem !important;
 
-  text-decoration: none !important;
+  font-weight:
+    750 !important;
+
+  text-decoration:
+    none !important;
 }
 
 
-/* RIGHT CARD */
+/* --------------------------------------------------------------------------
+   FAQ list
+   -------------------------------------------------------------------------- */
 
 .object-service-page > .faq .faq__list {
-  overflow: hidden !important;
+  overflow:
+    hidden !important;
 
-  padding: 0 26px !important;
+  padding:
+    0
+    26px !important;
 
   border:
     1px solid
@@ -1274,7 +1264,8 @@
   border-radius:
     var(--radius-lg) !important;
 
-  background: #fff !important;
+  background:
+    #fff !important;
 
   box-shadow:
     var(--shadow-soft) !important;
@@ -1282,66 +1273,87 @@
 
 
 .object-service-page > .faq .faq-item {
-  margin: 0 !important;
+  margin:
+    0 !important;
 
-  border: 0 !important;
+  border:
+    0 !important;
 
   border-bottom:
     1px solid
     var(--color-border) !important;
 
-  background: transparent !important;
+  background:
+    transparent !important;
 }
 
 
 .object-service-page > .faq .faq-item:last-child {
-  border-bottom: 0 !important;
+  border-bottom:
+    0 !important;
 }
 
 
 .object-service-page > .faq .faq-item__heading {
-  margin: 0 !important;
+  margin:
+    0 !important;
 }
 
 
-/* ROW */
+/* --------------------------------------------------------------------------
+   Question row
+   -------------------------------------------------------------------------- */
 
 .object-service-page > .faq .faq-item__button {
-  display: grid !important;
+  display:
+    grid !important;
 
   grid-template-columns:
     54px
     minmax(0, 1fr)
     36px !important;
 
-  gap: 18px !important;
+  gap:
+    18px !important;
 
-  align-items: center !important;
+  align-items:
+    center !important;
 
-  width: 100% !important;
-  min-height: 94px !important;
+  width:
+    100% !important;
 
-  margin: 0 -10px !important;
+  min-height:
+    94px !important;
+
+  margin:
+    0
+    -10px !important;
 
   padding:
     23px
     10px !important;
 
-  border: 0 !important;
-  border-radius: 14px !important;
+  border:
+    0 !important;
 
-  background: transparent !important;
+  border-radius:
+    14px !important;
 
-  color: var(--color-text) !important;
+  background:
+    transparent !important;
 
-  text-align: left !important;
+  color:
+    var(--color-text) !important;
+
+  text-align:
+    left !important;
 
   transition:
-    background-color 180ms ease !important;
+    background-color
+    180ms
+    ease !important;
 }
 
-
-/* NUMBER — no circle */
 
 .object-service-page > .faq .faq-item__number,
 .object-service-page > .faq
@@ -1350,131 +1362,302 @@
 .object-service-page > .faq
 .faq-item__button:hover
 .faq-item__number {
-  display: block !important;
+  display:
+    block !important;
 
-  width: auto !important;
-  height: auto !important;
+  width:
+    auto !important;
 
-  border: 0 !important;
-  border-radius: 0 !important;
+  height:
+    auto !important;
 
-  background: transparent !important;
+  border:
+    0 !important;
+
+  border-radius:
+    0 !important;
+
+  background:
+    transparent !important;
 
   color:
     var(--color-text-secondary) !important;
 
-  font-size: .72rem !important;
-  font-weight: 800 !important;
-  line-height: 1 !important;
+  font-size:
+    .72rem !important;
 
-  letter-spacing: .09em !important;
+  font-weight:
+    800 !important;
+
+  line-height:
+    1 !important;
+
+  letter-spacing:
+    .09em !important;
 }
 
-
-/* QUESTION */
 
 .object-service-page > .faq .faq-item__question {
-  max-width: none !important;
+  max-width:
+    none !important;
 
-  font-size: 1.08rem !important;
-  font-weight: 750 !important;
+  font-size:
+    1.08rem !important;
 
-  line-height: 1.4 !important;
-  letter-spacing: 0 !important;
+  font-weight:
+    750 !important;
+
+  line-height:
+    1.4 !important;
+
+  letter-spacing:
+    0 !important;
 }
 
 
-/* +/- ICON */
+/* --------------------------------------------------------------------------
+   Toggle icon
+   -------------------------------------------------------------------------- */
 
 .object-service-page > .faq .faq-item__icon {
-  position: relative !important;
+  position:
+    relative !important;
 
-  justify-self: end !important;
+  display:
+    block !important;
 
-  width: 28px !important;
-  height: 28px !important;
+  justify-self:
+    end !important;
 
-  border: 0 !important;
-  border-radius: 0 !important;
+  width:
+    28px !important;
 
-  background: transparent !important;
+  height:
+    28px !important;
 
-  color: var(--color-text) !important;
+  flex:
+    none !important;
 
-  transform: none !important;
+  border:
+    0 !important;
+
+  border-radius:
+    50% !important;
+
+  background:
+    transparent !important;
+
+  color:
+    #151515 !important;
+
+  transform:
+    none !important;
 
   transition:
     background-color 180ms ease,
-    color 180ms ease !important;
+    color 180ms ease,
+    border-radius 180ms ease !important;
+}
+
+
+/*
+   FAQ.jsx still renders two inner spans for the generic FAQ
+   implementation. ObjectTypePage uses pseudo-elements for its
+   scoped icon, so the generic span lines stay hidden here.
+*/
+
+.object-service-page > .faq
+.faq-item__icon > span {
+  display:
+    none !important;
+}
+
+
+.object-service-page > .faq
+.faq-item__icon::before {
+  position:
+    absolute !important;
+
+  top:
+    50% !important;
+
+  left:
+    50% !important;
+
+  display:
+    block !important;
+
+  width:
+    16px !important;
+
+  height:
+    2px !important;
+
+  border:
+    0 !important;
+
+  border-radius:
+    999px !important;
+
+  background:
+    currentColor !important;
+
+  content:
+    "" !important;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    ) !important;
+
+  transform-origin:
+    center !important;
+
+  transition:
+    transform
+    180ms
+    ease !important;
+}
+
+
+.object-service-page > .faq
+.faq-item__icon::after {
+  position:
+    absolute !important;
+
+  top:
+    50% !important;
+
+  left:
+    50% !important;
+
+  display:
+    block !important;
+
+  width:
+    16px !important;
+
+  height:
+    2px !important;
+
+  border:
+    0 !important;
+
+  border-radius:
+    999px !important;
+
+  background:
+    currentColor !important;
+
+  content:
+    "" !important;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    )
+    rotate(90deg) !important;
+
+  transform-origin:
+    center !important;
+
+  transition:
+    transform
+    180ms
+    ease !important;
 }
 
 
 .object-service-page > .faq
 .faq-item__button:hover
 .faq-item__icon {
-  border: 0 !important;
+  border:
+    0 !important;
 
-  background: transparent !important;
+  border-radius:
+    0 !important;
 
-  color: var(--color-text) !important;
+  background:
+    transparent !important;
+
+  color:
+    #151515 !important;
+
+  transform:
+    none !important;
 }
 
 
 .object-service-page > .faq
 .faq-item--open
+.faq-item__icon,
+
+.object-service-page > .faq
+.faq-item__button[aria-expanded="true"]
+.faq-item__icon,
+
+.object-service-page > .faq
+.faq-item__button[aria-expanded="true"]:hover
 .faq-item__icon {
-  border: 0 !important;
+  border:
+    0 !important;
 
-  border-radius: 50% !important;
+  border-radius:
+    50% !important;
 
-  background: #a9f04a !important;
+  background:
+    #a9f04a !important;
 
-  color: #151515 !important;
-}
-
-
-.object-service-page > .faq
-.faq-item__icon span {
-  position: absolute !important;
-
-  top: 50% !important;
-  left: 50% !important;
-
-  width: 16px !important;
-  height: 2px !important;
-
-  border-radius: 999px !important;
-
-  background: currentColor !important;
+  color:
+    #151515 !important;
 
   transform:
-    translate(-50%, -50%) !important;
-}
-
-
-.object-service-page > .faq
-.faq-item__icon span:last-child {
-  transform:
-    translate(-50%, -50%)
-    rotate(90deg) !important;
+    none !important;
 }
 
 
 .object-service-page > .faq
 .faq-item--open
-.faq-item__icon span:last-child {
+.faq-item__icon::after,
+
+.object-service-page > .faq
+.faq-item__button[aria-expanded="true"]
+.faq-item__icon::after {
   transform:
-    translate(-50%, -50%)
+    translate(
+      -50%,
+      -50%
+    )
     rotate(0deg) !important;
 }
 
 
-/* OPEN / HOVER ROW */
+.object-service-page > .faq
+.faq-item--open
+.faq-item__icon::before,
+
+.object-service-page > .faq
+.faq-item__button[aria-expanded="true"]
+.faq-item__icon::before {
+  transform:
+    translate(
+      -50%,
+      -50%
+    ) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   Open / hover states
+   -------------------------------------------------------------------------- */
 
 @media (hover: hover) {
   .object-service-page > .faq
   .faq-item__button:hover {
-    background: #f5f5f1 !important;
+    background:
+      #f5f5f1 !important;
   }
 }
 
@@ -1482,22 +1665,29 @@
 .object-service-page > .faq
 .faq-item--open
 .faq-item__button {
-  background: #f5f5f1 !important;
+  background:
+    #f5f5f1 !important;
 }
 
 
-/* ANSWER */
+/* --------------------------------------------------------------------------
+   Answer
+   -------------------------------------------------------------------------- */
 
-.object-service-page > .faq .faq-item__panel[hidden] {
-  display: none !important;
+.object-service-page > .faq
+.faq-item__panel[hidden] {
+  display:
+    none !important;
 }
 
 
-.object-service-page > .faq .faq-item__answer {
-  display: block !important;
+.object-service-page > .faq
+.faq-item__answer {
+  display:
+    block !important;
 
   padding:
-    0
+    18px
     54px
     28px
     72px !important;
@@ -1508,52 +1698,61 @@
 .faq-item__answer::before,
 .object-service-page > .faq
 .faq-item__answer::after {
-  display: none !important;
+  display:
+    none !important;
 
-  content: none !important;
+  content:
+    none !important;
 }
 
 
 .object-service-page > .faq
 .faq-item__answer p {
-  max-width: 750px !important;
+  max-width:
+    750px !important;
 
-  margin: 0 !important;
+  margin:
+    0 !important;
 
   color:
     var(--color-text-secondary) !important;
 
-  font-size: 1rem !important;
+  font-size:
+    1rem !important;
 
-  line-height: 1.72 !important;
+  line-height:
+    1.72 !important;
 }
 
 
-/* TABLET */
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 1024px) {
-
   .object-service-page > .faq > .container {
-    grid-template-columns: 1fr !important;
+    grid-template-columns:
+      1fr !important;
   }
 
 
   .object-service-page > .faq .faq__heading {
-    position: static !important;
+    position:
+      static !important;
 
-    max-width: 740px !important;
+    max-width:
+      740px !important;
   }
-
 }
 
 
-/* MOBILE */
-
 @media (max-width: 768px) {
-
   .object-service-page > .faq {
-    padding-top: 80px !important;
-    padding-bottom: 86px !important;
+    padding-top:
+      80px !important;
+
+    padding-bottom:
+      86px !important;
   }
 
 
@@ -1575,16 +1774,16 @@
 
   .object-service-page > .faq
   .faq-item__answer {
-    padding-left: 62px !important;
+    padding-left:
+      62px !important;
   }
-
 }
 
 
 @media (max-width: 430px) {
-
   .object-service-page > .faq h2 {
-    font-size: 2.4rem !important;
+    font-size:
+      2.4rem !important;
   }
 
 
@@ -1593,7 +1792,8 @@
       0
       12px !important;
 
-    border-radius: 18px !important;
+    border-radius:
+      18px !important;
   }
 
 
@@ -1604,32 +1804,33 @@
       minmax(0, 1fr)
       28px !important;
 
-    gap: 12px !important;
+    gap:
+      12px !important;
   }
 
 
   .object-service-page > .faq
   .faq-item__answer {
     padding:
-      0
+      18px
       28px
       26px
       46px !important;
   }
-
 }
 
 
 @media (max-width: 320px) {
-
   .object-service-page > .faq h2 {
-    font-size: 2.05rem !important;
+    font-size:
+      2.05rem !important;
   }
 
 
   .object-service-page > .faq
   .faq-item__number {
-    display: none !important;
+    display:
+      none !important;
   }
 
 
@@ -1643,225 +1844,21 @@
 
   .object-service-page > .faq
   .faq-item__answer {
-    padding-left: 0 !important;
+    padding-left:
+      0 !important;
   }
-
-}
-
-
-/* ========================================================
-   /SOCIAL_FAQ_TRADE_STYLE_V1
-   ======================================================== */
-
-
-/* ========================================================
-   SOCIAL_FAQ_ICON_FIX_V2
-   Exact persistent FAQ +/- icon
-   ======================================================== */
-
-
-/*
- * Старые span-линии общего FAQ полностью отключаем.
- */
-
-.object-service-page > .faq
-.faq-item__icon > span {
-  display: none !important;
 }
 
 
 /*
- * Базовая иконка.
- */
-
-.object-service-page > .faq
-.faq-item__icon {
-  position: relative !important;
-
-  display: block !important;
-
-  justify-self: end !important;
-
-  width: 28px !important;
-  height: 28px !important;
-
-  flex: none !important;
-
-  border: 0 !important;
-  border-radius: 0 !important;
-
-  background: transparent !important;
-
-  color: #151515 !important;
-
-  transform: none !important;
-
-  transition:
-    background-color 180ms ease,
-    color 180ms ease,
-    border-radius 180ms ease !important;
-}
-
-
-/*
- * Горизонтальная и вертикальная линии.
- */
-
-.object-service-page > .faq
-.faq-item__icon::before,
-.object-service-page > .faq
-.faq-item__icon::after {
-  position: absolute !important;
-
-  top: 50% !important;
-  left: 50% !important;
-
-  display: block !important;
-
-  width: 16px !important;
-  height: 2px !important;
-
-  border: 0 !important;
-  border-radius: 999px !important;
-
-  background: currentColor !important;
-
-  content: "" !important;
-
-  transform:
-    translate(-50%, -50%) !important;
-
-  transform-origin: center !important;
-
-  transition:
-    transform 180ms ease !important;
-}
-
-
-/*
- * Вертикальная линия формирует плюс.
- */
-
-.object-service-page > .faq
-.faq-item__icon::after {
-  transform:
-    translate(-50%, -50%)
-    rotate(90deg) !important;
-}
-
-
-/*
- * Убираем старое hover-оформление.
- * Закрытый пункт остаётся обычным чёрным плюсом.
- */
-
-.object-service-page > .faq
-.faq-item__button:hover
-.faq-item__icon {
-  border: 0 !important;
-  border-radius: 0 !important;
-
-  background: transparent !important;
-
-  color: #151515 !important;
-
-  transform: none !important;
-}
-
-
-/*
- * OPEN.
- * Используем сразу два признака:
- * class faq-item--open и aria-expanded=true.
- *
- * Поэтому лаймовое состояние не зависит от hover.
- */
-
-.object-service-page > .faq
-.faq-item--open
-.faq-item__icon,
-
-.object-service-page > .faq
-.faq-item__button[aria-expanded="true"]
-.faq-item__icon,
-
-.object-service-page > .faq
-.faq-item__button[aria-expanded="true"]:hover
-.faq-item__icon {
-  border: 0 !important;
-
-  border-radius: 50% !important;
-
-  background: #a9f04a !important;
-
-  color: #151515 !important;
-
-  transform: none !important;
-}
-
-
-/*
- * В открытом состоянии вертикальная линия
- * складывается в горизонтальную.
- */
-
-.object-service-page > .faq
-.faq-item--open
-.faq-item__icon::after,
-
-.object-service-page > .faq
-.faq-item__button[aria-expanded="true"]
-.faq-item__icon::after {
-  transform:
-    translate(-50%, -50%)
-    rotate(0deg) !important;
-}
-
-
-/*
- * Горизонтальная линия всегда строго горизонтальна.
- */
-
-.object-service-page > .faq
-.faq-item--open
-.faq-item__icon::before,
-
-.object-service-page > .faq
-.faq-item__button[aria-expanded="true"]
-.faq-item__icon::before {
-  transform:
-    translate(-50%, -50%) !important;
-}
-
-
-/* ========================================================
-   /SOCIAL_FAQ_ICON_FIX_V2
-   ======================================================== */
-
-/* ========================================================
-   FAQ_ANSWER_TOP_SPACING_V1
-   Extra breathing room between FAQ question and answer
-   ======================================================== */
-
-.object-service-page > .faq .faq-item__answer {
-  padding-top: 18px !important;
-}
+   More breathing room between question and answer on
+   small screens.
+*/
 
 @media (max-width: 620px) {
-  .object-service-page > .faq .faq-item__answer {
-    padding-top: 14px !important;
+  .object-service-page > .faq
+  .faq-item__answer {
+    padding-top:
+      14px !important;
   }
 }
-
-/* /FAQ_ANSWER_TOP_SPACING_V1 */
-
-/* ========================================================
-   FAQ_ICON_ALWAYS_ROUND_V1
-   Keep FAQ toggle round in every state
-   ======================================================== */
-
-.object-service-page > .faq .faq-item__icon {
-  border-radius: 50% !important;
-}
-
-/* /FAQ_ICON_ALWAYS_ROUND_V1 */
