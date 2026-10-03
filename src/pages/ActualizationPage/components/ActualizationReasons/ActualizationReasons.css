@@ -1,0 +1,166 @@
+/*  ==========================================================================
+ActualizationReasons.jsx — ACTUALIZATION REASONS
+==========================================================================  */
+
+.actualization-reasons {
+  padding: clamp(90px, 9vw, 144px) 0;
+
+  background: #f8f5ef;
+}
+
+.actualization-reasons-table {
+  overflow: hidden;
+
+  border: 1px solid rgba(17, 17, 17, 0.1);
+
+  border-radius: 28px;
+
+  background: #ffffff;
+}
+
+.actualization-reasons-table__head,
+.actualization-reasons-table__row {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.25fr)
+    minmax(270px, 0.75fr);
+
+  gap: 30px;
+
+  align-items: center;
+
+  padding: 22px clamp(22px, 3vw, 38px);
+}
+
+.actualization-reasons-table__head {
+  background: #111111;
+  color: #ffffff;
+
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.actualization-reasons-table__row {
+  min-height: 82px;
+
+  border-top: 1px solid rgba(17, 17, 17, 0.09);
+
+  transition:
+    background-color 180ms ease,
+    padding-left 180ms ease;
+}
+
+.actualization-reasons-table__row > span {
+  font-weight: 620;
+  line-height: 1.45;
+}
+
+.actualization-reasons-table__row strong {
+  justify-self: start;
+
+  padding: 8px 12px;
+
+  border-radius: 12px;
+
+  background: rgba(169, 240, 74, 0.19);
+
+  color: #111111;
+
+  font-size: 0.83rem;
+  line-height: 1.36;
+}
+
+.actualization-reasons__notice {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(280px, 0.55fr);
+
+  gap: clamp(30px, 5vw, 70px);
+
+  margin-top: 26px;
+  padding: clamp(28px, 3.5vw, 42px);
+
+  border-left: 5px solid #a9f04a;
+
+  border-radius: 0 24px 24px 0;
+
+  background: #111111;
+  color: #ffffff;
+}
+
+.actualization-reasons__notice strong {
+  max-width: 760px;
+
+  font-size: clamp(1.25rem, 1.8vw, 1.65rem);
+
+  line-height: 1.35;
+}
+
+.actualization-reasons__notice p {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.68);
+
+  line-height: 1.64;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .actualization-reasons-table__row:hover {
+    padding-left: clamp(28px, 3.5vw, 46px);
+
+    background: rgba(169, 240, 74, 0.08);
+  }
+}
+
+@media (max-width: 768px) {
+  .actualization-reasons-table__head {
+    display: none;
+  }
+
+  .actualization-reasons-table__row {
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+
+    min-height: 0;
+
+    padding: 22px;
+  }
+
+  .actualization-reasons-table__row strong {
+    max-width: 100%;
+  }
+
+  .actualization-reasons__notice {
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+  }
+}
+
+@media (max-width: 430px) {
+  .actualization-reasons {
+    padding: 76px 0;
+  }
+
+  .actualization-reasons-table {
+    border-radius: 22px;
+  }
+
+  .actualization-reasons__notice {
+    padding: 25px;
+
+    border-radius: 0 20px 20px 0;
+  }
+}
+
+@media (max-width: 390px) {
+  .actualization-reasons-table__row {
+    padding: 20px 18px;
+  }
+}

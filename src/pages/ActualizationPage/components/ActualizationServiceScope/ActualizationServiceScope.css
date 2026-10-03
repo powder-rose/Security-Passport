@@ -1,0 +1,147 @@
+/*  ==========================================================================
+ActualizationServiceScope.jsx — SERVICE SCOPE
+==========================================================================  */
+
+.actualization-scope {
+  padding: clamp(90px, 9vw, 142px) 0;
+
+  background: #f8f5ef;
+}
+
+.actualization-scope__layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(310px, 0.68fr)
+    minmax(0, 1.32fr);
+
+  gap: clamp(55px, 8vw, 120px);
+
+  align-items: start;
+}
+
+.actualization-scope h2 {
+  margin: 0;
+
+  font-size: clamp(2.7rem, 4.4vw, 4.8rem);
+
+  line-height: 0.94;
+  letter-spacing: -0.055em;
+}
+
+.actualization-scope__layout > div > p:last-child {
+  max-width: 500px;
+
+  margin: 23px 0 0;
+
+  color: var(--color-text-secondary);
+
+  line-height: 1.68;
+}
+
+.actualization-scope__list {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  margin: 0;
+  padding: 0;
+
+  border-top: 1px solid rgba(17, 17, 17, 0.12);
+
+  list-style: none;
+}
+
+.actualization-scope__list li {
+  display: grid;
+
+  grid-template-columns:
+    44px
+    minmax(0, 1fr);
+
+  gap: 14px;
+
+  min-height: 105px;
+
+  padding: 24px 20px 24px 0;
+
+  border-bottom: 1px solid rgba(17, 17, 17, 0.12);
+}
+
+.actualization-scope__list li:nth-child(odd) {
+  border-right: 1px solid rgba(17, 17, 17, 0.12);
+}
+
+.actualization-scope__list li:nth-child(even) {
+  padding-left: 20px;
+}
+
+.actualization-scope__list span {
+  color: #76b922;
+
+  font-size: 0.7rem;
+  font-weight: 900;
+}
+
+.actualization-scope__list p {
+  margin: 0;
+
+  line-height: 1.5;
+}
+
+@media (max-width: 1024px) {
+  .actualization-scope__layout {
+    grid-template-columns: 1fr;
+
+    gap: 50px;
+  }
+
+  .actualization-scope__layout > div:first-child {
+    max-width: 720px;
+  }
+}
+
+@media (max-width: 768px) {
+  .actualization-scope__list {
+    grid-template-columns: 1fr;
+  }
+
+  .actualization-scope__list li,
+  .actualization-scope__list li:nth-child(even) {
+    padding: 21px 0;
+  }
+
+  .actualization-scope__list li:nth-child(odd) {
+    border-right: 0;
+  }
+}
+
+@media (max-width: 430px) {
+  .actualization-scope {
+    padding: 76px 0;
+  }
+
+  .actualization-scope h2 {
+    font-size: clamp(2.25rem, 10.5vw, 3rem);
+  }
+
+  .actualization-scope__list li {
+    grid-template-columns:
+      38px
+      minmax(0, 1fr);
+
+    gap: 10px;
+  }
+}
+
+@media (max-width: 390px) {
+  .actualization-scope__list p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .actualization-scope h2 {
+    font-size: 2.05rem;
+  }
+}

@@ -1,0 +1,277 @@
+/*  ==========================================================================
+ActualizationChecklist.jsx — ACTUALIZATION CHECKLIST
+==========================================================================  */
+
+.actualization-checklist {
+  padding: clamp(90px, 10vw, 150px) 0;
+
+  background: #ffffff;
+}
+
+.actualization-checklist__layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(320px, 0.72fr)
+    minmax(0, 1.28fr);
+
+  gap: clamp(55px, 8vw, 120px);
+
+  align-items: start;
+}
+
+.actualization-checklist__layout > div:first-child {
+  position: sticky;
+  top: 110px;
+}
+
+.actualization-checklist h2 {
+  max-width: 590px;
+
+  margin: 0;
+
+  font-size: clamp(2.6rem, 4.2vw, 4.5rem);
+
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+}
+
+.actualization-checklist__layout
+  > div:first-child
+  > p:not(.actualization-kicker) {
+  max-width: 530px;
+
+  margin: 24px 0 30px;
+
+  color: var(--color-text-secondary);
+
+  line-height: 1.68;
+}
+
+.actualization-checklist__items {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+
+  border-top: 1px solid rgba(17, 17, 17, 0.12);
+}
+
+.actualization-checklist__items li {
+  display: grid;
+
+  grid-template-columns:
+    50px
+    minmax(0, 1fr);
+
+  gap: 20px;
+
+  align-items: center;
+
+  min-height: 78px;
+
+  padding: 19px 8px 19px 0;
+
+  border-bottom: 1px solid rgba(17, 17, 17, 0.12);
+
+  transition:
+    padding-left 180ms ease,
+    background-color 180ms ease;
+}
+
+.actualization-checklist__items span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 28px;
+
+  border-radius: 999px;
+
+  background: #a9f04a;
+  color: #111111;
+
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.actualization-checklist__items p {
+  margin: 0;
+
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+
+  line-height: 1.48;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .actualization-checklist__items li:hover {
+    padding-left: 12px;
+
+    background: rgba(169, 240, 74, 0.06);
+  }
+}
+
+@media (max-width: 1024px) {
+  .actualization-checklist__layout {
+    grid-template-columns: 1fr;
+
+    gap: 50px;
+  }
+
+  .actualization-checklist__layout > div:first-child {
+    position: static;
+
+    width: auto;
+    max-width: none;
+  }
+}
+
+@media (max-width: 430px) {
+  .actualization-checklist {
+    padding: 76px 0;
+  }
+
+  .actualization-checklist h2 {
+    font-size: clamp(2.25rem, 10.5vw, 3rem);
+  }
+
+  .actualization-checklist__items li {
+    grid-template-columns:
+      42px
+      minmax(0, 1fr);
+
+    gap: 13px;
+  }
+}
+
+@media (max-width: 390px) {
+  .actualization-checklist__items p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .actualization-checklist h2 {
+    font-size: 2.05rem;
+  }
+
+  .actualization-checklist__items li {
+    grid-template-columns:
+      36px
+      minmax(0, 1fr);
+  }
+
+  .actualization-checklist__items span {
+    width: 34px;
+  }
+}
+
+.actualization-checklist__layout > div:first-child,
+.actualization-checklist__items {
+  min-width: 0;
+}
+
+.actualization-checklist h2 {
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+
+  text-wrap: balance;
+}
+
+@media (min-width: 1181px) {
+  .actualization-checklist__layout {
+    grid-template-columns:
+      440px
+      minmax(0, 1fr);
+
+    column-gap: 110px;
+  }
+
+  .actualization-checklist__layout > div:first-child {
+    width: 440px;
+    max-width: 440px;
+  }
+
+  .actualization-checklist h2 {
+    width: 440px;
+    max-width: 440px;
+
+    font-size: 40px;
+    line-height: 1.04;
+    letter-spacing: -0.045em;
+  }
+
+  .actualization-checklist__items {
+    margin-top: 22px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1180px) {
+  .actualization-checklist__layout {
+    grid-template-columns:
+      360px
+      minmax(0, 1fr);
+
+    column-gap: 70px;
+  }
+
+  .actualization-checklist h2 {
+    width: 360px;
+    max-width: 360px;
+
+    font-size: 36px;
+    line-height: 1.04;
+  }
+}
+
+@media (max-width: 1024px) {
+  .actualization-checklist h2 {
+    width: auto;
+    max-width: 680px;
+  }
+
+  .actualization-checklist__items {
+    margin-top: 0;
+  }
+}
+
+.actualization-check-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.actualization-check-button__label {
+  line-height: 1;
+}
+
+.actualization-check-button__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: none;
+
+  color: #a9f04a;
+
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1;
+
+  transform: translateY(-1px);
+
+  transition: transform 180ms ease;
+}
+
+.actualization-check-button:hover .actualization-check-button__arrow {
+  transform: translate(3px, -4px);
+}
+
+@media (max-width: 640px) {
+  .actualization-check-button__arrow {
+    font-size: 20px;
+  }
+}

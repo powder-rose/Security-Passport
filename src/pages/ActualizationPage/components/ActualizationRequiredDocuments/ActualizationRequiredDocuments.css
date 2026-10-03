@@ -1,0 +1,196 @@
+/*  ==========================================================================
+ActualizationRequiredDocuments.jsx — REQUIRED DOCUMENTS
+==========================================================================  */
+
+.actualization-documents {
+  padding: clamp(90px, 10vw, 150px) 0;
+
+  background: #f8f5ef;
+}
+
+.actualization-documents__grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(320px, 0.82fr)
+    minmax(0, 1.18fr);
+
+  gap: clamp(55px, 8vw, 120px);
+
+  align-items: start;
+}
+
+.actualization-documents__grid > div:first-child {
+  padding: clamp(30px, 3.7vw, 48px);
+
+  border-radius: 30px;
+
+  background: #111111;
+  color: #ffffff;
+
+  box-shadow: 0 28px 65px rgba(17, 17, 17, 0.11);
+}
+
+.actualization-documents__grid > div:first-child .actualization-kicker {
+  color: #ffffff;
+}
+
+.actualization-documents h2 {
+  width: 100%;
+  max-width: 100%;
+
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: clamp(2.4rem, 2.8vw, 3.25rem);
+
+  line-height: 0.99;
+  letter-spacing: -0.05em;
+
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+
+  text-wrap: balance;
+}
+
+.actualization-documents__grid
+  > div:first-child
+  > p:not(.actualization-kicker) {
+  max-width: 540px;
+
+  margin: 23px 0 30px;
+
+  color: rgba(255, 255, 255, 0.68);
+
+  line-height: 1.68;
+}
+
+.actualization-documents ol {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+
+  border-top: 1px solid rgba(17, 17, 17, 0.12);
+}
+
+.actualization-documents li {
+  display: grid;
+
+  grid-template-columns:
+    45px
+    minmax(0, 1fr);
+
+  gap: 18px;
+
+  min-height: 74px;
+
+  padding: 20px 0;
+
+  border-bottom: 1px solid rgba(17, 17, 17, 0.12);
+
+  transition:
+    padding-left 180ms ease,
+    background-color 180ms ease;
+}
+
+.actualization-documents li span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 26px;
+
+  border-radius: 999px;
+
+  background: #a9f04a;
+  color: #111111;
+
+  font-size: 0.67rem;
+  font-weight: 900;
+}
+
+.actualization-documents li p {
+  margin: 0;
+
+  line-height: 1.53;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .actualization-documents li:hover {
+    padding-left: 12px;
+
+    background: rgba(169, 240, 74, 0.06);
+  }
+}
+
+@media (max-width: 1024px) {
+  .actualization-documents__grid {
+    grid-template-columns: 1fr;
+
+    gap: 50px;
+  }
+
+  .actualization-documents__grid > div:first-child {
+    max-width: 720px;
+  }
+}
+
+@media (max-width: 430px) {
+  .actualization-documents {
+    padding: 76px 0;
+  }
+
+  .actualization-documents h2 {
+    font-size: clamp(2rem, 9.2vw, 2.5rem);
+  }
+
+  .actualization-documents__grid > div:first-child {
+    padding: 25px;
+
+    border-radius: 24px;
+  }
+
+  .actualization-documents li {
+    grid-template-columns:
+      40px
+      minmax(0, 1fr);
+
+    gap: 12px;
+  }
+}
+
+@media (max-width: 390px) {
+  .actualization-documents__grid > div:first-child {
+    padding: 23px;
+  }
+}
+
+@media (max-width: 320px) {
+  .actualization-documents h2 {
+    font-size: 2.05rem;
+  }
+
+  .actualization-documents__grid > div:first-child {
+    padding: 21px;
+
+    border-radius: 21px;
+  }
+}
+
+.actualization-documents__grid > div:first-child {
+  min-width: 0;
+}
+
+@media (min-width: 1025px) {
+  .actualization-documents__grid {
+    grid-template-columns:
+      minmax(490px, 0.94fr)
+      minmax(0, 1.06fr);
+
+    gap: clamp(70px, 7vw, 110px);
+  }
+}

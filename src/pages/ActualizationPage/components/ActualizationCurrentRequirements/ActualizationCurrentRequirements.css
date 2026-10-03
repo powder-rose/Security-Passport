@@ -1,0 +1,114 @@
+/*  ==========================================================================
+ActualizationCurrentRequirements.jsx — CURRENT REQUIREMENTS
+==========================================================================  */
+
+.actualization-standard {
+  padding: clamp(78px, 8vw, 118px) 0;
+
+  background: #f8f5ef;
+}
+
+.actualization-standard__panel {
+  display: grid;
+
+  grid-template-columns:
+    minmax(300px, 0.7fr)
+    minmax(0, 1.3fr);
+
+  gap: clamp(50px, 8vw, 110px);
+
+  padding: clamp(36px, 5vw, 64px);
+
+  border: 1px solid rgba(107, 169, 29, 0.22);
+
+  border-radius: 32px;
+
+  background: linear-gradient(
+    140deg,
+    rgba(169, 240, 74, 0.25),
+    rgba(255, 255, 255, 0.65)
+  );
+}
+
+.actualization-standard h2 {
+  margin: 0;
+
+  font-size: clamp(2.5rem, 4.2vw, 4.7rem);
+
+  line-height: 0.94;
+  letter-spacing: -0.055em;
+}
+
+.actualization-standard__panel > div:last-child {
+  align-self: end;
+}
+
+.actualization-standard__panel > div:last-child p {
+  max-width: 710px;
+
+  margin: 0;
+
+  color: #4d4d4d;
+
+  line-height: 1.68;
+}
+
+.actualization-standard__panel > div:last-child strong {
+  display: block;
+
+  max-width: 690px;
+
+  margin: 26px 0;
+
+  padding-left: 20px;
+
+  border-left: 4px solid #79bf25;
+
+  font-size: clamp(1.2rem, 1.65vw, 1.5rem);
+
+  line-height: 1.42;
+}
+
+@media (max-width: 1024px) {
+  .actualization-standard__panel {
+    grid-template-columns: 1fr;
+  }
+
+  .actualization-standard__panel > div:last-child {
+    max-width: 760px;
+  }
+}
+
+@media (max-width: 430px) {
+  .actualization-standard {
+    padding: 64px 0;
+  }
+
+  .actualization-standard h2 {
+    font-size: clamp(2.25rem, 10.5vw, 3rem);
+  }
+
+  .actualization-standard__panel {
+    padding: 26px;
+
+    border-radius: 24px;
+  }
+}
+
+@media (max-width: 390px) {
+  .actualization-standard__panel {
+    padding: 23px;
+  }
+}
+
+@media (max-width: 320px) {
+  .actualization-standard h2 {
+    font-size: 2.05rem;
+  }
+
+  .actualization-standard__panel {
+    padding: 21px;
+
+    border-radius: 21px;
+  }
+}
