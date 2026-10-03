@@ -1,3 +1,43 @@
+/* ==========================================================================
+   BLOG PAGE
+
+   React entry:
+   - BlogPage.jsx
+
+   Local components:
+   - BlogSeo.jsx
+     document metadata only; no visual CSS ownership
+
+   - BlogHero.jsx
+     .blog-hero*
+
+   - BlogContentState.jsx
+     .blog-state
+
+   - BlogCategories.jsx
+     .blog-categories*
+     .blog-category-*
+
+   - BlogArticleResults.jsx
+     featured article, filtered results and article-list composition
+
+   - BlogArticleCard.jsx
+     .blog-card*
+
+   - ArticleImage.jsx
+     article images and .blog-card__placeholder
+
+   Page root:
+   - .blog-page
+
+   External section:
+   - FinalCTA.jsx
+     visual styles are owned by the shared FinalCTA section
+
+   File organization follows the current rendered React composition.
+   ========================================================================== */
+
+
 .blog-page {
   background:
     var(--color-bg);
@@ -7,17 +47,11 @@
 }
 
 
-/* HERO */
+/* ==========================================================================
+   BlogCategories.jsx + BlogArticleResults.jsx
+   SHARED SECTION HEADING
+   ========================================================================== */
 
-.blog-hero {
-  padding:
-    clamp(72px, 8vw, 118px)
-    0
-    clamp(80px, 10vw, 140px);
-}
-
-
-.blog-hero__eyebrow,
 .blog-section-heading {
   display: flex;
 
@@ -32,6 +66,9 @@
     1px solid
     var(--color-border);
 
+  border-bottom-color:
+    rgba(17, 17, 17, .10);
+
   color:
     var(--color-text-secondary);
 
@@ -44,93 +81,25 @@
 }
 
 
-.blog-hero__eyebrow span:first-child,
 .blog-section-heading span:first-child {
   color:
     var(--color-primary);
 }
 
 
-.blog-hero__grid {
-  display: grid;
+/* ==========================================================================
+   BlogArticleResults.jsx — FEATURED ARTICLE
+   ========================================================================== */
 
-  grid-template-columns:
-    minmax(0, 1.38fr)
-    minmax(280px, .62fr);
-
-  gap:
-    clamp(48px, 8vw, 120px);
-
-  align-items: end;
-
-  padding-top:
-    clamp(36px, 5vw, 68px);
+.blog-featured {
+  padding-bottom:
+    clamp(88px, 10vw, 148px);
 }
 
 
-.blog-hero h1 {
-  margin: 0;
-
-  max-width: 900px;
-
-  font-size:
-    clamp(
-      54px,
-      8vw,
-      116px
-    );
-
-  line-height: .88;
-
-  letter-spacing: -.065em;
-}
-
-
-.blog-hero__copy {
-  padding-bottom: 9px;
-}
-
-
-.blog-hero__copy p {
-  margin: 0;
-
-  max-width: 420px;
-
-  color:
-    var(--color-text-secondary);
-
-  font-size:
-    clamp(
-      17px,
-      1.5vw,
-      21px
-    );
-
-  line-height: 1.55;
-}
-
-
-.blog-hero__copy > span {
-  display: block;
-
-  margin-top: 34px;
-
-  color:
-    var(--color-primary);
-
-  font-size: 11px;
-  font-weight: 800;
-
-  letter-spacing: .08em;
-
-  text-transform: uppercase;
-}
-
-
-/* FEATURED */
-
-.blog-featured,
 .blog-list {
+  padding-top: 8px;
+
   padding-bottom:
     clamp(88px, 10vw, 148px);
 }
@@ -140,10 +109,10 @@
   display: grid;
 
   grid-template-columns:
-    minmax(0, 1.35fr)
-    minmax(300px, .65fr);
+    minmax(0, 1.32fr)
+    minmax(420px, 1fr);
 
-  min-height: 500px;
+  min-height: 540px;
 
   margin-top: 30px;
 
@@ -175,16 +144,23 @@
 
 
 .blog-featured-card__image {
-  min-height: 460px;
+  position: relative;
+
+  min-height: 540px;
 
   overflow: hidden;
 
-  background: #dedbd4;
+  isolation: isolate;
+
+  background:
+    #111827;
 }
 
 
-.blog-featured-card__image img,
-.blog-card__image img {
+.blog-featured-card__image img {
+  position: relative;
+  z-index: 0;
+
   display: block;
 
   width: 100%;
@@ -192,8 +168,45 @@
 
   object-fit: cover;
 
+  object-position:
+    center center;
+
+  filter:
+    saturate(.72)
+    contrast(1.08)
+    brightness(.88);
+
+  transform:
+    scale(1.01);
+
   transition:
-    transform .35s ease;
+    transform .3s ease,
+    filter .3s ease;
+}
+
+
+.blog-card__image img {
+  position: relative;
+  z-index: 0;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  filter:
+    saturate(.72)
+    contrast(1.08)
+    brightness(.88);
+
+  transform:
+    scale(1.01);
+
+  transition:
+    transform .3s ease,
+    filter .3s ease;
 }
 
 
@@ -208,15 +221,38 @@
   display: flex;
   flex-direction: column;
 
+  min-width: 0;
+
   padding:
-    clamp(30px, 4vw, 52px);
+    46px
+    46px
+    42px;
+
+  justify-content:
+    flex-start;
 }
 
 
-.blog-featured-card time,
+.blog-featured-card time {
+  display: block;
+
+  margin-bottom: 58px;
+
+  color:
+    rgba(255, 255, 255, .48);
+
+  font-size: 12px;
+  font-weight: 500;
+
+  line-height: 1.3;
+
+  text-transform: lowercase;
+}
+
+
 .blog-card time {
   color:
-    rgba(255,255,255,.48);
+    var(--color-text-secondary);
 
   font-size: 12px;
 
@@ -225,30 +261,40 @@
 
 
 .blog-featured-card h2 {
-  margin:
-    clamp(28px, 4vw, 64px)
-    0 0;
+  max-width: 100%;
+
+  margin: 0;
 
   font-size:
     clamp(
-      34px,
-      4vw,
-      56px
+      36px,
+      3.35vw,
+      50px
     );
 
-  line-height: 1;
+  line-height: .98;
+  letter-spacing: -.047em;
 
-  letter-spacing: -.045em;
+  overflow-wrap:
+    break-word;
+
+  text-wrap:
+    balance;
 }
 
 
 .blog-featured-card p {
+  max-width: 430px;
+
   margin:
-    22px 0 0;
+    24px
+    0
+    0;
 
   color:
-    rgba(255,255,255,.58);
+    rgba(255, 255, 255, .68);
 
+  font-size: 15px;
   line-height: 1.6;
 }
 
@@ -256,21 +302,19 @@
 .blog-featured-card__body > span {
   margin-top: auto;
 
-  padding-top: 40px;
+  padding-top: 34px;
 
   color:
     var(--color-accent);
 
-  font-weight: 750;
+  font-size: 14px;
+  font-weight: 780;
 }
 
 
-/* GRID */
-
-.blog-list {
-  padding-top: 8px;
-}
-
+/* ==========================================================================
+   BlogArticleCard.jsx — ARTICLE GRID AND CARDS
+   ========================================================================== */
 
 .blog-grid {
   display: grid;
@@ -330,13 +374,22 @@
 
 
 .blog-card__image {
+  position: relative;
+
   aspect-ratio: 16 / 9;
 
   overflow: hidden;
 
-  background: #e7e2d8;
+  isolation: isolate;
+
+  background:
+    #111827;
 }
 
+
+/* --------------------------------------------------------------------------
+   ArticleImage.jsx — IMAGE FALLBACK
+   -------------------------------------------------------------------------- */
 
 .blog-card__placeholder {
   width: 100%;
@@ -378,12 +431,6 @@
 
   padding:
     24px;
-}
-
-
-.blog-card time {
-  color:
-    var(--color-text-secondary);
 }
 
 
@@ -442,6 +489,10 @@
 }
 
 
+/* ==========================================================================
+   BlogContentState.jsx — LOADING / ERROR / EMPTY STATE
+   ========================================================================== */
+
 .blog-state {
   margin:
     20px 0
@@ -466,29 +517,6 @@
 
 @media (max-width: 980px) {
 
-  .blog-hero__grid,
-  .blog-featured-card {
-    grid-template-columns: 1fr;
-  }
-
-
-  .blog-hero h1 {
-    font-size:
-      clamp(
-        56px,
-        11vw,
-        92px
-      );
-  }
-
-
-  .blog-featured-card__image {
-    min-height: 0;
-
-    aspect-ratio: 16 / 9;
-  }
-
-
   .blog-grid {
     grid-template-columns:
       repeat(
@@ -501,26 +529,6 @@
 
 
 @media (max-width: 640px) {
-
-  .blog-hero {
-    padding-top: 54px;
-  }
-
-
-  .blog-hero__grid {
-    gap: 28px;
-  }
-
-
-  .blog-hero h1 {
-    font-size:
-      clamp(
-        46px,
-        15vw,
-        70px
-      );
-  }
-
 
   .blog-grid {
     grid-template-columns: 1fr;
@@ -539,105 +547,9 @@
 }
 
 
-/* =========================================
-   BLOG — FEATURED ARTICLE POLISH
-========================================= */
-
-.blog-featured-card {
-  grid-template-columns:
-    minmax(0, 1.32fr)
-    minmax(420px, 1fr);
-
-  min-height: 540px;
-}
-
-
-.blog-featured-card__image {
-  min-height: 540px;
-}
-
-
-.blog-featured-card__body {
-  min-width: 0;
-
-  padding:
-    46px
-    46px
-    42px;
-
-  justify-content:
-    flex-start;
-}
-
-
-.blog-featured-card time {
-  display: block;
-
-  margin-bottom: 58px;
-
-  color:
-    rgba(255, 255, 255, .48);
-
-  font-size: 12px;
-  font-weight: 500;
-
-  line-height: 1.3;
-}
-
-
-.blog-featured-card h2 {
-  margin: 0;
-
-  max-width: 100%;
-
-  font-size:
-    clamp(
-      36px,
-      3.35vw,
-      50px
-    );
-
-  line-height: .98;
-
-  letter-spacing: -.047em;
-
-  overflow-wrap: break-word;
-  text-wrap: balance;
-}
-
-
-.blog-featured-card p {
-  max-width: 430px;
-
-  margin:
-    24px 0 0;
-
-  color:
-    rgba(255, 255, 255, .68);
-
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-
-.blog-featured-card__body > span {
-  margin-top: auto;
-
-  padding-top: 34px;
-
-  color:
-    var(--color-accent);
-
-  font-size: 14px;
-  font-weight: 780;
-}
-
-
-.blog-featured-card__image img {
-  object-position:
-    center center;
-}
-
+/* ==========================================================================
+   BlogArticleResults.jsx — FEATURED ARTICLE RESPONSIVE
+   ========================================================================== */
 
 @media (max-width: 1100px) {
 
@@ -728,111 +640,16 @@
 }
 
 
-/* =========================================
-   BLOG IMAGES — UNIFIED BRAND FILTER
-========================================= */
+/* ==========================================================================
+   ArticleImage.jsx — ARTICLE IMAGE TREATMENT
 
-.blog-featured-card__image,
-.blog-card__image {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  background: #0d1016;
-}
-
-
-.blog-featured-card__image img,
-.blog-card__image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-
-  filter:
-    saturate(0.88)
-    contrast(1.04)
-    brightness(0.9);
-
-  transform: scale(1.01);
-
-  transition:
-    transform 220ms ease,
-    filter 220ms ease;
-}
-
+   Shared rendering treatment for images used by:
+   - BlogArticleResults.jsx featured article
+   - BlogArticleCard.jsx standard article cards
+   ========================================================================== */
 
 .blog-featured-card__image::after,
 .blog-card__image::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(9, 14, 24, 0.10) 0%,
-      rgba(9, 14, 24, 0.24) 100%
-    ),
-    linear-gradient(
-      135deg,
-      rgba(49, 108, 255, 0.10) 0%,
-      rgba(49, 108, 255, 0.04) 45%,
-      rgba(0, 0, 0, 0) 100%
-    );
-}
-
-
-.blog-featured-card:hover .blog-featured-card__image img,
-.blog-card:hover .blog-card__image img {
-  filter:
-    saturate(0.92)
-    contrast(1.05)
-    brightness(0.93);
-
-  transform: scale(1.03);
-}
-
-
-/* =========================================
-   BLOG IMAGES — BRAND FILTER FINAL
-========================================= */
-
-.blog-featured-card__image,
-.blog-card__image {
-  position: relative;
-  overflow: hidden;
-  background: #111827;
-}
-
-
-.blog-featured-card__image img,
-.blog-card__image img {
-  position: relative;
-  z-index: 0;
-
-  display: block;
-
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-
-  filter:
-    saturate(.72)
-    contrast(1.08)
-    brightness(.88);
-
-  transition:
-    transform .3s ease,
-    filter .3s ease;
-}
-
-
-/* единый холодный фирменный оттенок поверх всех фото */
-.blog-featured-card__image::after,
-.blog-card__image::after {
-  content: "";
-
   position: absolute;
   z-index: 2;
 
@@ -848,27 +665,42 @@
       rgba(8, 13, 23, .20) 100%
     );
 
-  mix-blend-mode: multiply;
+  mix-blend-mode:
+    multiply;
+
+  content: "";
 }
 
 
-/* чуть более живое фото при наведении */
-.blog-featured-card:hover .blog-featured-card__image img,
-.blog-card:hover .blog-card__image img {
+.blog-featured-card:hover
+.blog-featured-card__image img,
+.blog-card:hover
+.blog-card__image img {
   filter:
     saturate(.82)
     contrast(1.08)
     brightness(.92);
 
-  transform: scale(1.025);
+  transform:
+    scale(1.025);
 }
 
 
-/* =========================================
-   BLOG HERO — EDITORIAL CARD
-========================================= */
+/* ==========================================================================
+   BlogHero.jsx — HERO
+   ==========================================================================
+
+   Current rendered Hero implementation:
+   eyebrow, title, editorial note, topic tags
+   and category navigation link.
+   ========================================================================== */
 
 .blog-hero {
+  padding:
+    clamp(72px, 8vw, 118px)
+    0
+    clamp(80px, 10vw, 140px);
+
   padding-bottom:
     clamp(
       64px,
@@ -878,14 +710,39 @@
 }
 
 
-/* убираем лишнюю линию под "База знаний" */
 .blog-hero__eyebrow {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 24px;
+
   padding-bottom: 0;
+
   border-bottom: 0;
+
+  color:
+    var(--color-text-secondary);
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: .12em;
+
+  text-transform: uppercase;
+}
+
+
+.blog-hero__eyebrow span:first-child {
+  color:
+    var(--color-primary);
 }
 
 
 .blog-hero__grid {
+  display: grid;
+
   grid-template-columns:
     minmax(0, 1.45fr)
     minmax(330px, .55fr);
@@ -910,42 +767,75 @@
 
 .blog-hero h1 {
   max-width: 830px;
+
+  margin: 0;
+
+  font-size:
+    clamp(
+      54px,
+      8vw,
+      116px
+    );
+
+  line-height: .88;
+
+  letter-spacing: -.065em;
 }
 
 
-/* -----------------------------------------
-   Карточка справа
------------------------------------------ */
+/* --------------------------------------------------------------------------
+   Editorial note
+   -------------------------------------------------------------------------- */
 
 .blog-hero__aside {
+  position: relative;
+
   width: 100%;
   max-width: 390px;
 
   justify-self: end;
 
   padding:
-    26px
-    26px
-    24px;
+    4px
+    0
+    4px
+    26px;
 
-  border:
-    1px solid
-    rgba(17, 17, 17, .08);
+  padding-left: 30px;
 
-  border-radius: 22px;
+  border: 0;
+  border-radius: 0;
 
   background:
-    rgba(255, 255, 255, .34);
+    transparent;
+}
+
+
+.blog-hero__aside::before {
+  position: absolute;
+
+  top: 2px;
+  bottom: 2px;
+  left: 0;
+
+  width: 2px;
+
+  border-radius: 999px;
+
+  background:
+    var(--color-primary);
+
+  content: "";
 }
 
 
 .blog-hero__aside-label {
-  margin-bottom: 19px;
+  margin-bottom: 22px;
 
   color:
     var(--color-primary);
 
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
 
   letter-spacing: .11em;
@@ -955,28 +845,34 @@
 
 
 .blog-hero__aside p {
+  max-width: 360px;
+
   margin: 0;
 
   color:
-    rgba(21, 21, 21, .68);
+    rgba(21, 21, 21, .62);
 
-  font-size: 15px;
+  font-size: 17px;
 
   line-height: 1.58;
+
+  letter-spacing: -.01em;
 }
 
 
-/* -----------------------------------------
-   Теги
------------------------------------------ */
+/* --------------------------------------------------------------------------
+   Topic tags
+   -------------------------------------------------------------------------- */
 
 .blog-hero__tags {
   display: flex;
   flex-wrap: wrap;
 
-  gap: 7px;
+  gap:
+    8px
+    15px;
 
-  margin-top: 22px;
+  margin-top: 24px;
 }
 
 
@@ -985,46 +881,57 @@
 
   align-items: center;
 
-  min-height: 28px;
+  min-height: 0;
 
-  padding:
-    5px
-    10px;
+  padding: 0;
 
-  border-radius: 999px;
+  border-radius: 0;
 
   background:
-    rgba(38, 87, 255, .07);
+    transparent;
 
   color:
     var(--color-primary);
 
   font-size: 10px;
-  font-weight: 760;
+  font-weight: 800;
 
-  letter-spacing: .045em;
+  line-height: 1.3;
+
+  letter-spacing: .085em;
 
   text-transform: uppercase;
 }
 
 
-/* -----------------------------------------
-   Ссылка
------------------------------------------ */
+.blog-hero__tags
+span:not(:last-child)::after {
+  margin-left: 15px;
+
+  color:
+    rgba(21, 21, 21, .28);
+
+  content: "·";
+}
+
+
+/* --------------------------------------------------------------------------
+   Category link
+   -------------------------------------------------------------------------- */
 
 .blog-hero__aside-link {
   display: inline-flex;
 
   align-items: center;
 
-  gap: 8px;
+  gap: 7px;
 
-  margin-top: 26px;
+  margin-top: 30px;
 
   color:
-    var(--color-text);
+    rgba(21, 21, 21, .78);
 
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 750;
 
   text-decoration: none;
@@ -1055,19 +962,9 @@
 }
 
 
-/* -----------------------------------------
-   Разделитель материалов — оставляем один
------------------------------------------ */
-
-.blog-section-heading {
-  border-bottom-color:
-    rgba(17, 17, 17, .10);
-}
-
-
-/* -----------------------------------------
-   Tablet
------------------------------------------ */
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 980px) {
 
@@ -1078,18 +975,41 @@
   }
 
 
-  .blog-hero__aside {
-    max-width: 520px;
+  .blog-hero h1 {
+    font-size:
+      clamp(
+        56px,
+        11vw,
+        92px
+      );
+  }
 
+
+  .blog-hero__aside {
     justify-self: start;
   }
 
 }
 
 
-/* -----------------------------------------
-   Mobile
------------------------------------------ */
+@media (max-width: 640px) {
+
+  .blog-hero {
+    padding-top: 54px;
+  }
+
+
+  .blog-hero h1 {
+    font-size:
+      clamp(
+        46px,
+        15vw,
+        70px
+      );
+  }
+
+}
+
 
 @media (max-width: 600px) {
 
@@ -1099,266 +1019,19 @@
 
 
   .blog-hero__grid {
-    padding-top: 30px;
-
     gap: 30px;
+
+    padding-top: 30px;
   }
 
 
   .blog-hero__aside {
-    max-width: none;
-
     padding:
-      22px
+      2px
+      0
+      2px
       20px;
 
-    border-radius: 18px;
-  }
-
-
-  .blog-hero__tags {
-    margin-top: 18px;
-  }
-
-
-  .blog-hero__aside-link {
-    margin-top: 22px;
-  }
-
-}
-
-
-/* =========================================
-   BLOG HERO — EDITORIAL NOTE FINAL
-========================================= */
-
-.blog-hero__aside {
-  position: relative;
-
-  width: 100%;
-  max-width: 360px;
-
-  justify-self: end;
-
-  padding:
-    4px 0
-    4px 26px;
-
-  border: 0;
-  border-radius: 0;
-
-  background: transparent;
-}
-
-
-/* тонкий фирменный акцент */
-
-.blog-hero__aside::before {
-  content: "";
-
-  position: absolute;
-
-  top: 2px;
-  bottom: 2px;
-  left: 0;
-
-  width: 2px;
-
-  border-radius: 999px;
-
-  background:
-    var(--color-primary);
-}
-
-
-/* подпись */
-
-.blog-hero__aside-label {
-  margin-bottom: 20px;
-
-  color:
-    var(--color-primary);
-
-  font-size: 10px;
-  font-weight: 800;
-
-  letter-spacing: .12em;
-
-  text-transform: uppercase;
-}
-
-
-/* основной текст */
-
-.blog-hero__aside p {
-  max-width: 330px;
-
-  margin: 0;
-
-  color:
-    rgba(21, 21, 21, .62);
-
-  font-size: 15px;
-
-  line-height: 1.6;
-}
-
-
-/* теги — больше не плашки */
-
-.blog-hero__tags {
-  display: flex;
-  flex-wrap: wrap;
-
-  gap:
-    7px 14px;
-
-  margin-top: 22px;
-}
-
-
-.blog-hero__tags span {
-  min-height: 0;
-
-  padding: 0;
-
-  border-radius: 0;
-
-  background: transparent;
-
-  color:
-    var(--color-primary);
-
-  font-size: 9px;
-  font-weight: 800;
-
-  line-height: 1.3;
-
-  letter-spacing: .09em;
-
-  text-transform: uppercase;
-}
-
-
-.blog-hero__tags span:not(:last-child)::after {
-  content: "·";
-
-  margin-left: 14px;
-
-  color:
-    rgba(21, 21, 21, .28);
-}
-
-
-/* ссылка */
-
-.blog-hero__aside-link {
-  margin-top: 28px;
-
-  gap: 7px;
-
-  color:
-    rgba(21, 21, 21, .78);
-
-  font-size: 12px;
-  font-weight: 720;
-}
-
-
-.blog-hero__aside-link span {
-  color:
-    var(--color-primary);
-}
-
-
-/* мобильный */
-
-@media (max-width: 980px) {
-
-  .blog-hero__aside {
-    max-width: 500px;
-
-    justify-self: start;
-  }
-
-}
-
-
-@media (max-width: 600px) {
-
-  .blog-hero__aside {
-    max-width: none;
-
-    padding:
-      2px 0
-      2px 20px;
-  }
-
-}
-
-
-/* =========================================
-   BLOG HERO — EDITORIAL NOTE TYPOGRAPHY
-========================================= */
-
-.blog-hero__aside {
-  max-width: 390px;
-
-  padding-left: 30px;
-}
-
-
-.blog-hero__aside-label {
-  margin-bottom: 22px;
-
-  font-size: 12px;
-  font-weight: 800;
-
-  letter-spacing: .11em;
-}
-
-
-.blog-hero__aside p {
-  max-width: 360px;
-
-  font-size: 17px;
-  line-height: 1.58;
-
-  letter-spacing: -.01em;
-}
-
-
-.blog-hero__tags {
-  gap:
-    8px 15px;
-
-  margin-top: 24px;
-}
-
-
-.blog-hero__tags span {
-  font-size: 10px;
-
-  letter-spacing: .085em;
-}
-
-
-.blog-hero__tags span:not(:last-child)::after {
-  margin-left: 15px;
-}
-
-
-.blog-hero__aside-link {
-  margin-top: 30px;
-
-  font-size: 14px;
-  font-weight: 750;
-}
-
-
-@media (max-width: 600px) {
-
-  .blog-hero__aside {
     padding-left: 22px;
   }
 
@@ -1379,15 +1052,24 @@
 
 }
 
-/* =========================================
-   BLOG — CATEGORY NAVIGATION FINAL
-========================================= */
+
+/* ==========================================================================
+   BlogCategories.jsx — CATEGORY NAVIGATION
+   ========================================================================== */
 
 .blog-categories {
   padding-bottom:
     clamp(54px, 6vw, 76px);
 
   scroll-margin-top: 90px;
+}
+
+
+.blog-categories
+.blog-section-heading {
+  border-bottom:
+    1px solid
+    var(--color-border);
 }
 
 
@@ -1408,11 +1090,20 @@
 }
 
 
+/*
+ * Kept in the document for semantic/category context,
+ * hidden from the visual interface.
+ */
+
 .blog-categories__description {
+  display: none;
+
   max-width: 720px;
 
   margin:
-    20px 0 0;
+    20px
+    0
+    0;
 
   color:
     var(--color-text-secondary);
@@ -1423,10 +1114,6 @@
 }
 
 
-/* -----------------------------------------
-   Категории как теги
------------------------------------------ */
-
 .blog-category-chips {
   display: flex;
 
@@ -1434,8 +1121,7 @@
 
   align-items: center;
 
-  gap:
-    9px;
+  gap: 9px;
 
   margin-top: 20px;
 }
@@ -1490,8 +1176,6 @@
 
 
 .blog-category-chip::after {
-  content: "";
-
   position: absolute;
 
   left: 50%;
@@ -1510,6 +1194,8 @@
 
   transition:
     width .2s ease;
+
+  content: "";
 }
 
 
@@ -1538,8 +1224,6 @@
 }
 
 
-/* выбранная категория */
-
 .blog-category-chip.is-active {
   border-color:
     var(--color-accent);
@@ -1561,10 +1245,7 @@
 }
 
 
-/* -----------------------------------------
-   SEO-тексты присутствуют в HTML,
-   но не загромождают интерфейс
------------------------------------------ */
+/* Search-engine context remains present in the document. */
 
 .blog-category-seo-descriptions {
   position: absolute;
@@ -1589,9 +1270,9 @@
 }
 
 
-/* =========================================
-   ACTIVE CATEGORY CONTEXT
-========================================= */
+/* ==========================================================================
+   BlogArticleResults.jsx — FILTERED RESULTS
+   ========================================================================== */
 
 .blog-category-results {
   scroll-margin-top: 88px;
@@ -1601,6 +1282,14 @@
     .32s
     cubic-bezier(.22, 1, .36, 1)
     both;
+}
+
+
+.blog-category-results
+.blog-section-heading {
+  padding-bottom: 0;
+
+  border-bottom: 0;
 }
 
 
@@ -1616,16 +1305,18 @@
   align-items: start;
 
   margin:
-    26px 0
-    28px;
-
-  padding:
-    0 0
+    18px
+    0
     26px;
 
-  border-bottom:
-    1px solid
-    var(--color-border);
+  padding:
+    0
+    0
+    26px;
+
+  padding-bottom: 0;
+
+  border-bottom: 0;
 }
 
 
@@ -1653,19 +1344,24 @@
 }
 
 
-/* =========================================
-   CATEGORY LABEL IN ARTICLE
-========================================= */
+.blog-category-results
+.blog-featured {
+  padding-top: 0;
+}
 
-.blog-card__category,
-.blog-featured-card__category {
+
+/* ==========================================================================
+   BlogArticleCard.jsx + BlogArticleResults.jsx
+   ARTICLE CATEGORY LABELS
+   ========================================================================== */
+
+.blog-card__category {
   margin-bottom: 10px;
 
   color:
     var(--color-primary);
 
   font-size: 9px;
-
   font-weight: 800;
 
   line-height: 1.3;
@@ -1681,12 +1377,21 @@
 
   color:
     var(--color-accent);
+
+  font-size: 9px;
+  font-weight: 800;
+
+  line-height: 1.3;
+
+  letter-spacing: .09em;
+
+  text-transform: uppercase;
 }
 
 
-/* =========================================
-   ANIMATION
-========================================= */
+/* ==========================================================================
+   CATEGORY RESULT ANIMATION
+   ========================================================================== */
 
 @keyframes blog-category-results-in {
 
@@ -1707,9 +1412,9 @@
 }
 
 
-/* =========================================
-   ACCESSIBILITY
-========================================= */
+/* ==========================================================================
+   CATEGORY ACCESSIBILITY
+   ========================================================================== */
 
 .blog-category-chip:focus-visible {
   outline:
@@ -1720,9 +1425,9 @@
 }
 
 
-/* =========================================
-   TABLET
-========================================= */
+/* ==========================================================================
+   CATEGORY RESPONSIVE
+   ========================================================================== */
 
 @media (max-width: 900px) {
 
@@ -1734,10 +1439,6 @@
 
 }
 
-
-/* =========================================
-   MOBILE
-========================================= */
 
 @media (max-width: 640px) {
 
@@ -1772,12 +1473,20 @@
     font-size: 13px;
   }
 
+
+  .blog-results-context {
+    margin:
+      16px
+      0
+      22px;
+  }
+
 }
 
 
-/* =========================================
-   REDUCED MOTION
-========================================= */
+/* ==========================================================================
+   CATEGORY REDUCED MOTION
+   ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -1797,86 +1506,3 @@
   }
 
 }
-
-/* =========================================
-   BLOG — CATEGORY LINES CLEANUP
-========================================= */
-
-/*
- * Оставляем только одну горизонтальную линию —
- * под заголовком "Категории статей".
- */
-
-.blog-categories .blog-section-heading {
-  border-bottom:
-    1px solid
-    var(--color-border);
-}
-
-
-/* описание удалено из JSX */
-
-.blog-categories__description {
-  display: none;
-}
-
-
-/* категории поднимаем ближе к заголовку */
-
-.blog-category-chips {
-  margin-top: 20px;
-}
-
-
-/*
- * Убираем линию над выбранным материалом.
- */
-
-.blog-category-results .blog-section-heading {
-  border-bottom: 0;
-
-  padding-bottom: 0;
-}
-
-
-/*
- * Убираем ещё одну линию
- * под названием/описанием выбранной категории.
- */
-
-.blog-results-context {
-  margin:
-    18px 0
-    26px;
-
-  padding-bottom: 0;
-
-  border-bottom: 0;
-}
-
-
-/*
- * Чуть уменьшаем вертикальный шум
- * между категориями и результатами.
- */
-
-.blog-category-results .blog-featured {
-  padding-top: 0;
-}
-
-
-@media (max-width: 640px) {
-
-  .blog-category-chips {
-    margin-top: 16px;
-  }
-
-
-  .blog-results-context {
-    margin:
-      16px 0
-      22px;
-  }
-
-}
-
