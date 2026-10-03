@@ -1,0 +1,256 @@
+/* ==========================================================================
+   HealthCurrentRequirements.jsx — CURRENT REQUIREMENTS
+   ========================================================================== */
+
+.health-current {
+  padding: 118px 0 126px;
+
+  background: #151515;
+
+  color: #fff;
+}
+
+.health-current__layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(250px, 0.44fr)
+    minmax(0, 1fr);
+
+  gap: clamp(75px, 10vw, 160px);
+
+  align-items: start;
+}
+
+.health-current__year {
+  position: sticky;
+  top: 110px;
+
+  overflow: visible;
+
+  padding-top: 24px;
+
+  border-top: 1px solid rgb(255 255 255 / 18%);
+
+  padding-bottom: 12px;
+}
+
+.health-current__year::before {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 68px;
+  height: 5px;
+
+  border-radius: 0 0 5px 5px;
+
+  background: var(--health-accent);
+
+  content: "";
+}
+
+.health-current__year span {
+  color: rgb(255 255 255 / 48%);
+
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.health-current__year strong {
+  display: block;
+
+  margin-top: 40px;
+
+  color: #fff;
+
+  font-size: clamp(5.8rem, 9vw, 9rem);
+
+  line-height: 0.92;
+  letter-spacing: -0.09em;
+
+  overflow: visible;
+
+  padding-bottom: 0.08em;
+}
+
+.health-current .health-kicker {
+  color: var(--health-accent);
+}
+
+.health-current__content h2 {
+  max-width: 780px;
+
+  margin: 0;
+
+  font-size: clamp(2.8rem, 4.2vw, 4.6rem);
+
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+
+  text-wrap: balance;
+}
+
+.health-current__lead {
+  max-width: 730px;
+
+  margin: 30px 0 0;
+
+  color: rgb(255 255 255 / 62%);
+
+  font-size: 1.03rem;
+  line-height: 1.72;
+}
+
+.health-current__sources {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  margin-top: 48px;
+
+  border-top: 1px solid rgb(255 255 255 / 18%);
+
+  border-bottom: 1px solid rgb(255 255 255 / 18%);
+}
+
+.health-current__sources article {
+  min-width: 0;
+
+  padding: 30px 28px 30px 0;
+}
+
+.health-current__sources article + article {
+  padding-left: 28px;
+
+  border-left: 1px solid rgb(255 255 255 / 18%);
+}
+
+.health-current__sources span {
+  display: block;
+
+  color: rgb(255 255 255 / 42%);
+
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.health-current__sources strong {
+  display: block;
+
+  margin-top: 28px;
+
+  color: #fff;
+
+  font-size: clamp(1.45rem, 2vw, 1.8rem);
+
+  line-height: 1.2;
+}
+
+.health-current__sources p {
+  margin: 14px 0 0;
+
+  color: rgb(255 255 255 / 56%);
+
+  line-height: 1.65;
+}
+
+.health-current__note {
+  display: grid;
+
+  grid-template-columns: 120px minmax(0, 1fr);
+
+  gap: 28px;
+
+  margin-top: 30px;
+}
+
+.health-current__note > span {
+  color: var(--health-accent);
+
+  font-size: 0.7rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.health-current__note p {
+  max-width: 650px;
+
+  margin: 0;
+
+  color: rgb(255 255 255 / 58%);
+
+  line-height: 1.65;
+}
+
+@media (max-width: 1180px) {
+  .health-current__layout {
+    gap: 70px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .health-current__layout {
+    grid-template-columns: 1fr;
+  }
+  .health-current__year {
+    position: relative;
+    top: auto;
+  }
+  .health-current__year {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .health-current {
+    padding: 82px 0 88px;
+  }
+  .health-current__sources {
+    grid-template-columns: 1fr;
+  }
+  .health-current__sources article,
+  .health-current__sources article + article {
+    padding: 26px 0;
+
+    border-left: 0;
+  }
+  .health-current__sources article + article {
+    border-top: 1px solid rgb(255 255 255 / 18%);
+  }
+}
+
+@media (max-width: 430px) {
+  .health-current__content h2 {
+    font-size: 2.5rem;
+  }
+  .health-current__note {
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+  }
+  .health-current__year strong {
+    font-size: 5.6rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .health-current__content h2 {
+    font-size: 2.3rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .health-current__content h2 {
+    font-size: 2rem;
+  }
+  .health-current__year strong {
+    font-size: 4.8rem;
+  }
+}

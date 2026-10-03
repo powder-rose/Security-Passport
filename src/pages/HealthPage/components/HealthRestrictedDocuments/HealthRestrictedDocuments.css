@@ -1,0 +1,274 @@
+/* ==========================================================================
+   HealthRestrictedDocuments.jsx — RESTRICTED DOCUMENTS
+   ========================================================================== */
+
+.health-restricted {
+  padding: 118px 0 126px;
+
+  background: #151515;
+
+  color: #fff;
+}
+
+.health-restricted .health-kicker {
+  color: var(--health-accent);
+}
+
+.health-restricted__layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(250px, 0.45fr)
+    minmax(0, 1fr);
+
+  gap: clamp(72px, 10vw, 160px);
+
+  align-items: start;
+}
+
+.health-restricted__identity {
+  position: sticky;
+  top: 110px;
+
+  min-width: 0;
+}
+
+.health-restricted__identity > strong {
+  display: block;
+
+  margin-top: 30px;
+
+  color: #fff;
+
+  font-size: clamp(6rem, 10vw, 10rem);
+
+  line-height: 0.72;
+  letter-spacing: -0.09em;
+}
+
+.health-restricted__identity > span {
+  display: block;
+
+  max-width: 230px;
+
+  margin-top: 32px;
+  padding-top: 22px;
+
+  border-top: 5px solid var(--health-accent);
+
+  color: rgb(255 255 255 / 58%);
+
+  line-height: 1.55;
+}
+
+.health-restricted__content h2 {
+  max-width: 760px;
+
+  margin: 0;
+
+  font-size: clamp(2.8rem, 4.2vw, 4.6rem);
+
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+
+  text-wrap: balance;
+}
+
+.health-restricted__lead {
+  max-width: 760px;
+
+  margin: 30px 0 0;
+
+  color: rgb(255 255 255 / 62%);
+
+  font-size: 1.04rem;
+  line-height: 1.72;
+}
+
+.health-restricted__rules {
+  margin-top: 46px;
+
+  border-top: 1px solid rgb(255 255 255 / 18%);
+}
+
+.health-restricted__rule {
+  display: grid;
+
+  grid-template-columns: 48px minmax(0, 1fr);
+
+  gap: 24px;
+
+  padding: 30px 4px;
+
+  border-bottom: 1px solid rgb(255 255 255 / 18%);
+}
+
+.health-restricted__sign {
+  display: inline-flex;
+
+  width: 34px;
+  height: 34px;
+
+  border: 1px solid var(--health-accent);
+
+  border-radius: 50%;
+
+  color: var(--health-accent);
+
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1rem;
+  font-weight: 850;
+}
+
+.health-restricted__rule strong {
+  display: block;
+
+  color: #fff;
+
+  font-size: 1.2rem;
+}
+
+.health-restricted__rule ul {
+  display: grid;
+  gap: 10px;
+
+  margin: 18px 0 0;
+
+  padding: 0;
+
+  list-style: none;
+}
+
+.health-restricted__rule li,
+.health-restricted__rule p {
+  position: relative;
+
+  margin: 0;
+
+  color: rgb(255 255 255 / 58%);
+
+  line-height: 1.65;
+}
+
+.health-restricted__rule li {
+  padding-left: 20px;
+}
+
+.health-restricted__rule li::before {
+  position: absolute;
+
+  top: 0.7em;
+  left: 0;
+
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: var(--health-accent);
+
+  content: "";
+}
+
+.health-restricted__rule--private .health-restricted__sign {
+  border-color: rgb(255 255 255 / 28%);
+
+  color: rgb(255 255 255 / 58%);
+}
+
+.health-restricted__act-note {
+  display: grid;
+
+  grid-template-columns: 90px minmax(0, 1fr);
+
+  gap: 28px;
+
+  margin-top: 28px;
+  padding-top: 26px;
+
+  border-top: 1px solid rgb(255 255 255 / 18%);
+}
+
+.health-restricted__act-note > span {
+  color: var(--health-accent);
+
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.health-restricted__act-note p {
+  max-width: 660px;
+
+  margin: 0;
+
+  color: rgb(255 255 255 / 54%);
+
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+@media (max-width: 1180px) {
+  .health-restricted__layout {
+    gap: 70px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .health-restricted__layout {
+    grid-template-columns: 1fr;
+  }
+  .health-restricted__identity {
+    position: relative;
+    top: auto;
+  }
+  .health-restricted__identity {
+    max-width: 500px;
+  }
+  .health-restricted__identity > strong {
+    font-size: 7.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .health-restricted {
+    padding: 82px 0 88px;
+  }
+}
+
+@media (max-width: 430px) {
+  .health-restricted__content h2 {
+    font-size: 2.5rem;
+  }
+  .health-restricted__identity > strong {
+    font-size: 6rem;
+  }
+  .health-restricted__rule {
+    grid-template-columns: 38px minmax(0, 1fr);
+
+    gap: 14px;
+  }
+  .health-restricted__act-note {
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+  }
+}
+
+@media (max-width: 390px) {
+  .health-restricted__content h2 {
+    font-size: 2.3rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .health-restricted__content h2 {
+    font-size: 2rem;
+  }
+  .health-restricted__identity > strong {
+    font-size: 5.2rem;
+  }
+}

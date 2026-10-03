@@ -1,99 +1,64 @@
-import './HealthPage.css';
+import "./HealthPage.css";
 
-import Container
-from '../../components/ui/Container/Container';
+import "./components/HealthHeroAndObjects/HealthHeroAndObjects.css";
+import "./components/HealthRegulationAndCategories/HealthRegulationAndCategories.css";
+import "./components/HealthCommissionAndAct/HealthCommissionAndAct.css";
+import "./components/HealthPassportProcess/HealthPassportProcess.css";
+import "./components/HealthRestrictedDocuments/HealthRestrictedDocuments.css";
+import "./components/HealthServiceScope/HealthServiceScope.css";
+import "./components/HealthPricing/HealthPricing.css";
+import "./components/HealthRequiredDocuments/HealthRequiredDocuments.css";
+import "./components/HealthPassportStructure/HealthPassportStructure.css";
+import "./components/HealthPassportActualization/HealthPassportActualization.css";
+import "./components/HealthMedicalOrganizations/HealthMedicalOrganizations.css";
+import "./components/HealthCurrentRequirements/HealthCurrentRequirements.css";
+import "./components/HealthWorkApproach/HealthWorkApproach.css";
+import "./components/HealthFaq/HealthFaq.css";
 
-import FinalCTA
-from '../../sections/FinalCTA/FinalCTA';
+import FinalCTA from "../../sections/FinalCTA/FinalCTA";
 
-import {
-  useCity,
-} from '../../context/GeoContext';
+import { useCity } from "../../context/GeoContext";
 
-import HealthHeroAndObjects
-from './components/HealthHeroAndObjects';
+import HealthHeroAndObjects from "./components/HealthHeroAndObjects/HealthHeroAndObjects";
 
-import HealthRegulationAndCategories
-from './components/HealthRegulationAndCategories';
+import HealthRegulationAndCategories from "./components/HealthRegulationAndCategories/HealthRegulationAndCategories";
 
-import HealthCommissionAndAct
-from './components/HealthCommissionAndAct';
+import HealthCommissionAndAct from "./components/HealthCommissionAndAct/HealthCommissionAndAct";
 
-import HealthPassportProcess
-from './components/HealthPassportProcess';
+import HealthPassportProcess from "./components/HealthPassportProcess/HealthPassportProcess";
 
-import HealthRestrictedDocuments
-from './components/HealthRestrictedDocuments';
+import HealthRestrictedDocuments from "./components/HealthRestrictedDocuments/HealthRestrictedDocuments";
 
-import HealthServiceScope
-from './components/HealthServiceScope';
+import HealthServiceScope from "./components/HealthServiceScope/HealthServiceScope";
 
-import HealthPricing
-from './components/HealthPricing';
+import HealthPricing from "./components/HealthPricing/HealthPricing";
 
-import HealthRequiredDocuments
-from './components/HealthRequiredDocuments';
+import HealthRequiredDocuments from "./components/HealthRequiredDocuments/HealthRequiredDocuments";
 
-import HealthPassportStructure
-from './components/HealthPassportStructure';
+import HealthPassportStructure from "./components/HealthPassportStructure/HealthPassportStructure";
 
-import HealthPassportActualization
-from './components/HealthPassportActualization';
+import HealthPassportActualization from "./components/HealthPassportActualization/HealthPassportActualization";
 
-import HealthMedicalOrganizations
-from './components/HealthMedicalOrganizations';
+import HealthMedicalOrganizations from "./components/HealthMedicalOrganizations/HealthMedicalOrganizations";
 
-import HealthCurrentRequirements
-from './components/HealthCurrentRequirements';
+import HealthCurrentRequirements from "./components/HealthCurrentRequirements/HealthCurrentRequirements";
 
-import HealthWorkApproach
-from './components/HealthWorkApproach';
+import HealthWorkApproach from "./components/HealthWorkApproach/HealthWorkApproach";
 
-import HealthFaq
-from './components/HealthFaq';
-
+import HealthFaq from "./components/HealthFaq/HealthFaq";
 
 export default function HealthPage() {
-  const city =
-    useCity();
+  const city = useCity();
 
   return (
-    <main
-      id="main-content"
-      className="health-page"
-      data-health-stage="1"
-    >
-      {/* HEALTH_STAGE_1_V1:start */}
-
-      <HealthHeroAndObjects
-        city={city}
-      />
-
-      {/* HEALTH_STAGE_1_V1:end */}
-
-
-      {/* HEALTH_STAGE_2_V1:start */}
+    <main id="main-content" className="health-page">
+      <HealthHeroAndObjects city={city} />
 
       <HealthRegulationAndCategories />
 
-      {/* HEALTH_STAGE_2_V1:end */}
-
-
-      {/* HEALTH_STAGE_3_V1:start */}
-
       <HealthCommissionAndAct />
 
-      {/* HEALTH_STAGE_3_V1:end */}
-
-
-      {/* HEALTH_STAGE_4_V1:start */}
-
       <HealthPassportProcess />
-
-      {/* HEALTH_STAGE_4_V1:end */}
-
-
-      {/* HEALTH_STAGE_5_V1:start */}
 
       <HealthRestrictedDocuments />
 
@@ -103,11 +68,6 @@ export default function HealthPage() {
 
       <HealthRequiredDocuments />
 
-      {/* HEALTH_STAGE_5_V1:end */}
-
-
-      {/* HEALTH_STAGE_6_V1:start */}
-
       <HealthPassportStructure />
 
       <HealthPassportActualization />
@@ -116,19 +76,11 @@ export default function HealthPage() {
 
       <HealthCurrentRequirements />
 
-      {/* HEALTH_STAGE_6_V1:end */}
-
-
-      {/* HEALTH_STAGE_7_V1:start */}
-
       <HealthWorkApproach />
 
       <HealthFaq />
 
-      {/* HEALTH_STAGE_7_V1:end */}
-
-
       <FinalCTA />
-</main>
+    </main>
   );
 }

@@ -1,0 +1,303 @@
+/* ==========================================================================
+   HealthPricing.jsx — PRICING
+   ========================================================================== */
+
+.health-prices {
+  padding: 118px 0 126px;
+
+  background: #f5f5f1;
+}
+
+.health-prices__heading {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.05fr)
+    minmax(300px, 0.55fr);
+
+  gap: clamp(70px, 9vw, 145px);
+
+  align-items: end;
+}
+
+.health-prices__heading h2 {
+  max-width: 790px;
+
+  margin: 0;
+
+  font-size: clamp(2.8rem, 4.2vw, 4.6rem);
+
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+
+  text-wrap: balance;
+}
+
+.health-prices__heading > p {
+  margin: 0 0 4px;
+
+  color: var(--color-text-secondary);
+
+  line-height: 1.72;
+}
+
+.health-prices__layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(330px, 0.7fr)
+    minmax(0, 1fr);
+
+  gap: clamp(36px, 6vw, 80px);
+
+  margin-top: 62px;
+
+  align-items: stretch;
+}
+
+.health-price-primary {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  min-height: 410px;
+
+  padding: 34px;
+
+  border-radius: var(--radius-lg);
+
+  background: #151515;
+
+  color: #fff;
+
+  box-shadow: var(--shadow-soft);
+}
+
+.health-price-primary::before {
+  position: absolute;
+
+  top: 0;
+  right: 36px;
+
+  width: 72px;
+  height: 6px;
+
+  border-radius: 0 0 6px 6px;
+
+  background: var(--health-accent);
+
+  content: "";
+}
+
+.health-price-primary > span {
+  color: rgb(255 255 255 / 52%);
+
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.health-price-primary > strong {
+  display: block;
+
+  margin-top: 54px;
+
+  color: #fff;
+
+  font-size: clamp(3.3rem, 5vw, 5.2rem);
+
+  line-height: 0.9;
+  letter-spacing: -0.07em;
+}
+
+.health-price-primary > p {
+  max-width: 350px;
+
+  margin: 28px 0 36px;
+
+  color: rgb(255 255 255 / 58%);
+
+  line-height: 1.65;
+}
+
+.health-price-primary .button {
+  align-self: flex-start;
+
+  margin-top: auto;
+}
+
+.health-prices__list {
+  border-top: 1px solid var(--color-border);
+}
+
+.health-prices__list article {
+  display: grid;
+
+  grid-template-columns: minmax(0, 1fr) auto;
+
+  gap: 30px;
+
+  min-height: 125px;
+
+  padding: 26px 4px;
+
+  align-items: center;
+
+  border-bottom: 1px solid var(--color-border);
+
+  transition:
+    padding-left 190ms ease,
+    background-color 190ms ease;
+}
+
+.health-prices__list article > div {
+  display: grid;
+
+  grid-template-columns: 44px minmax(0, 1fr);
+
+  gap: 18px;
+
+  align-items: center;
+}
+
+.health-prices__list article span {
+  color: var(--color-text-secondary);
+
+  font-size: 0.7rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+}
+
+.health-prices__list h3 {
+  margin: 0;
+
+  font-size: clamp(1.08rem, 1.5vw, 1.35rem);
+
+  line-height: 1.25;
+}
+
+.health-prices__list article > strong {
+  white-space: nowrap;
+
+  font-size: clamp(1.5rem, 2vw, 1.9rem);
+
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+@media (hover: hover) {
+  .health-prices__list article:hover {
+    padding-left: 16px;
+
+    background: #fff;
+  }
+}
+
+.health-prices__note {
+  display: grid;
+
+  grid-template-columns: 190px minmax(0, 1fr);
+
+  gap: 34px;
+
+  max-width: 860px;
+
+  margin: 34px 0 0 auto;
+
+  padding-top: 26px;
+
+  border-top: 1px solid var(--color-border);
+}
+
+.health-prices__note > span {
+  font-size: 0.74rem;
+  font-weight: 850;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.health-prices__note p {
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  line-height: 1.68;
+}
+
+@media (max-width: 1180px) {
+  .health-prices__layout {
+    gap: 50px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .health-prices__heading,
+  .health-prices__layout {
+    grid-template-columns: 1fr;
+  }
+  .health-prices__heading {
+    gap: 28px;
+  }
+  .health-prices__heading > p {
+    max-width: 720px;
+  }
+  .health-price-primary {
+    max-width: 650px;
+  }
+}
+
+@media (max-width: 768px) {
+  .health-prices {
+    padding: 82px 0 88px;
+  }
+  .health-prices__note {
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+  }
+}
+
+@media (max-width: 430px) {
+  .health-prices__heading h2 {
+    font-size: 2.5rem;
+  }
+  .health-price-primary {
+    min-height: 360px;
+
+    padding: 26px;
+
+    border-radius: 18px;
+  }
+  .health-price-primary > strong {
+    font-size: 3.5rem;
+  }
+  .health-prices__list article {
+    grid-template-columns: 1fr;
+
+    gap: 16px;
+
+    min-height: 0;
+  }
+  .health-prices__list article > strong {
+    padding-left: 62px;
+  }
+}
+
+@media (max-width: 390px) {
+  .health-prices__heading h2 {
+    font-size: 2.3rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .health-prices__heading h2 {
+    font-size: 2rem;
+  }
+  .health-price-primary > strong {
+    font-size: 3.05rem;
+  }
+}

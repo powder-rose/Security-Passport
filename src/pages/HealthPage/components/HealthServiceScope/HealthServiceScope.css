@@ -1,0 +1,158 @@
+/* ==========================================================================
+   HealthServiceScope.jsx — SERVICE SCOPE
+   ========================================================================== */
+
+.health-service {
+  padding: 118px 0 126px;
+
+  background: #fff;
+}
+
+.health-service__heading {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(300px, 0.55fr);
+
+  gap: 24px clamp(70px, 10vw, 150px);
+
+  align-items: end;
+}
+
+.health-service__heading .health-kicker {
+  grid-column: 1 / -1;
+
+  margin-bottom: 0;
+}
+
+.health-service__heading h2 {
+  margin: 0;
+
+  font-size: clamp(2.9rem, 4.4vw, 4.8rem);
+
+  line-height: 0.97;
+  letter-spacing: -0.06em;
+}
+
+.health-service__heading > p {
+  margin: 0 0 4px;
+
+  color: var(--color-text-secondary);
+
+  line-height: 1.72;
+}
+
+.health-service__rows {
+  margin-top: 66px;
+
+  border-top: 1px solid var(--color-border);
+}
+
+.health-service__row {
+  display: grid;
+
+  grid-template-columns:
+    70px
+    minmax(250px, 0.7fr)
+    minmax(0, 1fr);
+
+  gap: 26px;
+
+  align-items: start;
+
+  padding: 30px 4px;
+
+  border-bottom: 1px solid var(--color-border);
+
+  transition:
+    padding-left 190ms ease,
+    background-color 190ms ease;
+}
+
+.health-service__row > span {
+  color: var(--color-text-secondary);
+
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+
+  transition: color 190ms ease;
+}
+
+.health-service__row h3 {
+  margin: 0;
+
+  font-size: clamp(1.15rem, 1.55vw, 1.45rem);
+
+  line-height: 1.22;
+  letter-spacing: -0.025em;
+}
+
+.health-service__row p {
+  max-width: 550px;
+
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  line-height: 1.65;
+}
+
+@media (hover: hover) {
+  .health-service__row:hover {
+    padding-left: 18px;
+
+    background: #f7f7f4;
+  }
+  .health-service__row:hover > span {
+    color: var(--color-text);
+  }
+}
+
+@media (max-width: 1024px) {
+  .health-service__heading {
+    grid-template-columns: 1fr;
+  }
+  .health-service__heading {
+    gap: 28px;
+  }
+  .health-service__heading .health-kicker {
+    grid-column: 1;
+  }
+  .health-service__heading > p {
+    max-width: 720px;
+  }
+}
+
+@media (max-width: 768px) {
+  .health-service {
+    padding: 82px 0 88px;
+  }
+  .health-service__row {
+    grid-template-columns: 48px minmax(0, 1fr);
+
+    gap: 10px 18px;
+  }
+  .health-service__row p {
+    grid-column: 2;
+  }
+}
+
+@media (max-width: 430px) {
+  .health-service__heading h2 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .health-service__heading h2 {
+    font-size: 2.3rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .health-service__heading h2 {
+    font-size: 2rem;
+  }
+}
