@@ -1,0 +1,154 @@
+/*
+ * TradeServiceScope.jsx
+ *
+ * Local styles for this TradePage component.
+ */
+
+.trade-service {
+  padding: 118px 0 124px;
+}
+
+.trade-service__heading {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.1fr)
+    minmax(310px, 0.6fr);
+  gap: clamp(70px, 10vw, 160px);
+  align-items: end;
+}
+
+.trade-service__heading h2 {
+  max-width: 820px;
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.trade-service__heading > p {
+  margin: 0 0 4px;
+  color: var(--color-text-secondary);
+  line-height: 1.72;
+}
+
+.trade-service__rows {
+  margin-top: 64px;
+  border-top: 1px solid var(--color-border);
+}
+
+.trade-service__rows article {
+  display: grid;
+  grid-template-columns:
+    70px
+    minmax(260px, 0.75fr)
+    minmax(0, 1fr);
+  gap: 32px;
+  align-items: center;
+  min-height: 108px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.trade-service__rows article > span {
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+}
+
+.trade-service__rows h3 {
+  margin: 0;
+  font-size: 1.12rem;
+  line-height: 1.3;
+}
+
+.trade-service__rows p {
+  max-width: 680px;
+  margin: 0;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+}
+
+@media (max-width: 1024px) {
+  .trade-service__heading {
+    grid-template-columns: 1fr;
+  }
+
+  .trade-service__heading {
+    gap: 28px;
+  }
+
+  .trade-service__heading > p {
+    max-width: 720px;
+  }
+}
+
+@media (max-width: 768px) {
+  .trade-service {
+    padding-top: 80px;
+    padding-bottom: 86px;
+  }
+
+  .trade-service__rows article {
+    grid-template-columns:
+      50px
+      minmax(0, 1fr);
+  }
+
+  .trade-service__rows p {
+    grid-column: 2;
+  }
+}
+
+@media (max-width: 430px) {
+  .trade-service__heading h2 {
+    font-size: 2.4rem;
+  }
+
+  .trade-service__rows article {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .trade-service__rows p {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 320px) {
+  .trade-service__heading h2 {
+    font-size: 2.05rem;
+  }
+}
+
+.trade-service__heading h2 {
+  font-size: clamp(2.35rem, 3.35vw, 3.75rem);
+}
+
+.trade-service__rows article {
+  padding-right: 18px;
+  padding-left: 18px;
+  border-radius: 16px;
+  transition:
+    padding-left 200ms ease,
+    background-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+@media (hover: hover) {
+  .trade-service__rows article:hover {
+    padding-left: 28px;
+    background: #fff;
+    box-shadow: 0 10px 28px rgb(0 0 0 / 5%);
+  }
+}
+
+.trade-service__rows article > span {
+  display: inline-flex;
+  width: 36px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--trade-accent);
+  color: #151515;
+  align-items: center;
+  justify-content: center;
+}

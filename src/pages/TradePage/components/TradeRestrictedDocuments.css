@@ -1,0 +1,345 @@
+/*
+ * TradeRestrictedDocuments.jsx
+ *
+ * Local styles for this TradePage component.
+ */
+
+.trade-restricted {
+  padding: 116px 0 124px;
+  background: #151515;
+  color: #fff;
+}
+
+.trade-restricted__layout {
+  display: grid;
+}
+
+.trade-restricted__identity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.trade-restricted__identity > span {
+  color: rgb(255 255 255 / 45%);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.trade-restricted__identity > strong {
+  margin-top: 18px;
+}
+
+.trade-restricted__identity > small {
+  margin-top: 34px;
+  padding-top: 24px;
+  border-top: 1px solid rgb(255 255 255 / 16%);
+  color: rgb(255 255 255 / 55%);
+  font-size: 0.85rem;
+  line-height: 1.65;
+}
+
+.trade-restricted__content h2 {
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.trade-restricted__lead {
+  max-width: 790px;
+  margin: 30px 0 0;
+  color: rgb(255 255 255 / 63%);
+  font-size: 1.04rem;
+  line-height: 1.74;
+}
+
+.trade-restricted__rules {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 46px;
+  border-top: 1px solid rgb(255 255 255 / 15%);
+  border-left: 1px solid rgb(255 255 255 / 15%);
+}
+
+.trade-restricted__rules article {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 22px;
+  min-height: 230px;
+  padding: 30px;
+  border-right: 1px solid rgb(255 255 255 / 15%);
+  border-bottom: 1px solid rgb(255 255 255 / 15%);
+}
+
+.trade-restricted__sign {
+  display: inline-flex;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgb(255 255 255 / 35%);
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-weight: 750;
+  line-height: 1;
+}
+
+.trade-restricted__rule--negative .trade-restricted__sign {
+  position: relative;
+  font-size: 0;
+}
+
+.trade-restricted__rule--negative .trade-restricted__sign::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 2px;
+  border-radius: 999px;
+  content: "";
+  transform: translate(-50%, -50%);
+}
+
+.trade-restricted__rules h3 {
+  margin: 4px 0 0;
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.trade-restricted__rules p {
+  margin: 20px 0 0;
+  color: rgb(255 255 255 / 58%);
+  line-height: 1.68;
+}
+
+.trade-restricted__footnote {
+  max-width: 740px;
+  margin: 32px 0 0;
+  padding-top: 25px;
+  border-top: 1px solid rgb(255 255 255 / 15%);
+  color: rgb(255 255 255 / 50%);
+  font-size: 0.86rem;
+  line-height: 1.68;
+}
+
+@media (max-width: 768px) {
+  .trade-restricted {
+    padding-top: 80px;
+    padding-bottom: 86px;
+  }
+
+  .trade-restricted__rules {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 430px) {
+  .trade-restricted__rules article {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    min-height: auto;
+    padding: 26px;
+  }
+}
+
+@media (max-width: 390px) {
+  .trade-restricted__rules article {
+    padding: 23px;
+  }
+}
+
+@media (max-width: 320px) {
+  .trade-restricted__content h2 {
+    font-size: 2.05rem;
+  }
+}
+
+.trade-restricted__layout {
+  grid-template-columns:
+    minmax(340px, 370px)
+    minmax(0, 1fr);
+
+  gap: clamp(62px, 8vw, 125px);
+}
+
+.trade-restricted__identity {
+  position: sticky;
+  top: 110px;
+
+  width: 100%;
+  max-width: 370px;
+  min-width: 0;
+
+  align-self: start;
+
+  box-sizing: border-box;
+
+  padding: 30px;
+
+  border: 1px solid rgb(255 255 255 / 13%);
+
+  border-radius: 24px;
+
+  background: rgb(255 255 255 / 3%);
+}
+
+.trade-restricted__identity::before {
+  display: block;
+
+  width: 64px;
+  height: 6px;
+
+  margin-bottom: 30px;
+
+  border-radius: 999px;
+
+  background: var(--trade-accent);
+
+  content: "";
+}
+
+.trade-restricted__identity > strong {
+  display: block;
+
+  width: 100%;
+  max-width: 100%;
+
+  font-size: clamp(1.55rem, 1.75vw, 1.85rem);
+
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+
+  overflow: hidden;
+  overflow-wrap: break-word;
+
+  word-break: normal;
+  hyphens: none;
+}
+
+.trade-restricted__identity > small {
+  max-width: none;
+}
+
+.trade-restricted__content h2 {
+  max-width: 780px;
+
+  font-size: clamp(2.55rem, 3.55vw, 3.95rem);
+}
+
+.trade-restricted__rules {
+  gap: 14px;
+  border: 0;
+}
+
+.trade-restricted__rules article {
+  border: 1px solid rgb(255 255 255 / 13%);
+
+  border-radius: 22px;
+
+  background: rgb(255 255 255 / 3%);
+}
+
+.trade-restricted__sign {
+  position: relative;
+
+  border-color: var(--trade-accent);
+
+  color: var(--trade-accent);
+
+  font-size: 0;
+}
+
+.trade-restricted__rules
+  article:not(.trade-restricted__rule--negative)
+  .trade-restricted__sign::before,
+.trade-restricted__rules
+  article:not(.trade-restricted__rule--negative)
+  .trade-restricted__sign::after {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 12px;
+  height: 2px;
+
+  border-radius: 999px;
+
+  background: var(--trade-accent);
+
+  content: "";
+
+  transform: translate(-50%, -50%);
+}
+
+.trade-restricted__rules
+  article:not(.trade-restricted__rule--negative)
+  .trade-restricted__sign::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.trade-restricted__rule--negative .trade-restricted__sign::before {
+  background: var(--trade-accent);
+}
+
+.trade-restricted__rule--negative .trade-restricted__sign::after {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .trade-restricted__identity {
+    position: relative;
+    top: auto;
+  }
+}
+
+@media (max-width: 430px) {
+  .trade-restricted__identity,
+  .trade-restricted__rules article {
+    border-radius: 18px;
+  }
+
+  .trade-restricted__content h2 {
+    font-size: 2.35rem;
+  }
+}
+
+@media (max-width: 1180px) {
+  .trade-restricted__layout {
+    grid-template-columns:
+      minmax(310px, 340px)
+      minmax(0, 1fr);
+
+    gap: 55px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .trade-restricted__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .trade-restricted__identity {
+    max-width: 460px;
+  }
+
+  .trade-restricted__identity > strong {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 430px) {
+  .trade-restricted__identity {
+    max-width: 100%;
+  }
+
+  .trade-restricted__identity > strong {
+    font-size: 1.65rem;
+  }
+}
+
+.trade-restricted .trade-kicker {
+  color: var(--trade-accent);
+}

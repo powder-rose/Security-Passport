@@ -1,0 +1,257 @@
+/*
+ * TradePassportDevelopment.jsx
+ *
+ * Local styles for this TradePage component.
+ */
+
+.trade-passport {
+  padding: 118px 0 124px;
+}
+
+.trade-passport__heading {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.1fr)
+    minmax(310px, 0.62fr);
+  gap: clamp(60px, 9vw, 150px);
+  align-items: end;
+}
+
+.trade-passport__heading h2 {
+  max-width: 850px;
+  margin: 0;
+  font-size: clamp(2.7rem, 4vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.trade-passport__heading > p {
+  margin: 0 0 4px;
+  color: var(--color-text-secondary);
+  line-height: 1.72;
+}
+
+.trade-passport__facts {
+  display: grid;
+  grid-template-columns:
+    minmax(300px, 0.66fr)
+    minmax(0, 1.2fr);
+  margin-top: 64px;
+}
+
+.trade-passport__deadline,
+.trade-passport__lifetime {
+  background: var(--color-bg);
+}
+
+.trade-passport__deadline {
+  padding: 36px;
+}
+
+.trade-passport__deadline > span,
+.trade-passport__lifetime > span {
+  color: var(--color-text-secondary);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.trade-passport__deadline > strong {
+  display: block;
+  margin-top: 34px;
+  font-size: clamp(3.5rem, 6vw, 6.2rem);
+  line-height: 0.86;
+  letter-spacing: -0.065em;
+}
+
+.trade-passport__deadline p {
+  max-width: 410px;
+  margin: 34px 0 0;
+  color: var(--color-text-secondary);
+  line-height: 1.72;
+}
+
+.trade-passport__lifetime {
+  padding: 36px 42px;
+}
+
+.trade-passport__lifetime h3 {
+  max-width: 650px;
+  margin: 32px 0 0;
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 1.03;
+  letter-spacing: -0.045em;
+}
+
+.trade-passport__lifetime p {
+  max-width: 720px;
+  margin: 25px 0 0;
+  color: var(--color-text-secondary);
+  line-height: 1.72;
+}
+
+.trade-passport__lifetime > strong {
+  display: block;
+  max-width: 610px;
+  margin-top: 34px;
+  padding-top: 25px;
+  border-top: 1px solid var(--color-border);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 1180px) {
+  .trade-passport__heading {
+    gap: 70px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .trade-passport__heading {
+    grid-template-columns: 1fr;
+  }
+
+  .trade-passport__heading {
+    gap: 28px;
+  }
+
+  .trade-passport__heading > p {
+    max-width: 720px;
+  }
+}
+
+@media (max-width: 768px) {
+  .trade-passport {
+    padding-top: 80px;
+    padding-bottom: 86px;
+  }
+
+  .trade-passport__facts {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 430px) {
+  .trade-passport__heading h2 {
+    font-size: 2.4rem;
+  }
+
+  .trade-passport__deadline,
+  .trade-passport__lifetime {
+    padding: 26px;
+  }
+}
+
+@media (max-width: 390px) {
+  .trade-passport__deadline,
+  .trade-passport__lifetime {
+    padding: 23px;
+  }
+}
+
+@media (max-width: 320px) {
+  .trade-passport__heading h2 {
+    font-size: 2.05rem;
+  }
+
+  .trade-passport__deadline > strong {
+    font-size: 3.8rem;
+  }
+}
+
+.trade-passport {
+  background: #fff;
+}
+
+.trade-passport__deadline,
+.trade-passport__lifetime {
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.trade-passport__facts {
+  gap: 16px;
+  border: 0;
+  background: transparent;
+}
+
+.trade-passport__deadline,
+.trade-passport__lifetime {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+.trade-passport__deadline > span,
+.trade-passport__deadline p {
+  color: rgb(255 255 255 / 78%);
+}
+
+.trade-passport__lifetime {
+  border: 1px solid var(--color-border);
+  background: #fff;
+}
+
+@media (max-width: 430px) {
+  .trade-passport__deadline,
+  .trade-passport__lifetime {
+    border-radius: 18px;
+  }
+}
+
+.trade-passport__deadline {
+  box-shadow: none;
+}
+
+.trade-passport__deadline > span,
+.trade-passport__deadline > strong,
+.trade-passport__deadline p {
+  color: #151515;
+}
+
+.trade-passport__deadline,
+.trade-passport__lifetime {
+  border-radius: var(--radius-md);
+}
+
+.trade-passport__lifetime {
+  box-shadow: none;
+}
+
+.trade-passport__deadline {
+  position: relative;
+
+  overflow: hidden;
+
+  background: #151515;
+  color: #fff;
+}
+
+.trade-passport__deadline::before {
+  position: absolute;
+
+  top: 0;
+  right: 34px;
+
+  width: 76px;
+  height: 6px;
+
+  border-radius: 0 0 6px 6px;
+
+  background: var(--trade-accent);
+
+  content: "";
+}
+
+.trade-passport__deadline > span,
+.trade-passport__deadline p {
+  color: rgb(255 255 255 / 64%);
+}
+
+.trade-passport__deadline > strong {
+  color: #fff;
+}

@@ -1,0 +1,401 @@
+/*
+ * TradeRegulation.jsx
+ *
+ * Local styles for this TradePage component.
+ */
+
+.trade-regulation {
+  padding: 112px 0 120px;
+}
+
+.trade-regulation__layout {
+  display: grid;
+  grid-template-columns:
+    minmax(260px, 0.44fr)
+    minmax(0, 1fr);
+  gap: clamp(70px, 10vw, 160px);
+  align-items: start;
+}
+
+.trade-regulation__identity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.trade-regulation__identity > span {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.trade-regulation__identity > small {
+  margin-top: 18px;
+}
+
+.trade-regulation__content {
+  min-width: 0;
+}
+
+.trade-regulation__badge {
+  display: inline-flex;
+  padding: 9px 13px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.035em;
+}
+
+.trade-regulation__content h2 {
+  max-width: 840px;
+  margin: 28px 0 0;
+  font-size: clamp(2.6rem, 4vw, 4.45rem);
+  line-height: 1;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.trade-regulation__lead {
+  max-width: 850px;
+  margin: 32px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 1.04rem;
+  line-height: 1.75;
+}
+
+.trade-regulation__meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 42px;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.trade-regulation__meta > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 128px;
+}
+
+.trade-regulation__meta > div + div {
+  border-left: 1px solid var(--color-border);
+}
+
+.trade-regulation__meta span {
+  color: var(--color-text-secondary);
+  font-size: 0.78rem;
+}
+
+.trade-regulation__meta strong {
+  margin-top: auto;
+  font-size: 1.12rem;
+  line-height: 1.25;
+}
+
+.trade-regulation__notice {
+  display: grid;
+  gap: 20px;
+  max-width: 760px;
+  margin-top: 38px;
+  padding: 24px 0 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.trade-regulation__notice > span {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-weight: 850;
+}
+
+.trade-regulation__notice p {
+  margin: 3px 0 0;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+@media (max-width: 1180px) {
+  .trade-regulation__layout {
+    gap: 70px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .trade-regulation__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .trade-regulation__identity {
+    max-width: 420px;
+  }
+
+  .trade-regulation__content {
+    max-width: 900px;
+  }
+}
+
+@media (max-width: 768px) {
+  .trade-regulation {
+    padding-top: 72px;
+    padding-bottom: 78px;
+  }
+
+  .trade-regulation__meta {
+    grid-template-columns: 1fr;
+  }
+
+  .trade-regulation__meta > div {
+    min-height: auto;
+  }
+
+  .trade-regulation__meta > div + div {
+    border-top: 1px solid var(--color-border);
+    border-left: 0;
+  }
+}
+
+@media (max-width: 430px) {
+  .trade-regulation__content h2 {
+    font-size: 2.45rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .trade-regulation__notice {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 320px) {
+  .trade-regulation__content h2 {
+    font-size: 2.05rem;
+  }
+}
+
+.trade-regulation {
+  background: #fff;
+}
+
+.trade-regulation__identity {
+  color: #fff;
+  box-shadow: var(--shadow-soft);
+}
+
+.trade-regulation__identity::after {
+  position: absolute;
+  content: "";
+}
+
+.trade-regulation__identity > span,
+.trade-regulation__identity > strong,
+.trade-regulation__identity > small {
+  position: relative;
+  z-index: 1;
+}
+
+.trade-regulation__identity > span,
+.trade-regulation__identity > small {
+  color: rgb(255 255 255 / 56%);
+}
+
+.trade-regulation__badge {
+  border: 0;
+}
+
+.trade-regulation__meta {
+  gap: 12px;
+  border: 0;
+}
+
+.trade-regulation__meta > div {
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid var(--color-border);
+  background: #fff;
+}
+
+.trade-regulation__notice {
+  border-radius: 20px;
+}
+
+@media (max-width: 1024px) {
+  .trade-regulation__identity {
+    top: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .trade-regulation__identity {
+    padding: 28px;
+  }
+}
+
+@media (max-width: 430px) {
+  .trade-regulation__identity {
+    border-radius: 18px;
+  }
+}
+
+.trade-regulation__identity::after {
+  opacity: 1;
+}
+
+.trade-regulation__badge {
+  box-shadow: none;
+}
+
+.trade-regulation__meta > div {
+  border-radius: 14px;
+}
+
+.trade-regulation__notice > span {
+  border-color: #151515;
+}
+
+@media (max-width: 1024px) {
+  .trade-regulation__identity {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .trade-regulation__identity {
+    min-height: 260px;
+  }
+}
+
+.trade-regulation__identity > strong {
+  display: block;
+
+  width: 100%;
+  max-width: 100%;
+
+  white-space: nowrap;
+}
+
+.trade-regulation__badge {
+  background: var(--trade-accent);
+  color: #151515;
+}
+
+.trade-regulation__notice > span {
+  background: var(--trade-accent);
+  border: 1px solid var(--trade-accent);
+  color: #151515;
+}
+
+@media (max-width: 430px) {
+  .trade-regulation__identity > strong {
+    font-size: 3.65rem;
+  }
+}
+
+.trade-regulation__identity {
+  position: sticky;
+  top: 120px;
+  align-self: start;
+
+  min-height: 260px;
+  height: 260px;
+
+  padding: 34px;
+
+  border-radius: 34px;
+
+  background: #151515;
+
+  overflow: hidden;
+}
+
+.trade-regulation__identity::after {
+  top: 32px;
+  right: 30px;
+
+  width: 6px;
+  height: 74px;
+
+  border-radius: 999px;
+
+  background: var(--trade-accent);
+}
+
+.trade-regulation__identity .trade-kicker {
+  width: 150px;
+
+  color: #fff;
+
+  font-size: 0.85rem;
+  line-height: 1.25;
+  letter-spacing: 0.08em;
+}
+
+.trade-regulation__identity > span {
+  margin-top: 28px;
+
+  color: var(--trade-accent);
+
+  font-size: 0.85rem;
+  font-weight: 850;
+}
+
+.trade-regulation__identity > strong {
+  position: static;
+
+  margin-top: 12px;
+
+  color: #fff;
+
+  font-size: 3.5rem;
+  line-height: 0.95;
+  letter-spacing: -0.07em;
+}
+
+.trade-regulation__identity > small {
+  position: absolute;
+
+  left: auto;
+  right: 34px;
+  bottom: 28px;
+
+  display: block;
+
+  margin: 0;
+
+  color: var(--trade-accent);
+
+  font-size: 0.8rem;
+  font-weight: 750;
+
+  text-align: left;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1024px) {
+  .trade-regulation__identity {
+    position: static;
+  }
+}
+
+.trade-regulation__notice {
+  grid-template-columns:
+    42px
+    minmax(0, 1fr);
+
+  column-gap: 36px;
+
+  align-items: center;
+}
+
+.trade-regulation__notice > span {
+  align-self: center;
+  justify-self: center;
+
+  transform: translateX(0);
+}
+
+.trade-regulation .trade-kicker {
+  color: var(--trade-accent);
+}

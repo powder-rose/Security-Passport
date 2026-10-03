@@ -1,0 +1,221 @@
+/*
+ * TradeWorkApproach.jsx
+ *
+ * Local styles for this TradePage component.
+ */
+
+.trade-why {
+  padding: 118px 0 124px;
+}
+
+.trade-why__heading {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.05fr)
+    minmax(310px, 0.6fr);
+  gap: clamp(70px, 10vw, 160px);
+  align-items: end;
+}
+
+.trade-why__heading h2 {
+  margin: 0;
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+}
+
+.trade-why__heading > p {
+  margin: 0 0 3px;
+  color: var(--color-text-secondary);
+  line-height: 1.72;
+}
+
+.trade-why__grid {
+  display: grid;
+  margin-top: 62px;
+  border-top: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
+}
+
+.trade-why__grid article {
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.trade-why__grid article > span {
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+}
+
+.trade-why__grid h3 {
+  margin: 48px 0 0;
+  font-size: 1.3rem;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+}
+
+.trade-why__grid p {
+  margin: 22px 0 0;
+  color: var(--color-text-secondary);
+  line-height: 1.66;
+}
+
+@media (max-width: 1180px) {
+  .trade-why__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1024px) {
+  .trade-why__heading {
+    grid-template-columns: 1fr;
+  }
+
+  .trade-why__heading {
+    gap: 28px;
+  }
+
+  .trade-why__heading > p {
+    max-width: 720px;
+  }
+}
+
+@media (max-width: 768px) {
+  .trade-why {
+    padding-top: 80px;
+    padding-bottom: 86px;
+  }
+
+  .trade-why__grid article {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 430px) {
+  .trade-why__heading h2 {
+    font-size: 2.4rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .trade-why__grid article {
+    padding: 22px;
+  }
+}
+
+@media (max-width: 320px) {
+  .trade-why__heading h2 {
+    font-size: 2.05rem;
+  }
+}
+
+.trade-why {
+  background: #fff;
+}
+
+.trade-why__heading h2 {
+  font-size: clamp(2.35rem, 3.35vw, 3.75rem);
+}
+
+.trade-why__grid article {
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+@media (hover: hover) {
+  .trade-why__grid article:hover {
+    transform: translateY(-4px);
+  }
+}
+
+.trade-why__grid {
+  border: 0;
+}
+
+.trade-why__grid article {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  background: #fff;
+}
+
+.trade-why__grid article::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+  content: "";
+  opacity: 0;
+  transform: scaleX(0.25);
+  transform-origin: left center;
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+
+@media (hover: hover) {
+  .trade-why__grid article:hover {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .trade-why__grid article:hover::before {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .trade-why__grid {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 430px) {
+  .trade-why__grid article {
+    border-radius: 18px;
+  }
+}
+
+.trade-why__grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.trade-why__grid article {
+  min-height: 220px;
+  padding: 34px;
+  border-radius: var(--radius-md);
+  box-shadow: none;
+}
+
+.trade-why__grid article > span {
+  display: inline-flex;
+  width: 36px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--trade-accent);
+  color: #151515;
+  align-items: center;
+  justify-content: center;
+}
+
+.trade-why__grid article::before {
+  background: var(--trade-accent);
+}
+
+@media (max-width: 768px) {
+  .trade-why__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 430px) {
+  .trade-why__grid article {
+    min-height: 0;
+    padding: 26px;
+  }
+}

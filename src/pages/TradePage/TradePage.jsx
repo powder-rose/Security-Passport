@@ -1,106 +1,75 @@
-import './TradePage.css';
+import "./TradePage.css";
 
+import "./components/TradeHeroAndObjects.css";
+import "./components/TradeRegulation.css";
+import "./components/TradeRegulationChanges.css";
+import "./components/TradeCategorizationAndAct.css";
+import "./components/TradePassportDevelopment.css";
+import "./components/TradeApprovalAndCopies.css";
+import "./components/TradeOwnership.css";
+import "./components/TradeRestrictedDocuments.css";
+import "./components/TradeServiceScope.css";
+import "./components/TradePricing.css";
+import "./components/TradeRequiredDocuments.css";
+import "./components/TradePassportForm.css";
+import "./components/TradePassportActualization.css";
+import "./components/TradeShoppingCenterInfo.css";
+import "./components/TradeWorkApproach.css";
+import "./components/TradeFaq.css";
 
-import TradeHeroAndObjects
-from './components/TradeHeroAndObjects';
+import TradeHeroAndObjects from "./components/TradeHeroAndObjects";
 
-import TradeRegulation
-from './components/TradeRegulation';
+import TradeRegulation from "./components/TradeRegulation";
 
+import TradeRegulationChanges from "./components/TradeRegulationChanges";
 
-import TradeRegulationChanges
-from './components/TradeRegulationChanges';
+import TradeCategorizationAndAct from "./components/TradeCategorizationAndAct";
 
-import TradeCategorizationAndAct
-from './components/TradeCategorizationAndAct';
+import TradePassportDevelopment from "./components/TradePassportDevelopment";
 
+import TradeApprovalAndCopies from "./components/TradeApprovalAndCopies";
 
-import TradePassportDevelopment
-from './components/TradePassportDevelopment';
+import TradeOwnership from "./components/TradeOwnership";
 
-import TradeApprovalAndCopies
-from './components/TradeApprovalAndCopies';
+import TradeRestrictedDocuments from "./components/TradeRestrictedDocuments";
 
-import TradeOwnership
-from './components/TradeOwnership';
+import TradeServiceScope from "./components/TradeServiceScope";
 
+import TradePricing from "./components/TradePricing";
 
-import TradeRestrictedDocuments
-from './components/TradeRestrictedDocuments';
+import TradeRequiredDocuments from "./components/TradeRequiredDocuments";
 
-import TradeServiceScope
-from './components/TradeServiceScope';
+import TradePassportForm from "./components/TradePassportForm";
 
-import TradePricing
-from './components/TradePricing';
+import TradePassportActualization from "./components/TradePassportActualization";
 
-import TradeRequiredDocuments
-from './components/TradeRequiredDocuments';
+import TradeShoppingCenterInfo from "./components/TradeShoppingCenterInfo";
 
+import TradeWorkApproach from "./components/TradeWorkApproach";
 
-import TradePassportForm
-from './components/TradePassportForm';
+import TradeFaq from "./components/TradeFaq";
+import FinalCTA from "../../sections/FinalCTA/FinalCTA";
 
-import TradePassportActualization
-from './components/TradePassportActualization';
-
-import TradeShoppingCenterInfo
-from './components/TradeShoppingCenterInfo';
-
-import TradeWorkApproach
-from './components/TradeWorkApproach';
-
-import TradeFaq
-from './components/TradeFaq';
-import FinalCTA from '../../sections/FinalCTA/FinalCTA';
-
-import {
-  useCity,
-} from '../../context/GeoContext';
-
+import { useCity } from "../../context/GeoContext";
 
 export default function TradePage() {
-  const city =
-    useCity();
+  const city = useCity();
 
   return (
-    <main
-      id="main-content"
-      className="trade-page"
-      data-trade-stage="1"
-    >
-      {/* TRADE_STAGE_1_V1:start */}
-
-      <TradeHeroAndObjects
-        city={city}
-      />
+    <main id="main-content" className="trade-page">
+      <TradeHeroAndObjects city={city} />
 
       <TradeRegulation />
-
-      {/* TRADE_STAGE_1_V1:end */}
-
-
-      {/* TRADE_STAGE_2_V1:start */}
 
       <TradeRegulationChanges />
 
       <TradeCategorizationAndAct />
-
-      {/* TRADE_STAGE_2_V1:end */}
-
-
-      {/* TRADE_STAGE_3_V1:start */}
 
       <TradePassportDevelopment />
 
       <TradeApprovalAndCopies />
 
       <TradeOwnership />
-
-      {/* TRADE_STAGE_3_V1:end */}
-
-
-      {/* TRADE_STAGE_4_V1:start */}
 
       <TradeRestrictedDocuments />
 
@@ -109,11 +78,6 @@ export default function TradePage() {
       <TradePricing />
 
       <TradeRequiredDocuments />
-
-      {/* TRADE_STAGE_4_V1:end */}
-
-
-      {/* TRADE_STAGE_5_V1:start */}
 
       <TradePassportForm />
 
@@ -125,10 +89,7 @@ export default function TradePage() {
 
       <TradeFaq />
 
-      {/* TRADE_STAGE_5_V1:end */}
-
-
       <FinalCTA />
-</main>
+    </main>
   );
 }

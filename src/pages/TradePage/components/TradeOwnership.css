@@ -1,0 +1,233 @@
+/*
+ * TradeOwnership.jsx
+ *
+ * Local styles for this TradePage component.
+ */
+
+.trade-owners {
+  padding: 116px 0 124px;
+}
+
+.trade-owners__layout {
+  display: grid;
+  grid-template-columns:
+    minmax(300px, 0.62fr)
+    minmax(0, 1.12fr);
+  gap: clamp(70px, 10vw, 165px);
+}
+
+.trade-owners__intro h2 {
+  max-width: 650px;
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.trade-owners__lead {
+  max-width: 720px;
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 1.04rem;
+  line-height: 1.74;
+}
+
+.trade-owners__rules {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 42px;
+  border-top: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
+}
+
+.trade-owners__rules article {
+  min-height: 300px;
+  padding: 30px;
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.trade-owners__rules article > span {
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+}
+
+.trade-owners__rules h3 {
+  margin: 48px 0 0;
+  font-size: clamp(1.35rem, 1.8vw, 1.75rem);
+  line-height: 1.16;
+  letter-spacing: -0.035em;
+}
+
+.trade-owners__rules p {
+  margin: 24px 0 0;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+.trade-owners__tenant-note {
+  margin-top: 34px;
+  padding: 30px 34px;
+  background: #151515;
+  color: #fff;
+}
+
+.trade-owners__tenant-note > strong {
+  display: block;
+  font-size: 1.3rem;
+}
+
+.trade-owners__tenant-note > p {
+  max-width: 760px;
+  margin: 18px 0 0;
+  color: rgb(255 255 255 / 65%);
+  line-height: 1.7;
+}
+
+.trade-owners__tenant-note .trade-inline-link {
+  color: #fff;
+}
+
+@media (max-width: 1180px) {
+  .trade-owners__layout {
+    gap: 70px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .trade-owners__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .trade-owners__intro {
+    max-width: 720px;
+  }
+
+  .trade-owners__content {
+    max-width: 900px;
+  }
+}
+
+@media (max-width: 768px) {
+  .trade-owners {
+    padding-top: 80px;
+    padding-bottom: 86px;
+  }
+
+  .trade-owners__rules {
+    grid-template-columns: 1fr;
+  }
+
+  .trade-owners__rules article {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 430px) {
+  .trade-owners__intro h2 {
+    font-size: 2.4rem;
+  }
+
+  .trade-owners__rules article,
+  .trade-owners__tenant-note {
+    padding: 26px;
+  }
+}
+
+@media (max-width: 390px) {
+  .trade-owners__rules article,
+  .trade-owners__tenant-note {
+    padding: 23px;
+  }
+}
+
+@media (max-width: 320px) {
+  .trade-owners__intro h2 {
+    font-size: 2.05rem;
+  }
+}
+
+.trade-owners {
+  background: #fff;
+}
+
+.trade-owners__intro h2 {
+  font-size: clamp(2.35rem, 3.35vw, 3.75rem);
+}
+
+.trade-owners__rules article {
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+@media (hover: hover) {
+  .trade-owners__rules article:hover {
+    transform: translateY(-4px);
+  }
+}
+
+.trade-owners__rules {
+  gap: 16px;
+  border: 0;
+}
+
+.trade-owners__rules article {
+  border: 1px solid var(--color-border);
+  border-radius: 22px;
+  background: #fff;
+}
+
+@media (hover: hover) {
+  .trade-owners__rules article:hover {
+    box-shadow: var(--shadow-soft);
+  }
+}
+
+.trade-owners__tenant-note {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  box-shadow: var(--shadow-soft);
+}
+
+.trade-owners__tenant-note::before {
+  position: absolute;
+  top: 0;
+  right: 34px;
+  width: 76px;
+  height: 6px;
+  border-radius: 0 0 6px 6px;
+  content: "";
+}
+
+@media (max-width: 768px) {
+  .trade-owners__rules {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 430px) {
+  .trade-owners__rules article,
+  .trade-owners__tenant-note {
+    border-radius: 18px;
+  }
+}
+
+.trade-owners__rules article > span {
+  display: inline-flex;
+  width: 36px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--trade-accent);
+  color: #151515;
+  align-items: center;
+  justify-content: center;
+}
+
+.trade-owners__tenant-note::before {
+  background: var(--trade-accent);
+}
