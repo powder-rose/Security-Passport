@@ -23,7 +23,6 @@ body {
   .advantage-card:hover,
   .document-card:hover,
   .object-type-card:hover,
-  .penalty-card:hover,
   .process-step__content:hover,
   .hero .button:hover,
   .button:hover {
@@ -66,18 +65,6 @@ body {
     grid-column: 1 / -1;
     min-height: 360px;
   }
-
-  .penalties__heading {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
-  .penalties__law {
-    max-width: 720px;
-    padding: 22px 0 0;
-    border-left: 0;
-    border-top: 1px solid rgba(255,255,255,.14);
-  }
 }
 
 /* Tablet / portrait. */
@@ -94,7 +81,6 @@ body {
   .process-section,
   .advantages,
   .required-documents,
-  .penalties,
   .related-services,
   .expert,
   .faq,
@@ -113,8 +99,7 @@ body {
   }
 
   .documents-comparison__notice,
-  .required-documents__notice,
-  .penalties__footer {
+  .required-documents__notice {
     gap: 18px;
   }
 
@@ -150,7 +135,6 @@ body {
   .process-section h2,
   .advantages h2,
   .required-documents h2,
-  .penalties h2,
   .related-services h2,
   .expert h2,
   .faq h2,
@@ -186,14 +170,12 @@ body {
   }
 
   .experience-card__top,
-  .advantage-card__top,
-  .penalty-card__top {
+  .advantage-card__top {
     align-items: flex-start;
   }
 
   .experience-card__label,
-  .advantage-card__eyebrow,
-  .penalty-card__label {
+  .advantage-card__eyebrow {
     max-width: 58%;
     line-height: 1.35;
   }
@@ -226,18 +208,6 @@ body {
 
   .object-type-card__illustration {
     min-height: 160px;
-  }
-
-  .penalty-card {
-    min-height: 330px;
-  }
-
-  .penalty-card__amount {
-    margin: 44px 0 28px;
-  }
-
-  .penalty-card__amount strong {
-    font-size: clamp(2.45rem, 11vw, 3rem);
   }
 
   .related-service__title {
@@ -298,7 +268,6 @@ body {
   .process-section h2,
   .advantages h2,
   .required-documents h2,
-  .penalties h2,
   .expert h2,
   .faq h2,
   .final-cta h2 {
@@ -325,8 +294,7 @@ body {
   }
 
   .experience-card,
-  .advantage-card,
-  .penalty-card {
+  .advantage-card {
     min-height: 0;
   }
 
@@ -353,11 +321,6 @@ body {
 
   .object-type-card__illustration {
     min-height: 145px;
-  }
-
-  .penalties__law-index {
-    width: 58px;
-    height: 58px;
   }
 
   .related-service {
