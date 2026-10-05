@@ -19,7 +19,6 @@ body {
 
 /* Avoid persistent hover movement on touch screens. */
 @media (hover: none) {
-  .document-card:hover,
   .object-type-card:hover,
   .hero .button:hover,
   .button:hover {
@@ -52,17 +51,12 @@ body {
 
   .hero,
   .about-passport,
-  .documents-comparison,
   .who-needs-passport,
   .related-services,
   .expert,
   .faq,
   .final-cta {
     scroll-margin-top: 84px;
-  }
-
-  .documents-comparison__notice {
-    gap: 18px;
   }
 
   .final-cta__form {
@@ -82,7 +76,6 @@ body {
 
   /* Keep editorial scale but prevent long Russian headings from forcing overflow. */
   .about-passport h2,
-  .documents-comparison h2,
   .who-needs-passport h2,
   .related-services h2,
   .expert h2,
@@ -106,27 +99,11 @@ body {
 
   .hero__lead,
   .about-passport__lead,
-  .documents-comparison__lead,
   .who-needs-passport__intro-card p:last-child,
   .related-services__lead,
   .final-cta__lead {
     font-size: 1rem;
     line-height: 1.62;
-  }
-
-  .document-card h3 {
-    font-size: clamp(1.8rem, 8vw, 2.15rem);
-    line-height: 1;
-  }
-
-  .document-card__top {
-    align-items: flex-start;
-  }
-
-  .document-card__label {
-    max-width: 60%;
-    text-align: right;
-    line-height: 1.35;
   }
 
   .object-type-card__illustration {
@@ -185,7 +162,6 @@ body {
   }
 
   .about-passport h2,
-  .documents-comparison h2,
   .who-needs-passport h2,
   .expert h2,
   .faq h2,
@@ -210,14 +186,6 @@ body {
   .about-passport__note-mark {
     width: 36px;
     height: 36px;
-  }
-
-  .document-card__illustration {
-    max-width: 240px;
-  }
-
-  .documents-comparison__notice {
-    padding: 20px 18px;
   }
 
   .object-type-card__illustration {
