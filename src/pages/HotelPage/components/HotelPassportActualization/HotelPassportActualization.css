@@ -1,0 +1,112 @@
+/* ==========================================================================
+   HotelPassportActualization.jsx — ACTUALIZATION
+   ========================================================================== */
+
+.hotel-actualization {
+  padding: 110px 0 118px;
+  background: #111111;
+  color: #fff;
+}
+
+.hotel-actualization__header {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(280px, .5fr);
+  gap: 60px 100px;
+  align-items: end;
+}
+
+.hotel-actualization__deadline {
+  padding-left: 34px;
+  border-left: 1px solid
+    rgb(255 255 255 / 20%);
+}
+
+.hotel-actualization__deadline strong {
+  display: block;
+  color: #a9f04a;
+  font-size:
+    clamp(44px, 5vw, 72px);
+  line-height: .95;
+  letter-spacing: -.06em;
+}
+
+.hotel-actualization__deadline p {
+  max-width: 320px;
+  margin: 14px 0 0;
+  color: rgb(255 255 255 / 68%);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.hotel-actualization__grid {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+  margin-top: 64px;
+  border-top:
+    1px solid rgb(255 255 255 / 16%);
+  border-left:
+    1px solid rgb(255 255 255 / 16%);
+}
+
+.hotel-actualization__item {
+  min-height: 270px;
+  padding: 28px;
+  border-right:
+    1px solid rgb(255 255 255 / 16%);
+  border-bottom:
+    1px solid rgb(255 255 255 / 16%);
+  transition:
+    background-color .2s ease;
+}
+
+.hotel-actualization__item:hover {
+  background:
+    rgb(255 255 255 / 4%);
+}
+
+.hotel-actualization__item > span {
+  display: block;
+  margin-bottom: 58px;
+  color: #a9f04a;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.hotel-actualization__item h3 {
+  margin: 0;
+  font-size:
+    clamp(20px, 1.7vw, 26px);
+  line-height: 1.14;
+}
+
+.hotel-actualization__item p {
+  margin: 13px 0 0;
+  color: rgb(255 255 255 / 67%);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.hotel-actualization__footer {
+  display: flex;
+  gap: 28px 60px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 32px;
+}
+
+.hotel-actualization__footer > p {
+  max-width: 650px;
+  margin: 0;
+  color: rgb(255 255 255 / 67%);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.hotel-actualization .hotel-inline-link {
+  flex: 0 0 auto;
+  margin: 0;
+  color: #a9f04a;
+}

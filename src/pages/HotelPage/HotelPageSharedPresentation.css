@@ -1,0 +1,29 @@
+/* ==========================================================================
+   HotelPage.jsx — SHARED PRESENTATION AND LATE REFINEMENTS
+
+   Shared heading/kicker presentation and late responsive refinements remain
+   page-level and retain their original position in the cascade.
+   ========================================================================== */
+
+.hotel-page h1,
+.hotel-page h2,
+.hotel-page h3 {
+  font-weight: 750;
+}
+
+.hotel-page .hotel-kicker {
+  color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  .hotel-check__important-mark {
+    justify-self: start;
+    font-size: 3.8rem;
+  }
+}
+
+@media (max-width: 430px) {
+  .hotel-check__important-mark {
+    font-size: 3.2rem;
+  }
+}

@@ -1,0 +1,133 @@
+/* ==========================================================================
+   HotelPassportProcess.jsx — PASSPORT PROCESS
+   ========================================================================== */
+
+.hotel-process {
+  padding: 118px 0;
+}
+
+.hotel-process__layout {
+  display: grid;
+  grid-template-columns:
+    minmax(300px, .68fr)
+    minmax(0, 1.32fr);
+  gap: clamp(60px, 9vw, 150px);
+  align-items: start;
+}
+
+.hotel-process__intro {
+  position: sticky;
+  top: 32px;
+}
+
+.hotel-process__note {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 34px;
+  padding-top: 24px;
+  border-top:
+    1px solid rgb(21 21 21 / 16%);
+}
+
+.hotel-process__note > span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  place-items: center;
+  border-radius: 50%;
+  background: #a9f04a;
+  font-weight: 800;
+}
+
+.hotel-process__note p {
+  max-width: 360px;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.hotel-process__steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: hotel-process;
+}
+
+.hotel-process__steps li {
+  display: grid;
+  grid-template-columns:
+    62px
+    minmax(0, 1fr)
+    28px;
+  gap: 24px;
+  align-items: center;
+  min-height: 116px;
+  padding: 24px 0;
+  border-top:
+    1px solid rgb(21 21 21 / 15%);
+}
+
+.hotel-process__steps li:last-child {
+  border-bottom:
+    1px solid rgb(21 21 21 / 15%);
+}
+
+.hotel-process__number {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 50%;
+  background: #111111;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  transition:
+    background-color .25s ease,
+    color .25s ease,
+    transform .25s ease;
+}
+
+.hotel-process__steps li:hover
+.hotel-process__number {
+  background: #a9f04a;
+  color: #111111;
+  transform: scale(1.06);
+}
+
+.hotel-process__label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  opacity: .46;
+}
+
+.hotel-process__steps h3 {
+  max-width: 620px;
+  margin: 0;
+  font-size:
+    clamp(20px, 1.8vw, 27px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -.02em;
+}
+
+.hotel-process__arrow {
+  font-size: 18px;
+  opacity: .42;
+  transition:
+    opacity .2s ease,
+    transform .2s ease;
+}
+
+.hotel-process__steps li:hover
+.hotel-process__arrow {
+  opacity: 1;
+  transform: translateY(5px);
+}

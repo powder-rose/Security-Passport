@@ -1,0 +1,155 @@
+/* ==========================================================================
+   HotelPassportForm.jsx — PASSPORT FORM
+   ========================================================================== */
+
+.hotel-form {
+  padding: 118px 0;
+  background: #fff;
+}
+
+.hotel-form__layout {
+  display: grid;
+  grid-template-columns:
+    minmax(0, .82fr)
+    minmax(420px, 1.18fr);
+  gap: clamp(60px, 9vw, 150px);
+  align-items: center;
+}
+
+.hotel-form__copy {
+  max-width: 650px;
+}
+
+.hotel-form__lead {
+  margin: 30px 0 0;
+  font-size:
+    clamp(19px, 1.65vw, 24px);
+  line-height: 1.5;
+}
+
+.hotel-form__copy > p:not(.hotel-form__lead) {
+  margin: 18px 0 0;
+  font-size: 16px;
+  line-height: 1.65;
+  opacity: .68;
+}
+
+.hotel-form__action {
+  display: inline-flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 32px;
+  padding: 16px 21px;
+  border-radius: 999px;
+  background: #111111;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  transition:
+    transform .2s ease;
+}
+
+.hotel-form__action:hover {
+  transform: translateY(-2px);
+}
+
+.hotel-form__action span {
+  transition: transform .2s ease;
+}
+
+.hotel-form__action:hover span {
+  transform:
+    translate(3px, -3px);
+}
+
+.hotel-form__document {
+  overflow: hidden;
+  border:
+    1px solid rgb(21 21 21 / 13%);
+  border-radius: 28px;
+  background: #f7f7f3;
+  box-shadow:
+    0 30px 70px rgb(0 0 0 / 7%);
+}
+
+.hotel-form__document-top {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 30px;
+  border-bottom:
+    1px solid rgb(21 21 21 / 12%);
+}
+
+.hotel-form__document-top > span {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.hotel-form__document-top strong {
+  font-size: 17px;
+}
+
+.hotel-form__structure {
+  margin: 0;
+  padding: 0 30px;
+  list-style: none;
+}
+
+.hotel-form__structure li {
+  display: grid;
+  grid-template-columns:
+    44px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom:
+    1px solid rgb(21 21 21 / 11%);
+}
+
+.hotel-form__structure li > span {
+  color: #6caf14;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.hotel-form__structure p {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.hotel-form__document-note {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin: 24px;
+  padding: 20px;
+  border-radius: 18px;
+  background: #a9f04a;
+}
+
+.hotel-form__document-note > span {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  place-items: center;
+  border: 1px solid rgb(17 17 17 / 30%);
+  border-radius: 50%;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.hotel-form__document-note p {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+}

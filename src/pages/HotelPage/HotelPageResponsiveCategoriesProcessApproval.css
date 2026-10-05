@@ -1,0 +1,198 @@
+/* ==========================================================================
+   HotelPage.jsx — RESPONSIVE: CATEGORIES / PROCESS / APPROVAL
+
+   Preserves the original cross-component responsive cascade.
+   ========================================================================== */
+
+@media (max-width: 1180px) {
+  .hotel-process__layout {
+    gap: 80px;
+  }
+
+  .hotel-approval__heading {
+    gap: 50px 70px;
+    padding: 46px;
+  }
+
+  .hotel-approval__item {
+    padding: 32px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hotel-categories__header,
+  .hotel-process__layout,
+  .hotel-approval__heading {
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+
+  .hotel-process__intro {
+    position: relative;
+    top: auto;
+  }
+
+  .hotel-approval__heading .hotel-kicker {
+    grid-column: auto;
+    margin-bottom: -20px;
+  }
+
+  .hotel-approval__scheme {
+    grid-template-columns: 1fr;
+  }
+
+  .hotel-approval__item {
+    display: grid;
+    grid-template-columns:
+      54px minmax(0, 1fr);
+    gap: 20px;
+    border-right: 0;
+    border-bottom:
+      1px solid rgb(21 21 21 / 13%);
+  }
+
+  .hotel-approval__item:last-child {
+    border-bottom: 0;
+  }
+
+  .hotel-approval__item > span {
+    margin: 3px 0 0;
+  }
+
+  .hotel-approval__footer {
+    grid-template-columns:
+      auto 1fr;
+  }
+
+  .hotel-approval__action {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 768px) {
+  .hotel-categories,
+  .hotel-process {
+    padding: 82px 0;
+  }
+
+  .hotel-approval {
+    padding-bottom: 90px;
+  }
+
+  .hotel-categories__table-head {
+    display: none;
+  }
+
+  .hotel-categories__row {
+    grid-template-columns:
+      42px 1fr;
+    gap: 10px 18px;
+  }
+
+  .hotel-categories__row p {
+    grid-column: 2;
+  }
+
+  .hotel-categories__footer {
+    display: grid;
+  }
+
+  .hotel-process__steps li {
+    grid-template-columns:
+      52px 1fr;
+  }
+
+  .hotel-process__arrow {
+    display: none;
+  }
+
+  .hotel-approval__heading {
+    padding: 36px;
+  }
+}
+
+@media (max-width: 430px) {
+  .hotel-categories__table {
+    margin-top: 46px;
+  }
+
+  .hotel-categories__row {
+    padding: 22px 0;
+  }
+
+  .hotel-categories__row:hover {
+    padding-left: 0;
+  }
+
+  .hotel-process__steps li {
+    grid-template-columns:
+      44px 1fr;
+    gap: 14px;
+    min-height: 0;
+  }
+
+  .hotel-process__number {
+    width: 40px;
+    height: 40px;
+  }
+
+  .hotel-approval__panel {
+    border-radius: 24px;
+  }
+
+  .hotel-approval__heading {
+    padding: 28px 24px;
+  }
+
+  .hotel-approval__heading h2 {
+    font-size: 36px;
+  }
+
+  .hotel-approval__item {
+    grid-template-columns: 1fr;
+    padding: 26px 24px;
+  }
+
+  .hotel-approval__item > span {
+    margin: 0;
+  }
+
+  .hotel-approval__footer {
+    grid-template-columns: 1fr;
+    padding: 26px 24px;
+  }
+
+  .hotel-approval__action {
+    grid-column: auto;
+    width: 100%;
+  }
+}
+
+@media (max-width: 390px) {
+  .hotel-approval__heading h2 {
+    font-size: 33px;
+  }
+}
+
+@media (max-width: 320px) {
+  .hotel-categories__row {
+    grid-template-columns: 1fr;
+  }
+
+  .hotel-categories__row p {
+    grid-column: auto;
+  }
+
+  .hotel-process__steps li {
+    grid-template-columns: 1fr;
+  }
+
+  .hotel-process__number {
+    margin-bottom: 4px;
+  }
+
+  .hotel-approval__heading h2 {
+    font-size: 30px;
+  }
+}

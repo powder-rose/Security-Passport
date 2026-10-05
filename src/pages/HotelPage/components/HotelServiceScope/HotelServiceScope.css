@@ -1,0 +1,88 @@
+/* ==========================================================================
+   HotelServiceScope.jsx — SERVICE SCOPE
+   ========================================================================== */
+
+.hotel-service {
+  padding: 116px 0;
+  background: #fff;
+}
+
+.hotel-service__layout {
+  display: grid;
+  grid-template-columns:
+    minmax(300px, .76fr)
+    minmax(0, 1.24fr);
+  gap: clamp(60px, 9vw, 150px);
+  align-items: start;
+}
+
+.hotel-service__heading {
+  position: sticky;
+  top: 32px;
+}
+
+.hotel-service__heading > p {
+  max-width: 520px;
+  margin: 30px 0 0;
+  font-size: 16px;
+  line-height: 1.65;
+  opacity: .72;
+}
+
+.hotel-service__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top:
+    1px solid rgb(21 21 21 / 16%);
+}
+
+.hotel-service__list li {
+  display: grid;
+  grid-template-columns:
+    54px
+    minmax(0, 1fr)
+    36px;
+  gap: 20px;
+  align-items: center;
+  min-height: 88px;
+  padding: 20px 0;
+  border-bottom:
+    1px solid rgb(21 21 21 / 16%);
+  transition:
+    padding-left .2s ease;
+}
+
+.hotel-service__list li:hover {
+  padding-left: 10px;
+}
+
+.hotel-service__number {
+  font-size: 12px;
+  font-weight: 800;
+  opacity: .42;
+}
+
+.hotel-service__list strong {
+  font-size:
+    clamp(18px, 1.5vw, 23px);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.hotel-service__check {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 50%;
+  background: #a9f04a;
+  font-size: 13px;
+  font-weight: 900;
+  transition: transform .2s ease;
+}
+
+.hotel-service__list li:hover
+.hotel-service__check {
+  transform: scale(1.08);
+}
