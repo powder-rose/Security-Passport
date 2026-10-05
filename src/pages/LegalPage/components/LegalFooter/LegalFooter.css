@@ -1,0 +1,80 @@
+/* ==========================================================================
+   LegalFooter.jsx — FOOTER
+   ========================================================================== */
+
+.legal-footer {
+  padding: 38px 0 28px;
+  border-top:
+    1px solid rgba(21, 21, 21, .1);
+  background: #ece8e1;
+}
+
+.legal-footer__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 28px;
+  padding-bottom: 28px;
+}
+
+.legal-footer__top > div:first-child {
+  display: grid;
+  gap: 5px;
+}
+
+
+.legal-footer__contacts {
+  display: grid;
+
+  gap: 5px;
+
+  text-align: right;
+}
+
+.legal-footer__top strong {
+  font-size: 1.05rem;
+  font-weight: 850;
+  letter-spacing: -.035em;
+}
+
+.legal-footer__top span {
+  color: var(--color-text-secondary);
+  font-size: .8rem;
+}
+
+
+.legal-footer__contacts a {
+  color: inherit;
+  font-size: .85rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.legal-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  padding: 23px 0;
+  border-top:
+    1px solid rgba(21, 21, 21, .1);
+  border-bottom:
+    1px solid rgba(21, 21, 21, .1);
+}
+
+.legal-footer__links a {
+  color: var(--color-text-secondary);
+  font-size: .78rem;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: color .2s ease;
+}
+
+.legal-footer__links a:hover {
+  color: var(--color-text);
+}
+
+.legal-footer__bottom {
+  padding-top: 22px;
+  color: var(--color-text-secondary);
+  font-size: .76rem;
+}

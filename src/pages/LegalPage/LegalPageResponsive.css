@@ -1,0 +1,55 @@
+/* ==========================================================================
+   LegalPage.jsx — RESPONSIVE
+
+   Cross-component mobile adjustments remain page-level to preserve
+   the historical cascade.
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .legal-header__inner {
+    min-height: 68px;
+  }
+
+  .legal-header__back {
+    padding: 9px 11px;
+    font-size: .75rem;
+  }
+
+  .legal-header__mark {
+    width: 34px;
+    height: 34px;
+  }
+
+  .legal-hero h1 {
+    font-size:
+      clamp(2.45rem, 13vw, 4.25rem);
+  }
+
+  .legal-document {
+    padding:
+      28px 20px 36px;
+    border-radius: 20px;
+  }
+
+  .legal-document__detail {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .legal-page__after {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .legal-footer__top {
+    flex-direction: column;
+  }
+
+  .legal-footer__contacts {
+    text-align: left;
+  }
+
+  .legal-footer__links {
+    display: grid;
+  }
+}
