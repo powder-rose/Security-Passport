@@ -1,3 +1,12 @@
+/* ==========================================================================
+   Prices.jsx — PRICES
+
+   Shared pricing section containing the service price list,
+   featured pricing and express-check CTA.
+
+   Responsive behavior for Prices is defined locally in this stylesheet.
+   ========================================================================== */
+
 .prices-section {
   padding: clamp(96px, 11vw, 168px) 0;
   border-top: 1px solid var(--color-border);
@@ -57,15 +66,6 @@
   align-items: flex-end;
   gap: 12px;
   margin-bottom: 18px;
-}
-
-.prices-section__anchor-price small {
-  padding-bottom: .7em;
-  color: var(--color-primary);
-  font-size: .8rem;
-  font-weight: 840;
-  letter-spacing: .1em;
-  text-transform: uppercase;
 }
 
 .prices-section__anchor-price strong {
@@ -248,14 +248,11 @@
 .price-row--featured .price-row__action span:last-child {
   color: var(--color-accent);
 }
-
-/* FEATURED_PRICE_ARROW_HOVER_BLACK_V1 */
 .price-row--featured
 .price-row__action:hover
 span:last-child {
   color: var(--color-text);
 }
-/* /FEATURED_PRICE_ARROW_HOVER_BLACK_V1 */
 
 .prices-section__footer {
   display: grid;
@@ -379,9 +376,7 @@ span:last-child {
     grid-column: auto;
   }
 }
-
-/* === prices express button === */
-.prices-express-button.prices-express-button {
+.prices-section .prices-express-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -447,7 +442,7 @@ span:last-child {
   transition: transform 180ms ease;
 }
 
-.prices-express-button.prices-express-button:hover {
+.prices-section .prices-express-button:hover {
   background: #1b1b1b;
   transform: translateY(-2px);
 }
@@ -456,13 +451,13 @@ span:last-child {
   transform: translate(3px, -4px);
 }
 
-.prices-express-button.prices-express-button:focus-visible {
+.prices-section .prices-express-button:focus-visible {
   outline: 3px solid #a9f04a;
   outline-offset: 3px;
 }
 
 @media (max-width: 640px) {
-  .prices-express-button.prices-express-button {
+  .prices-section .prices-express-button {
     width: 100%;
     justify-content: space-between;
 
@@ -478,7 +473,59 @@ span:last-child {
     font-size: 20px;
   }
 }
-/* === /prices express button === */
 
+@media (hover: none) {
+  .price-row:hover {
+    transform: none;
+  }
+}
 
+@media (max-width: 820px) {
+  .prices-section {
+    scroll-margin-top: 84px;
+  }
 
+  .prices-section__footer {
+    gap: 18px;
+  }
+}
+
+@media (max-width: 620px) {
+  .prices-section h2 {
+    font-size: clamp(2.35rem, 10.4vw, 2.8rem);
+    line-height: .98;
+    letter-spacing: -.045em;
+  }
+
+  .prices-section__anchor-price {
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+
+  .price-row__price-line strong {
+    font-size: clamp(2.2rem, 10vw, 2.75rem);
+  }
+}
+
+@media (max-width: 430px) {
+  .prices-section h2 {
+    font-size: clamp(2.18rem, 9.7vw, 2.45rem);
+    letter-spacing: -.035em;
+  }
+
+  .price-row {
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 14px;
+    padding-inline: 18px;
+  }
+
+  .price-row__index {
+    width: 40px;
+    height: 40px;
+  }
+
+  .price-row__action {
+    min-width: 0;
+    width: 100%;
+  }
+}

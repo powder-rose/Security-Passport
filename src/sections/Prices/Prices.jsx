@@ -48,7 +48,6 @@ export default function Prices() {
           <div className="prices-section__anchor" aria-label="Минимальная стоимость разработки паспорта безопасности">
             <span className="prices-section__anchor-label">Разработка паспорта</span>
             <div className="prices-section__anchor-price">
-              
               <strong>9 500 ₽</strong>
             </div>
             <p>
@@ -75,9 +74,9 @@ export default function Prices() {
             </p>
           </div>
           <a className="button button--primary prices-express-button" href="#quiz">
-              <span className="prices-express-button__label">Пройти экспресс-проверку</span>
-              <span className="prices-express-button__arrow" aria-hidden="true">↗</span>
-            </a>
+            <span className="prices-express-button__label">Пройти экспресс-проверку</span>
+            <span className="prices-express-button__arrow" aria-hidden="true">↗</span>
+          </a>
         </div>
       </Container>
     </section>

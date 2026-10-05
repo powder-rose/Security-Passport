@@ -24,7 +24,6 @@ body {
   .document-card:hover,
   .object-type-card:hover,
   .penalty-card:hover,
-  .price-row:hover,
   .process-step__content:hover,
   .hero .button:hover,
   .button:hover {
@@ -95,7 +94,6 @@ body {
   .who-needs-passport,
   .process-section,
   .advantages,
-  .prices-section,
   .required-documents,
   .penalties,
   .related-services,
@@ -117,7 +115,6 @@ body {
 
   .documents-comparison__notice,
   .required-documents__notice,
-  .prices-section__footer,
   .penalties__footer {
     gap: 18px;
   }
@@ -154,7 +151,6 @@ body {
   .who-needs-passport h2,
   .process-section h2,
   .advantages h2,
-  .prices-section h2,
   .required-documents h2,
   .penalties h2,
   .related-services h2,
@@ -255,19 +251,6 @@ body {
     min-height: 160px;
   }
 
-  .prices-section__anchor-price {
-    align-items: baseline;
-    flex-wrap: wrap;
-  }
-
-  .prices-section__anchor-price small {
-    padding-bottom: 0;
-  }
-
-  .price-row__price-line strong {
-    font-size: clamp(2.2rem, 10vw, 2.75rem);
-  }
-
   .penalty-card {
     min-height: 330px;
   }
@@ -338,7 +321,6 @@ body {
   .who-needs-passport h2,
   .process-section h2,
   .advantages h2,
-  .prices-section h2,
   .required-documents h2,
   .penalties h2,
   .expert h2,
@@ -413,22 +395,6 @@ body {
 
   .object-type-card__illustration {
     min-height: 145px;
-  }
-
-  .price-row {
-    grid-template-columns: 42px minmax(0, 1fr);
-    gap: 14px;
-    padding-inline: 18px;
-  }
-
-  .price-row__index {
-    width: 40px;
-    height: 40px;
-  }
-
-  .price-row__action {
-    min-width: 0;
-    width: 100%;
   }
 
   .penalties__law-index {
