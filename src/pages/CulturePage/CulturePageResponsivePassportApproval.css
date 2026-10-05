@@ -1,0 +1,189 @@
+/* ==========================================================================
+   CulturePage.jsx — SHARED RESPONSIVE: PASSPORT / APPROVAL / RESTRICTIONS
+
+   This page-level segment preserves the original cross-component
+   media-query order.
+   ========================================================================== */
+
+@media (max-width: 1180px) {
+  .culture-approval__heading,
+  .culture-restricted__content {
+    padding: 44px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .culture-passport__header,
+  .culture-approval__panel,
+  .culture-restricted__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .culture-approval__deadline {
+    min-height: 310px;
+  }
+
+  .culture-approval__items,
+  .culture-approval__distribution {
+    grid-template-columns: 1fr;
+  }
+
+  .culture-approval__items article,
+  .culture-approval__distribution > div {
+    min-height: 0;
+    border-right: 0;
+    border-bottom:
+      1px solid rgb(255 255 255 / 15%);
+  }
+
+  .culture-restricted__mark {
+    min-height: 300px;
+  }
+
+  .culture-restricted__mark > span {
+    font-size: 130px;
+  }
+}
+
+@media (max-width: 768px) {
+  .culture-passport,
+  .culture-approval {
+    padding: 84px 0 94px;
+  }
+
+  .culture-restricted {
+    padding-bottom: 96px;
+  }
+
+  .culture-passport__process-head {
+    display: none;
+  }
+
+  .culture-passport__process li {
+    grid-template-columns:
+      48px minmax(0, 1fr);
+    gap: 12px 18px;
+  }
+
+  .culture-passport__process p {
+    grid-column: 2;
+  }
+
+  .culture-approval__action {
+    display: grid;
+  }
+
+  .culture-approval__action .button {
+    justify-self: start;
+  }
+
+  .culture-restricted__warning ul {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 430px) {
+  .culture-passport__header h2,
+  .culture-approval__heading h2,
+  .culture-restricted__content h2 {
+    font-size: 35px;
+  }
+
+  .culture-passport__process {
+    margin-top: 46px;
+  }
+
+  .culture-passport__process li {
+    grid-template-columns:
+      38px minmax(0, 1fr);
+  }
+
+  .culture-passport__process li:hover {
+    padding-left: 0;
+  }
+
+  .culture-passport__legal-note {
+    align-items: flex-start;
+    padding: 22px;
+  }
+
+  .culture-approval__panel,
+  .culture-restricted__layout {
+    border-radius: 24px;
+  }
+
+  .culture-approval__heading {
+    padding: 30px 24px;
+  }
+
+  .culture-approval__deadline {
+    min-height: 270px;
+    padding: 28px 24px;
+  }
+
+  .culture-approval__items article,
+  .culture-approval__distribution > div,
+  .culture-approval__action {
+    padding:
+      26px 24px;
+  }
+
+  .culture-approval__items article {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .culture-approval__action .button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .culture-restricted__mark {
+    min-height: 250px;
+    padding: 28px 24px;
+  }
+
+  .culture-restricted__mark > span {
+    font-size: 100px;
+  }
+
+  .culture-restricted__content {
+    padding: 32px 24px;
+  }
+
+  .culture-restricted__warning {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 390px) {
+  .culture-passport__header h2,
+  .culture-approval__heading h2,
+  .culture-restricted__content h2 {
+    font-size: 32px;
+  }
+
+  .culture-approval__deadline strong {
+    font-size: 105px;
+  }
+}
+
+@media (max-width: 320px) {
+  .culture-passport__header h2,
+  .culture-approval__heading h2,
+  .culture-restricted__content h2 {
+    font-size: 29px;
+  }
+
+  .culture-passport__process li {
+    grid-template-columns: 1fr;
+  }
+
+  .culture-passport__process p {
+    grid-column: auto;
+  }
+
+  .culture-restricted__mark > span {
+    font-size: 86px;
+  }
+}

@@ -1,0 +1,164 @@
+/* ==========================================================================
+   CulturePage.jsx — SHARED RESPONSIVE: SERVICE / PRICING / DOCUMENTS / FORM
+
+   This page-level segment preserves the original cross-component
+   media-query order.
+   ========================================================================== */
+
+@media (max-width: 1180px) {
+  .culture-price__main {
+    padding: 44px;
+  }
+
+  .culture-form__layout {
+    gap: 70px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .culture-service__header,
+  .culture-price__panel,
+  .culture-source__layout,
+  .culture-form__header,
+  .culture-form__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .culture-price__scenarios {
+    border-top:
+      1px solid rgb(255 255 255 / 15%);
+    border-left: 0;
+  }
+
+  .culture-source__heading,
+  .culture-form__document {
+    position: relative;
+    top: auto;
+  }
+
+  .culture-form__document {
+    max-width: 520px;
+  }
+}
+
+@media (max-width: 768px) {
+  .culture-service,
+  .culture-price,
+  .culture-source,
+  .culture-form {
+    padding: 84px 0 94px;
+  }
+
+  .culture-service__grid {
+    grid-template-columns: 1fr;
+    margin-top: 48px;
+  }
+
+  .culture-price__scenarios article {
+    min-height: 260px;
+  }
+}
+
+@media (max-width: 430px) {
+  .culture-service__header h2,
+  .culture-price__main h2,
+  .culture-source__heading h2,
+  .culture-form__header h2 {
+    font-size: 35px;
+  }
+
+  .culture-service__item {
+    min-height: 0;
+    padding: 25px 24px;
+  }
+
+  .culture-service__item:hover {
+    transform: none;
+  }
+
+  .culture-service__item h3 {
+    margin-top: 34px;
+  }
+
+  .culture-price__panel,
+  .culture-form__document {
+    border-radius: 24px;
+  }
+
+  .culture-price__main {
+    padding: 30px 24px;
+  }
+
+  .culture-price__value {
+    display: grid;
+    gap: 9px;
+    margin-top: 42px;
+  }
+
+  .culture-price__value span {
+    padding: 0;
+  }
+
+  .culture-price__scenarios article {
+    min-height: 240px;
+    padding: 28px 24px;
+  }
+
+  .culture-source__item {
+    grid-template-columns:
+      36px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .culture-source__notice {
+    padding: 22px;
+  }
+
+  .culture-form__layout {
+    gap: 44px;
+  }
+
+  .culture-form__document-body {
+    min-height: 250px;
+  }
+
+  .culture-form__document-body p {
+    margin-top: 90px;
+  }
+
+  .culture-form__structure .button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 390px) {
+  .culture-service__header h2,
+  .culture-price__main h2,
+  .culture-source__heading h2,
+  .culture-form__header h2 {
+    font-size: 32px;
+  }
+
+  .culture-price__value strong {
+    font-size: 51px;
+  }
+}
+
+@media (max-width: 320px) {
+  .culture-service__header h2,
+  .culture-price__main h2,
+  .culture-source__heading h2,
+  .culture-form__header h2 {
+    font-size: 29px;
+  }
+
+  .culture-source__item,
+  .culture-form__structure li {
+    grid-template-columns: 1fr;
+  }
+
+  .culture-price__value strong {
+    font-size: 45px;
+  }
+}

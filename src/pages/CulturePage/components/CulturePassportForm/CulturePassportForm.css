@@ -1,0 +1,167 @@
+/* ==========================================================================
+   CulturePassportForm.jsx — PASSPORT FORM
+   ========================================================================== */
+
+.culture-form {
+  padding: 118px 0 124px;
+}
+
+.culture-form__header {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(320px, .72fr);
+  gap: clamp(60px, 8vw, 130px);
+  align-items: end;
+}
+
+.culture-form__header h2 {
+  max-width: 850px;
+  margin: 0;
+  font-size:
+    clamp(40px, 4.35vw, 67px);
+  font-weight: 600;
+  line-height: .99;
+  letter-spacing: -.045em;
+  text-wrap: balance;
+}
+
+.culture-form__intro p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.culture-form__intro p + p {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top:
+    1px solid rgb(21 21 21 / 14%);
+}
+
+.culture-form__layout {
+  display: grid;
+  grid-template-columns:
+    minmax(280px, .58fr)
+    minmax(0, 1.42fr);
+  gap: clamp(50px, 8vw, 120px);
+  margin-top: 62px;
+  align-items: start;
+}
+
+.culture-form__document {
+  position: sticky;
+  top: 32px;
+  overflow: hidden;
+  border:
+    1px solid rgb(21 21 21 / 15%);
+  border-radius: 26px;
+  background: #f5f5f1;
+}
+
+.culture-form__document-head {
+  display: flex;
+  gap: 25px;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 27px;
+  background: #111;
+  color: #fff;
+}
+
+.culture-form__document-head span {
+  max-width: 180px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.culture-form__document-head strong {
+  color: #a9f04a;
+  font-size: 26px;
+}
+
+.culture-form__document-body {
+  min-height: 300px;
+  padding: 30px 27px;
+}
+
+.culture-form__document-body span {
+  display: block;
+  color: #6caf14;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.culture-form__document-body p {
+  max-width: 310px;
+  margin: 125px 0 0;
+  font-size:
+    clamp(21px, 1.8vw, 27px);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.culture-form__document-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 27px;
+  border-top:
+    1px solid rgb(21 21 21 / 14%);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.culture-form__document-footer
+span:first-child {
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: #a9f04a;
+}
+
+.culture-form__structure-label {
+  margin: 0 0 18px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  opacity: .5;
+}
+
+.culture-form__structure ol {
+  margin: 0 0 36px;
+  padding: 0;
+  border-top:
+    1px solid rgb(21 21 21 / 15%);
+  list-style: none;
+}
+
+.culture-form__structure li {
+  display: grid;
+  grid-template-columns:
+    48px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  min-height: 65px;
+  padding: 14px 0;
+  border-bottom:
+    1px solid rgb(21 21 21 / 15%);
+}
+
+.culture-form__structure li > span {
+  color: #6caf14;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.culture-form__structure li strong {
+  font-size:
+    clamp(16px, 1.35vw, 20px);
+  font-weight: 600;
+  line-height: 1.3;
+}

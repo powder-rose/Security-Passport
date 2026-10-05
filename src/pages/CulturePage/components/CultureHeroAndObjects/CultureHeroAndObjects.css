@@ -1,0 +1,374 @@
+/* ==========================================================================
+   CultureHeroAndObjects.jsx — HERO AND OBJECT SCOPE
+   ========================================================================== */
+
+.culture-hero {
+  padding: 34px 0 96px;
+}
+
+.culture-hero__layout {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.22fr)
+    minmax(340px, .78fr);
+  gap: clamp(50px, 7vw, 112px);
+  align-items: stretch;
+}
+
+.culture-hero__content {
+  min-width: 0;
+}
+
+.culture-hero h1 {
+  max-width: 970px;
+  margin: 0;
+  font-size:
+    clamp(46px, 5.1vw, 80px);
+  font-weight: 600;
+  line-height: .98;
+  letter-spacing: -.045em;
+  text-wrap: balance;
+}
+
+.culture-hero__lead {
+  max-width: 790px;
+  margin: 30px 0 0;
+  font-size:
+    clamp(18px, 1.55vw, 23px);
+  line-height: 1.5;
+}
+
+.culture-hero__offer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px 38px;
+  align-items: center;
+  margin-top: 38px;
+}
+
+.culture-hero__price {
+  display: grid;
+  gap: 4px;
+}
+
+.culture-hero__price > span {
+  font-size: 13px;
+  line-height: 1.35;
+  opacity: .58;
+}
+
+.culture-hero__price strong {
+  font-size:
+    clamp(36px, 3vw, 49px);
+  line-height: 1;
+  letter-spacing: -.045em;
+}
+
+.culture-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 25px;
+  align-items: center;
+  margin-top: 38px;
+}
+
+.culture-hero__secondary {
+  display: inline-flex;
+  gap: 13px;
+  align-items: center;
+  max-width: 330px;
+  color: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.culture-hero__secondary span {
+  transition:
+    transform .2s ease;
+}
+
+.culture-hero__secondary:hover span {
+  transform:
+    translateY(4px);
+}
+
+.culture-hero__regulation {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 30px;
+  background: #111;
+  color: #fff;
+}
+
+.culture-hero__regulation::before {
+  position: absolute;
+  top: -120px;
+  right: -110px;
+  width: 290px;
+  height: 290px;
+  border-radius: 50%;
+  background: #a9f04a;
+  content: "";
+  transition:
+    transform .5s ease;
+}
+
+.culture-hero__regulation:hover::before {
+  transform:
+    translate(-12px, 14px);
+}
+
+.culture-hero__regulation-top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 30px 32px;
+}
+
+.culture-hero__regulation-top > span {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.culture-hero__regulation-top strong {
+  color: #111;
+  font-size:
+    clamp(35px, 3.4vw, 53px);
+  line-height: .9;
+  letter-spacing: -.06em;
+}
+
+.culture-hero__regulation-title {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 280px;
+  align-items: flex-end;
+  padding: 30px 32px;
+}
+
+.culture-hero__regulation-title p {
+  max-width: 360px;
+  margin: 0;
+  font-size:
+    clamp(31px, 3vw, 46px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -.04em;
+}
+
+.culture-hero__facts {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+}
+
+.culture-hero__facts > div {
+  display: grid;
+  grid-template-columns:
+    44px minmax(0, 1fr);
+  gap: 14px;
+  padding: 17px 32px;
+  border-top:
+    1px solid rgb(255 255 255 / 15%);
+}
+
+.culture-hero__facts span {
+  color: #a9f04a;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.culture-hero__facts p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.culture-scope {
+  padding: 108px 0 116px;
+  background: #f5f5f1;
+}
+
+.culture-scope__heading {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(320px, .7fr);
+  gap: clamp(60px, 8vw, 130px);
+  align-items: end;
+}
+
+.culture-scope__heading h2 {
+  max-width: 790px;
+  margin: 0;
+  font-size:
+    clamp(38px, 4.2vw, 65px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -.04em;
+  text-wrap: balance;
+}
+
+.culture-scope__intro {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.culture-scope__body {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.08fr)
+    minmax(340px, .92fr);
+  gap: clamp(60px, 8vw, 120px);
+  margin-top: 64px;
+  align-items: start;
+}
+
+.culture-scope__directory-label {
+  max-width: 580px;
+  margin: 0 0 24px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.45;
+  opacity: .58;
+}
+
+.culture-scope__list {
+  border-top:
+    1px solid rgb(21 21 21 / 16%);
+}
+
+.culture-scope__item {
+  display: grid;
+  grid-template-columns:
+    48px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  min-height: 68px;
+  padding: 14px 0;
+  border-bottom:
+    1px solid rgb(21 21 21 / 16%);
+  transition:
+    padding-left .2s ease,
+    background-color .2s ease;
+}
+
+.culture-scope__item:hover {
+  padding-left: 10px;
+  background:
+    rgb(255 255 255 / 45%);
+}
+
+.culture-scope__item > span {
+  color: #6caf14;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.culture-scope__item strong {
+  font-size:
+    clamp(17px, 1.5vw, 21px);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.culture-scope__explanation {
+  min-width: 0;
+}
+
+.culture-scope__important {
+  padding: 30px;
+  border-radius: 26px;
+  background: #a9f04a;
+}
+
+.culture-scope__important > span,
+.culture-scope__exception-mark {
+  display: block;
+  margin-bottom: 18px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.culture-scope__important p {
+  margin: 0;
+  font-size:
+    clamp(19px, 1.7vw, 25px);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -.015em;
+}
+
+.culture-scope__legal {
+  padding: 34px 4px;
+}
+
+.culture-scope__legal h3,
+.culture-scope__exception h3 {
+  margin: 0;
+  font-size:
+    clamp(21px, 1.8vw, 27px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -.025em;
+}
+
+.culture-scope__legal p {
+  margin: 15px 0 0;
+  font-size: 15px;
+  line-height: 1.65;
+  opacity: .72;
+}
+
+.culture-scope__exception {
+  padding: 28px;
+  border-radius: 24px;
+  background: #111;
+  color: #fff;
+}
+
+.culture-scope__exception-mark {
+  color: #a9f04a;
+}
+
+.culture-scope__exception p {
+  margin: 14px 0 0;
+  color: rgb(255 255 255 / 70%);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.culture-inline-link {
+  display: inline-flex;
+  gap: 13px;
+  align-items: center;
+  margin-top: 26px;
+  color: #151515;
+  font-size: 15px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.culture-inline-link span {
+  transition:
+    transform .2s ease;
+}
+
+.culture-inline-link:hover span {
+  transform:
+    translate(4px, -4px);
+}

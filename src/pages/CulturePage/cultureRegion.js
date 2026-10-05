@@ -1,4 +1,3 @@
-// CULTURE_REGIONAL_WORK_TEXT_V1:start
 
 function getNeutralCultureRegionPrepositional(
   name,
@@ -174,5 +173,3 @@ export function getCultureRegionalWorkText(
     `«${currentCity.name}».`
   );
 }
-
-// CULTURE_REGIONAL_WORK_TEXT_V1:end

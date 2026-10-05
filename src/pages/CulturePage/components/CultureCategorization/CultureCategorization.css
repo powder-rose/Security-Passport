@@ -1,0 +1,174 @@
+/* ==========================================================================
+   CultureCategorization.jsx — CATEGORIZATION
+   ========================================================================== */
+
+.culture-categorization {
+  padding: 118px 0 124px;
+}
+
+.culture-categorization__layout {
+  display: grid;
+  grid-template-columns:
+    minmax(300px, .7fr)
+    minmax(0, 1.3fr);
+  gap: clamp(60px, 9vw, 150px);
+  align-items: start;
+}
+
+.culture-categorization__heading {
+  position: sticky;
+  top: 32px;
+}
+
+.culture-categorization__heading h2 {
+  max-width: 650px;
+  margin: 0;
+  font-size:
+    clamp(38px, 4.1vw, 63px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -.04em;
+  text-wrap: balance;
+}
+
+.culture-categorization__deadline {
+  margin-top: 38px;
+  padding: 27px;
+  border-radius: 24px;
+  background: #a9f04a;
+}
+
+.culture-categorization__deadline > span {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.culture-categorization__deadline strong {
+  display: block;
+  margin-top: 28px;
+  font-size:
+    clamp(57px, 6vw, 88px);
+  line-height: .8;
+  letter-spacing: -.075em;
+}
+
+.culture-categorization__deadline p {
+  margin: 11px 0 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.culture-categorization__caption {
+  max-width: 510px;
+  margin: 22px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: .65;
+}
+
+.culture-categorization__steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.culture-categorization__step {
+  display: grid;
+  grid-template-columns:
+    56px minmax(0, 1fr);
+  gap: 24px;
+  min-height: 145px;
+}
+
+.culture-categorization__step-head {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.culture-categorization__step-head > span:first-child {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  transition:
+    background-color .2s ease,
+    color .2s ease,
+    transform .2s ease;
+}
+
+.culture-categorization__step:hover
+.culture-categorization__step-head > span:first-child {
+  background: #a9f04a;
+  color: #111;
+  transform:
+    scale(1.06);
+}
+
+.culture-categorization__connector {
+  position: absolute;
+  top: 48px;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background:
+    rgb(21 21 21 / 18%);
+}
+
+.culture-categorization__step-copy {
+  padding: 5px 0 36px;
+  border-bottom:
+    1px solid rgb(21 21 21 / 14%);
+}
+
+.culture-categorization__step h3 {
+  margin: 0;
+  font-size:
+    clamp(21px, 1.85vw, 28px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -.025em;
+}
+
+.culture-categorization__step p {
+  max-width: 680px;
+  margin: 12px 0 0;
+  font-size: 15px;
+  line-height: 1.65;
+  opacity: .68;
+}
+
+.culture-categorization__footer {
+  display: flex;
+  gap: 30px 60px;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 48px;
+  padding-top: 28px;
+  border-top:
+    1px solid rgb(21 21 21 / 14%);
+}
+
+.culture-categorization__footer > p {
+  max-width: 620px;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  opacity: .68;
+}
+
+.culture-categorization__footer
+.culture-inline-link {
+  flex: 0 0 auto;
+  margin: 0;
+}

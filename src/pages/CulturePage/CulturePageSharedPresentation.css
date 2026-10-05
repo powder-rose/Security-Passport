@@ -1,0 +1,23 @@
+/* ==========================================================================
+   CulturePage.jsx — SHARED PRESENTATION
+
+   Cross-component typography and kicker synchronization intentionally
+   remain page-level because these selectors span several sections.
+   ========================================================================== */
+
+.culture-page h1,
+.culture-page h2,
+.culture-page h3 {
+  font-weight: 750;
+}
+
+.culture-hero > .container .culture-kicker,
+.culture-scope .culture-kicker,
+.culture-categorization .culture-kicker,
+.culture-passport .culture-kicker,
+.culture-service .culture-kicker,
+.culture-source .culture-kicker,
+.culture-form .culture-kicker,
+.culture-why .culture-kicker {
+  color: var(--color-primary);
+}

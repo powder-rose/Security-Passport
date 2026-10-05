@@ -1,87 +1,73 @@
-import './CulturePage.css';
+import "./CulturePage.css";
+import "./components/CultureHeroAndObjects/CultureHeroAndObjects.css";
+import "./components/CultureRegulationAndCategories/CultureRegulationAndCategories.css";
+import "./components/CultureCategorization/CultureCategorization.css";
+import "./components/CultureActAndPassport/CultureActAndPassport.css";
+import "./CulturePageResponsiveCategoriesAct.css";
+import "./components/CultureActAndPassport/CultureActAndPassportPassport.css";
+import "./components/CultureApprovalAndRestrictions/CultureApprovalAndRestrictions.css";
+import "./CulturePageResponsivePassportApproval.css";
+import "./components/CultureServiceScope/CultureServiceScope.css";
+import "./components/CulturePricing/CulturePricing.css";
+import "./components/CultureRequiredDocuments/CultureRequiredDocuments.css";
+import "./components/CulturePassportForm/CulturePassportForm.css";
+import "./CulturePageResponsiveServiceForm.css";
+import "./components/CulturePassportActualization/CulturePassportActualization.css";
+import "./components/CultureCurrentRequirements/CultureCurrentRequirements.css";
+import "./components/CultureWorkApproach/CultureWorkApproach.css";
+import "./components/CultureFaq/CultureFaq.css";
+import "./CulturePageResponsiveTail.css";
+import "./CulturePageSharedPresentation.css";
 
-import {
-  getCultureRegionalWorkText,
-} from './cultureRegion';
+import { getCultureRegionalWorkText } from "./cultureRegion";
 
+import CultureHeroAndObjects from "./components/CultureHeroAndObjects/CultureHeroAndObjects";
 
-import CultureHeroAndObjects
-from './components/CultureHeroAndObjects';
+import CultureRegulationAndCategories from "./components/CultureRegulationAndCategories/CultureRegulationAndCategories";
 
-import CultureRegulationAndCategories
-from './components/CultureRegulationAndCategories';
+import CultureCategorization from "./components/CultureCategorization/CultureCategorization";
 
-import CultureCategorization
-from './components/CultureCategorization';
+import CultureActAndPassport from "./components/CultureActAndPassport/CultureActAndPassport";
 
-import CultureActAndPassport
-from './components/CultureActAndPassport';
+import CultureApprovalAndRestrictions from "./components/CultureApprovalAndRestrictions/CultureApprovalAndRestrictions";
 
-import CultureApprovalAndRestrictions
-from './components/CultureApprovalAndRestrictions';
+import CultureServiceScope from "./components/CultureServiceScope/CultureServiceScope";
 
+import CulturePricing from "./components/CulturePricing/CulturePricing";
 
-import CultureServiceScope
-from './components/CultureServiceScope';
+import CultureRequiredDocuments from "./components/CultureRequiredDocuments/CultureRequiredDocuments";
 
-import CulturePricing
-from './components/CulturePricing';
+import CulturePassportForm from "./components/CulturePassportForm/CulturePassportForm";
 
-import CultureRequiredDocuments
-from './components/CultureRequiredDocuments';
+import CulturePassportActualization from "./components/CulturePassportActualization/CulturePassportActualization";
 
+import CultureCurrentRequirements from "./components/CultureCurrentRequirements/CultureCurrentRequirements";
 
-import CulturePassportForm
-from './components/CulturePassportForm';
+import CultureWorkApproach from "./components/CultureWorkApproach/CultureWorkApproach";
 
-import CulturePassportActualization
-from './components/CulturePassportActualization';
+import CultureFaq from "./components/CultureFaq/CultureFaq";
+import FinalCTA from "../../sections/FinalCTA/FinalCTA";
+import { useCity } from "../../context/GeoContext";
 
-import CultureCurrentRequirements
-from './components/CultureCurrentRequirements';
+export default function CulturePage({ objectType }) {
+  const city = useCity();
 
-
-import CultureWorkApproach
-from './components/CultureWorkApproach';
-
-import CultureFaq
-from './components/CultureFaq';import FinalCTA from '../../sections/FinalCTA/FinalCTA';
-import { useCity } from '../../context/GeoContext';
-
-
-export default function CulturePage({
-  objectType,
-}) {
-  const city =
-    useCity();
-
-  const regionalWorkText =
-    getCultureRegionalWorkText(
-      city,
-    );
+  const regionalWorkText = getCultureRegionalWorkText(city);
 
   return (
-    <main
-      id="main-content"
-      className="culture-page"
-    >
+    <main id="main-content" className="culture-page">
       <CultureHeroAndObjects
         objectType={objectType}
         regionalWorkText={regionalWorkText}
       />
 
-
       <CultureRegulationAndCategories />
-
 
       <CultureCategorization />
 
-
       <CultureActAndPassport />
 
-
       <CultureApprovalAndRestrictions />
-
 
       <CultureServiceScope />
 
@@ -89,21 +75,17 @@ export default function CulturePage({
 
       <CultureRequiredDocuments />
 
-
       <CulturePassportForm />
 
       <CulturePassportActualization />
 
       <CultureCurrentRequirements />
 
-
       <CultureWorkApproach />
 
       <CultureFaq />
 
-
       <FinalCTA />
-
-</main>
+    </main>
   );
 }
