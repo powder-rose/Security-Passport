@@ -258,9 +258,8 @@ Prerender получает generated CSS через Vite manifest.
     variables.css
     typography.css
     global.css
-    responsive-audit.css
 
-`responsive-audit.css` является финальным общим responsive-слоем.
+Общие responsive-правила хранятся рядом с их владельцами: глобальные — в `global.css`, компонентные — в соответствующих CSS-файлах.
 
 ## SSR и prerender
 

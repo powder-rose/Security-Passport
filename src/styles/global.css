@@ -2,6 +2,9 @@ html {
   background: var(--color-bg);
   color: var(--color-text);
   scroll-padding-top: 92px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 body {
@@ -10,6 +13,16 @@ body {
   background: var(--color-bg);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: clip;
 }
 
 main,
@@ -67,9 +80,7 @@ footer[id] {
 }
 
 @media (max-width: 560px) {
-  html { scroll-padding-top: 80px; }
   section[id], footer[id] { scroll-margin-top: 80px; }
-  .container { width: min(calc(100% - 28px), var(--content-width)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -81,10 +92,30 @@ footer[id] {
   }
 }
 
-/* FEDERAL_COVERAGE_V1 */
+/* Nationwide coverage emphasis. */
 .coverage-emphasis {
   border-bottom: 3px solid var(--color-accent, #a9f04a);
   padding-bottom: 2px;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
+}
+@media (hover: none) {
+  .button:hover {
+    transform: none;
+  }
+}
+@media (max-width: 820px) {
+
+  .container {
+    width: min(calc(100% - 36px), var(--content-width));
+  }
+}
+@media (max-width: 620px) {
+  html {
+    scroll-padding-top: 76px;
+  }
+
+  .container {
+    width: min(calc(100% - 28px), var(--content-width));
+  }
 }

@@ -33,7 +33,6 @@ import '../styles/reset.css';
 import '../styles/variables.css';
 import '../styles/typography.css';
 import '../styles/global.css';
-import '../styles/responsive-audit.css';
 
 
 const STORAGE_KEY =
