@@ -1,0 +1,93 @@
+/* ==========================================================================
+   ObjectTypeServiceScope.jsx — SERVICE SCOPE
+   ========================================================================== */
+
+.object-service-scope {
+  padding: clamp(84px, 10vw, 150px) 0;
+  background: #fff;
+}
+
+.object-service-scope__head {
+  max-width: 900px;
+  margin-bottom: 48px;
+}
+
+.object-service-scope__head h2 {
+  margin: 0;
+  font-size: clamp(2.5rem, 4.5vw, 4.8rem);
+  line-height: .96;
+  letter-spacing: -.055em;
+}
+
+.object-service-scope__head > p:last-child {
+  max-width: 760px;
+  margin: 24px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.object-service-scope__grid {
+  display: grid;
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.object-service-scope__grid article {
+  padding: 26px;
+  border: 1px solid rgba(21,21,21,.09);
+  border-radius: 26px;
+  background: var(--color-bg);
+}
+
+.object-service-scope__grid article > span {
+  display: inline-flex;
+  margin-bottom: 50px;
+  color: var(--color-primary);
+  font-size: .82rem;
+  font-weight: 850;
+}
+
+.object-service-scope__grid h3 {
+  margin: 0 0 12px;
+  font-size: 1.35rem;
+  line-height: 1.08;
+  letter-spacing: -.03em;
+}
+
+.object-service-scope__grid p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+@media (max-width: 980px) {
+  .object-service-scope__grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .object-service-breadcrumbs {
+    margin-bottom: 26px;
+  }
+
+  .object-service-hero__actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .object-service-hero__actions .button {
+    width: 100%;
+  }
+
+  .object-service-scope__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .object-service-scope__grid article > span {
+    margin-bottom: 30px;
+  }
+}

@@ -1,10 +1,6 @@
-import Container
-from '../../../components/ui/Container/Container';
+import Container from "../../../../components/ui/Container/Container";
 
-
-export default function ObjectTypeHero({
-  objectType,
-}) {
+export default function ObjectTypeHero({ objectType }) {
   return (
     <>
       <section className="object-service-hero">
@@ -13,19 +9,12 @@ export default function ObjectTypeHero({
             className="object-service-breadcrumbs"
             aria-label="Хлебные крошки"
           >
-            <a href="/">
-              Главная
-            </a>
+            <a href="/">Главная</a>
 
-            <span aria-hidden="true">
-              /
-            </span>
+            <span aria-hidden="true">/</span>
 
-            <span>
-              {objectType.title}
-            </span>
+            <span>{objectType.title}</span>
           </nav>
-
 
           <div className="object-service-hero__grid">
             <div className="object-service-hero__copy">
@@ -33,14 +22,14 @@ export default function ObjectTypeHero({
                 Паспорт безопасности объекта
               </p>
 
-              <h1>
-                {objectType.h1}
-              </h1>
+              <h1>{objectType.h1}</h1>
 
               <p className="object-service-hero__lead">
-                {objectType.pageLead}
-                {' '}
-                <span className="coverage-emphasis">Работаем по всей России</span>.
+                {objectType.pageLead}{" "}
+                <span className="coverage-emphasis">
+                  Работаем по всей России
+                </span>
+                .
               </p>
 
               <p className="object-service-hero__price">
@@ -48,38 +37,25 @@ export default function ObjectTypeHero({
               </p>
 
               <div className="object-service-hero__actions">
-                <a
-                  className="button button--primary"
-                  href="#quiz"
-                >
+                <a className="button button--primary" href="#quiz">
                   Проверить, нужен ли паспорт вашему объекту
                 </a>
 
-                <a
-                  className="object-service-hero__back"
-                  href="#lead-form"
-                >
+                <a className="object-service-hero__back" href="#lead-form">
                   Рассчитать стоимость
-                  <span aria-hidden="true">
-                    →
-                  </span>
+                  <span aria-hidden="true">→</span>
                 </a>
               </div>
             </div>
-
 
             <aside className="object-service-hero__card">
               <p className="object-service-hero__card-label">
                 Для каких объектов
               </p>
 
-              <h2>
-                {objectType.title}
-              </h2>
+              <h2>{objectType.title}</h2>
 
-              <p>
-                {objectType.description}
-              </p>
+              <p>{objectType.description}</p>
             </aside>
           </div>
         </Container>
