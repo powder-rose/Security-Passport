@@ -1,3 +1,12 @@
+/*
+==========================================================================
+   Hero.jsx — MAIN HERO
+
+   Primary landing-page hero with service messaging, actions,
+   commercial price accent and expert portrait presentation.
+==========================================================================
+ */
+
 .hero {
   min-height: calc(100svh - 76px);
   display: flex;
@@ -117,16 +126,17 @@
   font-weight: 650;
 }
 
+.hero__actions .hero__primary-action,
+.hero__actions .hero__secondary-action {
+  gap: 14px;
+}
+
 .hero__primary-action {
   min-width: 220px;
 }
 
 .hero__primary-action > span {
   font-size: 1.16rem;
-}
-
-.hero__secondary-action {
-  gap: 14px !important;
 }
 
 .hero__quiz-count {
@@ -409,8 +419,6 @@
   }
 }
 
-/* Hero commercial price accent */
-
 .hero__price-card {
   display: inline-flex;
   align-items: center;
@@ -479,18 +487,6 @@
   }
 }
 
-/* /Hero commercial price accent */
-
-
-/* ========================================================
-   HERO_PRIMARY_ARROW_EXACT_REFERENCE_V4
-   Exact copy of RelatedServices arrow
-   ======================================================== */
-
-.hero__primary-action {
-  gap: 14px !important;
-}
-
 .hero__primary-arrow {
   display: inline-flex;
   align-items: center;
@@ -531,7 +527,3 @@
     font-size: 20px;
   }
 }
-
-/* ========================================================
-   /HERO_PRIMARY_ARROW_EXACT_REFERENCE_V4
-   ======================================================== */
