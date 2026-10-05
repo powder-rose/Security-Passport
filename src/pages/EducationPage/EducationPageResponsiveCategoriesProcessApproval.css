@@ -1,0 +1,136 @@
+/* ==========================================================================
+   EducationPage.jsx — RESPONSIVE: CATEGORIES / PROCESS / APPROVAL
+
+   Preserves the original cross-component responsive cascade.
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .education-categories__heading,
+  .education-approval__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .education-approval__heading {
+    position: static;
+  }
+
+  .education-process__list {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .education-process__term {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .education-process__term p {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .education-categories,
+  .education-process,
+  .education-approval {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  .education-categories__heading {
+    gap: 26px;
+  }
+
+  .education-category summary {
+    grid-template-columns:
+      minmax(120px, .35fr)
+      minmax(0, 1fr)
+      38px;
+    gap: 18px;
+  }
+
+  .education-category__body {
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+
+  .education-process__list {
+    grid-template-columns: 1fr;
+  }
+
+  .education-process__step {
+    min-height: 150px;
+  }
+
+  .education-process__term,
+  .education-approval__timing {
+    grid-template-columns: 1fr;
+  }
+
+  .education-process__term p {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 430px) {
+  .education-categories__heading h2,
+  .education-process__heading h2,
+  .education-approval__heading h2 {
+    font-size: clamp(2.1rem, 10vw, 3rem);
+  }
+
+  .education-categories__notice {
+    grid-template-columns: 1fr;
+    padding: 24px;
+  }
+
+  .education-category summary {
+    grid-template-columns:
+      minmax(0, 1fr)
+      38px;
+  }
+
+  .education-category__summary {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .education-category__toggle {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .education-category__body {
+    padding-right: 4px;
+    padding-left: 4px;
+  }
+
+  .education-process__term,
+  .education-approval__timing > div,
+  .education-approval__finish {
+    padding: 24px;
+  }
+
+  .education-approval__timing strong {
+    margin-top: 36px;
+  }
+}
+
+@media (max-width: 320px) {
+  .education-categories__heading h2,
+  .education-process__heading h2,
+  .education-approval__heading h2 {
+    font-size: 2rem;
+  }
+
+  .education-categories__notice,
+  .education-process__term,
+  .education-approval__timing > div,
+  .education-approval__finish {
+    padding: 20px;
+  }
+
+  .education-process__step {
+    padding: 22px 20px;
+  }
+}

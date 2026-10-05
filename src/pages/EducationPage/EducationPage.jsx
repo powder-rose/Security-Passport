@@ -1,106 +1,70 @@
-import './EducationPage.css';
+import "./EducationPage.css";
+import "./components/EducationHeroAndObjects/EducationHeroAndObjects.css";
+import "./components/EducationRegulation/EducationRegulation.css";
+import "./EducationPageResponsiveTop.css";
+import "./components/EducationCategories/EducationCategories.css";
+import "./components/EducationPassportProcess/EducationPassportProcess.css";
+import "./components/EducationApproval/EducationApproval.css";
+import "./EducationPageResponsiveCategoriesProcessApproval.css";
+import "./components/EducationPassportCopies/EducationPassportCopies.css";
+import "./components/EducationRestrictedDocuments/EducationRestrictedDocuments.css";
+import "./components/EducationServiceScope/EducationServiceScope.css";
+import "./components/EducationPricing/EducationPricing.css";
+import "./EducationPageResponsiveCopiesServicePricing.css";
+import "./components/EducationRequiredDocuments/EducationRequiredDocuments.css";
+import "./components/EducationPassportForm/EducationPassportForm.css";
+import "./components/EducationPassportActualization/EducationPassportActualization.css";
+import "./EducationPageResponsiveDocumentsFormActualization.css";
+import "./components/EducationAudience/EducationAudience.css";
+import "./components/EducationCurrentRequirements/EducationCurrentRequirements.css";
+import "./components/EducationRelatedLinks/EducationRelatedLinks.css";
+import "./components/EducationFaq/EducationFaq.css";
+import "./EducationPageResponsiveTail.css";
+import "./EducationPageSharedDesktop.css";
 
-import {
-  getRegionalWorkText,
-} from './educationRegion';
+import { getRegionalWorkText } from "./educationRegion";
 
+import EducationHeroAndObjects from "./components/EducationHeroAndObjects/EducationHeroAndObjects";
 
-import EducationHeroAndObjects
-from './components/EducationHeroAndObjects';
+import EducationRegulation from "./components/EducationRegulation/EducationRegulation";
 
-import EducationRegulation
-from './components/EducationRegulation';
+import EducationCategories from "./components/EducationCategories/EducationCategories";
 
+import EducationPassportProcess from "./components/EducationPassportProcess/EducationPassportProcess";
 
-import EducationCategories
-from './components/EducationCategories';
+import EducationApproval from "./components/EducationApproval/EducationApproval";
 
-import EducationPassportProcess
-from './components/EducationPassportProcess';
+import EducationPassportCopies from "./components/EducationPassportCopies/EducationPassportCopies";
 
-import EducationApproval
-from './components/EducationApproval';
+import EducationRestrictedDocuments from "./components/EducationRestrictedDocuments/EducationRestrictedDocuments";
 
+import EducationServiceScope from "./components/EducationServiceScope/EducationServiceScope";
 
-import EducationPassportCopies
-from './components/EducationPassportCopies';
+import EducationPricing from "./components/EducationPricing/EducationPricing";
 
-import EducationRestrictedDocuments
-from './components/EducationRestrictedDocuments';
+import EducationRequiredDocuments from "./components/EducationRequiredDocuments/EducationRequiredDocuments";
 
-import EducationServiceScope
-from './components/EducationServiceScope';
+import EducationPassportForm from "./components/EducationPassportForm/EducationPassportForm";
 
-import EducationPricing
-from './components/EducationPricing';
+import EducationPassportActualization from "./components/EducationPassportActualization/EducationPassportActualization";
 
+import EducationAudience from "./components/EducationAudience/EducationAudience";
 
-import EducationRequiredDocuments
-from './components/EducationRequiredDocuments';
+import EducationCurrentRequirements from "./components/EducationCurrentRequirements/EducationCurrentRequirements";
 
-import EducationPassportForm
-from './components/EducationPassportForm';
+import EducationRelatedLinks from "./components/EducationRelatedLinks/EducationRelatedLinks";
 
-import EducationPassportActualization
-from './components/EducationPassportActualization';
+import EducationFaq from "./components/EducationFaq/EducationFaq";
+import FinalCTA from "../../sections/FinalCTA/FinalCTA";
+import { useCity } from "../../context/GeoContext";
 
+export default function EducationPage({ objectType }) {
+  const city = useCity();
 
-import EducationAudience
-from './components/EducationAudience';
-
-import EducationCurrentRequirements
-from './components/EducationCurrentRequirements';
-
-import EducationRelatedLinks
-from './components/EducationRelatedLinks';
-
-import EducationFaq
-from './components/EducationFaq';
-import FinalCTA from '../../sections/FinalCTA/FinalCTA';
-import { useCity } from '../../context/GeoContext';
-
-
-// EDUCATION_STAGE_2_V1:start
-
-
-// EDUCATION_STAGE_2_V1:end
-
-
-// EDUCATION_STAGE_3_V1:start
-
-
-// EDUCATION_STAGE_3_V1:end
-
-
-// EDUCATION_STAGE_4_V1:start
-
-
-// EDUCATION_STAGE_4_V1:end
-
-
-// EDUCATION_STAGE_5_V1:start
-
-
-// EDUCATION_STAGE_5_V1:end
-
-
-export default function EducationPage({
-  objectType,
-}) {
-  const city =
-    useCity();
-
-  const regionalWorkText =
-    getRegionalWorkText(
-      city,
-    );
-
+  const regionalWorkText = getRegionalWorkText(city);
 
   return (
-    <main
-      id="main-content"
-      className="education-page"
-    >
+    <main id="main-content" className="education-page">
       <EducationHeroAndObjects
         objectType={objectType}
         regionalWorkText={regionalWorkText}
@@ -108,16 +72,11 @@ export default function EducationPage({
 
       <EducationRegulation />
 
-
-      {/* EDUCATION_STAGE_2_V1:sections */}
-
       <EducationCategories />
 
       <EducationPassportProcess />
 
       <EducationApproval />
-
-      {/* EDUCATION_STAGE_3_V1:sections */}
 
       <EducationPassportCopies />
 
@@ -127,15 +86,11 @@ export default function EducationPage({
 
       <EducationPricing />
 
-      {/* EDUCATION_STAGE_4_V1:sections */}
-
       <EducationRequiredDocuments />
 
       <EducationPassportForm />
 
       <EducationPassportActualization />
-
-      {/* EDUCATION_STAGE_5_V1:sections */}
 
       <EducationAudience />
 
@@ -145,8 +100,7 @@ export default function EducationPage({
 
       <EducationFaq />
 
-
       <FinalCTA />
-</main>
+    </main>
   );
 }

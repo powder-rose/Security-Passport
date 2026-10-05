@@ -1,0 +1,100 @@
+/* ==========================================================================
+   EducationPassportForm.jsx — PASSPORT FORM
+   ========================================================================== */
+
+.education-form {
+  padding: 112px 0;
+  background: #151515;
+  color: #fff;
+}
+
+.education-form .education-kicker {
+  color: var(--color-accent);
+}
+
+.education-form__header {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.25fr)
+    minmax(280px, .55fr);
+  gap: 60px;
+  align-items: end;
+}
+
+.education-form__header > p {
+  margin: 0;
+  color: rgb(255 255 255 / 62%);
+  line-height: 1.7;
+}
+
+.education-form__layout {
+  display: grid;
+  grid-template-columns:
+    minmax(280px, .55fr)
+    minmax(0, 1.45fr);
+  gap: 64px;
+  margin-top: 64px;
+}
+
+.education-form__intro {
+  padding: 32px;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: #151515;
+}
+
+.education-form__index {
+  display: block;
+  font-size: clamp(4rem, 7vw, 6.5rem);
+  font-weight: 900;
+  line-height: .85;
+  letter-spacing: -.08em;
+}
+
+.education-form__intro h3 {
+  margin: 42px 0 0;
+  font-size: clamp(1.55rem, 2vw, 2rem);
+  line-height: 1.1;
+  letter-spacing: -.035em;
+}
+
+.education-form__intro p {
+  margin: 18px 0 0;
+  line-height: 1.6;
+}
+
+.education-form__intro .button {
+  margin-top: 28px;
+}
+
+.education-form__structure {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgb(255 255 255 / 15%);
+  list-style: none;
+}
+
+.education-form__structure li {
+  display: grid;
+  grid-template-columns:
+    50px
+    minmax(0, 1fr);
+  gap: 20px;
+  align-items: center;
+  min-height: 86px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgb(255 255 255 / 15%);
+}
+
+.education-form__structure span {
+  color: var(--color-accent);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+.education-form__structure p {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.4vw, 1.28rem);
+  line-height: 1.35;
+}

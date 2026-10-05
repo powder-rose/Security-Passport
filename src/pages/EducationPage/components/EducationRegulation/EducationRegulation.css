@@ -1,0 +1,108 @@
+/* ==========================================================================
+   EducationRegulation.jsx — REGULATION
+   ========================================================================== */
+
+.education-regulation {
+  padding: 112px 0;
+  background: #151515;
+  color: #fff;
+}
+
+.education-regulation .education-kicker {
+  color: var(--color-accent);
+}
+
+.education-regulation__intro {
+  max-width: 1020px;
+}
+
+.education-regulation__intro > p:last-child {
+  color: rgb(255 255 255 / 64%);
+}
+
+.education-regulation__tracks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 62px;
+}
+
+.education-regulation__track {
+  display: flex;
+  flex-direction: column;
+  min-height: 330px;
+  padding: 30px;
+  border: 1px solid rgb(255 255 255 / 13%);
+  border-radius: var(--radius-md);
+  background: rgb(255 255 255 / 4%);
+  transition:
+    transform .22s ease,
+    border-color .22s ease,
+    background .22s ease;
+}
+
+.education-regulation__track:hover {
+  transform: translateY(-5px);
+  border-color: rgb(169 240 74 / 48%);
+  background: rgb(255 255 255 / 7%);
+}
+
+.education-regulation__track-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.education-regulation__track-top > span {
+  color: rgb(255 255 255 / 38%);
+  font-size: .76rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+.education-regulation__track-top strong {
+  color: var(--color-accent);
+  font-size: 1.1rem;
+}
+
+.education-regulation__track h3 {
+  margin: auto 0 0;
+  font-size: clamp(1.45rem, 2vw, 2.1rem);
+  line-height: 1.1;
+  letter-spacing: -.035em;
+}
+
+.education-regulation__track p {
+  margin: 18px 0 0;
+  color: rgb(255 255 255 / 58%);
+  line-height: 1.55;
+}
+
+.education-regulation__action {
+  display: flex;
+  gap: 32px;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  padding: 30px;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: #151515;
+}
+
+.education-regulation__action strong {
+  display: block;
+  max-width: 650px;
+  font-size: clamp(1.15rem, 1.6vw, 1.45rem);
+  line-height: 1.25;
+}
+
+.education-regulation__action p {
+  margin: 7px 0 0;
+  line-height: 1.5;
+}
+
+.education-regulation__action .button {
+  flex: 0 0 auto;
+}

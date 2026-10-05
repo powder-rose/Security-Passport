@@ -1,0 +1,99 @@
+/* ==========================================================================
+   EducationPage.jsx — RESPONSIVE: DOCUMENTS / FORM / ACTUALIZATION
+
+   Preserves the original cross-component responsive cascade.
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .education-source-data__layout,
+  .education-form__header,
+  .education-form__layout,
+  .education-actualization__header,
+  .education-actualization__body {
+    grid-template-columns: 1fr;
+  }
+
+  .education-source-data__heading {
+    position: static;
+  }
+
+  .education-form__intro {
+    max-width: 620px;
+  }
+
+  .education-actualization__period {
+    max-width: 430px;
+  }
+}
+
+@media (max-width: 768px) {
+  .education-source-data,
+  .education-form,
+  .education-actualization {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  .education-form__header,
+  .education-form__layout,
+  .education-actualization__header,
+  .education-actualization__body {
+    gap: 34px;
+  }
+
+  .education-actualization__footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 430px) {
+  .education-source-data__heading h2,
+  .education-form__header h2,
+  .education-actualization__header h2 {
+    font-size: clamp(2.1rem, 10vw, 3rem);
+  }
+
+  .education-source-data__item {
+    grid-template-columns:
+      38px
+      minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .education-source-data__note,
+  .education-form__intro,
+  .education-actualization__aside {
+    padding: 24px;
+  }
+
+  .education-form__intro .button {
+    width: 100%;
+  }
+
+  .education-form__structure li {
+    grid-template-columns:
+      36px
+      minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .education-actualization__period {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 320px) {
+  .education-source-data__heading h2,
+  .education-form__header h2,
+  .education-actualization__header h2 {
+    font-size: 2rem;
+  }
+
+  .education-source-data__note,
+  .education-form__intro,
+  .education-actualization__aside {
+    padding: 20px;
+  }
+}

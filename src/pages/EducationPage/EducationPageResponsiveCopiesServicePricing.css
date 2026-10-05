@@ -1,0 +1,107 @@
+/* ==========================================================================
+   EducationPage.jsx — RESPONSIVE: COPIES / RESTRICTIONS / SERVICE / PRICING
+
+   Preserves the original cross-component responsive cascade.
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .education-price__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .education-price__heading {
+    position: static;
+  }
+
+  .education-restricted__layout {
+    grid-template-columns:
+      minmax(170px, .3fr)
+      minmax(0, 1fr);
+    gap: 46px;
+  }
+}
+
+@media (max-width: 768px) {
+  .education-copies,
+  .education-restricted,
+  .education-service,
+  .education-price {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  .education-copies__comparison {
+    grid-template-columns: 1fr;
+  }
+
+  .education-copies__card {
+    min-height: 0;
+  }
+
+  .education-restricted__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .education-restricted__marker {
+    font-size: 7rem;
+  }
+
+  .education-price__item {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+@media (max-width: 430px) {
+  .education-copies__heading h2,
+  .education-restricted__content h2,
+  .education-service__heading h2,
+  .education-price__heading h2 {
+    font-size: clamp(2.1rem, 10vw, 3rem);
+  }
+
+  .education-copies__card,
+  .education-restricted__rule {
+    padding: 24px;
+  }
+
+  .education-copies__card-top {
+    flex-direction: column;
+  }
+
+  .education-copies__card ol {
+    margin-top: 38px;
+  }
+
+  .education-service__item {
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .education-price__note {
+    grid-template-columns: 1fr;
+  }
+
+  .education-price__content > .button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 320px) {
+  .education-copies__heading h2,
+  .education-restricted__content h2,
+  .education-service__heading h2,
+  .education-price__heading h2 {
+    font-size: 2rem;
+  }
+
+  .education-copies__card,
+  .education-restricted__rule,
+  .education-price__note {
+    padding: 20px;
+  }
+
+  .education-restricted__marker {
+    font-size: 5.8rem;
+  }
+}

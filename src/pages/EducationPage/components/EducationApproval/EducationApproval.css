@@ -1,0 +1,125 @@
+/* ==========================================================================
+   EducationApproval.jsx — APPROVAL
+   ========================================================================== */
+
+.education-approval {
+  padding: 112px 0;
+  background: #151515;
+  color: #fff;
+}
+
+.education-approval .education-kicker {
+  color: var(--color-accent);
+}
+
+.education-approval__layout {
+  display: grid;
+  grid-template-columns:
+    minmax(0, .78fr)
+    minmax(0, 1.22fr);
+  gap: clamp(56px, 8vw, 130px);
+  align-items: start;
+}
+
+.education-approval__heading {
+  position: sticky;
+  top: 112px;
+}
+
+.education-approval__heading > p:last-child {
+  max-width: 650px;
+  margin: 28px 0 0;
+  color: rgb(255 255 255 / 64%);
+  line-height: 1.7;
+}
+
+.education-approval__authorities {
+  border-top: 1px solid rgb(255 255 255 / 15%);
+}
+
+.education-approval__authority {
+  display: grid;
+  grid-template-columns:
+    52px
+    minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  min-height: 116px;
+  padding: 24px 0;
+  border-bottom: 1px solid rgb(255 255 255 / 15%);
+}
+
+.education-approval__authority > span {
+  color: var(--color-accent);
+  font-size: .76rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+.education-approval__authority h3 {
+  max-width: 620px;
+  margin: 0;
+  font-size: clamp(1.2rem, 1.65vw, 1.55rem);
+  line-height: 1.25;
+}
+
+.education-approval__timing {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.education-approval__timing > div {
+  min-height: 220px;
+  padding: 26px;
+  border: 1px solid rgb(255 255 255 / 14%);
+  border-radius: var(--radius-md);
+  background: rgb(255 255 255 / 4%);
+}
+
+.education-approval__timing span,
+.education-approval__finish > span {
+  font-size: .76rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.education-approval__timing span {
+  color: rgb(255 255 255 / 50%);
+}
+
+.education-approval__timing strong {
+  display: block;
+  margin-top: 54px;
+  color: var(--color-accent);
+  font-size: clamp(1.55rem, 2.3vw, 2.35rem);
+  line-height: 1.05;
+  letter-spacing: -.04em;
+}
+
+.education-approval__timing p {
+  margin: 12px 0 0;
+  color: rgb(255 255 255 / 62%);
+}
+
+.education-approval__finish {
+  margin-top: 14px;
+  padding: 28px;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: #151515;
+}
+
+.education-approval__finish > span {
+  color: rgb(21 21 21 / 55%);
+}
+
+.education-approval__finish p {
+  max-width: 680px;
+  margin: 14px 0 0;
+  font-size: clamp(1.15rem, 1.55vw, 1.4rem);
+  font-weight: 750;
+  line-height: 1.35;
+}

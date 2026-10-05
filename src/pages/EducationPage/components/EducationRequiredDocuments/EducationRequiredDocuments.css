@@ -1,0 +1,115 @@
+/* ==========================================================================
+   EducationRequiredDocuments.jsx — REQUIRED DOCUMENTS
+   ========================================================================== */
+
+.education-source-data {
+  padding: 112px 0;
+  background: #fff;
+}
+
+.education-source-data__layout {
+  display: grid;
+  grid-template-columns:
+    minmax(320px, .75fr)
+    minmax(0, 1.25fr);
+  gap: clamp(54px, 8vw, 130px);
+  align-items: start;
+}
+
+.education-source-data__heading {
+  position: sticky;
+  top: 112px;
+}
+
+.education-source-data__heading h2,
+.education-form__header h2,
+.education-actualization__header h2 {
+  margin: 0;
+  font-size: clamp(2.5rem, 4.1vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: -.05em;
+  text-wrap: balance;
+}
+
+.education-source-data__heading > p:not(
+  .education-kicker
+) {
+  max-width: 650px;
+  margin: 26px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 1.04rem;
+  line-height: 1.7;
+}
+
+.education-source-data__note {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 16px;
+  margin-top: 32px;
+  padding: 22px;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+}
+
+.education-source-data__note > span {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #151515;
+  color: #fff;
+  font-weight: 900;
+}
+
+.education-source-data__note p {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.education-source-data__list {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-border);
+  list-style: none;
+}
+
+.education-source-data__item {
+  display: grid;
+  grid-template-columns:
+    52px
+    minmax(0, 1fr);
+  gap: 20px;
+  min-height: 130px;
+  padding: 26px 4px;
+  border-bottom: 1px solid var(--color-border);
+  transition:
+    padding .2s ease,
+    background .2s ease;
+}
+
+.education-source-data__item:hover {
+  padding-right: 16px;
+  padding-left: 16px;
+  background: var(--color-bg);
+}
+
+.education-source-data__item > span {
+  color: var(--color-primary);
+  font-size: .76rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+.education-source-data__item h3 {
+  margin: 0;
+  font-size: clamp(1.2rem, 1.65vw, 1.55rem);
+  line-height: 1.25;
+}
+
+.education-source-data__item p {
+  max-width: 720px;
+  margin: 9px 0 0;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}

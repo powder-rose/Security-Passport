@@ -1,0 +1,155 @@
+/* ==========================================================================
+   EducationPassportCopies.jsx — PASSPORT COPIES
+   ========================================================================== */
+
+.education-copies {
+  padding: 112px 0;
+  background: var(--color-bg);
+}
+
+.education-copies__heading {
+  max-width: 950px;
+}
+
+.education-copies__heading h2,
+.education-restricted__content h2,
+.education-service__heading h2,
+.education-price__heading h2 {
+  margin: 0;
+  font-size: clamp(2.5rem, 4.1vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: -.05em;
+  text-wrap: balance;
+}
+
+.education-copies__heading > p:last-child,
+.education-service__heading > p:last-child,
+.education-price__heading > p:last-child {
+  max-width: 720px;
+  margin: 26px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 1.04rem;
+  line-height: 1.7;
+}
+
+.education-copies__comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 58px;
+}
+
+.education-copies__card {
+  min-height: 470px;
+  padding: 34px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: #fff;
+}
+
+.education-copies__card--primary {
+  background: #151515;
+  color: #fff;
+}
+
+.education-copies__card-top {
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.education-copies__card-top > span {
+  font-size: .76rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.education-copies__card--primary
+.education-copies__card-top > span {
+  color: var(--color-accent);
+}
+
+.education-copies__card-top strong {
+  font-size: clamp(1.9rem, 3vw, 3rem);
+  line-height: 1;
+  letter-spacing: -.045em;
+}
+
+.education-copies__card ol {
+  display: grid;
+  gap: 0;
+  margin: 56px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgb(255 255 255 / 16%);
+}
+
+.education-copies__card li {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 16px;
+  padding: 22px 0;
+  border-bottom: 1px solid rgb(255 255 255 / 16%);
+}
+
+.education-copies__card li span {
+  color: var(--color-accent);
+  font-size: .72rem;
+  font-weight: 800;
+}
+
+.education-copies__card li p {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.education-copies__extra {
+  margin-top: 28px;
+  padding: 22px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent);
+  color: #151515;
+}
+
+.education-copies__extra strong {
+  display: block;
+}
+
+.education-copies__extra p {
+  margin: 7px 0 0;
+  line-height: 1.5;
+}
+
+.education-copies__card-text {
+  max-width: 580px;
+  margin: 64px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+
+.education-copies__warning {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 16px;
+  margin-top: 44px;
+  padding-top: 26px;
+  border-top: 1px solid var(--color-border);
+}
+
+.education-copies__warning > span {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  font-weight: 900;
+}
+
+.education-copies__warning p {
+  margin: 0;
+  line-height: 1.55;
+}
