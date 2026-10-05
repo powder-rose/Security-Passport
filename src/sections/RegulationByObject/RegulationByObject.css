@@ -114,6 +114,7 @@
   width: 100%;
 
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 
@@ -145,6 +146,8 @@
 
   transition:
     background-color 180ms ease;
+  position: relative;
+  vertical-align: middle;
 }
 
 
@@ -161,6 +164,15 @@
   letter-spacing: -.035em;
 
   text-decoration: none;
+  width: 100%;
+
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    38px;
+
+  gap: 24px;
+  align-items: center;
 }
 
 
@@ -183,6 +195,10 @@
     background-color 180ms ease,
     border-color 180ms ease,
     transform 180ms ease;
+  justify-self: end;
+
+  width: 38px;
+  height: 38px;
 }
 
 
@@ -198,6 +214,13 @@
 .regulation-guide__focus {
   min-width: 0;
   flex: 1;
+  display: block;
+
+  max-width: 620px;
+
+  color: rgba(255,255,255,.7);
+
+  line-height: 1.55;
 }
 
 
@@ -222,6 +245,16 @@
   line-height: 1.2;
 
   white-space: nowrap;
+  position: absolute;
+
+  top: 50%;
+  right: 22px;
+
+  min-width: 112px;
+
+  justify-content: center;
+
+  transform: translateY(-50%);
 }
 
 
@@ -350,11 +383,6 @@
     margin-bottom: 17px;
   }
 
-  .regulation-guide__object a {
-    font-size:
-      clamp(1.25rem, 5.8vw, 1.6rem);
-  }
-
   .regulation-guide__requirements {
     padding-right: 48px;
   }
@@ -368,70 +396,19 @@
   }
 }
 
-.regulation-guide__table {
-  table-layout: fixed;
-}
-
 .regulation-guide__table th:first-child,
 .regulation-guide__table td:first-child {
   width: 42%;
-}
-
-.regulation-guide__table td {
-  position: relative;
-  vertical-align: middle;
-}
-
-.regulation-guide__object a {
-  width: 100%;
-
-  display: grid;
-  grid-template-columns:
-    minmax(0, 1fr)
-    38px;
-
-  gap: 24px;
-  align-items: center;
 }
 
 .regulation-guide__object span:first-child {
   min-width: 0;
 }
 
-.regulation-guide__arrow {
-  justify-self: end;
-
-  width: 38px;
-  height: 38px;
-}
-
 .regulation-guide__table td.regulation-guide__requirements {
   display: table-cell;
 
   padding-right: 205px;
-}
-
-.regulation-guide__focus {
-  display: block;
-
-  max-width: 620px;
-
-  color: rgba(255,255,255,.7);
-
-  line-height: 1.55;
-}
-
-.regulation-guide__act {
-  position: absolute;
-
-  top: 50%;
-  right: 22px;
-
-  min-width: 112px;
-
-  justify-content: center;
-
-  transform: translateY(-50%);
 }
 
 @media (max-width: 980px) {
@@ -457,6 +434,8 @@
   }
 
   .regulation-guide__object a {
+    font-size:
+      clamp(1.25rem, 5.8vw, 1.6rem);
     grid-template-columns:
       minmax(0, 1fr)
       36px;
