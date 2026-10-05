@@ -1,0 +1,125 @@
+/* ==========================================================================
+   CrowdRegime.jsx — REGIME
+   ========================================================================== */
+
+.crowd-regime {
+  padding:
+    118px 0 126px;
+
+  background:
+    #fff;
+}
+
+.crowd-regime__layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(280px, .42fr)
+    minmax(0, 1fr);
+
+  gap:
+    clamp(
+      100px,
+      10vw,
+      160px
+    );
+
+  align-items: start;
+}
+
+.crowd-regime__identity {
+  position: sticky;
+  top: 110px;
+}
+
+.crowd-regime__mark {
+  display: block;
+
+  margin-top: 38px;
+
+  color:
+    var(--crowd-accent);
+
+  font-size:
+    clamp(
+      11rem,
+      18vw,
+      18rem
+    );
+
+  font-weight: 700;
+  line-height: .72;
+  letter-spacing: -.08em;
+}
+
+.crowd-regime__content {
+  min-width: 0;
+}
+
+.crowd-regime__content h2 {
+  max-width: 820px;
+
+  margin: 0;
+
+  font-size:
+    clamp(
+      2.65rem,
+      3.8vw,
+      4.15rem
+    );
+
+  line-height: .99;
+  letter-spacing: -.058em;
+
+  text-wrap: balance;
+}
+
+.crowd-regime__lead {
+  max-width: 710px;
+
+  margin:
+    32px 0 0;
+
+  color:
+    var(--color-text-secondary);
+
+  font-size: 1.03rem;
+  line-height: 1.72;
+}
+
+.crowd-regime__principle {
+  display: grid;
+
+  grid-template-columns:
+    minmax(130px, .28fr)
+    minmax(0, 1fr);
+
+  gap: 32px;
+
+  max-width: 780px;
+
+  margin-top: 48px;
+  padding-top: 28px;
+
+  border-top:
+    1px solid
+    var(--color-border);
+}
+
+.crowd-regime__principle span {
+  color:
+    var(--color-text-secondary);
+
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+
+  text-transform: uppercase;
+}
+
+.crowd-regime__principle p {
+  margin: 0;
+
+  font-size: 1.02rem;
+  line-height: 1.65;
+}

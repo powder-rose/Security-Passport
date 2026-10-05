@@ -1,0 +1,192 @@
+/* ==========================================================================
+   CrowdRegulation.jsx — REGULATION
+   ========================================================================== */
+
+.crowd-regulation {
+  padding:
+    120px 0 128px;
+
+  background:
+    #f5f5f1;
+}
+
+.crowd-regulation__layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(260px, .38fr)
+    minmax(0, 1fr);
+
+  gap:
+    clamp(
+      100px,
+      10vw,
+      165px
+    );
+
+  align-items: start;
+}
+
+.crowd-regulation__identity {
+  position: sticky;
+  top: 110px;
+}
+
+.crowd-regulation__number {
+  margin-top: 38px;
+
+  font-size:
+    clamp(
+      5.8rem,
+      10vw,
+      10.5rem
+    );
+
+  font-weight: 700;
+  line-height: .78;
+  letter-spacing: -.08em;
+}
+
+.crowd-regulation__date {
+  max-width: 230px;
+
+  margin:
+    28px 0 0;
+
+  color:
+    var(--color-text-secondary);
+
+  font-size: .86rem;
+  line-height: 1.55;
+}
+
+.crowd-regulation__content {
+  min-width: 0;
+}
+
+.crowd-regulation__content > h2 {
+  max-width: 760px;
+
+  margin: 0;
+
+  font-size:
+    clamp(
+      2.7rem,
+      3.9vw,
+      4.2rem
+    );
+
+  line-height: .99;
+  letter-spacing: -.058em;
+
+  text-wrap: balance;
+}
+
+.crowd-regulation__lead {
+  max-width: 720px;
+
+  margin:
+    30px 0 0;
+
+  color:
+    var(--color-text-secondary);
+
+  font-size: 1.03rem;
+  line-height: 1.72;
+}
+
+.crowd-regulation__points {
+  margin-top: 56px;
+
+  border-top:
+    1px solid
+    var(--color-border);
+}
+
+.crowd-regulation__points article {
+  display: grid;
+
+  grid-template-columns:
+    48px minmax(0, 1fr);
+
+  gap: 28px;
+
+  padding:
+    30px 4px;
+
+  border-bottom:
+    1px solid
+    var(--color-border);
+}
+
+.crowd-regulation__points article > span {
+  color:
+    var(--color-text-secondary);
+
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+}
+
+.crowd-regulation__points h3 {
+  margin: 0;
+
+  font-size:
+    clamp(
+      1.28rem,
+      1.8vw,
+      1.72rem
+    );
+
+  line-height: 1.2;
+  letter-spacing: -.035em;
+}
+
+.crowd-regulation__points p {
+  max-width: 620px;
+
+  margin:
+    12px 0 0;
+
+  color:
+    var(--color-text-secondary);
+
+  font-size: .92rem;
+  line-height: 1.65;
+}
+
+.crowd-regulation__edition {
+  display: grid;
+
+  grid-template-columns:
+    120px minmax(0, 1fr);
+
+  gap: 28px;
+
+  margin-top: 36px;
+  padding:
+    24px 26px;
+
+  border-radius:
+    var(--radius-md);
+
+  background:
+    #fff;
+}
+
+.crowd-regulation__edition span {
+  color:
+    var(--color-text-secondary);
+
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+
+  text-transform: uppercase;
+}
+
+.crowd-regulation__edition p {
+  margin: 0;
+
+  line-height: 1.6;
+}

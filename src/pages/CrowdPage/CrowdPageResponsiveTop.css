@@ -1,0 +1,318 @@
+/* ==========================================================================
+   CrowdPage.jsx — SHARED RESPONSIVE: HERO / APPLICABILITY / REGIME
+
+   These rules remain page-level because their original media-query blocks
+   contain selectors owned by several components. Their import position is
+   intentional and preserves the historical cascade.
+   ========================================================================== */
+
+@media (max-width: 1180px) {
+  .crowd-hero__layout {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(330px, .52fr);
+
+    gap: 62px;
+  }
+
+  .crowd-hero__content h1 {
+    font-size:
+      clamp(
+        3.15rem,
+        4.6vw,
+        4.45rem
+      );
+  }
+
+  .crowd-applicability__heading {
+    gap: 70px;
+  }
+
+  .crowd-applicability__layout {
+    gap: 70px;
+  }
+
+  .crowd-regime__layout {
+    gap: 90px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .crowd-hero__layout,
+  .crowd-applicability__heading,
+  .crowd-applicability__layout,
+  .crowd-regime__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .crowd-hero__layout {
+    gap: 58px;
+  }
+
+  .crowd-hero__content h1 {
+    max-width: 760px;
+  }
+
+  .crowd-hero__regulation {
+    min-height: 0;
+  }
+
+  .crowd-applicability__heading,
+  .crowd-applicability__layout,
+  .crowd-regime__layout {
+    gap: 46px;
+  }
+
+  .crowd-applicability__check,
+  .crowd-regime__identity {
+    position: static;
+  }
+
+  .crowd-applicability__check {
+    max-width: 620px;
+  }
+
+  .crowd-regime__identity {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+
+    align-items: end;
+  }
+
+  .crowd-regime__mark {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .crowd-hero {
+    padding-bottom: 82px;
+  }
+
+  .crowd-breadcrumbs {
+    margin-bottom: 30px;
+  }
+
+  .crowd-hero__content h1 {
+    font-size:
+      clamp(
+        2.85rem,
+        8.2vw,
+        3.8rem
+      );
+
+    line-height: .98;
+  }
+
+  .crowd-hero__lead {
+    margin-top: 28px;
+
+    font-size: 1rem;
+  }
+
+  .crowd-hero__commercial {
+    grid-template-columns: 1fr;
+
+    gap: 26px;
+  }
+
+  .crowd-hero__facts {
+    border-left: 0;
+    border-top:
+      1px solid
+      var(--color-border);
+
+    padding-top: 24px;
+  }
+
+  .crowd-hero__facts > div:first-child {
+    padding-left: 0;
+  }
+
+  .crowd-hero__regulation {
+    padding: 28px;
+  }
+
+  .crowd-applicability,
+  .crowd-regime {
+    padding:
+      82px 0 88px;
+  }
+
+  .crowd-applicability__heading h2,
+  .crowd-regime__content h2 {
+    font-size:
+      clamp(
+        2.35rem,
+        7vw,
+        3.15rem
+      );
+  }
+
+  .crowd-applicability__layout {
+    margin-top: 52px;
+  }
+
+  .crowd-regime__principle {
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+  }
+}
+
+@media (max-width: 430px) {
+  .crowd-hero {
+    padding-top: 16px;
+  }
+
+  .crowd-breadcrumbs {
+    font-size: .76rem;
+  }
+
+  .crowd-hero__content h1 {
+    font-size: 2.42rem;
+    line-height: 1;
+    letter-spacing: -.052em;
+  }
+
+  .crowd-hero__commercial {
+    margin-top: 34px;
+  }
+
+  .crowd-hero__facts {
+    grid-template-columns: 1fr;
+
+    gap: 0;
+  }
+
+  .crowd-hero__facts > div {
+    min-height: 0;
+
+    padding:
+      18px 0;
+  }
+
+  .crowd-hero__facts > div + div {
+    border-left: 0;
+    border-top:
+      1px solid
+      var(--color-border);
+  }
+
+  .crowd-hero__actions {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+  .crowd-hero__actions .button {
+    width: 100%;
+  }
+
+  .crowd-text-action {
+    max-width: none;
+
+    padding:
+      7px 0;
+  }
+
+  .crowd-hero__regulation {
+    padding: 24px;
+  }
+
+  .crowd-hero__number {
+    font-size: 5.2rem;
+  }
+
+  .crowd-hero__definition {
+    margin-top: 42px;
+  }
+
+  .crowd-applicability,
+  .crowd-regime {
+    padding:
+      68px 0 74px;
+  }
+
+  .crowd-applicability__heading h2,
+  .crowd-regime__content h2 {
+    font-size: 2.32rem;
+  }
+
+  .crowd-applicability__rule {
+    grid-template-columns:
+      42px minmax(0, 1fr);
+
+    gap: 16px;
+
+    padding:
+      26px 0;
+  }
+
+  .crowd-applicability__check {
+    padding: 24px;
+  }
+
+  .crowd-applicability__check::before {
+    margin:
+      -24px 0 23px;
+  }
+
+  .crowd-regime__identity {
+    display: block;
+  }
+
+  .crowd-regime__mark {
+    margin-top: 28px;
+
+    font-size: 9rem;
+  }
+
+  .crowd-regime__lead {
+    margin-top: 25px;
+
+    font-size: .98rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .crowd-hero__content h1 {
+    font-size: 2.22rem;
+  }
+
+  .crowd-applicability__heading h2,
+  .crowd-regime__content h2 {
+    font-size: 2.16rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .crowd-hero__content h1 {
+    font-size: 1.98rem;
+  }
+
+  .crowd-applicability__heading h2,
+  .crowd-regime__content h2 {
+    font-size: 1.95rem;
+  }
+
+  .crowd-hero__regulation {
+    padding:
+      22px 20px;
+  }
+
+  .crowd-hero__number {
+    font-size: 4.6rem;
+  }
+
+  .crowd-applicability__rule {
+    grid-template-columns: 1fr;
+
+    gap: 10px;
+  }
+
+  .crowd-regime__mark {
+    font-size: 7rem;
+  }
+}
