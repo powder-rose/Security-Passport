@@ -30,15 +30,6 @@ body {
 
 /* 1024-class tablets: move only the layouts that are genuinely tight. */
 @media (max-width: 1060px) {
-  .required-documents__layout {
-    grid-template-columns: 1fr;
-    gap: 48px;
-  }
-
-  .required-documents__intro {
-    position: static;
-    max-width: 760px;
-  }
 
   .final-cta__layout {
     grid-template-columns: 1fr;
@@ -76,7 +67,6 @@ body {
   .about-passport,
   .documents-comparison,
   .who-needs-passport,
-  .required-documents,
   .related-services,
   .expert,
   .faq,
@@ -92,8 +82,7 @@ body {
     min-height: 350px;
   }
 
-  .documents-comparison__notice,
-  .required-documents__notice {
+  .documents-comparison__notice {
     gap: 18px;
   }
 
@@ -117,7 +106,6 @@ body {
   .about-passport h2,
   .documents-comparison h2,
   .who-needs-passport h2,
-  .required-documents h2,
   .related-services h2,
   .expert h2,
   .faq h2,
@@ -143,7 +131,6 @@ body {
   .about-passport__lead,
   .documents-comparison__lead,
   .who-needs-passport__intro-card p:last-child,
-  .required-documents__lead,
   .related-services__lead,
   .final-cta__lead {
     font-size: 1rem;
@@ -234,7 +221,6 @@ body {
   .about-passport h2,
   .documents-comparison h2,
   .who-needs-passport h2,
-  .required-documents h2,
   .expert h2,
   .faq h2,
   .final-cta h2 {
