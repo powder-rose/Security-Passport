@@ -1,0 +1,154 @@
+/* ==========================================================================
+   CategorizationActDifference.jsx — ACT VS PASSPORT
+   ========================================================================== */
+
+.categorization-act-difference {
+  padding:
+    clamp(95px, 10vw, 150px)
+    0;
+
+  background: #fff;
+}
+
+.categorization-act-difference__grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 16px;
+}
+
+.categorization-act-difference__grid article {
+  position: relative;
+
+  min-height: 310px;
+
+  padding:
+    31px;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    var(--act-line);
+
+  border-radius:
+    var(--act-radius-lg);
+
+  background:
+    linear-gradient(
+      145deg,
+      var(--act-paper),
+      #fff
+    );
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
+}
+
+.categorization-act-difference__grid article::after {
+  content: "";
+
+  position: absolute;
+
+  right: -60px;
+  bottom: -70px;
+
+  width: 170px;
+  height: 170px;
+
+  border-radius: 50%;
+
+  background:
+    var(--act-lime-soft);
+
+  transition:
+    transform .3s ease;
+}
+
+.categorization-act-difference__grid article > span {
+  color: var(--color-primary);
+
+  font-size: .72rem;
+  font-weight: 900;
+}
+
+.categorization-act-difference__grid h3 {
+  max-width: 500px;
+
+  margin:
+    74px
+    0
+    15px;
+
+  font-size:
+    clamp(1.6rem, 2.5vw, 2.35rem);
+
+  line-height: 1.04;
+
+  letter-spacing: -.04em;
+}
+
+.categorization-act-difference__grid p {
+  position: relative;
+  z-index: 1;
+
+  max-width: 600px;
+
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  line-height: 1.66;
+}
+
+@media (hover: hover) {
+  .categorization-act-difference__grid article:hover {
+    transform:
+      translateY(-5px);
+
+    border-color:
+      var(--act-line-strong);
+
+    box-shadow:
+      var(--act-shadow-hover);
+  }
+
+  .categorization-act-difference__grid article:hover::after {
+    transform:
+      scale(1.16);
+  }
+}
+
+.categorization-act-difference__sequence {
+  max-width: 940px;
+
+  margin:
+    34px
+    0
+    0;
+
+  padding:
+    22px
+    25px;
+
+  border-left:
+    4px solid
+    var(--act-lime);
+
+  border-radius:
+    0
+    var(--act-radius-sm)
+    var(--act-radius-sm)
+    0;
+
+  background:
+    var(--act-paper);
+
+  color: var(--color-text-secondary);
+
+  line-height: 1.68;
+}

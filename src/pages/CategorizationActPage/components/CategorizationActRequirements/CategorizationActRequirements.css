@@ -1,0 +1,138 @@
+/* ==========================================================================
+   CategorizationActRequirements.jsx — REQUIREMENTS
+   ========================================================================== */
+
+.categorization-act-requirements {
+  padding:
+    clamp(95px, 10vw, 150px)
+    0;
+
+  background:
+    var(--act-paper);
+}
+
+.categorization-act-requirements__grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, .95fr)
+    minmax(350px, .72fr);
+
+  gap:
+    clamp(55px, 8vw, 125px);
+
+  align-items: start;
+}
+
+.categorization-act-requirements__copy {
+  padding-top: 8px;
+}
+
+.categorization-act-requirements__copy p {
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: 1.02rem;
+
+  line-height: 1.75;
+}
+
+.categorization-act-requirements__copy p + p {
+  margin-top: 22px;
+}
+
+.categorization-act-requirements__list {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 14px;
+
+  margin-top: 70px;
+}
+
+.categorization-act-requirements__list article {
+  position: relative;
+
+  min-height: 205px;
+
+  padding:
+    25px;
+
+  border:
+    1px solid
+    var(--act-line);
+
+  border-radius:
+    var(--act-radius-md);
+
+  background: #fff;
+
+  box-shadow:
+    0 8px 28px
+    rgba(17, 17, 17, .025);
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
+}
+
+.categorization-act-requirements__list article > span {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 50%;
+
+  background:
+    var(--act-lime-soft);
+
+  color: var(--act-ink);
+
+  font-size: .68rem;
+  font-weight: 900;
+}
+
+.categorization-act-requirements__list strong {
+  display: block;
+
+  margin-top: 38px;
+
+  font-size:
+    clamp(1.05rem, 1.45vw, 1.3rem);
+
+  line-height: 1.15;
+}
+
+.categorization-act-requirements__list p {
+  margin:
+    11px
+    0
+    0;
+
+  color: var(--color-text-secondary);
+
+  font-size: .88rem;
+
+  line-height: 1.55;
+}
+
+@media (hover: hover) {
+  .categorization-act-requirements__list article:hover {
+    transform:
+      translateY(-5px);
+
+    border-color:
+      var(--act-line-strong);
+
+    box-shadow:
+      var(--act-shadow-hover);
+  }
+}

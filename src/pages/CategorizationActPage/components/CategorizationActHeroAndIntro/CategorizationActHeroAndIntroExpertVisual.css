@@ -1,0 +1,292 @@
+/* ==========================================================================
+   CategorizationActHeroAndIntro.jsx — EXPERT VISUAL
+
+   This late-cascade fragment intentionally remains separate from the main
+   HeroAndIntro stylesheet so the original stylesheet order is preserved.
+   ========================================================================== */
+
+.categorization-act-expert-visual {
+  position: relative;
+
+  isolation: isolate;
+
+  justify-self: end;
+
+  display: block;
+
+  width:
+    min(100%, 410px);
+
+  height: 500px;
+
+  margin:
+    0
+    18px
+    30px
+    0;
+
+  padding: 0;
+
+  overflow: visible;
+
+  border:
+    1px solid
+    rgba(17, 17, 17, .075);
+
+  border-radius: 34px;
+
+  background-color:
+    #fbfaf7;
+
+  background-image:
+    radial-gradient(
+      circle,
+      rgba(47, 91, 255, .58) 1.5px,
+      transparent 1.7px
+    ),
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, .98),
+      rgba(250, 248, 243, .98)
+    );
+
+  background-size:
+    22px 22px,
+    100% 100%;
+
+  background-position:
+    48px 118px,
+    0 0;
+
+  background-repeat:
+    repeat,
+    no-repeat;
+
+  box-shadow:
+    0
+    26px
+    65px
+    rgba(17, 17, 17, .075);
+}
+
+.categorization-act-expert-visual > img {
+  position: absolute;
+
+  z-index: 3;
+
+  left: 50%;
+  bottom: 0;
+
+  display: block;
+
+  width: 330px;
+  max-width: none;
+
+  height: auto;
+  max-height: none;
+
+  margin: 0;
+  padding: 0;
+
+  object-fit: contain;
+  object-position: center bottom;
+
+  border: 0;
+  border-radius: 0;
+
+  background:
+    transparent;
+
+  box-shadow:
+    none;
+
+  transform:
+    translateX(-50%);
+
+  filter:
+    drop-shadow(
+      0
+      19px
+      28px
+      rgba(17, 17, 17, .17)
+    );
+
+  transition:
+    transform .28s ease;
+}
+
+@media (hover: hover) {
+  .categorization-act-expert-visual:hover > img {
+    transform:
+      translateX(-50%)
+      translateY(-3px);
+  }
+}
+
+.categorization-act-expert-visual__caption {
+  position: absolute;
+
+  z-index: 6;
+
+  left: 20px;
+  right: 20px;
+  bottom: -34px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  min-height: 82px;
+
+  padding:
+    15px
+    19px;
+
+  border:
+    1px solid
+    rgba(17, 17, 17, .07);
+
+  border-radius: 22px;
+
+  background:
+    rgba(255, 255, 255, .98);
+
+  box-shadow:
+    0
+    17px
+    38px
+    rgba(17, 17, 17, .11);
+
+  backdrop-filter:
+    blur(10px);
+}
+
+.categorization-act-expert-visual__caption-dot {
+  flex:
+    0
+    0 auto;
+
+  width: 3px;
+  height: 43px;
+
+  border-radius: 999px;
+
+  background:
+    #2f5bff;
+
+  box-shadow: none;
+}
+
+.categorization-act-expert-visual__caption
+> span:last-child {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+
+  min-width: 0;
+}
+
+.categorization-act-expert-visual__caption strong {
+  color:
+    #111111;
+
+  font-size: .95rem;
+  font-weight: 800;
+
+  line-height: 1.15;
+}
+
+.categorization-act-expert-visual__caption small {
+  margin: 0;
+
+  color:
+    var(--color-text-secondary);
+
+  font-size: .72rem;
+
+  line-height: 1.25;
+}
+
+@media (max-width: 1200px) {
+  .categorization-act-expert-visual {
+    width:
+      min(100%, 385px);
+
+    height: 470px;
+
+    margin-right: 0;
+  }
+
+  .categorization-act-expert-visual > img {
+    width: 305px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .categorization-act-expert-visual {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 900px) {
+  .categorization-act-expert-visual {
+    justify-self: center;
+
+    width:
+      min(100%, 390px);
+
+    margin:
+      24px
+      auto
+      45px;
+  }
+}
+
+@media (max-width: 600px) {
+  .categorization-act-expert-visual {
+    width:
+      min(100%, 330px);
+
+    height: 410px;
+
+    border-radius: 28px;
+  }
+
+  .categorization-act-expert-visual > img {
+    width: 265px;
+  }
+
+  .categorization-act-expert-visual__caption {
+    left: 14px;
+    right: 14px;
+    bottom: -28px;
+
+    min-height: 72px;
+
+    padding:
+      13px
+      16px;
+
+    border-radius: 19px;
+  }
+
+  .categorization-act-expert-visual__caption-dot {
+    height: 36px;
+  }
+}
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
+  .categorization-act-expert-visual > img {
+    transition: none !important;
+
+    transform:
+      translateX(-50%) !important;
+  }
+}

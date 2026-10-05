@@ -1,0 +1,84 @@
+/* ==========================================================================
+   CategorizationActStandard.jsx — STANDARD
+   ========================================================================== */
+
+.categorization-act-standard {
+  padding:
+    clamp(95px, 10vw, 145px)
+    0;
+
+  background:
+    linear-gradient(
+      130deg,
+      #e6f8cd 0%,
+      #f4faeb 58%,
+      #ffffff 100%
+    );
+}
+
+.categorization-act-standard__grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, .92fr)
+    minmax(350px, .68fr);
+
+  gap:
+    clamp(55px, 8vw, 120px);
+
+  align-items: center;
+}
+
+.categorization-act-standard__badge {
+  display: inline-flex;
+
+  margin-bottom: 27px;
+
+  padding:
+    9px
+    13px;
+
+  border-radius: 999px;
+
+  background:
+    var(--act-ink);
+
+  color: #fff;
+
+  font-size: .72rem;
+  font-weight: 900;
+
+  letter-spacing: .05em;
+}
+
+.categorization-act-standard__grid > div:last-child {
+  padding:
+    28px;
+
+  border:
+    1px solid
+    rgba(17,17,17,.1);
+
+  border-radius:
+    var(--act-radius-md);
+
+  background:
+    rgba(255,255,255,.62);
+
+  backdrop-filter:
+    blur(6px);
+}
+
+.categorization-act-standard__grid > div:last-child p {
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: 1.02rem;
+
+  line-height: 1.72;
+}
+
+.categorization-act-standard__grid > div:last-child p + p {
+  margin-top: 21px;
+}

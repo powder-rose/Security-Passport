@@ -1,0 +1,306 @@
+/* ==========================================================================
+   CategorizationActServiceScope.jsx — SERVICE SCOPE
+   ========================================================================== */
+
+.categorization-act-service {
+  padding:
+    clamp(100px, 10vw, 155px)
+    0;
+
+  background:
+    #f6f2e9;
+}
+
+.categorization-act-service__grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(280px, .50fr)
+    minmax(650px, 1.50fr);
+
+  gap:
+    clamp(105px, 10vw, 165px);
+
+  align-items: start;
+}
+
+.categorization-act-service__grid > div {
+  position: sticky;
+
+  top: 110px;
+
+  padding-top: 7px;
+  padding-right: 8px;
+}
+
+.categorization-act-service h2 {
+  max-width: 6.3ch;
+
+  margin: 0;
+
+  font-size:
+    clamp(2.7rem, 4.4vw, 4.9rem);
+
+  line-height: .94;
+
+  letter-spacing: -.058em;
+
+  text-wrap: pretty;
+}
+
+.categorization-act-service__grid
+> div
+> p:last-child {
+  max-width: 390px;
+
+  margin:
+    27px
+    0
+    0;
+
+  color:
+    var(--color-text-secondary);
+
+  line-height: 1.72;
+}
+
+.categorization-act-service ol {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 15px;
+
+  margin:
+    0
+    0
+    0
+    clamp(12px, 1.5vw, 24px);
+
+  padding: 0;
+
+  list-style: none;
+}
+
+.categorization-act-service li {
+  position: relative;
+
+  display: flex;
+
+  flex-direction: column;
+
+  min-height: 170px;
+
+  padding:
+    23px
+    23px
+    25px;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(17, 17, 17, .10);
+
+  border-radius: 22px;
+
+  background:
+    #ffffff;
+
+  box-shadow:
+    0
+    7px
+    22px
+    rgba(17, 17, 17, .025);
+
+  transition:
+    transform .24s ease,
+    border-color .24s ease,
+    box-shadow .24s ease,
+    background-color .24s ease;
+}
+
+.categorization-act-service li::before {
+  position: absolute;
+
+  right: -55px;
+  bottom: -65px;
+
+  width: 125px;
+  height: 125px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(169, 240, 74, 0);
+
+  content: "";
+
+  transition:
+    background-color .25s ease,
+    transform .25s ease;
+}
+
+.categorization-act-service li::after {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 3px;
+
+  background:
+    #a9f04a;
+
+  content: "";
+
+  transform:
+    scaleX(0);
+
+  transform-origin: left;
+
+  transition:
+    transform .25s ease;
+}
+
+.categorization-act-service li span {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  margin: 0;
+
+  border-radius: 50%;
+
+  background:
+    rgba(47, 91, 255, .08);
+
+  color:
+    var(--color-primary);
+
+  font-size: .68rem;
+  font-weight: 900;
+}
+
+.categorization-act-service li p {
+  position: relative;
+  z-index: 1;
+
+  margin:
+    auto
+    0
+    0;
+
+  padding-top: 30px;
+
+  font-size: .94rem;
+
+  line-height: 1.48;
+}
+
+@media (hover: hover) {
+  .categorization-act-service li:hover {
+    transform:
+      translateY(-5px);
+
+    border-color:
+      rgba(17, 17, 17, .17);
+
+    background:
+      #ffffff;
+
+    box-shadow:
+      0
+      20px
+      42px
+      rgba(17, 17, 17, .08);
+  }
+
+  .categorization-act-service
+  li:hover::before {
+    background:
+      rgba(169, 240, 74, .13);
+
+    transform:
+      scale(1.18);
+  }
+
+  .categorization-act-service
+  li:hover::after {
+    transform:
+      scaleX(1);
+  }
+}
+
+@media (max-width: 1200px) {
+  .categorization-act-service__grid {
+    gap:
+      clamp(65px, 6vw, 90px);
+  }
+
+  .categorization-act-service ol {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 1150px) {
+  .categorization-act-service__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .categorization-act-service__grid > div {
+    position: static;
+
+    padding-right: 0;
+  }
+
+  .categorization-act-service h2 {
+    max-width: 11ch;
+  }
+}
+
+@media (max-width: 1100px) {
+  .categorization-act-service__grid {
+    gap: 45px;
+  }
+}
+
+@media (max-width: 900px) {
+  .categorization-act-service ol {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .categorization-act-service h2 {
+    max-width: none;
+
+    font-size:
+      clamp(2.25rem, 11vw, 3.5rem);
+  }
+
+  .categorization-act-service ol {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
+  .categorization-act-service li {
+    transition: none !important;
+  }
+}
