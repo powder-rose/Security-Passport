@@ -238,6 +238,7 @@ function validateLead(lead) {
     if (!contact || typeof contact !== 'object') return 'CONTACT_REQUIRED';
     if (!cleanString(contact.name, 160)) return 'NAME_REQUIRED';
     if (!cleanString(contact.phone, 120)) return 'PHONE_REQUIRED';
+    if (!cleanString(contact.email, 320)) return 'EMAIL_REQUIRED';
     if (contact.consent !== true) return 'CONSENT_REQUIRED';
   }
 

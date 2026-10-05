@@ -89,7 +89,6 @@ body {
   .hero,
   .experience,
   .about-passport,
-  .object-quiz,
   .documents-comparison,
   .who-needs-passport,
   .process-section,
@@ -146,7 +145,6 @@ body {
   /* Keep editorial scale but prevent long Russian headings from forcing overflow. */
   .experience h2,
   .about-passport h2,
-  .object-quiz__intro > h2,
   .documents-comparison h2,
   .who-needs-passport h2,
   .process-section h2,
@@ -214,27 +212,6 @@ body {
   .process-section__illustration {
     width: min(82vw, 310px);
     margin-top: 28px;
-  }
-
-  .quiz-card__topline {
-    padding-inline: 18px;
-  }
-
-  .quiz-form {
-    padding-inline: 18px;
-  }
-
-  .quiz-option {
-    min-height: 68px;
-    padding: 14px 16px;
-  }
-
-  .quiz-controls {
-    gap: 10px;
-  }
-
-  .quiz-next {
-    min-height: 52px;
   }
 
   .document-card__top {
@@ -316,7 +293,6 @@ body {
 
   .experience h2,
   .about-passport h2,
-  .object-quiz__intro > h2,
   .documents-comparison h2,
   .who-needs-passport h2,
   .process-section h2,
@@ -365,24 +341,6 @@ body {
 
   .process-step__topline {
     margin-bottom: 28px;
-  }
-
-  .quiz-card {
-    border-radius: 22px;
-  }
-
-  .quiz-card__topline {
-    gap: 10px;
-    font-size: .62rem;
-  }
-
-  .quiz-controls {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-  }
-
-  .quiz-next {
-    width: 100%;
   }
 
   .document-card__illustration {

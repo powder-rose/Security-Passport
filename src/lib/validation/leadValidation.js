@@ -322,69 +322,6 @@ const optionalHumanTextSchema = (
     .default('');
 
 
-const organizationSchema = yup
-  .string()
-  .transform((value) => value?.trim() ?? '')
-  .max(
-    200,
-    'Название организации слишком длинное.',
-  )
-  .test(
-    'organization-min-length',
-    'Укажите корректное название организации.',
-    (value) => !value || value.length >= 2,
-  )
-  .test(
-    'organization-has-letter',
-    'Название организации должно содержать буквы.',
-    (value) =>
-      !value ||
-      /[A-Za-zА-Яа-яЁё]/.test(value),
-  )
-  .test(
-    'organization-not-garbage',
-    'Проверьте название организации.',
-    (value) => {
-      if (!value) return true;
-
-      const compact = compactText(value);
-
-      if (obviousGarbage.has(compact)) {
-        return false;
-      }
-
-      if (hasRepeatedGarbage(value)) {
-        return false;
-      }
-
-      if (hasLongConsonantRun(value)) {
-        return false;
-      }
-
-      const letters =
-        value.match(/[A-Za-zА-Яа-яЁё]/g)?.length ?? 0;
-
-      const digits =
-        value.match(/\d/g)?.length ?? 0;
-
-      /*
-       * Не даём вводить телефон, ИНН или длинный набор цифр
-       * вместо названия организации.
-       *
-       * При этом "1С", "ГКБ № 52", "X5 Group" остаются допустимыми.
-       */
-      if (
-        digits >= 8 &&
-        digits > letters * 3
-      ) {
-        return false;
-      }
-
-      return true;
-    },
-  )
-  .default('');
-
 const russianPhoneSchema = phoneSchema
   .test(
     'russian-phone',
@@ -401,149 +338,6 @@ const russianPhoneSchema = phoneSchema
       );
     },
   );
-
-const areaSchema = yup
-  .string()
-  .transform((value) => value?.trim() ?? '')
-  .required('Укажите площадь объекта.')
-  .test(
-    'area-format',
-    'Укажите площадь числом, например 850.',
-    (value) => {
-      if (!value) return false;
-
-      const normalized =
-        value.replace(/\s/g, '');
-
-      return /^\d{1,8}(?:[.,]\d{1,2})?$/.test(
-        normalized,
-      );
-    },
-  )
-  .test(
-    'area-range',
-    'Площадь должна быть от 1 до 10 000 000 м².',
-    (value) => {
-      if (!value) return false;
-
-      const normalized =
-        value
-          .replace(/\s/g, '')
-          .replace(',', '.');
-
-      const number =
-        Number(normalized);
-
-      return (
-        Number.isFinite(number) &&
-        number >= 1 &&
-        number <= 10000000
-      );
-    },
-  );
-
-const peopleSchema = yup
-  .string()
-  .transform((value) => value?.trim() ?? '')
-  .required(
-    'Укажите максимальное количество людей.',
-  )
-  .matches(
-    /^\d+$/,
-    'Количество людей указывается целым числом.',
-  )
-  .test(
-    'people-range',
-    'Количество людей должно быть от 1 до 1 000 000.',
-    (value) => {
-      if (!value) return false;
-
-      const number =
-        Number(value);
-
-      return (
-        Number.isInteger(number) &&
-        number >= 1 &&
-        number <= 1000000
-      );
-    },
-  );
-
-
-const russianPlaceNameSchema = (
-  fieldLabel,
-) =>
-  yup
-    .string()
-    .transform(
-      (value) => value?.trim() ?? '',
-    )
-    .required(
-      `Укажите ${fieldLabel.toLowerCase()}.`,
-    )
-    .min(
-      2,
-      `${fieldLabel} указан некорректно.`,
-    )
-    .max(
-      120,
-      `${fieldLabel} указан слишком длинно.`,
-    )
-    .matches(
-      /^[А-Яа-яЁё0-9\s.,№'"«»()\-–—]+$/u,
-      `${fieldLabel} должен быть указан на русском языке.`,
-    )
-    .test(
-      'has-cyrillic',
-      `${fieldLabel} должен содержать название на русском языке.`,
-      (value) => {
-        if (!value) return false;
-
-        const letters =
-          value.match(/[А-Яа-яЁё]/g) ?? [];
-
-        return letters.length >= 2;
-      },
-    )
-    .test(
-      'not-place-garbage',
-      `Проверьте поле «${fieldLabel}».`,
-      (value) => {
-        if (!value) return false;
-
-        if (hasRepeatedGarbage(value)) {
-          return false;
-        }
-
-        if (hasLongConsonantRun(value)) {
-          return false;
-        }
-
-        const compact =
-          compactText(value);
-
-        if (obviousGarbage.has(compact)) {
-          return false;
-        }
-
-        return true;
-      },
-    );
-
-export const quizLocationSchema = yup.object({
-  region: russianPlaceNameSchema(
-    'Регион',
-  ),
-
-  city: russianPlaceNameSchema(
-    'Населённый пункт',
-  ),
-});
-
-export const quizMetricsSchema = yup.object({
-  area: areaSchema,
-  people: peopleSchema,
-});
 
 export const leadFormSchema = yup.object({
   name: nameSchema,
@@ -567,9 +361,17 @@ export const leadFormSchema = yup.object({
 });
 
 export const quizContactSchema = yup.object({
-  name: nameSchema,
+  name: yup
+    .string()
+    .transform((value) => value?.trim() ?? '')
+    .required('Укажите ваше имя.'),
+
   phone: russianPhoneSchema,
-  email: emailSchema,
-  company: organizationSchema,
+
+  email: emailSchema
+    .required(
+      'Укажите электронную почту.',
+    ),
+
   consent: consentSchema,
 });

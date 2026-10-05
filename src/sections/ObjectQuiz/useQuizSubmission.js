@@ -1,16 +1,15 @@
-import {
-  useMemo,
-  useState,
-} from 'react';
+import { useState } from 'react';
 
-import {
-  SITE,
-} from '../../config/site';
+import { SITE } from '../../config/site';
 
 import {
   METRICA_GOALS,
   reachGoal,
 } from '../../lib/analytics';
+
+import {
+  formatRussianPhone,
+} from '../../lib/formInput';
 
 import {
   getLeadEndpoint,
@@ -19,13 +18,7 @@ import {
 
 import {
   quizContactSchema,
-  quizLocationSchema,
-  quizMetricsSchema,
 } from '../../lib/validation/leadValidation';
-
-import {
-  isQuizStepValid,
-} from './quizStepValidation';
 
 
 export default function useQuizSubmission({
@@ -35,7 +28,6 @@ export default function useQuizSubmission({
   visibleStep,
   isLastStep,
   preview = false,
-  validateLocation,
   updateCurrentAnswer,
   goForward,
   markCompleted,
@@ -43,162 +35,94 @@ export default function useQuizSubmission({
   const [
     showError,
     setShowError,
-  ] =
-    useState(false);
+  ] = useState(false);
 
   const [
     submitStatus,
     setSubmitStatus,
-  ] =
-    useState('idle');
+  ] = useState('idle');
 
   const [
     submitMessage,
     setSubmitMessage,
-  ] =
-    useState('');
+  ] = useState('');
 
 
-  const valid =
-    useMemo(
-      () =>
-        isQuizStepValid(
-          question,
-          answer,
-        ),
-      [
-        question,
-        answer,
-      ],
-    );
+  function updateAnswer(value) {
+    setShowError(false);
+    setSubmitStatus('idle');
+    setSubmitMessage('');
 
-
-  function updateAnswer(
-    value,
-  ) {
-    setShowError(
-      false,
-    );
-
-    setSubmitStatus(
-      'idle',
-    );
-
-    setSubmitMessage(
-      '',
-    );
-
-    updateCurrentAnswer(
-      value,
-    );
+    updateCurrentAnswer(value);
   }
 
 
   function clearStepError() {
-    setShowError(
-      false,
-    );
+    setShowError(false);
   }
 
 
   async function handleNext() {
-    if (
-      !valid ||
-      submitStatus ===
-        'loading'
-    ) {
-      if (!valid) {
-        setShowError(
-          true,
-        );
-      }
-
+    if (submitStatus === 'loading') {
       return;
     }
 
-
-    const validationSchema =
-      question.type ===
-        'location'
-        ? quizLocationSchema
-        : question.type ===
-            'metrics'
-          ? quizMetricsSchema
-          : question.type ===
-              'contact'
-            ? quizContactSchema
-            : null;
+    let submissionAnswers =
+      answers;
 
 
-    if (validationSchema) {
+    if (question.type === 'contact') {
+      const normalizedContact = {
+        ...answer,
+
+        phone:
+          formatRussianPhone(
+            answer?.phone,
+          ),
+      };
+
+
       try {
-        await validationSchema.validate(
-          answer,
+        await quizContactSchema.validate(
+          normalizedContact,
           {
-            abortEarly:
-              false,
+            abortEarly: false,
           },
         );
       } catch (error) {
-        setShowError(
-          true,
-        );
-
-        setSubmitStatus(
-          'error',
-        );
+        setShowError(true);
+        setSubmitStatus('error');
 
         setSubmitMessage(
           error?.errors?.[0] ||
-            'Проверьте правильность заполнения данных.',
+            'Проверьте обязательные контактные данные.',
         );
 
         return;
       }
+
+
+      updateCurrentAnswer(
+        normalizedContact,
+      );
+
+      submissionAnswers = {
+        ...answers,
+
+        [question.id]:
+          normalizedContact,
+      };
     }
 
 
-    if (
-      question.type ===
-      'location'
-    ) {
-      const locationError =
-        validateLocation(
-          answer,
-        );
-
-      if (locationError) {
-        setShowError(
-          true,
-        );
-
-        setSubmitStatus(
-          'error',
-        );
-
-        setSubmitMessage(
-          locationError,
-        );
-
-        return;
-      }
-    }
-
-
-    setShowError(
-      false,
-    );
+    setShowError(false);
 
 
     reachGoal(
-      METRICA_GOALS
-        .quizStepCompleted,
+      METRICA_GOALS.quizStepCompleted,
       {
-        step:
-          visibleStep,
-
-        question:
-          question.id,
+        step: visibleStep,
+        question: question.id,
       },
     );
 
@@ -210,12 +134,10 @@ export default function useQuizSubmission({
 
 
     if (preview) {
-      setSubmitStatus(
-        'notice',
-      );
+      setSubmitStatus('notice');
 
       setSubmitMessage(
-        'Режим предпросмотра: ответы заполнены корректно, но заявка не отправлена.',
+        'Режим предпросмотра: контактные данные заполнены корректно, но заявка не отправлена.',
       );
 
       return;
@@ -226,9 +148,7 @@ export default function useQuizSubmission({
       getLeadEndpoint();
 
     if (!endpoint) {
-      setSubmitStatus(
-        'notice',
-      );
+      setSubmitStatus('notice');
 
       setSubmitMessage(
         `Онлайн-отправка пока не подключена. Позвоните ${SITE.phone} или напишите на ${SITE.email}.`,
@@ -239,9 +159,7 @@ export default function useQuizSubmission({
 
 
     try {
-      setSubmitStatus(
-        'loading',
-      );
+      setSubmitStatus('loading');
 
       setSubmitMessage(
         'Отправляем ответы специалисту…',
@@ -253,14 +171,14 @@ export default function useQuizSubmission({
           'passport-security-quiz',
 
         data: {
-          answers,
+          answers:
+            submissionAnswers,
         },
       });
 
 
       reachGoal(
-        METRICA_GOALS
-          .quizSubmitSuccess,
+        METRICA_GOALS.quizSubmitSuccess,
         {
           source:
             'object_quiz',
@@ -271,8 +189,7 @@ export default function useQuizSubmission({
       markCompleted();
     } catch (error) {
       reachGoal(
-        METRICA_GOALS
-          .quizSubmitError,
+        METRICA_GOALS.quizSubmitError,
         {
           source:
             'object_quiz',
@@ -286,9 +203,7 @@ export default function useQuizSubmission({
       );
 
 
-      setSubmitStatus(
-        'error',
-      );
+      setSubmitStatus('error');
 
       setSubmitMessage(
         `Не удалось отправить ответы. Позвоните ${SITE.phone} или напишите на ${SITE.email}.`,

@@ -59,7 +59,6 @@ export default function ObjectQuiz({
   const {
     regionOptions,
     settlementOptions,
-    validateLocation,
   } =
     useQuizGeography({
       questionType:
@@ -86,7 +85,6 @@ export default function ObjectQuiz({
       visibleStep,
       isLastStep,
       preview,
-      validateLocation,
       updateCurrentAnswer,
       goForward,
       markCompleted,

@@ -11,7 +11,7 @@ import {
 function ChoiceCards({ question, value, onChange }) {
   return (
     <fieldset className="quiz-options">
-      <legend className="sr-only">{question.title}</legend>
+      <legend className="quiz-sr-only">{question.title}</legend>
       {question.options.map((option) => {
         const id = `${question.id}-${option.replace(/[^a-zа-яё0-9]+/gi, '-').toLowerCase()}`;
         const checked = value === option;
@@ -40,6 +40,7 @@ function TextField({
   label,
   value = '',
   onChange,
+  onBlur,
   placeholder,
   type = 'text',
   required = false,
@@ -63,6 +64,11 @@ function TextField({
         maxLength={maxLength}
         value={value}
         onChange={(event) => onChange(event.target.value)}
+        onBlur={
+          onBlur
+            ? (event) => onBlur(event.target.value)
+            : undefined
+        }
         placeholder={placeholder}
         required={required}
       />
@@ -133,7 +139,6 @@ export default function QuizStepFields({
             value={other}
             placeholder="Например, административное здание"
             onChange={(value) => updateAnswer({ selected, other: value })}
-            required
           />
         ) : null}
       </>
@@ -160,7 +165,6 @@ export default function QuizStepFields({
                   : '',
             })
           }
-          required
         />
 
         <datalist id="quiz-region-options">
@@ -185,7 +189,6 @@ export default function QuizStepFields({
               city: value,
             })
           }
-          required
         />
 
         <datalist id="quiz-city-options">
@@ -220,7 +223,6 @@ export default function QuizStepFields({
               area: sanitizeAreaInput(value),
             })
           }
-          required
         />
         <TextField
           id="quiz-people"
@@ -236,7 +238,6 @@ export default function QuizStepFields({
                 .slice(0, 7),
             })
           }
-          required
         />
       </div>
     );
@@ -261,9 +262,15 @@ export default function QuizStepFields({
             type="tel"
             value={answer?.phone}
             placeholder="+7 (900) 000-00-00"
-            inputMode="numeric"
+            inputMode="tel"
             autoComplete="tel"
             onChange={(value) =>
+              updateAnswer({
+                ...answer,
+                phone: value,
+              })
+            }
+            onBlur={(value) =>
               updateAnswer({
                 ...answer,
                 phone: formatRussianPhone(value),
@@ -284,6 +291,7 @@ export default function QuizStepFields({
                 email: sanitizeEmailInput(value),
               })
             }
+            required
           />
           <TextField
             id="quiz-company"
@@ -301,6 +309,7 @@ export default function QuizStepFields({
             name="quiz-consent"
             checked={Boolean(answer?.consent)}
             onChange={(event) => updateAnswer({ ...answer, consent: event.target.checked })}
+            required
           />
           <span>
             Я соглашаюсь на обработку персональных данных и принимаю{' '}
