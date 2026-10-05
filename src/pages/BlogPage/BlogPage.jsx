@@ -1,34 +1,20 @@
-import FinalCTA
-from '../../sections/FinalCTA/FinalCTA.jsx';
+import FinalCTA from "../../sections/FinalCTA/FinalCTA.jsx";
 
+import BlogSeo from "./components/BlogSeo/BlogSeo";
 
-import BlogSeo
-from './components/BlogSeo';
+import BlogHero from "./components/BlogHero/BlogHero";
 
-import BlogHero
-from './components/BlogHero';
+import BlogContentState from "./components/BlogContentState/BlogContentState";
 
+import BlogCategories from "./components/BlogCategories/BlogCategories";
 
-import BlogContentState
-from './components/BlogContentState';
+import BlogArticleResults from "./components/BlogArticleResults/BlogArticleResults";
 
-import BlogCategories
-from './components/BlogCategories';
+import "./BlogPage.css";
 
-import BlogArticleResults
-from './components/BlogArticleResults';
+import useBlogArticles from "./useBlogArticles";
 
-import './BlogPage.css';
-
-
-import useBlogArticles
-from './useBlogArticles';
-
-
-export default function BlogPage({
-  initialArticles = null,
-}){
-
+export default function BlogPage({ initialArticles = null }) {
   const {
     articles,
     loading,
@@ -40,32 +26,18 @@ export default function BlogPage({
     restEntries,
     activeCategory,
     chooseCategory,
-  } =
-    useBlogArticles({
-      initialArticles,
-    });
-
+  } = useBlogArticles({
+    initialArticles,
+  });
 
   return (
-
     <>
-
       <BlogSeo />
 
-
-      <main
-        className="blog-page"
-        id="main-content"
-      >
-
+      <main className="blog-page" id="main-content">
         <BlogHero />
 
-
-        <BlogContentState
-          loading={loading}
-          error={error}
-          articles={articles}
-        />
+        <BlogContentState loading={loading} error={error} articles={articles} />
 
         <BlogCategories
           loading={loading}
@@ -86,13 +58,8 @@ export default function BlogPage({
           activeCategory={activeCategory}
         />
 
-
         <FinalCTA />
-
       </main>
-
     </>
-
   );
-
 }
