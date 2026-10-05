@@ -20,7 +20,6 @@ body {
 /* Avoid persistent hover movement on touch screens. */
 @media (hover: none) {
   .experience-card:hover,
-  .advantage-card:hover,
   .document-card:hover,
   .object-type-card:hover,
   .process-step__content:hover,
@@ -79,7 +78,6 @@ body {
   .documents-comparison,
   .who-needs-passport,
   .process-section,
-  .advantages,
   .required-documents,
   .related-services,
   .expert,
@@ -88,13 +86,11 @@ body {
     scroll-margin-top: 84px;
   }
 
-  .experience__grid,
-  .advantages__grid {
+  .experience__grid {
     gap: 14px;
   }
 
-  .experience-card,
-  .advantage-card {
+  .experience-card {
     min-height: 350px;
   }
 
@@ -133,7 +129,6 @@ body {
   .documents-comparison h2,
   .who-needs-passport h2,
   .process-section h2,
-  .advantages h2,
   .required-documents h2,
   .related-services h2,
   .expert h2,
@@ -161,7 +156,6 @@ body {
   .documents-comparison__lead,
   .who-needs-passport__intro-card p:last-child,
   .process-section__lead,
-  .advantages__lead p,
   .required-documents__lead,
   .related-services__lead,
   .final-cta__lead {
@@ -169,19 +163,16 @@ body {
     line-height: 1.62;
   }
 
-  .experience-card__top,
-  .advantage-card__top {
+  .experience-card__top {
     align-items: flex-start;
   }
 
-  .experience-card__label,
-  .advantage-card__eyebrow {
+  .experience-card__label {
     max-width: 58%;
     line-height: 1.35;
   }
 
   .experience-card h3,
-  .advantage-card__body h3,
   .document-card h3 {
     font-size: clamp(1.8rem, 8vw, 2.15rem);
     line-height: 1;
@@ -266,7 +257,6 @@ body {
   .documents-comparison h2,
   .who-needs-passport h2,
   .process-section h2,
-  .advantages h2,
   .required-documents h2,
   .expert h2,
   .faq h2,
@@ -293,13 +283,11 @@ body {
     height: 36px;
   }
 
-  .experience-card,
-  .advantage-card {
+  .experience-card {
     min-height: 0;
   }
 
-  .experience-card__content,
-  .advantage-card__body {
+  .experience-card__content {
     padding-top: 52px;
   }
 
