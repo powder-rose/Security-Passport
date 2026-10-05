@@ -49,7 +49,6 @@ body {
   }
 
   .hero,
-  .related-services,
   .expert,
   .faq,
   .final-cta {
@@ -72,18 +71,12 @@ body {
   }
 
   /* Keep editorial scale but prevent long Russian headings from forcing overflow. */
-  .related-services h2,
   .expert h2,
   .faq h2,
   .final-cta h2 {
     font-size: clamp(2.35rem, 10.4vw, 2.8rem);
     line-height: .98;
     letter-spacing: -.045em;
-  }
-
-  .related-services h2 {
-    font-size: clamp(2.12rem, 9.4vw, 2.55rem);
-    letter-spacing: -.035em;
   }
 
   .hero__title {
@@ -93,15 +86,9 @@ body {
   }
 
   .hero__lead,
-  .related-services__lead,
   .final-cta__lead {
     font-size: 1rem;
     line-height: 1.62;
-  }
-
-  .related-service__title {
-    font-size: clamp(1.45rem, 6.8vw, 1.8rem);
-    line-height: 1.05;
   }
 
   .expert__quote p {
@@ -155,21 +142,6 @@ body {
   .final-cta h2 {
     font-size: clamp(2.18rem, 9.7vw, 2.45rem);
     letter-spacing: -.035em;
-  }
-
-  .related-services h2 {
-    font-size: clamp(2rem, 8.8vw, 2.2rem);
-  }
-
-  .related-service {
-    grid-template-columns: 42px minmax(0, 1fr) 42px;
-    gap: 11px;
-  }
-
-  .related-service__number,
-  .related-service__arrow {
-    width: 40px;
-    height: 40px;
   }
 
   .expert__portrait-caption {
