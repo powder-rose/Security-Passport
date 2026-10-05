@@ -50,7 +50,6 @@ body {
   }
 
   .hero,
-  .about-passport,
   .who-needs-passport,
   .related-services,
   .expert,
@@ -75,7 +74,6 @@ body {
   }
 
   /* Keep editorial scale but prevent long Russian headings from forcing overflow. */
-  .about-passport h2,
   .who-needs-passport h2,
   .related-services h2,
   .expert h2,
@@ -98,7 +96,6 @@ body {
   }
 
   .hero__lead,
-  .about-passport__lead,
   .who-needs-passport__intro-card p:last-child,
   .related-services__lead,
   .final-cta__lead {
@@ -161,7 +158,6 @@ body {
     min-height: 86px;
   }
 
-  .about-passport h2,
   .who-needs-passport h2,
   .expert h2,
   .faq h2,
@@ -172,20 +168,6 @@ body {
 
   .related-services h2 {
     font-size: clamp(2rem, 8.8vw, 2.2rem);
-  }
-
-  .about-passport__anatomy h3 {
-    font-size: 2rem;
-  }
-
-  .about-passport__note {
-    grid-template-columns: 38px minmax(0, 1fr);
-    gap: 12px;
-  }
-
-  .about-passport__note-mark {
-    width: 36px;
-    height: 36px;
   }
 
   .object-type-card__illustration {
