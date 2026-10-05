@@ -1,3 +1,12 @@
+/* ==========================================================================
+   Expert.jsx — EXPERT
+
+   Shared expert-profile section containing the portrait, project approach,
+   working principles and CTA for discussing an object with a specialist.
+
+   Responsive behavior for Expert is defined locally in this stylesheet.
+   ========================================================================== */
+
 .expert {
   padding: clamp(96px, 11vw, 168px) 0;
   border-top: 1px solid var(--color-border);
@@ -308,5 +317,43 @@
 
   .expert__action {
     padding-left: 18px;
+  }
+}
+
+@media (max-width: 820px) {
+
+  .expert {
+    scroll-margin-top: 84px;
+  }
+}
+
+@media (max-width: 620px) {
+
+  .expert h2 {
+    font-size: clamp(2.35rem, 10.4vw, 2.8rem);
+    line-height: .98;
+    letter-spacing: -.045em;
+  }
+
+  .expert__quote p {
+    font-size: clamp(1.25rem, 5.6vw, 1.55rem);
+  }
+}
+
+@media (max-width: 430px) {
+
+  .expert h2 {
+    font-size: clamp(2.18rem, 9.7vw, 2.45rem);
+    letter-spacing: -.035em;
+  }
+
+  .expert__portrait-caption {
+    min-width: 0;
+  }
+
+  .expert__action {
+    min-height: 62px;
+    gap: 14px;
+    font-size: .92rem;
   }
 }
