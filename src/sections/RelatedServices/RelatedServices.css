@@ -1,18 +1,18 @@
+/* ==========================================================================
+   RelatedServices.jsx — RELATED SERVICES
+
+   Shared homepage/service section containing the related-service list,
+   supporting copy and final task CTA.
+
+   Responsive finishing overrides for selected RelatedServices classes also
+   exist in src/styles/responsive-audit.css and intentionally load later.
+   ========================================================================== */
+
 .related-services {
   padding: clamp(96px, 11vw, 168px) 0;
   border-top: 1px solid var(--color-border);
   background: var(--color-bg);
   color: var(--color-text);
-}
-
-.related-services__heading {
-  display: grid;
-  /* Give the long Russian headline enough real width so it never runs
-     underneath the lead paragraph. */
-  grid-template-columns: minmax(0, 1.48fr) minmax(300px, .52fr);
-  gap: clamp(40px, 4.4vw, 64px);
-  align-items: end;
-  margin-bottom: clamp(50px, 6vw, 78px);
 }
 
 .related-services__kicker,
@@ -45,16 +45,11 @@
 }
 
 .related-services__lead {
-  max-width: 360px;
-  margin: 0 0 .35em;
   color: var(--color-text-secondary);
-  font-size: clamp(1rem, 1.3vw, 1.15rem);
-  line-height: 1.67;
 }
 
 .related-services__list {
   display: grid;
-  border-top: 1px solid rgba(21,21,21,.12);
 }
 
 .related-service {
@@ -72,57 +67,15 @@
 }
 
 .related-service__number {
-  width: 56px;
-  height: 56px;
-  display: grid;
   place-items: center;
-  border: 1px solid rgba(21,21,21,.14);
-  border-radius: 50%;
-  color: var(--color-primary);
-  font-size: .74rem;
-  font-weight: 850;
-  transition: background .22s ease, border-color .22s ease, color .22s ease;
-}
-
-.related-service__main {
-  min-width: 0;
-  display: grid;
-  gap: 9px;
-}
-
-.related-service__eyebrow {
-  color: var(--color-text-secondary);
-  font-size: .72rem;
-  font-weight: 790;
-  letter-spacing: .11em;
-  text-transform: uppercase;
 }
 
 .related-service__title {
-  max-width: 520px;
-  font-size: clamp(1.55rem, 2.35vw, 2.65rem);
-  font-weight: 760;
-  line-height: 1.02;
-  letter-spacing: -.045em;
   transition: transform .22s ease;
 }
 
-.related-service__description {
-  max-width: 580px;
-  color: var(--color-text-secondary);
-  line-height: 1.62;
-}
-
 .related-service__arrow {
-  width: 54px;
-  height: 54px;
-  display: grid;
   place-items: center;
-  justify-self: end;
-  border: 1px solid rgba(21,21,21,.14);
-  border-radius: 50%;
-  font-size: 1.08rem;
-  transition: transform .22s ease, background .22s ease, border-color .22s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -182,7 +135,6 @@
   min-height: 54px;
   padding-inline: 24px;
 }
-
 
 @media (max-width: 1180px) and (min-width: 981px) {
   .related-services__heading {
@@ -263,11 +215,6 @@
   }
 }
 
-.related-services__nowrap {
-  white-space: nowrap;
-}
-
-/* === related services task button === */
 .related-services-task-button.related-services-task-button {
   display: inline-flex;
   align-items: center;
@@ -361,11 +308,7 @@
     font-size: 20px;
   }
 }
-/* === /related services task button === */
 
-/* === related services redesign === */
-
-/* Карточка */
 .related-service.related-service {
   display: grid;
   grid-template-columns:
@@ -399,7 +342,6 @@
     background-color 180ms ease;
 }
 
-/* На hover карточка НЕ двигается */
 .related-service.related-service:hover {
   transform: none;
   scale: 1;
@@ -411,7 +353,6 @@
     0 16px 36px rgba(17, 17, 17, 0.055);
 }
 
-/* Номер */
 .related-service__number {
   display: inline-flex;
   align-items: center;
@@ -446,7 +387,6 @@
   transform: none;
 }
 
-/* Левая текстовая часть */
 .related-service__main {
   display: flex;
   flex-direction: column;
@@ -458,7 +398,6 @@
   min-width: 0;
 }
 
-/* Маленькая подпись */
 .related-service__eyebrow {
   display: block;
 
@@ -473,7 +412,6 @@
   text-transform: uppercase;
 }
 
-/* Заголовок */
 .related-service__title {
   display: block;
 
@@ -491,7 +429,6 @@
   transform: none;
 }
 
-/* Описание */
 .related-service__description {
   display: block;
 
@@ -508,7 +445,6 @@
   transform: none;
 }
 
-/* Стрелка */
 .related-service__arrow {
   display: inline-flex;
   align-items: center;
@@ -546,7 +482,6 @@
   transform: rotate(45deg);
 }
 
-/* Focus */
 .related-service.related-service:focus-visible {
   outline: 3px solid #a9f04a;
   outline-offset: 4px;
@@ -554,7 +489,6 @@
   transform: none;
 }
 
-/* Планшет */
 @media (max-width: 1050px) {
   .related-service.related-service {
     grid-template-columns:
@@ -578,7 +512,6 @@
   }
 }
 
-/* Мобильный */
 @media (max-width: 760px) {
   .related-service.related-service {
     grid-template-columns: 44px 1fr 44px;
@@ -633,138 +566,26 @@
   }
 }
 
-/* === /related services redesign === */
-
-/* === related services heading fix === */
-
 .related-services__heading {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 310px;
-  align-items: start;
   gap: 72px;
-}
-
-.related-services__heading > div {
-  min-width: 0;
-}
-
-.related-services__heading h2 {
-  max-width: 760px;
-  margin: 0;
-
-  font-size: clamp(48px, 5.3vw, 72px);
-  line-height: 0.93;
-  letter-spacing: -0.055em;
-}
-
-.related-services__nowrap {
-  display: block;
-  white-space: nowrap;
-}
-
-.related-services__heading h2 em {
-  display: block;
-  max-width: 100%;
-}
-
-.related-services__lead {
-  width: 100%;
-  max-width: 310px;
-  margin: 40px 0 0;
-
-  font-size: 16px;
-  line-height: 1.55;
 }
 
 @media (max-width: 1050px) {
   .related-services__heading {
-    grid-template-columns: minmax(0, 1fr) 270px;
     gap: 42px;
-  }
-
-  .related-services__heading h2 {
-    font-size: clamp(44px, 5vw, 60px);
-  }
-
-  .related-services__lead {
-    max-width: 270px;
   }
 }
 
 @media (max-width: 800px) {
   .related-services__heading {
-    grid-template-columns: 1fr;
     gap: 28px;
   }
-
-  .related-services__heading h2 {
-    max-width: 680px;
-  }
-
-  .related-services__lead {
-    max-width: 620px;
-    margin-top: 0;
-  }
 }
 
-@media (max-width: 560px) {
-  .related-services__heading h2 {
-    font-size: clamp(40px, 12vw, 52px);
-    line-height: 0.95;
-  }
-
-  .related-services__nowrap {
-    white-space: normal;
-  }
-}
-
-/* === /related services heading fix === */
-
-/* === related services composition polish === */
-
-/* Верх блока */
-.related-services__heading {
-  padding-bottom: 42px;
-  margin-bottom: 30px;
-
-  border-bottom: 1px solid rgba(17, 17, 17, 0.13);
-}
-
-/* Убираем лишнее пространство внутри заголовка */
-.related-services__heading h2 {
-  margin: 0;
-  padding: 0;
-
-  line-height: 0.91;
-}
-
-.related-services__nowrap {
-  display: block;
-  margin: 0;
-  padding: 0;
-}
-
-.related-services__heading h2 em {
-  display: block;
-
-  margin: 7px 0 0;
-  padding: 0;
-
-  line-height: 0.91;
-}
-
-/* Текст справа */
 .related-services__lead {
   margin-top: 30px;
 }
 
-/* Старую линию перед карточками убираем */
-.related-services__list {
-  border-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-/* Воздух между карточками */
 .related-service + .related-service {
   margin-top: 2px;
 }
@@ -772,23 +593,13 @@
 @media (max-width: 800px) {
   .related-services__heading {
     padding-bottom: 30px;
-    margin-bottom: 24px;
   }
 
   .related-services__heading h2 em {
     margin-top: 5px;
   }
-
-  .related-services__lead {
-    margin-top: 0;
-  }
 }
 
-/* === /related services composition polish === */
-
-/* === related services final heading === */
-
-/* Общая композиция */
 .related-services__heading {
   display: grid;
   grid-template-columns: minmax(0, 720px) minmax(250px, 300px);
@@ -800,16 +611,14 @@
   margin-bottom: 46px;
   padding-bottom: 0;
 
-  border: 0 !important;
-  border-bottom: 0 !important;
+  border: 0;
+  border-bottom: 0;
 }
 
-/* Левая колонка */
 .related-services__heading > div {
   min-width: 0;
 }
 
-/* Заголовок */
 .related-services__heading h2 {
   display: flex;
   flex-direction: column;
@@ -828,7 +637,6 @@
   letter-spacing: -0.055em;
 }
 
-/* Чёрная первая строка */
 .related-services__nowrap {
   display: block;
 
@@ -840,7 +648,6 @@
   color: #111111;
 }
 
-/* Серая часть */
 .related-services__heading h2 em {
   display: block;
 
@@ -858,7 +665,6 @@
   text-wrap: balance;
 }
 
-/* Текст справа */
 .related-services__lead {
   width: 100%;
   max-width: 300px;
@@ -870,23 +676,21 @@
   line-height: 1.55;
 }
 
-/* Divider полностью убираем */
 .related-services__list {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
+  margin-top: 0;
+  padding-top: 0;
 
-  border-top: 0 !important;
+  border-top: 0;
 }
 
 .related-services__list::before,
 .related-services__list::after,
 .related-services__heading::before,
 .related-services__heading::after {
-  display: none !important;
-  content: none !important;
+  display: none;
+  content: none;
 }
 
-/* Планшет */
 @media (max-width: 1050px) {
   .related-services__heading {
     grid-template-columns: minmax(0, 1fr) 260px;
@@ -905,7 +709,6 @@
   }
 }
 
-/* Мобильный */
 @media (max-width: 800px) {
   .related-services__heading {
     grid-template-columns: 1fr;
@@ -941,11 +744,6 @@
   }
 }
 
-/* === /related services final heading === */
-
-
-/* === internal service detail link === */
-
 .related-service__more {
   display: block;
   width: fit-content;
@@ -961,5 +759,3 @@
 .related-service__more > span {
   color: #a9f04a;
 }
-
-/* === /internal service detail link === */
