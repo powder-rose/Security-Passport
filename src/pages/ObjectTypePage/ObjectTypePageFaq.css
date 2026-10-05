@@ -1,12 +1,11 @@
-/* ==========================================================================
+/*
+==========================================================================
    ObjectTypePage.jsx — SCOPED SHARED FAQ PRESENTATION
 
    ObjectTypePage renders the shared FAQ component from src/sections/FAQ.
    These selectors intentionally scope the page-specific FAQ presentation.
-
-   Two border-radius declarations retain !important because shared FAQ.css
-   contains .faq-item__icon { border-radius: 50% !important; }.
-   ========================================================================== */
+==========================================================================
+ */
 
 .object-service-page > .faq {
   padding:
@@ -461,7 +460,7 @@
     0;
 
   border-radius:
-    0 !important;
+    0;
 
   background:
     transparent;
@@ -488,7 +487,7 @@
     0;
 
   border-radius:
-    50% !important;
+    50%;
 
   background:
     #a9f04a;

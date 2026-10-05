@@ -1,3 +1,12 @@
+/*
+==========================================================================
+   FAQ.jsx — SHARED FAQ
+
+   Shared FAQ presentation and interaction states.
+   Page-specific variants may override these styles through scoped selectors.
+==========================================================================
+ */
+
 .faq {
   padding: clamp(96px, 11vw, 168px) 0;
   border-top: 1px solid var(--color-border);
@@ -213,11 +222,6 @@
   }
 }
 
-/* ========================================================
-   FAQ_ANSWER_TOP_SPACING_V1
-   Extra breathing room between FAQ question and answer
-   ======================================================== */
-
 .faq-item__answer {
   padding-top: 18px;
 }
@@ -227,16 +231,3 @@
     padding-top: 14px;
   }
 }
-
-/* /FAQ_ANSWER_TOP_SPACING_V1 */
-
-/* ========================================================
-   FAQ_ICON_ALWAYS_ROUND_V1
-   Keep FAQ toggle round in every state
-   ======================================================== */
-
-.faq-item__icon {
-  border-radius: 50% !important;
-}
-
-/* /FAQ_ICON_ALWAYS_ROUND_V1 */
