@@ -1,0 +1,321 @@
+/* ==========================================================================
+   SportPricing.jsx — PRICING
+   ========================================================================== */
+
+.sport-prices {
+  padding: 118px 0;
+  background: #151515;
+  color: #fff;
+}
+
+.sport-prices .sport-kicker {
+  color: var(--color-accent);
+}
+
+.sport-prices__heading {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.1fr)
+    minmax(300px, .65fr);
+  gap: clamp(
+    50px,
+    8vw,
+    118px
+  );
+  align-items: end;
+}
+
+.sport-prices__heading h2 {
+  max-width: 900px;
+  margin: 0;
+  font-size: clamp(
+    2.7rem,
+    4.1vw,
+    4.55rem
+  );
+  line-height: 1;
+  letter-spacing: -.052em;
+  text-wrap: balance;
+}
+
+.sport-prices__heading > p {
+  margin: 0;
+  color: rgb(255 255 255 / 60%);
+  line-height: 1.68;
+}
+
+.sport-prices__list {
+  margin-top: 64px;
+  border-top:
+    1px solid
+    rgb(255 255 255 / 14%);
+}
+
+.sport-price {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto;
+  gap: 34px;
+  align-items: center;
+  min-height: 116px;
+  padding: 26px 4px;
+  border-bottom:
+    1px solid
+    rgb(255 255 255 / 14%);
+
+  transition:
+    padding 190ms ease,
+    background 190ms ease;
+}
+
+.sport-price:hover {
+  padding-right: 18px;
+  padding-left: 18px;
+  background:
+    rgb(255 255 255 / 4%);
+}
+
+.sport-price__name {
+  display: grid;
+  grid-template-columns:
+    54px
+    minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+}
+
+.sport-price__name > span {
+  color: var(--color-accent);
+  font-size: .76rem;
+  font-weight: 850;
+  letter-spacing: .08em;
+}
+
+.sport-price h3 {
+  margin: 0;
+  font-size: clamp(
+    1.25rem,
+    1.7vw,
+    1.6rem
+  );
+  line-height: 1.2;
+}
+
+.sport-price > strong {
+  white-space: nowrap;
+  font-size: clamp(
+    1.75rem,
+    2.5vw,
+    2.7rem
+  );
+  line-height: 1;
+  letter-spacing: -.045em;
+}
+
+.sport-price--complex {
+  color: #151515;
+  background: var(--color-accent);
+}
+
+.sport-price--complex
+.sport-price__name > span {
+  color: #151515;
+}
+
+.sport-price--complex:hover {
+  background: var(--color-accent);
+}
+
+.sport-prices__logic {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    80px
+    minmax(0, 1fr);
+  gap: 24px;
+  align-items: stretch;
+  margin-top: 44px;
+}
+
+.sport-prices__logic-item {
+  padding: 28px;
+  border:
+    1px solid
+    rgb(255 255 255 / 14%);
+  border-radius: var(--radius-md);
+}
+
+.sport-prices__logic-item > span {
+  color: var(--color-accent);
+  font-size: .76rem;
+  font-weight: 850;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.sport-prices__logic-item p {
+  margin: 18px 0 0;
+  color: rgb(255 255 255 / 62%);
+  line-height: 1.62;
+}
+
+.sport-prices__logic-arrow {
+  display: grid;
+  place-items: center;
+}
+
+.sport-prices__logic-arrow span {
+  color: var(--color-accent);
+  font-size: 2rem;
+}
+
+.sport-prices__action {
+  margin-top: 36px;
+}
+
+@media (max-width: 1024px) {
+  .sport-dsp__layout,
+  .sport-service__heading,
+  .sport-prices__heading {
+    grid-template-columns: 1fr;
+  }
+
+  .sport-dsp__label {
+    position: static;
+  }
+
+  .sport-dsp__label > span {
+    font-size: 6rem;
+  }
+
+  .sport-service__heading,
+  .sport-prices__heading {
+    gap: 28px;
+  }
+
+  .sport-service__heading > p,
+  .sport-prices__heading > p {
+    max-width: 760px;
+  }
+
+  .sport-service__flow {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .sport-dsp,
+  .sport-service,
+  .sport-prices {
+    padding-top: 76px;
+    padding-bottom: 76px;
+  }
+
+  .sport-prices__logic {
+    grid-template-columns: 1fr;
+  }
+
+  .sport-prices__logic-arrow {
+    height: 34px;
+  }
+
+  .sport-prices__logic-arrow span {
+    transform: rotate(90deg);
+  }
+}
+
+@media (max-width: 430px) {
+  .sport-dsp__content > h2,
+  .sport-service__heading h2,
+  .sport-prices__heading h2 {
+    font-size: clamp(
+      2.15rem,
+      10vw,
+      2.9rem
+    );
+  }
+
+  .sport-dsp__label > span {
+    font-size: 4.7rem;
+  }
+
+  .sport-dsp__rule {
+    grid-template-columns:
+      42px
+      minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .sport-service__flow {
+    grid-template-columns: 1fr;
+  }
+
+  .sport-service__flow article {
+    min-height: 0;
+    padding: 24px;
+  }
+
+  .sport-service__flow h3 {
+    margin-top: 36px;
+  }
+
+  .sport-price {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .sport-price > strong {
+    padding-left: 72px;
+  }
+
+  .sport-prices__logic-item {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 390px) {
+  .sport-dsp__content > h2,
+  .sport-service__heading h2,
+  .sport-prices__heading h2 {
+    font-size: 2.15rem;
+  }
+
+  .sport-dsp__rule:hover,
+  .sport-price:hover {
+    padding-right: 4px;
+    padding-left: 4px;
+  }
+
+  .sport-price__name {
+    grid-template-columns:
+      42px
+      minmax(0, 1fr);
+  }
+
+  .sport-price > strong {
+    padding-left: 60px;
+  }
+}
+
+@media (max-width: 320px) {
+  .sport-dsp__content > h2,
+  .sport-service__heading h2,
+  .sport-prices__heading h2 {
+    font-size: 1.9rem;
+  }
+
+  .sport-dsp__label > span {
+    font-size: 4rem;
+  }
+
+  .sport-price > strong {
+    padding-left: 0;
+  }
+
+  .sport-service__flow article,
+  .sport-prices__logic-item {
+    padding: 20px;
+  }
+}

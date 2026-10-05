@@ -1,0 +1,104 @@
+/* ==========================================================================
+   SportServiceScope.jsx — SERVICE SCOPE
+   ========================================================================== */
+
+.sport-service {
+  padding: 118px 0;
+  background: var(--color-bg);
+}
+
+.sport-service__heading {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.1fr)
+    minmax(320px, .7fr);
+  gap: clamp(
+    50px,
+    8vw,
+    118px
+  );
+  align-items: end;
+}
+
+.sport-service__heading h2 {
+  max-width: 900px;
+  margin: 0;
+  font-size: clamp(
+    2.7rem,
+    4.15vw,
+    4.6rem
+  );
+  line-height: 1;
+  letter-spacing: -.052em;
+  text-wrap: balance;
+}
+
+.sport-service__heading > p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 1.02rem;
+  line-height: 1.68;
+}
+
+.sport-service__flow {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+  margin-top: 64px;
+  border-top:
+    1px solid
+    var(--color-border);
+  border-left:
+    1px solid
+    var(--color-border);
+}
+
+.sport-service__flow article {
+  min-height: 260px;
+  padding: 28px;
+  border-right:
+    1px solid
+    var(--color-border);
+  border-bottom:
+    1px solid
+    var(--color-border);
+  background: #fff;
+
+  transition:
+    transform 180ms ease,
+    background 180ms ease;
+}
+
+.sport-service__flow article:hover {
+  z-index: 1;
+  background: var(--color-accent);
+  transform: translateY(-3px);
+}
+
+.sport-service__flow article > span {
+  color: var(--color-primary);
+  font-size: .76rem;
+  font-weight: 850;
+  letter-spacing: .08em;
+}
+
+.sport-service__flow h3 {
+  margin: 52px 0 0;
+  font-size: clamp(
+    1.25rem,
+    1.65vw,
+    1.55rem
+  );
+  line-height: 1.2;
+  letter-spacing: -.025em;
+}
+
+.sport-service__flow p {
+  margin: 14px 0 0;
+  color: var(--color-text-secondary);
+  line-height: 1.58;
+}
+
+.sport-service__flow article:hover p {
+  color: rgb(21 21 21 / 72%);
+}

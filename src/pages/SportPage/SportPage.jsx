@@ -1,97 +1,69 @@
-import './SportPage.css';
+import "./SportPage.css";
+import "./components/SportHeroAndObjects/SportHeroAndObjects.css";
+import "./components/SportRegulation/SportRegulation.css";
+import "./components/SportCategories/SportCategories.css";
+import "./components/SportCategorizationAct/SportCategorizationAct.css";
+import "./components/SportPassportProcess/SportPassportProcess.css";
+import "./components/SportApproval/SportApproval.css";
+import "./components/SportRestrictedDocuments/SportRestrictedDocuments.css";
+import "./components/SportServiceScope/SportServiceScope.css";
+import "./components/SportPricing/SportPricing.css";
+import "./components/SportRequiredDocuments/SportRequiredDocuments.css";
+import "./components/SportPassportForm/SportPassportForm.css";
+import "./components/SportPassportActualization/SportPassportActualization.css";
+import "./components/SportWorkApproach/SportWorkApproach.css";
+import "./components/SportRelatedLinks/SportRelatedLinks.css";
+import "./components/SportFaq/SportFaq.css";
+import "./SportPageLateResponsiveAndOverrides.css";
 
+import SportHeroAndObjects from "./components/SportHeroAndObjects/SportHeroAndObjects";
 
-import SportHeroAndObjects
-from './components/SportHeroAndObjects';
+import SportRegulation from "./components/SportRegulation/SportRegulation";
 
-import SportRegulation
-from './components/SportRegulation';
+import SportCategories from "./components/SportCategories/SportCategories";
 
+import SportCategorizationAct from "./components/SportCategorizationAct/SportCategorizationAct";
 
-import SportCategories
-from './components/SportCategories';
+import SportPassportProcess from "./components/SportPassportProcess/SportPassportProcess";
 
-import SportCategorizationAct
-from './components/SportCategorizationAct';
+import SportApproval from "./components/SportApproval/SportApproval";
 
+import SportRestrictedDocuments from "./components/SportRestrictedDocuments/SportRestrictedDocuments";
 
-import SportPassportProcess
-from './components/SportPassportProcess';
+import SportServiceScope from "./components/SportServiceScope/SportServiceScope";
 
-import SportApproval
-from './components/SportApproval';
+import SportPricing from "./components/SportPricing/SportPricing";
 
+import SportRequiredDocuments from "./components/SportRequiredDocuments/SportRequiredDocuments";
 
-import SportRestrictedDocuments
-from './components/SportRestrictedDocuments';
+import SportPassportForm from "./components/SportPassportForm/SportPassportForm";
 
-import SportServiceScope
-from './components/SportServiceScope';
+import SportPassportActualization from "./components/SportPassportActualization/SportPassportActualization";
 
-import SportPricing
-from './components/SportPricing';
+import SportWorkApproach from "./components/SportWorkApproach/SportWorkApproach";
 
+import SportRelatedLinks from "./components/SportRelatedLinks/SportRelatedLinks";
 
-import SportRequiredDocuments
-from './components/SportRequiredDocuments';
-
-import SportPassportForm
-from './components/SportPassportForm';
-
-import SportPassportActualization
-from './components/SportPassportActualization';
-
-
-import SportWorkApproach
-from './components/SportWorkApproach';
-
-import SportRelatedLinks
-from './components/SportRelatedLinks';
-
-import SportFaq
-from './components/SportFaq';
-import FinalCTA from '../../sections/FinalCTA/FinalCTA';
-import { useCity } from '../../context/GeoContext';
-
+import SportFaq from "./components/SportFaq/SportFaq";
+import FinalCTA from "../../sections/FinalCTA/FinalCTA";
+import { useCity } from "../../context/GeoContext";
 
 export default function SportPage() {
-  const city =
-    useCity();
+  const city = useCity();
 
   return (
-    <main
-      id="main-content"
-      className="sport-page"
-      data-sport-stage="1"
-    >
-      {/* SPORT_STAGE_1_V1:start */}
-
-      <SportHeroAndObjects
-        city={city}
-      />
+    <main id="main-content" className="sport-page">
+      <SportHeroAndObjects city={city} />
 
       <SportRegulation />
-
-
-      {/* SPORT_STAGE_2_V1:start */}
 
       <SportCategories />
 
       <SportCategorizationAct />
 
-      {/* SPORT_STAGE_2_V1:end */}
-
-
-      {/* SPORT_STAGE_3_V1:start */}
-
       <SportPassportProcess />
 
       <SportApproval />
-
-      {/* SPORT_STAGE_3_V1:end */}
-
-
-      {/* SPORT_STAGE_4_V1:start */}
 
       <SportRestrictedDocuments />
 
@@ -99,21 +71,11 @@ export default function SportPage() {
 
       <SportPricing />
 
-      {/* SPORT_STAGE_4_V1:end */}
-
-
-      {/* SPORT_STAGE_5_V1:start */}
-
       <SportRequiredDocuments />
 
       <SportPassportForm />
 
       <SportPassportActualization />
-
-      {/* SPORT_STAGE_5_V1:end */}
-
-
-      {/* SPORT_STAGE_6_V1:start */}
 
       <SportWorkApproach />
 
@@ -121,12 +83,7 @@ export default function SportPage() {
 
       <SportFaq />
 
-      {/* SPORT_STAGE_6_V1:end */}
-
-
       <FinalCTA />
-
-      {/* SPORT_STAGE_1_V1:end */}
-</main>
+    </main>
   );
 }

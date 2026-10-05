@@ -1,0 +1,158 @@
+/* ==========================================================================
+   SportPassportProcess.jsx — PASSPORT PROCESS
+   ========================================================================== */
+
+.sport-process {
+  padding: 118px 0;
+  background: #151515;
+  color: #fff;
+}
+
+.sport-process .sport-kicker {
+  color: var(--color-accent);
+}
+
+.sport-process__heading {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.1fr)
+    minmax(320px, .7fr);
+  gap: clamp(
+    52px,
+    8vw,
+    118px
+  );
+  align-items: end;
+}
+
+.sport-process__heading h2 {
+  max-width: 900px;
+  margin: 0;
+  font-size: clamp(
+    2.7rem,
+    4.2vw,
+    4.7rem
+  );
+  line-height: .99;
+  letter-spacing: -.052em;
+  text-wrap: balance;
+}
+
+.sport-process__heading > p {
+  margin: 0;
+  color: rgb(255 255 255 / 62%);
+  font-size: 1.04rem;
+  line-height: 1.7;
+}
+
+.sport-process__steps {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 0 52px;
+  margin: 68px 0 0;
+  padding: 0;
+  border-top:
+    1px solid
+    rgb(255 255 255 / 14%);
+  list-style: none;
+}
+
+.sport-process__step {
+  position: relative;
+  display: grid;
+  grid-template-columns:
+    58px
+    minmax(0, 1fr);
+  gap: 20px;
+  min-height: 178px;
+  padding: 30px 4px;
+  border-bottom:
+    1px solid
+    rgb(255 255 255 / 14%);
+
+  transition:
+    padding 190ms ease,
+    background 190ms ease;
+}
+
+.sport-process__step:hover {
+  padding-right: 18px;
+  padding-left: 18px;
+  background:
+    rgb(255 255 255 / 4%);
+}
+
+.sport-process__number {
+  color: var(--color-accent);
+  font-size: .78rem;
+  font-weight: 850;
+  letter-spacing: .08em;
+}
+
+.sport-process__step h3 {
+  max-width: 520px;
+  margin: 0;
+  font-size: clamp(
+    1.2rem,
+    1.55vw,
+    1.5rem
+  );
+  line-height: 1.2;
+  letter-spacing: -.025em;
+}
+
+.sport-process__step p {
+  max-width: 530px;
+  margin: 12px 0 0;
+  color: rgb(255 255 255 / 56%);
+  line-height: 1.58;
+}
+
+.sport-process__deadline {
+  display: grid;
+  grid-template-columns:
+    170px
+    minmax(0, 1fr);
+  gap: 34px;
+  align-items: center;
+  max-width: 860px;
+  margin: 48px 0 0 auto;
+  padding: 30px 34px;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: #151515;
+}
+
+.sport-process__deadline-value {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.sport-process__deadline-value strong {
+  font-size: clamp(
+    3.5rem,
+    5vw,
+    5.5rem
+  );
+  line-height: .8;
+  letter-spacing: -.07em;
+}
+
+.sport-process__deadline-value span {
+  font-size: .88rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.sport-process__deadline h3 {
+  margin: 0;
+  font-size: 1.38rem;
+  line-height: 1.2;
+}
+
+.sport-process__deadline p {
+  margin: 8px 0 0;
+  line-height: 1.58;
+}

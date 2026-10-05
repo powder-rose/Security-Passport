@@ -1,0 +1,80 @@
+/* ==========================================================================
+   SportWorkApproach.jsx — WORK APPROACH
+   ========================================================================== */
+
+.sport-why {
+  padding: 118px 0;
+  background: #fff;
+}
+
+.sport-why__heading {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(300px, .65fr);
+  gap: clamp(50px, 8vw, 118px);
+  align-items: end;
+}
+
+.sport-why__heading h2 {
+  margin: 0;
+  font-size: clamp(2.7rem, 4.2vw, 4.7rem);
+  line-height: 1;
+  letter-spacing: -.052em;
+}
+
+.sport-why__heading > p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  line-height: 1.68;
+}
+
+.sport-why__list {
+  display: grid;
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+  margin-top: 62px;
+  border-top: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
+}
+
+.sport-why__list article {
+  min-height: 300px;
+  padding: 28px;
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+
+  transition:
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.sport-why__list article:hover {
+  z-index: 1;
+  background: var(--color-accent);
+  transform: translateY(-3px);
+}
+
+.sport-why__list article > span {
+  color: var(--color-primary);
+  font-size: .76rem;
+  font-weight: 850;
+  letter-spacing: .08em;
+}
+
+.sport-why__list h3 {
+  margin: 62px 0 0;
+  font-size: clamp(1.25rem, 1.65vw, 1.55rem);
+  line-height: 1.2;
+  letter-spacing: -.025em;
+}
+
+.sport-why__list p {
+  margin: 14px 0 0;
+  color: var(--color-text-secondary);
+  line-height: 1.58;
+}
+
+.sport-why__list article:hover p {
+  color: rgb(21 21 21 / 72%);
+}

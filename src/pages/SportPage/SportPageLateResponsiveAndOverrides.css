@@ -1,0 +1,127 @@
+/* ==========================================================================
+   SPORT PAGE — LATE RESPONSIVE AND OVERRIDES
+
+   Historical late responsive and corrective rules for several SportPage
+   components. Kept together at page level to preserve cascade order.
+   ========================================================================== */
+
+@media (max-width: 1180px) {
+  .sport-why__list {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1024px) {
+  .sport-why__heading {
+    grid-template-columns: 1fr;
+  }
+
+  .sport-why__heading {
+    gap: 28px;
+  }
+
+  .sport-why__heading > p {
+    max-width: 760px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sport-why,
+.sport-related {
+    padding-top: 76px;
+    padding-bottom: 76px;
+  }
+
+  .sport-related__links > a {
+    min-height: 92px;
+  }
+}
+
+@media (max-width: 430px) {
+  .sport-why__heading h2,
+.sport-related__heading h2 {
+    font-size: clamp(2.15rem, 10vw, 2.9rem);
+  }
+
+  .sport-why__list {
+    grid-template-columns: 1fr;
+  }
+
+  .sport-why__list article {
+    min-height: 0;
+    padding: 24px;
+  }
+
+  .sport-why__list h3 {
+    margin-top: 42px;
+  }
+
+  .sport-related__links > a
+  > div {
+    grid-template-columns:
+      38px
+      minmax(0, 1fr);
+    gap: 12px;
+  }
+
+}
+
+@media (max-width: 390px) {
+  .sport-why__heading h2,
+.sport-related__heading h2 {
+    font-size: 2.15rem;
+  }
+
+  .sport-related__links > a:hover {
+    padding-right: 4px;
+    padding-left: 4px;
+  }
+
+}
+
+@media (max-width: 320px) {
+  .sport-why__heading h2,
+.sport-related__heading h2 {
+    font-size: 1.9rem;
+  }
+
+  .sport-why__list article {
+    padding: 20px;
+  }
+
+  .sport-related__links strong {
+    font-size: 1.05rem;
+  }
+}
+
+.sport-dsp__rule--restricted
+.sport-dsp__rule-sign {
+  font-size: 0;
+  line-height: 0;
+}
+
+.sport-dsp__rule--restricted
+.sport-dsp__rule-sign::before {
+  width: 12px;
+  height: 2px;
+  border-radius: 999px;
+  background: #fff;
+  content: '';
+}
+
+@media (min-width: 1025px) {
+  .sport-approval__layout {
+    column-gap: clamp(
+      110px,
+      10vw,
+      160px
+    );
+  }
+}
+
+@media (max-width: 430px) {
+  .sport-dsp__label > small {
+    margin-top: 24px;
+  }
+}
