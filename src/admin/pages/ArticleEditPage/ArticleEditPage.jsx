@@ -112,6 +112,59 @@ function createSlug(value){
 
 
 
+function validatePublicationSeo(
+  form
+){
+
+  if(
+    form.status !==
+    'published'
+  ){
+    return true;
+  }
+
+
+  const missing = [];
+
+
+  if(
+    !String(
+      form.seoTitle || ''
+    ).trim()
+  ){
+    missing.push(
+      'SEO Title'
+    );
+  }
+
+
+  if(
+    !String(
+      form.seoDescription || ''
+    ).trim()
+  ){
+    missing.push(
+      'SEO Description'
+    );
+  }
+
+
+  if(
+    missing.length === 0
+  ){
+    return true;
+  }
+
+
+  alert(
+    `Статью нельзя опубликовать без SEO-полей:\n\n${missing.join('\n')}\n\nЧерновик можно сохранить без них.`
+  );
+
+
+  return false;
+
+}
+
 
 export default function ArticleEditPage() {
 
@@ -135,14 +188,6 @@ export default function ArticleEditPage() {
     ogTitle: '',
     ogDescription: '',
     ogImage: '',
-  });
-
-
-  const [seoManual,setSeoManual] = useState({
-
-    seoTitle:false,
-    seoDescription:false,
-
   });
 
 
@@ -254,48 +299,14 @@ export default function ArticleEditPage() {
     value
   ){
 
-    setForm((prev)=>{
-
-      const next = {
-
+    setForm(
+      prev => ({
         ...prev,
 
-        [field]:value,
-
-      };
-
-
-      if(field === 'title'){
-
-        if(!seoManual.seoTitle){
-
-          next.seoTitle =
-            value;
-
-        }
-
-      }
-
-
-      if(
-        field === 'content'
-        &&
-        !seoManual.seoDescription
-      ){
-
-        next.seoDescription =
-          value
-            .replace(/<[^>]*>/g,' ')
-            .replace(/\s+/g,' ')
-            .trim()
-            .slice(0,160);
-
-      }
-
-
-      return next;
-
-    });
+        [field]:
+          value,
+      })
+    );
 
   }
 
@@ -511,16 +522,62 @@ export default function ArticleEditPage() {
 
   async function save(){
 
-    await updateArticle(
-      id,
-      {
-        ...form,
+    if(
+      !validatePublicationSeo(
+        form
+      )
+    ){
+      return;
+    }
 
-        updateSlug:
-          form.slug !==
-          savedPublication.slug,
+
+    const result =
+      await updateArticle(
+        id,
+        {
+          ...form,
+
+          seoTitle:
+            String(
+              form.seoTitle || ''
+            ).trim(),
+
+          seoDescription:
+            String(
+              form.seoDescription || ''
+            ).trim(),
+
+          updateSlug:
+            form.slug !==
+            savedPublication.slug,
+        }
+      );
+
+
+    if(
+      result?.ok === false
+    ){
+
+      if(
+        result.error ===
+        'ARTICLE_SEO_REQUIRED'
+      ){
+
+        alert(
+          'Статью нельзя опубликовать: заполните SEO Title и SEO Description.'
+        );
+
+        return;
       }
-    );
+
+
+      alert(
+        'Не удалось сохранить статью.'
+      );
+
+      return;
+
+    }
 
 
     window.location.href =
@@ -958,28 +1015,28 @@ export default function ArticleEditPage() {
         </h2>
 
 
+        <p className="admin-seo-note">
+          Для черновика поля можно оставить пустыми.
+          Для публикации обязательны SEO Title
+          и SEO Description.
+        </p>
+
+
         <label>
           <span>
             SEO Title
           </span>
 
           <input
-            value={form.seoTitle}
+            value={
+              form.seoTitle
+            }
             onChange={
-              e => {
-
-                setSeoManual((prev)=>({
-                  ...prev,
-                  seoTitle:true,
-                }));
-
-
+              e =>
                 change(
                   'seoTitle',
                   e.target.value
-                );
-
-              }
+                )
             }
           />
 
@@ -993,22 +1050,15 @@ export default function ArticleEditPage() {
 
           <textarea
             rows="4"
-            value={form.seoDescription}
+            value={
+              form.seoDescription
+            }
             onChange={
-              e => {
-
-                setSeoManual((prev)=>({
-                  ...prev,
-                  seoDescription:true,
-                }));
-
-
+              e =>
                 change(
                   'seoDescription',
                   e.target.value
-                );
-
-              }
+                )
             }
           />
 

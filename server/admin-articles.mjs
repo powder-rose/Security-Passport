@@ -65,6 +65,60 @@ function normalizeArticleCategory(
 }
 
 
+
+function normalizeSeoField(
+  value
+){
+
+  return String(
+    value ?? ''
+  ).trim();
+
+}
+
+
+function assertPublishedArticleSeo({
+  status,
+  seoTitle,
+  seoDescription,
+}){
+
+  if(
+    status !==
+    'published'
+  ){
+    return;
+  }
+
+
+  if(
+    normalizeSeoField(
+      seoTitle
+    )
+    &&
+    normalizeSeoField(
+      seoDescription
+    )
+  ){
+    return;
+  }
+
+
+  const error =
+    new Error(
+      'SEO Title and SEO Description are required for published articles'
+    );
+
+
+  error.code =
+    'ARTICLE_SEO_REQUIRED';
+
+
+  throw error;
+
+}
+
+
 const SLUG_TRANSLIT = {
   а: 'a',
   б: 'b',
@@ -224,6 +278,31 @@ export async function createArticle(data) {
     new Date().toISOString();
 
 
+  const seoTitle =
+    normalizeSeoField(
+      data.seoTitle
+    );
+
+
+  const seoDescription =
+    normalizeSeoField(
+      data.seoDescription
+    );
+
+
+  const status =
+    data.status === 'published'
+      ? 'published'
+      : 'draft';
+
+
+  assertPublishedArticleSeo({
+    status,
+    seoTitle,
+    seoDescription,
+  });
+
+
   const article = {
 
     id:
@@ -244,10 +323,7 @@ export async function createArticle(data) {
         data.imageAlt || '',
 
 
-    status:
-      data.status === 'published'
-        ? 'published'
-        : 'draft',
+    status,
 
 
     category:
@@ -268,11 +344,9 @@ export async function createArticle(data) {
       [],
 
 
-    seoTitle:
-      data.seoTitle || '',
+    seoTitle,
 
-    seoDescription:
-      data.seoDescription || '',
+    seoDescription,
 
     ogTitle:
       '',
@@ -291,7 +365,7 @@ export async function createArticle(data) {
       now,
 
     publishedAt:
-      data.status === 'published'
+      status === 'published'
         ? now
         : null,
   };
@@ -405,6 +479,43 @@ export async function updateArticle(
   }
 
 
+  const nextStatus =
+    data.status ??
+    article.status;
+
+
+  const nextSeoTitle =
+    data.seoTitle !== undefined
+      ? normalizeSeoField(
+          data.seoTitle
+        )
+      : normalizeSeoField(
+          article.seoTitle
+        );
+
+
+  const nextSeoDescription =
+    data.seoDescription !== undefined
+      ? normalizeSeoField(
+          data.seoDescription
+        )
+      : normalizeSeoField(
+          article.seoDescription
+        );
+
+
+  assertPublishedArticleSeo({
+    status:
+      nextStatus,
+
+    seoTitle:
+      nextSeoTitle,
+
+    seoDescription:
+      nextSeoDescription,
+  });
+
+
   articles[index] = {
 
     ...article,
@@ -434,8 +545,7 @@ export async function updateArticle(
 
 
     status:
-      data.status ??
-      article.status,
+      nextStatus,
 
 
     category:
@@ -456,13 +566,11 @@ export async function updateArticle(
 
 
     seoTitle:
-      data.seoTitle ??
-      article.seoTitle,
+      nextSeoTitle,
 
 
     seoDescription:
-      data.seoDescription ??
-      article.seoDescription,
+      nextSeoDescription,
 
 
     ogTitle:

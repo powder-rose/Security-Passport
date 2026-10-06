@@ -1542,25 +1542,51 @@ app.post(
   adminAuth.requireAdmin,
   async (req, res) => {
 
-    const article =
-      await createArticle(
-        req.body
+    try {
+
+      const article =
+        await createArticle(
+          req.body
+        );
+
+
+      queueBlogPublication(
+        'article-created'
       );
 
 
-    queueBlogPublication(
-      'article-created'
-    );
+      res.json({
+        ok: true,
+        article,
+
+        publication: {
+          queued: true,
+        },
+      });
+
+    }
+    catch(error) {
+
+      if(
+        error?.code ===
+        'ARTICLE_SEO_REQUIRED'
+      ){
+
+        return res
+          .status(400)
+          .json({
+            ok: false,
+
+            error:
+              'ARTICLE_SEO_REQUIRED',
+          });
+
+      }
 
 
-    res.json({
-      ok: true,
-      article,
+      throw error;
 
-      publication: {
-        queued: true,
-      },
-    });
+    }
 
   }
 );
@@ -1603,34 +1629,61 @@ app.put(
   adminAuth.requireAdmin,
   async (req, res) => {
 
-    const article =
-      await updateArticle(
-        req.params.id,
-        req.body,
+    try {
+
+      const article =
+        await updateArticle(
+          req.params.id,
+          req.body,
+        );
+
+
+      if (!article) {
+        return res.status(404).json({
+          ok:false,
+          error:'ARTICLE_NOT_FOUND',
+        });
+      }
+
+
+      queueBlogPublication(
+        'article-updated'
       );
 
 
-    if (!article) {
-      return res.status(404).json({
-        ok:false,
-        error:'ARTICLE_NOT_FOUND',
+      res.json({
+        ok:true,
+        article,
+
+        publication: {
+          queued: true,
+        },
       });
+
+    }
+    catch(error) {
+
+      if(
+        error?.code ===
+        'ARTICLE_SEO_REQUIRED'
+      ){
+
+        return res
+          .status(400)
+          .json({
+            ok: false,
+
+            error:
+              'ARTICLE_SEO_REQUIRED',
+          });
+
+      }
+
+
+      throw error;
+
     }
 
-
-    queueBlogPublication(
-      'article-updated'
-    );
-
-
-    res.json({
-      ok:true,
-      article,
-
-      publication: {
-        queued: true,
-      },
-    });
   }
 );
 

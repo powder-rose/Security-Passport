@@ -70,6 +70,61 @@ function createSlug(value){
 
 
 
+
+function validatePublicationSeo(
+  form
+){
+
+  if(
+    form.status !==
+    'published'
+  ){
+    return true;
+  }
+
+
+  const missing = [];
+
+
+  if(
+    !String(
+      form.seoTitle || ''
+    ).trim()
+  ){
+    missing.push(
+      'SEO Title'
+    );
+  }
+
+
+  if(
+    !String(
+      form.seoDescription || ''
+    ).trim()
+  ){
+    missing.push(
+      'SEO Description'
+    );
+  }
+
+
+  if(
+    missing.length === 0
+  ){
+    return true;
+  }
+
+
+  alert(
+    `Статью нельзя опубликовать без SEO-полей:\n\n${missing.join('\n')}\n\nЧерновик можно сохранить без них.`
+  );
+
+
+  return false;
+
+}
+
+
 const ARTICLE_DRAFT_KEY =
   'passport-admin-new-article-draft';
 
@@ -141,22 +196,6 @@ const [form,setForm] = useState(()=>{
 });
 
 
-const [seoManual,setSeoManual] = useState(()=>{
-
-  const draft =
-    loadArticleDraft();
-
-
-  return draft?.seoManual || {
-
-    seoTitle:false,
-    seoDescription:false,
-
-  };
-
-});
-
-
 const [cropImage,setCropImage] = useState(null);
 
 
@@ -173,8 +212,6 @@ useEffect(()=>{
           JSON.stringify({
 
             form,
-
-            seoManual,
 
             savedAt:
               new Date()
@@ -206,62 +243,24 @@ useEffect(()=>{
 
 },[
   form,
-  seoManual,
 ]);
 
 
 
 
-function change(field,value){
+function change(
+  field,
+  value
+){
 
+  setForm(
+    prev => ({
+      ...prev,
 
- setForm((prev)=>{
-
-
-   const next = {
-
-     ...prev,
-
-     [field]:value,
-
-   };
-
-
-
-   if(
-     field === 'title'
-     &&
-     !seoManual.seoTitle
-   ){
-
-     next.seoTitle = value;
-
-   }
-
-
-
-   if(
-     field === 'content'
-     &&
-     !seoManual.seoDescription
-   ){
-
-     next.seoDescription =
-       value
-       .replace(/<[^>]*>/g,' ')
-       .replace(/\s+/g,' ')
-       .trim()
-       .slice(0,160);
-
-   }
-
-
-
-   return next;
-
-
- });
-
+      [field]:
+        value,
+    })
+  );
 
 }
 
@@ -496,38 +495,73 @@ function previewArticle(){
 
 async function save(){
 
+  if(
+    !validatePublicationSeo(
+      form
+    )
+  ){
+    return;
+  }
 
 
- const result =
-   await createArticle({
+  const result =
+    await createArticle({
 
-     ...form,
+      ...form,
 
-     slug:createSlug(
-       form.slug ||
-       form.title
-     ),
+      seoTitle:
+        String(
+          form.seoTitle || ''
+        ).trim(),
 
-   });
+      seoDescription:
+        String(
+          form.seoDescription || ''
+        ).trim(),
+
+      slug:
+        createSlug(
+          form.slug ||
+          form.title
+        ),
+
+    });
 
 
- if(
-   result?.ok !== false
- ){
+  if(
+    result?.ok === false
+  ){
 
-   window.localStorage.removeItem(
-     ARTICLE_DRAFT_KEY
-   );
+    if(
+      result.error ===
+      'ARTICLE_SEO_REQUIRED'
+    ){
+
+      alert(
+        'Статью нельзя опубликовать: заполните SEO Title и SEO Description.'
+      );
+
+      return;
+    }
 
 
-   window.location.href =
-     '/admin/articles';
+    alert(
+      'Не удалось сохранить статью.'
+    );
 
- }
+    return;
+  }
 
+
+  window.localStorage.removeItem(
+    ARTICLE_DRAFT_KEY
+  );
+
+
+  window.location.href =
+    '/admin/articles';
 
 }
-
 
 
 
@@ -930,6 +964,13 @@ SEO
 </h2>
 
 
+<p className="admin-seo-note">
+Для черновика поля можно оставить пустыми.
+Для публикации обязательны SEO Title
+и SEO Description.
+</p>
+
+
 
 <label>
 
@@ -939,25 +980,16 @@ SEO Title
 
 
 <input
-
-value={form.seoTitle}
-
-onChange={
-e => {
-
-setSeoManual({
- ...seoManual,
- seoTitle:true,
-});
-
-change(
-'seoTitle',
-e.target.value
-);
-
-}
-}
-
+  value={
+    form.seoTitle
+  }
+  onChange={
+    e =>
+      change(
+        'seoTitle',
+        e.target.value
+      )
+  }
 />
 
 </label>
@@ -972,26 +1004,16 @@ SEO Description
 
 
 <textarea
-
-value={form.seoDescription}
-
-onChange={
-e => {
-
-setSeoManual({
- ...seoManual,
- seoDescription:true,
-});
-
-change(
-'seoDescription',
-e.target.value
-
-);
-
-}
-}
-
+  value={
+    form.seoDescription
+  }
+  onChange={
+    e =>
+      change(
+        'seoDescription',
+        e.target.value
+      )
+  }
 />
 
 </label>
