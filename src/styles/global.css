@@ -1,21 +1,27 @@
+/* ==========================================================================
+   GLOBAL LAYOUT AND INTERACTION
+
+   Shared layout primitives, focus behavior and accessibility helpers.
+   ========================================================================== */
+
 html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
   background: var(--color-bg);
   color: var(--color-text);
   scroll-padding-top: 92px;
-  width: 100%;
-  max-width: 100%;
-  overflow-x: clip;
 }
 
 body {
+  width: 100%;
+  max-width: 100%;
   min-width: 320px;
   min-height: 100vh;
+  overflow-x: clip;
   background: var(--color-bg);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  width: 100%;
-  max-width: 100%;
-  overflow-x: clip;
 }
 
 #root {
@@ -42,8 +48,8 @@ footer[id] {
 
 .skip-link {
   position: fixed;
-  left: 16px;
   top: 16px;
+  left: 16px;
   z-index: 999;
   transform: translateY(-180%);
   padding: 12px 16px;
@@ -52,7 +58,9 @@ footer[id] {
   color: #fff;
 }
 
-.skip-link:focus { transform: translateY(0); }
+.skip-link:focus {
+  transform: translateY(0);
+}
 
 :focus-visible {
   outline: 3px solid var(--color-primary);
@@ -60,56 +68,45 @@ footer[id] {
 }
 
 .button {
-  min-height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  min-height: 48px;
   padding: 12px 18px;
   border-radius: 999px;
-  transition: transform .2s ease, background .2s ease, color .2s ease;
+  transition:
+    transform .2s ease,
+    background .2s ease,
+    color .2s ease;
 }
 
-.button:hover { transform: translateY(-2px); }
-.button--primary { background: var(--color-text); color: #fff; }
-.button--ghost { border: 1px solid var(--color-border); background: var(--color-surface); }
-
-/* Prevent short one-word lines where the browser supports balanced wrapping. */
-:where(h1, h2, h3) {
-  text-wrap: balance;
-  overflow-wrap: normal;
+.button:hover {
+  transform: translateY(-2px);
 }
 
-@media (max-width: 560px) {
-  section[id], footer[id] { scroll-margin-top: 80px; }
+.button--primary {
+  background: var(--color-text);
+  color: #fff;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: .01ms !important;
-  }
+.button--ghost {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
 }
 
-/* Nationwide coverage emphasis. */
 .coverage-emphasis {
-  border-bottom: 3px solid var(--color-accent, #a9f04a);
   padding-bottom: 2px;
+  border-bottom: 3px solid var(--color-accent);
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
-@media (hover: none) {
-  .button:hover {
-    transform: none;
-  }
-}
-@media (max-width: 820px) {
 
+@media (max-width: 820px) {
   .container {
     width: min(calc(100% - 36px), var(--content-width));
   }
 }
+
 @media (max-width: 620px) {
   html {
     scroll-padding-top: 76px;
@@ -117,5 +114,32 @@ footer[id] {
 
   .container {
     width: min(calc(100% - 28px), var(--content-width));
+  }
+}
+
+@media (max-width: 560px) {
+  section[id],
+  footer[id] {
+    scroll-margin-top: 80px;
+  }
+}
+
+@media (hover: none) {
+  .button:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
   }
 }
