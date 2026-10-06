@@ -11,9 +11,23 @@ import {
 
 import path from 'node:path';
 
-import {
-  DEFAULT_LOCATION,
-} from '../config/geography/index.mjs';
+const FEDERAL_LOCATION =
+  Object.freeze({
+    slug: '',
+    subdomain: '',
+
+    name: 'Россия',
+    genitive: "России",
+    prepositional: "России",
+
+    region: 'Россия',
+    subject: 'Россия',
+
+    type: 'country',
+    address: "Проспект Мира 101 ст.1",
+
+    isDefault: true,
+  });
 
 import {
   objectTypes,
@@ -86,7 +100,7 @@ const {
   helmet,
   city,
 } = render({
-  city: DEFAULT_LOCATION,
+  city: FEDERAL_LOCATION,
 });
 
 
@@ -327,23 +341,8 @@ if (canonical) {
 
 
 if (canonical) {
-  const canonicalUrl =
-    new URL(canonical);
-
   const googleUrls = [
     canonical,
-
-    ...[] /* FEDERAL_ONLY_V1: региональные URL исключены */
-      .filter(
-        (location) =>
-          location.seoIndexable === true,
-      )
-      .map(
-        (location) =>
-          `${canonicalUrl.protocol}//` +
-          `${location.slug}.` +
-          `${canonicalUrl.hostname}`,
-      ),
   ];
 
   const uniqueGoogleUrls =
@@ -399,7 +398,7 @@ const legalBaseTemplate =
 for (const legalSlug of legalSlugs) {
   const legalResult =
     render({
-      city: DEFAULT_LOCATION,
+      city: FEDERAL_LOCATION,
       pathname: `/${legalSlug}/`,
     });
 
@@ -658,7 +657,7 @@ if (canonical) {
   for (const objectType of objectTypes) {
     const objectResult =
       render({
-        city: DEFAULT_LOCATION,
+        city: FEDERAL_LOCATION,
         pathname: objectType.path,
       });
 
@@ -847,7 +846,7 @@ if (canonical) {
   for (const servicePage of servicePages) {
     const serviceResult =
       render({
-        city: DEFAULT_LOCATION,
+        city: FEDERAL_LOCATION,
         pathname: servicePage.path,
       });
 
@@ -1045,7 +1044,7 @@ if (canonical) {
   const blogResult =
     render({
       city:
-        DEFAULT_LOCATION,
+        FEDERAL_LOCATION,
 
       pathname:
         '/blog/',
@@ -1114,7 +1113,7 @@ if (canonical) {
     const articleResult =
       render({
         city:
-          DEFAULT_LOCATION,
+          FEDERAL_LOCATION,
 
         pathname:
           articlePathname,
@@ -1260,38 +1259,13 @@ if (canonical) {
 
 
   /*
-   * Google sitemap:
-   * федеральная главная,
-   * федеральные дочерние SEO-страницы
-   * и только те региональные главные,
-   * которые явно разрешены для индексации.
-   *
-   * Региональные object-type страницы
-   * сюда намеренно НЕ добавляем.
+   * Google sitemap contains the same
+   * federal indexable URLs as sitemap.xml.
    */
-  const objectCanonicalUrl =
-    new URL(
-      canonical,
-    );
-
-
-  const googleObjectUrls = [
-    ...federalObjectSitemapUrls.map(
+  const googleObjectUrls =
+    federalObjectSitemapUrls.map(
       ({ loc }) => loc,
-    ),
-
-    ...[] /* FEDERAL_ONLY_V1: региональные URL исключены */
-      .filter(
-        (location) =>
-          location.seoIndexable === true,
-      )
-      .map(
-        (location) =>
-          `${objectCanonicalUrl.protocol}//` +
-          `${location.slug}.` +
-          `${objectCanonicalUrl.hostname}`,
-      ),
-  ];
+    );
 
 
   const uniqueGoogleObjectUrls =
