@@ -84,18 +84,7 @@ const serverRouteComponents = {
 };
 
 
-import {
-  CITY,
-  normalizeCity,
-} from './config/city';
-
-import {
-  GeoProvider,
-} from './context/GeoContext';
-
-
 export function render({
-  city = CITY,
   pathname = '/',
   blogArticles = null,
   article = null,
@@ -105,23 +94,18 @@ export function render({
   const store =
     createAppStore();
 
-  const resolvedCity =
-    normalizeCity(city);
-
   const html =
     renderToString(
       <Provider store={store}>
         <HelmetProvider context={helmetContext}>
-          <GeoProvider city={resolvedCity}>
-            <App
-              pathname={pathname}
-              initialBlogArticles={blogArticles}
-              initialArticle={article}
-              routeComponents={
-                serverRouteComponents
-              }
-            />
-          </GeoProvider>
+          <App
+            pathname={pathname}
+            initialBlogArticles={blogArticles}
+            initialArticle={article}
+            routeComponents={
+              serverRouteComponents
+            }
+          />
         </HelmetProvider>
       </Provider>,
     );
@@ -130,8 +114,5 @@ export function render({
     html,
     helmet:
       helmetContext.helmet,
-
-    city:
-      resolvedCity,
   };
 }

@@ -16,14 +16,14 @@ import {
   getServicePageByPathname,
 } from '../../data/servicePages';
 
-import { useCity } from '../../context/GeoContext';
+import { CITY } from '../../config/city';
 
 
 export default function Seo({
   pathname = '/',
 }) {
   const city =
-    useCity();
+    CITY;
 
   const objectType =
     getObjectTypeByPathname(

@@ -50,10 +50,10 @@ import HotelWorkApproach from "./components/HotelWorkApproach/HotelWorkApproach"
 
 import HotelFaq from "./components/HotelFaq/HotelFaq";
 import FinalCTA from "../../sections/FinalCTA/FinalCTA";
-import { useCity } from "../../context/GeoContext";
+import { CITY } from "../../config/city";
 
 export default function HotelPage({ objectType }) {
-  const city = useCity();
+  const city = CITY;
 
   const regionalWorkText = getRegionalWorkText(city);
 

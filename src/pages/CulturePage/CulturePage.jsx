@@ -47,10 +47,10 @@ import CultureWorkApproach from "./components/CultureWorkApproach/CultureWorkApp
 
 import CultureFaq from "./components/CultureFaq/CultureFaq";
 import FinalCTA from "../../sections/FinalCTA/FinalCTA";
-import { useCity } from "../../context/GeoContext";
+import { CITY } from "../../config/city";
 
 export default function CulturePage({ objectType }) {
-  const city = useCity();
+  const city = CITY;
 
   const regionalWorkText = getCultureRegionalWorkText(city);
 

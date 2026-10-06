@@ -56,10 +56,10 @@ import EducationRelatedLinks from "./components/EducationRelatedLinks/EducationR
 
 import EducationFaq from "./components/EducationFaq/EducationFaq";
 import FinalCTA from "../../sections/FinalCTA/FinalCTA";
-import { useCity } from "../../context/GeoContext";
+import { CITY } from "../../config/city";
 
 export default function EducationPage({ objectType }) {
-  const city = useCity();
+  const city = CITY;
 
   const regionalWorkText = getRegionalWorkText(city);
 

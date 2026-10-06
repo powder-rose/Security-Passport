@@ -1,9 +1,9 @@
 import Container from '../../components/ui/Container/Container';
-import { useCity } from '../../context/GeoContext';
+import { CITY } from '../../config/city';
 import './Hero.css';
 
 export default function Hero() {
-  const city = useCity();
+  const city = CITY;
 
   const heroLocationPhrase =
     city.isDefault

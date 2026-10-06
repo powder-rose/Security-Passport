@@ -10,9 +10,6 @@ import { HelmetProvider } from 'react-helmet-async';
 import { store } from './app/store';
 import App from './app/App';
 
-import { CITY } from './config/city';
-import { GeoProvider } from './context/GeoContext';
-
 import {
   getObjectTypeByPathname,
 } from './data/objectTypes';
@@ -253,26 +250,22 @@ async function bootstrap() {
     <StrictMode>
       <Provider store={store}>
         <HelmetProvider>
-          <GeoProvider
-            city={CITY}
-          >
-            <App
-              pathname={
-                window.location.pathname
-              }
-              initialBlogArticles={
-                initialBlogData.articles ??
-                null
-              }
-              initialArticle={
-                initialBlogData.article ??
-                null
-              }
-              routeComponents={
-                routeComponents
-              }
-            />
-          </GeoProvider>
+          <App
+            pathname={
+              window.location.pathname
+            }
+            initialBlogArticles={
+              initialBlogData.articles ??
+              null
+            }
+            initialArticle={
+              initialBlogData.article ??
+              null
+            }
+            routeComponents={
+              routeComponents
+            }
+          />
         </HelmetProvider>
       </Provider>
     </StrictMode>

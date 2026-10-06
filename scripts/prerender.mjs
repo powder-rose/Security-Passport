@@ -11,24 +11,6 @@ import {
 
 import path from 'node:path';
 
-const FEDERAL_LOCATION =
-  Object.freeze({
-    slug: '',
-    subdomain: '',
-
-    name: 'Россия',
-    genitive: "России",
-    prepositional: "России",
-
-    region: 'Россия',
-    subject: 'Россия',
-
-    type: 'country',
-    address: "Проспект Мира 101 ст.1",
-
-    isDefault: true,
-  });
-
 import {
   objectTypes,
 } from '../src/data/objectTypes.js';
@@ -98,9 +80,7 @@ const { render } =
 const {
   html,
   helmet,
-} = render({
-  city: FEDERAL_LOCATION,
-});
+} = render();
 
 
 let template =
@@ -386,7 +366,6 @@ const legalBaseTemplate =
 for (const legalSlug of legalSlugs) {
   const legalResult =
     render({
-      city: FEDERAL_LOCATION,
       pathname: `/${legalSlug}/`,
     });
 
@@ -459,11 +438,6 @@ for (const legalSlug of legalSlugs) {
   );
 }
 
-
-console.log(
-  'Prerender city:',
-  FEDERAL_LOCATION.name,
-);
 
 console.log(
   'Prerender complete:',
@@ -623,7 +597,6 @@ if (canonical) {
   for (const objectType of objectTypes) {
     const objectResult =
       render({
-        city: FEDERAL_LOCATION,
         pathname: objectType.path,
       });
 
@@ -795,7 +768,6 @@ if (canonical) {
   for (const servicePage of servicePages) {
     const serviceResult =
       render({
-        city: FEDERAL_LOCATION,
         pathname: servicePage.path,
       });
 
@@ -973,9 +945,6 @@ if (canonical) {
 
   const blogResult =
     render({
-      city:
-        FEDERAL_LOCATION,
-
       pathname:
         '/blog/',
 
@@ -1042,9 +1011,6 @@ if (canonical) {
 
     const articleResult =
       render({
-        city:
-          FEDERAL_LOCATION,
-
         pathname:
           articlePathname,
 

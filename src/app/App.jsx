@@ -33,8 +33,8 @@ import {
 } from '../data/servicePages';
 
 import {
-  useCity,
-} from '../context/GeoContext';
+  CITY,
+} from '../config/city';
 
 
 export default function App({
@@ -44,7 +44,7 @@ export default function App({
   routeComponents = {},
 }) {
   const city =
-    useCity();
+    CITY;
 
   const resolvedPathname =
     pathname ||

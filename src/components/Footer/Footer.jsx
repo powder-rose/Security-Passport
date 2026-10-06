@@ -1,6 +1,6 @@
 import Container from '../ui/Container/Container';
 import { SITE } from '../../config/site';
-import { useCity } from '../../context/GeoContext';
+import { CITY } from '../../config/city';
 import './Footer.css';
 
 const navLinks = [
@@ -20,7 +20,7 @@ const legalLinks = [
 ];
 
 export default function Footer() {
-  const city = useCity();
+  const city = CITY;
 
   return (
     <footer className="site-footer" aria-label="Подвал сайта">
