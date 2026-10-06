@@ -245,14 +245,3 @@ export function getObjectTypeByPathname(
     ) || null
   );
 }
-
-
-export function isObjectTypePathname(
-  pathname,
-) {
-  return Boolean(
-    getObjectTypeByPathname(
-      pathname,
-    ),
-  );
-}
