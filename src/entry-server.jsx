@@ -2,7 +2,7 @@ import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { HelmetProvider } from 'react-helmet-async';
 
-import { store } from './app/store';
+import { createAppStore } from './app/store';
 import App from './app/App';
 
 import LegalPage
@@ -101,6 +101,9 @@ export function render({
   article = null,
 } = {}) {
   const helmetContext = {};
+
+  const store =
+    createAppStore();
 
   const resolvedCity =
     normalizeCity(city);
