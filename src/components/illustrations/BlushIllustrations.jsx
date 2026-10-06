@@ -89,9 +89,9 @@ export function DocumentFlowIllustration() {
   );
 }
 
-export function ShieldBuildingIllustration() {
+function ShieldBuildingGlyph() {
   return (
-    <IllustrationShell title="Здание, защищённое паспортом безопасности">
+    <>
       <SoftCard x="74" y="84" width="146" height="116" radius="26">
         <path d="M92 88l55-32 55 32" fill="#dfe7ff" stroke="#171717" strokeOpacity="0.07" />
         <Window x="98" y="112" />
@@ -108,6 +108,14 @@ export function ShieldBuildingIllustration() {
         <circle cx="250" cy="108" r="9" fill="#a9f04a" />
       </g>
       <Ground x="118" y="220" width="132" />
+    </>
+  );
+}
+
+export function ShieldBuildingIllustration() {
+  return (
+    <IllustrationShell title="Здание, защищённое паспортом безопасности">
+      <ShieldBuildingGlyph />
     </IllustrationShell>
   );
 }
@@ -258,7 +266,7 @@ function TypeGlyph({ variant }) {
     case 'health': return <HealthIllustration />;
     case 'crowd': return <CrowdIllustration />;
     case 'social': return <SocialIllustration />;
-    default: return <ShieldBuildingIllustration />;
+    default: return <ShieldBuildingGlyph />;
   }
 }
 
