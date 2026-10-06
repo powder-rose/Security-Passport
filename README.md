@@ -2,7 +2,7 @@
 
 Production-проект сайта по разработке и сопровождению паспортов безопасности объектов.
 
-Проект построен на React и Vite, но не является обычным client-only SPA. Production-сборка включает SSR/prerender, SEO-генерацию, Express backend, административную панель, блог, региональные страницы и автоматический QA.
+Проект построен на React и Vite, но не является обычным client-only SPA. Production-сборка включает SSR/prerender, SEO-генерацию, Express backend, административную панель, блог и автоматический QA.
 
 ## Технологический стек
 
@@ -24,7 +24,6 @@ Production-проект сайта по разработке и сопровож
 - Nodemailer
 - Formidable
 - Sharp
-- MaxMind
 
 ### Build и SEO
 
@@ -352,7 +351,6 @@ SEO metadata должны присутствовать в prerendered HTML.
     server/admin-regulations.mjs
     server/blog-publication.mjs
     server/bot-detection.mjs
-    server/geo-location.mjs
     server/lead-storage.mjs
     server/regulation-date-sync.mjs
     server/regulation-number-sync.mjs
@@ -443,35 +441,24 @@ Entry:
 
 ## География
 
-Проект поддерживает федеральную и региональную архитектуру.
+Production-проект работает только на федеральном домене:
 
-Подробная документация:
+    https://pasport-bezopasnosty.ru
 
-    GEOGRAPHY_PIPELINE.md
+Региональные страницы и их build/deploy pipeline выведены из эксплуатации.
 
-Основные элементы:
+Региональные поддомены обслуживаются на уровне Nginx через постоянный HTTP 301 redirect на федеральный сайт с сохранением пути.
 
-    config/geography/
-    scripts/check-geography.mjs
-    scripts/generate-geo-pages.mjs
-    scripts/deploy-geographies.sh
-    server/geo-location.mjs
-    src/lib/geoRedirect.js
+Backend и внутренняя статистика также используют единую федеральную идентичность сайта.
 
-После изменения географической базы обязательно выполнить:
-
-    node scripts/check-geography.mjs
-    npm run build
+`GET /api/geo` сохранён только как совместимый федеральный endpoint и не выполняет IP-геолокацию.
 
 ## Deployment
 
 В проекте имеются production scripts:
 
     scripts/deploy-federal.sh
-    scripts/deploy-region.sh
-    scripts/deploy-geographies.sh
     scripts/publish-blog.sh
-    scripts/redeploy-all-regions.sh
     scripts/rollback-federal.sh
 
 Они рассчитаны на production-окружение проекта.

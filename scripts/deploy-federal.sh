@@ -82,15 +82,11 @@ echo "Предыдущий release:"
 echo "${PREVIOUS_RELEASE:-нет}"
 echo
 
-mapfile -t REGION_DATA < <(
-    node scripts/get-default-region.mjs
-)
-
-CITY_NAME="${REGION_DATA[0]}"
-CITY_GENITIVE="${REGION_DATA[1]}"
-CITY_PREPOSITIONAL="${REGION_DATA[2]}"
-CITY_REGION="${REGION_DATA[3]}"
-CITY_ADDRESS="${REGION_DATA[4]:-}"
+CITY_NAME="Россия"
+CITY_GENITIVE="России"
+CITY_PREPOSITIONAL="России"
+CITY_REGION="Россия"
+CITY_ADDRESS="Проспект Мира 101 ст.1"
 
 echo "[1/7] Проверяем DNS..."
 
