@@ -13,7 +13,6 @@ import path from 'node:path';
 
 import {
   DEFAULT_LOCATION,
-  getRegionalLocations,
 } from '../config/geography/index.mjs';
 
 import {
