@@ -1,6 +1,11 @@
-/* =========================================
-   HEADER
-========================================= */
+/* ==========================================================================
+   Header.jsx — SITE HEADER
+
+   Shared sticky site header with desktop navigation, section directory,
+   mobile menu portal and responsive navigation controls.
+
+   Responsive behavior for Header is defined locally in this stylesheet.
+   ========================================================================== */
 
 .site-header {
   position: sticky;
@@ -23,7 +28,6 @@
     0 4px 18px rgba(17, 17, 17, .025);
 }
 
-
 .site-header__inner {
   position: relative;
 
@@ -34,11 +38,6 @@
 
   gap: 20px;
 }
-
-
-/* =========================================
-   BRAND
-========================================= */
 
 .brand {
   flex: 0 0 auto;
@@ -57,11 +56,6 @@
   text-decoration: none;
 }
 
-
-/* =========================================
-   DESKTOP NAV
-========================================= */
-
 .site-nav {
   display: flex;
   align-items: center;
@@ -71,7 +65,6 @@
   margin-left:
     clamp(38px, 4vw, 78px);
 }
-
 
 .site-nav__quick-link {
   min-height: 40px;
@@ -103,7 +96,6 @@
     background .16s ease;
 }
 
-
 .site-nav__quick-link:hover,
 .site-nav__quick-link:focus-visible {
   color: #111;
@@ -111,7 +103,6 @@
   background:
     rgba(17, 17, 17, .045);
 }
-
 
 .site-nav__blog:hover,
 .site-nav__blog:focus-visible,
@@ -122,11 +113,6 @@
   background:
     rgba(38, 87, 255, .06);
 }
-
-
-/* =========================================
-   ALL SECTIONS BUTTON
-========================================= */
 
 .site-nav__directory-toggle {
   min-height: 40px;
@@ -169,7 +155,6 @@
     border-color .16s ease;
 }
 
-
 .site-nav__directory-toggle:hover,
 .site-nav__directory-toggle:focus-visible {
   border-color:
@@ -178,7 +163,6 @@
   background:
     rgba(255, 255, 255, .95);
 }
-
 
 .site-nav__directory-toggle[aria-expanded='true'],
 .site-nav__directory-toggle.is-current {
@@ -191,7 +175,6 @@
   background:
     rgba(38, 87, 255, .065);
 }
-
 
 .site-nav__directory-chevron {
   width: 7px;
@@ -215,7 +198,6 @@
     margin .18s ease;
 }
 
-
 .site-nav__directory-toggle[aria-expanded='true']
 .site-nav__directory-chevron {
   margin-top: 3px;
@@ -223,11 +205,6 @@
   transform:
     rotate(225deg);
 }
-
-
-/* =========================================
-   RIGHT ACTIONS
-========================================= */
 
 .site-header__actions {
   display: flex;
@@ -237,7 +214,6 @@
 
   margin-left: auto;
 }
-
 
 .site-header__phone {
   color:
@@ -256,12 +232,10 @@
     color .16s ease;
 }
 
-
 .site-header__phone:hover {
   color:
     var(--color-primary);
 }
-
 
 .header-contact {
   min-height: 40px;
@@ -297,7 +271,6 @@
     transform .16s ease;
 }
 
-
 .header-contact:hover,
 .header-contact:focus-visible {
   transform:
@@ -309,11 +282,6 @@
   background:
     var(--color-primary);
 }
-
-
-/* =========================================
-   DESKTOP MEGA MENU
-========================================= */
 
 .site-directory {
   width:
@@ -345,7 +313,6 @@
     transform .2s ease;
 }
 
-
 .site-directory--open {
   opacity: 1;
   visibility: visible;
@@ -355,7 +322,6 @@
   transform:
     translate(-50%, 0);
 }
-
 
 .site-directory__panel {
   overflow: hidden;
@@ -374,7 +340,6 @@
     0 28px 70px rgba(17, 17, 17, .12);
 }
 
-
 .site-directory__top {
   min-height: 52px;
 
@@ -391,14 +356,12 @@
     1px solid rgba(17, 17, 17, .075);
 }
 
-
 .site-directory__top > div {
   display: flex;
   flex-direction: column;
 
   gap: 4px;
 }
-
 
 .site-directory__top > div > span {
   color:
@@ -412,7 +375,6 @@
   text-transform: uppercase;
 }
 
-
 .site-directory__top strong {
   color: #111;
 
@@ -423,7 +385,6 @@
 
   letter-spacing: -.025em;
 }
-
 
 .site-directory__close {
   width: 34px;
@@ -456,18 +417,12 @@
     background .16s ease;
 }
 
-
 .site-directory__close:hover {
   color: #111;
 
   background:
     rgba(17, 17, 17, .09);
 }
-
-
-/* =========================================
-   DIRECTORY CONTENT
-========================================= */
 
 .site-directory__grid {
   display: grid;
@@ -482,11 +437,9 @@
   padding-top: 19px;
 }
 
-
 .site-directory__group {
   min-width: 0;
 }
-
 
 .site-directory__eyebrow {
   margin:
@@ -503,13 +456,11 @@
   text-transform: uppercase;
 }
 
-
 .site-directory__links {
   display: grid;
 
   gap: 2px;
 }
-
 
 .site-directory__links--objects {
   grid-template-columns:
@@ -520,7 +471,6 @@
 
   column-gap: 8px;
 }
-
 
 .site-directory__link {
   min-width: 0;
@@ -554,7 +504,6 @@
     transform .15s ease;
 }
 
-
 .site-directory__link:hover,
 .site-directory__link:focus-visible {
   color: #111;
@@ -566,7 +515,6 @@
     translateX(2px);
 }
 
-
 .site-directory__link.is-current {
   color:
     var(--color-primary);
@@ -574,7 +522,6 @@
   background:
     rgba(38, 87, 255, .065);
 }
-
 
 .site-directory__link-arrow {
   flex: 0 0 auto;
@@ -589,7 +536,6 @@
     transform .15s ease;
 }
 
-
 .site-directory__link:hover
 .site-directory__link-arrow {
   color:
@@ -598,7 +544,6 @@
   transform:
     translate(1px, -1px);
 }
-
 
 .site-directory__help {
   margin-top: 15px;
@@ -614,7 +559,6 @@
     rgba(255, 255, 255, .52);
 }
 
-
 .site-directory__help > span {
   display: block;
 
@@ -628,7 +572,6 @@
 
   line-height: 1.35;
 }
-
 
 .site-directory__help a {
   display: flex;
@@ -645,16 +588,10 @@
   text-decoration: none;
 }
 
-
 .site-directory__help a span {
   color:
     var(--color-primary);
 }
-
-
-/* =========================================
-   MOBILE TOGGLE
-========================================= */
 
 .site-header__menu-toggle {
   width: 42px;
@@ -680,7 +617,6 @@
   cursor: pointer;
 }
 
-
 .site-header__menu-toggle span {
   width: 17px;
   height: 1.5px;
@@ -701,18 +637,15 @@
     transform .18s ease;
 }
 
-
 .site-header__menu-toggle
 span:first-child {
   top: 16px;
 }
 
-
 .site-header__menu-toggle
 span:last-child {
   top: 23px;
 }
-
 
 .site-header__menu-toggle[aria-expanded='true']
 span:first-child {
@@ -723,7 +656,6 @@ span:first-child {
     rotate(45deg);
 }
 
-
 .site-header__menu-toggle[aria-expanded='true']
 span:last-child {
   top: 20px;
@@ -733,16 +665,10 @@ span:last-child {
     rotate(-45deg);
 }
 
-
 .site-nav__mobile-directory,
 .site-nav__mobile-cta {
   display: none;
 }
-
-
-/* =========================================
-   COMPACT DESKTOP
-========================================= */
 
 @media (max-width: 1380px) {
 
@@ -750,7 +676,6 @@ span:last-child {
     margin-left:
       24px;
   }
-
 
   .site-nav__quick-link {
     padding:
@@ -760,7 +685,6 @@ span:last-child {
       12.5px;
   }
 
-
   .site-nav__directory-toggle {
     padding:
       0 11px;
@@ -769,17 +693,14 @@ span:last-child {
       12.5px;
   }
 
-
   .site-header__actions {
     gap: 11px;
   }
-
 
   .site-header__phone {
     font-size:
       12px;
   }
-
 
   .header-contact {
     padding:
@@ -791,11 +712,6 @@ span:last-child {
 
 }
 
-
-/* =========================================
-   TABLET / MOBILE
-========================================= */
-
 @media (max-width: 1180px) {
 
   .site-header__inner {
@@ -804,26 +720,21 @@ span:last-child {
     gap: 12px;
   }
 
-
   .brand {
     font-size: 15px;
   }
-
 
   .site-header__menu-toggle {
     display: grid;
   }
 
-
   .site-header__actions {
     display: none;
   }
 
-
   .site-directory {
     display: none;
   }
-
 
   .site-nav {
     width:
@@ -884,7 +795,6 @@ span:last-child {
       transform .2s ease;
   }
 
-
   .site-nav--open {
     opacity: 1;
     visibility: visible;
@@ -894,7 +804,6 @@ span:last-child {
     transform:
       translate(-50%, 0);
   }
-
 
   .site-nav__quick-link {
     width: 100%;
@@ -912,11 +821,9 @@ span:last-child {
     font-size: 14px;
   }
 
-
   .site-nav__directory-toggle {
     display: none;
   }
-
 
   .site-nav__mobile-directory {
     display: block;
@@ -928,7 +835,6 @@ span:last-child {
     border-top:
       1px solid rgba(17, 17, 17, .075);
   }
-
 
   .site-nav__mobile-title {
     margin:
@@ -945,7 +851,6 @@ span:last-child {
     text-transform: uppercase;
   }
 
-
   .site-directory__grid--mobile {
     display: grid;
 
@@ -958,13 +863,11 @@ span:last-child {
     padding: 0;
   }
 
-
   .site-directory__grid--mobile
   .site-directory__group--objects {
     grid-column:
       1 / -1;
   }
-
 
   .site-directory__grid--mobile
   .site-directory__links--objects {
@@ -975,13 +878,11 @@ span:last-child {
       );
   }
 
-
   .site-directory__grid--mobile
   .site-directory__link {
     font-size:
       13px;
   }
-
 
   .site-nav__mobile-cta {
     min-height: 50px;
@@ -1006,40 +907,30 @@ span:last-child {
 
 }
 
-
-/* =========================================
-   PHONE
-========================================= */
-
 @media (max-width: 640px) {
 
   .site-header__inner {
     min-height: 64px;
   }
 
-
   .brand {
     font-size: 14px;
   }
-
 
   .site-header__menu-toggle {
     width: 40px;
     height: 40px;
   }
 
-
   .site-header__menu-toggle
   span:first-child {
     top: 15px;
   }
 
-
   .site-header__menu-toggle
   span:last-child {
     top: 22px;
   }
-
 
   .site-header__menu-toggle[aria-expanded='true']
   span:first-child,
@@ -1047,7 +938,6 @@ span:last-child {
   span:last-child {
     top: 19px;
   }
-
 
   .site-nav {
     top: 72px;
@@ -1068,13 +958,11 @@ span:last-child {
       16px;
   }
 
-
   .site-nav__quick-link {
     min-height: 44px;
 
     font-size: 13.5px;
   }
-
 
   .site-directory__grid--mobile {
     grid-template-columns:
@@ -1083,19 +971,16 @@ span:last-child {
     gap: 21px;
   }
 
-
   .site-directory__grid--mobile
   .site-directory__group--objects {
     grid-column: auto;
   }
-
 
   .site-directory__grid--mobile
   .site-directory__links--objects {
     grid-template-columns:
       1fr;
   }
-
 
   .site-directory__grid--mobile
   .site-directory__link {
@@ -1107,17 +992,11 @@ span:last-child {
     font-size: 12.5px;
   }
 
-
   .site-directory__help {
     margin-top: 10px;
   }
 
 }
-
-
-/* =========================================
-   REDUCED MOTION
-========================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
