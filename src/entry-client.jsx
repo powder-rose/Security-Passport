@@ -14,17 +14,11 @@ import { CITY } from './config/city';
 import { GeoProvider } from './context/GeoContext';
 
 import {
-  maybeRedirectByGeo,
-} from './lib/geoRedirect';
-
-import {
   getObjectTypeByPathname,
-  isObjectTypePathname,
 } from './data/objectTypes';
 
 import {
   getServicePageByPathname,
-  isServicePagePathname,
 } from './data/servicePages';
 
 import {
@@ -240,21 +234,6 @@ async function loadRouteComponents(
 
 
 async function bootstrap() {
-  /*
-   * География проверяется ДО React
-   * и ДО Analytics.
-   *
-   * Если будет переход, федеральное
-   * посещение не попадёт в статистику.
-   */
-  const redirected =
-    await maybeRedirectByGeo();
-
-  if (redirected) {
-    return;
-  }
-
-
   const initialCity =
     typeof window !== 'undefined' &&
     window.__PASSPORT_CITY__
@@ -319,35 +298,6 @@ async function bootstrap() {
     );
   }
 
-
-  const isRegionalDynamicPage =
-    !initialCity?.isDefault &&
-    (
-      isObjectTypePathname(
-        window.location.pathname,
-      ) ||
-      isServicePagePathname(
-        window.location.pathname,
-      )
-    );
-
-  /*
-   * Для регионального object-type URL Nginx
-   * отдаёт региональный index.html главной.
-   * Не гидратируем несовпадающую SSR-разметку:
-   * очищаем root и выполняем обычный client render.
-   */
-  if (isRegionalDynamicPage) {
-    root.replaceChildren();
-
-    createRoot(
-      root,
-    ).render(
-      app,
-    );
-
-    return;
-  }
 
   if (root.hasChildNodes()) {
     hydrateRoot(
