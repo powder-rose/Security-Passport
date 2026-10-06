@@ -234,13 +234,6 @@ async function loadRouteComponents(
 
 
 async function bootstrap() {
-  const initialCity =
-    typeof window !== 'undefined' &&
-    window.__PASSPORT_CITY__
-      ? window.__PASSPORT_CITY__
-      : CITY;
-
-
   const initialBlogData =
     typeof window !== 'undefined'
       ? (
@@ -261,7 +254,7 @@ async function bootstrap() {
       <Provider store={store}>
         <HelmetProvider>
           <GeoProvider
-            city={initialCity}
+            city={CITY}
           >
             <App
               pathname={

@@ -82,12 +82,6 @@ echo "Предыдущий release:"
 echo "${PREVIOUS_RELEASE:-нет}"
 echo
 
-CITY_NAME="Россия"
-CITY_GENITIVE="России"
-CITY_PREPOSITIONAL="России"
-CITY_REGION="Россия"
-CITY_ADDRESS="Проспект Мира 101 ст.1"
-
 echo "[1/7] Проверяем DNS..."
 
 DNS_RESULT="$(
@@ -111,13 +105,6 @@ echo "[2/7] Собираем федеральную версию..."
 VITE_BASE_DOMAIN="${BASE_DOMAIN}" \
 VITE_SITE_PROTOCOL="${SITE_PROTOCOL}" \
 VITE_SITE_ORIGIN="${SITE_PROTOCOL}://${BASE_DOMAIN}" \
-VITE_CITY_NAME="${CITY_NAME}" \
-VITE_CITY_GENITIVE="${CITY_GENITIVE}" \
-VITE_CITY_PREPOSITIONAL="${CITY_PREPOSITIONAL}" \
-VITE_CITY_REGION="${CITY_REGION}" \
-VITE_CITY_ADDRESS="${CITY_ADDRESS}" \
-VITE_CITY_SUBDOMAIN="" \
-VITE_CITY_IS_DEFAULT="true" \
 npm run build
 
 

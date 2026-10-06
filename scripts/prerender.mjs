@@ -98,7 +98,6 @@ const { render } =
 const {
   html,
   helmet,
-  city,
 } = render({
   city: FEDERAL_LOCATION,
 });
@@ -268,21 +267,10 @@ const headTags = [
 ].join('\n');
 
 
-const serializedCity =
-  JSON.stringify(city)
-    .replace(/</g, '\\u003c')
-    .replace(/>/g, '\\u003e')
-    .replace(/&/g, '\\u0026');
-
-
-const cityBootstrap =
-  `<script>window.__PASSPORT_CITY__=${serializedCity};</script>`;
-
-
 template = template
   .replace(
     '</head>',
-    `${headTags}\n${cityBootstrap}\n</head>`,
+    `${headTags}\n</head>`,
   )
   .replace(
     '<div id="root"></div>',
@@ -432,22 +420,11 @@ for (const legalSlug of legalSlugs) {
     .filter(Boolean)
     .join('\n');
 
-  const legalCity =
-    JSON.stringify(
-      legalResult.city,
-    )
-      .replace(/</g, '\\u003c')
-      .replace(/>/g, '\\u003e')
-      .replace(/&/g, '\\u0026');
-
-  const legalBootstrap =
-    `<script>window.__PASSPORT_CITY__=${legalCity};</script>`;
-
   legalTemplate =
     legalTemplate
       .replace(
         '</head>',
-        `${legalHeadTags}\n${legalBootstrap}\n</head>`,
+        `${legalHeadTags}\n</head>`,
       )
       .replace(
         '<div id="root"></div>',
@@ -485,7 +462,7 @@ for (const legalSlug of legalSlugs) {
 
 console.log(
   'Prerender city:',
-  city.name,
+  FEDERAL_LOCATION.name,
 );
 
 console.log(
@@ -606,15 +583,6 @@ if (canonical) {
     ].join('\n');
 
 
-    const resultCity =
-      JSON.stringify(
-        renderResult.city,
-      )
-        .replace(/</g, '\\u003c')
-        .replace(/>/g, '\\u003e')
-        .replace(/&/g, '\\u0026');
-
-
     const serializedBlogData =
       JSON.stringify(
         blogData,
@@ -626,8 +594,6 @@ if (canonical) {
 
     const resultBootstrap =
       `<script>` +
-      `window.__PASSPORT_CITY__=` +
-      `${resultCity};` +
       `window.__PASSPORT_BLOG__=` +
       `${serializedBlogData};` +
       `</script>`;
@@ -723,28 +689,11 @@ if (canonical) {
       .join('\n');
 
 
-    const objectSerializedCity =
-      JSON.stringify(
-        objectResult.city,
-      )
-        .replace(/</g, '\\u003c')
-        .replace(/>/g, '\\u003e')
-        .replace(/&/g, '\\u0026');
-
-
-    const objectCityBootstrap =
-      `<script>` +
-      `window.__PASSPORT_CITY__=` +
-      `${objectSerializedCity};` +
-      `</script>`;
-
-
     objectDocument =
       objectDocument
         .replace(
           '</head>',
           `${objectHeadTags}\n` +
-          `${objectCityBootstrap}\n` +
           `</head>`,
         )
         .replace(
@@ -905,30 +854,11 @@ if (canonical) {
 
 
 
-    const serviceSerializedCity =
-      JSON.stringify(
-        serviceResult.city,
-      )
-        .replace(/</g, '\\u003c')
-        .replace(/>/g, '\\u003e')
-        .replace(/&/g, '\\u0026');
-
-
-
-    const serviceCityBootstrap =
-      `<script>` +
-      `window.__PASSPORT_CITY__=` +
-      `${serviceSerializedCity};` +
-      `</script>`;
-
-
-
     serviceDocument =
       serviceDocument
         .replace(
           '</head>',
           `${serviceHeadTags}\n` +
-          `${serviceCityBootstrap}\n` +
           `</head>`,
         )
         .replace(
