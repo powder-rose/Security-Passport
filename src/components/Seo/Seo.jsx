@@ -16,15 +16,10 @@ import {
   getServicePageByPathname,
 } from '../../data/servicePages';
 
-import { CITY } from '../../config/city';
-
 
 export default function Seo({
   pathname = '/',
 }) {
-  const city =
-    CITY;
-
   const objectType =
     getObjectTypeByPathname(
       pathname,
@@ -37,18 +32,9 @@ export default function Seo({
 
   const seo =
     buildSeo(
-      city,
       pathname,
     );
 
-  /*
-   * Федеральные страницы индексируются.
-   *
-   * Для регионов:
-   * - главная индексируется только при seoIndexable=true;
-   * - service pages наследуют seoIndexable региона;
-   * - object-type страницы пока всегда noindex,follow.
-   */
   const childPagePath =
     objectType?.path ||
     servicePage?.path ||
@@ -57,25 +43,11 @@ export default function Seo({
   const isChildSeoPage =
     Boolean(childPagePath);
 
-  const isRegionalObjectTypePage =
-    !city.isDefault &&
-    Boolean(objectType?.path);
-
-  const isIndexable =
-    city.isDefault ||
-    (
-      city.seoIndexable === true &&
-      !isRegionalObjectTypePage
-    );
-
   const robotsContent =
-    isIndexable
-      ? 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'
-      : 'noindex,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
+    'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
 
   const serviceSchema =
     buildServiceSchema(
-      city,
       pathname,
     );
 

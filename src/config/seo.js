@@ -1,8 +1,3 @@
-import {
-  getCityUrl,
-  normalizeCity,
-} from './city';
-
 import { SITE } from './site';
 
 import {
@@ -15,12 +10,13 @@ import {
 
 
 function buildCanonical(
-  city,
   pathname,
 ) {
   const baseUrl =
-    getCityUrl(city)
-      .replace(/\/$/, '');
+    SITE.defaultUrl.replace(
+      /\/$/,
+      '',
+    );
 
   const objectType =
     getObjectTypeByPathname(
@@ -36,23 +32,15 @@ function buildCanonical(
     objectType?.path ||
     servicePage?.path;
 
-  if (!pagePath) {
-    return baseUrl;
-  }
-
-  return (
-    `${baseUrl}${pagePath}`
-  );
+  return pagePath
+    ? `${baseUrl}${pagePath}`
+    : baseUrl;
 }
 
 
 export function buildSeo(
-  inputCity,
   pathname = '/',
 ) {
-  const city =
-    normalizeCity(inputCity);
-
   const objectType =
     getObjectTypeByPathname(
       pathname,
@@ -63,23 +51,16 @@ export function buildSeo(
       pathname,
     );
 
-  const cityBaseUrl =
-    getCityUrl(city)
-      .replace(/\/$/, '');
+  const baseUrl =
+    SITE.defaultUrl.replace(
+      /\/$/,
+      '',
+    );
 
   const canonical =
     buildCanonical(
-      city,
       pathname,
     );
-
-  const seoTitleLocation =
-    city.seoNeedsSubject &&
-    city.subject &&
-    city.subject !== city.name
-      ? `${city.name}, ${city.subject}`
-      : city.locationSeo;
-
 
   let title;
   let description;
@@ -94,46 +75,14 @@ export function buildSeo(
       servicePage.seoDescription ||
       servicePage.description;
 
-    const serviceRegionalDescription =
-      servicePage.regionalDescription ||
-      servicePage.description;
-
-
     title =
-      city.isDefault
-        ? (
-            `${serviceSeoTitle} | ` +
-            `${SITE.brand}`
-          )
-        : city.hasTrustedInflection &&
-          !city.seoNeedsSubject
-          ? (
-              `${servicePage.seoName} ` +
-              `${city.locationPhrase} | ${SITE.brand}`
-            )
-          : (
-              `${servicePage.seoName} — ` +
-              `${seoTitleLocation} | ${SITE.brand}`
-            );
-
+      `${serviceSeoTitle} | ` +
+      `${SITE.brand}`;
 
     description =
-      city.isDefault
-        ? serviceSeoDescription
-        : city.hasTrustedInflection &&
-          !city.seoNeedsSubject
-          ? (
-              `${servicePage.seoName} ` +
-              `${city.locationPhrase}. ` +
-              `${serviceRegionalDescription}`
-            )
-          : (
-              `${servicePage.seoName} — ` +
-              `${seoTitleLocation}. ` +
-              `${serviceRegionalDescription}`
-            );
-
-  } else if (objectType) {
+      serviceSeoDescription;
+  }
+  else if (objectType) {
     const objectSeoTitle =
       objectType.seoTitle ||
       (
@@ -150,86 +99,21 @@ export function buildSeo(
         `согласования. ${SITE.brand}.`
       );
 
-
     title =
-      city.isDefault
-        ? (
-            `${objectSeoTitle} | ${SITE.brand}`
-          )
-        : city.hasTrustedInflection &&
-          !city.seoNeedsSubject
-          ? (
-              `${objectType.seoName} ` +
-              `${city.locationPhrase} | ${SITE.brand}`
-            )
-          : (
-              `${objectType.seoName} — ` +
-              `${seoTitleLocation} | ${SITE.brand}`
-            );
-
+      `${objectSeoTitle} | ${SITE.brand}`;
 
     description =
-      city.isDefault
-        ? objectSeoDescription
-        : city.hasTrustedInflection &&
-          !city.seoNeedsSubject
-          ? (
-              `${objectType.seoName} ` +
-              `${city.locationPhrase}. ` +
-              `Категорирование, акт обследования, ` +
-              `разработка паспорта и сопровождение согласования.`
-            )
-          : (
-              `${objectType.seoName}: ` +
-              `${seoTitleLocation}. ` +
-              `Категорирование, акт обследования, ` +
-              `разработка паспорта и сопровождение согласования.`
-            );
-  } else {
+      objectSeoDescription;
+  }
+  else {
     title =
-      city.isDefault
-        ? (
-            `Разработка паспорта безопасности объекта — ` +
-            `от 9 500 ₽ | ${SITE.brand}`
-          )
-        : city.seoNeedsSubject
-          ? (
-              `Паспорт безопасности — ` +
-              `${seoTitleLocation} | ${SITE.brand}`
-            )
-          : city.hasTrustedInflection
-            ? (
-                `Паспорт безопасности ` +
-                `${city.locationPhrase} | ${SITE.brand}`
-              )
-            : (
-                `Паспорт безопасности — ` +
-                `${seoTitleLocation} | ${SITE.brand}`
-              );
+      `Разработка паспорта безопасности объекта — ` +
+      `от 9 500 ₽ | ${SITE.brand}`;
 
     description =
-      city.isDefault
-        ? (
-            `Разработка паспорта безопасности объекта от 9 500 ₽. ` +
-            `Категорирование, акт обследования, паспорт и ` +
-            `сопровождение согласования. БОЙКОВГРУПП.`
-          )
-        : (
-            city.hasTrustedInflection &&
-            !city.seoNeedsSubject
-          )
-          ? (
-              `Разработка паспорта безопасности объекта ` +
-              `${city.locationPhrase}. ` +
-              `Категорирование, подготовка документа ` +
-              `и сопровождение согласования.`
-            )
-          : (
-              `Разработка паспорта безопасности объекта: ` +
-              `${seoTitleLocation}. ` +
-              `Категорирование, подготовка документа ` +
-              `и сопровождение согласования.`
-            );
+      `Разработка паспорта безопасности объекта от 9 500 ₽. ` +
+      `Категорирование, акт обследования, паспорт и ` +
+      `сопровождение согласования. БОЙКОВГРУПП.`;
   }
 
 
@@ -239,7 +123,7 @@ export function buildSeo(
     canonical,
 
     image:
-      `${cityBaseUrl}/images/og-passport-security.png`,
+      `${baseUrl}/images/og-passport-security.png`,
   };
 }
 
@@ -277,57 +161,9 @@ export const organizationSchema = {
 };
 
 
-function buildAreaServed(city) {
-  if (
-    city.isDefault ||
-    city.type === 'country'
-  ) {
-    return {
-      '@type': 'Country',
-      name: 'Россия',
-    };
-  }
-
-  if (city.type === 'region') {
-    return {
-      '@type': 'AdministrativeArea',
-      name: city.name,
-    };
-  }
-
-  const subject =
-    String(
-      city.subject ||
-      city.region ||
-      '',
-    ).trim();
-
-  const area = {
-    '@type': 'City',
-    name: city.name,
-  };
-
-  if (
-    subject &&
-    subject !== city.name
-  ) {
-    area.containedInPlace = {
-      '@type': 'AdministrativeArea',
-      name: subject,
-    };
-  }
-
-  return area;
-}
-
-
 export function buildServiceSchema(
-  inputCity,
   pathname = '/',
 ) {
-  const city =
-    normalizeCity(inputCity);
-
   const objectType =
     getObjectTypeByPathname(
       pathname,
@@ -340,14 +176,18 @@ export function buildServiceSchema(
 
   const seo =
     buildSeo(
-      city,
       pathname,
     );
 
   return {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    '@id': `${seo.canonical.replace(/\/$/, '')}/#service`,
+
+    '@id':
+      `${seo.canonical.replace(
+        /\/$/,
+        '',
+      )}/#service`,
 
     name:
       servicePage?.seoName ||
@@ -364,15 +204,23 @@ export function buildServiceSchema(
       servicePage
         ? servicePage.seoName
         : objectType
-          ? `Разработка и сопровождение: ${objectType.seoName}`
-          : 'Разработка и сопровождение паспорта безопасности объекта',
+          ? (
+              `Разработка и сопровождение: ` +
+              `${objectType.seoName}`
+            )
+          : (
+              'Разработка и сопровождение ' +
+              'паспорта безопасности объекта'
+            ),
 
     provider: {
       '@id':
         `${SITE.defaultUrl}/#organization`,
     },
 
-    areaServed:
-      buildAreaServed(city),
+    areaServed: {
+      '@type': 'Country',
+      name: 'Россия',
+    },
   };
 }

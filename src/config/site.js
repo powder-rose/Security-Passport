@@ -15,6 +15,7 @@ export const SITE = {
   phoneHref: 'tel:+78002012043',
   email: 'mail@pasport-bezopasnosty.ru',
   taxId: '5027310150',
+  address: 'Проспект Мира 101 ст.1',
   privacyUrl: `${federalUrl}/privacy/`,
   personalDataUrl: `${federalUrl}/personal-data/`,
   offerUrl: `${federalUrl}/oferta/`,

@@ -106,15 +106,61 @@ if (mode === 'source') {
     }
   }
 
-  const configFiles = ['src/config/city.js', 'src/config/seo.js', 'src/config/site.js'];
-  const productionConfig = (await Promise.all(configFiles.map((rel) => readFile(path.join(root, rel), 'utf8')))).join('\n');
-  const suspiciousDomains = ['example.ru', 'example.com', 'localhost:5173'];
-  for (const domain of suspiciousDomains) {
-    if (productionConfig.includes(domain)) addError(`Suspicious production placeholder found in config: ${domain}`);
-  }
+  const configFiles = [
+    'src/config/seo.js',
+    'src/config/site.js',
+  ];
+
+  const productionConfigParts = [];
 
   for (const rel of configFiles) {
-    if (!(await exists(path.join(root, rel)))) addError(`Missing required config file: ${rel}`);
+    const configPath =
+      path.join(
+        root,
+        rel,
+      );
+
+    if (
+      !(await exists(
+        configPath,
+      ))
+    ) {
+      addError(
+        `Missing required config file: ${rel}`,
+      );
+
+      continue;
+    }
+
+    productionConfigParts.push(
+      await readFile(
+        configPath,
+        'utf8',
+      ),
+    );
+  }
+
+  const productionConfig =
+    productionConfigParts.join(
+      '\n',
+    );
+
+  const suspiciousDomains = [
+    'example.ru',
+    'example.com',
+    'localhost:5173',
+  ];
+
+  for (const domain of suspiciousDomains) {
+    if (
+      productionConfig.includes(
+        domain,
+      )
+    ) {
+      addError(
+        `Suspicious production placeholder found in config: ${domain}`,
+      );
+    }
   }
 
   if (!(await exists(path.join(publicDir, 'favicon.svg')))) addWarning('public/favicon.svg is missing.');
