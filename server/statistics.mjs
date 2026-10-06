@@ -2,12 +2,6 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import {
-  DEFAULT_LOCATION,
-  getLocationBySlug,
-} from '../config/geography/index.mjs';
-
-import { resolveSiteFromHost } from './site-region.mjs';
 import { isBotVisit } from './bot-detection.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -94,153 +88,19 @@ function getTimestamp(row, type) {
   return Number.isFinite(timestamp) ? timestamp : null;
 }
 
-const LEGACY_SITE_SLUGS = new Map([
-  ['gay', 'gai'],
-]);
-
-
-function normalizeStatisticsSite(
-  site,
-) {
-  const rawSlug =
-    String(
-      site?.slug ||
-      '',
-    )
-      .trim()
-      .toLowerCase();
-
-  if (!rawSlug) {
-    return {
-      slug: 'unknown',
-      name: 'Не определён',
-    };
-  }
-
-  const slug =
-    LEGACY_SITE_SLUGS.get(
-      rawSlug,
-    ) ||
-    rawSlug;
-
-  if (slug === 'russia') {
-    return {
-      slug: 'russia',
-      name: DEFAULT_LOCATION.name,
-    };
-  }
-
-  const location =
-    getLocationBySlug(
-      slug,
-    );
-
-  if (location) {
-    return {
-      slug: location.slug,
-      name: location.name,
-    };
-  }
-
-  return {
-    slug,
-    name:
-      site?.name ||
-      slug,
-  };
-}
-
-
-function resolveLeadSite(lead) {
-  if (
-    lead?.site?.slug &&
-    lead?.site?.name
-  ) {
-    return normalizeStatisticsSite(
-      lead.site,
-    );
-  }
-
-  if (lead?.page) {
-    try {
-      const url = new URL(lead.page);
-      const site = resolveSiteFromHost(url.host);
-
-      return normalizeStatisticsSite(
-        site,
-      );
-    } catch {
-      // fallback ниже
-    }
-  }
-
-  return {
-    slug: 'unknown',
-    name: 'Не определён',
-  };
-}
-
-function resolveVisitSite(visit) {
-  if (
-    visit?.site?.slug &&
-    visit?.site?.name
-  ) {
-    return normalizeStatisticsSite(
-      visit.site,
-    );
-  }
-
-  return {
-    slug: 'unknown',
-    name: 'Не определён',
-  };
-}
-
-const BASELINE_CITY_SLUGS = [
-  'moscow',
-  'spb',
-  'kazan',
-];
-
-
-const BASELINE_CITIES =
-  BASELINE_CITY_SLUGS.map(
-    (slug) => {
-      const location =
-        getLocationBySlug(slug);
-
-      if (!location) {
-        throw new Error(
-          `Baseline geography not found: ${slug}`,
-        );
-      }
-
-      return {
-        slug:
-          location.slug,
-
-        name:
-          location.name,
-      };
-    },
-  );
-
-
-const KNOWN_CITIES = [
-  {
+const FEDERAL_SITE =
+  Object.freeze({
     slug: 'russia',
-
-    name:
-      DEFAULT_LOCATION.name,
-  },
-
-  ...BASELINE_CITIES,
-];
+    name: 'Россия',
+  });
 
 
 function getKnownCities() {
-  return KNOWN_CITIES;
+  return [
+    FEDERAL_SITE,
+  ];
 }
+
 
 function createCityMap() {
   return new Map(
@@ -254,19 +114,6 @@ function createCityMap() {
       },
     ]),
   );
-}
-
-function ensureCity(map, site) {
-  if (!map.has(site.slug)) {
-    map.set(site.slug, {
-      slug: site.slug,
-      name: site.name || site.slug,
-      visits: 0,
-      leads: 0,
-    });
-  }
-
-  return map.get(site.slug);
 }
 
 function calculateConversion(leads, visits) {
@@ -297,8 +144,10 @@ function aggregatePeriod({
       continue;
     }
 
-    const site = resolveVisitSite(visit);
-    const city = ensureCity(cities, site);
+    const city =
+      cities.get(
+        FEDERAL_SITE.slug,
+      );
 
     city.visits += 1;
   }
@@ -314,8 +163,10 @@ function aggregatePeriod({
       continue;
     }
 
-    const site = resolveLeadSite(lead);
-    const city = ensureCity(cities, site);
+    const city =
+      cities.get(
+        FEDERAL_SITE.slug,
+      );
 
     city.leads += 1;
   }
