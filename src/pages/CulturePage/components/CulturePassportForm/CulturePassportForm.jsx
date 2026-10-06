@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { cultureFormStructure } from "../../culturePageData";
+import { cultureFormStructure } from '../../culturePageData';
 
 export default function CulturePassportForm() {
   return (
@@ -16,15 +16,13 @@ export default function CulturePassportForm() {
 
             <div className="culture-form__intro">
               <p>
-                Официальная форма паспорта утверждена ПП РФ №176. После
-                изменений 2025 года для нового документа необходимо использовать
-                актуальную форму.
+                Официальная форма паспорта утверждена ПП РФ №176. После изменений 2025 года для
+                нового документа необходимо использовать актуальную форму.
               </p>
 
               <p>
-                Заполненный паспорт действующего объекта в открытом доступе не
-                публикуем из-за ограниченного характера содержащихся в нём
-                сведений.
+                Заполненный паспорт действующего объекта в открытом доступе не публикуем из-за
+                ограниченного характера содержащихся в нём сведений.
               </p>
             </div>
           </div>
@@ -40,10 +38,7 @@ export default function CulturePassportForm() {
               <div className="culture-form__document-body">
                 <span>Обезличенная структура</span>
 
-                <p>
-                  Показываем состав разделов, а не сведения конкретного
-                  учреждения культуры.
-                </p>
+                <p>Показываем состав разделов, а не сведения конкретного учреждения культуры.</p>
               </div>
 
               <div className="culture-form__document-footer">
@@ -54,14 +49,12 @@ export default function CulturePassportForm() {
             </div>
 
             <div className="culture-form__structure">
-              <p className="culture-form__structure-label">
-                Основные разделы формы
-              </p>
+              <p className="culture-form__structure-label">Основные разделы формы</p>
 
               <ol>
                 {cultureFormStructure.map((item, index) => (
                   <li key={item}>
-                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <span>{String(index + 1).padStart(2, '0')}</span>
 
                     <strong>{item}</strong>
                   </li>

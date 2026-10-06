@@ -1,4 +1,4 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
 export default function TradeCategorizationAndAct() {
   return (
@@ -12,8 +12,8 @@ export default function TradeCategorizationAndAct() {
               <h2>Как проводится категорирование торгового объекта</h2>
 
               <p>
-                После предусмотренного основания создаётся комиссия по
-                обследованию и категорированию торгового объекта.
+                После предусмотренного основания создаётся комиссия по обследованию и
+                категорированию торгового объекта.
               </p>
             </div>
 
@@ -24,9 +24,8 @@ export default function TradeCategorizationAndAct() {
                 <strong>1 месяц</strong>
 
                 <p>
-                  С марта 2026 года срок её создания закреплён, в частности,
-                  после получения уведомления о включении торгового объекта в
-                  соответствующий перечень.
+                  С марта 2026 года срок её создания закреплён, в частности, после получения
+                  уведомления о включении торгового объекта в соответствующий перечень.
                 </p>
               </article>
 
@@ -34,8 +33,8 @@ export default function TradeCategorizationAndAct() {
                 <span aria-hidden="true">+</span>
 
                 <p>
-                  К работе комиссии могут привлекаться профильные специалисты и
-                  эксперты специализированных организаций.
+                  К работе комиссии могут привлекаться профильные специалисты и эксперты
+                  специализированных организаций.
                 </p>
               </div>
             </div>
@@ -96,10 +95,9 @@ export default function TradeCategorizationAndAct() {
               <h2>Акт обследования и категорирования торгового объекта</h2>
 
               <p className="trade-act__lead">
-                После обследования и определения категории результаты работы
-                комиссии оформляются актом обследования и категорирования. На
-                основании этого этапа далее разрабатывается паспорт
-                безопасности.
+                После обследования и определения категории результаты работы комиссии оформляются
+                актом обследования и категорирования. На основании этого этапа далее разрабатывается
+                паспорт безопасности.
               </p>
 
               <div className="trade-act__connection">
@@ -126,10 +124,7 @@ export default function TradeCategorizationAndAct() {
                 </div>
               </div>
 
-              <a
-                className="trade-inline-link"
-                href="/akt-obsledovaniya-i-kategorirovaniya-obekta/"
-              >
+              <a className="trade-inline-link" href="/akt-obsledovaniya-i-kategorirovaniya-obekta/">
                 Подробнее об акте обследования и категорирования
                 <span aria-hidden="true">→</span>
               </a>

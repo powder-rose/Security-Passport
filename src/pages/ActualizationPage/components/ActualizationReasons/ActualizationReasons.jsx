@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { triggerRows } from "../../actualizationPageData";
+import { triggerRows } from '../../actualizationPageData';
 
 export default function ActualizationReasons() {
   return (
@@ -13,8 +13,8 @@ export default function ActualizationReasons() {
             <h2>Когда требуется актуализация паспорта безопасности</h2>
 
             <p>
-              Конкретные основания зависят от вида объекта и требований, по
-              которым разработан его паспорт.
+              Конкретные основания зависят от вида объекта и требований, по которым разработан его
+              паспорт.
             </p>
           </div>
 
@@ -29,12 +29,8 @@ export default function ActualizationReasons() {
               <span role="columnheader">Может потребоваться актуализация</span>
             </div>
 
-            {triggerRows.map((item) => (
-              <div
-                className="actualization-reasons-table__row"
-                role="row"
-                key={item.change}
-              >
+            {triggerRows.map(item => (
+              <div className="actualization-reasons-table__row" role="row" key={item.change}>
                 <span role="cell">{item.change}</span>
 
                 <strong role="cell">{item.result}</strong>
@@ -44,14 +40,13 @@ export default function ActualizationReasons() {
 
           <aside className="actualization-reasons__notice">
             <strong>
-              Основания и сроки актуализации зависят от вида объекта и
-              нормативного акта, который устанавливает требования к его
-              антитеррористической защищённости.
+              Основания и сроки актуализации зависят от вида объекта и нормативного акта, который
+              устанавливает требования к его антитеррористической защищённости.
             </strong>
 
             <p>
-              Поэтому мы не просто меняем дату в паспорте — сначала определяем
-              применимые требования.
+              Поэтому мы не просто меняем дату в паспорте — сначала определяем применимые
+              требования.
             </p>
           </aside>
         </Container>

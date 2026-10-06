@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { educationPrices } from "../../educationPageData";
+import { educationPrices } from '../../educationPageData';
 
 export default function EducationPricing() {
   return (
@@ -14,15 +14,14 @@ export default function EducationPricing() {
               <h2>Стоимость разработки паспорта образовательной организации</h2>
 
               <p>
-                Можно заказать отдельный документ или комплекс работ в
-                зависимости от текущего состояния объекта и имеющейся
-                документации.
+                Можно заказать отдельный документ или комплекс работ в зависимости от текущего
+                состояния объекта и имеющейся документации.
               </p>
             </div>
 
             <div className="education-price__content">
               <div className="education-price__list">
-                {educationPrices.map((item) => (
+                {educationPrices.map(item => (
                   <article className="education-price__item" key={item.title}>
                     <div>
                       <h3>{item.title}</h3>
@@ -39,10 +38,9 @@ export default function EducationPricing() {
                 <span aria-hidden="true">✓</span>
 
                 <p>
-                  Если у образовательной организации уже имеется актуальный акт
-                  категорирования, можно заказать только разработку паспорта.
-                  Если объект ещё не категорирован, сначала проводится
-                  соответствующая процедура.
+                  Если у образовательной организации уже имеется актуальный акт категорирования,
+                  можно заказать только разработку паспорта. Если объект ещё не категорирован,
+                  сначала проводится соответствующая процедура.
                 </p>
               </div>
 

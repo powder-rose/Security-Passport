@@ -3,7 +3,7 @@ export default function ArticleImage({ article }) {
     return (
       <img
         src={article.image}
-        alt={article.imageAlt || article.title || ""}
+        alt={article.imageAlt || article.title || ''}
         width="1200"
         height="675"
         loading="lazy"

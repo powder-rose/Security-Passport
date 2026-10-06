@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { hotelServiceItems } from "../../hotelPageData";
+import { hotelServiceItems } from '../../hotelPageData';
 
 export default function HotelServiceScope() {
   return (
@@ -16,9 +16,9 @@ export default function HotelServiceScope() {
               </div>
 
               <p>
-                Работа строится вокруг конкретного объекта: сначала определяем
-                применимые требования, затем готовим документы для
-                категорирования, паспорта и предусмотренного согласования.
+                Работа строится вокруг конкретного объекта: сначала определяем применимые
+                требования, затем готовим документы для категорирования, паспорта и предусмотренного
+                согласования.
               </p>
             </div>
 
@@ -26,7 +26,7 @@ export default function HotelServiceScope() {
               {hotelServiceItems.map((item, index) => (
                 <li key={item}>
                   <span className="hotel-service__number">
-                    {String(index + 1).padStart(2, "0")}
+                    {String(index + 1).padStart(2, '0')}
                   </span>
 
                   <strong>{item}</strong>

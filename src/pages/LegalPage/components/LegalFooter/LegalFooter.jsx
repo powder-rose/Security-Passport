@@ -1,11 +1,10 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { SITE } from "../../../../config/site";
+import { SITE } from '../../../../config/site';
 
-import { legalDocuments } from "../../../../content/legalDocuments";
+import { legalDocuments } from '../../../../content/legalDocuments';
 
-const CURRENT_YEAR =
-  new Date().getFullYear();
+const CURRENT_YEAR = new Date().getFullYear();
 
 export default function LegalFooter() {
   const allDocuments = Object.values(legalDocuments);
@@ -27,11 +26,8 @@ export default function LegalFooter() {
           </div>
         </div>
 
-        <nav
-          className="legal-footer__links"
-          aria-label="Юридическая информация"
-        >
-          {allDocuments.map((item) => (
+        <nav className="legal-footer__links" aria-label="Юридическая информация">
+          {allDocuments.map(item => (
             <a
               key={item.slug}
               href={`${SITE.federalUrl}/${item.slug}/`}

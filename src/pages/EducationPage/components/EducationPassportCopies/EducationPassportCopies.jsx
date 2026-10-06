@@ -1,4 +1,4 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
 export default function EducationPassportCopies() {
   return (
@@ -10,10 +10,7 @@ export default function EducationPassportCopies() {
 
             <h2>Сколько экземпляров паспорта оформляется</h2>
 
-            <p>
-              Порядок зависит от нормативного режима конкретного
-              образовательного объекта.
-            </p>
+            <p>Порядок зависит от нормативного режима конкретного образовательного объекта.</p>
           </div>
 
           <div className="education-copies__comparison">
@@ -35,8 +32,8 @@ export default function EducationPassportCopies() {
                   <span>02</span>
 
                   <p>
-                    Второй направляется организации или органу, являющемуся
-                    правообладателем объекта.
+                    Второй направляется организации или органу, являющемуся правообладателем
+                    объекта.
                   </p>
                 </li>
               </ol>
@@ -44,10 +41,7 @@ export default function EducationPassportCopies() {
               <div className="education-copies__extra">
                 <strong>Дополнительно</strong>
 
-                <p>
-                  Копия паспорта направляется в территориальный орган
-                  безопасности.
-                </p>
+                <p>Копия паспорта направляется в территориальный орган безопасности.</p>
               </div>
             </article>
 
@@ -59,16 +53,16 @@ export default function EducationPassportCopies() {
               </div>
 
               <p className="education-copies__card-text">
-                Для объекта, подпадающего под этот нормативный режим, порядок
-                оформления отличается от правил ПП РФ №1006.
+                Для объекта, подпадающего под этот нормативный режим, порядок оформления отличается
+                от правил ПП РФ №1006.
               </p>
 
               <div className="education-copies__warning">
                 <span aria-hidden="true">!</span>
 
                 <p>
-                  Количество экземпляров и порядок хранения нельзя автоматически
-                  переносить с одного вида образовательного объекта на другой.
+                  Количество экземпляров и порядок хранения нельзя автоматически переносить с одного
+                  вида образовательного объекта на другой.
                 </p>
               </div>
             </article>

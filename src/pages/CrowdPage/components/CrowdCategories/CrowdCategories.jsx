@@ -1,4 +1,4 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
 export default function CrowdCategories() {
   return (
@@ -12,9 +12,7 @@ export default function CrowdCategories() {
               <h2>3 категории ММПЛ</h2>
             </div>
 
-            <p>
-              Базовый критерий — максимальное одновременное количество людей.
-            </p>
+            <p>Базовый критерий — максимальное одновременное количество людей.</p>
           </div>
 
           <div className="crowd-categories__table">
@@ -59,9 +57,8 @@ export default function CrowdCategories() {
             <span>Решение комиссии</span>
 
             <p>
-              При предусмотренных обстоятельствах комиссия вправе присвоить
-              категорию выше или ниже исходной с учётом оперативной обстановки и
-              угроз.
+              При предусмотренных обстоятельствах комиссия вправе присвоить категорию выше или ниже
+              исходной с учётом оперативной обстановки и угроз.
             </p>
           </aside>
         </Container>

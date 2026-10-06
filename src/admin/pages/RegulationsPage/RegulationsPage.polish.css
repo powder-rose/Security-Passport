@@ -6,31 +6,27 @@
   color: #111;
 }
 
-
 .regulations-heading {
   margin-bottom: 18px;
 }
-
 
 .regulations-page h1 {
   margin: 0;
   font-size: clamp(34px, 4vw, 58px);
   font-weight: 720;
-  line-height: .98;
-  letter-spacing: -.055em;
+  line-height: 0.98;
+  letter-spacing: -0.055em;
 }
-
 
 .regulations-message {
   width: min(100%, 760px);
   margin: 0 auto 16px;
   padding: 11px 14px;
-  border: 1px solid rgba(17,17,17,.09);
+  border: 1px solid rgba(17, 17, 17, 0.09);
   border-radius: 8px;
-  background: rgba(255,255,255,.68);
+  background: rgba(255, 255, 255, 0.68);
   font-size: 14px;
 }
-
 
 .regulations-loading {
   width: min(100%, 760px);
@@ -38,7 +34,6 @@
   padding: 24px;
   text-align: center;
 }
-
 
 .regulations-accordion {
   display: flex;
@@ -71,19 +66,15 @@
     background-color 160ms ease;
 }
 
-
 .regulations-accordion:hover {
   background: #fafafa;
 }
 
-
 .regulations-accordion.is-expanded {
   border-color: #a9f04a;
 
-  box-shadow:
-    0 0 0 2px rgba(169,240,74,.32);
+  box-shadow: 0 0 0 2px rgba(169, 240, 74, 0.32);
 }
-
 
 .regulations-accordion:focus-visible,
 .regulations-add:focus-visible,
@@ -96,7 +87,6 @@
   outline-offset: 3px;
 }
 
-
 .regulations-list {
   width: min(100%, 640px);
 
@@ -108,10 +98,8 @@
 
   background: #111;
 
-  box-shadow:
-    0 12px 28px rgba(17,17,17,.08);
+  box-shadow: 0 12px 28px rgba(17, 17, 17, 0.08);
 }
-
 
 .regulations-list__row {
   display: grid;
@@ -139,12 +127,9 @@
   cursor: pointer;
 }
 
-
 .regulations-list__row + .regulations-list__row {
-  border-top:
-    1px solid rgba(255,255,255,.07);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
 }
-
 
 .regulations-list__name {
   overflow: hidden;
@@ -158,7 +143,6 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
 
 .regulations-list__status {
   display: block;
@@ -180,22 +164,18 @@
   white-space: nowrap;
 }
 
-
-.regulations-list__row:hover
-.regulations-list__status {
+.regulations-list__row:hover .regulations-list__status {
   background: #a9f04a;
 }
-
 
 .regulations-list__empty {
   margin: 0;
   padding: 24px;
 
-  color: rgba(255,255,255,.72);
+  color: rgba(255, 255, 255, 0.72);
 
   text-align: center;
 }
-
 
 .regulations-add {
   display: flex;
@@ -209,7 +189,7 @@
   margin: 13px auto 11px;
   padding: 0 24px;
 
-  border: 1px solid rgba(17,17,17,.5);
+  border: 1px solid rgba(17, 17, 17, 0.5);
   border-radius: 9px;
 
   background: #fff;
@@ -224,14 +204,11 @@
     box-shadow 160ms ease;
 }
 
-
 .regulations-add:hover {
   border-color: #111;
 
-  box-shadow:
-    0 12px 30px rgba(17,17,17,.08);
+  box-shadow: 0 12px 30px rgba(17, 17, 17, 0.08);
 }
-
 
 .regulations-add__label {
   display: inline;
@@ -244,15 +221,13 @@
 }
 
 .regulations-add__label::after {
-  content: " +";
+  content: ' +';
   font-weight: 700;
 }
-
 
 .regulations-add__plus {
   display: none;
 }
-
 
 .regulations-quiz {
   width: min(100%, 760px);
@@ -261,17 +236,14 @@
 
   overflow: hidden;
 
-  border:
-    1px solid rgba(17,17,17,.5);
+  border: 1px solid rgba(17, 17, 17, 0.5);
 
   border-radius: 8px;
 
   background: #fff;
 
-  box-shadow:
-    0 12px 30px rgba(17,17,17,.05);
+  box-shadow: 0 12px 30px rgba(17, 17, 17, 0.05);
 }
-
 
 .regulations-quiz__top {
   display: flex;
@@ -286,7 +258,6 @@
   font-weight: 700;
 }
 
-
 .regulations-quiz__progress {
   width: 100%;
   height: 3px;
@@ -296,7 +267,6 @@
   background: #e7e7e7;
 }
 
-
 .regulations-quiz__progress span {
   display: block;
 
@@ -304,10 +274,8 @@
 
   background: #1260ff;
 
-  transition:
-    width 180ms ease;
+  transition: width 180ms ease;
 }
-
 
 .regulations-quiz__body {
   display: grid;
@@ -315,12 +283,8 @@
 
   min-height: 270px;
 
-  padding:
-    48px
-    clamp(24px, 8vw, 86px)
-    42px;
+  padding: 48px clamp(24px, 8vw, 86px) 42px;
 }
-
 
 .regulations-quiz__label {
   display: block;
@@ -335,11 +299,9 @@
   text-align: center;
 }
 
-
 .regulations-quiz__field {
   width: min(100%, 500px);
 }
-
 
 .regulations-quiz__field input,
 .regulations-quiz__field select,
@@ -364,7 +326,6 @@
   outline: none;
 }
 
-
 .regulations-quiz__field textarea {
   min-height: 156px;
 
@@ -373,16 +334,13 @@
   resize: vertical;
 }
 
-
 .regulations-quiz__field input:focus,
 .regulations-quiz__field select:focus,
 .regulations-quiz__field textarea:focus {
   border-color: #a9f04a;
 
-  box-shadow:
-    0 0 0 2px rgba(169,240,74,.22);
+  box-shadow: 0 0 0 2px rgba(169, 240, 74, 0.22);
 }
-
 
 .regulations-quiz__actions {
   display: flex;
@@ -391,12 +349,8 @@
 
   gap: 12px;
 
-  padding:
-    0
-    clamp(18px, 5vw, 38px)
-    26px;
+  padding: 0 clamp(18px, 5vw, 38px) 26px;
 }
-
 
 .regulations-quiz__actions button {
   min-height: 44px;
@@ -415,11 +369,8 @@
   cursor: pointer;
 }
 
-
-.regulations-quiz__actions
-.regulations-quiz__next,
-.regulations-quiz__actions
-.regulations-quiz__save {
+.regulations-quiz__actions .regulations-quiz__next,
+.regulations-quiz__actions .regulations-quiz__save {
   margin-left: auto;
 
   border-color: #1260ff;
@@ -428,7 +379,6 @@
   color: #fff;
 }
 
-
 .regulations-quiz__next {
   display: inline-flex;
   align-items: center;
@@ -436,34 +386,25 @@
   gap: 12px;
 }
 
-
-.regulations-quiz__actions
-button:hover {
+.regulations-quiz__actions button:hover {
   transform: translateY(-1px);
 }
 
-
-.regulations-quiz__actions
-button:disabled {
-  opacity: .55;
+.regulations-quiz__actions button:disabled {
+  opacity: 0.55;
   cursor: wait;
 }
 
-
 .regulations-quiz__meta {
-  padding:
-    13px
-    18px;
+  padding: 13px 18px;
 
-  border-top:
-    1px solid rgba(17,17,17,.08);
+  border-top: 1px solid rgba(17, 17, 17, 0.08);
 
-  color: rgba(17,17,17,.58);
+  color: rgba(17, 17, 17, 0.58);
 
   font-size: 12px;
   text-align: center;
 }
-
 
 .regulations-publication {
   display: flex;
@@ -485,7 +426,6 @@ button:disabled {
   font-size: 13px;
 }
 
-
 .regulations-publication button {
   border: 0;
 
@@ -498,27 +438,18 @@ button:disabled {
   cursor: pointer;
 }
 
-
 .regulations-publication--failed {
   background: #f9e7e4;
 }
 
-
 @media (max-width: 760px) {
-
   .regulations-page h1 {
-    font-size: clamp(
-      32px,
-      9vw,
-      44px
-    );
+    font-size: clamp(32px, 9vw, 44px);
   }
-
 
   .regulations-list {
     padding: 8px;
   }
-
 
   .regulations-list__row {
     grid-template-columns: 1fr;
@@ -528,39 +459,26 @@ button:disabled {
     padding: 8px 4px;
   }
 
-
   .regulations-list__status {
     width: fit-content;
     max-width: 100%;
   }
 
-
   .regulations-quiz__body {
     min-height: 230px;
 
-    padding:
-      36px
-      18px
-      30px;
+    padding: 36px 18px 30px;
   }
-
 
   .regulations-quiz__actions {
-    padding:
-      0
-      18px
-      20px;
+    padding: 0 18px 20px;
   }
-
 }
 
-
 @media (max-width: 520px) {
-
   .regulations-accordion {
     font-size: 17px;
   }
-
 
   .regulations-quiz__top {
     padding-inline: 14px;
@@ -568,41 +486,32 @@ button:disabled {
     font-size: 12px;
   }
 
-
   .regulations-quiz__actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
 
-
   .regulations-quiz__actions button {
     width: 100%;
   }
 
-
-  .regulations-quiz__actions
-  .regulations-quiz__next,
-  .regulations-quiz__actions
-  .regulations-quiz__save {
+  .regulations-quiz__actions .regulations-quiz__next,
+  .regulations-quiz__actions .regulations-quiz__save {
     margin-left: 0;
   }
-
 }
 
-
 @media (prefers-reduced-motion: reduce) {
-
   .regulations-add,
   .regulations-quiz__progress span {
     transition: none;
   }
-
 }
 
 /* === REGULATIONS DROPDOWN THEME START === */
 
 .regulations-list {
-  background: #22191B;
+  background: #22191b;
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: none;
 }
@@ -620,29 +529,29 @@ button:disabled {
 .regulations-list__row:focus-visible,
 .regulations-list__row:active {
   background: rgba(255, 255, 255, 0.08);
-  box-shadow: inset 0 0 0 2px #2D6BFF;
+  box-shadow: inset 0 0 0 2px #2d6bff;
   outline: none;
 }
 
 .regulations-list__name {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .regulations-list__row:hover .regulations-list__name,
 .regulations-list__row:focus-visible .regulations-list__name,
 .regulations-list__row:active .regulations-list__name {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .regulations-list__status {
-  background: #FFFFFF;
+  background: #ffffff;
   color: #111111;
 }
 
 .regulations-list__row:hover .regulations-list__status,
 .regulations-list__row:focus-visible .regulations-list__status,
 .regulations-list__row:active .regulations-list__status {
-  box-shadow: inset 0 0 0 2px #2D6BFF;
+  box-shadow: inset 0 0 0 2px #2d6bff;
 }
 
 .regulations-list::-webkit-scrollbar-thumb {
@@ -650,7 +559,7 @@ button:disabled {
 }
 
 .regulations-list::-webkit-scrollbar-track {
-  background: #22191B;
+  background: #22191b;
 }
 
 /* === REGULATIONS DROPDOWN THEME END === */

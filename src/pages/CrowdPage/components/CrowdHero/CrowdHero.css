@@ -3,11 +3,9 @@
    ========================================================================== */
 
 .crowd-hero {
-  padding:
-    22px 0 116px;
+  padding: 22px 0 116px;
 
-  background:
-    #fff;
+  background: #fff;
 }
 
 .crowd-breadcrumbs {
@@ -17,10 +15,9 @@
 
   margin-bottom: 40px;
 
-  color:
-    var(--color-text-secondary);
+  color: var(--color-text-secondary);
 
-  font-size: .82rem;
+  font-size: 0.82rem;
 }
 
 .crowd-breadcrumbs a {
@@ -28,14 +25,12 @@
 
   text-decoration: none;
 
-  transition:
-    color 180ms ease;
+  transition: color 180ms ease;
 }
 
 @media (hover: hover) {
   .crowd-breadcrumbs a:hover {
-    color:
-      var(--color-text);
+    color: var(--color-text);
   }
 }
 
@@ -44,14 +39,9 @@
 
   grid-template-columns:
     minmax(0, 1fr)
-    minmax(340px, .58fr);
+    minmax(340px, 0.58fr);
 
-  gap:
-    clamp(
-      72px,
-      8vw,
-      130px
-    );
+  gap: clamp(72px, 8vw, 130px);
 
   align-items: start;
 }
@@ -65,15 +55,10 @@
 
   margin: 0;
 
-  font-size:
-    clamp(
-      3.4rem,
-      4.85vw,
-      5.25rem
-    );
+  font-size: clamp(3.4rem, 4.85vw, 5.25rem);
 
-  line-height: .95;
-  letter-spacing: -.062em;
+  line-height: 0.95;
+  letter-spacing: -0.062em;
 
   text-wrap: balance;
 }
@@ -81,11 +66,9 @@
 .crowd-hero__lead {
   max-width: 720px;
 
-  margin:
-    34px 0 0;
+  margin: 34px 0 0;
 
-  color:
-    var(--color-text-secondary);
+  color: var(--color-text-secondary);
 
   font-size: 1.08rem;
   line-height: 1.72;
@@ -95,7 +78,7 @@
   display: grid;
 
   grid-template-columns:
-    minmax(190px, .58fr)
+    minmax(190px, 0.58fr)
     minmax(0, 1fr);
 
   gap: 34px;
@@ -103,9 +86,7 @@
   margin-top: 42px;
   padding-top: 30px;
 
-  border-top:
-    1px solid
-    var(--color-border);
+  border-top: 1px solid var(--color-border);
 }
 
 .crowd-hero__price {
@@ -115,36 +96,24 @@
 }
 
 .crowd-hero__price span {
-  color:
-    var(--color-text-secondary);
+  color: var(--color-text-secondary);
 
-  font-size: .78rem;
+  font-size: 0.78rem;
 }
 
 .crowd-hero__price strong {
-  font-size:
-    clamp(
-      2rem,
-      2.7vw,
-      2.8rem
-    );
+  font-size: clamp(2rem, 2.7vw, 2.8rem);
 
   line-height: 1;
-  letter-spacing: -.05em;
+  letter-spacing: -0.05em;
 }
 
 .crowd-hero__facts {
   display: grid;
 
-  grid-template-columns:
-    repeat(
-      2,
-      minmax(0, 1fr)
-    );
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 
-  border-left:
-    1px solid
-    var(--color-border);
+  border-left: 1px solid var(--color-border);
 }
 
 .crowd-hero__facts > div {
@@ -156,37 +125,32 @@
   min-width: 0;
   min-height: 86px;
 
-  padding:
-    2px 24px;
+  padding: 2px 24px;
 }
 
 .crowd-hero__facts > div + div {
-  border-left:
-    1px solid
-    var(--color-border);
+  border-left: 1px solid var(--color-border);
 }
 
 .crowd-hero__facts strong {
   font-size: 1.8rem;
   line-height: 1;
-  letter-spacing: -.045em;
+  letter-spacing: -0.045em;
 }
 
 .crowd-hero__facts span {
   max-width: 130px;
 
-  color:
-    var(--color-text-secondary);
+  color: var(--color-text-secondary);
 
-  font-size: .74rem;
+  font-size: 0.74rem;
   line-height: 1.45;
 }
 
 .crowd-hero__actions {
   display: flex;
   flex-wrap: wrap;
-  gap:
-    16px 26px;
+  gap: 16px 26px;
 
   align-items: center;
 
@@ -196,10 +160,9 @@
 .crowd-text-action {
   max-width: 260px;
 
-  color:
-    var(--color-text);
+  color: var(--color-text);
 
-  font-size: .88rem;
+  font-size: 0.88rem;
   font-weight: 600;
   line-height: 1.45;
 
@@ -207,13 +170,12 @@
   text-decoration-thickness: 1px;
   text-underline-offset: 5px;
 
-  transition:
-    opacity 180ms ease;
+  transition: opacity 180ms ease;
 }
 
 @media (hover: hover) {
   .crowd-text-action:hover {
-    opacity: .62;
+    opacity: 0.62;
   }
 }
 
@@ -224,20 +186,15 @@
 
   min-height: 570px;
 
-  padding:
-    32px;
+  padding: 32px;
 
-  border-radius:
-    var(--radius-lg);
+  border-radius: var(--radius-lg);
 
-  background:
-    #151515;
+  background: #151515;
 
-  color:
-    #fff;
+  color: #fff;
 
-  box-shadow:
-    var(--shadow-soft);
+  box-shadow: var(--shadow-soft);
 
   transition:
     transform 220ms ease,
@@ -246,8 +203,7 @@
 
 @media (hover: hover) {
   .crowd-hero__regulation:hover {
-    transform:
-      translateY(-4px);
+    transform: translateY(-4px);
   }
 }
 
@@ -260,11 +216,9 @@
   width: 82px;
   height: 7px;
 
-  border-radius:
-    0 0 0 7px;
+  border-radius: 0 0 0 7px;
 
-  background:
-    var(--crowd-accent);
+  background: var(--crowd-accent);
 
   content: '';
 }
@@ -276,16 +230,13 @@
 
   padding-bottom: 22px;
 
-  border-bottom:
-    1px solid
-    rgb(255 255 255 / 16%);
+  border-bottom: 1px solid rgb(255 255 255 / 16%);
 
-  color:
-    rgb(255 255 255 / 55%);
+  color: rgb(255 255 255 / 55%);
 
-  font-size: .7rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
 
   text-transform: uppercase;
 }
@@ -293,73 +244,55 @@
 .crowd-hero__number {
   margin-top: 48px;
 
-  font-size:
-    clamp(
-      4.8rem,
-      7vw,
-      7.5rem
-    );
+  font-size: clamp(4.8rem, 7vw, 7.5rem);
 
   font-weight: 700;
-  line-height: .82;
-  letter-spacing: -.075em;
+  line-height: 0.82;
+  letter-spacing: -0.075em;
 }
 
 .crowd-hero__regulation h2 {
   max-width: 330px;
 
-  margin:
-    26px 0 0;
+  margin: 26px 0 0;
 
-  font-size:
-    clamp(
-      1.55rem,
-      2vw,
-      2.05rem
-    );
+  font-size: clamp(1.55rem, 2vw, 2.05rem);
 
   line-height: 1.08;
-  letter-spacing: -.045em;
+  letter-spacing: -0.045em;
 }
 
 .crowd-hero__definition {
   margin-top: 56px;
   padding-top: 24px;
 
-  border-top:
-    1px solid
-    rgb(255 255 255 / 16%);
+  border-top: 1px solid rgb(255 255 255 / 16%);
 }
 
 .crowd-hero__definition span {
-  color:
-    var(--crowd-accent);
+  color: var(--crowd-accent);
 
-  font-size: .7rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
 
   text-transform: uppercase;
 }
 
 .crowd-hero__definition p {
-  margin:
-    14px 0 0;
+  margin: 14px 0 0;
 
-  color:
-    rgb(255 255 255 / 76%);
+  color: rgb(255 255 255 / 76%);
 
-  font-size: .92rem;
+  font-size: 0.92rem;
   line-height: 1.62;
 }
 
 .crowd-hero__note {
-  margin:
-    24px 0 0;
+  margin: 24px 0 0;
 
-  color:
-    rgb(255 255 255 / 50%);
+  color: rgb(255 255 255 / 50%);
 
-  font-size: .78rem;
+  font-size: 0.78rem;
   line-height: 1.55;
 }

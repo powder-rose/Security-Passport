@@ -50,26 +50,22 @@
    ========================================================================== */
 
 .crowd-page {
-  --crowd-accent:
-    var(--color-accent);
+  --crowd-accent: var(--color-accent);
 
   overflow: clip;
 
-  color:
-    var(--color-text);
+  color: var(--color-text);
 }
 
 .crowd-kicker {
-  margin:
-    0 0 20px;
+  margin: 0 0 20px;
 
-  color:
-    var(--color-text-secondary);
+  color: var(--color-text-secondary);
 
-  font-size: .76rem;
+  font-size: 0.76rem;
   font-weight: 700;
   line-height: 1;
-  letter-spacing: .09em;
+  letter-spacing: 0.09em;
 
   text-transform: uppercase;
 }

@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { objectTypes } from "../../../../data/objectTypes";
+import { objectTypes } from '../../../../data/objectTypes';
 
 export default function CategorizationActObjectTypes() {
   return (
@@ -15,9 +15,8 @@ export default function CategorizationActObjectTypes() {
             </div>
 
             <p>
-              Для разных сфер действуют разные требования, поэтому перед
-              подготовкой акта мы сначала определяем нормативный режим
-              конкретного объекта.
+              Для разных сфер действуют разные требования, поэтому перед подготовкой акта мы сначала
+              определяем нормативный режим конкретного объекта.
             </p>
           </div>
 
@@ -25,19 +24,14 @@ export default function CategorizationActObjectTypes() {
             {objectTypes.map((item, index) => (
               <a href={item.path} key={item.id}>
                 <span className="categorization-act-types__number">
-                  {String(index + 1).padStart(2, "0")}
+                  {String(index + 1).padStart(2, '0')}
                 </span>
 
                 <strong>{item.title}</strong>
 
-                <span className="categorization-act-types__regulation">
-                  {item.regulationAct}
-                </span>
+                <span className="categorization-act-types__regulation">{item.regulationAct}</span>
 
-                <span
-                  className="categorization-act-types__arrow"
-                  aria-hidden="true"
-                >
+                <span className="categorization-act-types__arrow" aria-hidden="true">
                   ↗
                 </span>
               </a>

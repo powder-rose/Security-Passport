@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { educationServiceItems } from "../../educationPageData";
+import { educationServiceItems } from '../../educationPageData';
 
 export default function EducationServiceScope() {
   return (
@@ -13,13 +13,13 @@ export default function EducationServiceScope() {
             <h2>Разработка документов для образовательной организации</h2>
 
             <p>
-              Состав работ определяется после проверки применимых требований и
-              текущего состояния документов конкретного объекта.
+              Состав работ определяется после проверки применимых требований и текущего состояния
+              документов конкретного объекта.
             </p>
           </div>
 
           <div className="education-service__list">
-            {educationServiceItems.map((item) => (
+            {educationServiceItems.map(item => (
               <article className="education-service__item" key={item.number}>
                 <span className="education-service__number">{item.number}</span>
 

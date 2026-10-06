@@ -18,8 +18,7 @@ const legalLinks = [
   [SITE.privacyUrl, 'Политика конфиденциальности'],
 ];
 
-const CURRENT_YEAR =
-  new Date().getFullYear();
+const CURRENT_YEAR = new Date().getFullYear();
 
 export default function Footer() {
   return (
@@ -27,7 +26,11 @@ export default function Footer() {
       <Container>
         <div className="site-footer__top">
           <div className="site-footer__brand-block">
-            <a className="site-footer__brand" href="#top" aria-label={`${SITE.brand}: вернуться к началу страницы`}>
+            <a
+              className="site-footer__brand"
+              href="#top"
+              aria-label={`${SITE.brand}: вернуться к началу страницы`}
+            >
               {SITE.brand}
             </a>
             <p>
@@ -41,9 +44,7 @@ export default function Footer() {
             <ul>
               {navLinks.map(([href, label]) => (
                 <li key={href}>
-                  <a href={`/${href}`}>
-                    {label}
-                  </a>
+                  <a href={`/${href}`}>{label}</a>
                 </li>
               ))}
             </ul>
@@ -58,18 +59,15 @@ export default function Footer() {
               <span>Наш адрес</span>
               <strong>{SITE.address}</strong>
             </div>
-            <a className="site-footer__contact-action" href="/#contact">Обсудить объект ↗</a>
+            <a className="site-footer__contact-action" href="/#contact">
+              Обсудить объект ↗
+            </a>
           </div>
         </div>
 
         <div className="site-footer__legal-links" aria-label="Юридическая информация">
           {legalLinks.map(([href, label]) => (
-            <a
-              key={href}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a key={href} href={href} target="_blank" rel="noopener noreferrer">
               {label}
             </a>
           ))}
@@ -79,13 +77,15 @@ export default function Footer() {
           <div>
             <span>{SITE.legalName}</span>
             <span>ИНН {SITE.taxId}</span>
-            <span>© {CURRENT_YEAR} {SITE.brand}</span>
+            <span>
+              © {CURRENT_YEAR} {SITE.brand}
+            </span>
           </div>
 
           <p>
             Информация на сайте носит справочный характер и{'\u00A0'}не является публичной офертой.
-            Перечень документов, стоимость, сроки и{'\u00A0'}применимые требования определяются с учётом
-            конкретного объекта и{'\u00A0'}согласовываются до начала работ.
+            Перечень документов, стоимость, сроки и{'\u00A0'}применимые требования определяются с
+            учётом конкретного объекта и{'\u00A0'}согласовываются до начала работ.
           </p>
         </div>
       </Container>

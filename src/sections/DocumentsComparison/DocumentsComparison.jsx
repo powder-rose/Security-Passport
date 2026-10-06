@@ -1,5 +1,8 @@
 import Container from '../../components/ui/Container/Container';
-import { DocumentFlowIllustration, ShieldBuildingIllustration } from '../../components/illustrations/BlushIllustrations';
+import {
+  DocumentFlowIllustration,
+  ShieldBuildingIllustration,
+} from '../../components/illustrations/BlushIllustrations';
 import './DocumentsComparison.css';
 
 const actPoints = [
@@ -30,11 +33,15 @@ function DocumentCard({
   return (
     <article className={`document-card document-card--${variant}`}>
       <div className="document-card__top">
-        <span className="document-card__type" aria-hidden="true">{type}</span>
+        <span className="document-card__type" aria-hidden="true">
+          {type}
+        </span>
         <span className="document-card__label">{label}</span>
       </div>
 
-      <div className="document-card__illustration" aria-hidden="true">{illustration}</div>
+      <div className="document-card__illustration" aria-hidden="true">
+        {illustration}
+      </div>
 
       <h3>{title}</h3>
 
@@ -52,13 +59,12 @@ function DocumentCard({
       <a
         className="document-card__action"
         href={actionHref}
-        aria-label={
-          actionAriaLabel
-            || `${actionLabel}. Перейти к форме консультации`
-        }
+        aria-label={actionAriaLabel || `${actionLabel}. Перейти к форме консультации`}
       >
         <span>{actionLabel}</span>
-        <span className="document-card__arrow" aria-hidden="true">↗</span>
+        <span className="document-card__arrow" aria-hidden="true">
+          ↗
+        </span>
       </a>
     </article>
   );
@@ -72,13 +78,15 @@ export default function DocumentsComparison() {
           <div>
             <p className="documents-comparison__kicker">Сравнение документов</p>
             <h2 id="comparison-title">
-              Акт категорирования и{'\u00A0'}паспорт безопасности — <em>не одно и{'\u00A0'}то же</em>
+              Акт категорирования и{'\u00A0'}паспорт безопасности —{' '}
+              <em>не одно и{'\u00A0'}то же</em>
             </h2>
           </div>
 
           <p className="documents-comparison__lead">
-            Акт фиксирует результаты обследования и{'\u00A0'}решение комиссии. Паспорт готовится после
-            категорирования и{'\u00A0'}описывает объект, возможные угрозы и{'\u00A0'}комплекс мер защиты.
+            Акт фиксирует результаты обследования и{'\u00A0'}решение комиссии. Паспорт готовится
+            после категорирования и{'\u00A0'}описывает объект, возможные угрозы и{'\u00A0'}комплекс
+            мер защиты.
           </p>
         </div>
 
@@ -105,13 +113,19 @@ export default function DocumentsComparison() {
           />
         </div>
 
-        <aside className="documents-comparison__notice" aria-label="Важная информация о порядке разработки">
-          <span className="documents-comparison__notice-mark" aria-hidden="true">!</span>
+        <aside
+          className="documents-comparison__notice"
+          aria-label="Важная информация о порядке разработки"
+        >
+          <span className="documents-comparison__notice-mark" aria-hidden="true">
+            !
+          </span>
           <div>
             <p className="documents-comparison__notice-label">Важно</p>
             <p>
               Заказать только паспорт можно не во всех случаях. Для его подготовки обычно нужны
-              результаты обследования и{'\u00A0'}категорирования, оформленные комиссией отдельным актом.
+              результаты обследования и{'\u00A0'}категорирования, оформленные комиссией отдельным
+              актом.
             </p>
           </div>
         </aside>

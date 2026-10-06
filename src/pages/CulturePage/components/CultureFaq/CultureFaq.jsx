@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { cultureFaqItems } from "../../culturePageData";
+import { cultureFaqItems } from '../../culturePageData';
 
 export default function CultureFaq() {
   return (
@@ -16,8 +16,8 @@ export default function CultureFaq() {
               </div>
 
               <p>
-                Ответы по ПП РФ №176, категорированию, актуализации, форме
-                паспорта, ДСП и согласованию.
+                Ответы по ПП РФ №176, категорированию, актуализации, форме паспорта, ДСП и
+                согласованию.
               </p>
             </div>
 
@@ -26,12 +26,10 @@ export default function CultureFaq() {
                 <details className="culture-faq__item" key={item.question}>
                   <summary>
                     <span className="culture-faq__number">
-                      {String(index + 1).padStart(2, "0")}
+                      {String(index + 1).padStart(2, '0')}
                     </span>
 
-                    <span className="culture-faq__question">
-                      {item.question}
-                    </span>
+                    <span className="culture-faq__question">{item.question}</span>
 
                     <span className="culture-faq__toggle" aria-hidden="true">
                       +

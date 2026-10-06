@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { SITE } from "../../../../config/site";
+import { SITE } from '../../../../config/site';
 
 export default function LegalHeader() {
   return (

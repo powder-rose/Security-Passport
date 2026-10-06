@@ -149,7 +149,7 @@
   height: 230px;
   border: 1px solid rgb(255 255 255 / 12%);
   border-radius: 50%;
-  content: "";
+  content: '';
 }
 
 .trade-hero__edition-top {
@@ -446,7 +446,7 @@
 
   background: var(--trade-accent);
 
-  content: "";
+  content: '';
 }
 
 @media (max-width: 768px) {
@@ -663,7 +663,7 @@
 .trade-hero__edition::before {
   position: absolute;
   z-index: -1;
-  content: "";
+  content: '';
   transition:
     transform 500ms ease,
     opacity 500ms ease;
@@ -706,7 +706,7 @@
   width: 72px;
   height: 6px;
   border-radius: 0 0 6px 6px;
-  content: "";
+  content: '';
 }
 
 .trade-objects__list {
@@ -726,7 +726,7 @@
   bottom: 0;
   left: 0;
   height: 3px;
-  content: "";
+  content: '';
   opacity: 0;
   transform: scaleX(0.3);
   transform-origin: left center;

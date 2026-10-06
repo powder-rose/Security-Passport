@@ -254,7 +254,7 @@
   width: 78px;
   height: 7px;
   border-radius: 0 0 7px 7px;
-  content: "";
+  content: '';
 }
 
 .trade-form__notes {

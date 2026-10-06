@@ -8,7 +8,7 @@
   .hotel-hero__layout {
     grid-template-columns:
       minmax(0, 1.05fr)
-      minmax(330px, .75fr);
+      minmax(330px, 0.75fr);
     gap: 48px;
   }
 

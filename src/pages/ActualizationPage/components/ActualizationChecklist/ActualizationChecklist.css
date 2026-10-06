@@ -36,9 +36,7 @@ ActualizationChecklist.jsx — ACTUALIZATION CHECKLIST
   letter-spacing: -0.055em;
 }
 
-.actualization-checklist__layout
-  > div:first-child
-  > p:not(.actualization-kicker) {
+.actualization-checklist__layout > div:first-child > p:not(.actualization-kicker) {
   max-width: 530px;
 
   margin: 24px 0 30px;

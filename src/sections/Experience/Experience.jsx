@@ -35,19 +35,21 @@ export default function Experience() {
           </div>
 
           <div className="experience__heading-note">
-
             <p>
               Работаем с паспортом безопасности как с последовательным проектом: сначала проверяем
-              объект и{'\u00A0'}основание, затем готовим документы и{'\u00A0'}сопровождаем дальнейшие этапы.
+              объект и{'\u00A0'}основание, затем готовим документы и{'\u00A0'}сопровождаем
+              дальнейшие этапы.
             </p>
           </div>
         </header>
 
         <div className="experience__grid">
-          {experienceItems.map((item) => (
+          {experienceItems.map(item => (
             <article className="experience-card" key={item.index}>
               <div className="experience-card__top">
-                <span className="experience-card__index" aria-hidden="true">{item.index}</span>
+                <span className="experience-card__index" aria-hidden="true">
+                  {item.index}
+                </span>
                 <span className="experience-card__label">{item.label}</span>
               </div>
 

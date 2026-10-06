@@ -10,13 +10,9 @@
 .sport-dsp__layout {
   display: grid;
   grid-template-columns:
-    minmax(260px, .55fr)
+    minmax(260px, 0.55fr)
     minmax(0, 1.45fr);
-  gap: clamp(
-    58px,
-    9vw,
-    140px
-  );
+  gap: clamp(58px, 9vw, 140px);
   align-items: start;
 }
 
@@ -30,31 +26,23 @@
 
 .sport-dsp__label > span {
   color: var(--color-primary);
-  font-size: clamp(
-    5.6rem,
-    8vw,
-    9rem
-  );
+  font-size: clamp(5.6rem, 8vw, 9rem);
   font-weight: 850;
-  line-height: .9;
-  letter-spacing: -.08em;
+  line-height: 0.9;
+  letter-spacing: -0.08em;
 }
 
 .sport-dsp__label > small {
   max-width: 180px;
 
-  margin-top: clamp(
-    28px,
-    2vw,
-    36px
-  );
+  margin-top: clamp(28px, 2vw, 36px);
 
   color: var(--color-text-secondary);
 
-  font-size: .78rem;
+  font-size: 0.78rem;
   font-weight: 800;
   line-height: 1.45;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
 
   text-transform: uppercase;
 }
@@ -62,13 +50,9 @@
 .sport-dsp__content > h2 {
   max-width: 860px;
   margin: 0;
-  font-size: clamp(
-    2.7rem,
-    4vw,
-    4.45rem
-  );
+  font-size: clamp(2.7rem, 4vw, 4.45rem);
   line-height: 1;
-  letter-spacing: -.052em;
+  letter-spacing: -0.052em;
   text-wrap: balance;
 }
 
@@ -82,9 +66,7 @@
 
 .sport-dsp__rules {
   margin-top: 52px;
-  border-top:
-    1px solid
-    var(--color-border);
+  border-top: 1px solid var(--color-border);
 }
 
 .sport-dsp__rule {
@@ -94,9 +76,7 @@
     minmax(0, 1fr);
   gap: 22px;
   padding: 27px 4px;
-  border-bottom:
-    1px solid
-    var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 
   transition:
     padding 190ms ease,

@@ -10,7 +10,7 @@
 .education-source-data__layout {
   display: grid;
   grid-template-columns:
-    minmax(320px, .75fr)
+    minmax(320px, 0.75fr)
     minmax(0, 1.25fr);
   gap: clamp(54px, 8vw, 130px);
   align-items: start;
@@ -27,13 +27,11 @@
   margin: 0;
   font-size: clamp(2.5rem, 4.1vw, 4.6rem);
   line-height: 1.02;
-  letter-spacing: -.05em;
+  letter-spacing: -0.05em;
   text-wrap: balance;
 }
 
-.education-source-data__heading > p:not(
-  .education-kicker
-) {
+.education-source-data__heading > p:not(.education-kicker) {
   max-width: 650px;
   margin: 26px 0 0;
   color: var(--color-text-secondary);
@@ -84,8 +82,8 @@
   padding: 26px 4px;
   border-bottom: 1px solid var(--color-border);
   transition:
-    padding .2s ease,
-    background .2s ease;
+    padding 0.2s ease,
+    background 0.2s ease;
 }
 
 .education-source-data__item:hover {
@@ -96,9 +94,9 @@
 
 .education-source-data__item > span {
   color: var(--color-primary);
-  font-size: .76rem;
+  font-size: 0.76rem;
   font-weight: 800;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
 }
 
 .education-source-data__item h3 {

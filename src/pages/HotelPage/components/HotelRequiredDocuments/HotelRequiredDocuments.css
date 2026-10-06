@@ -11,7 +11,7 @@
   display: grid;
   grid-template-columns:
     minmax(0, 1fr)
-    minmax(320px, .72fr);
+    minmax(320px, 0.72fr);
   gap: clamp(60px, 8vw, 130px);
   align-items: end;
 }
@@ -26,33 +26,27 @@
   display: block;
   margin-top: 22px;
   padding-top: 20px;
-  border-top:
-    1px solid rgb(21 21 21 / 16%);
+  border-top: 1px solid rgb(21 21 21 / 16%);
   font-size: 15px;
   line-height: 1.5;
 }
 
 .hotel-source__grid {
   display: grid;
-  grid-template-columns:
-    repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   margin-top: 62px;
-  border-top:
-    1px solid rgb(21 21 21 / 15%);
-  border-left:
-    1px solid rgb(21 21 21 / 15%);
+  border-top: 1px solid rgb(21 21 21 / 15%);
+  border-left: 1px solid rgb(21 21 21 / 15%);
 }
 
 .hotel-source__item {
   min-height: 210px;
   padding: 26px;
-  border-right:
-    1px solid rgb(21 21 21 / 15%);
-  border-bottom:
-    1px solid rgb(21 21 21 / 15%);
+  border-right: 1px solid rgb(21 21 21 / 15%);
+  border-bottom: 1px solid rgb(21 21 21 / 15%);
   transition:
-    background-color .2s ease,
-    transform .2s ease;
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .hotel-source__item:hover {
@@ -78,5 +72,5 @@
   margin: 10px 0 0;
   font-size: 14px;
   line-height: 1.55;
-  opacity: .66;
+  opacity: 0.66;
 }

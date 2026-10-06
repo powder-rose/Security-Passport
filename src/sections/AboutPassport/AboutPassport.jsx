@@ -36,26 +36,31 @@ export default function AboutPassport() {
           </h2>
 
           <p className="about-passport__lead">
-            Паспорт безопасности фиксирует состояние антитеррористической защищённости объекта:
-            его характеристики, возможные угрозы, действующие меры защиты и{'\u00A0'}порядок реагирования.
-            Документ оформляется с учётом результатов категорирования и{'\u00A0'}требований постановления,
-            применимого к конкретному типу объекта.
+            Паспорт безопасности фиксирует состояние антитеррористической защищённости объекта: его
+            характеристики, возможные угрозы, действующие меры защиты и{'\u00A0'}порядок
+            реагирования. Документ оформляется с учётом результатов категорирования и{'\u00A0'}
+            требований постановления, применимого к конкретному типу объекта.
           </p>
 
           <div className="about-passport__note">
-            <span className="about-passport__note-mark" aria-hidden="true">!</span>
-            <p>
-              Единый шаблон подходит не всем, у каждого объекта своя форма паспорта и акта.
-            </p>
+            <span className="about-passport__note-mark" aria-hidden="true">
+              !
+            </span>
+            <p>Единый шаблон подходит не всем, у каждого объекта своя форма паспорта и акта.</p>
           </div>
 
           <a className="about-passport__action" href="#quiz">
             <span>Проверить требования для объекта</span>
-            <span className="about-passport__action-arrow" aria-hidden="true">↘</span>
+            <span className="about-passport__action-arrow" aria-hidden="true">
+              ↘
+            </span>
           </a>
         </div>
 
-        <div className="about-passport__anatomy" aria-label="Основные сведения, которые отражает паспорт безопасности">
+        <div
+          className="about-passport__anatomy"
+          aria-label="Основные сведения, которые отражает паспорт безопасности"
+        >
           <div className="about-passport__anatomy-head">
             <div>
               <p className="about-passport__anatomy-kicker">Анатомия документа</p>
@@ -64,9 +69,11 @@ export default function AboutPassport() {
           </div>
 
           <ol className="about-passport__layers">
-            {passportLayers.map((item) => (
+            {passportLayers.map(item => (
               <li key={item.number}>
-                <span className="about-passport__layer-number" aria-hidden="true">{item.number}</span>
+                <span className="about-passport__layer-number" aria-hidden="true">
+                  {item.number}
+                </span>
                 <div>
                   <h4>{item.title}</h4>
                   <p>{item.text}</p>

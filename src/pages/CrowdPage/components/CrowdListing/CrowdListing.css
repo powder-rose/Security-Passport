@@ -3,26 +3,19 @@
    ========================================================================== */
 
 .crowd-listing {
-  padding:
-    120px 0 128px;
+  padding: 120px 0 128px;
 
-  background:
-    #fff;
+  background: #fff;
 }
 
 .crowd-listing__heading {
   display: grid;
 
   grid-template-columns:
-    minmax(0, .85fr)
-    minmax(300px, .46fr);
+    minmax(0, 0.85fr)
+    minmax(300px, 0.46fr);
 
-  gap:
-    clamp(
-      90px,
-      9vw,
-      145px
-    );
+  gap: clamp(90px, 9vw, 145px);
 
   align-items: end;
 }
@@ -32,25 +25,18 @@
 
   margin: 0;
 
-  font-size:
-    clamp(
-      2.7rem,
-      3.8vw,
-      4.1rem
-    );
+  font-size: clamp(2.7rem, 3.8vw, 4.1rem);
 
-  line-height: .99;
-  letter-spacing: -.058em;
+  line-height: 0.99;
+  letter-spacing: -0.058em;
 
   text-wrap: balance;
 }
 
 .crowd-listing__heading > p {
-  margin:
-    0 0 5px;
+  margin: 0 0 5px;
 
-  color:
-    var(--color-text-secondary);
+  color: var(--color-text-secondary);
 
   line-height: 1.7;
 }
@@ -58,28 +44,21 @@
 .crowd-listing__flow {
   margin-top: 70px;
 
-  border-top:
-    1px solid
-    var(--color-border);
+  border-top: 1px solid var(--color-border);
 }
 
 .crowd-listing__step {
   display: grid;
 
-  grid-template-columns:
-    72px minmax(0, 1fr);
+  grid-template-columns: 72px minmax(0, 1fr);
 
   gap: 32px;
 
-  padding:
-    34px 8px;
+  padding: 34px 8px;
 
-  border-bottom:
-    1px solid
-    var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 
-  transition:
-    padding-left 180ms ease;
+  transition: padding-left 180ms ease;
 }
 
 @media (hover: hover) {
@@ -89,35 +68,27 @@
 }
 
 .crowd-listing__step > span {
-  color:
-    var(--crowd-accent);
+  color: var(--crowd-accent);
 
-  font-size: .72rem;
+  font-size: 0.72rem;
   font-weight: 700;
 }
 
 .crowd-listing__step h3 {
   margin: 0;
 
-  font-size:
-    clamp(
-      1.4rem,
-      2vw,
-      1.9rem
-    );
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
 
   line-height: 1.18;
-  letter-spacing: -.04em;
+  letter-spacing: -0.04em;
 }
 
 .crowd-listing__step p {
   max-width: 680px;
 
-  margin:
-    12px 0 0;
+  margin: 12px 0 0;
 
-  color:
-    var(--color-text-secondary);
+  color: var(--color-text-secondary);
 
   line-height: 1.65;
 }
@@ -131,17 +102,13 @@
 }
 
 .crowd-listing__authorities span {
-  padding:
-    10px 14px;
+  padding: 10px 14px;
 
-  border:
-    1px solid
-    var(--color-border);
+  border: 1px solid var(--color-border);
 
   border-radius: 999px;
 
-  color:
-    var(--color-text-secondary);
+  color: var(--color-text-secondary);
 
-  font-size: .78rem;
+  font-size: 0.78rem;
 }

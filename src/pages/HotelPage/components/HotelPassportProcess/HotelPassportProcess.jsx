@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { hotelProcess } from "../../hotelPageData";
+import { hotelProcess } from '../../hotelPageData';
 
 export default function HotelPassportProcess() {
   return (
@@ -26,7 +26,7 @@ export default function HotelPassportProcess() {
               {hotelProcess.map((item, index) => (
                 <li key={item.title}>
                   <span className="hotel-process__number">
-                    {String(index + 1).padStart(2, "0")}
+                    {String(index + 1).padStart(2, '0')}
                   </span>
 
                   <div>

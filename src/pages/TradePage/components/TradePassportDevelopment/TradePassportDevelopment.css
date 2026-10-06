@@ -242,7 +242,7 @@
 
   background: var(--trade-accent);
 
-  content: "";
+  content: '';
 }
 
 .trade-passport__deadline > span,

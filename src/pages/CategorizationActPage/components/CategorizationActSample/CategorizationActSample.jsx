@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { sampleStructure } from "../../categorizationActPageData";
+import { sampleStructure } from '../../categorizationActPageData';
 
 export default function CategorizationActSample() {
   return (
@@ -13,16 +13,16 @@ export default function CategorizationActSample() {
             <h2>Образец акта обследования и категорирования объекта</h2>
 
             <p>
-              Универсального образца, который подходит всем объектам, нет. Ниже
-              показана демонстрационная структура документа — конкретные разделы
-              зависят от применимых требований.
+              Универсального образца, который подходит всем объектам, нет. Ниже показана
+              демонстрационная структура документа — конкретные разделы зависят от применимых
+              требований.
             </p>
           </div>
 
           <div className="categorization-act-sample__grid">
             {sampleStructure.map((item, index) => (
               <article key={item}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
+                <span>{String(index + 1).padStart(2, '0')}</span>
 
                 <p>{item}</p>
               </article>

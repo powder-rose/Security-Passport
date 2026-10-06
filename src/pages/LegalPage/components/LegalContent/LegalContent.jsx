@@ -1,25 +1,15 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { SITE } from "../../../../config/site";
+import { SITE } from '../../../../config/site';
 
-import {
-  createStableEntries,
-} from "../../../../lib/stableEntries";
+import { createStableEntries } from '../../../../lib/stableEntries';
 
 function RichText({ text }) {
-  const parts = String(text).split(
-    /(https:\/\/[^\s]+|mail@pasport-bezopasnosty\.ru)/g,
-  );
+  const parts = String(text).split(/(https:\/\/[^\s]+|mail@pasport-bezopasnosty\.ru)/g);
 
-  return createStableEntries(
-    parts,
-    "rich-text",
-  ).map(({
-    key,
-    value: part,
-  }) => {
-    if (part.startsWith("https://")) {
-      const cleanUrl = part.replace(/[.,;]+$/, "");
+  return createStableEntries(parts, 'rich-text').map(({ key, value: part }) => {
+    if (part.startsWith('https://')) {
+      const cleanUrl = part.replace(/[.,;]+$/, '');
 
       const suffix = part.slice(cleanUrl.length);
 
@@ -33,7 +23,7 @@ function RichText({ text }) {
       );
     }
 
-    if (part === "mail@pasport-bezopasnosty.ru") {
+    if (part === 'mail@pasport-bezopasnosty.ru') {
       return (
         <a key={key} href={`mailto:${part}`}>
           {part}
@@ -47,9 +37,7 @@ function RichText({ text }) {
 
 function LegalLine({ line, index, document }) {
   const isSectionHeading =
-    document.sectioned === true &&
-    /^\d+\.\s+\S/.test(line) &&
-    !/^\d+\.\d+\./.test(line);
+    document.sectioned === true && /^\d+\.\s+\S/.test(line) && !/^\d+\.\d+\./.test(line);
 
   if (isSectionHeading) {
     return (
@@ -59,7 +47,7 @@ function LegalLine({ line, index, document }) {
     );
   }
 
-  const separator = line.indexOf(";");
+  const separator = line.indexOf(';');
 
   const isDefinition = !/^\d/.test(line) && separator > 0 && separator < 70;
 
@@ -78,7 +66,7 @@ function LegalLine({ line, index, document }) {
     );
   }
 
-  if (line.startsWith("—")) {
+  if (line.startsWith('—')) {
     return (
       <p className="legal-document__bullet">
         <RichText text={line} />
@@ -87,7 +75,7 @@ function LegalLine({ line, index, document }) {
   }
 
   return (
-    <p className={index === 0 ? "legal-document__lead" : undefined}>
+    <p className={index === 0 ? 'legal-document__lead' : undefined}>
       <RichText text={line} />
     </p>
   );
@@ -104,25 +92,14 @@ export default function LegalContent({ document }) {
 
           <p className="legal-hero__intro">
             {SITE.legalName}
-            {" · "}
+            {' · '}
             ИНН {SITE.taxId}
           </p>
         </div>
 
         <article className="legal-document">
-          {createStableEntries(
-            document.lines,
-            "legal-line",
-          ).map(({
-            key,
-            value: line,
-          }, index) => (
-            <LegalLine
-              key={key}
-              line={line}
-              index={index}
-              document={document}
-            />
+          {createStableEntries(document.lines, 'legal-line').map(({ key, value: line }, index) => (
+            <LegalLine key={key} line={line} index={index} document={document} />
           ))}
         </article>
 

@@ -10,20 +10,11 @@ export default defineConfig({
 
     rollupOptions: {
       input: {
-        main: path.resolve(
-          process.cwd(),
-          'index.html',
-        ),
+        main: path.resolve(process.cwd(), 'index.html'),
 
-        admin: path.resolve(
-          process.cwd(),
-          'admin.html',
-        ),
+        admin: path.resolve(process.cwd(), 'admin.html'),
 
-        articlePreview: path.resolve(
-          process.cwd(),
-          'article-preview.html',
-        ),
+        articlePreview: path.resolve(process.cwd(), 'article-preview.html'),
       },
     },
   },

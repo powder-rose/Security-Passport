@@ -1,13 +1,13 @@
-import { Helmet } from "react-helmet-async";
+import { Helmet } from 'react-helmet-async';
 
-import { SITE } from "../../../../config/site.js";
+import { SITE } from '../../../../config/site.js';
 
 export default function BlogSeo() {
   const canonical = `${SITE.federalUrl}/blog/`;
 
   const ogImage = `${SITE.federalUrl}/images/og-passport-security.png`;
 
-  const ogImageAlt = "Статьи о безопасности объектов — БОЙКОВГРУПП";
+  const ogImageAlt = 'Статьи о безопасности объектов — БОЙКОВГРУПП';
 
   return (
     <>
@@ -28,10 +28,7 @@ export default function BlogSeo() {
 
         <meta property="og:type" content="website" />
 
-        <meta
-          property="og:title"
-          content="Статьи о безопасности объектов — БОЙКОВГРУПП"
-        />
+        <meta property="og:title" content="Статьи о безопасности объектов — БОЙКОВГРУПП" />
 
         <meta
           property="og:description"
@@ -56,10 +53,7 @@ export default function BlogSeo() {
 
         <meta name="twitter:card" content="summary_large_image" />
 
-        <meta
-          name="twitter:title"
-          content="Статьи о безопасности объектов — БОЙКОВГРУПП"
-        />
+        <meta name="twitter:title" content="Статьи о безопасности объектов — БОЙКОВГРУПП" />
 
         <meta
           name="twitter:description"

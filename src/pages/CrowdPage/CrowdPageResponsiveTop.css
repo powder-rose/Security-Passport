@@ -10,18 +10,13 @@
   .crowd-hero__layout {
     grid-template-columns:
       minmax(0, 1fr)
-      minmax(330px, .52fr);
+      minmax(330px, 0.52fr);
 
     gap: 62px;
   }
 
   .crowd-hero__content h1 {
-    font-size:
-      clamp(
-        3.15rem,
-        4.6vw,
-        4.45rem
-      );
+    font-size: clamp(3.15rem, 4.6vw, 4.45rem);
   }
 
   .crowd-applicability__heading {
@@ -95,14 +90,9 @@
   }
 
   .crowd-hero__content h1 {
-    font-size:
-      clamp(
-        2.85rem,
-        8.2vw,
-        3.8rem
-      );
+    font-size: clamp(2.85rem, 8.2vw, 3.8rem);
 
-    line-height: .98;
+    line-height: 0.98;
   }
 
   .crowd-hero__lead {
@@ -119,9 +109,7 @@
 
   .crowd-hero__facts {
     border-left: 0;
-    border-top:
-      1px solid
-      var(--color-border);
+    border-top: 1px solid var(--color-border);
 
     padding-top: 24px;
   }
@@ -136,18 +124,12 @@
 
   .crowd-applicability,
   .crowd-regime {
-    padding:
-      82px 0 88px;
+    padding: 82px 0 88px;
   }
 
   .crowd-applicability__heading h2,
   .crowd-regime__content h2 {
-    font-size:
-      clamp(
-        2.35rem,
-        7vw,
-        3.15rem
-      );
+    font-size: clamp(2.35rem, 7vw, 3.15rem);
   }
 
   .crowd-applicability__layout {
@@ -167,13 +149,13 @@
   }
 
   .crowd-breadcrumbs {
-    font-size: .76rem;
+    font-size: 0.76rem;
   }
 
   .crowd-hero__content h1 {
     font-size: 2.42rem;
     line-height: 1;
-    letter-spacing: -.052em;
+    letter-spacing: -0.052em;
   }
 
   .crowd-hero__commercial {
@@ -189,15 +171,12 @@
   .crowd-hero__facts > div {
     min-height: 0;
 
-    padding:
-      18px 0;
+    padding: 18px 0;
   }
 
   .crowd-hero__facts > div + div {
     border-left: 0;
-    border-top:
-      1px solid
-      var(--color-border);
+    border-top: 1px solid var(--color-border);
   }
 
   .crowd-hero__actions {
@@ -213,8 +192,7 @@
   .crowd-text-action {
     max-width: none;
 
-    padding:
-      7px 0;
+    padding: 7px 0;
   }
 
   .crowd-hero__regulation {
@@ -231,8 +209,7 @@
 
   .crowd-applicability,
   .crowd-regime {
-    padding:
-      68px 0 74px;
+    padding: 68px 0 74px;
   }
 
   .crowd-applicability__heading h2,
@@ -241,13 +218,11 @@
   }
 
   .crowd-applicability__rule {
-    grid-template-columns:
-      42px minmax(0, 1fr);
+    grid-template-columns: 42px minmax(0, 1fr);
 
     gap: 16px;
 
-    padding:
-      26px 0;
+    padding: 26px 0;
   }
 
   .crowd-applicability__check {
@@ -255,8 +230,7 @@
   }
 
   .crowd-applicability__check::before {
-    margin:
-      -24px 0 23px;
+    margin: -24px 0 23px;
   }
 
   .crowd-regime__identity {
@@ -272,7 +246,7 @@
   .crowd-regime__lead {
     margin-top: 25px;
 
-    font-size: .98rem;
+    font-size: 0.98rem;
   }
 }
 
@@ -298,8 +272,7 @@
   }
 
   .crowd-hero__regulation {
-    padding:
-      22px 20px;
+    padding: 22px 20px;
   }
 
   .crowd-hero__number {

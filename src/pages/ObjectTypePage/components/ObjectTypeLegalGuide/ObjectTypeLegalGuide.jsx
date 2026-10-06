@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { getObjectTypeLegalContent } from "../../../../data/objectTypeLegalContent";
+import { getObjectTypeLegalContent } from '../../../../data/objectTypeLegalContent';
 
 export default function ObjectTypeLegalGuide({ objectTypeId }) {
   const content = getObjectTypeLegalContent(objectTypeId);
@@ -20,18 +20,14 @@ export default function ObjectTypeLegalGuide({ objectTypeId }) {
         </div>
 
         <div className="object-legal__sources">
-          {content.sources.map((source) => (
+          {content.sources.map(source => (
             <div className="object-legal__source" key={source.title}>
-              <span className="object-legal__source-label">
-                Нормативная основа
-              </span>
+              <span className="object-legal__source-label">Нормативная основа</span>
 
               <strong>{source.title}</strong>
 
               {source.subtitle ? (
-                <span className="object-legal__source-description">
-                  {source.subtitle}
-                </span>
+                <span className="object-legal__source-description">{source.subtitle}</span>
               ) : null}
 
               <small>{source.edition}</small>
@@ -40,7 +36,7 @@ export default function ObjectTypeLegalGuide({ objectTypeId }) {
         </div>
 
         <div className="object-legal__details">
-          {content.details.map((item) => (
+          {content.details.map(item => (
             <article className="object-legal__detail" key={item.title}>
               <h3>{item.title}</h3>
 
@@ -66,18 +62,14 @@ export default function ObjectTypeLegalGuide({ objectTypeId }) {
             <h2>{content.checklistTitle}</h2>
 
             <p>
-              Не нужно собирать всё подряд. На старте достаточно основных
-              сведений, чтобы определить применимые требования и дальнейший
-              порядок работы.
+              Не нужно собирать всё подряд. На старте достаточно основных сведений, чтобы определить
+              применимые требования и дальнейший порядок работы.
             </p>
 
             <div className="object-legal__checklist-note">
               <span aria-hidden="true">✓</span>
 
-              <p>
-                Точный перечень уточняем после идентификации конкретного
-                объекта.
-              </p>
+              <p>Точный перечень уточняем после идентификации конкретного объекта.</p>
             </div>
           </div>
 
@@ -85,7 +77,7 @@ export default function ObjectTypeLegalGuide({ objectTypeId }) {
             {content.checklist.map((item, index) => (
               <li key={item}>
                 <span className="object-legal__checklist-number">
-                  {String(index + 1).padStart(2, "0")}
+                  {String(index + 1).padStart(2, '0')}
                 </span>
 
                 <p>{item}</p>
@@ -95,9 +87,9 @@ export default function ObjectTypeLegalGuide({ objectTypeId }) {
         </div>
 
         <p className="object-legal__public-note">
-          На этой странице приведена открытая нормативная и организационная
-          информация. Сведения ограниченного распространения, содержащиеся в
-          конкретном паспорте безопасности объекта, публично не размещаются.
+          На этой странице приведена открытая нормативная и организационная информация. Сведения
+          ограниченного распространения, содержащиеся в конкретном паспорте безопасности объекта,
+          публично не размещаются.
         </p>
       </Container>
     </section>

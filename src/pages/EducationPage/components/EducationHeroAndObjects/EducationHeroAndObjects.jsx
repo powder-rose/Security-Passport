@@ -1,10 +1,8 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { educationObjects } from "../../educationPageData";
+import { educationObjects } from '../../educationPageData';
 
-export default function EducationHeroAndObjects({
-  objectType,
-}) {
+export default function EducationHeroAndObjects({ objectType }) {
   return (
     <>
       <section className="education-hero">
@@ -24,12 +22,8 @@ export default function EducationHeroAndObjects({
               <h1>{objectType.h1}</h1>
 
               <p className="education-hero__lead">
-                {objectType.pageLead}
-                {" "}
-                <span className="coverage-emphasis">
-                  Работаем по всей России
-                </span>
-                .
+                {objectType.pageLead}{' '}
+                <span className="coverage-emphasis">Работаем по всей России</span>.
               </p>
 
               <div className="education-hero__commercial">
@@ -53,10 +47,7 @@ export default function EducationHeroAndObjects({
                   Заказать паспорт
                 </a>
 
-                <a
-                  className="education-button-secondary"
-                  href="#education-requirements"
-                >
+                <a className="education-button-secondary" href="#education-requirements">
                   Проверить требования для моей организации
                   <span aria-hidden="true">→</span>
                 </a>
@@ -72,13 +63,11 @@ export default function EducationHeroAndObjects({
                 1421
               </div>
 
-              <h2>
-                Сначала определяем, какие требования применяются к объекту
-              </h2>
+              <h2>Сначала определяем, какие требования применяются к объекту</h2>
 
               <p>
-                Для образовательных организаций нет одного универсального
-                нормативного режима на все случаи.
+                Для образовательных организаций нет одного универсального нормативного режима на все
+                случаи.
               </p>
 
               <div className="education-hero__panel-footer">
@@ -99,26 +88,21 @@ export default function EducationHeroAndObjects({
             <h2>Для каких образовательных объектов разрабатываем паспорта</h2>
 
             <p>
-              Разрабатываем документацию для объектов образовательных
-              организаций после определения применимых к конкретному объекту
-              требований.
+              Разрабатываем документацию для объектов образовательных организаций после определения
+              применимых к конкретному объекту требований.
             </p>
           </div>
 
           <div className="education-objects__layout">
             <div className="education-objects__list">
-              {educationObjects.map((item) => (
+              {educationObjects.map(item => (
                 <article
                   className={
-                    item.note
-                      ? "education-object education-object--important"
-                      : "education-object"
+                    item.note ? 'education-object education-object--important' : 'education-object'
                   }
                   key={item.number}
                 >
-                  <span className="education-object__number">
-                    {item.number}
-                  </span>
+                  <span className="education-object__number">{item.number}</span>
 
                   <div>
                     <h3>{item.title}</h3>
@@ -136,13 +120,11 @@ export default function EducationHeroAndObjects({
             <aside className="education-objects__note">
               <span>Важно</span>
 
-              <h3>
-                Название учреждения само по себе не определяет форму паспорта
-              </h3>
+              <h3>Название учреждения само по себе не определяет форму паспорта</h3>
 
               <p>
-                Сначала проверяем вид организации, сферу деятельности и
-                ведомственную принадлежность конкретного объекта.
+                Сначала проверяем вид организации, сферу деятельности и ведомственную принадлежность
+                конкретного объекта.
               </p>
             </aside>
           </div>

@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { faqItems } from "../../categorizationActPageData";
+import { faqItems } from '../../categorizationActPageData';
 
 export default function CategorizationActFaq() {
   return (
@@ -14,7 +14,7 @@ export default function CategorizationActFaq() {
           </div>
 
           <div className="categorization-act-faq__list">
-            {faqItems.map((item) => (
+            {faqItems.map(item => (
               <details key={item.question}>
                 <summary>{item.question}</summary>
 

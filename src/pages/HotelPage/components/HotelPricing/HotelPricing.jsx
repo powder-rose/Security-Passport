@@ -1,4 +1,4 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
 export default function HotelPricing() {
   return (
@@ -12,9 +12,8 @@ export default function HotelPricing() {
               <h2>Стоимость паспорта безопасности гостиницы</h2>
 
               <p>
-                Итоговый состав работ зависит от состояния исходных документов,
-                необходимости подготовки к категорированию и объёма
-                сопровождения.
+                Итоговый состав работ зависит от состояния исходных документов, необходимости
+                подготовки к категорированию и объёма сопровождения.
               </p>
             </div>
 
@@ -23,10 +22,7 @@ export default function HotelPricing() {
 
               <strong>от 9 500 ₽</strong>
 
-              <p>
-                Точную стоимость определяем после первичной проверки объекта и
-                исходных данных.
-              </p>
+              <p>Точную стоимость определяем после первичной проверки объекта и исходных данных.</p>
 
               <a className="hotel-price__action" href="#contact">
                 Получить точную стоимость

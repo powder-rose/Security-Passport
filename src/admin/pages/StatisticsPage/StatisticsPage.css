@@ -9,30 +9,25 @@
   display: grid;
   grid-template-columns:
     minmax(0, 1.4fr)
-    minmax(280px, .6fr);
+    minmax(280px, 0.6fr);
   gap: 60px;
   align-items: end;
 }
 
 .statistics-eyebrow {
   margin: 0 0 14px;
-  color: rgba(17,17,17,.5);
+  color: rgba(17, 17, 17, 0.5);
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: .09em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
 }
 
 .statistics-intro h1 {
   margin: 0;
-  font-size:
-    clamp(
-      4rem,
-      7vw,
-      8rem
-    );
-  line-height: .78;
-  letter-spacing: -.08em;
+  font-size: clamp(4rem, 7vw, 8rem);
+  line-height: 0.78;
+  letter-spacing: -0.08em;
   font-weight: 650;
 }
 
@@ -57,14 +52,14 @@
 }
 
 .statistics-intro__meta span {
-  color: rgba(17,17,17,.5);
+  color: rgba(17, 17, 17, 0.5);
   font-size: 12px;
 }
 
 .statistics-intro__meta button {
   margin-top: 18px;
   padding: 9px 15px;
-  border: 1px solid rgba(17,17,17,.18);
+  border: 1px solid rgba(17, 17, 17, 0.18);
   border-radius: 999px;
   background: transparent;
   font-size: 12px;
@@ -76,7 +71,7 @@
 }
 
 .statistics-intro__meta button:disabled {
-  opacity: .45;
+  opacity: 0.45;
   cursor: default;
 }
 
@@ -89,9 +84,7 @@
 
 .statistics-periods button {
   padding: 10px 16px;
-  border:
-    1px solid
-    rgba(17,17,17,.18);
+  border: 1px solid rgba(17, 17, 17, 0.18);
   border-radius: 999px;
   background: transparent;
   color: #111;
@@ -111,8 +104,7 @@
 
 .statistics-summary {
   display: grid;
-  grid-template-columns:
-    repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
 
@@ -144,44 +136,34 @@
 .statistics-summary-card__top span {
   font-size: 10px;
   font-weight: 850;
-  opacity: .55;
+  opacity: 0.55;
 }
 
 .statistics-summary-card__top p {
   margin: 0;
   font-size: 12px;
   font-weight: 750;
-  letter-spacing: .05em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  opacity: .72;
+  opacity: 0.72;
 }
 
 .statistics-summary-card strong {
   margin-top: auto;
-  font-size:
-    clamp(
-      4rem,
-      6vw,
-      7rem
-    );
-  line-height: .78;
-  letter-spacing: -.075em;
+  font-size: clamp(4rem, 6vw, 7rem);
+  line-height: 0.78;
+  letter-spacing: -0.075em;
   font-weight: 600;
 }
 
 .statistics-summary-card small {
   margin-top: 20px;
   font-size: 11px;
-  opacity: .55;
+  opacity: 0.55;
 }
 
 .statistics-federal {
-  margin-top:
-    clamp(
-      80px,
-      9vw,
-      150px
-    );
+  margin-top: clamp(80px, 9vw, 150px);
 }
 
 .statistics-federal__heading {
@@ -195,14 +177,9 @@
 .statistics-federal__heading h2 {
   max-width: 760px;
   margin: 0;
-  font-size:
-    clamp(
-      3rem,
-      5vw,
-      6rem
-    );
-  line-height: .86;
-  letter-spacing: -.07em;
+  font-size: clamp(3rem, 5vw, 6rem);
+  line-height: 0.86;
+  letter-spacing: -0.07em;
   font-weight: 620;
 }
 
@@ -221,9 +198,7 @@
 .statistics-table td {
   padding: 17px 14px;
   text-align: right;
-  border-bottom:
-    1px solid
-    rgba(17,17,17,.12);
+  border-bottom: 1px solid rgba(17, 17, 17, 0.12);
 }
 
 .statistics-table th:first-child,
@@ -238,10 +213,10 @@
 }
 
 .statistics-table th {
-  color: rgba(17,17,17,.5);
+  color: rgba(17, 17, 17, 0.5);
   font-size: 10px;
   font-weight: 800;
-  letter-spacing: .07em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
 }
 
@@ -254,13 +229,7 @@
 }
 
 .statistics-table tbody tr:hover {
-  background:
-    rgba(
-      255,
-      255,
-      255,
-      .42
-    );
+  background: rgba(255, 255, 255, 0.42);
 }
 
 .statistics-table tfoot td {
@@ -271,14 +240,14 @@
 
 .statistics-empty {
   margin: 32px 0 0;
-  color: rgba(17,17,17,.5);
+  color: rgba(17, 17, 17, 0.5);
 }
 
 .statistics-state {
   padding: 40px;
   border-radius: 20px;
   background: #f4f1e8;
-  color: rgba(17,17,17,.6);
+  color: rgba(17, 17, 17, 0.6);
 }
 
 .statistics-state--error p {
@@ -312,26 +281,15 @@
     flex-direction: column;
     align-items: stretch;
   }
-
 }
 
 @media (max-width: 600px) {
   .statistics-intro h1 {
-    font-size:
-      clamp(
-        3rem,
-        17vw,
-        5rem
-      );
+    font-size: clamp(3rem, 17vw, 5rem);
   }
 
   .statistics-federal__heading h2 {
-    font-size:
-      clamp(
-        2.8rem,
-        14vw,
-        4rem
-      );
+    font-size: clamp(2.8rem, 14vw, 4rem);
   }
 
   .statistics-periods {

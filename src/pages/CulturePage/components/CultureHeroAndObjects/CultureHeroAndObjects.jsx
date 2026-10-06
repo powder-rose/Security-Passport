@@ -1,10 +1,8 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { cultureObjects } from "../../culturePageData";
+import { cultureObjects } from '../../culturePageData';
 
-export default function CultureHeroAndObjects({
-  objectType,
-}) {
+export default function CultureHeroAndObjects({ objectType }) {
   return (
     <>
       <section className="culture-hero">
@@ -19,19 +17,13 @@ export default function CultureHeroAndObjects({
 
           <div className="culture-hero__layout">
             <div className="culture-hero__content">
-              <p className="culture-kicker">
-                Объекты и территории в сфере культуры
-              </p>
+              <p className="culture-kicker">Объекты и территории в сфере культуры</p>
 
               <h1>{objectType.h1}</h1>
 
               <p className="culture-hero__lead">
-                {objectType.pageLead}
-                {" "}
-                <span className="coverage-emphasis">
-                  Работаем по всей России
-                </span>
-                .
+                {objectType.pageLead}{' '}
+                <span className="coverage-emphasis">Работаем по всей России</span>.
               </p>
 
               <div className="culture-hero__offer">
@@ -102,8 +94,8 @@ export default function CultureHeroAndObjects({
             </div>
 
             <p className="culture-scope__intro">
-              ПП РФ №176 применяется к объектам и территориям в сфере культуры с
-              учётом их правообладателя и характера деятельности организации.
+              ПП РФ №176 применяется к объектам и территориям в сфере культуры с учётом их
+              правообладателя и характера деятельности организации.
             </p>
           </div>
 
@@ -116,7 +108,7 @@ export default function CultureHeroAndObjects({
               <div className="culture-scope__list">
                 {cultureObjects.map((item, index) => (
                   <div className="culture-scope__item" key={item}>
-                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <span>{String(index + 1).padStart(2, '0')}</span>
 
                     <strong>{item}</strong>
                   </div>
@@ -129,9 +121,8 @@ export default function CultureHeroAndObjects({
                 <span>Важно</span>
 
                 <p>
-                  Применимость ПП РФ №176 определяется не только названием
-                  объекта, но и его правовым статусом, правообладателем и
-                  характером деятельности организации.
+                  Применимость ПП РФ №176 определяется не только названием объекта, но и его
+                  правовым статусом, правообладателем и характером деятельности организации.
                 </p>
               </div>
 
@@ -139,29 +130,23 @@ export default function CultureHeroAndObjects({
                 <h3>На какие организации ориентированы требования</h3>
 
                 <p>
-                  В сферу требований входят, в частности, объекты Минкультуры,
-                  его территориальных органов и подведомственных организаций,
-                  детских школ искусств с предусмотренными постановлением
-                  учредителями, а также иных организаций, для которых
-                  деятельность в сфере культуры является основным видом
-                  деятельности.
+                  В сферу требований входят, в частности, объекты Минкультуры, его территориальных
+                  органов и подведомственных организаций, детских школ искусств с предусмотренными
+                  постановлением учредителями, а также иных организаций, для которых деятельность в
+                  сфере культуры является основным видом деятельности.
                 </p>
               </div>
 
               <div className="culture-scope__exception">
-                <span className="culture-scope__exception-mark">
-                  Исключения
-                </span>
+                <span className="culture-scope__exception-mark">Исключения</span>
 
                 <div>
-                  <h3>
-                    Не каждый связанный с культурой объект подпадает под №176
-                  </h3>
+                  <h3>Не каждый связанный с культурой объект подпадает под №176</h3>
 
                   <p>
-                    Требования №176, в частности, не распространяются на объекты
-                    туристской индустрии, включающие гостиницы и иные средства
-                    размещения, горнолыжные трассы и пляжи.
+                    Требования №176, в частности, не распространяются на объекты туристской
+                    индустрии, включающие гостиницы и иные средства размещения, горнолыжные трассы и
+                    пляжи.
                   </p>
                 </div>
               </div>

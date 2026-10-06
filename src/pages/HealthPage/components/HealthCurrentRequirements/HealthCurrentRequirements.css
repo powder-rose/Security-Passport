@@ -48,7 +48,7 @@
 
   background: var(--health-accent);
 
-  content: "";
+  content: '';
 }
 
 .health-current__year span {

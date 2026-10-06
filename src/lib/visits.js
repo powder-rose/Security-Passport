@@ -5,10 +5,7 @@ const STORAGE_KEY = 'passport-security-visit-session';
 const SESSION_TTL_MS = 30 * 60 * 1000;
 
 function createSessionId() {
-  if (
-    typeof crypto !== 'undefined' &&
-    typeof crypto.randomUUID === 'function'
-  ) {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
     return crypto.randomUUID();
   }
 

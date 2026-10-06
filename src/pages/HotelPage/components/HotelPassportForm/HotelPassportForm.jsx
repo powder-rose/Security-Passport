@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { hotelFormStructure } from "../../hotelPageData";
+import { hotelFormStructure } from '../../hotelPageData';
 
 export default function HotelPassportForm() {
   return (
@@ -16,14 +16,13 @@ export default function HotelPassportForm() {
               </div>
 
               <p className="hotel-form__lead">
-                Форма паспорта безопасности гостиницы или иного средства
-                размещения утверждена Постановлением Правительства РФ от
-                13.04.2017 №447.
+                Форма паспорта безопасности гостиницы или иного средства размещения утверждена
+                Постановлением Правительства РФ от 13.04.2017 №447.
               </p>
 
               <p>
-                На странице мы показываем структуру документа без публикации
-                заполненного паспорта действующего объекта.
+                На странице мы показываем структуру документа без публикации заполненного паспорта
+                действующего объекта.
               </p>
 
               <a className="hotel-form__action" href="#contact">
@@ -45,7 +44,7 @@ export default function HotelPassportForm() {
               <ol className="hotel-form__structure">
                 {hotelFormStructure.map((item, index) => (
                   <li key={item}>
-                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <span>{String(index + 1).padStart(2, '0')}</span>
 
                     <p>{item}</p>
                   </li>
@@ -56,8 +55,8 @@ export default function HotelPassportForm() {
                 <span aria-hidden="true">!</span>
 
                 <p>
-                  Конкретное содержание оформляется по официальной форме и
-                  исходным сведениям конкретной гостиницы.
+                  Конкретное содержание оформляется по официальной форме и исходным сведениям
+                  конкретной гостиницы.
                 </p>
               </div>
             </div>

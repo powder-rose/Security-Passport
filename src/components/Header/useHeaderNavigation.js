@@ -1,8 +1,4 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import {
   MOBILE_BREAKPOINT,
@@ -12,268 +8,135 @@ import {
   scrollToNavigationTarget,
 } from './headerNavigation';
 
+export default function useHeaderNavigation({ pathname = '/' } = {}) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-export default function useHeaderNavigation({
-  pathname = '/',
-} = {}) {
-  const [
-    mobileMenuOpen,
-    setMobileMenuOpen,
-  ] =
-    useState(false);
+  const [directoryOpen, setDirectoryOpen] = useState(false);
 
+  const [currentPathname, setCurrentPathname] = useState(() => normalizePathname(pathname));
 
-  const [
-    directoryOpen,
-    setDirectoryOpen,
-  ] =
-    useState(false);
+  const headerRef = useRef(null);
 
+  const mobileButtonRef = useRef(null);
 
-  const [
-    currentPathname,
-    setCurrentPathname,
-  ] =
-    useState(
-      () =>
-        normalizePathname(
-          pathname,
-        ),
-    );
+  const mobileNavRef = useRef(null);
 
-
-  const headerRef =
-    useRef(null);
-
-  const mobileButtonRef =
-    useRef(null);
-
-  const mobileNavRef =
-    useRef(null);
-
-  const directoryButtonRef =
-    useRef(null);
-
+  const directoryButtonRef = useRef(null);
 
   function closeMenus() {
     setMobileMenuOpen(false);
     setDirectoryOpen(false);
   }
 
-
   function closeDirectory() {
     setDirectoryOpen(false);
   }
 
-
   function toggleMobileMenu() {
     setDirectoryOpen(false);
 
-    setMobileMenuOpen(
-      value => !value,
-    );
+    setMobileMenuOpen(value => !value);
   }
-
 
   function toggleDirectory() {
     setMobileMenuOpen(false);
 
-    setDirectoryOpen(
-      value => !value,
-    );
+    setDirectoryOpen(value => !value);
   }
 
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
 
-  useEffect(
-    () => {
+    setCurrentPathname(normalizePathname(window.location.pathname));
+
+    const handleKeyDown = event => {
+      if (event.key !== 'Escape') {
+        return;
+      }
+
+      if (directoryOpen) {
+        setDirectoryOpen(false);
+
+        directoryButtonRef.current?.focus();
+      }
+
+      if (mobileMenuOpen) {
+        setMobileMenuOpen(false);
+
+        mobileButtonRef.current?.focus();
+      }
+    };
+
+    const handleResize = () => {
+      if (window.innerWidth > MOBILE_BREAKPOINT) {
+        setMobileMenuOpen(false);
+      } else {
+        setDirectoryOpen(false);
+      }
+    };
+
+    const handlePointerDown = event => {
       if (
-        typeof window ===
-          'undefined'
+        headerRef.current?.contains(event.target) ||
+        mobileNavRef.current?.contains(event.target)
       ) {
-        return undefined;
+        return;
       }
 
-      setCurrentPathname(
-        normalizePathname(
-          window.location.pathname,
-        ),
-      );
+      closeMenus();
+    };
 
+    window.addEventListener('keydown', handleKeyDown);
 
-      const handleKeyDown =
-        event => {
-          if (
-            event.key !==
-              'Escape'
-          ) {
-            return;
-          }
+    window.addEventListener('resize', handleResize);
 
-          if (directoryOpen) {
-            setDirectoryOpen(
-              false,
-            );
+    document.addEventListener('pointerdown', handlePointerDown);
 
-            directoryButtonRef
-              .current
-              ?.focus();
-          }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
 
-          if (mobileMenuOpen) {
-            setMobileMenuOpen(
-              false,
-            );
+      window.removeEventListener('resize', handleResize);
 
-            mobileButtonRef
-              .current
-              ?.focus();
-          }
-        };
+      document.removeEventListener('pointerdown', handlePointerDown);
+    };
+  }, [directoryOpen, mobileMenuOpen]);
 
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.location.hash) {
+      return undefined;
+    }
 
-      const handleResize =
-        () => {
-          if (
-            window.innerWidth >
-            MOBILE_BREAKPOINT
-          ) {
-            setMobileMenuOpen(
-              false,
-            );
-          } else {
-            setDirectoryOpen(
-              false,
-            );
-          }
-        };
+    const hash = window.location.hash;
 
+    const directTarget = document.querySelector(hash);
 
-      const handlePointerDown =
-        event => {
-          if (
-            headerRef.current
-              ?.contains(
-                event.target,
-              ) ||
-            mobileNavRef.current
-              ?.contains(
-                event.target,
-              )
-          ) {
-            return;
-          }
+    if (directTarget) {
+      return undefined;
+    }
 
-          closeMenus();
-        };
+    const target = getNavigationTarget(hash);
 
+    if (!target) {
+      return undefined;
+    }
 
-      window.addEventListener(
-        'keydown',
-        handleKeyDown,
-      );
+    const frame = window.requestAnimationFrame(() => {
+      scrollToNavigationTarget(target, 'auto');
+    });
 
-      window.addEventListener(
-        'resize',
-        handleResize,
-      );
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
 
-      document.addEventListener(
-        'pointerdown',
-        handlePointerDown,
-      );
-
-
-      return () => {
-        window.removeEventListener(
-          'keydown',
-          handleKeyDown,
-        );
-
-        window.removeEventListener(
-          'resize',
-          handleResize,
-        );
-
-        document.removeEventListener(
-          'pointerdown',
-          handlePointerDown,
-        );
-      };
-    },
-    [
-      directoryOpen,
-      mobileMenuOpen,
-    ],
-  );
-
-
-  useEffect(
-    () => {
-      if (
-        typeof window ===
-          'undefined' ||
-        !window.location.hash
-      ) {
-        return undefined;
-      }
-
-      const hash =
-        window.location.hash;
-
-      const directTarget =
-        document.querySelector(
-          hash,
-        );
-
-      if (directTarget) {
-        return undefined;
-      }
-
-      const target =
-        getNavigationTarget(
-          hash,
-        );
-
-      if (!target) {
-        return undefined;
-      }
-
-      const frame =
-        window.requestAnimationFrame(
-          () => {
-            scrollToNavigationTarget(
-              target,
-              'auto',
-            );
-          },
-        );
-
-      return () =>
-        window.cancelAnimationFrame(
-          frame,
-        );
-    },
-    [],
-  );
-
-
-  function handleNavigation(
-    event,
-    hash,
-  ) {
+  function handleNavigation(event, hash) {
     closeMenus();
 
-    if (
-      typeof window ===
-        'undefined'
-    ) {
+    if (typeof window === 'undefined') {
       return;
     }
 
-    const target =
-      getNavigationTarget(
-        hash,
-      );
+    const target = getNavigationTarget(hash);
 
     if (target) {
       event.preventDefault();
@@ -284,43 +147,23 @@ export default function useHeaderNavigation({
         `${window.location.pathname}${window.location.search}${hash}`,
       );
 
-      scrollToNavigationTarget(
-        target,
-      );
+      scrollToNavigationTarget(target);
 
       return;
     }
 
-    const currentPath =
-      normalizePathname(
-        window.location.pathname,
-      );
+    const currentPath = normalizePathname(window.location.pathname);
 
-    if (
-      currentPath !== '/'
-    ) {
+    if (currentPath !== '/') {
       event.preventDefault();
 
-      window.location.assign(
-        `/${hash}`,
-      );
+      window.location.assign(`/${hash}`);
     }
   }
 
+  const blogActive = currentPathname === '/blog' || currentPathname.startsWith('/blog/');
 
-  const blogActive =
-    currentPathname ===
-      '/blog' ||
-    currentPathname.startsWith(
-      '/blog/',
-    );
-
-
-  const directoryActive =
-    isDirectoryActive(
-      currentPathname,
-    );
-
+  const directoryActive = isDirectoryActive(currentPathname);
 
   return {
     mobileMenuOpen,

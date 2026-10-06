@@ -1,44 +1,38 @@
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
-import { Helmet } from "react-helmet-async";
+import { Helmet } from 'react-helmet-async';
 
-import { SITE } from "../../../../config/site.js";
+import { SITE } from '../../../../config/site.js';
 
 function absoluteImageUrl(value) {
   if (!value) {
-    return "";
+    return '';
   }
 
-  if (value.startsWith("http://") || value.startsWith("https://")) {
+  if (value.startsWith('http://') || value.startsWith('https://')) {
     return value;
   }
 
-  return (
-    `${SITE.federalUrl}` + `${value.startsWith("/") ? "" : "/"}` + `${value}`
-  );
+  return `${SITE.federalUrl}` + `${value.startsWith('/') ? '' : '/'}` + `${value}`;
 }
 
 export default function ArticleSeo({ article, slug }) {
   const canonical = `${SITE.federalUrl}/blog/` + `${encodeURIComponent(slug)}/`;
 
-  const seoTitle =
-    article?.seoTitle || article?.title || "Статья — БОЙКОВГРУПП";
+  const seoTitle = article?.seoTitle || article?.title || 'Статья — БОЙКОВГРУПП';
 
   const seoDescription =
     article?.seoDescription ||
     (article?.title
       ? `${article.title}. Практический материал БОЙКОВГРУПП по безопасности объектов и документации.`
-      : "");
+      : '');
 
   const articleImage = absoluteImageUrl(article?.ogImage || article?.image);
 
-  const ogImage =
-    articleImage || `${SITE.federalUrl}/images/og-passport-security.png`;
+  const ogImage = articleImage || `${SITE.federalUrl}/images/og-passport-security.png`;
 
   const ogImageAlt =
-    article?.imageAlt ||
-    article?.title ||
-    "Материал о безопасности объектов — БОЙКОВГРУПП";
+    article?.imageAlt || article?.title || 'Материал о безопасности объектов — БОЙКОВГРУПП';
 
   const articleSchema = useMemo(() => {
     if (!article) {
@@ -46,9 +40,9 @@ export default function ArticleSeo({ article, slug }) {
     }
 
     const schema = {
-      "@context": "https://schema.org",
+      '@context': 'https://schema.org',
 
-      "@type": "Article",
+      '@type': 'Article',
 
       headline: article.title,
 
@@ -57,13 +51,13 @@ export default function ArticleSeo({ article, slug }) {
       url: canonical,
 
       mainEntityOfPage: {
-        "@type": "WebPage",
+        '@type': 'WebPage',
 
-        "@id": canonical,
+        '@id': canonical,
       },
 
       author: {
-        "@type": "Organization",
+        '@type': 'Organization',
 
         name: SITE.brand,
 
@@ -71,14 +65,14 @@ export default function ArticleSeo({ article, slug }) {
       },
 
       publisher: {
-        "@type": "Organization",
+        '@type': 'Organization',
 
         name: SITE.brand,
 
         url: SITE.federalUrl,
       },
 
-      inLanguage: "ru-RU",
+      inLanguage: 'ru-RU',
     };
 
     if (article.publishedAt || article.createdAt) {
@@ -119,10 +113,7 @@ export default function ArticleSeo({ article, slug }) {
 
       <meta property="og:title" content={article.ogTitle || seoTitle} />
 
-      <meta
-        property="og:description"
-        content={article.ogDescription || seoDescription}
-      />
+      <meta property="og:description" content={article.ogDescription || seoDescription} />
 
       <meta property="og:url" content={canonical} />
 
@@ -134,20 +125,13 @@ export default function ArticleSeo({ article, slug }) {
 
       <meta name="twitter:title" content={article.ogTitle || seoTitle} />
 
-      <meta
-        name="twitter:description"
-        content={article.ogDescription || seoDescription}
-      />
+      <meta name="twitter:description" content={article.ogDescription || seoDescription} />
 
       <meta name="twitter:image" content={ogImage} />
 
       <meta name="twitter:image:alt" content={ogImageAlt} />
 
-      {articleSchema && (
-        <script type="application/ld+json">
-          {JSON.stringify(articleSchema)}
-        </script>
-      )}
+      {articleSchema && <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>}
     </Helmet>
   );
 }

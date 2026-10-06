@@ -1,7 +1,4 @@
-import {
-  getRegulationClaim,
-} from '../../data/regulationClaims';
-
+import { getRegulationClaim } from '../../data/regulationClaims';
 
 export const sportObjects = [
   {
@@ -41,7 +38,6 @@ export const sportObjects = [
     title: 'Иные объекты спорта',
   },
 ];
-
 
 export const sportFaqItems = [
   {
@@ -85,8 +81,7 @@ export const sportFaqItems = [
     answer: getRegulationClaim('202', 'sport.faq.09'),
   },
   {
-    question:
-      'Можно ли публиковать заполненный паспорт?',
+    question: 'Можно ли публиковать заполненный паспорт?',
     answer:
       'Заполненный паспорт действующего спортивного объекта публично не размещаем, поскольку документ содержит служебную информацию ограниченного распространения и имеет пометку «Для служебного пользования».',
   },

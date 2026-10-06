@@ -9,7 +9,7 @@
 .hotel-process__layout {
   display: grid;
   grid-template-columns:
-    minmax(300px, .68fr)
+    minmax(300px, 0.68fr)
     minmax(0, 1.32fr);
   gap: clamp(60px, 9vw, 150px);
   align-items: start;
@@ -26,8 +26,7 @@
   align-items: center;
   margin-top: 34px;
   padding-top: 24px;
-  border-top:
-    1px solid rgb(21 21 21 / 16%);
+  border-top: 1px solid rgb(21 21 21 / 16%);
 }
 
 .hotel-process__note > span {
@@ -66,13 +65,11 @@
   align-items: center;
   min-height: 116px;
   padding: 24px 0;
-  border-top:
-    1px solid rgb(21 21 21 / 15%);
+  border-top: 1px solid rgb(21 21 21 / 15%);
 }
 
 .hotel-process__steps li:last-child {
-  border-bottom:
-    1px solid rgb(21 21 21 / 15%);
+  border-bottom: 1px solid rgb(21 21 21 / 15%);
 }
 
 .hotel-process__number {
@@ -86,13 +83,12 @@
   font-size: 12px;
   font-weight: 800;
   transition:
-    background-color .25s ease,
-    color .25s ease,
-    transform .25s ease;
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
 }
 
-.hotel-process__steps li:hover
-.hotel-process__number {
+.hotel-process__steps li:hover .hotel-process__number {
   background: #a9f04a;
   color: #111111;
   transform: scale(1.06);
@@ -103,31 +99,29 @@
   margin-bottom: 6px;
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  opacity: .46;
+  opacity: 0.46;
 }
 
 .hotel-process__steps h3 {
   max-width: 620px;
   margin: 0;
-  font-size:
-    clamp(20px, 1.8vw, 27px);
+  font-size: clamp(20px, 1.8vw, 27px);
   font-weight: 600;
   line-height: 1.2;
-  letter-spacing: -.02em;
+  letter-spacing: -0.02em;
 }
 
 .hotel-process__arrow {
   font-size: 18px;
-  opacity: .42;
+  opacity: 0.42;
   transition:
-    opacity .2s ease,
-    transform .2s ease;
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
-.hotel-process__steps li:hover
-.hotel-process__arrow {
+.hotel-process__steps li:hover .hotel-process__arrow {
   opacity: 1;
   transform: translateY(5px);
 }

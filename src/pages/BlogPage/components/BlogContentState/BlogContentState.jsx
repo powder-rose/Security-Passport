@@ -1,4 +1,4 @@
-import Container from "../../../../components/ui/Container/Container.jsx";
+import Container from '../../../../components/ui/Container/Container.jsx';
 
 export default function BlogContentState({ loading, error, articles }) {
   return (

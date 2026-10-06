@@ -81,7 +81,7 @@
 
   background: var(--health-accent);
 
-  content: "";
+  content: '';
 }
 
 .health-form__document-head {

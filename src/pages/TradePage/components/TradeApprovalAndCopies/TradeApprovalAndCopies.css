@@ -502,7 +502,7 @@
 
   background: currentColor;
 
-  content: "";
+  content: '';
 
   transform: translate(-50%, -50%);
 }

@@ -14,9 +14,7 @@ export function captureAttribution() {
 
   const params = new URLSearchParams(window.location.search);
   const values = Object.fromEntries(
-    PARAM_KEYS
-      .map((key) => [key, params.get(key)])
-      .filter(([, value]) => Boolean(value)),
+    PARAM_KEYS.map(key => [key, params.get(key)]).filter(([, value]) => Boolean(value)),
   );
 
   let stored = {};

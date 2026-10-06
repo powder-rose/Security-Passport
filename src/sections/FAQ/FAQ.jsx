@@ -60,8 +60,8 @@ export default function FAQ() {
 
           <div className="faq__intro">
             <p>
-              Собрали ответы на вопросы, которые чаще всего возникают до категорирования,
-              разработки и{'\u00A0'}согласования документа.
+              Собрали ответы на вопросы, которые чаще всего возникают до категорирования, разработки
+              и{'\u00A0'}согласования документа.
             </p>
             <a href="#quiz">Не нашли свой вопрос? Проверить объект ↘</a>
           </div>
@@ -74,7 +74,7 @@ export default function FAQ() {
               item={item}
               index={index}
               isOpen={openId === item.id}
-              onToggle={() => setOpenId((current) => (current === item.id ? null : item.id))}
+              onToggle={() => setOpenId(current => (current === item.id ? null : item.id))}
             />
           ))}
         </div>

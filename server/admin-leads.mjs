@@ -7,15 +7,10 @@ import { resolveSiteFromHost } from './site-region.mjs';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
 
-const LEADS_FILE = path.resolve(
-  projectRoot,
-  process.env.LEADS_FILE || 'data/leads.jsonl',
-);
+const LEADS_FILE = path.resolve(projectRoot, process.env.LEADS_FILE || 'data/leads.jsonl');
 
 function text(value, max = 500) {
-  return typeof value === 'string'
-    ? value.trim().slice(0, max)
-    : '';
+  return typeof value === 'string' ? value.trim().slice(0, max) : '';
 }
 
 function resolveLeadSite(lead) {
@@ -61,16 +56,11 @@ function normalizeLead(lead) {
   return {
     id: text(lead.id, 100),
 
-    receivedAt:
-      text(lead.receivedAt, 100) ||
-      text(lead.submittedAt, 100),
+    receivedAt: text(lead.receivedAt, 100) || text(lead.submittedAt, 100),
 
     source: text(lead.source, 150),
 
-    sourceTitle:
-      lead.source === 'passport-security-quiz'
-        ? 'Квиз'
-        : 'Форма',
+    sourceTitle: lead.source === 'passport-security-quiz' ? 'Квиз' : 'Форма',
 
     city: site,
 
@@ -78,28 +68,19 @@ function normalizeLead(lead) {
     phone: text(contact.phone, 150),
     email: text(contact.email, 300),
 
-    company:
-      text(contact.company, 300) ||
-      text(lead?.data?.company, 300),
+    company: text(contact.company, 300) || text(lead?.data?.company, 300),
 
-    object:
-      text(contact.object, 500) ||
-      text(lead?.data?.object, 500),
+    object: text(contact.object, 500) || text(lead?.data?.object, 500),
 
     page: text(lead.page, 1200),
   };
 }
 
-export async function getAdminLeads({
-  limit = 100,
-} = {}) {
+export async function getAdminLeads({ limit = 100 } = {}) {
   let content = '';
 
   try {
-    content = await fs.readFile(
-      LEADS_FILE,
-      'utf8',
-    );
+    content = await fs.readFile(LEADS_FILE, 'utf8');
   } catch (error) {
     if (error?.code === 'ENOENT') {
       return [];
@@ -125,44 +106,24 @@ export async function getAdminLeads({
 
   return rows
     .sort((a, b) => {
-      const aTime =
-        Date.parse(a.receivedAt) || 0;
+      const aTime = Date.parse(a.receivedAt) || 0;
 
-      const bTime =
-        Date.parse(b.receivedAt) || 0;
+      const bTime = Date.parse(b.receivedAt) || 0;
 
       return bTime - aTime;
     })
     .slice(0, Math.max(1, Math.min(limit, 500)));
 }
 
+export async function getAdminLeadsPage({ page = 1, limit = 50, search = '' } = {}) {
+  const safePage = Math.max(1, Number.parseInt(page, 10) || 1);
 
-export async function getAdminLeadsPage({
-  page = 1,
-  limit = 50,
-  search = '',
-} = {}) {
-  const safePage =
-    Math.max(
-      1,
-      Number.parseInt(page, 10) || 1,
-    );
+  const safeLimit = Math.max(1, Math.min(Number.parseInt(limit, 10) || 50, 100));
 
-  const safeLimit =
-    Math.max(
-      1,
-      Math.min(
-        Number.parseInt(limit, 10) || 50,
-        100,
-      ),
-    );
-
-  const query =
-    String(search || '')
-      .trim()
-      .toLocaleLowerCase('ru')
-      .slice(0, 200);
-
+  const query = String(search || '')
+    .trim()
+    .toLocaleLowerCase('ru')
+    .slice(0, 200);
 
   /*
    * Берём до 500 последних заявок.
@@ -171,85 +132,52 @@ export async function getAdminLeadsPage({
    * и не позволяет API вернуть
    * неограниченный массив.
    */
-  const all =
-    await getAdminLeads({
-      limit: 500,
-    });
+  const all = await getAdminLeads({
+    limit: 500,
+  });
 
+  const filtered = query
+    ? all.filter(lead => {
+        const haystack = [
+          lead?.city?.name,
+          lead?.name,
+          lead?.phone,
+          lead?.email,
+          lead?.company,
+          lead?.sourceTitle,
+          lead?.object,
+        ]
+          .filter(Boolean)
+          .join(' ')
+          .toLocaleLowerCase('ru');
 
-  const filtered =
-    query
-      ? all.filter((lead) => {
-          const haystack = [
-            lead?.city?.name,
-            lead?.name,
-            lead?.phone,
-            lead?.email,
-            lead?.company,
-            lead?.sourceTitle,
-            lead?.object,
-          ]
-            .filter(Boolean)
-            .join(' ')
-            .toLocaleLowerCase('ru');
+        return haystack.includes(query);
+      })
+    : all;
 
-          return haystack.includes(
-            query,
-          );
-        })
-      : all;
+  const total = filtered.length;
 
+  const totalPages = Math.max(1, Math.ceil(total / safeLimit));
 
-  const total =
-    filtered.length;
+  const resolvedPage = Math.min(safePage, totalPages);
 
-  const totalPages =
-    Math.max(
-      1,
-      Math.ceil(
-        total /
-        safeLimit,
-      ),
-    );
-
-  const resolvedPage =
-    Math.min(
-      safePage,
-      totalPages,
-    );
-
-  const offset =
-    (
-      resolvedPage - 1
-    )
-    *
-    safeLimit;
-
+  const offset = (resolvedPage - 1) * safeLimit;
 
   return {
-    leads:
-      filtered.slice(
-        offset,
-        offset + safeLimit,
-      ),
+    leads: filtered.slice(offset, offset + safeLimit),
 
     pagination: {
-      page:
-        resolvedPage,
+      page: resolvedPage,
 
-      limit:
-        safeLimit,
+      limit: safeLimit,
 
       total,
 
       totalPages,
 
-      hasPrevious:
-        resolvedPage > 1,
+      hasPrevious: resolvedPage > 1,
 
-      hasNext:
-        resolvedPage <
-        totalPages,
+      hasNext: resolvedPage < totalPages,
     },
   };
 }

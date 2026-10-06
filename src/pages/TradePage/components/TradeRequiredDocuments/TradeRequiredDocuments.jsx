@@ -1,4 +1,4 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
 export default function TradeRequiredDocuments() {
   return (
@@ -12,9 +12,8 @@ export default function TradeRequiredDocuments() {
               <h2>Что потребуется для разработки</h2>
 
               <p>
-                Не запрашиваем одинаковый универсальный пакет у каждого
-                заказчика. Сначала определяем статус объекта, затем уточняем
-                состав необходимых сведений.
+                Не запрашиваем одинаковый универсальный пакет у каждого заказчика. Сначала
+                определяем статус объекта, затем уточняем состав необходимых сведений.
               </p>
             </div>
 
@@ -75,10 +74,7 @@ export default function TradeRequiredDocuments() {
                 <div>
                   <h3>Безопасность</h3>
 
-                  <p>
-                    Охрана, видеонаблюдение, сигнализация и другие применимые
-                    сведения.
-                  </p>
+                  <p>Охрана, видеонаблюдение, сигнализация и другие применимые сведения.</p>
                 </div>
               </article>
 
@@ -117,10 +113,7 @@ export default function TradeRequiredDocuments() {
           <aside className="trade-documents__note">
             <strong>Точный перечень</strong>
 
-            <p>
-              Запрашиваем после определения нормативного статуса конкретного
-              торгового объекта.
-            </p>
+            <p>Запрашиваем после определения нормативного статуса конкретного торгового объекта.</p>
           </aside>
         </Container>
       </section>

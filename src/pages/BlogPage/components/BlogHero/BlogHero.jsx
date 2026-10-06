@@ -1,4 +1,4 @@
-import Container from "../../../../components/ui/Container/Container.jsx";
+import Container from '../../../../components/ui/Container/Container.jsx';
 
 export default function BlogHero() {
   return (
@@ -24,9 +24,9 @@ export default function BlogHero() {
               <div className="blog-hero__aside-label">О блоге</div>
 
               <p>
-                Блог <strong>Николая Бойкова</strong>, эксперта по безопасности
-                объектов. Практические разборы требований, категорирования,
-                паспортов безопасности и подготовки документов.
+                Блог <strong>Николая Бойкова</strong>, эксперта по безопасности объектов.
+                Практические разборы требований, категорирования, паспортов безопасности и
+                подготовки документов.
               </p>
 
               <div className="blog-hero__tags">

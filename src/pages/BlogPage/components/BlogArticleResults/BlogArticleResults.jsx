@@ -1,10 +1,10 @@
-import Container from "../../../../components/ui/Container/Container.jsx";
+import Container from '../../../../components/ui/Container/Container.jsx';
 
-import ArticleImage from "../ArticleImage/ArticleImage";
+import ArticleImage from '../ArticleImage/ArticleImage';
 
-import BlogArticleCard from "../BlogArticleCard/BlogArticleCard";
+import BlogArticleCard from '../BlogArticleCard/BlogArticleCard';
 
-import { formatDate } from "../../blogPageUtils";
+import { formatDate } from '../../blogPageUtils';
 
 export default function BlogArticleResults({
   loading,
@@ -18,17 +18,11 @@ export default function BlogArticleResults({
   return (
     <>
       {!loading && !error && featuredEntry && (
-        <div
-          key={selectedCategory}
-          id="blog-category-results"
-          className="blog-category-results"
-        >
+        <div key={selectedCategory} id="blog-category-results" className="blog-category-results">
           <section className="blog-featured">
             <Container>
               <div className="blog-section-heading">
-                <span>
-                  {activeCategory ? "ПОСЛЕДНЕЕ В РАЗДЕЛЕ" : "НОВЫЙ МАТЕРИАЛ"}
-                </span>
+                <span>{activeCategory ? 'ПОСЛЕДНЕЕ В РАЗДЕЛЕ' : 'НОВЫЙ МАТЕРИАЛ'}</span>
 
                 <span>01</span>
               </div>
@@ -41,10 +35,7 @@ export default function BlogArticleResults({
                 </div>
               )}
 
-              <a
-                className="blog-featured-card"
-                href={`/blog/${featuredEntry.article.slug}/`}
-              >
+              <a className="blog-featured-card" href={`/blog/${featuredEntry.article.slug}/`}>
                 <div className="blog-featured-card__image">
                   <ArticleImage article={featuredEntry.article} />
                 </div>
@@ -62,8 +53,7 @@ export default function BlogArticleResults({
                     }
                   >
                     {formatDate(
-                      featuredEntry.article.publishedAt ||
-                        featuredEntry.article.createdAt,
+                      featuredEntry.article.publishedAt || featuredEntry.article.createdAt,
                     )}
                   </time>
 
@@ -83,17 +73,13 @@ export default function BlogArticleResults({
             <section className="blog-list" id="blog-materials">
               <Container>
                 <div className="blog-section-heading">
-                  <span>
-                    {activeCategory ? activeCategory.label : "ВСЕ МАТЕРИАЛЫ"}
-                  </span>
+                  <span>{activeCategory ? activeCategory.label : 'ВСЕ МАТЕРИАЛЫ'}</span>
 
-                  <span>
-                    {String(filteredArticles.length).padStart(2, "0")}
-                  </span>
+                  <span>{String(filteredArticles.length).padStart(2, '0')}</span>
                 </div>
 
                 <div className="blog-grid">
-                  {restEntries.map((item) => (
+                  {restEntries.map(item => (
                     <BlogArticleCard
                       key={`${selectedCategory}-${item.article.id}`}
                       article={item.article}

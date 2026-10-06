@@ -20,17 +20,11 @@ import Expert from '../sections/Expert/Expert';
 import FAQ from '../sections/FAQ/FAQ';
 import FinalCTA from '../sections/FinalCTA/FinalCTA';
 
-import {
-  getLegalDocumentByPathname,
-} from '../content/legalDocuments';
+import { getLegalDocumentByPathname } from '../content/legalDocuments';
 
-import {
-  getObjectTypeByPathname,
-} from '../data/objectTypes';
+import { getObjectTypeByPathname } from '../data/objectTypes';
 
-import {
-  getServicePageByPathname,
-} from '../data/servicePages';
+import { getServicePageByPathname } from '../data/servicePages';
 
 export default function App({
   pathname,
@@ -39,87 +33,48 @@ export default function App({
   routeComponents = {},
 }) {
   const resolvedPathname =
-    pathname ||
-    (
-      typeof window !== 'undefined'
-        ? window.location.pathname
-        : '/'
-    );
+    pathname || (typeof window !== 'undefined' ? window.location.pathname : '/');
 
-  const normalizedPathname =
-    resolvedPathname.replace(
-      /\/+$/,
-      ''
-    ) || '/';
-
+  const normalizedPathname = resolvedPathname.replace(/\/+$/, '') || '/';
 
   const {
-    LegalPage:
-      LegalPageComponent,
+    LegalPage: LegalPageComponent,
 
-    ObjectTypePage:
-      GenericObjectTypePage,
+    ObjectTypePage: GenericObjectTypePage,
 
-    BlogPage:
-      BlogPageComponent,
+    BlogPage: BlogPageComponent,
 
-    ArticlePage:
-      ArticlePageComponent,
+    ArticlePage: ArticlePageComponent,
 
     objectTypeComponents = {},
 
     servicePageComponents = {},
   } = routeComponents;
 
-
-  if(
-    normalizedPathname ===
-    '/blog'
-  ){
-
+  if (normalizedPathname === '/blog') {
     return (
       <>
         <Analytics />
 
         <Header pathname={resolvedPathname} />
 
-        <BlogPageComponent
-          initialArticles={initialBlogArticles}
-        />
+        <BlogPageComponent initialArticles={initialBlogArticles} />
 
         <Footer />
       </>
     );
-
   }
 
+  const blogArticleMatch = normalizedPathname.match(/^\/blog\/([^/]+)$/);
 
-  const blogArticleMatch =
-    normalizedPathname.match(
-      /^\/blog\/([^/]+)$/
-    );
-
-
-  if(
-    blogArticleMatch
-  ){
-
-    let articleSlug =
-      blogArticleMatch[1];
-
+  if (blogArticleMatch) {
+    let articleSlug = blogArticleMatch[1];
 
     try {
-
-      articleSlug =
-        decodeURIComponent(
-          articleSlug
-        );
-
-    }
-    catch {
+      articleSlug = decodeURIComponent(articleSlug);
+    } catch {
       // Оставляем исходный slug.
     }
-
 
     return (
       <>
@@ -136,39 +91,24 @@ export default function App({
         <Footer />
       </>
     );
-
   }
 
-
-  const legalDocument =
-    getLegalDocumentByPathname(
-      resolvedPathname,
-    );
+  const legalDocument = getLegalDocumentByPathname(resolvedPathname);
 
   if (legalDocument) {
     return (
       <>
         <Analytics />
 
-        <LegalPageComponent
-          document={legalDocument}
-        />
+        <LegalPageComponent document={legalDocument} />
       </>
     );
   }
 
-
-  const objectType =
-    getObjectTypeByPathname(
-      resolvedPathname,
-    );
+  const objectType = getObjectTypeByPathname(resolvedPathname);
 
   if (objectType) {
-    const ObjectPageComponent =
-      objectTypeComponents[
-        objectType.id
-      ] ||
-      GenericObjectTypePage;
+    const ObjectPageComponent = objectTypeComponents[objectType.id] || GenericObjectTypePage;
 
     return (
       <>
@@ -177,33 +117,18 @@ export default function App({
         <Analytics />
         <Header pathname={resolvedPathname} />
 
-        <ObjectPageComponent
-          objectType={objectType}
-        />
+        <ObjectPageComponent objectType={objectType} />
 
         <Footer />
       </>
     );
   }
 
+  const servicePage = getServicePageByPathname(resolvedPathname);
 
-  const servicePage =
-    getServicePageByPathname(
-      resolvedPathname,
-    );
+  const ServicePageComponent = servicePage ? servicePageComponents[servicePage.id] : null;
 
-  const ServicePageComponent =
-    servicePage
-      ? servicePageComponents[
-          servicePage.id
-        ]
-      : null;
-
-
-  if (
-    servicePage &&
-    ServicePageComponent
-  ) {
+  if (servicePage && ServicePageComponent) {
     return (
       <>
         <Seo pathname={resolvedPathname} />
@@ -211,16 +136,12 @@ export default function App({
         <Analytics />
         <Header pathname={resolvedPathname} />
 
-        <ServicePageComponent
-          servicePage={servicePage}
-        />
+        <ServicePageComponent servicePage={servicePage} />
 
         <Footer />
       </>
     );
   }
-
-
 
   return (
     <>

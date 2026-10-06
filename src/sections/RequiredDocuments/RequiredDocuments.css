@@ -16,7 +16,7 @@
 
 .required-documents__layout {
   display: grid;
-  grid-template-columns: minmax(320px, .78fr) minmax(0, 1.22fr);
+  grid-template-columns: minmax(320px, 0.78fr) minmax(0, 1.22fr);
   gap: clamp(48px, 7vw, 108px);
   align-items: start;
 }
@@ -31,9 +31,9 @@
 .required-documents__notice-kicker {
   margin: 0 0 20px;
   color: var(--color-primary);
-  font-size: .76rem;
+  font-size: 0.76rem;
   font-weight: 820;
-  letter-spacing: .14em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
@@ -41,8 +41,8 @@
   max-width: 600px;
   margin: 0;
   font-size: clamp(2.8rem, 4.9vw, 5.45rem);
-  line-height: .93;
-  letter-spacing: -.065em;
+  line-height: 0.93;
+  letter-spacing: -0.065em;
 }
 
 .required-documents h2 em {
@@ -76,7 +76,7 @@
 
 .required-documents__list {
   overflow: hidden;
-  border: 1px solid rgba(21,21,21,.10);
+  border: 1px solid rgba(21, 21, 21, 0.1);
   border-radius: clamp(28px, 3vw, 38px);
   background: var(--color-bg);
 }
@@ -88,8 +88,8 @@
   align-items: center;
   min-height: 154px;
   padding: clamp(24px, 3vw, 34px);
-  border-bottom: 1px solid rgba(21,21,21,.09);
-  transition: background .22s ease;
+  border-bottom: 1px solid rgba(21, 21, 21, 0.09);
+  transition: background 0.22s ease;
 }
 
 .required-documents__item:last-child {
@@ -97,7 +97,7 @@
 }
 
 .required-documents__item:hover {
-  background: rgba(255,255,255,.72);
+  background: rgba(255, 255, 255, 0.72);
 }
 
 .required-documents__number {
@@ -105,14 +105,17 @@
   height: 54px;
   display: grid;
   place-items: center;
-  border: 1px solid rgba(21,21,21,.12);
+  border: 1px solid rgba(21, 21, 21, 0.12);
   border-radius: 50%;
   background: #fff;
   color: var(--color-primary);
-  font-size: .74rem;
+  font-size: 0.74rem;
   font-weight: 850;
-  letter-spacing: .06em;
-  transition: border-color .22s ease, background .22s ease, color .22s ease;
+  letter-spacing: 0.06em;
+  transition:
+    border-color 0.22s ease,
+    background 0.22s ease,
+    color 0.22s ease;
 }
 
 .required-documents__item:hover .required-documents__number {
@@ -129,7 +132,7 @@
   margin: 0 0 9px;
   font-size: clamp(1.25rem, 1.7vw, 1.65rem);
   line-height: 1.05;
-  letter-spacing: -.035em;
+  letter-spacing: -0.035em;
 }
 
 .required-documents__item p {
@@ -146,7 +149,7 @@
   place-items: center;
   justify-self: end;
   border-radius: 50%;
-  background: rgba(169,240,74,.18);
+  background: rgba(169, 240, 74, 0.18);
   color: #355715;
   font-size: 1rem;
   font-weight: 850;
@@ -159,7 +162,7 @@
   align-items: center;
   margin-top: 18px;
   padding: clamp(25px, 3vw, 34px);
-  border: 1px solid rgba(255,255,255,.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 30px;
   background: var(--color-text);
   color: #fff;
@@ -186,13 +189,13 @@
   margin: 0 0 8px;
   font-size: clamp(1.45rem, 2vw, 2rem);
   line-height: 1.02;
-  letter-spacing: -.035em;
+  letter-spacing: -0.035em;
 }
 
 .required-documents__notice-copy > p:last-child {
   max-width: 650px;
   margin: 0;
-  color: rgba(255,255,255,.62);
+  color: rgba(255, 255, 255, 0.62);
   line-height: 1.58;
 }
 
@@ -208,7 +211,6 @@
 }
 
 @media (max-width: 1020px) {
-
   .required-documents__illustration {
     width: min(100%, 300px);
   }
@@ -264,7 +266,6 @@
 }
 
 @media (max-width: 1060px) {
-
   .required-documents__layout {
     grid-template-columns: 1fr;
     gap: 48px;
@@ -277,7 +278,6 @@
 }
 
 @media (max-width: 820px) {
-
   .required-documents {
     scroll-margin-top: 84px;
   }
@@ -288,11 +288,10 @@
 }
 
 @media (max-width: 620px) {
-
   .required-documents h2 {
     font-size: clamp(2.35rem, 10.4vw, 2.8rem);
-    line-height: .98;
-    letter-spacing: -.045em;
+    line-height: 0.98;
+    letter-spacing: -0.045em;
   }
 
   .required-documents__lead {
@@ -302,9 +301,8 @@
 }
 
 @media (max-width: 430px) {
-
   .required-documents h2 {
     font-size: clamp(2.18rem, 9.7vw, 2.45rem);
-    letter-spacing: -.035em;
+    letter-spacing: -0.035em;
   }
 }

@@ -11,7 +11,7 @@
   display: grid;
   grid-template-columns:
     minmax(0, 1fr)
-    minmax(260px, .42fr);
+    minmax(260px, 0.42fr);
   gap: 60px;
   align-items: end;
 }
@@ -25,9 +25,9 @@
 .education-actualization__period > span {
   display: block;
   color: var(--color-text-secondary);
-  font-size: .76rem;
+  font-size: 0.76rem;
   font-weight: 800;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -35,24 +35,24 @@
   display: block;
   margin-top: 18px;
   font-size: clamp(3rem, 5vw, 5rem);
-  line-height: .9;
-  letter-spacing: -.06em;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
 }
 
 .education-actualization__period small {
   display: block;
   margin-top: 8px;
   color: var(--color-primary);
-  font-size: .38em;
+  font-size: 0.38em;
   line-height: 1;
-  letter-spacing: -.02em;
+  letter-spacing: -0.02em;
 }
 
 .education-actualization__body {
   display: grid;
   grid-template-columns:
     minmax(0, 1fr)
-    minmax(300px, .72fr);
+    minmax(300px, 0.72fr);
   gap: 54px;
   margin-top: 64px;
 }
@@ -62,7 +62,7 @@
   margin: 0 0 28px;
   font-size: clamp(1.55rem, 2.25vw, 2.25rem);
   line-height: 1.1;
-  letter-spacing: -.035em;
+  letter-spacing: -0.035em;
 }
 
 .education-actualization__reasons {
@@ -83,7 +83,7 @@
 
 .education-actualization__reason span {
   color: var(--color-primary);
-  font-size: .74rem;
+  font-size: 0.74rem;
   font-weight: 800;
 }
 
@@ -104,9 +104,9 @@
 .education-actualization__aside-kicker {
   margin: 0;
   color: var(--color-accent);
-  font-size: .74rem;
+  font-size: 0.74rem;
   font-weight: 800;
-  letter-spacing: .09em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
 }
 
@@ -114,12 +114,10 @@
   margin: 36px 0 0;
   font-size: clamp(1.55rem, 2.1vw, 2.1rem);
   line-height: 1.1;
-  letter-spacing: -.035em;
+  letter-spacing: -0.035em;
 }
 
-.education-actualization__aside > p:not(
-  .education-actualization__aside-kicker
-) {
+.education-actualization__aside > p:not(.education-actualization__aside-kicker) {
   margin: 20px 0 0;
   color: rgb(255 255 255 / 64%);
   line-height: 1.65;
@@ -136,7 +134,7 @@
   color: var(--color-accent);
   font-size: clamp(2rem, 3vw, 3rem);
   line-height: 1;
-  letter-spacing: -.045em;
+  letter-spacing: -0.045em;
 }
 
 .education-actualization__storage p {
@@ -162,8 +160,7 @@
   line-height: 1.6;
 }
 
-.education-actualization__footer
-.education-text-link {
+.education-actualization__footer .education-text-link {
   flex: 0 0 auto;
   margin-top: 0;
 }

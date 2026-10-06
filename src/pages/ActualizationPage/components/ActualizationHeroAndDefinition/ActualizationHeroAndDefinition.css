@@ -6,11 +6,7 @@ ActualizationHeroAndDefinition.jsx — HERO AND DEFINITION
   padding: clamp(126px, 10vw, 164px) 0 clamp(82px, 7vw, 112px);
 
   background:
-    radial-gradient(
-      circle at 86% 17%,
-      rgba(169, 240, 74, 0.22),
-      transparent 27%
-    ),
+    radial-gradient(circle at 86% 17%, rgba(169, 240, 74, 0.22), transparent 27%),
     linear-gradient(180deg, #fbf9f5 0%, var(--color-bg) 100%);
 }
 
@@ -99,7 +95,7 @@ ActualizationHeroAndDefinition.jsx — HERO AND DEFINITION
 }
 
 .actualization-hero__benefits li::before {
-  content: "";
+  content: '';
 
   position: absolute;
 
@@ -169,7 +165,7 @@ ActualizationHeroAndDefinition.jsx — HERO AND DEFINITION
 }
 
 .actualization-hero__note::after {
-  content: "";
+  content: '';
 
   position: absolute;
 
@@ -265,9 +261,7 @@ ActualizationHeroAndDefinition.jsx — HERO AND DEFINITION
 }
 
 .actualization-definition__paths article:last-child {
-  background:
-    linear-gradient(145deg, rgba(169, 240, 74, 0.24), rgba(169, 240, 74, 0.08)),
-    #ffffff;
+  background: linear-gradient(145deg, rgba(169, 240, 74, 0.24), rgba(169, 240, 74, 0.08)), #ffffff;
 }
 
 .actualization-definition__paths article > span {

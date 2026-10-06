@@ -10,7 +10,7 @@
   display: grid;
   grid-template-columns:
     minmax(0, 1fr)
-    minmax(320px, .72fr);
+    minmax(320px, 0.72fr);
   gap: clamp(60px, 8vw, 130px);
   align-items: end;
 }
@@ -18,11 +18,10 @@
 .culture-form__header h2 {
   max-width: 850px;
   margin: 0;
-  font-size:
-    clamp(40px, 4.35vw, 67px);
+  font-size: clamp(40px, 4.35vw, 67px);
   font-weight: 600;
-  line-height: .99;
-  letter-spacing: -.045em;
+  line-height: 0.99;
+  letter-spacing: -0.045em;
   text-wrap: balance;
 }
 
@@ -35,14 +34,13 @@
 .culture-form__intro p + p {
   margin-top: 18px;
   padding-top: 18px;
-  border-top:
-    1px solid rgb(21 21 21 / 14%);
+  border-top: 1px solid rgb(21 21 21 / 14%);
 }
 
 .culture-form__layout {
   display: grid;
   grid-template-columns:
-    minmax(280px, .58fr)
+    minmax(280px, 0.58fr)
     minmax(0, 1.42fr);
   gap: clamp(50px, 8vw, 120px);
   margin-top: 62px;
@@ -53,8 +51,7 @@
   position: sticky;
   top: 32px;
   overflow: hidden;
-  border:
-    1px solid rgb(21 21 21 / 15%);
+  border: 1px solid rgb(21 21 21 / 15%);
   border-radius: 26px;
   background: #f5f5f1;
 }
@@ -91,15 +88,14 @@
   color: #6caf14;
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: .06em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .culture-form__document-body p {
   max-width: 310px;
   margin: 125px 0 0;
-  font-size:
-    clamp(21px, 1.8vw, 27px);
+  font-size: clamp(21px, 1.8vw, 27px);
   font-weight: 600;
   line-height: 1.2;
 }
@@ -109,16 +105,14 @@
   align-items: center;
   justify-content: space-between;
   padding: 20px 27px;
-  border-top:
-    1px solid rgb(21 21 21 / 14%);
+  border-top: 1px solid rgb(21 21 21 / 14%);
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: .05em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
-.culture-form__document-footer
-span:first-child {
+.culture-form__document-footer span:first-child {
   padding: 7px 10px;
   border-radius: 999px;
   background: #a9f04a;
@@ -128,29 +122,26 @@ span:first-child {
   margin: 0 0 18px;
   font-size: 12px;
   font-weight: 800;
-  letter-spacing: .06em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .culture-form__structure ol {
   margin: 0 0 36px;
   padding: 0;
-  border-top:
-    1px solid rgb(21 21 21 / 15%);
+  border-top: 1px solid rgb(21 21 21 / 15%);
   list-style: none;
 }
 
 .culture-form__structure li {
   display: grid;
-  grid-template-columns:
-    48px minmax(0, 1fr);
+  grid-template-columns: 48px minmax(0, 1fr);
   gap: 18px;
   align-items: center;
   min-height: 65px;
   padding: 14px 0;
-  border-bottom:
-    1px solid rgb(21 21 21 / 15%);
+  border-bottom: 1px solid rgb(21 21 21 / 15%);
 }
 
 .culture-form__structure li > span {
@@ -160,8 +151,7 @@ span:first-child {
 }
 
 .culture-form__structure li strong {
-  font-size:
-    clamp(16px, 1.35vw, 20px);
+  font-size: clamp(16px, 1.35vw, 20px);
   font-weight: 600;
   line-height: 1.3;
 }

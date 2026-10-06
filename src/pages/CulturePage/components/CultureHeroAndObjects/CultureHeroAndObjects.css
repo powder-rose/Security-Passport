@@ -10,7 +10,7 @@
   display: grid;
   grid-template-columns:
     minmax(0, 1.22fr)
-    minmax(340px, .78fr);
+    minmax(340px, 0.78fr);
   gap: clamp(50px, 7vw, 112px);
   align-items: stretch;
 }
@@ -22,19 +22,17 @@
 .culture-hero h1 {
   max-width: 970px;
   margin: 0;
-  font-size:
-    clamp(46px, 5.1vw, 80px);
+  font-size: clamp(46px, 5.1vw, 80px);
   font-weight: 600;
-  line-height: .98;
-  letter-spacing: -.045em;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
   text-wrap: balance;
 }
 
 .culture-hero__lead {
   max-width: 790px;
   margin: 30px 0 0;
-  font-size:
-    clamp(18px, 1.55vw, 23px);
+  font-size: clamp(18px, 1.55vw, 23px);
   line-height: 1.5;
 }
 
@@ -54,14 +52,13 @@
 .culture-hero__price > span {
   font-size: 13px;
   line-height: 1.35;
-  opacity: .58;
+  opacity: 0.58;
 }
 
 .culture-hero__price strong {
-  font-size:
-    clamp(36px, 3vw, 49px);
+  font-size: clamp(36px, 3vw, 49px);
   line-height: 1;
-  letter-spacing: -.045em;
+  letter-spacing: -0.045em;
 }
 
 .culture-hero__actions {
@@ -85,13 +82,11 @@
 }
 
 .culture-hero__secondary span {
-  transition:
-    transform .2s ease;
+  transition: transform 0.2s ease;
 }
 
 .culture-hero__secondary:hover span {
-  transform:
-    translateY(4px);
+  transform: translateY(4px);
 }
 
 .culture-hero__regulation {
@@ -113,14 +108,12 @@
   height: 290px;
   border-radius: 50%;
   background: #a9f04a;
-  content: "";
-  transition:
-    transform .5s ease;
+  content: '';
+  transition: transform 0.5s ease;
 }
 
 .culture-hero__regulation:hover::before {
-  transform:
-    translate(-12px, 14px);
+  transform: translate(-12px, 14px);
 }
 
 .culture-hero__regulation-top {
@@ -136,16 +129,15 @@
 .culture-hero__regulation-top > span {
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .culture-hero__regulation-top strong {
   color: #111;
-  font-size:
-    clamp(35px, 3.4vw, 53px);
-  line-height: .9;
-  letter-spacing: -.06em;
+  font-size: clamp(35px, 3.4vw, 53px);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
 }
 
 .culture-hero__regulation-title {
@@ -160,11 +152,10 @@
 .culture-hero__regulation-title p {
   max-width: 360px;
   margin: 0;
-  font-size:
-    clamp(31px, 3vw, 46px);
+  font-size: clamp(31px, 3vw, 46px);
   font-weight: 600;
   line-height: 1;
-  letter-spacing: -.04em;
+  letter-spacing: -0.04em;
 }
 
 .culture-hero__facts {
@@ -175,12 +166,10 @@
 
 .culture-hero__facts > div {
   display: grid;
-  grid-template-columns:
-    44px minmax(0, 1fr);
+  grid-template-columns: 44px minmax(0, 1fr);
   gap: 14px;
   padding: 17px 32px;
-  border-top:
-    1px solid rgb(255 255 255 / 15%);
+  border-top: 1px solid rgb(255 255 255 / 15%);
 }
 
 .culture-hero__facts span {
@@ -204,7 +193,7 @@
   display: grid;
   grid-template-columns:
     minmax(0, 1fr)
-    minmax(320px, .7fr);
+    minmax(320px, 0.7fr);
   gap: clamp(60px, 8vw, 130px);
   align-items: end;
 }
@@ -212,11 +201,10 @@
 .culture-scope__heading h2 {
   max-width: 790px;
   margin: 0;
-  font-size:
-    clamp(38px, 4.2vw, 65px);
+  font-size: clamp(38px, 4.2vw, 65px);
   font-weight: 600;
   line-height: 1;
-  letter-spacing: -.04em;
+  letter-spacing: -0.04em;
   text-wrap: balance;
 }
 
@@ -230,7 +218,7 @@
   display: grid;
   grid-template-columns:
     minmax(0, 1.08fr)
-    minmax(340px, .92fr);
+    minmax(340px, 0.92fr);
   gap: clamp(60px, 8vw, 120px);
   margin-top: 64px;
   align-items: start;
@@ -242,33 +230,29 @@
   font-size: 13px;
   font-weight: 700;
   line-height: 1.45;
-  opacity: .58;
+  opacity: 0.58;
 }
 
 .culture-scope__list {
-  border-top:
-    1px solid rgb(21 21 21 / 16%);
+  border-top: 1px solid rgb(21 21 21 / 16%);
 }
 
 .culture-scope__item {
   display: grid;
-  grid-template-columns:
-    48px minmax(0, 1fr);
+  grid-template-columns: 48px minmax(0, 1fr);
   gap: 18px;
   align-items: center;
   min-height: 68px;
   padding: 14px 0;
-  border-bottom:
-    1px solid rgb(21 21 21 / 16%);
+  border-bottom: 1px solid rgb(21 21 21 / 16%);
   transition:
-    padding-left .2s ease,
-    background-color .2s ease;
+    padding-left 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .culture-scope__item:hover {
   padding-left: 10px;
-  background:
-    rgb(255 255 255 / 45%);
+  background: rgb(255 255 255 / 45%);
 }
 
 .culture-scope__item > span {
@@ -278,8 +262,7 @@
 }
 
 .culture-scope__item strong {
-  font-size:
-    clamp(17px, 1.5vw, 21px);
+  font-size: clamp(17px, 1.5vw, 21px);
   font-weight: 600;
   line-height: 1.25;
 }
@@ -300,17 +283,16 @@
   margin-bottom: 18px;
   font-size: 11px;
   font-weight: 900;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .culture-scope__important p {
   margin: 0;
-  font-size:
-    clamp(19px, 1.7vw, 25px);
+  font-size: clamp(19px, 1.7vw, 25px);
   font-weight: 600;
   line-height: 1.4;
-  letter-spacing: -.015em;
+  letter-spacing: -0.015em;
 }
 
 .culture-scope__legal {
@@ -320,18 +302,17 @@
 .culture-scope__legal h3,
 .culture-scope__exception h3 {
   margin: 0;
-  font-size:
-    clamp(21px, 1.8vw, 27px);
+  font-size: clamp(21px, 1.8vw, 27px);
   font-weight: 600;
   line-height: 1.15;
-  letter-spacing: -.025em;
+  letter-spacing: -0.025em;
 }
 
 .culture-scope__legal p {
   margin: 15px 0 0;
   font-size: 15px;
   line-height: 1.65;
-  opacity: .72;
+  opacity: 0.72;
 }
 
 .culture-scope__exception {
@@ -364,11 +345,9 @@
 }
 
 .culture-inline-link span {
-  transition:
-    transform .2s ease;
+  transition: transform 0.2s ease;
 }
 
 .culture-inline-link:hover span {
-  transform:
-    translate(4px, -4px);
+  transform: translate(4px, -4px);
 }

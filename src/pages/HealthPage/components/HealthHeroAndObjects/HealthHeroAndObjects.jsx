@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { healthObjects } from "../../healthPageData";
+import { healthObjects } from '../../healthPageData';
 
 export default function HealthHeroAndObjects() {
   return (
@@ -19,20 +19,13 @@ export default function HealthHeroAndObjects() {
             <div className="health-hero__content">
               <p className="health-kicker">Объекты здравоохранения</p>
 
-              <h1>
-                Паспорт безопасности объекта здравоохранения — разработка и
-                согласование
-              </h1>
+              <h1>Паспорт безопасности объекта здравоохранения — разработка и согласование</h1>
 
               <p className="health-hero__lead">
-                Подготовим паспорт безопасности медицинского или
-                фармацевтического объекта с учётом требований к
-                антитеррористической защищённости. Подготовим документацию для
-                категорирования, акт, паспорт и сопровождение согласования.{" "}
-                <span className="coverage-emphasis">
-                  Работаем по всей России
-                </span>
-                .
+                Подготовим паспорт безопасности медицинского или фармацевтического объекта с учётом
+                требований к антитеррористической защищённости. Подготовим документацию для
+                категорирования, акт, паспорт и сопровождение согласования.{' '}
+                <span className="coverage-emphasis">Работаем по всей России</span>.
               </p>
 
               <div className="health-hero__commercial">
@@ -76,15 +69,10 @@ export default function HealthHeroAndObjects() {
               </div>
 
               <div className="health-hero__legal-title">
-                <span>
-                  Антитеррористическая защищённость объектов здравоохранения
-                </span>
+                <span>Антитеррористическая защищённость объектов здравоохранения</span>
               </div>
 
-              <div
-                className="health-hero__categories"
-                aria-label="Четыре категории объектов"
-              >
+              <div className="health-hero__categories" aria-label="Четыре категории объектов">
                 <span>I</span>
 
                 <span>II</span>
@@ -95,10 +83,8 @@ export default function HealthHeroAndObjects() {
               </div>
 
               <p className="health-hero__legal-note">
-                Категория определяется по результатам обследования и
-                категорирования объекта.
+                Категория определяется по результатам обследования и категорирования объекта.
               </p>
-
             </aside>
           </div>
         </Container>
@@ -108,27 +94,22 @@ export default function HealthHeroAndObjects() {
         <Container>
           <div className="health-objects__heading">
             <div>
-              <p className="health-kicker">
-                Применимость Постановление Правительства РФ №8
-              </p>
+              <p className="health-kicker">Применимость Постановление Правительства РФ №8</p>
 
-              <h2>
-                Каким объектам здравоохранения требуется паспорт безопасности
-              </h2>
+              <h2>Каким объектам здравоохранения требуется паспорт безопасности</h2>
             </div>
 
             <p>
-              Требования распространяются не только на объекты непосредственно
-              Минздрава России. В сферу Постановление Правительства РФ №8 входят
-              предусмотренные постановлением объекты в сфере здравоохранения,
-              включая объекты организаций, осуществляющих медицинскую и
+              Требования распространяются не только на объекты непосредственно Минздрава России. В
+              сферу Постановление Правительства РФ №8 входят предусмотренные постановлением объекты
+              в сфере здравоохранения, включая объекты организаций, осуществляющих медицинскую и
               фармацевтическую деятельность.
             </p>
           </div>
 
           <div className="health-objects__layout">
             <ol className="health-objects__list">
-              {healthObjects.map((item) => (
+              {healthObjects.map(item => (
                 <li className="health-object" key={item.number}>
                   <span className="health-object__number">{item.number}</span>
 
@@ -147,13 +128,13 @@ export default function HealthHeroAndObjects() {
               <h3>Сначала определяем статус конкретного объекта</h3>
 
               <p>
-                Применимость конкретных требований проверяется с учётом
-                правообладателя, назначения и фактического статуса объекта.
+                Применимость конкретных требований проверяется с учётом правообладателя, назначения
+                и фактического статуса объекта.
               </p>
 
               <p>
-                Само название «клиника», «стоматология» или «аптека» не заменяет
-                проверку применимого нормативного режима.
+                Само название «клиника», «стоматология» или «аптека» не заменяет проверку
+                применимого нормативного режима.
               </p>
 
               <a className="health-inline-link" href="#lead-form">

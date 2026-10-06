@@ -1,25 +1,13 @@
-import {
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import {
-  getLeads,
-  deleteLead,
-} from '../../api/adminApi';
+import { getLeads, deleteLead } from '../../api/adminApi';
 
 import './LeadsPage.css';
-
 
 function formatDateTime(value) {
   const date = new Date(value);
 
-  if (
-    Number.isNaN(
-      date.getTime(),
-    )
-  ) {
+  if (Number.isNaN(date.getTime())) {
     return {
       date: '—',
       time: '',
@@ -27,43 +15,27 @@ function formatDateTime(value) {
   }
 
   return {
-    date:
-      new Intl.DateTimeFormat(
-        'ru-RU',
-        {
-          timeZone:
-            'Europe/Moscow',
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
-        },
-      ).format(date),
+    date: new Intl.DateTimeFormat('ru-RU', {
+      timeZone: 'Europe/Moscow',
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    }).format(date),
 
-    time:
-      new Intl.DateTimeFormat(
-        'ru-RU',
-        {
-          timeZone:
-            'Europe/Moscow',
-          hour: '2-digit',
-          minute: '2-digit',
-        },
-      ).format(date),
+    time: new Intl.DateTimeFormat('ru-RU', {
+      timeZone: 'Europe/Moscow',
+      hour: '2-digit',
+      minute: '2-digit',
+    }).format(date),
   };
 }
 
-
 function pluralLeads(count) {
-  const n =
-    Math.abs(count) % 100;
+  const n = Math.abs(count) % 100;
 
-  const n1 =
-    n % 10;
+  const n1 = n % 10;
 
-  if (
-    n > 10 &&
-    n < 20
-  ) {
+  if (n > 10 && n < 20) {
     return `${count} заявок`;
   }
 
@@ -71,27 +43,17 @@ function pluralLeads(count) {
     return `${count} заявка`;
   }
 
-  if (
-    n1 >= 2 &&
-    n1 <= 4
-  ) {
+  if (n1 >= 2 && n1 <= 4) {
     return `${count} заявки`;
   }
 
   return `${count} заявок`;
 }
 
-
 export default function LeadsPage() {
-  const [
-    leads,
-    setLeads,
-  ] = useState([]);
+  const [leads, setLeads] = useState([]);
 
-  const [
-    pagination,
-    setPagination,
-  ] = useState({
+  const [pagination, setPagination] = useState({
     page: 1,
     total: 0,
     totalPages: 1,
@@ -99,113 +61,70 @@ export default function LeadsPage() {
     hasNext: false,
   });
 
-  const [
-    search,
-    setSearch,
-  ] = useState('');
+  const [search, setSearch] = useState('');
 
-  const [
-    appliedSearch,
-    setAppliedSearch,
-  ] = useState('');
+  const [appliedSearch, setAppliedSearch] = useState('');
 
-  const [
-    loading,
-    setLoading,
-  ] = useState(true);
+  const [loading, setLoading] = useState(true);
 
-  const [
-    error,
-    setError,
-  ] = useState('');
+  const [error, setError] = useState('');
 
-  const [
-    deletingId,
-    setDeletingId,
-  ] = useState('');
+  const [deletingId, setDeletingId] = useState('');
 
-
-  const loadLeads = useCallback(async ({
-    page = 1,
-    query = '',
-  } = {}) => {
+  const loadLeads = useCallback(async ({ page = 1, query = '' } = {}) => {
     setLoading(true);
     setError('');
 
     try {
-      const result =
-        await getLeads({
-          page,
-          limit: 50,
-          search: query,
-        });
+      const result = await getLeads({
+        page,
+        limit: 50,
+        search: query,
+      });
 
-      if (
-        !result?.ok ||
-        !Array.isArray(
-          result?.leads,
-        )
-      ) {
-        throw new Error(
-          'LEADS_LOAD_FAILED',
-        );
+      if (!result?.ok || !Array.isArray(result?.leads)) {
+        throw new Error('LEADS_LOAD_FAILED');
       }
 
-      setLeads(
-        result.leads,
-      );
+      setLeads(result.leads);
 
       setPagination(
         result.pagination || {
           page: 1,
-          total:
-            result.leads.length,
+          total: result.leads.length,
           totalPages: 1,
           hasPrevious: false,
           hasNext: false,
         },
       );
     } catch (loadError) {
-      console.error(
-        loadError,
-      );
+      console.error(loadError);
 
-      setError(
-        'Не удалось загрузить заявки.',
-      );
+      setError('Не удалось загрузить заявки.');
     } finally {
       setLoading(false);
     }
   }, []);
 
-
-  useEffect(
-    () => {
-      loadLeads({
-        page: 1,
-        query: '',
-      });
-    },
-    [loadLeads],
-  );
-
+  useEffect(() => {
+    loadLeads({
+      page: 1,
+      query: '',
+    });
+  }, [loadLeads]);
 
   function submitSearch(event) {
     event.preventDefault();
 
-    const query =
-      search.trim();
+    const query = search.trim();
 
-    setAppliedSearch(
-      query,
-    );
+    setAppliedSearch(query);
 
     loadLeads({
       page: 1,
       query,
     });
   }
-
 
   function clearSearch() {
     setSearch('');
@@ -217,24 +136,14 @@ export default function LeadsPage() {
     });
   }
 
-
   async function handleDeleteLead(lead) {
-    if (
-      !lead?.id ||
-      deletingId
-    ) {
+    if (!lead?.id || deletingId) {
       return;
     }
 
-    const leadLabel =
-      lead.name
-        ? `заявку от «${lead.name}»`
-        : 'эту заявку';
+    const leadLabel = lead.name ? `заявку от «${lead.name}»` : 'эту заявку';
 
-    const confirmed =
-      window.confirm(
-        `Удалить ${leadLabel}?\n\nЭто действие нельзя отменить.`,
-      );
+    const confirmed = window.confirm(`Удалить ${leadLabel}?\n\nЭто действие нельзя отменить.`);
 
     if (!confirmed) {
       return;
@@ -244,153 +153,87 @@ export default function LeadsPage() {
     setError('');
 
     try {
-      const result =
-        await deleteLead(
-          lead.id,
-        );
+      const result = await deleteLead(lead.id);
 
       if (!result?.ok) {
-        throw new Error(
-          result?.error ||
-          'LEAD_DELETE_FAILED',
-        );
+        throw new Error(result?.error || 'LEAD_DELETE_FAILED');
       }
 
       const nextPage =
-        leads.length === 1 &&
-        pagination.page > 1
-          ? pagination.page - 1
-          : pagination.page;
+        leads.length === 1 && pagination.page > 1 ? pagination.page - 1 : pagination.page;
 
       await loadLeads({
         page: nextPage,
         query: appliedSearch,
       });
     } catch (deleteError) {
-      console.error(
-        deleteError,
-      );
+      console.error(deleteError);
 
-      setError(
-        'Не удалось удалить заявку.',
-      );
+      setError('Не удалось удалить заявку.');
     } finally {
       setDeletingId('');
     }
   }
 
-
   return (
     <div className="leads-page">
-
       <section className="leads-page__header">
-
         <div>
-          <p className="leads-page__eyebrow">
-            Обращения
-          </p>
+          <p className="leads-page__eyebrow">Обращения</p>
 
           <h1>
             Последние
             <br />
-
-            <em>
-              заявки
-            </em>
+            <em>заявки</em>
           </h1>
 
-          <p className="leads-page__count">
-            {pluralLeads(
-              pagination.total || 0,
-            )}
-          </p>
+          <p className="leads-page__count">{pluralLeads(pagination.total || 0)}</p>
         </div>
 
-
-        <form
-          className="leads-page__search"
-          onSubmit={
-            submitSearch
-          }
-        >
+        <form className="leads-page__search" onSubmit={submitSearch}>
           <label>
-            <span>
-              Поиск
-            </span>
+            <span>Поиск</span>
 
             <input
               type="search"
               value={search}
-              onChange={
-                (event) =>
-                  setSearch(
-                    event.target.value,
-                  )
-              }
+              onChange={event => setSearch(event.target.value)}
               placeholder="Имя, телефон, город..."
               autoComplete="off"
             />
           </label>
 
           <div className="leads-page__search-actions">
-
-            <button
-              type="submit"
-              disabled={loading}
-            >
+            <button type="submit" disabled={loading}>
               Найти
             </button>
 
             {appliedSearch && (
-              <button
-                type="button"
-                className="leads-page__clear"
-                onClick={
-                  clearSearch
-                }
-              >
+              <button type="button" className="leads-page__clear" onClick={clearSearch}>
                 Сбросить
               </button>
             )}
-
           </div>
         </form>
-
       </section>
 
-
-      {error && (
-        <div className="leads-page__error">
-          {error}
-        </div>
-      )}
-
+      {error && <div className="leads-page__error">{error}</div>}
 
       {loading && !leads.length ? (
-        <div className="leads-page__state">
-          Загрузка заявок...
-        </div>
+        <div className="leads-page__state">Загрузка заявок...</div>
       ) : null}
 
-
-      {!loading &&
-      !error &&
-      leads.length === 0 ? (
+      {!loading && !error && leads.length === 0 ? (
         <div className="leads-page__empty">
           <span>00</span>
 
-          <p>
-            Пока нет заявок.
-          </p>
+          <p>Пока нет заявок.</p>
         </div>
       ) : null}
 
-
       {leads.length > 0 && (
         <div className="leads-page__table-wrap">
-
           <table className="leads-page__table">
-
             <thead>
               <tr>
                 <th>Дата</th>
@@ -403,144 +246,73 @@ export default function LeadsPage() {
               </tr>
             </thead>
 
-
             <tbody>
+              {leads.map(lead => {
+                const date = formatDateTime(lead.receivedAt);
 
-              {leads.map(
-                (lead) => {
-                  const date =
-                    formatDateTime(
-                      lead.receivedAt,
-                    );
+                return (
+                  <tr key={lead.id || `${lead.receivedAt}-${lead.phone}`}>
+                    <td>
+                      <div className="leads-page__date">
+                        <strong>{date.date}</strong>
 
-                  return (
-                    <tr
-                      key={
-                        lead.id ||
-                        `${lead.receivedAt}-${lead.phone}`
-                      }
-                    >
+                        <span>{date.time}</span>
+                      </div>
+                    </td>
 
-                      <td>
-                        <div className="leads-page__date">
-                          <strong>
-                            {date.date}
-                          </strong>
+                    <td>
+                      <span className="leads-page__city">{lead?.city?.name || 'Не определён'}</span>
+                    </td>
 
-                          <span>
-                            {date.time}
-                          </span>
-                        </div>
-                      </td>
+                    <td>
+                      <span className="leads-page__source">{lead.sourceTitle || 'Форма'}</span>
+                    </td>
 
+                    <td className="leads-page__name">{lead.name || '—'}</td>
 
-                      <td>
-                        <span className="leads-page__city">
-                          {
-                            lead?.city
-                              ?.name ||
-                            'Не определён'
-                          }
-                        </span>
-                      </td>
-
-
-                      <td>
-                        <span className="leads-page__source">
-                          {
-                            lead.sourceTitle ||
-                            'Форма'
-                          }
-                        </span>
-                      </td>
-
-
-                      <td className="leads-page__name">
-                        {lead.name || '—'}
-                      </td>
-
-
-                      <td>
-                        {lead.phone ? (
-                          <a
-                            className="leads-page__phone"
-                            href={
-                              `tel:${String(
-                                lead.phone,
-                              ).replace(
-                                /[^\d+]/g,
-                                '',
-                              )}`
-                            }
-                          >
-                            {lead.phone}
-                          </a>
-                        ) : (
-                          '—'
-                        )}
-                      </td>
-
-
-                      <td className="leads-page__company">
-                        {
-                          lead.company ||
-                          '—'
-                        }
-                      </td>
-
-                      <td className="leads-page__actions">
-                        <button
-                          type="button"
-                          className="leads-page__delete"
-                          disabled={
-                            deletingId === lead.id
-                          }
-                          onClick={
-                            () =>
-                              handleDeleteLead(
-                                lead,
-                              )
-                          }
+                    <td>
+                      {lead.phone ? (
+                        <a
+                          className="leads-page__phone"
+                          href={`tel:${String(lead.phone).replace(/[^\d+]/g, '')}`}
                         >
-                          {
-                            deletingId === lead.id
-                              ? 'Удаление...'
-                              : 'Удалить'
-                          }
-                        </button>
-                      </td>
+                          {lead.phone}
+                        </a>
+                      ) : (
+                        '—'
+                      )}
+                    </td>
 
-                    </tr>
-                  );
-                },
-              )}
+                    <td className="leads-page__company">{lead.company || '—'}</td>
 
+                    <td className="leads-page__actions">
+                      <button
+                        type="button"
+                        className="leads-page__delete"
+                        disabled={deletingId === lead.id}
+                        onClick={() => handleDeleteLead(lead)}
+                      >
+                        {deletingId === lead.id ? 'Удаление...' : 'Удалить'}
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
-
           </table>
-
         </div>
       )}
 
-
       {pagination.totalPages > 1 && (
         <div className="leads-page__pagination">
-
           <button
             type="button"
-            disabled={
-              loading ||
-              !pagination.hasPrevious
-            }
-            onClick={
-              () =>
-                loadLeads({
-                  page:
-                    pagination.page -
-                    1,
-                  query:
-                    appliedSearch,
-                })
+            disabled={loading || !pagination.hasPrevious}
+            onClick={() =>
+              loadLeads({
+                page: pagination.page - 1,
+                query: appliedSearch,
+              })
             }
           >
             ← Назад
@@ -554,27 +326,18 @@ export default function LeadsPage() {
 
           <button
             type="button"
-            disabled={
-              loading ||
-              !pagination.hasNext
-            }
-            onClick={
-              () =>
-                loadLeads({
-                  page:
-                    pagination.page +
-                    1,
-                  query:
-                    appliedSearch,
-                })
+            disabled={loading || !pagination.hasNext}
+            onClick={() =>
+              loadLeads({
+                page: pagination.page + 1,
+                query: appliedSearch,
+              })
             }
           >
             Далее →
           </button>
-
         </div>
       )}
-
     </div>
   );
 }

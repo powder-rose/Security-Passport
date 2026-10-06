@@ -6,7 +6,8 @@ import path from 'node:path';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const script = path.join(root, 'scripts/deploy-federal.sh');
 const registry = path.join(root, 'data/regulations.json');
-const publishedPage = '/var/www/pasport-bezopasnosty.ru/current/pasport-bezopasnosti-gostinicy/index.html';
+const publishedPage =
+  '/var/www/pasport-bezopasnosty.ru/current/pasport-bezopasnosti-gostinicy/index.html';
 
 const state = {
   phase: 'idle',
@@ -36,9 +37,7 @@ function deploy() {
     child.once('error', reject);
     child.once('close', (code, signal) => {
       if (code === 0) return resolve();
-      reject(new Error(
-        `Сборка завершилась с кодом ${code ?? signal}: ${output.slice(-1200)}`
-      ));
+      reject(new Error(`Сборка завершилась с кодом ${code ?? signal}: ${output.slice(-1200)}`));
     });
   });
 }
@@ -82,10 +81,7 @@ export function queueRegulationPublication() {
 export async function getRegulationPublication() {
   if (state.phase !== 'idle') return { ...state };
 
-  const [source, page] = await Promise.all([
-    stat(registry),
-    stat(publishedPage),
-  ]);
+  const [source, page] = await Promise.all([stat(registry), stat(publishedPage)]);
 
   return {
     ...state,

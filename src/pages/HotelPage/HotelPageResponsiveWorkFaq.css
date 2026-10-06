@@ -9,7 +9,6 @@
     grid-template-columns: 1fr;
     gap: 42px;
   }
-
 }
 
 @media (max-width: 768px) {
@@ -37,5 +36,4 @@
   .hotel-why__item:hover {
     transform: none;
   }
-
 }

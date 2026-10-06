@@ -1,6 +1,6 @@
-import { Helmet } from "react-helmet-async";
+import { Helmet } from 'react-helmet-async';
 
-import { SITE } from "../../../../config/site";
+import { SITE } from '../../../../config/site';
 
 export default function LegalSeo({ document }) {
   const canonical = `${SITE.federalUrl}/${document.slug}/`;
@@ -15,10 +15,7 @@ export default function LegalSeo({ document }) {
 
       <meta name="description" content={document.description} />
 
-      <meta
-        name="robots"
-        content="noindex,follow,max-image-preview:large,max-snippet:-1"
-      />
+      <meta name="robots" content="noindex,follow,max-image-preview:large,max-snippet:-1" />
 
       <link rel="canonical" href={canonical} />
 

@@ -47,7 +47,10 @@ export default function Expert() {
           <p className="expert__kicker">Эксперт БОЙКОВГРУПП</p>
 
           <h2 id="expert-title">
-            Николай Бойков <em>о{'\u00A0'}подходе к{'\u00A0'}разработке</em>
+            Николай Бойков{' '}
+            <em>
+              о{'\u00A0'}подходе к{'\u00A0'}разработке
+            </em>
           </h2>
 
           <blockquote className="expert__quote">
@@ -59,13 +62,17 @@ export default function Expert() {
 
           <div className="expert__identity">
             <p className="expert__name">Николай Бойков</p>
-            <p className="expert__role">Руководитель БОЙКОВГРУПП · эксперт по комплексной безопасности</p>
+            <p className="expert__role">
+              Руководитель БОЙКОВГРУПП · эксперт по комплексной безопасности
+            </p>
           </div>
 
           <ol className="expert__principles" aria-label="Принципы работы">
-            {expertPoints.map((point) => (
+            {expertPoints.map(point => (
               <li key={point.number}>
-                <span className="expert__principle-number" aria-hidden="true">{point.number}</span>
+                <span className="expert__principle-number" aria-hidden="true">
+                  {point.number}
+                </span>
                 <div>
                   <h3>{point.title}</h3>
                   <p>{point.text}</p>
@@ -76,7 +83,9 @@ export default function Expert() {
 
           <a className="expert__action" href="#contact">
             <span>Обсудить объект со специалистом</span>
-            <span className="expert__action-arrow" aria-hidden="true">↗</span>
+            <span className="expert__action-arrow" aria-hidden="true">
+              ↗
+            </span>
           </a>
         </div>
       </Container>

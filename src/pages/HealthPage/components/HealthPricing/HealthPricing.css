@@ -89,7 +89,7 @@
 
   background: var(--health-accent);
 
-  content: "";
+  content: '';
 }
 
 .health-price-primary > span {

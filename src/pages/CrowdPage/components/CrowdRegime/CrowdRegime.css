@@ -3,26 +3,19 @@
    ========================================================================== */
 
 .crowd-regime {
-  padding:
-    118px 0 126px;
+  padding: 118px 0 126px;
 
-  background:
-    #fff;
+  background: #fff;
 }
 
 .crowd-regime__layout {
   display: grid;
 
   grid-template-columns:
-    minmax(280px, .42fr)
+    minmax(280px, 0.42fr)
     minmax(0, 1fr);
 
-  gap:
-    clamp(
-      100px,
-      10vw,
-      160px
-    );
+  gap: clamp(100px, 10vw, 160px);
 
   align-items: start;
 }
@@ -37,19 +30,13 @@
 
   margin-top: 38px;
 
-  color:
-    var(--crowd-accent);
+  color: var(--crowd-accent);
 
-  font-size:
-    clamp(
-      11rem,
-      18vw,
-      18rem
-    );
+  font-size: clamp(11rem, 18vw, 18rem);
 
   font-weight: 700;
-  line-height: .72;
-  letter-spacing: -.08em;
+  line-height: 0.72;
+  letter-spacing: -0.08em;
 }
 
 .crowd-regime__content {
@@ -61,15 +48,10 @@
 
   margin: 0;
 
-  font-size:
-    clamp(
-      2.65rem,
-      3.8vw,
-      4.15rem
-    );
+  font-size: clamp(2.65rem, 3.8vw, 4.15rem);
 
-  line-height: .99;
-  letter-spacing: -.058em;
+  line-height: 0.99;
+  letter-spacing: -0.058em;
 
   text-wrap: balance;
 }
@@ -77,11 +59,9 @@
 .crowd-regime__lead {
   max-width: 710px;
 
-  margin:
-    32px 0 0;
+  margin: 32px 0 0;
 
-  color:
-    var(--color-text-secondary);
+  color: var(--color-text-secondary);
 
   font-size: 1.03rem;
   line-height: 1.72;
@@ -91,7 +71,7 @@
   display: grid;
 
   grid-template-columns:
-    minmax(130px, .28fr)
+    minmax(130px, 0.28fr)
     minmax(0, 1fr);
 
   gap: 32px;
@@ -101,18 +81,15 @@
   margin-top: 48px;
   padding-top: 28px;
 
-  border-top:
-    1px solid
-    var(--color-border);
+  border-top: 1px solid var(--color-border);
 }
 
 .crowd-regime__principle span {
-  color:
-    var(--color-text-secondary);
+  color: var(--color-text-secondary);
 
-  font-size: .7rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
 
   text-transform: uppercase;
 }

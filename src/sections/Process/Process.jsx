@@ -75,8 +75,8 @@ export default function Process() {
     }
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        const centeredMarker = entries.find((entry) => entry.isIntersecting);
+      entries => {
+        const centeredMarker = entries.find(entry => entry.isIntersecting);
 
         if (centeredMarker) {
           setActiveStep(Number(centeredMarker.target.dataset.stepIndex));
@@ -89,7 +89,7 @@ export default function Process() {
       },
     );
 
-    markers.forEach((marker) => observer.observe(marker));
+    markers.forEach(marker => observer.observe(marker));
     window.addEventListener('resize', setNearestStep);
 
     return () => {
@@ -106,8 +106,8 @@ export default function Process() {
           <h2 id="process-title">Как проходит подготовка документа</h2>
           <p className="process-section__lead">
             Сначала разбираемся с объектом и{'\u00A0'}исходными сведениями, затем готовим документ и
-            сопровождаем его до согласования. Каждый этап связан с предыдущим — без лишней
-            передачи задачи между исполнителями.
+            сопровождаем его до согласования. Каждый этап связан с предыдущим — без лишней передачи
+            задачи между исполнителями.
           </p>
 
           <div className="process-section__illustration" aria-hidden="true">
@@ -138,7 +138,7 @@ export default function Process() {
                 <span
                   className="process-step__observer"
                   data-step-index={index}
-                  ref={(node) => {
+                  ref={node => {
                     stepsRef.current[index] = node;
                   }}
                   aria-hidden="true"

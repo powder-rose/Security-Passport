@@ -23,11 +23,7 @@ ActualizationCurrentRequirements.jsx — CURRENT REQUIREMENTS
 
   border-radius: 32px;
 
-  background: linear-gradient(
-    140deg,
-    rgba(169, 240, 74, 0.25),
-    rgba(255, 255, 255, 0.65)
-  );
+  background: linear-gradient(140deg, rgba(169, 240, 74, 0.25), rgba(255, 255, 255, 0.65));
 }
 
 .actualization-standard h2 {

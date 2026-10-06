@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { serviceItems } from "../../categorizationActPageData";
+import { serviceItems } from '../../categorizationActPageData';
 
 export default function CategorizationActServiceScope() {
   return (
@@ -14,15 +14,15 @@ export default function CategorizationActServiceScope() {
               <h2>Что мы подготовим</h2>
 
               <p>
-                Состав документов уточняется после определения требований,
-                применимых к конкретному объекту.
+                Состав документов уточняется после определения требований, применимых к конкретному
+                объекту.
               </p>
             </div>
 
             <ol>
               {serviceItems.map((item, index) => (
                 <li key={item}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
 
                   <p>{item}</p>
                 </li>

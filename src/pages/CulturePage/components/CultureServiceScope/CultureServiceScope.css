@@ -11,18 +11,17 @@
   display: grid;
   grid-template-columns:
     minmax(0, 1fr)
-    minmax(320px, .72fr);
+    minmax(320px, 0.72fr);
   gap: clamp(60px, 8vw, 130px);
   align-items: end;
 }
 
 .culture-service__header h2 {
   margin: 0;
-  font-size:
-    clamp(42px, 4.6vw, 70px);
+  font-size: clamp(42px, 4.6vw, 70px);
   font-weight: 600;
-  line-height: .98;
-  letter-spacing: -.045em;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
 }
 
 .culture-service__intro p {
@@ -35,33 +34,27 @@
   display: block;
   margin-top: 20px;
   padding-top: 18px;
-  border-top:
-    1px solid rgb(21 21 21 / 15%);
+  border-top: 1px solid rgb(21 21 21 / 15%);
   font-size: 14px;
   line-height: 1.55;
 }
 
 .culture-service__grid {
   display: grid;
-  grid-template-columns:
-    repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-top: 62px;
-  border-top:
-    1px solid rgb(21 21 21 / 15%);
-  border-left:
-    1px solid rgb(21 21 21 / 15%);
+  border-top: 1px solid rgb(21 21 21 / 15%);
+  border-left: 1px solid rgb(21 21 21 / 15%);
 }
 
 .culture-service__item {
   min-height: 245px;
   padding: 30px;
-  border-right:
-    1px solid rgb(21 21 21 / 15%);
-  border-bottom:
-    1px solid rgb(21 21 21 / 15%);
+  border-right: 1px solid rgb(21 21 21 / 15%);
+  border-bottom: 1px solid rgb(21 21 21 / 15%);
   transition:
-    background-color .2s ease,
-    transform .2s ease;
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .culture-service__item:hover {
@@ -95,11 +88,10 @@
 .culture-service__item h3 {
   max-width: 520px;
   margin: 44px 0 0;
-  font-size:
-    clamp(22px, 1.85vw, 29px);
+  font-size: clamp(22px, 1.85vw, 29px);
   font-weight: 600;
   line-height: 1.15;
-  letter-spacing: -.025em;
+  letter-spacing: -0.025em;
 }
 
 .culture-service__item p {
@@ -107,7 +99,7 @@
   margin: 14px 0 0;
   font-size: 14px;
   line-height: 1.65;
-  opacity: .66;
+  opacity: 0.66;
 }
 
 .culture-service__note {
@@ -115,5 +107,5 @@
   margin: 26px 0 0;
   font-size: 13px;
   line-height: 1.6;
-  opacity: .58;
+  opacity: 0.58;
 }

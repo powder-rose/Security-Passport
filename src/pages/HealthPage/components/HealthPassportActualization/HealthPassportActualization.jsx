@@ -1,4 +1,4 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
 export default function HealthPassportActualization() {
   return (
@@ -13,9 +13,8 @@ export default function HealthPassportActualization() {
             </div>
 
             <p>
-              Постановление Правительства РФ №8 устанавливает периодическую
-              актуализацию, а также случаи, когда документ необходимо
-              актуализировать из-за изменений на объекте.
+              Постановление Правительства РФ №8 устанавливает периодическую актуализацию, а также
+              случаи, когда документ необходимо актуализировать из-за изменений на объекте.
             </p>
           </div>
 
@@ -28,8 +27,8 @@ export default function HealthPassportActualization() {
               <p>в 5 лет</p>
 
               <small>
-                Это правило об актуализации, а не формулировка «паспорт
-                автоматически сгорает через пять лет».
+                Это правило об актуализации, а не формулировка «паспорт автоматически сгорает через
+                пять лет».
               </small>
             </aside>
 
@@ -42,9 +41,7 @@ export default function HealthPassportActualization() {
                 <div>
                   <strong>Площадь и периметр</strong>
 
-                  <p>
-                    Изменение общей площади и периметра объекта или территории.
-                  </p>
+                  <p>Изменение общей площади и периметра объекта или территории.</p>
                 </div>
               </article>
 
@@ -54,10 +51,7 @@ export default function HealthPassportActualization() {
                 <div>
                   <strong>Опасные участки и критические элементы</strong>
 
-                  <p>
-                    Изменение количества потенциально опасных и критических
-                    элементов.
-                  </p>
+                  <p>Изменение количества потенциально опасных и критических элементов.</p>
                 </div>
               </article>
 
@@ -68,8 +62,8 @@ export default function HealthPassportActualization() {
                   <strong>Силы и средства</strong>
 
                   <p>
-                    Изменение сил и средств, привлекаемых для обеспечения
-                    антитеррористической защищённости.
+                    Изменение сил и средств, привлекаемых для обеспечения антитеррористической
+                    защищённости.
                   </p>
                 </div>
               </article>

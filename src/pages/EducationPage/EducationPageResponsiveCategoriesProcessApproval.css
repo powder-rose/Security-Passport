@@ -15,13 +15,11 @@
   }
 
   .education-process__list {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .education-process__term {
-    grid-template-columns:
-      1fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .education-process__term p {
@@ -43,7 +41,7 @@
 
   .education-category summary {
     grid-template-columns:
-      minmax(120px, .35fr)
+      minmax(120px, 0.35fr)
       minmax(0, 1fr)
       38px;
     gap: 18px;

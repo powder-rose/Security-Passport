@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { hotelSourceData } from "../../hotelPageData";
+import { hotelSourceData } from '../../hotelPageData';
 
 export default function HotelRequiredDocuments() {
   return (
@@ -16,21 +16,18 @@ export default function HotelRequiredDocuments() {
 
             <div className="hotel-source__intro">
               <p>
-                Для начала не требуется собирать большой комплект документов.
-                Достаточно основных сведений, чтобы проверить объект и
-                определить дальнейший порядок работы.
+                Для начала не требуется собирать большой комплект документов. Достаточно основных
+                сведений, чтобы проверить объект и определить дальнейший порядок работы.
               </p>
 
-              <strong>
-                Точный перечень определяем после первичной проверки объекта.
-              </strong>
+              <strong>Точный перечень определяем после первичной проверки объекта.</strong>
             </div>
           </div>
 
           <div className="hotel-source__grid">
             {hotelSourceData.map((item, index) => (
               <article className="hotel-source__item" key={item.title}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
+                <span>{String(index + 1).padStart(2, '0')}</span>
 
                 <div>
                   <h3>{item.title}</h3>

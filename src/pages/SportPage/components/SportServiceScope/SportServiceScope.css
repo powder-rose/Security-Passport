@@ -11,25 +11,17 @@
   display: grid;
   grid-template-columns:
     minmax(0, 1.1fr)
-    minmax(320px, .7fr);
-  gap: clamp(
-    50px,
-    8vw,
-    118px
-  );
+    minmax(320px, 0.7fr);
+  gap: clamp(50px, 8vw, 118px);
   align-items: end;
 }
 
 .sport-service__heading h2 {
   max-width: 900px;
   margin: 0;
-  font-size: clamp(
-    2.7rem,
-    4.15vw,
-    4.6rem
-  );
+  font-size: clamp(2.7rem, 4.15vw, 4.6rem);
   line-height: 1;
-  letter-spacing: -.052em;
+  letter-spacing: -0.052em;
   text-wrap: balance;
 }
 
@@ -42,26 +34,17 @@
 
 .sport-service__flow {
   display: grid;
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-top: 64px;
-  border-top:
-    1px solid
-    var(--color-border);
-  border-left:
-    1px solid
-    var(--color-border);
+  border-top: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
 }
 
 .sport-service__flow article {
   min-height: 260px;
   padding: 28px;
-  border-right:
-    1px solid
-    var(--color-border);
-  border-bottom:
-    1px solid
-    var(--color-border);
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
   background: #fff;
 
   transition:
@@ -77,20 +60,16 @@
 
 .sport-service__flow article > span {
   color: var(--color-primary);
-  font-size: .76rem;
+  font-size: 0.76rem;
   font-weight: 850;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
 }
 
 .sport-service__flow h3 {
   margin: 52px 0 0;
-  font-size: clamp(
-    1.25rem,
-    1.65vw,
-    1.55rem
-  );
+  font-size: clamp(1.25rem, 1.65vw, 1.55rem);
   line-height: 1.2;
-  letter-spacing: -.025em;
+  letter-spacing: -0.025em;
 }
 
 .sport-service__flow p {

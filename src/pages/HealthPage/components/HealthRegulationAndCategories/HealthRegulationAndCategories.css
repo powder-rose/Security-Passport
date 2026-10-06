@@ -52,7 +52,7 @@
 
   background: var(--health-accent);
 
-  content: "";
+  content: '';
 }
 
 .health-regulation__eyebrow {
@@ -297,7 +297,7 @@
 }
 
 .health-categories__criteria::before {
-  content: "";
+  content: '';
 }
 
 .health-categories__criteria > div {
@@ -368,7 +368,7 @@
 
   background: var(--health-accent);
 
-  content: "";
+  content: '';
 
   opacity: 0;
 

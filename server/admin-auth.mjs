@@ -2,16 +2,13 @@ import crypto from 'node:crypto';
 
 const COOKIE_NAME = 'passport_admin_session';
 
-const SESSION_TTL_MS =
-  12 * 60 * 60 * 1000;
+const SESSION_TTL_MS = 12 * 60 * 60 * 1000;
 
-const LOGIN_WINDOW_MS =
-  15 * 60 * 1000;
+const LOGIN_WINDOW_MS = 15 * 60 * 1000;
 
 const LOGIN_MAX_ATTEMPTS = 8;
 
 const loginAttempts = new Map();
-
 
 function safeEqual(first, second) {
   const a = Buffer.from(String(first || ''));
@@ -24,7 +21,6 @@ function safeEqual(first, second) {
   return crypto.timingSafeEqual(a, b);
 }
 
-
 function parseCookies(header = '') {
   const result = {};
 
@@ -33,17 +29,14 @@ function parseCookies(header = '') {
 
     if (index === -1) continue;
 
-    const key =
-      part.slice(0, index).trim();
+    const key = part.slice(0, index).trim();
 
-    const value =
-      part.slice(index + 1).trim();
+    const value = part.slice(index + 1).trim();
 
     if (!key) continue;
 
     try {
-      result[key] =
-        decodeURIComponent(value);
+      result[key] = decodeURIComponent(value);
     } catch {
       result[key] = value;
     }
@@ -52,34 +45,21 @@ function parseCookies(header = '') {
   return result;
 }
 
-
 function encode(value) {
-  return Buffer
-    .from(JSON.stringify(value))
-    .toString('base64url');
+  return Buffer.from(JSON.stringify(value)).toString('base64url');
 }
-
 
 function decode(value) {
   try {
-    return JSON.parse(
-      Buffer
-        .from(value, 'base64url')
-        .toString('utf8'),
-    );
+    return JSON.parse(Buffer.from(value, 'base64url').toString('utf8'));
   } catch {
     return null;
   }
 }
 
-
 function sign(value, secret) {
-  return crypto
-    .createHmac('sha256', secret)
-    .update(value)
-    .digest('base64url');
+  return crypto.createHmac('sha256', secret).update(value).digest('base64url');
 }
-
 
 function passwordFingerprint(password) {
   return crypto
@@ -89,11 +69,7 @@ function passwordFingerprint(password) {
     .slice(0, 24);
 }
 
-
-function createToken({
-  password,
-  secret,
-}) {
+function createToken({ password, secret }) {
   const now = Date.now();
 
   const payload = encode({
@@ -103,113 +79,65 @@ function createToken({
     auth: passwordFingerprint(password),
   });
 
-  const signature =
-    sign(payload, secret);
+  const signature = sign(payload, secret);
 
   return `${payload}.${signature}`;
 }
 
-
-function verifyToken({
-  token,
-  password,
-  secret,
-}) {
-  if (
-    !token ||
-    !password ||
-    !secret
-  ) {
+function verifyToken({ token, password, secret }) {
+  if (!token || !password || !secret) {
     return false;
   }
 
-  const parts =
-    String(token).split('.');
+  const parts = String(token).split('.');
 
   if (parts.length !== 2) {
     return false;
   }
 
-  const [
-    payload,
-    suppliedSignature,
-  ] = parts;
+  const [payload, suppliedSignature] = parts;
 
-  const expectedSignature =
-    sign(payload, secret);
+  const expectedSignature = sign(payload, secret);
 
-  if (
-    !safeEqual(
-      suppliedSignature,
-      expectedSignature,
-    )
-  ) {
+  if (!safeEqual(suppliedSignature, expectedSignature)) {
     return false;
   }
 
   const data = decode(payload);
 
-  if (
-    !data ||
-    data.v !== 1 ||
-    !Number.isFinite(data.exp) ||
-    data.exp <= Date.now()
-  ) {
+  if (!data || data.v !== 1 || !Number.isFinite(data.exp) || data.exp <= Date.now()) {
     return false;
   }
 
-  if (
-    data.auth !==
-    passwordFingerprint(password)
-  ) {
+  if (data.auth !== passwordFingerprint(password)) {
     return false;
   }
 
   return true;
 }
 
-
 function cleanupLoginAttempts() {
   const now = Date.now();
 
-  for (
-    const [ip, bucket]
-    of loginAttempts
-  ) {
-    if (
-      now - bucket.startedAt >
-      LOGIN_WINDOW_MS
-    ) {
+  for (const [ip, bucket] of loginAttempts) {
+    if (now - bucket.startedAt > LOGIN_WINDOW_MS) {
       loginAttempts.delete(ip);
     }
   }
 }
 
-
-setInterval(
-  cleanupLoginAttempts,
-  5 * 60 * 1000,
-).unref();
-
+setInterval(cleanupLoginAttempts, 5 * 60 * 1000).unref();
 
 function checkLoginLimit(req) {
   cleanupLoginAttempts();
 
   const now = Date.now();
 
-  const ip =
-    req.ip ||
-    req.socket?.remoteAddress ||
-    'unknown';
+  const ip = req.ip || req.socket?.remoteAddress || 'unknown';
 
-  const bucket =
-    loginAttempts.get(ip);
+  const bucket = loginAttempts.get(ip);
 
-  if (
-    !bucket ||
-    now - bucket.startedAt >
-      LOGIN_WINDOW_MS
-  ) {
+  if (!bucket || now - bucket.startedAt > LOGIN_WINDOW_MS) {
     loginAttempts.set(ip, {
       startedAt: now,
       count: 1,
@@ -220,35 +148,22 @@ function checkLoginLimit(req) {
 
   bucket.count += 1;
 
-  return (
-    bucket.count <=
-    LOGIN_MAX_ATTEMPTS
-  );
+  return bucket.count <= LOGIN_MAX_ATTEMPTS;
 }
 
-
 function resetLoginLimit(req) {
-  const ip =
-    req.ip ||
-    req.socket?.remoteAddress ||
-    'unknown';
+  const ip = req.ip || req.socket?.remoteAddress || 'unknown';
 
   loginAttempts.delete(ip);
 }
 
-
-function createCookie(
-  token,
-  isProduction,
-) {
+function createCookie(token, isProduction) {
   const parts = [
     `${COOKIE_NAME}=${encodeURIComponent(token)}`,
     'HttpOnly',
     'SameSite=Strict',
     'Path=/',
-    `Max-Age=${Math.floor(
-      SESSION_TTL_MS / 1000
-    )}`,
+    `Max-Age=${Math.floor(SESSION_TTL_MS / 1000)}`,
   ];
 
   if (isProduction) {
@@ -257,16 +172,9 @@ function createCookie(
 
   return parts.join('; ');
 }
-
 
 function clearCookie(isProduction) {
-  const parts = [
-    `${COOKIE_NAME}=`,
-    'HttpOnly',
-    'SameSite=Strict',
-    'Path=/',
-    'Max-Age=0',
-  ];
+  const parts = [`${COOKIE_NAME}=`, 'HttpOnly', 'SameSite=Strict', 'Path=/', 'Max-Age=0'];
 
   if (isProduction) {
     parts.push('Secure');
@@ -274,124 +182,80 @@ function clearCookie(isProduction) {
 
   return parts.join('; ');
 }
-
 
 export function createAdminAuth({
   password,
-  secret =
-    process.env.ADMIN_SESSION_SECRET || '',
+  secret = process.env.ADMIN_SESSION_SECRET || '',
   isProduction,
 }) {
+  function requireAdmin(req, res, next) {
+    const cookies = parseCookies(req.get('cookie') || '');
 
-  function requireAdmin(
-    req,
-    res,
-    next,
-  ) {
-    const cookies =
-      parseCookies(
-        req.get('cookie') || '',
-      );
+    const token = cookies[COOKIE_NAME];
 
-    const token =
-      cookies[COOKIE_NAME];
-
-    const valid =
-      verifyToken({
-        token,
-        password,
-        secret,
-      });
+    const valid = verifyToken({
+      token,
+      password,
+      secret,
+    });
 
     if (!valid) {
-      res.setHeader(
-        'Set-Cookie',
-        clearCookie(isProduction),
-      );
+      res.setHeader('Set-Cookie', clearCookie(isProduction));
 
       return res.status(401).json({
         ok: false,
-        error:
-          'ADMIN_AUTH_REQUIRED',
+        error: 'ADMIN_AUTH_REQUIRED',
       });
     }
 
     return next();
   }
 
-
   function login(req, res) {
     if (!password || !secret) {
       return res.status(503).json({
         ok: false,
-        error:
-          'ADMIN_NOT_CONFIGURED',
+        error: 'ADMIN_NOT_CONFIGURED',
       });
     }
 
     if (!checkLoginLimit(req)) {
       return res.status(429).json({
         ok: false,
-        error:
-          'TOO_MANY_LOGIN_ATTEMPTS',
+        error: 'TOO_MANY_LOGIN_ATTEMPTS',
       });
     }
 
-    const submitted =
-      typeof req.body?.password ===
-      'string'
-        ? req.body.password.slice(
-            0,
-            300,
-          )
-        : '';
+    const submitted = typeof req.body?.password === 'string' ? req.body.password.slice(0, 300) : '';
 
-    if (
-      !safeEqual(
-        submitted,
-        password,
-      )
-    ) {
+    if (!safeEqual(submitted, password)) {
       return res.status(401).json({
         ok: false,
-        error:
-          'INVALID_ADMIN_PASSWORD',
+        error: 'INVALID_ADMIN_PASSWORD',
       });
     }
 
     resetLoginLimit(req);
 
-    const token =
-      createToken({
-        password,
-        secret,
-      });
+    const token = createToken({
+      password,
+      secret,
+    });
 
-    res.setHeader(
-      'Set-Cookie',
-      createCookie(
-        token,
-        isProduction,
-      ),
-    );
+    res.setHeader('Set-Cookie', createCookie(token, isProduction));
 
     return res.json({
       ok: true,
     });
   }
-
 
   function logout(req, res) {
-    res.setHeader(
-      'Set-Cookie',
-      clearCookie(isProduction),
-    );
+    res.setHeader('Set-Cookie', clearCookie(isProduction));
 
     return res.json({
       ok: true,
     });
   }
-
 
   function session(req, res) {
     return res.json({
@@ -399,7 +263,6 @@ export function createAdminAuth({
       authenticated: true,
     });
   }
-
 
   return {
     login,

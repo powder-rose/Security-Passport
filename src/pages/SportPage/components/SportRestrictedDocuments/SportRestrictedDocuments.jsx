@@ -1,4 +1,4 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
 export default function SportRestrictedDocuments() {
   return (
@@ -18,16 +18,13 @@ export default function SportRestrictedDocuments() {
               <h2>Можно ли публиковать паспорт объекта спорта</h2>
 
               <p className="sport-dsp__lead">
-                Паспорт объекта спорта содержит служебную информацию
-                ограниченного распространения и имеет пометку «Для служебного
-                пользования».
+                Паспорт объекта спорта содержит служебную информацию ограниченного распространения и
+                имеет пометку «Для служебного пользования».
               </p>
 
               <div className="sport-dsp__rules">
                 <article className="sport-dsp__rule">
-                  <span className="sport-dsp__rule-sign sport-dsp__rule-sign--yes">
-                    ✓
-                  </span>
+                  <span className="sport-dsp__rule-sign sport-dsp__rule-sign--yes">✓</span>
 
                   <div>
                     <h3>Официальная форма</h3>
@@ -37,17 +34,12 @@ export default function SportRestrictedDocuments() {
                 </article>
 
                 <article className="sport-dsp__rule">
-                  <span className="sport-dsp__rule-sign sport-dsp__rule-sign--yes">
-                    ✓
-                  </span>
+                  <span className="sport-dsp__rule-sign sport-dsp__rule-sign--yes">✓</span>
 
                   <div>
                     <h3>Обезличенная структура</h3>
 
-                    <p>
-                      Можно использовать обезличенный пример структуры
-                      документа.
-                    </p>
+                    <p>Можно использовать обезличенный пример структуры документа.</p>
                   </div>
                 </article>
 
@@ -58,8 +50,8 @@ export default function SportRestrictedDocuments() {
                     <h3>Заполненный паспорт объекта</h3>
 
                     <p>
-                      Реальный заполненный паспорт действующего спортивного
-                      объекта на сайте не публикуем.
+                      Реальный заполненный паспорт действующего спортивного объекта на сайте не
+                      публикуем.
                     </p>
                   </div>
                 </article>

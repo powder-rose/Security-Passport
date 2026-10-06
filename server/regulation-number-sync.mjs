@@ -2,134 +2,85 @@ import fs from 'node:fs/promises';
 
 const ROOT = new URL('../', import.meta.url);
 
-
 /*
  * Резервный список файлов.
  * occurrences из regulations.json используется
  * в первую очередь, а этот список страхует старые записи.
  */
 const FILES_BY_NUMBER = {
-
-  '8': [
+  8: [
     'src/pages/HealthPage/HealthPage.jsx',
     'src/data/objectTypeLegalContent.js',
     'src/data/objectTypes.js',
   ],
 
-  '176': [
+  176: [
     'src/pages/CulturePage/CulturePage.jsx',
     'src/data/objectTypeLegalContent.js',
     'src/data/objectTypes.js',
   ],
 
-  '202': [
+  202: [
     'src/pages/SportPage/SportPage.jsx',
     'src/data/objectTypeLegalContent.js',
     'src/data/objectTypes.js',
   ],
 
-  '229': [
-    'src/pages/TradePage/TradePage.jsx',
-    'src/data/objectTypes.js',
-  ],
+  229: ['src/pages/TradePage/TradePage.jsx', 'src/data/objectTypes.js'],
 
-  '272': [
+  272: [
     'src/pages/CrowdPage/CrowdPage.jsx',
     'src/data/objectTypeLegalContent.js',
     'src/data/objectTypes.js',
   ],
 
-  '410': [
-    'src/data/objectTypeLegalContent.js',
-    'src/data/objectTypes.js',
-  ],
+  410: ['src/data/objectTypeLegalContent.js', 'src/data/objectTypes.js'],
 
-  '447': [
+  447: [
     'src/pages/HotelPage/HotelPage.jsx',
     'src/data/objectTypeLegalContent.js',
     'src/data/objectTypes.js',
   ],
 
-  '1006': [
+  1006: [
     'src/pages/EducationPage/EducationPage.jsx',
     'src/data/objectTypeLegalContent.js',
     'src/data/objectTypes.js',
   ],
 
-  '1273': [
+  1273: [
     'src/pages/TradePage/TradePage.jsx',
     'src/data/objectTypeLegalContent.js',
     'src/data/objectTypes.js',
   ],
 
-  '1421': [
+  1421: [
     'src/pages/EducationPage/EducationPage.jsx',
     'src/data/objectTypeLegalContent.js',
     'src/data/objectTypes.js',
   ],
-
 };
 
-
 function escapeRegExp(value) {
-
-  return String(value).replace(
-    /[.*+?^${}()|[\]\\]/g,
-    '\\$&'
-  );
-
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+function getFiles(number, occurrences = []) {
+  const occurrenceFiles = occurrences
+    .map(item => item?.file)
+    .filter(file => typeof file === 'string' && file.startsWith('src/'));
 
-function getFiles(
-  number,
-  occurrences = []
-) {
+  const fallbackFiles = FILES_BY_NUMBER[String(number)] || [];
 
-  const occurrenceFiles =
-    occurrences
-      .map(item => item?.file)
-      .filter(
-        file =>
-          typeof file === 'string'
-          &&
-          file.startsWith('src/')
-      );
-
-
-  const fallbackFiles =
-    FILES_BY_NUMBER[
-      String(number)
-    ] || [];
-
-
-  return [
-    ...new Set([
-      ...occurrenceFiles,
-      ...fallbackFiles,
-    ])
-  ];
-
+  return [...new Set([...occurrenceFiles, ...fallbackFiles])];
 }
 
+export function replaceRegulationNumber(value, oldNumber, newNumber) {
+  let text = String(value || '');
 
-export function replaceRegulationNumber(
-  value,
-  oldNumber,
-  newNumber
-) {
+  const oldValue = escapeRegExp(oldNumber);
 
-  let text =
-    String(value || '');
-
-
-  const oldValue =
-    escapeRegExp(oldNumber);
-
-
-  const newValue =
-    String(newNumber);
-
+  const newValue = String(newNumber);
 
   /*
    * Текстовые варианты:
@@ -141,26 +92,15 @@ export function replaceRegulationNumber(
    *
    * Меняем именно число после символа №.
    */
-  text = text.replace(
-    new RegExp(
-      `(№\\s*)${oldValue}\\b`,
-      'g'
-    ),
-    `$1${newValue}`
-  );
-
+  text = text.replace(new RegExp(`(№\\s*)${oldValue}\\b`, 'g'), `$1${newValue}`);
 
   /*
    * getRegulationClaim('447', ...)
    */
   text = text.replace(
-    new RegExp(
-      `(getRegulationClaim\\(\\s*['"])${oldValue}(['"]\\s*,)`,
-      'g'
-    ),
-    `$1${newValue}$2`
+    new RegExp(`(getRegulationClaim\\(\\s*['"])${oldValue}(['"]\\s*,)`, 'g'),
+    `$1${newValue}$2`,
   );
-
 
   /*
    * registry.items.find(
@@ -168,13 +108,9 @@ export function replaceRegulationNumber(
    * )
    */
   text = text.replace(
-    new RegExp(
-      `(String\\(\\s*item\\.number\\s*\\)\\s*===\\s*['"])${oldValue}(['"])`,
-      'g'
-    ),
-    `$1${newValue}$2`
+    new RegExp(`(String\\(\\s*item\\.number\\s*\\)\\s*===\\s*['"])${oldValue}(['"])`, 'g'),
+    `$1${newValue}$2`,
   );
-
 
   /*
    * На случай повторного появления:
@@ -182,125 +118,61 @@ export function replaceRegulationNumber(
    * <RegulationReviewInfo number="447" />
    */
   text = text.replace(
-    new RegExp(
-      `(RegulationReviewInfo[^>]*\\bnumber=['"])${oldValue}(['"])`,
-      'g'
-    ),
-    `$1${newValue}$2`
+    new RegExp(`(RegulationReviewInfo[^>]*\\bnumber=['"])${oldValue}(['"])`, 'g'),
+    `$1${newValue}$2`,
   );
 
-
   return text;
-
 }
 
-
-export async function syncRegulationNumber(
-  oldNumber,
-  newNumber,
-  occurrences = []
-) {
-
-  const files =
-    getFiles(
-      oldNumber,
-      occurrences
-    );
-
+export async function syncRegulationNumber(oldNumber, newNumber, occurrences = []) {
+  const files = getFiles(oldNumber, occurrences);
 
   let changedFiles = 0;
   let changedOccurrences = 0;
 
-
   for (const relative of files) {
-
-    const url =
-      new URL(
-        relative,
-        ROOT
-      );
-
+    const url = new URL(relative, ROOT);
 
     let original;
 
-
     try {
-
-      original =
-        await fs.readFile(
-          url,
-          'utf8'
-        );
-
-    }
-    catch (error) {
-
+      original = await fs.readFile(url, 'utf8');
+    } catch (error) {
       if (error?.code === 'ENOENT') {
         continue;
       }
 
       throw error;
-
     }
 
-
-    const updated =
-      replaceRegulationNumber(
-        original,
-        oldNumber,
-        newNumber
-      );
-
+    const updated = replaceRegulationNumber(original, oldNumber, newNumber);
 
     if (updated === original) {
       continue;
     }
 
-
     /*
      * Считаем количество изменённых
      * упоминаний приблизительно для отчёта.
      */
-    const oldMatches =
-      original.match(
-        new RegExp(
-          `№\\s*${escapeRegExp(oldNumber)}\\b`,
-          'g'
-        )
-      ) || [];
-
+    const oldMatches = original.match(new RegExp(`№\\s*${escapeRegExp(oldNumber)}\\b`, 'g')) || [];
 
     const claimMatches =
       original.match(
-        new RegExp(
-          `getRegulationClaim\\(\\s*['"]${escapeRegExp(oldNumber)}['"]`,
-          'g'
-        )
+        new RegExp(`getRegulationClaim\\(\\s*['"]${escapeRegExp(oldNumber)}['"]`, 'g'),
       ) || [];
 
+    changedOccurrences += oldMatches.length + claimMatches.length;
 
-    changedOccurrences +=
-      oldMatches.length
-      +
-      claimMatches.length;
-
-
-    await fs.writeFile(
-      url,
-      updated,
-      'utf8'
-    );
-
+    await fs.writeFile(url, updated, 'utf8');
 
     changedFiles += 1;
-
   }
-
 
   return {
     changedFiles,
     changedOccurrences,
     files,
   };
-
 }

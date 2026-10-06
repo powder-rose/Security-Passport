@@ -12,24 +12,22 @@
   display: grid;
   grid-template-columns:
     minmax(0, 1fr)
-    minmax(280px, .5fr);
+    minmax(280px, 0.5fr);
   gap: 60px 100px;
   align-items: end;
 }
 
 .hotel-actualization__deadline {
   padding-left: 34px;
-  border-left: 1px solid
-    rgb(255 255 255 / 20%);
+  border-left: 1px solid rgb(255 255 255 / 20%);
 }
 
 .hotel-actualization__deadline strong {
   display: block;
   color: #a9f04a;
-  font-size:
-    clamp(44px, 5vw, 72px);
-  line-height: .95;
-  letter-spacing: -.06em;
+  font-size: clamp(44px, 5vw, 72px);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
 }
 
 .hotel-actualization__deadline p {
@@ -42,29 +40,22 @@
 
 .hotel-actualization__grid {
   display: grid;
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-top: 64px;
-  border-top:
-    1px solid rgb(255 255 255 / 16%);
-  border-left:
-    1px solid rgb(255 255 255 / 16%);
+  border-top: 1px solid rgb(255 255 255 / 16%);
+  border-left: 1px solid rgb(255 255 255 / 16%);
 }
 
 .hotel-actualization__item {
   min-height: 270px;
   padding: 28px;
-  border-right:
-    1px solid rgb(255 255 255 / 16%);
-  border-bottom:
-    1px solid rgb(255 255 255 / 16%);
-  transition:
-    background-color .2s ease;
+  border-right: 1px solid rgb(255 255 255 / 16%);
+  border-bottom: 1px solid rgb(255 255 255 / 16%);
+  transition: background-color 0.2s ease;
 }
 
 .hotel-actualization__item:hover {
-  background:
-    rgb(255 255 255 / 4%);
+  background: rgb(255 255 255 / 4%);
 }
 
 .hotel-actualization__item > span {
@@ -77,8 +68,7 @@
 
 .hotel-actualization__item h3 {
   margin: 0;
-  font-size:
-    clamp(20px, 1.7vw, 26px);
+  font-size: clamp(20px, 1.7vw, 26px);
   line-height: 1.14;
 }
 

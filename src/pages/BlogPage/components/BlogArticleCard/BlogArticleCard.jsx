@@ -1,6 +1,6 @@
-import ArticleImage from "../ArticleImage/ArticleImage";
+import ArticleImage from '../ArticleImage/ArticleImage';
 
-import { formatDate } from "../../blogPageUtils";
+import { formatDate } from '../../blogPageUtils';
 
 export default function BlogArticleCard({ article, category }) {
   const articleDate = article.publishedAt || article.createdAt;
@@ -12,13 +12,9 @@ export default function BlogArticleCard({ article, category }) {
       </div>
 
       <div className="blog-card__body">
-        {category && (
-          <div className="blog-card__category">{category.label}</div>
-        )}
+        {category && <div className="blog-card__category">{category.label}</div>}
 
-        <time dateTime={articleDate || undefined}>
-          {formatDate(articleDate)}
-        </time>
+        <time dateTime={articleDate || undefined}>{formatDate(articleDate)}</time>
 
         <h2>{article.title}</h2>
 

@@ -1,26 +1,12 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
-import {
-  getSession,
-  login,
-  logout,
-} from '../api/adminApi';
-
+import { getSession, login, logout } from '../api/adminApi';
 
 const AuthContext = createContext(null);
 
-
-export function AuthProvider({
-  children,
-}) {
+export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [checking, setChecking] = useState(true);
-
 
   async function checkSession() {
     try {
@@ -38,7 +24,6 @@ export function AuthProvider({
     }
   }
 
-
   async function signIn(password) {
     const result = await login(password);
 
@@ -49,17 +34,14 @@ export function AuthProvider({
     return result;
   }
 
-
   async function signOut() {
     await logout();
     setUser(null);
   }
 
-
   useEffect(() => {
     checkSession();
   }, []);
-
 
   return (
     <AuthContext.Provider
@@ -74,7 +56,6 @@ export function AuthProvider({
     </AuthContext.Provider>
   );
 }
-
 
 export function useAuth() {
   return useContext(AuthContext);

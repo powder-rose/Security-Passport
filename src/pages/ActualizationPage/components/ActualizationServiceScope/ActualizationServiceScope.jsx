@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { scopeItems } from "../../actualizationPageData";
+import { scopeItems } from '../../actualizationPageData';
 
 export default function ActualizationServiceScope() {
   return (
@@ -14,15 +14,15 @@ export default function ActualizationServiceScope() {
               <h2>Что мы сделаем</h2>
 
               <p>
-                Состав действий определяем после проверки паспорта и требований
-                к конкретному виду объекта.
+                Состав действий определяем после проверки паспорта и требований к конкретному виду
+                объекта.
               </p>
             </div>
 
             <ul className="actualization-scope__list">
               {scopeItems.map((item, index) => (
                 <li key={item}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
 
                   <p>{item}</p>
                 </li>

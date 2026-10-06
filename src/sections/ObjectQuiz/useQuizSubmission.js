@@ -2,24 +2,13 @@ import { useState } from 'react';
 
 import { SITE } from '../../config/site';
 
-import {
-  METRICA_GOALS,
-  reachGoal,
-} from '../../lib/analytics';
+import { METRICA_GOALS, reachGoal } from '../../lib/analytics';
 
-import {
-  formatRussianPhone,
-} from '../../lib/formInput';
+import { formatRussianPhone } from '../../lib/formInput';
 
-import {
-  getLeadEndpoint,
-  submitLead,
-} from '../../lib/lead';
+import { getLeadEndpoint, submitLead } from '../../lib/lead';
 
-import {
-  quizContactSchema,
-} from '../../lib/validation/leadValidation';
-
+import { quizContactSchema } from '../../lib/validation/leadValidation';
 
 export default function useQuizSubmission({
   question,
@@ -32,21 +21,11 @@ export default function useQuizSubmission({
   goForward,
   markCompleted,
 }) {
-  const [
-    showError,
-    setShowError,
-  ] = useState(false);
+  const [showError, setShowError] = useState(false);
 
-  const [
-    submitStatus,
-    setSubmitStatus,
-  ] = useState('idle');
+  const [submitStatus, setSubmitStatus] = useState('idle');
 
-  const [
-    submitMessage,
-    setSubmitMessage,
-  ] = useState('');
-
+  const [submitMessage, setSubmitMessage] = useState('');
 
   function updateAnswer(value) {
     setShowError(false);
@@ -56,82 +35,57 @@ export default function useQuizSubmission({
     updateCurrentAnswer(value);
   }
 
-
   function clearStepError() {
     setShowError(false);
   }
-
 
   async function handleNext() {
     if (submitStatus === 'loading') {
       return;
     }
 
-    let submissionAnswers =
-      answers;
-
+    let submissionAnswers = answers;
 
     if (question.type === 'contact') {
       const normalizedContact = {
         ...answer,
 
-        phone:
-          formatRussianPhone(
-            answer?.phone,
-          ),
+        phone: formatRussianPhone(answer?.phone),
       };
 
-
       try {
-        await quizContactSchema.validate(
-          normalizedContact,
-          {
-            abortEarly: false,
-          },
-        );
+        await quizContactSchema.validate(normalizedContact, {
+          abortEarly: false,
+        });
       } catch (error) {
         setShowError(true);
         setSubmitStatus('error');
 
-        setSubmitMessage(
-          error?.errors?.[0] ||
-            'Проверьте обязательные контактные данные.',
-        );
+        setSubmitMessage(error?.errors?.[0] || 'Проверьте обязательные контактные данные.');
 
         return;
       }
 
-
-      updateCurrentAnswer(
-        normalizedContact,
-      );
+      updateCurrentAnswer(normalizedContact);
 
       submissionAnswers = {
         ...answers,
 
-        [question.id]:
-          normalizedContact,
+        [question.id]: normalizedContact,
       };
     }
 
-
     setShowError(false);
 
-
-    reachGoal(
-      METRICA_GOALS.quizStepCompleted,
-      {
-        step: visibleStep,
-        question: question.id,
-      },
-    );
-
+    reachGoal(METRICA_GOALS.quizStepCompleted, {
+      step: visibleStep,
+      question: question.id,
+    });
 
     if (!isLastStep) {
       goForward();
       return;
     }
-
 
     if (preview) {
       setSubmitStatus('notice');
@@ -143,9 +97,7 @@ export default function useQuizSubmission({
       return;
     }
 
-
-    const endpoint =
-      getLeadEndpoint();
+    const endpoint = getLeadEndpoint();
 
     if (!endpoint) {
       setSubmitStatus('notice');
@@ -157,51 +109,30 @@ export default function useQuizSubmission({
       return;
     }
 
-
     try {
       setSubmitStatus('loading');
 
-      setSubmitMessage(
-        'Отправляем ответы специалисту…',
-      );
-
+      setSubmitMessage('Отправляем ответы специалисту…');
 
       await submitLead({
-        source:
-          'passport-security-quiz',
+        source: 'passport-security-quiz',
 
         data: {
-          answers:
-            submissionAnswers,
+          answers: submissionAnswers,
         },
       });
 
-
-      reachGoal(
-        METRICA_GOALS.quizSubmitSuccess,
-        {
-          source:
-            'object_quiz',
-        },
-      );
-
+      reachGoal(METRICA_GOALS.quizSubmitSuccess, {
+        source: 'object_quiz',
+      });
 
       markCompleted();
     } catch (error) {
-      reachGoal(
-        METRICA_GOALS.quizSubmitError,
-        {
-          source:
-            'object_quiz',
+      reachGoal(METRICA_GOALS.quizSubmitError, {
+        source: 'object_quiz',
 
-          reason:
-            error?.name ===
-            'AbortError'
-              ? 'timeout'
-              : 'request_error',
-        },
-      );
-
+        reason: error?.name === 'AbortError' ? 'timeout' : 'request_error',
+      });
 
       setSubmitStatus('error');
 
@@ -210,7 +141,6 @@ export default function useQuizSubmission({
       );
     }
   }
-
 
   return {
     showError,

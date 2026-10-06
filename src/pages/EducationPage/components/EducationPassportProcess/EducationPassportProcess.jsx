@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { educationProcess } from "../../educationPageData";
+import { educationProcess } from '../../educationPageData';
 
 export default function EducationPassportProcess() {
   return (
@@ -10,14 +10,11 @@ export default function EducationPassportProcess() {
           <div className="education-process__heading">
             <p className="education-kicker">Порядок работы</p>
 
-            <h2>
-              Как оформить паспорт безопасности образовательной организации
-            </h2>
+            <h2>Как оформить паспорт безопасности образовательной организации</h2>
 
             <p>
-              Сначала определяем нормативный режим конкретного объекта. После
-              этого последовательно проходим этапы категорирования и подготовки
-              паспорта.
+              Сначала определяем нормативный режим конкретного объекта. После этого последовательно
+              проходим этапы категорирования и подготовки паспорта.
             </p>
           </div>
 
@@ -25,7 +22,7 @@ export default function EducationPassportProcess() {
             {educationProcess.map((item, index) => (
               <li className="education-process__step" key={item}>
                 <span className="education-process__number">
-                  {String(index + 1).padStart(2, "0")}
+                  {String(index + 1).padStart(2, '0')}
                 </span>
 
                 <p>{item}</p>
@@ -38,10 +35,7 @@ export default function EducationPassportProcess() {
 
             <strong>Паспорт составляется в течение 30 дней</strong>
 
-            <p>
-              Срок отсчитывается после проведения обследования и категорирования
-              объекта.
-            </p>
+            <p>Срок отсчитывается после проведения обследования и категорирования объекта.</p>
           </aside>
         </Container>
       </section>

@@ -5,45 +5,31 @@ import { HelmetProvider } from 'react-helmet-async';
 import { createAppStore } from './app/store';
 import App from './app/App';
 
-import LegalPage
-from './pages/LegalPage/LegalPage';
+import LegalPage from './pages/LegalPage/LegalPage';
 
-import ObjectTypePage
-from './pages/ObjectTypePage/ObjectTypePage';
+import ObjectTypePage from './pages/ObjectTypePage/ObjectTypePage';
 
-import HotelPage
-from './pages/HotelPage/HotelPage';
+import HotelPage from './pages/HotelPage/HotelPage';
 
-import CulturePage
-from './pages/CulturePage/CulturePage';
+import CulturePage from './pages/CulturePage/CulturePage';
 
-import EducationPage
-from './pages/EducationPage/EducationPage';
+import EducationPage from './pages/EducationPage/EducationPage';
 
-import SportPage
-from './pages/SportPage/SportPage';
+import SportPage from './pages/SportPage/SportPage';
 
-import TradePage
-from './pages/TradePage/TradePage';
+import TradePage from './pages/TradePage/TradePage';
 
-import HealthPage
-from './pages/HealthPage/HealthPage';
+import HealthPage from './pages/HealthPage/HealthPage';
 
-import CrowdPage
-from './pages/CrowdPage/CrowdPage';
+import CrowdPage from './pages/CrowdPage/CrowdPage';
 
-import ActualizationPage
-from './pages/ActualizationPage/ActualizationPage';
+import ActualizationPage from './pages/ActualizationPage/ActualizationPage';
 
-import CategorizationActPage
-from './pages/CategorizationActPage/CategorizationActPage';
+import CategorizationActPage from './pages/CategorizationActPage/CategorizationActPage';
 
-import BlogPage
-from './pages/BlogPage/BlogPage';
+import BlogPage from './pages/BlogPage/BlogPage';
 
-import ArticlePage
-from './pages/ArticlePage/ArticlePage';
-
+import ArticlePage from './pages/ArticlePage/ArticlePage';
 
 const serverRouteComponents = {
   LegalPage,
@@ -52,67 +38,48 @@ const serverRouteComponents = {
   ArticlePage,
 
   objectTypeComponents: {
-    hotel:
-      HotelPage,
+    hotel: HotelPage,
 
-    culture:
-      CulturePage,
+    culture: CulturePage,
 
-    education:
-      EducationPage,
+    education: EducationPage,
 
-    sport:
-      SportPage,
+    sport: SportPage,
 
-    trade:
-      TradePage,
+    trade: TradePage,
 
-    health:
-      HealthPage,
+    health: HealthPage,
 
-    crowd:
-      CrowdPage,
+    crowd: CrowdPage,
   },
 
   servicePageComponents: {
-    'categorization-act':
-      CategorizationActPage,
+    'categorization-act': CategorizationActPage,
 
-    'passport-actualization':
-      ActualizationPage,
+    'passport-actualization': ActualizationPage,
   },
 };
 
-
-export function render({
-  pathname = '/',
-  blogArticles = null,
-  article = null,
-} = {}) {
+export function render({ pathname = '/', blogArticles = null, article = null } = {}) {
   const helmetContext = {};
 
-  const store =
-    createAppStore();
+  const store = createAppStore();
 
-  const html =
-    renderToString(
-      <Provider store={store}>
-        <HelmetProvider context={helmetContext}>
-          <App
-            pathname={pathname}
-            initialBlogArticles={blogArticles}
-            initialArticle={article}
-            routeComponents={
-              serverRouteComponents
-            }
-          />
-        </HelmetProvider>
-      </Provider>,
-    );
+  const html = renderToString(
+    <Provider store={store}>
+      <HelmetProvider context={helmetContext}>
+        <App
+          pathname={pathname}
+          initialBlogArticles={blogArticles}
+          initialArticle={article}
+          routeComponents={serverRouteComponents}
+        />
+      </HelmetProvider>
+    </Provider>,
+  );
 
   return {
     html,
-    helmet:
-      helmetContext.helmet,
+    helmet: helmetContext.helmet,
   };
 }

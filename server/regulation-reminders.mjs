@@ -19,9 +19,10 @@ const parts = Object.fromEntries(
     day: '2-digit',
     hour: '2-digit',
     hourCycle: 'h23',
-  }).formatToParts(new Date())
+  })
+    .formatToParts(new Date())
     .filter(part => part.type !== 'literal')
-    .map(part => [part.type, part.value])
+    .map(part => [part.type, part.value]),
 );
 
 const today = `${parts.year}-${parts.month}-${parts.day}`;
@@ -35,9 +36,7 @@ if (!Array.isArray(registry.items)) {
 let sent = {};
 try {
   const stored = JSON.parse(await fs.readFile(sentFile, 'utf8'));
-  sent = stored.sent && typeof stored.sent === 'object'
-    ? stored.sent
-    : stored;
+  sent = stored.sent && typeof stored.sent === 'object' ? stored.sent : stored;
 
   if (!sent || typeof sent !== 'object' || Array.isArray(sent)) {
     throw new Error('Неверный формат журнала отправок');
@@ -57,9 +56,7 @@ const pending = registry.items.filter(item => {
   const number = String(item.number);
 
   // Только после окончания указанного дня и только до первой успешной отправки.
-  return date < today &&
-    !sent[`${number}:${date}`] &&
-    !sent[`${number}|${date}`];
+  return date < today && !sent[`${number}:${date}`] && !sent[`${number}|${date}`];
 });
 
 console.log(`Москва: ${today}, ${parts.hour}:00; ожидают письма: ${pending.length}`);
@@ -87,9 +84,7 @@ if (!host || !user || !pass || !to || !from) {
 const transport = nodemailer.createTransport({
   host,
   port,
-  secure: process.env.SMTP_SECURE
-    ? process.env.SMTP_SECURE.toLowerCase() === 'true'
-    : port === 465,
+  secure: process.env.SMTP_SECURE ? process.env.SMTP_SECURE.toLowerCase() === 'true' : port === 465,
   auth: { user, pass },
 });
 
@@ -109,11 +104,7 @@ for (const item of pending) {
   const temporary = `${sentFile}.${process.pid}.tmp`;
 
   try {
-    await fs.writeFile(
-      temporary,
-      JSON.stringify({ sent }, null, 2) + '\n',
-      { mode: 0o600 }
-    );
+    await fs.writeFile(temporary, JSON.stringify({ sent }, null, 2) + '\n', { mode: 0o600 });
     await fs.rename(temporary, sentFile);
   } catch (error) {
     await fs.rm(temporary, { force: true });

@@ -72,34 +72,23 @@
   .crowd-listing,
   .crowd-categories,
   .crowd-count {
-    padding:
-      84px 0 90px;
+    padding: 84px 0 90px;
   }
 
   .crowd-regulation__content > h2,
   .crowd-listing__heading h2,
   .crowd-count__heading h2 {
-    font-size:
-      clamp(
-        2.35rem,
-        7vw,
-        3.15rem
-      );
+    font-size: clamp(2.35rem, 7vw, 3.15rem);
   }
 
   .crowd-categories__heading h2 {
-    font-size:
-      clamp(
-        2.7rem,
-        9vw,
-        3.8rem
-      );
+    font-size: clamp(2.7rem, 9vw, 3.8rem);
   }
 
   .crowd-category {
     grid-template-columns:
       46px
-      minmax(130px, .6fr)
+      minmax(130px, 0.6fr)
       minmax(0, 1fr);
 
     gap: 18px;
@@ -121,8 +110,7 @@
   .crowd-listing,
   .crowd-categories,
   .crowd-count {
-    padding:
-      68px 0 74px;
+    padding: 68px 0 74px;
   }
 
   .crowd-regulation__identity {
@@ -158,13 +146,11 @@
   }
 
   .crowd-listing__step {
-    grid-template-columns:
-      38px minmax(0, 1fr);
+    grid-template-columns: 38px minmax(0, 1fr);
 
     gap: 14px;
 
-    padding:
-      26px 0;
+    padding: 26px 0;
   }
 
   .crowd-categories__heading h2 {
@@ -176,14 +162,11 @@
   }
 
   .crowd-category {
-    grid-template-columns:
-      34px minmax(0, 1fr);
+    grid-template-columns: 34px minmax(0, 1fr);
 
-    gap:
-      12px 14px;
+    gap: 12px 14px;
 
-    padding:
-      27px 0;
+    padding: 27px 0;
   }
 
   .crowd-category__metric {

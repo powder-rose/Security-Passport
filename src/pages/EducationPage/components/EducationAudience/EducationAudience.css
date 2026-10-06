@@ -11,7 +11,7 @@
   display: grid;
   grid-template-columns:
     minmax(0, 1.15fr)
-    minmax(300px, .55fr);
+    minmax(300px, 0.55fr);
   gap: 64px;
   align-items: end;
 }
@@ -22,7 +22,7 @@
   margin: 0;
   font-size: clamp(2.5rem, 4.1vw, 4.6rem);
   line-height: 1.02;
-  letter-spacing: -.05em;
+  letter-spacing: -0.05em;
   text-wrap: balance;
 }
 
@@ -35,8 +35,7 @@
 
 .education-audience__list {
   display: grid;
-  grid-template-columns:
-    repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   margin-top: 62px;
   border-top: 1px solid var(--color-border);
   border-left: 1px solid var(--color-border);
@@ -50,8 +49,8 @@
   border-right: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
   transition:
-    background .2s ease,
-    transform .2s ease;
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
 .education-audience__item:hover {
@@ -63,21 +62,21 @@
 
 .education-audience__item > span {
   color: var(--color-primary);
-  font-size: .74rem;
+  font-size: 0.74rem;
   font-weight: 800;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
 }
 
 .education-audience__item h3 {
   margin: auto 0 0;
   font-size: clamp(1.35rem, 1.8vw, 1.75rem);
   line-height: 1.15;
-  letter-spacing: -.035em;
+  letter-spacing: -0.035em;
 }
 
 .education-audience__item p {
   margin: 16px 0 0;
   color: var(--color-text-secondary);
-  font-size: .92rem;
+  font-size: 0.92rem;
   line-height: 1.58;
 }

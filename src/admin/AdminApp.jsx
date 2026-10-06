@@ -1,5 +1,4 @@
-import ArticleEditPage 
-from './pages/ArticleEditPage/ArticleEditPage.jsx';
+import ArticleEditPage from './pages/ArticleEditPage/ArticleEditPage.jsx';
 
 import CreateArticlePage from './pages/ArticleEditPage/CreateArticlePage.jsx';
 
@@ -13,126 +12,52 @@ import RegulationsPage from './pages/RegulationsPage/RegulationsPage.jsx';
 import LeadsPage from './pages/LeadsPage/LeadsPage.jsx';
 import DocumentationPage from './pages/DocumentationPage/DocumentationPage.jsx';
 
-import {
-  useAuth,
-} from './auth/AuthProvider.jsx';
-
-
-
+import { useAuth } from './auth/AuthProvider.jsx';
 
 function RouterView() {
+  const path = window.location.pathname;
 
-  const path =
-    window.location.pathname;
-
-
-
-  if (
-    path.startsWith('/admin/articles/new')
-  ) {
-
-    return (
-      <CreateArticlePage />
-    );
-
+  if (path.startsWith('/admin/articles/new')) {
+    return <CreateArticlePage />;
   }
 
-
-
-  if (
-    path.startsWith('/admin/articles/edit/')
-  ) {
-
-    return (
-      <ArticleEditPage />
-    );
-
+  if (path.startsWith('/admin/articles/edit/')) {
+    return <ArticleEditPage />;
   }
-
-
 
   if (path.startsWith('/admin/regulations')) {
     return <RegulationsPage />;
   }
 
-  if (
-    path.startsWith('/admin/articles')
-  ) {
-
-    return (
-      <ArticlesPage />
-    );
-
+  if (path.startsWith('/admin/articles')) {
+    return <ArticlesPage />;
   }
 
-
-
-  if (
-    path.startsWith('/admin/leads')
-  ) {
-
-    return (
-      <LeadsPage />
-    );
-
+  if (path.startsWith('/admin/leads')) {
+    return <LeadsPage />;
   }
 
-
-
-  if (
-    path.startsWith('/admin/statistics')
-  ) {
-
-    return (
-      <StatisticsPage />
-    );
-
+  if (path.startsWith('/admin/statistics')) {
+    return <StatisticsPage />;
   }
 
-
-  if (
-    path.startsWith('/admin/documentation')
-  ) {
-
-    return (
-      <DocumentationPage />
-    );
-
+  if (path.startsWith('/admin/documentation')) {
+    return <DocumentationPage />;
   }
 
-
-
-  return (
-    <DashboardPage />
-  );
-
+  return <DashboardPage />;
 }
 
-
-
 export default function AdminApp() {
-
-  const {
-    user,
-    checking,
-  } = useAuth();
-
+  const { user, checking } = useAuth();
 
   if (checking) {
-    return (
-      <div>
-        Проверка сессии...
-      </div>
-    );
+    return <div>Проверка сессии...</div>;
   }
-
 
   if (!user) {
-    return (
-      <LoginPage />
-    );
+    return <LoginPage />;
   }
-
 
   return (
     <AdminLayout>

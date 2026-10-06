@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { processItems } from "../../actualizationPageData";
+import { processItems } from '../../actualizationPageData';
 
 export default function ActualizationWorkProcess() {
   return (
@@ -17,7 +17,7 @@ export default function ActualizationWorkProcess() {
             {processItems.map((item, index) => (
               <li key={item.title}>
                 <span className="actualization-work__number">
-                  {String(index + 1).padStart(2, "0")}
+                  {String(index + 1).padStart(2, '0')}
                 </span>
 
                 <div>

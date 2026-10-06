@@ -9,14 +9,14 @@
 
 .penalties {
   padding: clamp(96px, 11vw, 168px) 0;
-  border-top: 1px solid rgba(255,255,255,.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   background: var(--color-text);
   color: #fff;
 }
 
 .penalties__heading {
   display: grid;
-  grid-template-columns: minmax(0, 1.18fr) minmax(330px, .82fr);
+  grid-template-columns: minmax(0, 1.18fr) minmax(330px, 0.82fr);
   gap: clamp(46px, 7vw, 112px);
   align-items: end;
   margin-bottom: clamp(50px, 6vw, 78px);
@@ -27,9 +27,9 @@
 .penalties__law-label {
   margin: 0 0 18px;
   color: var(--color-accent);
-  font-size: .76rem;
+  font-size: 0.76rem;
   font-weight: 820;
-  letter-spacing: .14em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
@@ -37,12 +37,12 @@
   max-width: 900px;
   margin: 0;
   font-size: clamp(2.8rem, 5.15vw, 5.75rem);
-  line-height: .98;
-  letter-spacing: -.020em;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
 }
 
 .penalties h2 em {
-  color: rgba(255,255,255,.42);
+  color: rgba(255, 255, 255, 0.42);
   font-style: normal;
   font-weight: inherit;
 }
@@ -53,7 +53,7 @@
   gap: 22px;
   align-items: start;
   padding: 26px 0 4px clamp(24px, 3vw, 38px);
-  border-left: 1px solid rgba(255,255,255,.14);
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .penalties__law-index {
@@ -61,12 +61,12 @@
   height: 72px;
   display: grid;
   place-items: center;
-  border: 1px solid rgba(255,255,255,.16);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 50%;
   color: var(--color-accent);
-  font-size: .83rem;
+  font-size: 0.83rem;
   font-weight: 850;
-  letter-spacing: .04em;
+  letter-spacing: 0.04em;
 }
 
 .penalties__law-label {
@@ -75,7 +75,7 @@
 
 .penalties__law p:last-child {
   margin: 0;
-  color: rgba(255,255,255,.58);
+  color: rgba(255, 255, 255, 0.58);
   line-height: 1.65;
 }
 
@@ -91,16 +91,19 @@
   display: flex;
   flex-direction: column;
   padding: clamp(26px, 3vw, 38px);
-  border: 1px solid rgba(255,255,255,.11);
+  border: 1px solid rgba(255, 255, 255, 0.11);
   border-radius: clamp(26px, 3vw, 36px);
-  background: rgba(255,255,255,.035);
-  transition: transform .22s ease, border-color .22s ease, background .22s ease;
+  background: rgba(255, 255, 255, 0.035);
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    background 0.22s ease;
 }
 
 .penalty-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(169,240,74,.72);
-  background: rgba(255,255,255,.055);
+  border-color: rgba(169, 240, 74, 0.72);
+  background: rgba(255, 255, 255, 0.055);
 }
 
 .penalty-card--featured {
@@ -126,29 +129,29 @@
   height: 54px;
   display: grid;
   place-items: center;
-  border: 1px solid rgba(255,255,255,.16);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 50%;
   color: var(--color-accent);
-  font-size: .74rem;
+  font-size: 0.74rem;
   font-weight: 850;
 }
 
 .penalty-card--featured .penalty-card__number {
-  border-color: rgba(21,21,21,.18);
+  border-color: rgba(21, 21, 21, 0.18);
   background: #fff;
   color: var(--color-primary);
 }
 
 .penalty-card__label {
-  color: rgba(255,255,255,.42);
-  font-size: .72rem;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 0.72rem;
   font-weight: 800;
-  letter-spacing: .12em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .penalty-card--featured .penalty-card__label {
-  color: rgba(21,21,21,.56);
+  color: rgba(21, 21, 21, 0.56);
 }
 
 .penalty-card__amount {
@@ -164,28 +167,28 @@
 .penalty-card__copy {
   margin-top: auto;
   padding-top: 30px;
-  border-top: 1px solid rgba(255,255,255,.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .penalty-card--featured .penalty-card__copy {
-  border-color: rgba(21,21,21,.15);
+  border-color: rgba(21, 21, 21, 0.15);
 }
 
 .penalty-card h3 {
   margin: 0 0 10px;
   font-size: clamp(1.4rem, 2vw, 2rem);
   line-height: 1.02;
-  letter-spacing: -.04em;
+  letter-spacing: -0.04em;
 }
 
 .penalty-card p {
   margin: 0;
-  color: rgba(255,255,255,.57);
+  color: rgba(255, 255, 255, 0.57);
   line-height: 1.58;
 }
 
 .penalty-card--featured p {
-  color: rgba(21,21,21,.64);
+  color: rgba(21, 21, 21, 0.64);
 }
 
 .penalties__footer {
@@ -195,9 +198,9 @@
   align-items: center;
   margin-top: 18px;
   padding: clamp(26px, 3vw, 38px);
-  border: 1px solid rgba(255,255,255,.11);
+  border: 1px solid rgba(255, 255, 255, 0.11);
   border-radius: 30px;
-  background: rgba(255,255,255,.04);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .penalties__footer-mark {
@@ -221,13 +224,13 @@
   margin: 0 0 8px;
   font-size: clamp(1.5rem, 2.2vw, 2.25rem);
   line-height: 1.03;
-  letter-spacing: -.04em;
+  letter-spacing: -0.04em;
 }
 
 .penalties__footer-copy > p:last-child {
   max-width: 810px;
   margin: 0;
-  color: rgba(255,255,255,.56);
+  color: rgba(255, 255, 255, 0.56);
   line-height: 1.58;
 }
 
@@ -238,18 +241,23 @@
   justify-content: space-between;
   gap: 18px;
   padding: 0 20px;
-  border: 1px solid rgba(255,255,255,.18);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 999px;
   color: #fff;
   font-weight: 760;
   text-decoration: none;
   white-space: nowrap;
-  transition: background .2s ease, border-color .2s ease, color .2s ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .penalties__action span:last-child {
   color: var(--color-accent);
-  transition: transform .2s ease, color .2s ease;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
 }
 
 .penalties__action:hover {
@@ -264,7 +272,6 @@
 }
 
 @media (max-width: 1000px) {
-
   .penalties__grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -400,13 +407,11 @@
   }
 }
 @media (hover: none) {
-
   .penalty-card:hover {
     transform: none;
   }
 }
 @media (max-width: 1024px) {
-
   .penalties__heading {
     grid-template-columns: 1fr;
     gap: 30px;
@@ -416,11 +421,10 @@
     max-width: 720px;
     padding: 22px 0 0;
     border-left: 0;
-    border-top: 1px solid rgba(255,255,255,.14);
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
   }
 }
 @media (max-width: 820px) {
-
   .penalties {
     scroll-margin-top: 84px;
   }
@@ -430,11 +434,10 @@
   }
 }
 @media (max-width: 620px) {
-
   .penalties h2 {
     font-size: clamp(2.35rem, 10.4vw, 2.8rem);
-    line-height: .98;
-    letter-spacing: -.045em;
+    line-height: 0.98;
+    letter-spacing: -0.045em;
   }
 
   .penalty-card__top {
@@ -451,10 +454,9 @@
   }
 }
 @media (max-width: 430px) {
-
   .penalties h2 {
     font-size: clamp(2.18rem, 9.7vw, 2.45rem);
-    letter-spacing: -.035em;
+    letter-spacing: -0.035em;
   }
 
   .penalty-card {

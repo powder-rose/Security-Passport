@@ -29,7 +29,9 @@ function ServiceLink({ service, index }) {
         ) : null}
       </span>
 
-      <span className="related-service__arrow" aria-hidden="true">↗</span>
+      <span className="related-service__arrow" aria-hidden="true">
+        ↗
+      </span>
     </a>
   );
 }
@@ -53,7 +55,10 @@ export default function RelatedServices() {
           </p>
         </div>
 
-        <nav className="related-services__list" aria-label="Другие услуги по антитеррористической защищённости">
+        <nav
+          className="related-services__list"
+          aria-label="Другие услуги по антитеррористической защищённости"
+        >
           {services.map((service, index) => (
             <ServiceLink key={service.id} service={service} index={index} />
           ))}
@@ -65,9 +70,11 @@ export default function RelatedServices() {
             <h3>Сначала определим задачу и{'\u00A0'}не будем добавлять лишние документы</h3>
           </div>
           <a className="button button--primary related-services-task-button" href="#contact">
-              <span className="related-services-task-button__label">Обсудить задачу</span>
-              <span className="related-services-task-button__arrow" aria-hidden="true">↗</span>
-            </a>
+            <span className="related-services-task-button__label">Обсудить задачу</span>
+            <span className="related-services-task-button__arrow" aria-hidden="true">
+              ↗
+            </span>
+          </a>
         </div>
       </Container>
     </section>

@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { hotelFaqItems } from "../../hotelPageData";
+import { hotelFaqItems } from '../../hotelPageData';
 
 export default function HotelFaq() {
   return (
@@ -16,9 +16,8 @@ export default function HotelFaq() {
               </div>
 
               <p>
-                Коротко отвечаем на вопросы о Постановлении Правительства РФ от
-                13.04.2017 №447, категорировании, согласовании, стоимости, форме
-                и актуализации паспорта.
+                Коротко отвечаем на вопросы о Постановлении Правительства РФ от 13.04.2017 №447,
+                категорировании, согласовании, стоимости, форме и актуализации паспорта.
               </p>
             </div>
 
@@ -26,9 +25,7 @@ export default function HotelFaq() {
               {hotelFaqItems.map((item, index) => (
                 <details className="hotel-faq__item" key={item.question}>
                   <summary>
-                    <span className="hotel-faq__number">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
+                    <span className="hotel-faq__number">{String(index + 1).padStart(2, '0')}</span>
 
                     <span className="hotel-faq__question">{item.question}</span>
 

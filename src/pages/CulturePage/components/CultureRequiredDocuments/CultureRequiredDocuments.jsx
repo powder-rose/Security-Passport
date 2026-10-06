@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { cultureSourceData } from "../../culturePageData";
+import { cultureSourceData } from '../../culturePageData';
 
 export default function CultureRequiredDocuments() {
   return (
@@ -14,18 +14,17 @@ export default function CultureRequiredDocuments() {
               <h2>Какие данные нужны для разработки</h2>
 
               <p>
-                Для начала работы собираем основные сведения об организации,
-                объекте, людях, режимах, защите и существующей документации.
+                Для начала работы собираем основные сведения об организации, объекте, людях,
+                режимах, защите и существующей документации.
               </p>
 
               <aside className="culture-source__notice">
-                Точный перечень определяем после первичной проверки объекта и
-                имеющихся документов.
+                Точный перечень определяем после первичной проверки объекта и имеющихся документов.
               </aside>
             </div>
 
             <div className="culture-source__list">
-              {cultureSourceData.map((item) => (
+              {cultureSourceData.map(item => (
                 <article className="culture-source__item" key={item.number}>
                   <span>{item.number}</span>
 

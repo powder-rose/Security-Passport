@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { tradeFaqItems } from "../../tradePageData";
+import { tradeFaqItems } from '../../tradePageData';
 
 export default function TradeFaq() {
   return (
@@ -12,14 +12,12 @@ export default function TradeFaq() {
               <div>
                 <p className="trade-kicker">Вопросы и ответы</p>
 
-                <h2>
-                  Частые вопросы о паспорте безопасности торгового объекта
-                </h2>
+                <h2>Частые вопросы о паспорте безопасности торгового объекта</h2>
               </div>
 
               <p>
-                Применимость ПП РФ №1273, изменения 2026 года, категорирование,
-                сроки, экземпляры, актуализация и особенности торговых центров.
+                Применимость ПП РФ №1273, изменения 2026 года, категорирование, сроки, экземпляры,
+                актуализация и особенности торговых центров.
               </p>
             </div>
 
@@ -27,9 +25,7 @@ export default function TradeFaq() {
               {tradeFaqItems.map((item, index) => (
                 <details className="trade-faq__item" key={item.question}>
                   <summary>
-                    <span className="trade-faq__number">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
+                    <span className="trade-faq__number">{String(index + 1).padStart(2, '0')}</span>
 
                     <span className="trade-faq__question">{item.question}</span>
 

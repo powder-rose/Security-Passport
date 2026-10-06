@@ -184,7 +184,7 @@
 
 .trade-regulation__identity::after {
   position: absolute;
-  content: "";
+  content: '';
 }
 
 .trade-regulation__identity > span,

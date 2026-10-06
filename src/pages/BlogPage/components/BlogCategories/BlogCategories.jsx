@@ -1,4 +1,4 @@
-import Container from "../../../../components/ui/Container/Container.jsx";
+import Container from '../../../../components/ui/Container/Container.jsx';
 
 export default function BlogCategories({
   loading,
@@ -22,26 +22,23 @@ export default function BlogCategories({
             </div>
 
             <p className="blog-categories__description">
-              Материалы сгруппированы по практической задаче: от требований
-              законодательства и категорирования до подготовки и актуализации
-              паспорта безопасности.
+              Материалы сгруппированы по практической задаче: от требований законодательства и
+              категорирования до подготовки и актуализации паспорта безопасности.
             </p>
 
             <nav className="blog-category-chips" aria-label="Категории статей">
               <button
                 type="button"
                 className={
-                  selectedCategory === "all"
-                    ? "blog-category-chip is-active"
-                    : "blog-category-chip"
+                  selectedCategory === 'all' ? 'blog-category-chip is-active' : 'blog-category-chip'
                 }
-                aria-pressed={selectedCategory === "all"}
-                onClick={() => chooseCategory("all")}
+                aria-pressed={selectedCategory === 'all'}
+                onClick={() => chooseCategory('all')}
               >
                 Все материалы
               </button>
 
-              {visibleCategories.map((category) => {
+              {visibleCategories.map(category => {
                 const isActive = selectedCategory === category.id;
 
                 return (
@@ -49,11 +46,7 @@ export default function BlogCategories({
                     key={category.id}
                     id={`blog-category-${category.id}`}
                     type="button"
-                    className={
-                      isActive
-                        ? "blog-category-chip is-active"
-                        : "blog-category-chip"
-                    }
+                    className={isActive ? 'blog-category-chip is-active' : 'blog-category-chip'}
                     aria-pressed={isActive}
                     aria-label={`${category.label}. ${category.description}`}
                     onClick={() => chooseCategory(category.id)}
@@ -65,7 +58,7 @@ export default function BlogCategories({
             </nav>
 
             <div className="blog-category-seo-descriptions">
-              {visibleCategories.map((category) => (
+              {visibleCategories.map(category => (
                 <p key={`seo-${category.id}`}>
                   <strong>{category.label}.</strong> {category.description}
                 </p>

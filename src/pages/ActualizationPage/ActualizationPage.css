@@ -89,7 +89,7 @@ Component-specific styles live next to their React components.
 }
 
 .actualization-kicker::before {
-  content: "";
+  content: '';
 
   width: 24px;
   height: 4px;

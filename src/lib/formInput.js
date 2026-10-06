@@ -1,15 +1,11 @@
 export function formatRussianPhone(value) {
-  let digits = String(value ?? '')
-    .replace(/\D/g, '');
+  let digits = String(value ?? '').replace(/\D/g, '');
 
   if (!digits) {
     return '';
   }
 
-  if (
-    digits.startsWith('7') ||
-    digits.startsWith('8')
-  ) {
+  if (digits.startsWith('7') || digits.startsWith('8')) {
     digits = digits.slice(1);
   }
 
@@ -57,9 +53,7 @@ export function sanitizeEmailInput(value) {
         continue;
       }
 
-      if (
-        /[A-Za-z0-9.!#$%&'*+\-/=?^_`{|}~]/.test(char)
-      ) {
+      if (/[A-Za-z0-9.!#$%&'*+\-/=?^_`{|}~]/.test(char)) {
         result += char;
       }
 

@@ -1,114 +1,57 @@
 import { SITE } from './site';
 
-import {
-  getObjectTypeByPathname,
-} from '../data/objectTypes';
+import { getObjectTypeByPathname } from '../data/objectTypes';
 
-import {
-  getServicePageByPathname,
-} from '../data/servicePages';
+import { getServicePageByPathname } from '../data/servicePages';
 
+function buildCanonical(pathname) {
+  const baseUrl = SITE.defaultUrl.replace(/\/$/, '');
 
-function buildCanonical(
-  pathname,
-) {
-  const baseUrl =
-    SITE.defaultUrl.replace(
-      /\/$/,
-      '',
-    );
+  const objectType = getObjectTypeByPathname(pathname);
 
-  const objectType =
-    getObjectTypeByPathname(
-      pathname,
-    );
+  const servicePage = getServicePageByPathname(pathname);
 
-  const servicePage =
-    getServicePageByPathname(
-      pathname,
-    );
+  const pagePath = objectType?.path || servicePage?.path;
 
-  const pagePath =
-    objectType?.path ||
-    servicePage?.path;
-
-  return pagePath
-    ? `${baseUrl}${pagePath}`
-    : baseUrl;
+  return pagePath ? `${baseUrl}${pagePath}` : baseUrl;
 }
 
+export function buildSeo(pathname = '/') {
+  const objectType = getObjectTypeByPathname(pathname);
 
-export function buildSeo(
-  pathname = '/',
-) {
-  const objectType =
-    getObjectTypeByPathname(
-      pathname,
-    );
+  const servicePage = getServicePageByPathname(pathname);
 
-  const servicePage =
-    getServicePageByPathname(
-      pathname,
-    );
+  const baseUrl = SITE.defaultUrl.replace(/\/$/, '');
 
-  const baseUrl =
-    SITE.defaultUrl.replace(
-      /\/$/,
-      '',
-    );
-
-  const canonical =
-    buildCanonical(
-      pathname,
-    );
+  const canonical = buildCanonical(pathname);
 
   let title;
   let description;
 
-
   if (servicePage) {
-    const serviceSeoTitle =
-      servicePage.seoTitle ||
-      servicePage.seoName;
+    const serviceSeoTitle = servicePage.seoTitle || servicePage.seoName;
 
-    const serviceSeoDescription =
-      servicePage.seoDescription ||
-      servicePage.description;
+    const serviceSeoDescription = servicePage.seoDescription || servicePage.description;
 
-    title =
-      `${serviceSeoTitle} | ` +
-      `${SITE.brand}`;
+    title = `${serviceSeoTitle} | ` + `${SITE.brand}`;
 
-    description =
-      serviceSeoDescription;
-  }
-  else if (objectType) {
+    description = serviceSeoDescription;
+  } else if (objectType) {
     const objectSeoTitle =
-      objectType.seoTitle ||
-      (
-        `${objectType.seoName} — ` +
-        `разработка от 9 500 ₽`
-      );
+      objectType.seoTitle || `${objectType.seoName} — ` + `разработка от 9 500 ₽`;
 
     const objectSeoDescription =
       objectType.seoDescription ||
-      (
-        `${objectType.seoName} от 9 500 ₽. ` +
+      `${objectType.seoName} от 9 500 ₽. ` +
         `Категорирование, акт обследования, ` +
         `разработка паспорта и сопровождение ` +
-        `согласования. ${SITE.brand}.`
-      );
+        `согласования. ${SITE.brand}.`;
 
-    title =
-      `${objectSeoTitle} | ${SITE.brand}`;
+    title = `${objectSeoTitle} | ${SITE.brand}`;
 
-    description =
-      objectSeoDescription;
-  }
-  else {
-    title =
-      `Разработка паспорта безопасности объекта — ` +
-      `от 9 500 ₽ | ${SITE.brand}`;
+    description = objectSeoDescription;
+  } else {
+    title = `Разработка паспорта безопасности объекта — ` + `от 9 500 ₽ | ${SITE.brand}`;
 
     description =
       `Разработка паспорта безопасности объекта от 9 500 ₽. ` +
@@ -116,17 +59,14 @@ export function buildSeo(
       `сопровождение согласования. БОЙКОВГРУПП.`;
   }
 
-
   return {
     title,
     description,
     canonical,
 
-    image:
-      `${baseUrl}/images/og-passport-security.png`,
+    image: `${baseUrl}/images/og-passport-security.png`,
   };
 }
-
 
 export const organizationSchema = {
   '@context': 'https://schema.org',
@@ -160,62 +100,33 @@ export const organizationSchema = {
   },
 };
 
+export function buildServiceSchema(pathname = '/') {
+  const objectType = getObjectTypeByPathname(pathname);
 
-export function buildServiceSchema(
-  pathname = '/',
-) {
-  const objectType =
-    getObjectTypeByPathname(
-      pathname,
-    );
+  const servicePage = getServicePageByPathname(pathname);
 
-  const servicePage =
-    getServicePageByPathname(
-      pathname,
-    );
-
-  const seo =
-    buildSeo(
-      pathname,
-    );
+  const seo = buildSeo(pathname);
 
   return {
     '@context': 'https://schema.org',
     '@type': 'Service',
 
-    '@id':
-      `${seo.canonical.replace(
-        /\/$/,
-        '',
-      )}/#service`,
+    '@id': `${seo.canonical.replace(/\/$/, '')}/#service`,
 
-    name:
-      servicePage?.seoName ||
-      objectType?.seoName ||
-      'Разработка паспорта безопасности объекта',
+    name: servicePage?.seoName || objectType?.seoName || 'Разработка паспорта безопасности объекта',
 
-    description:
-      seo.description,
+    description: seo.description,
 
-    url:
-      seo.canonical,
+    url: seo.canonical,
 
-    serviceType:
-      servicePage
-        ? servicePage.seoName
-        : objectType
-          ? (
-              `Разработка и сопровождение: ` +
-              `${objectType.seoName}`
-            )
-          : (
-              'Разработка и сопровождение ' +
-              'паспорта безопасности объекта'
-            ),
+    serviceType: servicePage
+      ? servicePage.seoName
+      : objectType
+        ? `Разработка и сопровождение: ` + `${objectType.seoName}`
+        : 'Разработка и сопровождение ' + 'паспорта безопасности объекта',
 
     provider: {
-      '@id':
-        `${SITE.defaultUrl}/#organization`,
+      '@id': `${SITE.defaultUrl}/#organization`,
     },
 
     areaServed: {

@@ -9,7 +9,7 @@
 .culture-standard__panel {
   display: grid;
   grid-template-columns:
-    minmax(280px, .56fr)
+    minmax(280px, 0.56fr)
     minmax(0, 1.44fr);
   overflow: hidden;
   border-radius: 32px;
@@ -28,17 +28,15 @@
 
 .culture-standard__identity > span {
   margin-top: auto;
-  font-size:
-    clamp(70px, 7vw, 108px);
+  font-size: clamp(70px, 7vw, 108px);
   font-weight: 650;
-  line-height: .72;
-  letter-spacing: -.075em;
+  line-height: 0.72;
+  letter-spacing: -0.075em;
 }
 
 .culture-standard__identity > strong {
   margin-top: 24px;
-  font-size:
-    clamp(23px, 2vw, 31px);
+  font-size: clamp(23px, 2vw, 31px);
   line-height: 1.1;
 }
 
@@ -54,11 +52,10 @@
 }
 
 .culture-standard__date span {
-  color:
-    rgb(255 255 255 / 47%);
+  color: rgb(255 255 255 / 47%);
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: .06em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
@@ -70,29 +67,25 @@
 .culture-standard__content h2 {
   max-width: 800px;
   margin: 0;
-  font-size:
-    clamp(40px, 4.4vw, 67px);
+  font-size: clamp(40px, 4.4vw, 67px);
   font-weight: 600;
-  line-height: .99;
-  letter-spacing: -.045em;
+  line-height: 0.99;
+  letter-spacing: -0.045em;
   text-wrap: balance;
 }
 
 .culture-standard__lead {
   max-width: 750px;
   margin: 28px 0 0;
-  color:
-    rgb(255 255 255 / 70%);
-  font-size:
-    clamp(18px, 1.6vw, 22px);
+  color: rgb(255 255 255 / 70%);
+  font-size: clamp(18px, 1.6vw, 22px);
   line-height: 1.6;
 }
 
 .culture-standard__important {
   margin-top: 38px;
   padding: 26px 28px;
-  border:
-    1px solid rgb(169 240 74 / 45%);
+  border: 1px solid rgb(169 240 74 / 45%);
   border-radius: 22px;
 }
 
@@ -102,7 +95,7 @@
   color: #a9f04a;
   font-size: 11px;
   font-weight: 900;
-  letter-spacing: .07em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
 }
 
@@ -114,21 +107,16 @@
 
 .culture-standard__facts {
   display: grid;
-  grid-template-columns:
-    repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-top: 38px;
-  border-top:
-    1px solid rgb(255 255 255 / 15%);
-  border-left:
-    1px solid rgb(255 255 255 / 15%);
+  border-top: 1px solid rgb(255 255 255 / 15%);
+  border-left: 1px solid rgb(255 255 255 / 15%);
 }
 
 .culture-standard__facts > div {
   padding: 24px;
-  border-right:
-    1px solid rgb(255 255 255 / 15%);
-  border-bottom:
-    1px solid rgb(255 255 255 / 15%);
+  border-right: 1px solid rgb(255 255 255 / 15%);
+  border-bottom: 1px solid rgb(255 255 255 / 15%);
 }
 
 .culture-standard__facts span {
@@ -136,14 +124,13 @@
   color: #a9f04a;
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: .05em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
 .culture-standard__facts p {
   margin: 13px 0 0;
-  color:
-    rgb(255 255 255 / 66%);
+  color: rgb(255 255 255 / 66%);
   font-size: 14px;
   line-height: 1.55;
 }

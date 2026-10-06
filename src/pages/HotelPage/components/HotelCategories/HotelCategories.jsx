@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { hotelCategories } from "../../hotelPageData";
+import { hotelCategories } from '../../hotelPageData';
 
 export default function HotelCategories() {
   return (
@@ -15,9 +15,8 @@ export default function HotelCategories() {
             </div>
 
             <p className="hotel-categories__lead">
-              Категория гостиницы определяется комиссией по результатам
-              обследования с учётом возможных последствий террористического
-              акта.
+              Категория гостиницы определяется комиссией по результатам обследования с учётом
+              возможных последствий террористического акта.
             </p>
           </div>
 
@@ -31,7 +30,7 @@ export default function HotelCategories() {
             {hotelCategories.map((item, index) => (
               <div className="hotel-categories__row" key={item.category}>
                 <span className="hotel-categories__index">
-                  {String(index + 1).padStart(2, "0")}
+                  {String(index + 1).padStart(2, '0')}
                 </span>
 
                 <strong>{item.category}</strong>
@@ -43,14 +42,11 @@ export default function HotelCategories() {
 
           <div className="hotel-categories__footer">
             <p>
-              Комиссия изучает характеристики объекта, существующие меры защиты,
-              потенциально опасные участки и критические элементы.
+              Комиссия изучает характеристики объекта, существующие меры защиты, потенциально
+              опасные участки и критические элементы.
             </p>
 
-            <a
-              className="hotel-inline-link"
-              href="/akt-obsledovaniya-i-kategorirovaniya-obekta/"
-            >
+            <a className="hotel-inline-link" href="/akt-obsledovaniya-i-kategorirovaniya-obekta/">
               Подробнее об акте обследования и категорирования
               <span aria-hidden="true">↗</span>
             </a>

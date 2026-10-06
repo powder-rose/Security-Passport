@@ -1,20 +1,14 @@
-import QuizComplete
-from './components/QuizComplete';
+import QuizComplete from './components/QuizComplete';
 
-import QuizPanel
-from './components/QuizPanel';
+import QuizPanel from './components/QuizPanel';
 
-import useQuizGeography
-from './useQuizGeography';
+import useQuizGeography from './useQuizGeography';
 
-import useQuizNavigation
-from './useQuizNavigation';
+import useQuizNavigation from './useQuizNavigation';
 
-import useQuizSubmission
-from './useQuizSubmission';
+import useQuizSubmission from './useQuizSubmission';
 
 import './ObjectQuiz.css';
-
 
 export default function ObjectQuiz({
   presetObjectType = null,
@@ -22,10 +16,7 @@ export default function ObjectQuiz({
   preview = false,
 }) {
   const sectionClassName =
-    variant === 'article'
-      ? 'object-quiz object-quiz--article'
-      : 'object-quiz';
-
+    variant === 'article' ? 'object-quiz object-quiz--article' : 'object-quiz';
 
   const {
     currentStep,
@@ -50,24 +41,15 @@ export default function ObjectQuiz({
     goBack,
     markCompleted,
     restartQuiz,
-  } =
-    useQuizNavigation({
-      presetObjectType,
-    });
+  } = useQuizNavigation({
+    presetObjectType,
+  });
 
+  const { regionOptions, settlementOptions } = useQuizGeography({
+    questionType: question.type,
 
-  const {
-    regionOptions,
-    settlementOptions,
-  } =
-    useQuizGeography({
-      questionType:
-        question.type,
-
-      regionValue:
-        answer?.region,
-    });
-
+    regionValue: answer?.region,
+  });
 
   const {
     showError,
@@ -77,19 +59,17 @@ export default function ObjectQuiz({
     updateAnswer,
     handleNext,
     clearStepError,
-  } =
-    useQuizSubmission({
-      question,
-      answer,
-      answers,
-      visibleStep,
-      isLastStep,
-      preview,
-      updateCurrentAnswer,
-      goForward,
-      markCompleted,
-    });
-
+  } = useQuizSubmission({
+    question,
+    answer,
+    answers,
+    visibleStep,
+    isLastStep,
+    preview,
+    updateCurrentAnswer,
+    goForward,
+    markCompleted,
+  });
 
   const handleBack = () => {
     if (goBack()) {
@@ -97,103 +77,55 @@ export default function ObjectQuiz({
     }
   };
 
-
-  const backDisabled =
-    hasPresetObjectType
-      ? currentStep <= 1
-      : currentStep === 0;
-
+  const backDisabled = hasPresetObjectType ? currentStep <= 1 : currentStep === 0;
 
   if (completed) {
     return (
       <QuizComplete
-        sectionClassName={
-          sectionClassName
-        }
-        quizCompleteRef={
-          quizCompleteRef
-        }
-        onRestart={
-          restartQuiz
-        }
+        sectionClassName={sectionClassName}
+        quizCompleteRef={quizCompleteRef}
+        onRestart={restartQuiz}
       />
     );
   }
 
-
   return (
     <QuizPanel
-      sectionClassName={
-        sectionClassName
-      }
+      sectionClassName={sectionClassName}
 
-      quizCardRef={
-        quizCardRef
-      }
+      quizCardRef={quizCardRef}
 
-      question={
-        question
-      }
+      question={question}
 
-      answer={
-        answer
-      }
+      answer={answer}
 
-      regionOptions={
-        regionOptions
-      }
+      regionOptions={regionOptions}
 
-      settlementOptions={
-        settlementOptions
-      }
+      settlementOptions={settlementOptions}
 
-      visibleTotal={
-        visibleTotal
-      }
+      visibleTotal={visibleTotal}
 
-      visibleStep={
-        visibleStep
-      }
+      visibleStep={visibleStep}
 
-      progress={
-        progress
-      }
+      progress={progress}
 
-      displayQuestionNumber={
-        displayQuestionNumber
-      }
+      displayQuestionNumber={displayQuestionNumber}
 
-      isLastStep={
-        isLastStep
-      }
+      isLastStep={isLastStep}
 
-      showError={
-        showError
-      }
+      showError={showError}
 
-      submitStatus={
-        submitStatus
-      }
+      submitStatus={submitStatus}
 
-      submitMessage={
-        submitMessage
-      }
+      submitMessage={submitMessage}
 
-      backDisabled={
-        backDisabled
-      }
+      backDisabled={backDisabled}
 
-      updateAnswer={
-        updateAnswer
-      }
+      updateAnswer={updateAnswer}
 
-      handleNext={
-        handleNext
-      }
+      handleNext={handleNext}
 
-      handleBack={
-        handleBack
-      }
+      handleBack={handleBack}
     />
   );
 }

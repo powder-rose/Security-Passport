@@ -1,7 +1,7 @@
-import { Helmet } from "react-helmet-async";
+import { Helmet } from 'react-helmet-async';
 
 export default function ArticlePageState({ type }) {
-  if (type === "loading") {
+  if (type === 'loading') {
     return (
       <>
         <Helmet>
@@ -15,7 +15,7 @@ export default function ArticlePageState({ type }) {
     );
   }
 
-  if (type === "not-found") {
+  if (type === 'not-found') {
     return (
       <>
         <Helmet>
@@ -30,10 +30,7 @@ export default function ArticlePageState({ type }) {
 
             <h1>Статья не найдена</h1>
 
-            <p>
-              Возможно, материал был снят с публикации или адрес страницы
-              изменился.
-            </p>
+            <p>Возможно, материал был снят с публикации или адрес страницы изменился.</p>
 
             <a href="/blog/">Вернуться в блог →</a>
           </div>

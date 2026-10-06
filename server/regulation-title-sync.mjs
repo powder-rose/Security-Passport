@@ -3,50 +3,44 @@ import fs from 'node:fs/promises';
 const ROOT = new URL('../', import.meta.url);
 
 const FILES_BY_NUMBER = {
-  '8': [
+  8: [
     'src/pages/HealthPage/HealthPage.jsx',
     'src/data/objectTypeLegalContent.js',
     'src/data/objectTypes.js',
   ],
-  '176': [
+  176: [
     'src/pages/CulturePage/CulturePage.jsx',
     'src/data/objectTypeLegalContent.js',
     'src/data/objectTypes.js',
   ],
-  '202': [
+  202: [
     'src/pages/SportPage/SportPage.jsx',
     'src/data/objectTypeLegalContent.js',
     'src/data/objectTypes.js',
   ],
-  '229': [
-    'src/pages/TradePage/TradePage.jsx',
-    'src/data/objectTypes.js',
-  ],
-  '272': [
+  229: ['src/pages/TradePage/TradePage.jsx', 'src/data/objectTypes.js'],
+  272: [
     'src/pages/CrowdPage/CrowdPage.jsx',
     'src/data/objectTypeLegalContent.js',
     'src/data/objectTypes.js',
   ],
-  '410': [
-    'src/data/objectTypeLegalContent.js',
-    'src/data/objectTypes.js',
-  ],
-  '447': [
+  410: ['src/data/objectTypeLegalContent.js', 'src/data/objectTypes.js'],
+  447: [
     'src/pages/HotelPage/HotelPage.jsx',
     'src/data/objectTypeLegalContent.js',
     'src/data/objectTypes.js',
   ],
-  '1006': [
+  1006: [
     'src/pages/EducationPage/EducationPage.jsx',
     'src/data/objectTypeLegalContent.js',
     'src/data/objectTypes.js',
   ],
-  '1273': [
+  1273: [
     'src/pages/TradePage/TradePage.jsx',
     'src/data/objectTypeLegalContent.js',
     'src/data/objectTypes.js',
   ],
-  '1421': [
+  1421: [
     'src/pages/EducationPage/EducationPage.jsx',
     'src/data/objectTypeLegalContent.js',
     'src/data/objectTypes.js',
@@ -66,37 +60,19 @@ function variants(number, oldTitle) {
 }
 
 function getFiles(number, occurrences) {
-
   const occurrenceFiles = [
     ...new Set(
       (occurrences || [])
         .map(item => item?.file)
-        .filter(
-          file =>
-            typeof file === 'string'
-            &&
-            file.startsWith('src/')
-        )
-    )
+        .filter(file => typeof file === 'string' && file.startsWith('src/')),
+    ),
   ];
 
-  return occurrenceFiles.length
-    ? occurrenceFiles
-    : (FILES_BY_NUMBER[String(number)] || []);
+  return occurrenceFiles.length ? occurrenceFiles : FILES_BY_NUMBER[String(number)] || [];
 }
 
-
-export async function syncRegulationTitle(
-  number,
-  oldTitle,
-  newTitle,
-  occurrences = []
-) {
-  const files =
-    getFiles(
-      number,
-      occurrences
-    );
+export async function syncRegulationTitle(number, oldTitle, newTitle, occurrences = []) {
+  const files = getFiles(number, occurrences);
   let changedFiles = 0;
   let changedOccurrences = 0;
 

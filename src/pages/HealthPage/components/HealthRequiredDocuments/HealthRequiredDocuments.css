@@ -120,7 +120,7 @@
 }
 
 .health-documents__note::before {
-  content: "";
+  content: '';
 }
 
 .health-documents__note > span,

@@ -2,138 +2,61 @@ import crypto from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import {
-  sanitizeArticleContent,
-} from './article-html.mjs';
+import { sanitizeArticleContent } from './article-html.mjs';
 
-
-const FILE = path.resolve(
-  'data/articles.json'
-);
-
+const FILE = path.resolve('data/articles.json');
 
 async function readArticles() {
   try {
-    const data =
-      await fs.readFile(
-        FILE,
-        'utf8'
-      );
+    const data = await fs.readFile(FILE, 'utf8');
 
-    const articles =
-      JSON.parse(data);
+    const articles = JSON.parse(data);
 
     if (!Array.isArray(articles)) {
       return [];
     }
 
-    return articles.map(
-      article => ({
-        ...article,
+    return articles.map(article => ({
+      ...article,
 
-        content:
-          sanitizeArticleContent(
-            article?.content,
-          ),
-      }),
-    );
-
+      content: sanitizeArticleContent(article?.content),
+    }));
   } catch {
     return [];
   }
 }
 
-
 async function saveArticles(articles) {
-  await fs.writeFile(
-    FILE,
-    JSON.stringify(
-      articles,
-      null,
-      2
-    ),
-    'utf8'
-  );
+  await fs.writeFile(FILE, JSON.stringify(articles, null, 2), 'utf8');
 }
 
-
-function normalizeArticleCategory(
-  value
-) {
-
-  return String(
-    value || ''
-  )
-    .replace(
-      /[\u0000-\u001F\u007F]/g,
-      ''
-    )
-    .replace(
-      /\s+/g,
-      ' '
-    )
+function normalizeArticleCategory(value) {
+  return String(value || '')
+    .replace(/[\u0000-\u001F\u007F]/g, '')
+    .replace(/\s+/g, ' ')
     .trim()
-    .slice(
-      0,
-      80
-    );
-
+    .slice(0, 80);
 }
 
-
-
-function normalizeSeoField(
-  value
-){
-
-  return String(
-    value ?? ''
-  ).trim();
-
+function normalizeSeoField(value) {
+  return String(value ?? '').trim();
 }
 
-
-function assertPublishedArticleSeo({
-  status,
-  seoTitle,
-  seoDescription,
-}){
-
-  if(
-    status !==
-    'published'
-  ){
+function assertPublishedArticleSeo({ status, seoTitle, seoDescription }) {
+  if (status !== 'published') {
     return;
   }
 
-
-  if(
-    normalizeSeoField(
-      seoTitle
-    )
-    &&
-    normalizeSeoField(
-      seoDescription
-    )
-  ){
+  if (normalizeSeoField(seoTitle) && normalizeSeoField(seoDescription)) {
     return;
   }
 
+  const error = new Error('SEO Title and SEO Description are required for published articles');
 
-  const error =
-    new Error(
-      'SEO Title and SEO Description are required for published articles'
-    );
-
-
-  error.code =
-    'ARTICLE_SEO_REQUIRED';
-
+  error.code = 'ARTICLE_SEO_REQUIRED';
 
   throw error;
-
 }
-
 
 const SLUG_TRANSLIT = {
   а: 'a',
@@ -171,146 +94,69 @@ const SLUG_TRANSLIT = {
   я: 'ya',
 };
 
-
 function createSlug(value) {
+  const source = String(value || '')
+    .trim()
+    .toLowerCase();
 
-  const source =
-    String(value || '')
-      .trim()
-      .toLowerCase();
+  const transliterated = Array.from(source)
+    .map(char => {
+      if (Object.prototype.hasOwnProperty.call(SLUG_TRANSLIT, char)) {
+        return SLUG_TRANSLIT[char];
+      }
 
-
-  const transliterated =
-    Array.from(source)
-      .map(
-        char => {
-
-          if (
-            Object.prototype.hasOwnProperty.call(
-              SLUG_TRANSLIT,
-              char
-            )
-          ) {
-            return SLUG_TRANSLIT[char];
-          }
-
-          return char;
-
-        }
-      )
-      .join('');
-
+      return char;
+    })
+    .join('');
 
   return transliterated
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
     .replace(/-{2,}/g, '-');
-
 }
 
+function createUniqueSlug(articles, value, excludeId = null) {
+  const base = createSlug(value) || 'article';
 
-function createUniqueSlug(
-  articles,
-  value,
-  excludeId = null,
-) {
+  let candidate = base;
 
-  const base =
-    createSlug(value) ||
-    'article';
+  let suffix = 2;
 
+  const isUsed = slug =>
+    articles.some(
+      article =>
+        article.id !== excludeId &&
+        (article.slug === slug ||
+          (Array.isArray(article.legacySlugs) && article.legacySlugs.includes(slug))),
+    );
 
-  let candidate =
-    base;
-
-  let suffix =
-    2;
-
-
-  const isUsed =
-    slug =>
-      articles.some(
-        article =>
-          article.id !== excludeId
-          &&
-          (
-            article.slug === slug
-            ||
-            (
-              Array.isArray(
-                article.legacySlugs
-              )
-              &&
-              article.legacySlugs.includes(
-                slug
-              )
-            )
-          )
-      );
-
-
-  while (
-    isUsed(candidate)
-  ) {
-
-    candidate =
-      `${base}-${suffix}`;
+  while (isUsed(candidate)) {
+    candidate = `${base}-${suffix}`;
 
     suffix += 1;
-
   }
 
-
   return candidate;
-
 }
-
 
 export async function getArticles() {
+  const articles = await readArticles();
 
-  const articles =
-    await readArticles();
-
-
-  return articles.sort(
-    (a,b) => {
-
-      return new Date(b.createdAt)
-        -
-        new Date(a.createdAt);
-
-    }
-  );
-
+  return articles.sort((a, b) => {
+    return new Date(b.createdAt) - new Date(a.createdAt);
+  });
 }
 
-
 export async function createArticle(data) {
+  const articles = await readArticles();
 
-  const articles =
-    await readArticles();
+  const now = new Date().toISOString();
 
-  const now =
-    new Date().toISOString();
+  const seoTitle = normalizeSeoField(data.seoTitle);
 
+  const seoDescription = normalizeSeoField(data.seoDescription);
 
-  const seoTitle =
-    normalizeSeoField(
-      data.seoTitle
-    );
-
-
-  const seoDescription =
-    normalizeSeoField(
-      data.seoDescription
-    );
-
-
-  const status =
-    data.status === 'published'
-      ? 'published'
-      : 'draft';
-
+  const status = data.status === 'published' ? 'published' : 'draft';
 
   assertPublishedArticleSeo({
     status,
@@ -318,122 +164,63 @@ export async function createArticle(data) {
     seoDescription,
   });
 
-
   const article = {
+    id: crypto.randomUUID(),
 
-    id:
-      crypto.randomUUID(),
+    title: data.title || '',
 
-    title:
-      data.title || '',
+    content: sanitizeArticleContent(data.content),
 
-    content:
-      sanitizeArticleContent(
-        data.content
-      ),
+    image: data.image || null,
 
-    image:
-      data.image || null,
-
-      imageAlt:
-        data.imageAlt || '',
-
+    imageAlt: data.imageAlt || '',
 
     status,
 
+    category: normalizeArticleCategory(data.category),
 
-    category:
-      normalizeArticleCategory(
-        data.category
-      ),
+    slug: createUniqueSlug(articles, data.slug || data.title || 'article'),
 
-
-    slug:
-      createUniqueSlug(
-        articles,
-        data.slug ||
-        data.title ||
-        'article'
-      ),
-
-    legacySlugs:
-      [],
-
+    legacySlugs: [],
 
     seoTitle,
 
     seoDescription,
 
-    ogTitle:
-      '',
+    ogTitle: '',
 
-    ogDescription:
-      '',
+    ogDescription: '',
 
-    ogImage:
-      null,
+    ogImage: null,
 
+    createdAt: now,
 
-    createdAt:
-      now,
+    updatedAt: now,
 
-    updatedAt:
-      now,
-
-    publishedAt:
-      status === 'published'
-        ? now
-        : null,
+    publishedAt: status === 'published' ? now : null,
   };
-
 
   articles.push(article);
 
-
-  await saveArticles(
-    articles
-  );
-
+  await saveArticles(articles);
 
   return article;
 }
 
+export async function updateArticle(id, data) {
+  const articles = await readArticles();
 
-export async function updateArticle(
-  id,
-  data,
-) {
-
-  const articles =
-    await readArticles();
-
-
-  const index =
-    articles.findIndex(
-      (item) => item.id === id
-    );
-
+  const index = articles.findIndex(item => item.id === id);
 
   if (index === -1) {
     return null;
   }
 
+  const article = articles[index];
 
-  const article =
-    articles[index];
+  let nextSlug = article.slug;
 
-
-  let nextSlug =
-    article.slug;
-
-
-  let legacySlugs =
-    Array.isArray(
-      article.legacySlugs
-    )
-      ? [...article.legacySlugs]
-      : [];
-
+  let legacySlugs = Array.isArray(article.legacySlugs) ? [...article.legacySlugs] : [];
 
   /*
    * ВАЖНО:
@@ -444,158 +231,67 @@ export async function updateArticle(
    * Slug меняется только если админ
    * явно отправил updateSlug: true.
    */
-  if (
-    data.updateSlug === true
-    &&
-    typeof data.slug === 'string'
-  ) {
+  if (data.updateSlug === true && typeof data.slug === 'string') {
+    const requestedSlug = createUniqueSlug(articles, data.slug, article.id);
 
-    const requestedSlug =
-      createUniqueSlug(
-        articles,
-        data.slug,
-        article.id
-      );
-
-
-    if (
-      requestedSlug
-      &&
-      requestedSlug !== article.slug
-    ) {
-
-      if (
-        article.slug
-      ) {
-        legacySlugs.push(
-          article.slug
-        );
+    if (requestedSlug && requestedSlug !== article.slug) {
+      if (article.slug) {
+        legacySlugs.push(article.slug);
       }
 
+      legacySlugs = [...new Set(legacySlugs)].filter(slug => slug && slug !== requestedSlug);
 
-      legacySlugs =
-        [
-          ...new Set(
-            legacySlugs
-          ),
-        ]
-          .filter(
-            slug =>
-              slug
-              &&
-              slug !== requestedSlug
-          );
-
-
-      nextSlug =
-        requestedSlug;
-
+      nextSlug = requestedSlug;
     }
-
   }
 
-
-  const nextStatus =
-    data.status ??
-    article.status;
-
+  const nextStatus = data.status ?? article.status;
 
   const nextSeoTitle =
     data.seoTitle !== undefined
-      ? normalizeSeoField(
-          data.seoTitle
-        )
-      : normalizeSeoField(
-          article.seoTitle
-        );
-
+      ? normalizeSeoField(data.seoTitle)
+      : normalizeSeoField(article.seoTitle);
 
   const nextSeoDescription =
     data.seoDescription !== undefined
-      ? normalizeSeoField(
-          data.seoDescription
-        )
-      : normalizeSeoField(
-          article.seoDescription
-        );
-
+      ? normalizeSeoField(data.seoDescription)
+      : normalizeSeoField(article.seoDescription);
 
   assertPublishedArticleSeo({
-    status:
-      nextStatus,
+    status: nextStatus,
 
-    seoTitle:
-      nextSeoTitle,
+    seoTitle: nextSeoTitle,
 
-    seoDescription:
-      nextSeoDescription,
+    seoDescription: nextSeoDescription,
   });
 
-
   articles[index] = {
-
     ...article,
 
-    title:
-      data.title ??
-      article.title,
+    title: data.title ?? article.title,
 
+    content: data.content !== undefined ? sanitizeArticleContent(data.content) : article.content,
 
-    content:
-      data.content !== undefined
-        ? sanitizeArticleContent(
-            data.content
-          )
-        : article.content,
+    image: data.image ?? article.image,
 
+    imageAlt: data.imageAlt ?? article.imageAlt ?? '',
 
-    image:
-      data.image ??
-      article.image,
-
-
-    imageAlt:
-      data.imageAlt ??
-      article.imageAlt ??
-      '',
-
-
-    status:
-      nextStatus,
-
+    status: nextStatus,
 
     category:
       data.category !== undefined
-        ? normalizeArticleCategory(
-            data.category
-          )
-        : (
-            article.category ||
-            ''
-          ),
+        ? normalizeArticleCategory(data.category)
+        : article.category || '',
 
-
-    slug:
-      nextSlug,
+    slug: nextSlug,
 
     legacySlugs,
 
+    seoTitle: nextSeoTitle,
 
-    seoTitle:
-      nextSeoTitle,
+    seoDescription: nextSeoDescription,
 
-
-    seoDescription:
-      nextSeoDescription,
-
-
-    ogTitle:
-      data.ogTitle ||
-      data.seoTitle ||
-      article.ogTitle ||
-      article.seoTitle ||
-      '',
-
+    ogTitle: data.ogTitle || data.seoTitle || article.ogTitle || article.seoTitle || '',
 
     ogDescription:
       data.ogDescription ||
@@ -604,217 +300,113 @@ export async function updateArticle(
       article.seoDescription ||
       '',
 
-
-    ogImage:
-      data.ogImage ||
-      data.image ||
-      article.ogImage ||
-      article.image ||
-      null,
-
+    ogImage: data.ogImage || data.image || article.ogImage || article.image || null,
 
     publishedAt:
       data.status === 'published'
-        ? (
-            article.publishedAt ||
-            new Date().toISOString()
-          )
+        ? article.publishedAt || new Date().toISOString()
         : article.publishedAt,
 
-
-
-    updatedAt:
-      new Date().toISOString(),
-
+    updatedAt: new Date().toISOString(),
   };
 
-
-  await saveArticles(
-    articles
-  );
-
+  await saveArticles(articles);
 
   return articles[index];
 }
 
-
-
-export async function updatePublishedArticlesYear(
-  year = new Date().getUTCFullYear(),
-) {
-
-  const articles =
-    await readArticles();
-
+export async function updatePublishedArticlesYear(year = new Date().getUTCFullYear()) {
+  const articles = await readArticles();
 
   let updated = 0;
 
+  const now = new Date();
 
-  const now =
-    new Date();
+  const todayUtc = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
 
+  const nextArticles = articles.map(article => {
+    if (article.status !== 'published' || !article.publishedAt) {
+      return article;
+    }
 
-  const todayUtc =
-    Date.UTC(
-      now.getUTCFullYear(),
-      now.getUTCMonth(),
-      now.getUTCDate()
-    );
+    const date = new Date(article.publishedAt);
 
+    if (Number.isNaN(date.getTime())) {
+      return article;
+    }
 
-  const nextArticles =
-    articles.map(
-      article => {
+    /*
+     * Если статья уже имеет нужный год,
+     * повторно её не обновляем.
+     */
+    if (date.getUTCFullYear() === year) {
+      return article;
+    }
 
-        if (
-          article.status !== 'published' ||
-          !article.publishedAt
-        ) {
-          return article;
-        }
+    const month = date.getUTCMonth();
 
+    const day = date.getUTCDate();
 
-        const date =
-          new Date(
-            article.publishedAt
-          );
+    /*
+     * Проверяем день и месяц отдельно.
+     * Это также защищает 29 февраля:
+     * в невисокосном году дата не превратится
+     * автоматически в 1 марта.
+     */
+    const candidateDate = new Date(Date.UTC(year, month, day));
 
+    if (
+      candidateDate.getUTCFullYear() !== year ||
+      candidateDate.getUTCMonth() !== month ||
+      candidateDate.getUTCDate() !== day
+    ) {
+      return article;
+    }
 
-        if (
-          Number.isNaN(
-            date.getTime()
-          )
-        ) {
-          return article;
-        }
+    /*
+     * Нельзя создавать дату публикации из будущего.
+     *
+     * Например, 1 января статья от 15 августа
+     * останется в прошлом году и обновится только
+     * после наступления 15 августа.
+     */
+    if (candidateDate.getTime() > todayUtc) {
+      return article;
+    }
 
+    date.setUTCFullYear(year);
 
-        /*
-         * Если статья уже имеет нужный год,
-         * повторно её не обновляем.
-         */
-        if (
-          date.getUTCFullYear() === year
-        ) {
-          return article;
-        }
+    updated += 1;
 
+    return {
+      ...article,
 
-        const month =
-          date.getUTCMonth();
+      publishedAt: date.toISOString(),
 
-        const day =
-          date.getUTCDate();
+      updatedAt: new Date().toISOString(),
+    };
+  });
 
-
-        /*
-         * Проверяем день и месяц отдельно.
-         * Это также защищает 29 февраля:
-         * в невисокосном году дата не превратится
-         * автоматически в 1 марта.
-         */
-        const candidateDate =
-          new Date(
-            Date.UTC(
-              year,
-              month,
-              day
-            )
-          );
-
-
-        if (
-          candidateDate.getUTCFullYear() !== year ||
-          candidateDate.getUTCMonth() !== month ||
-          candidateDate.getUTCDate() !== day
-        ) {
-          return article;
-        }
-
-
-        /*
-         * Нельзя создавать дату публикации из будущего.
-         *
-         * Например, 1 января статья от 15 августа
-         * останется в прошлом году и обновится только
-         * после наступления 15 августа.
-         */
-        if (
-          candidateDate.getTime() >
-          todayUtc
-        ) {
-          return article;
-        }
-
-
-        date.setUTCFullYear(
-          year
-        );
-
-
-        updated += 1;
-
-
-        return {
-          ...article,
-
-          publishedAt:
-            date.toISOString(),
-
-          updatedAt:
-            new Date()
-              .toISOString(),
-        };
-
-      }
-    );
-
-
-  await saveArticles(
-    nextArticles
-  );
-
+  await saveArticles(nextArticles);
 
   return {
     updated,
     year,
   };
-
 }
 
+export async function deleteArticle(id) {
+  const articles = await readArticles();
 
+  const filtered = articles.filter(item => item.id !== id);
 
-export async function deleteArticle(
-  id,
-) {
-
-  const articles =
-    await readArticles();
-
-
-  const filtered =
-    articles.filter(
-      (item) =>
-        item.id !== id
-    );
-
-
-  await saveArticles(
-    filtered
-  );
-
+  await saveArticles(filtered);
 
   return true;
 }
 
 export async function getArticleById(id) {
+  const articles = await readArticles();
 
-  const articles =
-    await readArticles();
-
-
-  return articles.find(
-    (item) => item.id === id
-  ) || null;
-
+  return articles.find(item => item.id === id) || null;
 }

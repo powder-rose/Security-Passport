@@ -21,8 +21,7 @@
 
 .education-process__list {
   display: grid;
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin: 64px 0 0;
   padding: 0;
   border-top: 1px solid var(--color-border);
@@ -38,8 +37,8 @@
   border-right: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
   transition:
-    background .2s ease,
-    transform .2s ease;
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
 .education-process__step:hover {
@@ -51,9 +50,9 @@
 
 .education-process__number {
   color: var(--color-primary);
-  font-size: .76rem;
+  font-size: 0.76rem;
   font-weight: 800;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
 }
 
 .education-process__step p {
@@ -62,14 +61,14 @@
   font-size: clamp(1.12rem, 1.55vw, 1.42rem);
   font-weight: 750;
   line-height: 1.2;
-  letter-spacing: -.025em;
+  letter-spacing: -0.025em;
 }
 
 .education-process__term {
   display: grid;
   grid-template-columns:
-    minmax(170px, .4fr)
-    minmax(240px, .7fr)
+    minmax(170px, 0.4fr)
+    minmax(240px, 0.7fr)
     minmax(0, 1fr);
   gap: 30px;
   align-items: center;
@@ -80,16 +79,16 @@
 }
 
 .education-process__term > span {
-  font-size: .78rem;
+  font-size: 0.78rem;
   font-weight: 800;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .education-process__term strong {
   font-size: clamp(1.45rem, 2vw, 2rem);
   line-height: 1.1;
-  letter-spacing: -.035em;
+  letter-spacing: -0.035em;
 }
 
 .education-process__term p {

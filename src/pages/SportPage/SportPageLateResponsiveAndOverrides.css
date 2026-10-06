@@ -7,8 +7,7 @@
 
 @media (max-width: 1180px) {
   .sport-why__list {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -28,7 +27,7 @@
 
 @media (max-width: 768px) {
   .sport-why,
-.sport-related {
+  .sport-related {
     padding-top: 76px;
     padding-bottom: 76px;
   }
@@ -40,7 +39,7 @@
 
 @media (max-width: 430px) {
   .sport-why__heading h2,
-.sport-related__heading h2 {
+  .sport-related__heading h2 {
     font-size: clamp(2.15rem, 10vw, 2.9rem);
   }
 
@@ -57,19 +56,17 @@
     margin-top: 42px;
   }
 
-  .sport-related__links > a
-  > div {
+  .sport-related__links > a > div {
     grid-template-columns:
       38px
       minmax(0, 1fr);
     gap: 12px;
   }
-
 }
 
 @media (max-width: 390px) {
   .sport-why__heading h2,
-.sport-related__heading h2 {
+  .sport-related__heading h2 {
     font-size: 2.15rem;
   }
 
@@ -77,12 +74,11 @@
     padding-right: 4px;
     padding-left: 4px;
   }
-
 }
 
 @media (max-width: 320px) {
   .sport-why__heading h2,
-.sport-related__heading h2 {
+  .sport-related__heading h2 {
     font-size: 1.9rem;
   }
 
@@ -95,14 +91,12 @@
   }
 }
 
-.sport-dsp__rule--restricted
-.sport-dsp__rule-sign {
+.sport-dsp__rule--restricted .sport-dsp__rule-sign {
   font-size: 0;
   line-height: 0;
 }
 
-.sport-dsp__rule--restricted
-.sport-dsp__rule-sign::before {
+.sport-dsp__rule--restricted .sport-dsp__rule-sign::before {
   width: 12px;
   height: 2px;
   border-radius: 999px;
@@ -112,11 +106,7 @@
 
 @media (min-width: 1025px) {
   .sport-approval__layout {
-    column-gap: clamp(
-      110px,
-      10vw,
-      160px
-    );
+    column-gap: clamp(110px, 10vw, 160px);
   }
 }
 

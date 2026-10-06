@@ -4,7 +4,6 @@
   margin: 0 auto;
 }
 
-
 .documentation-header {
   display: grid;
   grid-template-columns:
@@ -22,7 +21,6 @@
   border-radius: 28px;
 }
 
-
 .documentation-header__eyebrow {
   margin: 0 0 14px;
 
@@ -30,45 +28,31 @@
 
   font-size: 12px;
   font-weight: 800;
-  letter-spacing: .1em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-
 
 .documentation-header h1 {
   margin: 0 0 18px;
 
   color: #fff;
 
-  font-size:
-    clamp(
-      3rem,
-      6vw,
-      6rem
-    );
+  font-size: clamp(3rem, 6vw, 6rem);
 
-  line-height: .9;
-  letter-spacing: -.055em;
+  line-height: 0.9;
+  letter-spacing: -0.055em;
 }
-
 
 .documentation-header__description {
   max-width: 680px;
 
   margin: 0;
 
-  color:
-    rgba(
-      255,
-      255,
-      255,
-      .68
-    );
+  color: rgba(255, 255, 255, 0.68);
 
   font-size: 17px;
   line-height: 1.6;
 }
-
 
 .documentation-header__meta {
   align-self: end;
@@ -78,38 +62,22 @@
 
   padding-top: 18px;
 
-  border-top:
-    1px solid
-    rgba(
-      255,
-      255,
-      255,
-      .16
-    );
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
 }
 
-
 .documentation-header__meta span {
-  color:
-    rgba(
-      255,
-      255,
-      255,
-      .55
-    );
+  color: rgba(255, 255, 255, 0.55);
 
   font-size: 12px;
   font-weight: 750;
-  letter-spacing: .07em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
 }
-
 
 .documentation-header__meta strong {
   font-size: 16px;
   line-height: 1.4;
 }
-
 
 .documentation-header__meta button {
   width: fit-content;
@@ -127,56 +95,31 @@
   font-weight: 750;
 }
 
-
 .documentation-header__meta button:disabled {
-  opacity: .6;
+  opacity: 0.6;
   cursor: wait;
 }
 
-
 .documentation-content {
-  padding:
-    48px
-    clamp(
-      24px,
-      5vw,
-      70px
-    );
+  padding: 48px clamp(24px, 5vw, 70px);
 
   color: #181818;
   background: #fff;
 
-  border:
-    1px solid
-    rgba(
-      17,
-      17,
-      17,
-      .07
-    );
+  border: 1px solid rgba(17, 17, 17, 0.07);
 
   border-radius: 28px;
 
-  box-shadow:
-    0 20px 60px
-    rgba(
-      17,
-      17,
-      17,
-      .05
-    );
+  box-shadow: 0 20px 60px rgba(17, 17, 17, 0.05);
 }
-
 
 .documentation-content > :first-child {
   margin-top: 0;
 }
 
-
 .documentation-content > :last-child {
   margin-bottom: 0;
 }
-
 
 .documentation-content h1,
 .documentation-content h2,
@@ -186,55 +129,33 @@
 .documentation-content h6 {
   color: #111;
   line-height: 1.12;
-  letter-spacing: -.035em;
+  letter-spacing: -0.035em;
 }
-
 
 .documentation-content h1 {
   margin: 0 0 32px;
 
-  font-size:
-    clamp(
-      2.4rem,
-      5vw,
-      4.4rem
-    );
+  font-size: clamp(2.4rem, 5vw, 4.4rem);
 }
-
 
 .documentation-content h2 {
   margin: 64px 0 22px;
   padding-top: 22px;
 
-  font-size:
-    clamp(
-      1.8rem,
-      3vw,
-      2.7rem
-    );
+  font-size: clamp(1.8rem, 3vw, 2.7rem);
 
-  border-top:
-    1px solid
-    rgba(
-      17,
-      17,
-      17,
-      .1
-    );
+  border-top: 1px solid rgba(17, 17, 17, 0.1);
 }
-
 
 .documentation-content h3 {
   margin: 38px 0 16px;
   font-size: 1.55rem;
 }
 
-
 .documentation-content h4 {
   margin: 30px 0 14px;
   font-size: 1.2rem;
 }
-
 
 .documentation-content p,
 .documentation-content li {
@@ -242,11 +163,9 @@
   line-height: 1.72;
 }
 
-
 .documentation-content p {
   margin: 0 0 18px;
 }
-
 
 .documentation-content ul,
 .documentation-content ol {
@@ -254,11 +173,9 @@
   padding-left: 28px;
 }
 
-
 .documentation-content li {
   margin-bottom: 7px;
 }
-
 
 .documentation-content a {
   color: #1260ff;
@@ -267,30 +184,18 @@
   text-underline-offset: 3px;
 }
 
-
 .documentation-content code {
   padding: 2px 7px;
 
   color: #064de0;
-  background:
-    rgba(
-      18,
-      96,
-      255,
-      .08
-    );
+  background: rgba(18, 96, 255, 0.08);
 
   border-radius: 6px;
 
-  font-family:
-    "SFMono-Regular",
-    Consolas,
-    "Liberation Mono",
-    monospace;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
 
-  font-size: .88em;
+  font-size: 0.88em;
 }
-
 
 .documentation-content pre {
   max-width: 100%;
@@ -306,7 +211,6 @@
   border-radius: 16px;
 }
 
-
 .documentation-content pre code {
   padding: 0;
 
@@ -319,39 +223,21 @@
   line-height: 1.65;
 }
 
-
 .documentation-content blockquote {
   margin: 26px 0;
   padding: 4px 0 4px 20px;
 
-  color:
-    rgba(
-      17,
-      17,
-      17,
-      .66
-    );
+  color: rgba(17, 17, 17, 0.66);
 
-  border-left:
-    4px solid
-    #1260ff;
+  border-left: 4px solid #1260ff;
 }
-
 
 .documentation-content hr {
   margin: 52px 0;
 
   border: 0;
-  border-top:
-    1px solid
-    rgba(
-      17,
-      17,
-      17,
-      .12
-    );
+  border-top: 1px solid rgba(17, 17, 17, 0.12);
 }
-
 
 .documentation-state {
   padding: 36px;
@@ -360,18 +246,9 @@
   border-radius: 24px;
 }
 
-
 .documentation-state--error {
-  border:
-    1px solid
-    rgba(
-      189,
-      39,
-      31,
-      .18
-    );
+  border: 1px solid rgba(189, 39, 31, 0.18);
 }
-
 
 .documentation-state button {
   margin-top: 12px;
@@ -386,7 +263,6 @@
   font-weight: 700;
 }
 
-
 .documentation-warning {
   margin-bottom: 20px;
   padding: 14px 18px;
@@ -397,55 +273,39 @@
   border-radius: 12px;
 }
 
-
 @media (max-width: 900px) {
-
   .documentation-header {
     grid-template-columns: 1fr;
 
     gap: 30px;
 
-    padding:
-      28px
-      24px;
+    padding: 28px 24px;
   }
-
 
   .documentation-content {
-    padding:
-      32px
-      22px;
+    padding: 32px 22px;
   }
-
 
   .documentation-content h2 {
     margin-top: 48px;
   }
-
 }
 
-
 @media (max-width: 600px) {
-
   .documentation-header,
   .documentation-content {
     border-radius: 20px;
   }
 
-
   .documentation-content pre {
     margin-left: -8px;
     margin-right: -8px;
 
-    padding:
-      18px
-      16px;
+    padding: 18px 16px;
 
     border-radius: 12px;
   }
-
 }
-
 
 /* =========================================================
    Documentation navigation
@@ -454,7 +314,6 @@
 .documentation-page {
   max-width: 1480px;
 }
-
 
 .documentation-layout {
   display: grid;
@@ -468,16 +327,12 @@
   gap: 28px;
 }
 
-
 .documentation-nav {
   position: sticky;
 
   top: 24px;
 
-  max-height:
-    calc(
-      100vh - 48px
-    );
+  max-height: calc(100vh - 48px);
 
   padding: 20px;
 
@@ -487,7 +342,6 @@
 
   border-radius: 22px;
 }
-
 
 .documentation-nav__head {
   display: flex;
@@ -500,28 +354,20 @@
   margin-bottom: 18px;
 }
 
-
 .documentation-nav__eyebrow {
   display: block;
 
   margin-bottom: 5px;
 
-  color:
-    rgba(
-      255,
-      255,
-      255,
-      .45
-    );
+  color: rgba(255, 255, 255, 0.45);
 
   font-size: 10px;
   font-weight: 800;
 
-  letter-spacing: .12em;
+  letter-spacing: 0.12em;
 
   text-transform: uppercase;
 }
-
 
 .documentation-nav h2 {
   margin: 0;
@@ -532,9 +378,8 @@
 
   line-height: 1.2;
 
-  letter-spacing: -.025em;
+  letter-spacing: -0.025em;
 }
-
 
 .documentation-nav__count {
   display: grid;
@@ -554,57 +399,33 @@
   font-weight: 800;
 }
 
-
 .documentation-search {
   display: block;
 
   margin-bottom: 17px;
 }
 
-
 .documentation-search__label {
   display: block;
 
   margin-bottom: 7px;
 
-  color:
-    rgba(
-      255,
-      255,
-      255,
-      .5
-    );
+  color: rgba(255, 255, 255, 0.5);
 
   font-size: 11px;
   font-weight: 700;
 }
 
-
 .documentation-search input {
   width: 100%;
 
-  padding:
-    11px
-    12px;
+  padding: 11px 12px;
 
   color: #fff;
 
-  background:
-    rgba(
-      255,
-      255,
-      255,
-      .07
-    );
+  background: rgba(255, 255, 255, 0.07);
 
-  border:
-    1px solid
-    rgba(
-      255,
-      255,
-      255,
-      .11
-    );
+  border: 1px solid rgba(255, 255, 255, 0.11);
 
   border-radius: 10px;
 
@@ -614,40 +435,19 @@
   font-size: 13px;
 
   transition:
-    border-color .18s ease,
-    background .18s ease;
+    border-color 0.18s ease,
+    background 0.18s ease;
 }
-
 
 .documentation-search input::placeholder {
-  color:
-    rgba(
-      255,
-      255,
-      255,
-      .32
-    );
+  color: rgba(255, 255, 255, 0.32);
 }
-
 
 .documentation-search input:focus {
-  background:
-    rgba(
-      255,
-      255,
-      255,
-      .1
-    );
+  background: rgba(255, 255, 255, 0.1);
 
-  border-color:
-    rgba(
-      169,
-      240,
-      74,
-      .7
-    );
+  border-color: rgba(169, 240, 74, 0.7);
 }
-
 
 .documentation-toc {
   display: grid;
@@ -655,21 +455,12 @@
   gap: 3px;
 }
 
-
 .documentation-toc__link {
   display: block;
 
-  padding:
-    8px
-    10px;
+  padding: 8px 10px;
 
-  color:
-    rgba(
-      255,
-      255,
-      255,
-      .7
-    );
+  color: rgba(255, 255, 255, 0.7);
 
   border-radius: 8px;
 
@@ -680,39 +471,24 @@
   text-decoration: none;
 
   transition:
-    color .16s ease,
-    background .16s ease,
-    transform .16s ease;
+    color 0.16s ease,
+    background 0.16s ease,
+    transform 0.16s ease;
 }
-
 
 .documentation-toc__link:hover {
   color: #fff;
 
-  background:
-    rgba(
-      255,
-      255,
-      255,
-      .08
-    );
+  background: rgba(255, 255, 255, 0.08);
 }
-
 
 .documentation-toc__link--secondary {
   padding-left: 20px;
 
-  color:
-    rgba(
-      255,
-      255,
-      255,
-      .48
-    );
+  color: rgba(255, 255, 255, 0.48);
 
   font-size: 11.5px;
 }
-
 
 .documentation-toc__link--active {
   color: #111;
@@ -722,82 +498,53 @@
   font-weight: 750;
 }
 
-
 .documentation-toc__link--active:hover {
   color: #111;
 
   background: #a9f04a;
 }
 
-
 .documentation-toc__empty {
   margin: 0;
 
   padding: 14px 10px;
 
-  color:
-    rgba(
-      255,
-      255,
-      255,
-      .45
-    );
+  color: rgba(255, 255, 255, 0.45);
 
   font-size: 12px;
 }
-
 
 .documentation-content {
   min-width: 0;
 }
 
-
 .documentation-content__heading {
   scroll-margin-top: 30px;
 }
-
 
 /* scrollbar */
 
 .documentation-nav {
   scrollbar-width: thin;
 
-  scrollbar-color:
-    rgba(
-      255,
-      255,
-      255,
-      .18
-    )
-    transparent;
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
 }
-
 
 .documentation-nav::-webkit-scrollbar {
   width: 6px;
 }
 
-
 .documentation-nav::-webkit-scrollbar-track {
   background: transparent;
 }
 
-
 .documentation-nav::-webkit-scrollbar-thumb {
-  background:
-    rgba(
-      255,
-      255,
-      255,
-      .18
-    );
+  background: rgba(255, 255, 255, 0.18);
 
   border-radius: 999px;
 }
 
-
 @media (max-width: 1100px) {
-
   .documentation-layout {
     grid-template-columns:
       240px
@@ -805,16 +552,12 @@
 
     gap: 20px;
   }
-
 }
 
-
 @media (max-width: 850px) {
-
   .documentation-layout {
     grid-template-columns: 1fr;
   }
-
 
   .documentation-nav {
     position: relative;
@@ -823,5 +566,4 @@
 
     max-height: 360px;
   }
-
 }

@@ -3,34 +3,25 @@
    ========================================================================== */
 
 .crowd-categories {
-  padding:
-    120px 0 128px;
+  padding: 120px 0 128px;
 
-  background:
-    #151515;
+  background: #151515;
 
-  color:
-    #fff;
+  color: #fff;
 }
 
 .crowd-categories .crowd-kicker {
-  color:
-    rgb(255 255 255 / 48%);
+  color: rgb(255 255 255 / 48%);
 }
 
 .crowd-categories__heading {
   display: grid;
 
   grid-template-columns:
-    minmax(0, .8fr)
-    minmax(280px, .38fr);
+    minmax(0, 0.8fr)
+    minmax(280px, 0.38fr);
 
-  gap:
-    clamp(
-      86px,
-      9vw,
-      145px
-    );
+  gap: clamp(86px, 9vw, 145px);
 
   align-items: end;
 }
@@ -38,23 +29,16 @@
 .crowd-categories__heading h2 {
   margin: 0;
 
-  font-size:
-    clamp(
-      3rem,
-      4.5vw,
-      4.8rem
-    );
+  font-size: clamp(3rem, 4.5vw, 4.8rem);
 
-  line-height: .94;
-  letter-spacing: -.065em;
+  line-height: 0.94;
+  letter-spacing: -0.065em;
 }
 
 .crowd-categories__heading > p {
-  margin:
-    0 0 4px;
+  margin: 0 0 4px;
 
-  color:
-    rgb(255 255 255 / 60%);
+  color: rgb(255 255 255 / 60%);
 
   line-height: 1.65;
 }
@@ -62,9 +46,7 @@
 .crowd-categories__table {
   margin-top: 70px;
 
-  border-top:
-    1px solid
-    rgb(255 255 255 / 16%);
+  border-top: 1px solid rgb(255 255 255 / 16%);
 }
 
 .crowd-category {
@@ -72,19 +54,16 @@
 
   grid-template-columns:
     70px
-    minmax(180px, .55fr)
+    minmax(180px, 0.55fr)
     minmax(0, 1fr);
 
   gap: 30px;
 
   align-items: center;
 
-  padding:
-    34px 4px;
+  padding: 34px 4px;
 
-  border-bottom:
-    1px solid
-    rgb(255 255 255 / 16%);
+  border-bottom: 1px solid rgb(255 255 255 / 16%);
 
   transition:
     padding-left 180ms ease,
@@ -95,31 +74,24 @@
   .crowd-category:hover {
     padding-left: 14px;
 
-    background:
-      rgb(255 255 255 / 3%);
+    background: rgb(255 255 255 / 3%);
   }
 }
 
 .crowd-category__number {
-  color:
-    var(--crowd-accent);
+  color: var(--crowd-accent);
 
-  font-size: .72rem;
+  font-size: 0.72rem;
   font-weight: 700;
 }
 
 .crowd-category h3 {
   margin: 0;
 
-  font-size:
-    clamp(
-      1.25rem,
-      1.8vw,
-      1.7rem
-    );
+  font-size: clamp(1.25rem, 1.8vw, 1.7rem);
 
   line-height: 1.2;
-  letter-spacing: -.035em;
+  letter-spacing: -0.035em;
 }
 
 .crowd-category__metric {
@@ -131,51 +103,40 @@
 }
 
 .crowd-category__metric strong {
-  font-size:
-    clamp(
-      2.15rem,
-      4vw,
-      4rem
-    );
+  font-size: clamp(2.15rem, 4vw, 4rem);
 
   line-height: 1;
-  letter-spacing: -.06em;
+  letter-spacing: -0.06em;
 }
 
 .crowd-category__metric span {
-  color:
-    rgb(255 255 255 / 48%);
+  color: rgb(255 255 255 / 48%);
 
-  font-size: .78rem;
+  font-size: 0.78rem;
 }
 
 .crowd-categories__note {
   display: grid;
 
-  grid-template-columns:
-    150px minmax(0, 1fr);
+  grid-template-columns: 150px minmax(0, 1fr);
 
   gap: 36px;
 
   max-width: 780px;
 
-  margin:
-    42px 0 0 auto;
+  margin: 42px 0 0 auto;
 
   padding-top: 26px;
 
-  border-top:
-    1px solid
-    rgb(255 255 255 / 16%);
+  border-top: 1px solid rgb(255 255 255 / 16%);
 }
 
 .crowd-categories__note span {
-  color:
-    var(--crowd-accent);
+  color: var(--crowd-accent);
 
-  font-size: .7rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
 
   text-transform: uppercase;
 }
@@ -183,8 +144,7 @@
 .crowd-categories__note p {
   margin: 0;
 
-  color:
-    rgb(255 255 255 / 70%);
+  color: rgb(255 255 255 / 70%);
 
   line-height: 1.65;
 }

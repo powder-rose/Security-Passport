@@ -1,4 +1,4 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
 export default function TradePassportActualization() {
   return (
@@ -13,9 +13,8 @@ export default function TradePassportActualization() {
             </div>
 
             <p>
-              Паспорт является документом постоянного действия, но изменения
-              характеристик объекта могут требовать его актуализации или
-              внесения корректировок в установленном порядке.
+              Паспорт является документом постоянного действия, но изменения характеристик объекта
+              могут требовать его актуализации или внесения корректировок в установленном порядке.
             </p>
           </div>
 
@@ -25,9 +24,7 @@ export default function TradePassportActualization() {
 
               <h3>Специализация или вид торговли</h3>
 
-              <p>
-                Когда изменение влияет на прогнозируемое число пострадавших.
-              </p>
+              <p>Когда изменение влияет на прогнозируемое число пострадавших.</p>
             </article>
 
             <article>
@@ -63,15 +60,12 @@ export default function TradePassportActualization() {
             </div>
 
             <p>
-              При изменении сил и средств антитеррористической защищённости и в
-              иных предусмотренных случаях применяется лист учёта корректировок.
+              При изменении сил и средств антитеррористической защищённости и в иных предусмотренных
+              случаях применяется лист учёта корректировок.
             </p>
           </div>
 
-          <a
-            className="trade-inline-link"
-            href="/aktualizaciya-pasporta-bezopasnosti-obekta/"
-          >
+          <a className="trade-inline-link" href="/aktualizaciya-pasporta-bezopasnosti-obekta/">
             Подробнее об актуализации паспорта безопасности
             <span aria-hidden="true">→</span>
           </a>

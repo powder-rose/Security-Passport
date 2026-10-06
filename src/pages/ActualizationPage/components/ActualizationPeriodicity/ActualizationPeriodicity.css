@@ -148,7 +148,7 @@ ActualizationPeriodicity.jsx — ACTUALIZATION PERIODICITY
 }
 
 .actualization-period > strong::before {
-  content: "";
+  content: '';
 
   width: 8px;
   height: 8px;

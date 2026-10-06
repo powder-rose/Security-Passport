@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { cultureCategories, regulationScope } from "../../culturePageData";
+import { cultureCategories, regulationScope } from '../../culturePageData';
 
 export default function CultureRegulationAndCategories() {
   return (
@@ -33,14 +33,14 @@ export default function CultureRegulationAndCategories() {
                 <h2>Постановление Правительства РФ №176</h2>
 
                 <p>
-                  Требования к антитеррористической защищённости объектов и
-                  территорий в сфере культуры и форма паспорта безопасности
-                  утверждены Постановлением Правительства РФ от 11.02.2017 №176.
+                  Требования к антитеррористической защищённости объектов и территорий в сфере
+                  культуры и форма паспорта безопасности утверждены Постановлением Правительства РФ
+                  от 11.02.2017 №176.
                 </p>
               </div>
 
               <div className="culture-regulation__scope">
-                {regulationScope.map((item) => (
+                {regulationScope.map(item => (
                   <article key={item.number}>
                     <span>{item.number}</span>
 
@@ -57,9 +57,9 @@ export default function CultureRegulationAndCategories() {
                 <span>2026</span>
 
                 <p>
-                  При разработке нового паспорта используем действующую форму.
-                  Старый шаблон учреждения необходимо проверить на соответствие
-                  редакции ПП РФ №176, действующей после изменений 2025 года.
+                  При разработке нового паспорта используем действующую форму. Старый шаблон
+                  учреждения необходимо проверить на соответствие редакции ПП РФ №176, действующей
+                  после изменений 2025 года.
                 </p>
               </aside>
             </div>
@@ -78,21 +78,17 @@ export default function CultureRegulationAndCategories() {
 
             <div className="culture-categories__intro">
               <p>
-                ПП РФ №176 устанавливает три категории опасности. Критерием
-                является прогнозируемое количество людей, которые могут
-                погибнуть или получить вред здоровью в результате
+                ПП РФ №176 устанавливает три категории опасности. Критерием является прогнозируемое
+                количество людей, которые могут погибнуть или получить вред здоровью в результате
                 террористического акта.
               </p>
 
-              <strong>
-                Категорию определяет комиссия, а не исполнитель документа
-                единолично.
-              </strong>
+              <strong>Категорию определяет комиссия, а не исполнитель документа единолично.</strong>
             </div>
           </div>
 
           <div className="culture-categories__scale">
-            {cultureCategories.map((item) => (
+            {cultureCategories.map(item => (
               <article className="culture-categories__item" key={item.number}>
                 <span className="culture-categories__roman">{item.number}</span>
 
@@ -111,9 +107,8 @@ export default function CultureRegulationAndCategories() {
             <span aria-hidden="true">i</span>
 
             <p>
-              Прогнозный показатель определяется с учётом пропускной
-              способности, количества людей, которые могут одновременно
-              находиться на объекте, либо количества зрительских мест в
+              Прогнозный показатель определяется с учётом пропускной способности, количества людей,
+              которые могут одновременно находиться на объекте, либо количества зрительских мест в
               предусмотренных случаях.
             </p>
           </div>

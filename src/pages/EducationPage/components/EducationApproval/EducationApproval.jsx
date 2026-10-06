@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { approvalAuthorities } from "../../educationPageData";
+import { approvalAuthorities } from '../../educationPageData';
 
 export default function EducationApproval() {
   return (
@@ -14,19 +14,15 @@ export default function EducationApproval() {
               <h2>С кем согласовывается паспорт образовательной организации</h2>
 
               <p>
-                По ПП РФ №1006 паспорт подписывает лицо, непосредственно
-                руководящее деятельностью работников на объекте. После этого
-                документ проходит установленное согласование.
+                По ПП РФ №1006 паспорт подписывает лицо, непосредственно руководящее деятельностью
+                работников на объекте. После этого документ проходит установленное согласование.
               </p>
             </div>
 
             <div className="education-approval__content">
               <div className="education-approval__authorities">
-                {approvalAuthorities.map((item) => (
-                  <article
-                    className="education-approval__authority"
-                    key={item.number}
-                  >
+                {approvalAuthorities.map(item => (
+                  <article className="education-approval__authority" key={item.number}>
                     <span>{item.number}</span>
 
                     <h3>{item.title}</h3>
@@ -56,8 +52,8 @@ export default function EducationApproval() {
                 <span>После согласования</span>
 
                 <p>
-                  Паспорт утверждает руководитель организации-правообладателя
-                  либо уполномоченное лицо.
+                  Паспорт утверждает руководитель организации-правообладателя либо уполномоченное
+                  лицо.
                 </p>
               </div>
             </div>

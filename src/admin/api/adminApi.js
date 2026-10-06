@@ -1,188 +1,104 @@
 const API = '/api/admin';
 
-
-async function request(
-  url,
-  options = {},
-) {
-  const response = await fetch(
-    API + url,
-    {
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      ...options,
+async function request(url, options = {}) {
+  const response = await fetch(API + url, {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+    ...options,
+  });
 
   return response.json();
 }
-
 
 export function login(password) {
-  return request(
-    '/login',
-    {
-      method: 'POST',
-      body: JSON.stringify({
-        password,
-      }),
-    },
-  );
+  return request('/login', {
+    method: 'POST',
+    body: JSON.stringify({
+      password,
+    }),
+  });
 }
-
 
 export function logout() {
-  return request(
-    '/logout',
-    {
-      method: 'POST',
-    },
-  );
+  return request('/logout', {
+    method: 'POST',
+  });
 }
-
 
 export function getSession() {
-  return request(
-    '/session',
-  );
+  return request('/session');
 }
-
 
 export function getArticles() {
-  return request(
-    '/articles'
-  );
+  return request('/articles');
 }
-
 
 export function createArticle(data) {
-  return request(
-    '/articles',
-    {
-      method: 'POST',
-      body: JSON.stringify(data),
-    },
-  );
+  return request('/articles', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
 }
 
-
-export function getArticle(id){
-
-  return request(
-    `/articles/${id}`
-  );
-
+export function getArticle(id) {
+  return request(`/articles/${id}`);
 }
 
-
-export function deleteArticle(id){
-
-  return request(
-    `/articles/${id}`,
-    {
-      method:'DELETE',
-    }
-  );
-
+export function deleteArticle(id) {
+  return request(`/articles/${id}`, {
+    method: 'DELETE',
+  });
 }
 
-
-export function updateArticle(
-  id,
-  data
-){
-
-  return request(
-    `/articles/${id}`,
-    {
-      method:'PUT',
-      body:
-        JSON.stringify(data),
-    }
-  );
-
+export function updateArticle(id, data) {
+  return request(`/articles/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+  });
 }
 
+export async function uploadArticleImage(file) {
+  const formData = new FormData();
 
+  formData.append('image', file);
 
-
-export async function uploadArticleImage(file){
-
-  const formData =
-    new FormData();
-
-
-  formData.append(
-    'image',
-    file
-  );
-
-
-  const response =
-    await fetch(
-      '/api/admin/upload/article-image',
-      {
-        method:'POST',
-        credentials:'include',
-        body:formData,
-      }
-    );
-
+  const response = await fetch('/api/admin/upload/article-image', {
+    method: 'POST',
+    credentials: 'include',
+    body: formData,
+  });
 
   return response.json();
-
 }
-
-
 
 export function getStatistics() {
-  return request(
-    '/statistics'
-  );
+  return request('/statistics');
 }
-
 
 export function getDocumentation() {
-  return request(
-    '/documentation'
-  );
+  return request('/documentation');
 }
 
-
-export function getLeads({
-  page = 1,
-  limit = 50,
-  search = '',
-} = {}) {
-  const params =
-    new URLSearchParams({
-      page: String(page),
-      limit: String(limit),
-    });
+export function getLeads({ page = 1, limit = 50, search = '' } = {}) {
+  const params = new URLSearchParams({
+    page: String(page),
+    limit: String(limit),
+  });
 
   if (search) {
-    params.set(
-      'search',
-      search,
-    );
+    params.set('search', search);
   }
 
-  return request(
-    `/leads?${params.toString()}`
-  );
+  return request(`/leads?${params.toString()}`);
 }
 
 export function deleteLead(id) {
-  return request(
-    `/leads/${encodeURIComponent(id)}`,
-    {
-      method: 'DELETE',
-    },
-  );
+  return request(`/leads/${encodeURIComponent(id)}`, {
+    method: 'DELETE',
+  });
 }
-
 
 export function getRegulations() {
   return request('/regulations');
@@ -203,13 +119,10 @@ export function saveRegulation(number, data) {
 }
 
 export function saveRegulationTopicClaims(topic, claims) {
-  return request(
-    `/regulations/topic/${encodeURIComponent(topic)}/claims`,
-    {
-      method: 'PATCH',
-      body: JSON.stringify({ claims }),
-    },
-  );
+  return request(`/regulations/topic/${encodeURIComponent(topic)}/claims`, {
+    method: 'PATCH',
+    body: JSON.stringify({ claims }),
+  });
 }
 
 export function getRegulationPublication() {
@@ -220,14 +133,8 @@ export function retryRegulationPublication() {
   return request('/regulations/publication', { method: 'POST' });
 }
 
-
 export function updateArticlesYear() {
-
-  return request(
-    '/articles/update-year',
-    {
-      method: 'POST',
-    }
-  );
-
+  return request('/articles/update-year', {
+    method: 'POST',
+  });
 }

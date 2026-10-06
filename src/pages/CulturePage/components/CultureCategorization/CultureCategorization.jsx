@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { cultureCategorizationSteps } from "../../culturePageData";
+import { cultureCategorizationSteps } from '../../culturePageData';
 
 export default function CultureCategorization() {
   return (
@@ -24,9 +24,8 @@ export default function CultureCategorization() {
               </div>
 
               <p className="culture-categorization__caption">
-                Конкретный срок устанавливает руководитель
-                организации-правообладателя с учётом сложности объекта, но он не
-                должен превышать 30 рабочих дней.
+                Конкретный срок устанавливает руководитель организации-правообладателя с учётом
+                сложности объекта, но он не должен превышать 30 рабочих дней.
               </p>
             </div>
 
@@ -37,10 +36,7 @@ export default function CultureCategorization() {
                     <span>{item.number}</span>
 
                     {index < cultureCategorizationSteps.length - 1 && (
-                      <span
-                        className="culture-categorization__connector"
-                        aria-hidden="true"
-                      />
+                      <span className="culture-categorization__connector" aria-hidden="true" />
                     )}
                   </div>
 
@@ -56,15 +52,11 @@ export default function CultureCategorization() {
 
           <div className="culture-categorization__footer">
             <p>
-              Категорирование — это работа комиссии. Мы можем подготовить
-              исходные материалы, документы и проект акта для прохождения
-              установленной процедуры.
+              Категорирование — это работа комиссии. Мы можем подготовить исходные материалы,
+              документы и проект акта для прохождения установленной процедуры.
             </p>
 
-            <a
-              className="culture-inline-link"
-              href="/akt-obsledovaniya-i-kategorirovaniya-obekta/"
-            >
+            <a className="culture-inline-link" href="/akt-obsledovaniya-i-kategorirovaniya-obekta/">
               Подробнее об акте обследования и категорирования объекта
               <span aria-hidden="true">↗</span>
             </a>

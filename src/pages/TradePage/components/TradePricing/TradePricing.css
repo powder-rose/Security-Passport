@@ -239,7 +239,7 @@
   height: 7px;
   border-radius: 0 0 7px 7px;
   background: var(--trade-accent);
-  content: "";
+  content: '';
 }
 
 .trade-price--accent strong {

@@ -18,7 +18,7 @@
   margin: 0;
   font-size: clamp(2.5rem, 4.1vw, 4.6rem);
   line-height: 1.02;
-  letter-spacing: -.05em;
+  letter-spacing: -0.05em;
   text-wrap: balance;
 }
 
@@ -60,21 +60,20 @@
 }
 
 .education-copies__card-top > span {
-  font-size: .76rem;
+  font-size: 0.76rem;
   font-weight: 800;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.education-copies__card--primary
-.education-copies__card-top > span {
+.education-copies__card--primary .education-copies__card-top > span {
   color: var(--color-accent);
 }
 
 .education-copies__card-top strong {
   font-size: clamp(1.9rem, 3vw, 3rem);
   line-height: 1;
-  letter-spacing: -.045em;
+  letter-spacing: -0.045em;
 }
 
 .education-copies__card ol {
@@ -96,7 +95,7 @@
 
 .education-copies__card li span {
   color: var(--color-accent);
-  font-size: .72rem;
+  font-size: 0.72rem;
   font-weight: 800;
 }
 

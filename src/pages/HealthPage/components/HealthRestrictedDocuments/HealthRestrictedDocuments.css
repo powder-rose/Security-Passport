@@ -169,7 +169,7 @@
 
   background: var(--health-accent);
 
-  content: "";
+  content: '';
 }
 
 .health-restricted__rule--private .health-restricted__sign {

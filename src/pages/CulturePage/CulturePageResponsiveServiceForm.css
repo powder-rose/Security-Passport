@@ -25,8 +25,7 @@
   }
 
   .culture-price__scenarios {
-    border-top:
-      1px solid rgb(255 255 255 / 15%);
+    border-top: 1px solid rgb(255 255 255 / 15%);
     border-left: 0;
   }
 
@@ -105,8 +104,7 @@
   }
 
   .culture-source__item {
-    grid-template-columns:
-      36px minmax(0, 1fr);
+    grid-template-columns: 36px minmax(0, 1fr);
     gap: 14px;
   }
 

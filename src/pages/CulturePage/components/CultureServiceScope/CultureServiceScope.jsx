@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { cultureServiceItems } from "../../culturePageData";
+import { cultureServiceItems } from '../../culturePageData';
 
 export default function CultureServiceScope() {
   return (
@@ -16,20 +16,18 @@ export default function CultureServiceScope() {
 
             <div className="culture-service__intro">
               <p>
-                Состав работ зависит от того, категорирован ли объект, есть ли
-                действующий акт и требуется ли только разработка паспорта или
-                прохождение предыдущих этапов.
+                Состав работ зависит от того, категорирован ли объект, есть ли действующий акт и
+                требуется ли только разработка паспорта или прохождение предыдущих этапов.
               </p>
 
               <strong>
-                Точный состав определяем после первичной проверки объекта и
-                имеющихся документов.
+                Точный состав определяем после первичной проверки объекта и имеющихся документов.
               </strong>
             </div>
           </div>
 
           <div className="culture-service__grid">
-            {cultureServiceItems.map((item) => (
+            {cultureServiceItems.map(item => (
               <article className="culture-service__item" key={item.number}>
                 <div className="culture-service__item-head">
                   <span>{item.number}</span>
@@ -47,9 +45,8 @@ export default function CultureServiceScope() {
           </div>
 
           <p className="culture-service__note">
-            Перечень выше описывает возможный состав работы по объекту и не
-            означает, что все этапы автоматически входят в базовую стоимость
-            разработки паспорта.
+            Перечень выше описывает возможный состав работы по объекту и не означает, что все этапы
+            автоматически входят в базовую стоимость разработки паспорта.
           </p>
         </Container>
       </section>

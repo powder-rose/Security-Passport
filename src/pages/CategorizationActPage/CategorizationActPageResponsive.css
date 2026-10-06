@@ -10,15 +10,14 @@
 
 @media (max-width: 1100px) {
   .categorization-act-requirements__grid,
-.categorization-act-process__heading,
-.categorization-act-standard__grid,
-.categorization-act-cost__card {
+  .categorization-act-process__heading,
+  .categorization-act-standard__grid,
+  .categorization-act-cost__card {
     grid-template-columns: 1fr;
   }
 
   .categorization-act-requirements__list {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .categorization-act-types__header {
@@ -32,11 +31,10 @@
 
 @media (max-width: 760px) {
   .categorization-act-section-head h2,
-.categorization-act-cost h2,
-.categorization-act-requirements h2,
-.categorization-act-standard h2 {
-    font-size:
-      clamp(2.25rem, 11vw, 3.5rem);
+  .categorization-act-cost h2,
+  .categorization-act-requirements h2,
+  .categorization-act-standard h2 {
+    font-size: clamp(2.25rem, 11vw, 3.5rem);
   }
 
   .categorization-act-hero {
@@ -48,8 +46,7 @@
   }
 
   .categorization-act-hero__content h1 {
-    font-size:
-      clamp(2.65rem, 13vw, 4.25rem);
+    font-size: clamp(2.65rem, 13vw, 4.25rem);
   }
 
   .categorization-act-hero__price-row {
@@ -65,12 +62,9 @@
   }
 
   .categorization-act-flow {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
-    gap:
-      35px
-      0;
+    gap: 35px 0;
   }
 
   .categorization-act-flow::before {
@@ -78,7 +72,7 @@
   }
 
   .categorization-act-process__details,
-.categorization-act-difference__grid {
+  .categorization-act-difference__grid {
     grid-template-columns: 1fr;
   }
 
@@ -95,8 +89,7 @@
   }
 
   .categorization-act-cost__price strong {
-    font-size:
-      clamp(3.4rem, 16vw, 5rem);
+    font-size: clamp(3.4rem, 16vw, 5rem);
   }
 }
 
@@ -122,24 +115,20 @@
   }
 
   .categorization-act-cost__price,
-.categorization-act-passport-link {
-    border-radius:
-      22px;
+  .categorization-act-passport-link {
+    border-radius: 22px;
   }
 }
 
-@media (
-  prefers-reduced-motion:
-  reduce
-) {
+@media (prefers-reduced-motion: reduce) {
   .categorization-act-page *,
   .categorization-act-page *::before,
   .categorization-act-page *::after {
     scroll-behavior: auto !important;
 
-    animation-duration: .01ms !important;
+    animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
 
-    transition-duration: .01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

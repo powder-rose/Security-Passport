@@ -2,7 +2,10 @@ const env = import.meta.env;
 
 const baseDomain = env.VITE_BASE_DOMAIN?.trim() || 'pasport-bezopasnosty.ru';
 const protocol = env.VITE_SITE_PROTOCOL?.trim() || 'https';
-const defaultUrl = (env.VITE_SITE_ORIGIN?.trim() || `${protocol}://${baseDomain}`).replace(/\/$/, '');
+const defaultUrl = (env.VITE_SITE_ORIGIN?.trim() || `${protocol}://${baseDomain}`).replace(
+  /\/$/,
+  '',
+);
 const federalUrl = `${protocol}://${baseDomain}`.replace(/\/$/, '');
 
 export const SITE = {

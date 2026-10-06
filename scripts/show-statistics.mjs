@@ -1,7 +1,4 @@
-import {
-  getStatistics,
-  STAT_PERIODS,
-} from '../server/statistics.mjs';
+import { getStatistics, STAT_PERIODS } from '../server/statistics.mjs';
 
 const statistics = await getStatistics();
 
@@ -11,15 +8,12 @@ console.log('Часовой пояс:', statistics.timezone);
 console.log('Сформировано:', statistics.generatedAt);
 
 for (const periodDefinition of STAT_PERIODS) {
-  const period =
-    statistics.periods[periodDefinition.key];
+  const period = statistics.periods[periodDefinition.key];
 
   console.log();
   console.log('================================');
   console.log(period.label);
-  console.log(
-    `${period.range.start} — ${period.range.end}`,
-  );
+  console.log(`${period.range.start} — ${period.range.end}`);
   console.log('================================');
 
   for (const row of period.rows) {
@@ -35,8 +29,8 @@ for (const periodDefinition of STAT_PERIODS) {
 
   console.log('--------------------------------');
   console.log(
-    `ИТОГО: ${period.totals.visits} посещений | `
-    + `${period.totals.leads} заявок | `
-    + `${period.totals.conversion.toFixed(2)}%`,
+    `ИТОГО: ${period.totals.visits} посещений | ` +
+      `${period.totals.leads} заявок | ` +
+      `${period.totals.conversion.toFixed(2)}%`,
   );
 }

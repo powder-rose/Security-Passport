@@ -1,4 +1,4 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
 export default function ActualizationPricing() {
   return (
@@ -12,15 +12,12 @@ export default function ActualizationPricing() {
               <h2>Стоимость актуализации паспорта безопасности</h2>
 
               <p className="actualization-price__intro">
-                Состав работ определяем после проверки действующего паспорта и
-                изменений на объекте.
+                Состав работ определяем после проверки действующего паспорта и изменений на объекте.
               </p>
             </div>
 
             <aside className="actualization-price__card">
-              <p className="actualization-price__card-label">
-                На расчёт влияют
-              </p>
+              <p className="actualization-price__card-label">На расчёт влияют</p>
 
               <div className="actualization-price__factor">
                 <span>01</span>
@@ -28,10 +25,7 @@ export default function ActualizationPricing() {
                 <div>
                   <strong>Объём необходимых изменений</strong>
 
-                  <p>
-                    Проверяем, какие сведения действующего паспорта требуется
-                    актуализировать.
-                  </p>
+                  <p>Проверяем, какие сведения действующего паспорта требуется актуализировать.</p>
                 </div>
               </div>
 
@@ -41,10 +35,7 @@ export default function ActualizationPricing() {
                 <div>
                   <strong>Повторное категорирование</strong>
 
-                  <p>
-                    Отдельно определяем, требуется ли оно для конкретного
-                    объекта.
-                  </p>
+                  <p>Отдельно определяем, требуется ли оно для конкретного объекта.</p>
                 </div>
               </div>
 

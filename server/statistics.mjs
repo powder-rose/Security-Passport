@@ -7,15 +7,9 @@ import { isBotVisit } from './bot-detection.mjs';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
 
-const LEADS_FILE = path.resolve(
-  projectRoot,
-  process.env.LEADS_FILE || 'data/leads.jsonl',
-);
+const LEADS_FILE = path.resolve(projectRoot, process.env.LEADS_FILE || 'data/leads.jsonl');
 
-const VISITS_FILE = path.resolve(
-  projectRoot,
-  process.env.VISITS_FILE || 'data/visits.jsonl',
-);
+const VISITS_FILE = path.resolve(projectRoot, process.env.VISITS_FILE || 'data/visits.jsonl');
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const MOSCOW_OFFSET_MS = 3 * 60 * 60 * 1000;
@@ -60,10 +54,7 @@ async function readJsonLines(filePath) {
 function getStartOfMoscowDay(date = new Date()) {
   const shifted = date.getTime() + MOSCOW_OFFSET_MS;
 
-  return (
-    Math.floor(shifted / DAY_MS) * DAY_MS
-    - MOSCOW_OFFSET_MS
-  );
+  return Math.floor(shifted / DAY_MS) * DAY_MS - MOSCOW_OFFSET_MS;
 }
 
 function getPeriodRange(days, now = new Date()) {
@@ -79,21 +70,17 @@ function getPeriodRange(days, now = new Date()) {
 }
 
 function getTimestamp(row, type) {
-  const value = type === 'lead'
-    ? row.receivedAt || row.submittedAt
-    : row.receivedAt;
+  const value = type === 'lead' ? row.receivedAt || row.submittedAt : row.receivedAt;
 
   const timestamp = Date.parse(value || '');
 
   return Number.isFinite(timestamp) ? timestamp : null;
 }
 
-const FEDERAL_SITE =
-  Object.freeze({
-    slug: 'russia',
-    name: 'Россия',
-  });
-
+const FEDERAL_SITE = Object.freeze({
+  slug: 'russia',
+  name: 'Россия',
+});
 
 function createFederalRow() {
   return {
@@ -103,32 +90,20 @@ function createFederalRow() {
   };
 }
 
-
 function calculateConversion(leads, visits) {
   if (!visits) return 0;
 
-  return Number(
-    ((leads / visits) * 100).toFixed(2),
-  );
+  return Number(((leads / visits) * 100).toFixed(2));
 }
 
-function aggregatePeriod({
-  visits,
-  leads,
-  days,
-  now,
-}) {
+function aggregatePeriod({ visits, leads, days, now }) {
   const range = getPeriodRange(days, now);
   const siteRow = createFederalRow();
 
   for (const visit of visits) {
     const timestamp = getTimestamp(visit, 'visit');
 
-    if (
-      timestamp === null ||
-      timestamp < range.startMs ||
-      timestamp >= range.endMs
-    ) {
+    if (timestamp === null || timestamp < range.startMs || timestamp >= range.endMs) {
       continue;
     }
 
@@ -138,11 +113,7 @@ function aggregatePeriod({
   for (const lead of leads) {
     const timestamp = getTimestamp(lead, 'lead');
 
-    if (
-      timestamp === null ||
-      timestamp < range.startMs ||
-      timestamp >= range.endMs
-    ) {
+    if (timestamp === null || timestamp < range.startMs || timestamp >= range.endMs) {
       continue;
     }
 
@@ -152,10 +123,7 @@ function aggregatePeriod({
   const rows = [
     {
       ...siteRow,
-      conversion: calculateConversion(
-        siteRow.leads,
-        siteRow.visits,
-      ),
+      conversion: calculateConversion(siteRow.leads, siteRow.visits),
     },
   ];
 
@@ -171,10 +139,7 @@ function aggregatePeriod({
     },
   );
 
-  totals.conversion = calculateConversion(
-    totals.leads,
-    totals.visits,
-  );
+  totals.conversion = calculateConversion(totals.leads, totals.visits);
 
   return {
     range: {
@@ -187,22 +152,13 @@ function aggregatePeriod({
   };
 }
 
-export async function getStatistics({
-  now = new Date(),
-} = {}) {
-  const [
-    visits,
-    leads,
-  ] = await Promise.all([
+export async function getStatistics({ now = new Date() } = {}) {
+  const [visits, leads] = await Promise.all([
     readJsonLines(VISITS_FILE),
     readJsonLines(LEADS_FILE),
   ]);
 
-  const humanVisits =
-    visits.filter(
-      (visit) =>
-        !isBotVisit(visit),
-    );
+  const humanVisits = visits.filter(visit => !isBotVisit(visit));
 
   const periods = {};
 

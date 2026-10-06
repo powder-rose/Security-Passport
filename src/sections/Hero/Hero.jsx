@@ -2,7 +2,7 @@ import Container from '../../components/ui/Container/Container';
 import './Hero.css';
 
 export default function Hero() {
-  const handlePortraitError = (event) => {
+  const handlePortraitError = event => {
     event.currentTarget.hidden = true;
     event.currentTarget.parentElement?.classList.add('hero-portrait__media--fallback');
   };
@@ -26,17 +26,10 @@ export default function Hero() {
             <span className="coverage-emphasis">Работаем по всей России</span>.
           </p>
 
-          <div
-            className="hero__price-card"
-            aria-label="Стоимость разработки паспорта безопасности"
-          >
-            <span className="hero__price-label">
-              Разработка паспорта
-            </span>
+          <div className="hero__price-card" aria-label="Стоимость разработки паспорта безопасности">
+            <span className="hero__price-label">Разработка паспорта</span>
 
-            <strong className="hero__price-value">
-              9 500 ₽
-            </strong>
+            <strong className="hero__price-value">9 500 ₽</strong>
           </div>
 
           <ul className="hero__benefits" aria-label="Преимущества услуги">
@@ -48,17 +41,15 @@ export default function Hero() {
           <div className="hero__actions" aria-label="Основные действия">
             <a className="button button--primary hero__primary-action" href="#lead-form">
               Рассчитать стоимость
-
-              <span
-                className="hero__primary-arrow"
-                aria-hidden="true"
-              >
+              <span className="hero__primary-arrow" aria-hidden="true">
                 ↗
               </span>
             </a>
             <a className="button button--ghost hero__secondary-action" href="#quiz">
               Пройти экспресс-проверку
-              <span className="hero__quiz-count" aria-hidden="true">6 шагов</span>
+              <span className="hero__quiz-count" aria-hidden="true">
+                6 шагов
+              </span>
             </a>
           </div>
         </div>

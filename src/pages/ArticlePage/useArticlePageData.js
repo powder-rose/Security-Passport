@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { getPublicArticle, getPublicArticles } from "../../lib/articles.js";
+import { getPublicArticle, getPublicArticles } from '../../lib/articles.js';
 
 export default function useArticlePageData({
   slug,
@@ -15,8 +15,7 @@ export default function useArticlePageData({
     }
 
     return initialArticles.filter(
-      (item) =>
-        item?.id !== initialArticle.id && item?.slug !== initialArticle.slug,
+      item => item?.id !== initialArticle.id && item?.slug !== initialArticle.slug,
     );
   });
 
@@ -59,14 +58,12 @@ export default function useArticlePageData({
 
         setRelatedArticles(
           articles.filter(
-            (item) =>
-              item.id !== currentArticle.id &&
-              item.slug !== currentArticle.slug,
+            item => item.id !== currentArticle.id && item.slug !== currentArticle.slug,
           ),
         );
       } catch (loadError) {
         if (!cancelled) {
-          console.error("[article] load failed:", loadError);
+          console.error('[article] load failed:', loadError);
 
           setError(true);
         }

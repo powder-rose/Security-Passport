@@ -1,4 +1,4 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
 export default function ActualizationReplacement() {
   return (
@@ -11,8 +11,8 @@ export default function ActualizationReplacement() {
             <h2>Нужно ли менять паспорт полностью</h2>
 
             <p>
-              Не всегда. Способ оформления зависит от нормативного основания и
-              характера изменений на объекте.
+              Не всегда. Способ оформления зависит от нормативного основания и характера изменений
+              на объекте.
             </p>
           </div>
 
@@ -23,8 +23,8 @@ export default function ActualizationReplacement() {
               <h3>Внести изменения</h3>
 
               <p>
-                Если применимые требования позволяют актуализировать сведения в
-                существующем документе.
+                Если применимые требования позволяют актуализировать сведения в существующем
+                документе.
               </p>
             </article>
 
@@ -33,10 +33,7 @@ export default function ActualizationReplacement() {
 
               <h3>Подготовить новую редакцию</h3>
 
-              <p>
-                Если характер изменений или установленный порядок требуют
-                переработки паспорта.
-              </p>
+              <p>Если характер изменений или установленный порядок требуют переработки паспорта.</p>
             </article>
           </div>
         </Container>

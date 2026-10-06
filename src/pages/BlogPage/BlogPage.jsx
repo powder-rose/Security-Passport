@@ -1,18 +1,18 @@
-import FinalCTA from "../../sections/FinalCTA/FinalCTA.jsx";
+import FinalCTA from '../../sections/FinalCTA/FinalCTA.jsx';
 
-import BlogSeo from "./components/BlogSeo/BlogSeo";
+import BlogSeo from './components/BlogSeo/BlogSeo';
 
-import BlogHero from "./components/BlogHero/BlogHero";
+import BlogHero from './components/BlogHero/BlogHero';
 
-import BlogContentState from "./components/BlogContentState/BlogContentState";
+import BlogContentState from './components/BlogContentState/BlogContentState';
 
-import BlogCategories from "./components/BlogCategories/BlogCategories";
+import BlogCategories from './components/BlogCategories/BlogCategories';
 
-import BlogArticleResults from "./components/BlogArticleResults/BlogArticleResults";
+import BlogArticleResults from './components/BlogArticleResults/BlogArticleResults';
 
-import "./BlogPage.css";
+import './BlogPage.css';
 
-import useBlogArticles from "./useBlogArticles";
+import useBlogArticles from './useBlogArticles';
 
 export default function BlogPage({ initialArticles = null }) {
   const {

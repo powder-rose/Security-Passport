@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { getRegulationClaim } from "../../../../data/regulationClaims";
+import { getRegulationClaim } from '../../../../data/regulationClaims';
 
 export default function CrowdFaq() {
   return (
@@ -9,10 +9,7 @@ export default function CrowdFaq() {
         <Container>
           <div className="crowd-faq__layout">
             <div className="crowd-faq__heading">
-              <h2>
-                Частые вопросы о паспорте безопасности места массового
-                пребывания людей
-              </h2>
+              <h2>Частые вопросы о паспорте безопасности места массового пребывания людей</h2>
             </div>
 
             <div className="crowd-faq__list">
@@ -28,7 +25,7 @@ export default function CrowdFaq() {
                 </summary>
 
                 <div className="crowd-faq__answer">
-                  <p>{getRegulationClaim("272", "crowd.faq.00")}</p>
+                  <p>{getRegulationClaim('272', 'crowd.faq.00')}</p>
                 </div>
               </details>
 
@@ -44,7 +41,7 @@ export default function CrowdFaq() {
                 </summary>
 
                 <div className="crowd-faq__answer">
-                  <p>{getRegulationClaim("272", "crowd.faq.01")}</p>
+                  <p>{getRegulationClaim('272', 'crowd.faq.01')}</p>
                 </div>
               </details>
 
@@ -60,7 +57,7 @@ export default function CrowdFaq() {
                 </summary>
 
                 <div className="crowd-faq__answer">
-                  <p>{getRegulationClaim("272", "crowd.faq.02")}</p>
+                  <p>{getRegulationClaim('272', 'crowd.faq.02')}</p>
                 </div>
               </details>
             </div>

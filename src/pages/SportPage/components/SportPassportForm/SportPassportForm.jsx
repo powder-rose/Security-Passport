@@ -1,4 +1,4 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
 export default function SportPassportForm() {
   return (
@@ -12,8 +12,8 @@ export default function SportPassportForm() {
               <h2>Форма паспорта безопасности объекта спорта</h2>
 
               <p className="sport-form__lead">
-                ПП РФ №202 непосредственно утверждает официальную форму паспорта
-                безопасности объекта спорта.
+                ПП РФ №202 непосредственно утверждает официальную форму паспорта безопасности
+                объекта спорта.
               </p>
 
               <div className="sport-form__structure">
@@ -55,8 +55,8 @@ export default function SportPassportForm() {
               </div>
 
               <p className="sport-form__after">
-                Далее форма предусматривает сведения, необходимые для оценки
-                антитеррористической защищённости объекта.
+                Далее форма предусматривает сведения, необходимые для оценки антитеррористической
+                защищённости объекта.
               </p>
 
               <a className="button button--primary" href="#lead-form">
@@ -89,8 +89,8 @@ export default function SportPassportForm() {
                 <span>ДСП</span>
 
                 <p>
-                  На сайте используем официальную форму или обезличенную
-                  структуру, а не заполненный паспорт действующего объекта.
+                  На сайте используем официальную форму или обезличенную структуру, а не заполненный
+                  паспорт действующего объекта.
                 </p>
               </div>
             </aside>

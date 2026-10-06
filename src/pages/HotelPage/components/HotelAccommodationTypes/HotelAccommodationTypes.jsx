@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { hotelAccommodationTypes } from "../../hotelPageData";
+import { hotelAccommodationTypes } from '../../hotelPageData';
 
 export default function HotelAccommodationTypes() {
   return (
@@ -16,23 +16,19 @@ export default function HotelAccommodationTypes() {
               </div>
 
               <p>
-                Проверяем применимость требований для гостиниц и иных средств
-                размещения с учётом фактического назначения объекта и его
-                нормативного статуса.
+                Проверяем применимость требований для гостиниц и иных средств размещения с учётом
+                фактического назначения объекта и его нормативного статуса.
               </p>
             </div>
 
             <div className="hotel-accommodation__types">
-              {hotelAccommodationTypes.map((item) => (
+              {hotelAccommodationTypes.map(item => (
                 <div className="hotel-accommodation__type" key={item.title}>
                   <span>{item.number}</span>
 
                   <strong>{item.title}</strong>
 
-                  <span
-                    className="hotel-accommodation__mark"
-                    aria-hidden="true"
-                  >
+                  <span className="hotel-accommodation__mark" aria-hidden="true">
                     ↗
                   </span>
                 </div>
@@ -44,8 +40,8 @@ export default function HotelAccommodationTypes() {
             <span aria-hidden="true">✓</span>
 
             <p>
-              Название объекта само по себе не определяет нормативный режим.
-              Перед разработкой документации проверяем применимые требования.
+              Название объекта само по себе не определяет нормативный режим. Перед разработкой
+              документации проверяем применимые требования.
             </p>
           </aside>
         </Container>

@@ -1,37 +1,17 @@
-import {
-  objectTypes,
-} from '../../data/objectTypes';
+import { objectTypes } from '../../data/objectTypes';
 
-import {
-  servicePages,
-} from '../../data/servicePages';
-
+import { servicePages } from '../../data/servicePages';
 
 export const MOBILE_BREAKPOINT = 1180;
 
-
 export const quickNavLinks = [
-  [
-    '#about-passport',
-    'О документе',
-  ],
-  [
-    '#process',
-    'Как работаем',
-  ],
-  [
-    '#prices',
-    'Стоимость',
-  ],
-  [
-    '#faq',
-    'FAQ',
-  ],
+  ['#about-passport', 'О документе'],
+  ['#process', 'Как работаем'],
+  ['#prices', 'Стоимость'],
+  ['#faq', 'FAQ'],
 ];
 
-
 const pageNavAliases = {
-
   '/pasport-bezopasnosti-gostinicy': {
     '#top': '.hotel-hero',
     '#about-passport': '#hotel-regulation',
@@ -92,17 +72,10 @@ const pageNavAliases = {
     '#objects': '#quiz',
     '#prices': '.object-service-hero__price',
   },
-
 };
 
-
-export function normalizePathname(
-  pathname,
-) {
-  if (
-    !pathname ||
-    pathname === '/'
-  ) {
+export function normalizePathname(pathname) {
+  if (!pathname || pathname === '/') {
     return '/';
   }
 
@@ -111,149 +84,68 @@ export function normalizePathname(
     String(pathname)
       .split('?')[0]
       .split('#')[0]
-      .replace(
-        /^\/+|\/+$/g,
-        '',
-      )
+      .replace(/^\/+|\/+$/g, '')
   );
 }
 
+export function isPathActive(href, pathname) {
+  const target = normalizePathname(href);
 
-export function isPathActive(
-  href,
-  pathname,
-) {
-  const target =
-    normalizePathname(
-      href,
-    );
-
-  if (
-    target === '/blog'
-  ) {
-    return (
-      pathname === '/blog' ||
-      pathname.startsWith(
-        '/blog/',
-      )
-    );
+  if (target === '/blog') {
+    return pathname === '/blog' || pathname.startsWith('/blog/');
   }
 
-  return (
-    target === pathname
-  );
+  return target === pathname;
 }
 
-
-export function getNavigationTarget(
-  hash,
-) {
-  if (
-    typeof window ===
-      'undefined' ||
-    typeof document ===
-      'undefined'
-  ) {
+export function getNavigationTarget(hash) {
+  if (typeof window === 'undefined' || typeof document === 'undefined') {
     return null;
   }
 
-  const directTarget =
-    document.querySelector(
-      hash,
-    );
+  const directTarget = document.querySelector(hash);
 
   if (directTarget) {
     return directTarget;
   }
 
-  const pathname =
-    normalizePathname(
-      window.location.pathname,
-    );
+  const pathname = normalizePathname(window.location.pathname);
 
-  const selector =
-    pageNavAliases[
-      pathname
-    ]?.[hash];
+  const selector = pageNavAliases[pathname]?.[hash];
 
   if (!selector) {
     return null;
   }
 
-  return document.querySelector(
-    selector,
-  );
+  return document.querySelector(selector);
 }
 
-
-export function scrollToNavigationTarget(
-  target,
-  behavior = 'smooth',
-) {
+export function scrollToNavigationTarget(target, behavior = 'smooth') {
   if (!target) {
     return;
   }
 
-  const header =
-    document.querySelector(
-      '.site-header',
-    );
+  const header = document.querySelector('.site-header');
 
-  const headerHeight =
-    header
-      ?.getBoundingClientRect()
-      ?.height ||
-    0;
+  const headerHeight = header?.getBoundingClientRect()?.height || 0;
 
-  const heading =
-    target.querySelector?.(
-      'h1, h2',
-    );
+  const heading = target.querySelector?.('h1, h2');
 
-  const headingLead =
-    heading
-      ?.previousElementSibling;
+  const headingLead = heading?.previousElementSibling;
 
-  const scrollTarget =
-    headingLead ||
-    heading ||
-    target;
+  const scrollTarget = headingLead || heading || target;
 
-  const top =
-    scrollTarget
-      .getBoundingClientRect()
-      .top +
-    window.scrollY -
-    headerHeight -
-    18;
+  const top = scrollTarget.getBoundingClientRect().top + window.scrollY - headerHeight - 18;
 
   window.scrollTo({
-    top:
-      Math.max(
-        0,
-        top,
-      ),
+    top: Math.max(0, top),
     behavior,
   });
 }
 
-export function isDirectoryActive(
-  pathname,
-) {
+export function isDirectoryActive(pathname) {
   return (
-    servicePages.some(
-      page =>
-        isPathActive(
-          page.path,
-          pathname,
-        ),
-    ) ||
-    objectTypes.some(
-      item =>
-        isPathActive(
-          item.path,
-          pathname,
-        ),
-    )
+    servicePages.some(page => isPathActive(page.path, pathname)) ||
+    objectTypes.some(item => isPathActive(item.path, pathname))
   );
 }

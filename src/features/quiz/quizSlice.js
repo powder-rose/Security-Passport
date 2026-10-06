@@ -36,12 +36,6 @@ const quizSlice = createSlice({
   },
 });
 
-export const {
-  answerQuestion,
-  nextStep,
-  previousStep,
-  goToStep,
-  completeQuiz,
-  resetQuiz,
-} = quizSlice.actions;
+export const { answerQuestion, nextStep, previousStep, goToStep, completeQuiz, resetQuiz } =
+  quizSlice.actions;
 export default quizSlice.reducer;

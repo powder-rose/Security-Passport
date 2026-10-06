@@ -9,14 +9,13 @@
   .culture-standard__content {
     padding: 44px;
   }
-
 }
 
 @media (max-width: 1024px) {
   .culture-actualization__header,
-.culture-actualization__layout,
-.culture-standard__panel,
-.culture-why__header {
+  .culture-actualization__layout,
+  .culture-standard__panel,
+  .culture-why__header {
     grid-template-columns: 1fr;
   }
 
@@ -41,8 +40,8 @@
 
 @media (max-width: 768px) {
   .culture-actualization,
-.culture-standard,
-.culture-why {
+  .culture-standard,
+  .culture-why {
     padding: 84px 0 94px;
   }
 
@@ -54,8 +53,8 @@
 
 @media (max-width: 430px) {
   .culture-actualization__header h2,
-.culture-standard__content h2,
-.culture-why__header h2 {
+  .culture-standard__content h2,
+  .culture-why__header h2 {
     font-size: 35px;
   }
 
@@ -68,8 +67,7 @@
   }
 
   .culture-actualization__reason {
-    grid-template-columns:
-      35px minmax(0, 1fr);
+    grid-template-columns: 35px minmax(0, 1fr);
     gap: 13px;
   }
 
@@ -108,22 +106,20 @@
   .culture-why__item:hover {
     transform: none;
   }
-
 }
 
 @media (max-width: 390px) {
   .culture-actualization__header h2,
-.culture-standard__content h2,
-.culture-why__header h2 {
+  .culture-standard__content h2,
+  .culture-why__header h2 {
     font-size: 32px;
   }
-
 }
 
 @media (max-width: 320px) {
   .culture-actualization__header h2,
-.culture-standard__content h2,
-.culture-why__header h2 {
+  .culture-standard__content h2,
+  .culture-why__header h2 {
     font-size: 29px;
   }
 
@@ -134,5 +130,4 @@
   .culture-standard__identity > span {
     font-size: 62px;
   }
-
 }

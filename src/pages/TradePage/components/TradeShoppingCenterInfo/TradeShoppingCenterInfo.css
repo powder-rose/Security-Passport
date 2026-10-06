@@ -187,7 +187,7 @@
 
   background: var(--trade-accent);
 
-  content: "";
+  content: '';
 
   transform: translateX(50%);
 }

@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { educationPassportStructure } from "../../educationPageData";
+import { educationPassportStructure } from '../../educationPageData';
 
 export default function EducationPassportForm() {
   return (
@@ -15,8 +15,8 @@ export default function EducationPassportForm() {
             </div>
 
             <p>
-              ПП РФ №1006 содержит утверждённую форму паспорта для объектов,
-              подпадающих под этот нормативный режим.
+              ПП РФ №1006 содержит утверждённую форму паспорта для объектов, подпадающих под этот
+              нормативный режим.
             </p>
           </div>
 
@@ -27,8 +27,8 @@ export default function EducationPassportForm() {
               <h3>Основные разделы формы паспорта</h3>
 
               <p>
-                Показываем структуру документа и поясняем состав сведений.
-                Заполненный паспорт конкретного клиента публично не размещаем.
+                Показываем структуру документа и поясняем состав сведений. Заполненный паспорт
+                конкретного клиента публично не размещаем.
               </p>
 
               <a className="button button--primary" href="#lead-form">
@@ -39,7 +39,7 @@ export default function EducationPassportForm() {
             <ol className="education-form__structure">
               {educationPassportStructure.map((item, index) => (
                 <li key={item}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
 
                   <p>{item}</p>
                 </li>

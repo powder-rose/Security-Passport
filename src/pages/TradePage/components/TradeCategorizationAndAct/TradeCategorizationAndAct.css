@@ -369,7 +369,7 @@
   height: 7px;
   border-radius: 0 0 7px 7px;
   background: var(--trade-accent);
-  content: "";
+  content: '';
 }
 
 .trade-categorization__deadline > strong {
@@ -415,7 +415,7 @@
   margin-top: 30px;
   border-radius: 999px;
   background: var(--trade-accent);
-  content: "";
+  content: '';
 }
 
 .trade-act__index span {
@@ -640,7 +640,7 @@
 
   background: var(--trade-accent);
 
-  content: "";
+  content: '';
 }
 
 .trade-act__index strong {
@@ -764,7 +764,7 @@
 
   background: currentColor;
 
-  content: "";
+  content: '';
 
   transform: translate(-50%, -50%);
 }

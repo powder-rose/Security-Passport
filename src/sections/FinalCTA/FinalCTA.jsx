@@ -3,10 +3,7 @@ import Container from '../../components/ui/Container/Container';
 import { SITE } from '../../config/site';
 import { METRICA_GOALS, reachGoal } from '../../lib/analytics';
 import { getLeadEndpoint, submitLead } from '../../lib/lead';
-import {
-  formatRussianPhone,
-  sanitizeEmailInput,
-} from '../../lib/formInput';
+import { formatRussianPhone, sanitizeEmailInput } from '../../lib/formInput';
 import { leadFormSchema } from '../../lib/validation/leadValidation';
 import './FinalCTA.css';
 
@@ -19,9 +16,7 @@ const initialForm = {
   website: '',
 };
 
-export default function FinalCTA({
-  preview = false,
-}) {
+export default function FinalCTA({ preview = false }) {
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState('idle');
   const [message, setMessage] = useState('');
@@ -32,21 +27,19 @@ export default function FinalCTA({
   const consentInvalid = status === 'error' && !form.consent;
 
   const updateField = (field, value) => {
-    setForm((current) => ({ ...current, [field]: value }));
+    setForm(current => ({ ...current, [field]: value }));
     if (status !== 'idle') {
       setStatus('idle');
       setMessage('');
     }
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault();
 
     if (preview) {
       setStatus('notice');
-      setMessage(
-        'Режим предпросмотра: форма работает, но заявка не отправлена.'
-      );
+      setMessage('Режим предпросмотра: форма работает, но заявка не отправлена.');
       return;
     }
 
@@ -56,9 +49,7 @@ export default function FinalCTA({
       });
     } catch (error) {
       setStatus('error');
-      setMessage(
-        error?.errors?.[0] || 'Проверьте правильность заполнения формы.',
-      );
+      setMessage(error?.errors?.[0] || 'Проверьте правильность заполнения формы.');
       return;
     }
 
@@ -89,7 +80,9 @@ export default function FinalCTA({
         reason: error?.name === 'AbortError' ? 'timeout' : 'request_error',
       });
       setStatus('error');
-      setMessage(`Не удалось отправить заявку. Позвоните ${SITE.phone} или напишите на ${SITE.email}.`);
+      setMessage(
+        `Не удалось отправить заявку. Позвоните ${SITE.phone} или напишите на ${SITE.email}.`,
+      );
     }
   };
 
@@ -108,9 +101,15 @@ export default function FinalCTA({
           </p>
 
           <ul className="final-cta__benefits" aria-label="Что уточним на консультации">
-            <li><span aria-hidden="true">01</span> Проверим основание для категорирования</li>
-            <li><span aria-hidden="true">02</span> Определим состав документов и{'\u00A0'}работ</li>
-            <li><span aria-hidden="true">03</span> Сориентируем по стоимости и{'\u00A0'}этапам</li>
+            <li>
+              <span aria-hidden="true">01</span> Проверим основание для категорирования
+            </li>
+            <li>
+              <span aria-hidden="true">02</span> Определим состав документов и{'\u00A0'}работ
+            </li>
+            <li>
+              <span aria-hidden="true">03</span> Сориентируем по стоимости и{'\u00A0'}этапам
+            </li>
           </ul>
 
           <div className="final-cta__contacts">
@@ -118,19 +117,17 @@ export default function FinalCTA({
               <span>Телефон</span>
               <strong>{SITE.phone}</strong>
             </a>
-            <a href={`mailto:${SITE.email}`} aria-label={`Написать на электронную почту ${SITE.email}`}>
+            <a
+              href={`mailto:${SITE.email}`}
+              aria-label={`Написать на электронную почту ${SITE.email}`}
+            >
               <span>Почта</span>
               <strong>{SITE.email}</strong>
             </a>
           </div>
         </div>
 
-        <form
-          className="final-cta__form"
-          id="lead-form"
-          onSubmit={handleSubmit}
-          noValidate
-        >
+        <form className="final-cta__form" id="lead-form" onSubmit={handleSubmit} noValidate>
           <label className="lead-honeypot" aria-hidden="true">
             <span>Ваш сайт</span>
             <input
@@ -139,7 +136,7 @@ export default function FinalCTA({
               tabIndex="-1"
               autoComplete="off"
               value={form.website}
-              onChange={(event) => updateField('website', event.target.value)}
+              onChange={event => updateField('website', event.target.value)}
             />
           </label>
           <div className="final-cta__form-head">
@@ -155,7 +152,7 @@ export default function FinalCTA({
                 name="name"
                 autoComplete="name"
                 value={form.name}
-                onChange={(event) => updateField('name', event.target.value)}
+                onChange={event => updateField('name', event.target.value)}
                 placeholder="Как к вам обращаться"
                 aria-invalid={nameInvalid || undefined}
                 aria-describedby={nameInvalid ? 'final-cta-status' : undefined}
@@ -171,12 +168,7 @@ export default function FinalCTA({
                 autoComplete="tel"
                 inputMode="numeric"
                 value={form.phone}
-                onChange={(event) =>
-                  updateField(
-                    'phone',
-                    formatRussianPhone(event.target.value),
-                  )
-                }
+                onChange={event => updateField('phone', formatRussianPhone(event.target.value))}
                 placeholder="+7 (900) 000-00-00"
                 aria-invalid={phoneInvalid || undefined}
                 aria-describedby={phoneInvalid ? 'final-cta-status' : undefined}
@@ -191,12 +183,7 @@ export default function FinalCTA({
                 name="email"
                 autoComplete="email"
                 value={form.email}
-                onChange={(event) =>
-                  updateField(
-                    'email',
-                    sanitizeEmailInput(event.target.value),
-                  )
-                }
+                onChange={event => updateField('email', sanitizeEmailInput(event.target.value))}
                 placeholder="name@example.ru"
               />
             </label>
@@ -207,7 +194,7 @@ export default function FinalCTA({
                 name="object"
                 rows="4"
                 value={form.object}
-                onChange={(event) => updateField('object', event.target.value)}
+                onChange={event => updateField('object', event.target.value)}
                 placeholder="Например: гостиница, 2 400 м², требуется актуализация паспорта"
               />
             </label>
@@ -218,20 +205,25 @@ export default function FinalCTA({
               type="checkbox"
               name="consent"
               checked={form.consent}
-              onChange={(event) => updateField('consent', event.target.checked)}
+              onChange={event => updateField('consent', event.target.checked)}
               aria-invalid={consentInvalid || undefined}
               aria-describedby={consentInvalid ? 'final-cta-status' : undefined}
               required
             />
             <span>
               Я согласен на обработку персональных данных в целях обратной связи и{'\u00A0'}принимаю{' '}
-              <a href={SITE.privacyUrl} target="_blank" rel="noopener noreferrer">политику конфиденциальности</a>.
+              <a href={SITE.privacyUrl} target="_blank" rel="noopener noreferrer">
+                политику конфиденциальности
+              </a>
+              .
             </span>
           </label>
 
           <button className="final-cta__submit" type="submit" disabled={status === 'loading'}>
             <span>{status === 'loading' ? 'Отправляем…' : 'Отправить заявку'}</span>
-            <span className="final-cta__submit-arrow" aria-hidden="true">↗</span>
+            <span className="final-cta__submit-arrow" aria-hidden="true">
+              ↗
+            </span>
           </button>
 
           {message ? (

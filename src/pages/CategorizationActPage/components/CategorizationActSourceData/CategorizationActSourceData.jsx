@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { sourceDataItems } from "../../categorizationActPageData";
+import { sourceDataItems } from '../../categorizationActPageData';
 
 export default function CategorizationActSourceData() {
   return (
@@ -14,13 +14,13 @@ export default function CategorizationActSourceData() {
               <h2>Какие данные потребуются</h2>
 
               <p>
-                Окончательный перечень исходных данных зависит от требований,
-                распространяющихся на конкретный объект.
+                Окончательный перечень исходных данных зависит от требований, распространяющихся на
+                конкретный объект.
               </p>
             </div>
 
             <ul>
-              {sourceDataItems.map((item) => (
+              {sourceDataItems.map(item => (
                 <li key={item}>{item}</li>
               ))}
             </ul>

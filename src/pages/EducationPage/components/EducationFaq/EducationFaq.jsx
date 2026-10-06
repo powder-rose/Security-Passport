@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { educationFaqItems } from "../../educationPageData";
+import { educationFaqItems } from '../../educationPageData';
 
 export default function EducationFaq() {
   return (
@@ -12,15 +12,12 @@ export default function EducationFaq() {
               <div>
                 <p className="education-kicker">Вопросы и ответы</p>
 
-                <h2>
-                  Частые вопросы о паспорте безопасности образовательной
-                  организации
-                </h2>
+                <h2>Частые вопросы о паспорте безопасности образовательной организации</h2>
               </div>
 
               <p>
-                Ответы о применимом постановлении, категорировании,
-                согласовании, экземплярах, стоимости, форме и актуализации.
+                Ответы о применимом постановлении, категорировании, согласовании, экземплярах,
+                стоимости, форме и актуализации.
               </p>
             </div>
 
@@ -29,12 +26,10 @@ export default function EducationFaq() {
                 <details className="education-faq__item" key={item.question}>
                   <summary>
                     <span className="education-faq__number">
-                      {String(index + 1).padStart(2, "0")}
+                      {String(index + 1).padStart(2, '0')}
                     </span>
 
-                    <span className="education-faq__question">
-                      {item.question}
-                    </span>
+                    <span className="education-faq__question">{item.question}</span>
 
                     <span className="education-faq__toggle" aria-hidden="true">
                       +

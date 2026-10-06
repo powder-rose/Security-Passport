@@ -6,14 +6,13 @@
 
 @media (max-width: 1180px) {
   .education-audience__list {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 1024px) {
   .education-audience__header,
-.education-current__layout {
+  .education-current__layout {
     grid-template-columns: 1fr;
   }
 
@@ -28,8 +27,8 @@
 
 @media (max-width: 768px) {
   .education-audience,
-.education-current,
-.education-related {
+  .education-current,
+  .education-related {
     padding-top: 72px;
     padding-bottom: 72px;
   }
@@ -41,13 +40,12 @@
   .education-current__standard {
     grid-template-columns: 1fr;
   }
-
 }
 
 @media (max-width: 430px) {
   .education-audience__header h2,
-.education-current__content h2,
-.education-related__header h2 {
+  .education-current__content h2,
+  .education-related__header h2 {
     font-size: clamp(2.1rem, 10vw, 3rem);
   }
 
@@ -76,13 +74,12 @@
   .education-related__links a {
     min-height: 82px;
   }
-
 }
 
 @media (max-width: 320px) {
   .education-audience__header h2,
-.education-current__content h2,
-.education-related__header h2 {
+  .education-current__content h2,
+  .education-related__header h2 {
     font-size: 2rem;
   }
 
@@ -90,5 +87,4 @@
   .education-current__notice {
     padding: 20px;
   }
-
 }

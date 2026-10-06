@@ -16,7 +16,7 @@
 
 .prices-section__heading {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(330px, .85fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(330px, 0.85fr);
   gap: clamp(46px, 7vw, 112px);
   align-items: end;
   margin-bottom: clamp(52px, 6vw, 82px);
@@ -26,9 +26,9 @@
 .prices-section__footer-kicker {
   margin: 0 0 20px;
   color: var(--color-primary);
-  font-size: .76rem;
+  font-size: 0.76rem;
   font-weight: 820;
-  letter-spacing: .14em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
@@ -36,8 +36,8 @@
   max-width: 850px;
   margin: 0;
   font-size: clamp(2.8rem, 5.2vw, 5.75rem);
-  line-height: .93;
-  letter-spacing: -.065em;
+  line-height: 0.93;
+  letter-spacing: -0.065em;
 }
 
 .prices-section h2 em {
@@ -48,16 +48,16 @@
 
 .prices-section__anchor {
   padding-left: clamp(24px, 3vw, 38px);
-  border-left: 1px solid rgba(21,21,21,.13);
+  border-left: 1px solid rgba(21, 21, 21, 0.13);
 }
 
 .prices-section__anchor-label {
   display: block;
   margin-bottom: 12px;
   color: var(--color-text-secondary);
-  font-size: .76rem;
+  font-size: 0.76rem;
   font-weight: 780;
-  letter-spacing: .1em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -70,8 +70,8 @@
 
 .prices-section__anchor-price strong {
   font-size: clamp(3rem, 5.3vw, 5.8rem);
-  line-height: .82;
-  letter-spacing: -.07em;
+  line-height: 0.82;
+  letter-spacing: -0.07em;
   white-space: nowrap;
 }
 
@@ -89,25 +89,28 @@
 
 .price-row {
   display: grid;
-  grid-template-columns: 68px minmax(0, 1.25fr) minmax(210px, .62fr) 126px;
+  grid-template-columns: 68px minmax(0, 1.25fr) minmax(210px, 0.62fr) 126px;
   gap: clamp(18px, 3vw, 42px);
   align-items: center;
   min-height: 198px;
   padding: clamp(24px, 3vw, 38px);
-  border: 1px solid rgba(21,21,21,.10);
+  border: 1px solid rgba(21, 21, 21, 0.1);
   border-radius: clamp(24px, 2.8vw, 34px);
-  background: rgba(255,255,255,.76);
-  transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+  background: rgba(255, 255, 255, 0.76);
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
 }
 
 .price-row:hover {
   transform: translateY(-3px);
-  border-color: rgba(169,240,74,.92);
-  box-shadow: 0 20px 48px rgba(21,21,21,.07);
+  border-color: rgba(169, 240, 74, 0.92);
+  box-shadow: 0 20px 48px rgba(21, 21, 21, 0.07);
 }
 
 .price-row--featured {
-  border-color: rgba(255,255,255,.08);
+  border-color: rgba(255, 255, 255, 0.08);
   background: var(--color-text);
   color: #fff;
 }
@@ -117,13 +120,13 @@
   height: 56px;
   display: grid;
   place-items: center;
-  border: 1px solid rgba(21,21,21,.12);
+  border: 1px solid rgba(21, 21, 21, 0.12);
   border-radius: 50%;
   background: #fff;
   color: var(--color-primary);
-  font-size: .75rem;
+  font-size: 0.75rem;
   font-weight: 850;
-  letter-spacing: .06em;
+  letter-spacing: 0.06em;
 }
 
 .price-row--featured .price-row__index {
@@ -140,9 +143,9 @@
   display: inline-flex;
   margin-bottom: 12px;
   color: var(--color-primary);
-  font-size: .72rem;
+  font-size: 0.72rem;
   font-weight: 790;
-  letter-spacing: .1em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -155,7 +158,7 @@
   margin: 0 0 10px;
   font-size: clamp(1.55rem, 2.2vw, 2.45rem);
   line-height: 1;
-  letter-spacing: -.045em;
+  letter-spacing: -0.045em;
 }
 
 .price-row__service p {
@@ -166,7 +169,7 @@
 }
 
 .price-row--featured .price-row__service p {
-  color: rgba(255,255,255,.62);
+  color: rgba(255, 255, 255, 0.62);
 }
 
 .price-row__value {
@@ -181,19 +184,19 @@
 
 .price-row__prefix {
   color: var(--color-text-secondary);
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-weight: 800;
   text-transform: uppercase;
 }
 
 .price-row--featured .price-row__prefix {
-  color: rgba(255,255,255,.5);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .price-row__price-line strong {
   font-size: clamp(2rem, 3.2vw, 3.4rem);
-  line-height: .9;
-  letter-spacing: -.055em;
+  line-height: 0.9;
+  letter-spacing: -0.055em;
   white-space: nowrap;
 }
 
@@ -202,9 +205,9 @@
   margin-top: 12px;
   padding: 7px 11px;
   border-radius: 999px;
-  background: rgba(169,240,74,.17);
+  background: rgba(169, 240, 74, 0.17);
   color: #223214;
-  font-size: .72rem;
+  font-size: 0.72rem;
   font-weight: 760;
 }
 
@@ -215,19 +218,22 @@
   justify-content: space-between;
   gap: 14px;
   padding: 0 17px;
-  border: 1px solid rgba(21,21,21,.13);
+  border: 1px solid rgba(21, 21, 21, 0.13);
   border-radius: 999px;
   color: inherit;
-  font-size: .86rem;
+  font-size: 0.86rem;
   font-weight: 760;
   text-decoration: none;
-  transition: background .2s ease, border-color .2s ease, color .2s ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .price-row__action span:last-child {
   color: var(--color-primary);
   font-size: 1rem;
-  transition: transform .2s ease;
+  transition: transform 0.2s ease;
 }
 
 .price-row__action:hover {
@@ -242,15 +248,13 @@
 }
 
 .price-row--featured .price-row__action {
-  border-color: rgba(255,255,255,.18);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 .price-row--featured .price-row__action span:last-child {
   color: var(--color-accent);
 }
-.price-row--featured
-.price-row__action:hover
-span:last-child {
+.price-row--featured .price-row__action:hover span:last-child {
   color: var(--color-text);
 }
 
@@ -261,7 +265,7 @@ span:last-child {
   align-items: center;
   margin-top: 18px;
   padding: clamp(26px, 3vw, 38px);
-  border: 1px solid rgba(21,21,21,.10);
+  border: 1px solid rgba(21, 21, 21, 0.1);
   border-radius: 30px;
   background: #fff;
 }
@@ -286,7 +290,7 @@ span:last-child {
   margin: 0 0 8px;
   font-size: clamp(1.55rem, 2.4vw, 2.35rem);
   line-height: 1.03;
-  letter-spacing: -.04em;
+  letter-spacing: -0.04em;
 }
 
 .prices-section__footer-copy > p:last-child {
@@ -298,7 +302,7 @@ span:last-child {
 
 @media (max-width: 1050px) {
   .price-row {
-    grid-template-columns: 58px minmax(0, 1fr) minmax(190px, .55fr);
+    grid-template-columns: 58px minmax(0, 1fr) minmax(190px, 0.55fr);
   }
 
   .price-row__action {
@@ -318,7 +322,7 @@ span:last-child {
     padding-left: 0;
     padding-top: 24px;
     border-left: 0;
-    border-top: 1px solid rgba(21,21,21,.13);
+    border-top: 1px solid rgba(21, 21, 21, 0.13);
   }
 
   .prices-section__footer {
@@ -493,8 +497,8 @@ span:last-child {
 @media (max-width: 620px) {
   .prices-section h2 {
     font-size: clamp(2.35rem, 10.4vw, 2.8rem);
-    line-height: .98;
-    letter-spacing: -.045em;
+    line-height: 0.98;
+    letter-spacing: -0.045em;
   }
 
   .prices-section__anchor-price {
@@ -510,7 +514,7 @@ span:last-child {
 @media (max-width: 430px) {
   .prices-section h2 {
     font-size: clamp(2.18rem, 9.7vw, 2.45rem);
-    letter-spacing: -.035em;
+    letter-spacing: -0.035em;
   }
 
   .price-row {

@@ -1,4 +1,4 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
 export default function SportPassportActualization() {
   return (
@@ -49,25 +49,19 @@ export default function SportPassportActualization() {
             <article>
               <span>05</span>
 
-              <p>
-                Смена собственника, наименования или организационно-правовой
-                формы
-              </p>
+              <p>Смена собственника, наименования или организационно-правовой формы</p>
             </article>
 
             <article>
               <span>06</span>
 
-              <p>
-                Изменение сведений о должностных лицах и способов связи с ними
-              </p>
+              <p>Изменение сведений о должностных лицах и способов связи с ними</p>
             </article>
           </div>
 
           <div className="sport-actualization__footer">
             <p>
-              ПП РФ №202 предусматривает актуализацию при наступлении
-              соответствующих изменений.
+              ПП РФ №202 предусматривает актуализацию при наступлении соответствующих изменений.
             </p>
 
             <a

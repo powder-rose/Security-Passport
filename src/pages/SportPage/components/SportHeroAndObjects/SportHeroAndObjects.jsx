@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { sportObjects } from "../../sportPageData";
+import { sportObjects } from '../../sportPageData';
 
 export default function SportHeroAndObjects() {
   return (
@@ -19,19 +19,13 @@ export default function SportHeroAndObjects() {
             <div className="sport-hero__content">
               <p className="sport-kicker">Объекты спорта</p>
 
-              <h1>
-                Паспорт безопасности объекта спорта — разработка и согласование
-              </h1>
+              <h1>Паспорт безопасности объекта спорта — разработка и согласование</h1>
 
               <p className="sport-hero__lead">
-                Подготовим паспорт безопасности объекта спорта в соответствии с
-                требованиями к антитеррористической защищённости. Подготовим
-                документы для категорирования, акт, паспорт и сопроводим
-                предусмотренное согласование.{" "}
-                <span className="coverage-emphasis">
-                  Работаем по всей России
-                </span>
-                .
+                Подготовим паспорт безопасности объекта спорта в соответствии с требованиями к
+                антитеррористической защищённости. Подготовим документы для категорирования, акт,
+                паспорт и сопроводим предусмотренное согласование.{' '}
+                <span className="coverage-emphasis">Работаем по всей России</span>.
               </p>
 
               <div className="sport-hero__commercial">
@@ -75,13 +69,11 @@ export default function SportHeroAndObjects() {
                 <strong>202</strong>
               </div>
 
-              <h2>
-                Требования к антитеррористической защищённости объектов спорта
-              </h2>
+              <h2>Требования к антитеррористической защищённости объектов спорта</h2>
 
               <p>
-                Постановлением утверждены требования к защищённости объектов
-                спорта и форма паспорта безопасности.
+                Постановлением утверждены требования к защищённости объектов спорта и форма паспорта
+                безопасности.
               </p>
 
               <div className="sport-hero__legal-footer">
@@ -97,7 +89,6 @@ export default function SportHeroAndObjects() {
                   <span>актуальная страница</span>
                 </div>
               </div>
-
             </aside>
           </div>
         </Container>
@@ -113,15 +104,14 @@ export default function SportHeroAndObjects() {
             </div>
 
             <p>
-              Требования распространяются на объекты недвижимости и комплексы
-              недвижимости, специально предназначенные для проведения
-              физкультурных и/или спортивных мероприятий.
+              Требования распространяются на объекты недвижимости и комплексы недвижимости,
+              специально предназначенные для проведения физкультурных и/или спортивных мероприятий.
             </p>
           </div>
 
           <div className="sport-objects__layout">
             <ol className="sport-objects__list">
-              {sportObjects.map((item) => (
+              {sportObjects.map(item => (
                 <li className="sport-object" key={item.number}>
                   <span className="sport-object__number">{item.number}</span>
 
@@ -137,18 +127,16 @@ export default function SportHeroAndObjects() {
             <aside className="sport-objects__note">
               <span className="sport-objects__note-index">Важно</span>
 
-              <h3>
-                Название объекта само по себе не определяет нормативный режим
-              </h3>
+              <h3>Название объекта само по себе не определяет нормативный режим</h3>
 
               <p>
-                Применимость ПП РФ №202 определяем по фактическому назначению и
-                статусу конкретного объекта.
+                Применимость ПП РФ №202 определяем по фактическому назначению и статусу конкретного
+                объекта.
               </p>
 
               <p>
-                Поэтому не предполагаем автоматически, что любой фитнес-клуб или
-                площадка подпадает под один и тот же порядок.
+                Поэтому не предполагаем автоматически, что любой фитнес-клуб или площадка подпадает
+                под один и тот же порядок.
               </p>
 
               <a className="sport-inline-link" href="#lead-form">

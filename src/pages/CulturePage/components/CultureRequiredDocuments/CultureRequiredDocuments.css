@@ -10,7 +10,7 @@
 .culture-source__layout {
   display: grid;
   grid-template-columns:
-    minmax(300px, .68fr)
+    minmax(300px, 0.68fr)
     minmax(0, 1.32fr);
   gap: clamp(60px, 9vw, 150px);
   align-items: start;
@@ -24,11 +24,10 @@
 .culture-source__heading h2 {
   max-width: 620px;
   margin: 0;
-  font-size:
-    clamp(40px, 4.2vw, 64px);
+  font-size: clamp(40px, 4.2vw, 64px);
   font-weight: 600;
   line-height: 1;
-  letter-spacing: -.04em;
+  letter-spacing: -0.04em;
   text-wrap: balance;
 }
 
@@ -37,7 +36,7 @@
   margin: 26px 0 0;
   font-size: 16px;
   line-height: 1.65;
-  opacity: .68;
+  opacity: 0.68;
 }
 
 .culture-source__notice {
@@ -52,18 +51,15 @@
 }
 
 .culture-source__list {
-  border-top:
-    1px solid rgb(21 21 21 / 15%);
+  border-top: 1px solid rgb(21 21 21 / 15%);
 }
 
 .culture-source__item {
   display: grid;
-  grid-template-columns:
-    48px minmax(0, 1fr);
+  grid-template-columns: 48px minmax(0, 1fr);
   gap: 20px;
   padding: 24px 0;
-  border-bottom:
-    1px solid rgb(21 21 21 / 15%);
+  border-bottom: 1px solid rgb(21 21 21 / 15%);
 }
 
 .culture-source__item > span {
@@ -74,8 +70,7 @@
 
 .culture-source__item h3 {
   margin: 0;
-  font-size:
-    clamp(20px, 1.7vw, 26px);
+  font-size: clamp(20px, 1.7vw, 26px);
   font-weight: 600;
   line-height: 1.15;
 }
@@ -85,5 +80,5 @@
   margin: 10px 0 0;
   font-size: 14px;
   line-height: 1.6;
-  opacity: .65;
+  opacity: 0.65;
 }

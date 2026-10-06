@@ -25,11 +25,7 @@ ActualizationPricing.jsx — PRICING
 
   border-radius: 32px;
 
-  background: linear-gradient(
-    135deg,
-    rgba(169, 240, 74, 0.26),
-    rgba(169, 240, 74, 0.08)
-  );
+  background: linear-gradient(135deg, rgba(169, 240, 74, 0.26), rgba(169, 240, 74, 0.08));
 }
 
 .actualization-price h2 {
@@ -126,7 +122,7 @@ ActualizationPricing.jsx — PRICING
 }
 
 .actualization-price__panel::after {
-  content: "";
+  content: '';
 
   position: absolute;
 
@@ -202,7 +198,7 @@ ActualizationPricing.jsx — PRICING
 }
 
 .actualization-price__card::after {
-  content: "";
+  content: '';
 
   position: absolute;
 

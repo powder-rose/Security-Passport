@@ -16,25 +16,17 @@
   display: grid;
   grid-template-columns:
     minmax(0, 1.1fr)
-    minmax(320px, .7fr);
-  gap: clamp(
-    52px,
-    8vw,
-    118px
-  );
+    minmax(320px, 0.7fr);
+  gap: clamp(52px, 8vw, 118px);
   align-items: end;
 }
 
 .sport-process__heading h2 {
   max-width: 900px;
   margin: 0;
-  font-size: clamp(
-    2.7rem,
-    4.2vw,
-    4.7rem
-  );
-  line-height: .99;
-  letter-spacing: -.052em;
+  font-size: clamp(2.7rem, 4.2vw, 4.7rem);
+  line-height: 0.99;
+  letter-spacing: -0.052em;
   text-wrap: balance;
 }
 
@@ -47,14 +39,11 @@
 
 .sport-process__steps {
   display: grid;
-  grid-template-columns:
-    repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0 52px;
   margin: 68px 0 0;
   padding: 0;
-  border-top:
-    1px solid
-    rgb(255 255 255 / 14%);
+  border-top: 1px solid rgb(255 255 255 / 14%);
   list-style: none;
 }
 
@@ -67,9 +56,7 @@
   gap: 20px;
   min-height: 178px;
   padding: 30px 4px;
-  border-bottom:
-    1px solid
-    rgb(255 255 255 / 14%);
+  border-bottom: 1px solid rgb(255 255 255 / 14%);
 
   transition:
     padding 190ms ease,
@@ -79,27 +66,22 @@
 .sport-process__step:hover {
   padding-right: 18px;
   padding-left: 18px;
-  background:
-    rgb(255 255 255 / 4%);
+  background: rgb(255 255 255 / 4%);
 }
 
 .sport-process__number {
   color: var(--color-accent);
-  font-size: .78rem;
+  font-size: 0.78rem;
   font-weight: 850;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
 }
 
 .sport-process__step h3 {
   max-width: 520px;
   margin: 0;
-  font-size: clamp(
-    1.2rem,
-    1.55vw,
-    1.5rem
-  );
+  font-size: clamp(1.2rem, 1.55vw, 1.5rem);
   line-height: 1.2;
-  letter-spacing: -.025em;
+  letter-spacing: -0.025em;
 }
 
 .sport-process__step p {
@@ -131,17 +113,13 @@
 }
 
 .sport-process__deadline-value strong {
-  font-size: clamp(
-    3.5rem,
-    5vw,
-    5.5rem
-  );
-  line-height: .8;
-  letter-spacing: -.07em;
+  font-size: clamp(3.5rem, 5vw, 5.5rem);
+  line-height: 0.8;
+  letter-spacing: -0.07em;
 }
 
 .sport-process__deadline-value span {
-  font-size: .88rem;
+  font-size: 0.88rem;
   font-weight: 800;
   text-transform: uppercase;
 }

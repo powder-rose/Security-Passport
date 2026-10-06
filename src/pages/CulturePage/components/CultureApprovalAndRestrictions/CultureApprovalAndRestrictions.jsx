@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { cultureApprovalItems } from "../../culturePageData";
+import { cultureApprovalItems } from '../../culturePageData';
 
 export default function CultureApprovalAndRestrictions() {
   return (
@@ -11,13 +11,10 @@ export default function CultureApprovalAndRestrictions() {
             <div className="culture-approval__heading">
               <p className="culture-kicker">Согласование</p>
 
-              <h2>
-                С кем согласовывается паспорт безопасности объекта культуры
-              </h2>
+              <h2>С кем согласовывается паспорт безопасности объекта культуры</h2>
 
               <p>
-                ПП РФ №176 устанавливает конкретный порядок согласования после
-                составления паспорта.
+                ПП РФ №176 устанавливает конкретный порядок согласования после составления паспорта.
               </p>
             </div>
 
@@ -30,7 +27,7 @@ export default function CultureApprovalAndRestrictions() {
             </div>
 
             <div className="culture-approval__items">
-              {cultureApprovalItems.map((item) => (
+              {cultureApprovalItems.map(item => (
                 <article key={item.number}>
                   <span>{item.number}</span>
 
@@ -49,10 +46,7 @@ export default function CultureApprovalAndRestrictions() {
 
                 <strong>Хранится на объекте</strong>
 
-                <p>
-                  Первый экземпляр паспорта безопасности хранится на объекте или
-                  территории.
-                </p>
+                <p>Первый экземпляр паспорта безопасности хранится на объекте или территории.</p>
               </div>
 
               <div>
@@ -60,10 +54,7 @@ export default function CultureApprovalAndRestrictions() {
 
                 <strong>Вышестоящая организация</strong>
 
-                <p>
-                  Второй экземпляр направляется в вышестоящую организацию в
-                  сфере культуры.
-                </p>
+                <p>Второй экземпляр направляется в вышестоящую организацию в сфере культуры.</p>
               </div>
 
               <div>
@@ -72,16 +63,16 @@ export default function CultureApprovalAndRestrictions() {
                 <strong>Предусмотренные органы</strong>
 
                 <p>
-                  Копия или электронная копия направляется в предусмотренные ПП
-                  РФ №176 территориальные органы.
+                  Копия или электронная копия направляется в предусмотренные ПП РФ №176
+                  территориальные органы.
                 </p>
               </div>
             </div>
 
             <div className="culture-approval__action">
               <p>
-                Можем подготовить документ к установленной процедуре и
-                сопровождать работу по обоснованным замечаниям.
+                Можем подготовить документ к установленной процедуре и сопровождать работу по
+                обоснованным замечаниям.
               </p>
 
               <a className="button button--primary" href="#contact">
@@ -104,15 +95,12 @@ export default function CultureApprovalAndRestrictions() {
             <div className="culture-restricted__content">
               <p className="culture-kicker">Ограниченное распространение</p>
 
-              <h2>
-                Паспорт безопасности объекта культуры — не публичный документ
-              </h2>
+              <h2>Паспорт безопасности объекта культуры — не публичный документ</h2>
 
               <p className="culture-restricted__lead">
-                ПП РФ №176 устанавливает, что паспорт безопасности содержит
-                служебную информацию ограниченного распространения и имеет
-                пометку «Для служебного пользования», если ему не присваивается
-                гриф секретности.
+                ПП РФ №176 устанавливает, что паспорт безопасности содержит служебную информацию
+                ограниченного распространения и имеет пометку «Для служебного пользования», если ему
+                не присваивается гриф секретности.
               </p>
 
               <div className="culture-restricted__warning">
@@ -123,22 +111,17 @@ export default function CultureApprovalAndRestrictions() {
 
                   <li>схемы и конкретные сведения о системе защиты;</li>
 
-                  <li>
-                    сведения о потенциально опасных участках и критических
-                    элементах;
-                  </li>
+                  <li>сведения о потенциально опасных участках и критических элементах;</li>
 
                   <li>
-                    иные чувствительные сведения об антитеррористической
-                    защищённости объекта.
+                    иные чувствительные сведения об антитеррористической защищённости объекта.
                   </li>
                 </ul>
               </div>
 
               <p className="culture-restricted__sample">
-                Поэтому в блоке с образцом на этой странице будем использовать
-                официальную форму и обезличенную структуру документа, а не
-                заполненный паспорт реального учреждения.
+                Поэтому в блоке с образцом на этой странице будем использовать официальную форму и
+                обезличенную структуру документа, а не заполненный паспорт реального учреждения.
               </p>
             </div>
           </div>

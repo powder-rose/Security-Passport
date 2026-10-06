@@ -15,7 +15,7 @@
 .education-current__layout {
   display: grid;
   grid-template-columns:
-    minmax(250px, .42fr)
+    minmax(250px, 0.42fr)
     minmax(0, 1fr);
   gap: clamp(56px, 9vw, 150px);
   align-items: start;
@@ -29,9 +29,9 @@
 .education-current__year > span {
   display: block;
   color: var(--color-accent);
-  font-size: .76rem;
+  font-size: 0.76rem;
   font-weight: 800;
-  letter-spacing: .1em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -39,8 +39,8 @@
   display: block;
   margin-top: 24px;
   font-size: clamp(5.5rem, 11vw, 10rem);
-  line-height: .8;
-  letter-spacing: -.09em;
+  line-height: 0.8;
+  letter-spacing: -0.09em;
 }
 
 .education-current__content {
@@ -58,7 +58,7 @@
 .education-current__standard {
   display: grid;
   grid-template-columns:
-    minmax(230px, .6fr)
+    minmax(230px, 0.6fr)
     minmax(0, 1fr);
   gap: 38px;
   margin-top: 48px;
@@ -70,9 +70,9 @@
 
 .education-current__standard span {
   color: var(--color-accent);
-  font-size: .76rem;
+  font-size: 0.76rem;
   font-weight: 800;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -80,7 +80,7 @@
   margin: 18px 0 0;
   font-size: clamp(1.65rem, 2.3vw, 2.35rem);
   line-height: 1.05;
-  letter-spacing: -.04em;
+  letter-spacing: -0.04em;
 }
 
 .education-current__standard > p {

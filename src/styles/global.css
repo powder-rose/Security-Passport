@@ -75,9 +75,9 @@ footer[id] {
   padding: 12px 18px;
   border-radius: 999px;
   transition:
-    transform .2s ease,
-    background .2s ease,
-    color .2s ease;
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
 }
 
 .button:hover {
@@ -138,8 +138,8 @@ footer[id] {
   *,
   *::before,
   *::after {
-    animation-duration: .01ms !important;
+    animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: .01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

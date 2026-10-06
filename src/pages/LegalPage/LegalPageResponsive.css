@@ -12,7 +12,7 @@
 
   .legal-header__back {
     padding: 9px 11px;
-    font-size: .75rem;
+    font-size: 0.75rem;
   }
 
   .legal-header__mark {
@@ -21,13 +21,11 @@
   }
 
   .legal-hero h1 {
-    font-size:
-      clamp(2.45rem, 13vw, 4.25rem);
+    font-size: clamp(2.45rem, 13vw, 4.25rem);
   }
 
   .legal-document {
-    padding:
-      28px 20px 36px;
+    padding: 28px 20px 36px;
     border-radius: 20px;
   }
 

@@ -263,7 +263,7 @@
   width: 4px;
   border-radius: 0 999px 999px 0;
   background: var(--trade-accent);
-  content: "";
+  content: '';
 }
 
 .trade-change__edition strong {

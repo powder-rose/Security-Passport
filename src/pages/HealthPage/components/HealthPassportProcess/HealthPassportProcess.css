@@ -70,7 +70,7 @@
 
   background: var(--color-border);
 
-  content: "";
+  content: '';
 }
 
 .health-process__steps li {
@@ -241,7 +241,7 @@
 
   background: var(--health-accent);
 
-  content: "";
+  content: '';
 }
 
 .health-approval__term > span {

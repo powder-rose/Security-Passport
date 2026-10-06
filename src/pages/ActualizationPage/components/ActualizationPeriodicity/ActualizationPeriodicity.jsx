@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { periodicityItems } from "../../actualizationPageData";
+import { periodicityItems } from '../../actualizationPageData';
 
 export default function ActualizationPeriodicity() {
   return (
@@ -13,8 +13,8 @@ export default function ActualizationPeriodicity() {
             <h2>Как часто нужно актуализировать паспорт безопасности</h2>
 
             <p>
-              Единого срока для всех паспортов безопасности нет. Периодичность
-              устанавливается требованиями для конкретного вида объекта.
+              Единого срока для всех паспортов безопасности нет. Периодичность устанавливается
+              требованиями для конкретного вида объекта.
             </p>
           </div>
 
@@ -35,8 +35,8 @@ export default function ActualizationPeriodicity() {
               <strong>Внепланово</strong>
 
               <p>
-                Актуализация также может требоваться при предусмотренных
-                нормативными требованиями изменениях.
+                Актуализация также может требоваться при предусмотренных нормативными требованиями
+                изменениях.
               </p>
             </article>
           </div>
@@ -45,7 +45,7 @@ export default function ActualizationPeriodicity() {
             {periodicityItems.map((item, index) => (
               <article className="actualization-period" key={item.type}>
                 <span className="actualization-period__number">
-                  {String(index + 1).padStart(2, "0")}
+                  {String(index + 1).padStart(2, '0')}
                 </span>
 
                 <div className="actualization-period__name">
@@ -62,9 +62,9 @@ export default function ActualizationPeriodicity() {
           </div>
 
           <p className="actualization-periods__note">
-            Это не полный перечень видов объектов. Для гостиниц, объектов
-            спорта, социальной защиты и других категорий применяются собственные
-            требования, которые необходимо проверять отдельно.
+            Это не полный перечень видов объектов. Для гостиниц, объектов спорта, социальной защиты
+            и других категорий применяются собственные требования, которые необходимо проверять
+            отдельно.
           </p>
         </Container>
       </section>

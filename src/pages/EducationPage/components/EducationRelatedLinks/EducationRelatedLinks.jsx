@@ -1,4 +1,4 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
 export default function EducationRelatedLinks() {
   return (
@@ -11,10 +11,7 @@ export default function EducationRelatedLinks() {
             <h2>Документы и этапы, связанные с паспортом</h2>
           </div>
 
-          <nav
-            className="education-related__links"
-            aria-label="Связанные услуги"
-          >
+          <nav className="education-related__links" aria-label="Связанные услуги">
             <a href="/">
               <span>Паспорт безопасности объекта</span>
 

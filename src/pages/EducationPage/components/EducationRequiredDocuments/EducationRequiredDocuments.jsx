@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { educationSourceData } from "../../educationPageData";
+import { educationSourceData } from '../../educationPageData';
 
 export default function EducationRequiredDocuments() {
   return (
@@ -14,23 +14,22 @@ export default function EducationRequiredDocuments() {
               <h2>Что желательно подготовить образовательной организации</h2>
 
               <p>
-                На старте нужны основные сведения, позволяющие определить
-                применимые требования и понять текущее состояние документов по
-                объекту.
+                На старте нужны основные сведения, позволяющие определить применимые требования и
+                понять текущее состояние документов по объекту.
               </p>
 
               <aside className="education-source-data__note">
                 <span aria-hidden="true">✓</span>
 
                 <p>
-                  Точный перечень уточняем после идентификации конкретного
-                  объекта и его нормативного режима.
+                  Точный перечень уточняем после идентификации конкретного объекта и его
+                  нормативного режима.
                 </p>
               </aside>
             </div>
 
             <ol className="education-source-data__list">
-              {educationSourceData.map((item) => (
+              {educationSourceData.map(item => (
                 <li className="education-source-data__item" key={item.number}>
                   <span>{item.number}</span>
 

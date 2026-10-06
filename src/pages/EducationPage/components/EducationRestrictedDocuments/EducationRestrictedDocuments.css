@@ -11,7 +11,7 @@
 .education-restricted__layout {
   display: grid;
   grid-template-columns:
-    minmax(220px, .38fr)
+    minmax(220px, 0.38fr)
     minmax(0, 1fr);
   gap: clamp(50px, 8vw, 130px);
   align-items: start;
@@ -21,8 +21,8 @@
   color: var(--color-accent);
   font-size: clamp(6rem, 13vw, 12rem);
   font-weight: 900;
-  line-height: .8;
-  letter-spacing: -.09em;
+  line-height: 0.8;
+  letter-spacing: -0.09em;
 }
 
 .education-restricted .education-kicker {
@@ -54,7 +54,7 @@
   max-width: 660px;
   font-size: clamp(1.35rem, 2vw, 1.9rem);
   line-height: 1.2;
-  letter-spacing: -.03em;
+  letter-spacing: -0.03em;
 }
 
 .education-restricted__rule p {

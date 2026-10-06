@@ -6,20 +6,11 @@ dotenv.config({
   path: process.env.SERVER_ENV_FILE || '.env.server',
 });
 
-const {
-  getStatistics,
-  STAT_PERIODS,
-} = await import('../server/statistics.mjs');
+const { getStatistics, STAT_PERIODS } = await import('../server/statistics.mjs');
 
+const REPORT_EMAIL = process.env.DAILY_REPORT_EMAIL || 'mail@pasport-bezopasnosty.ru';
 
-const REPORT_EMAIL =
-  process.env.DAILY_REPORT_EMAIL ||
-  'mail@pasport-bezopasnosty.ru';
-
-const FROM_EMAIL =
-  process.env.LEAD_EMAIL_FROM ||
-  process.env.SMTP_USER ||
-  '';
+const FROM_EMAIL = process.env.LEAD_EMAIL_FROM || process.env.SMTP_USER || '';
 
 function escapeHtml(value) {
   return String(value ?? '')
@@ -30,13 +21,9 @@ function escapeHtml(value) {
     .replaceAll("'", '&#039;');
 }
 
-
 function formatNumber(value) {
-  return new Intl.NumberFormat('ru-RU').format(
-    Number(value) || 0,
-  );
+  return new Intl.NumberFormat('ru-RU').format(Number(value) || 0);
 }
-
 
 function formatPercent(value, visits) {
   if (!visits) return '—';
@@ -49,7 +36,6 @@ function formatPercent(value, visits) {
   );
 }
 
-
 function formatDate(value) {
   return new Intl.DateTimeFormat('ru-RU', {
     timeZone: 'Europe/Moscow',
@@ -59,36 +45,21 @@ function formatDate(value) {
   }).format(new Date(value));
 }
 
-
 function getPeriodEndDate(period) {
-  return new Date(
-    new Date(period.range.end).getTime() - 1,
-  );
+  return new Date(new Date(period.range.end).getTime() - 1);
 }
-
 
 function periodRangeText(period) {
-  const start =
-    formatDate(period.range.start);
+  const start = formatDate(period.range.start);
 
-  const end =
-    formatDate(
-      getPeriodEndDate(period),
-    );
+  const end = formatDate(getPeriodEndDate(period));
 
-  return start === end
-    ? start
-    : `${start} — ${end}`;
+  return start === end ? start : `${start} — ${end}`;
 }
-
 
 function getActiveRows(period) {
   return period.rows
-    .filter(
-      (row) =>
-        Number(row.visits) > 0 ||
-        Number(row.leads) > 0,
-    )
+    .filter(row => Number(row.visits) > 0 || Number(row.leads) > 0)
     .sort((a, b) => {
       if (b.leads !== a.leads) {
         return b.leads - a.leads;
@@ -102,13 +73,9 @@ function getActiveRows(period) {
         return b.conversion - a.conversion;
       }
 
-      return a.name.localeCompare(
-        b.name,
-        'ru',
-      );
+      return a.name.localeCompare(b.name, 'ru');
     });
 }
-
 
 function buildRowsHtml(rows) {
   if (!rows.length) {
@@ -129,7 +96,9 @@ function buildRowsHtml(rows) {
     `;
   }
 
-  return rows.map((row) => `
+  return rows
+    .map(
+      row => `
     <tr>
       <td style="
         padding:10px 12px;
@@ -160,26 +129,19 @@ function buildRowsHtml(rows) {
         border-bottom:1px solid #e7e7e7;
         text-align:right;
       ">
-        ${formatPercent(
-          row.conversion,
-          row.visits,
-        )}
+        ${formatPercent(row.conversion, row.visits)}
       </td>
     </tr>
-  `).join('');
+  `,
+    )
+    .join('');
 }
 
-
 function buildOverviewHtml(statistics) {
-  const rows =
-    STAT_PERIODS
-      .map((definition) => {
-        const period =
-          statistics.periods[
-            definition.key
-          ];
+  const rows = STAT_PERIODS.map(definition => {
+    const period = statistics.periods[definition.key];
 
-        return `
+    return `
           <tr>
             <td style="
               padding:14px 12px;
@@ -200,9 +162,7 @@ function buildOverviewHtml(statistics) {
                 font-size:10px;
                 line-height:1.4;
               ">
-                ${escapeHtml(
-                  periodRangeText(period),
-                )}
+                ${escapeHtml(periodRangeText(period))}
               </div>
             </td>
 
@@ -213,9 +173,7 @@ function buildOverviewHtml(statistics) {
               vertical-align:top;
               font-weight:700;
             ">
-              ${formatNumber(
-                period.totals.visits,
-              )}
+              ${formatNumber(period.totals.visits)}
             </td>
 
             <td style="
@@ -226,9 +184,7 @@ function buildOverviewHtml(statistics) {
               font-weight:700;
               color:#1260ff;
             ">
-              ${formatNumber(
-                period.totals.leads,
-              )}
+              ${formatNumber(period.totals.leads)}
             </td>
 
             <td style="
@@ -238,15 +194,11 @@ function buildOverviewHtml(statistics) {
               vertical-align:top;
               font-weight:700;
             ">
-              ${formatPercent(
-                period.totals.conversion,
-                period.totals.visits,
-              )}
+              ${formatPercent(period.totals.conversion, period.totals.visits)}
             </td>
           </tr>
         `;
-      })
-      .join('');
+  }).join('');
 
   return `
     <div style="
@@ -330,10 +282,8 @@ function buildOverviewHtml(statistics) {
   `;
 }
 
-
 function buildPeriodHtml(period) {
-  const activeRows =
-    getActiveRows(period);
+  const activeRows = getActiveRows(period);
 
   return `
     <div style="
@@ -357,9 +307,7 @@ function buildPeriodHtml(period) {
         font-size:12px;
         margin-bottom:14px;
       ">
-        ${escapeHtml(
-          periodRangeText(period),
-        )}
+        ${escapeHtml(periodRangeText(period))}
       </div>
 
       <div style="
@@ -422,9 +370,7 @@ function buildPeriodHtml(period) {
         </thead>
 
         <tbody>
-          ${buildRowsHtml(
-            activeRows,
-          )}
+          ${buildRowsHtml(activeRows)}
         </tbody>
       </table>
 
@@ -432,180 +378,81 @@ function buildPeriodHtml(period) {
   `;
 }
 
-
 function buildText(statistics) {
-  const lines = [
-    'Статистика pasport-bezopasnosty.ru',
-    '',
-    'ОБЩАЯ СТАТИСТИКА',
-    '',
-  ];
+  const lines = ['Статистика pasport-bezopasnosty.ru', '', 'ОБЩАЯ СТАТИСТИКА', ''];
 
-  for (
-    const definition
-    of STAT_PERIODS
-  ) {
-    const period =
-      statistics.periods[
-        definition.key
-      ];
+  for (const definition of STAT_PERIODS) {
+    const period = statistics.periods[definition.key];
 
     lines.push(
-      `${period.label}: `
-      + `${formatNumber(
-        period.totals.visits,
-      )} посещений, `
-      + `${formatNumber(
-        period.totals.leads,
-      )} заявок, `
-      + `${formatPercent(
-        period.totals.conversion,
-        period.totals.visits,
-      )}`,
+      `${period.label}: ` +
+        `${formatNumber(period.totals.visits)} посещений, ` +
+        `${formatNumber(period.totals.leads)} заявок, ` +
+        `${formatPercent(period.totals.conversion, period.totals.visits)}`,
     );
   }
 
-  lines.push(
-    '',
-    '==============================',
-    '',
-    'ФЕДЕРАЛЬНАЯ СТАТИСТИКА',
-    '',
-  );
+  lines.push('', '==============================', '', 'ФЕДЕРАЛЬНАЯ СТАТИСТИКА', '');
 
-  for (
-    const definition
-    of STAT_PERIODS
-  ) {
-    const period =
-      statistics.periods[
-        definition.key
-      ];
+  for (const definition of STAT_PERIODS) {
+    const period = statistics.periods[definition.key];
 
-    const activeRows =
-      getActiveRows(period);
+    const activeRows = getActiveRows(period);
 
-    lines.push(
-      period.label.toUpperCase(),
-      periodRangeText(period),
-      '',
-    );
+    lines.push(period.label.toUpperCase(), periodRangeText(period), '');
 
     if (!activeRows.length) {
-      lines.push(
-        'Россия: активности нет',
-      );
-    }
-    else {
-      for (
-        const row
-        of activeRows
-      ) {
+      lines.push('Россия: активности нет');
+    } else {
+      for (const row of activeRows) {
         lines.push(
-          `${row.name}: `
-          + `${formatNumber(
-            row.visits,
-          )} посещений, `
-          + `${formatNumber(
-            row.leads,
-          )} заявок, `
-          + `${formatPercent(
-            row.conversion,
-            row.visits,
-          )}`,
+          `${row.name}: ` +
+            `${formatNumber(row.visits)} посещений, ` +
+            `${formatNumber(row.leads)} заявок, ` +
+            `${formatPercent(row.conversion, row.visits)}`,
         );
       }
     }
 
-    lines.push(
-      '',
-      '--------------------',
-      '',
-    );
+    lines.push('', '--------------------', '');
   }
 
   return lines.join('\n');
 }
 
-
 function csvCell(value) {
-  const text =
-    String(value ?? '');
+  const text = String(value ?? '');
 
-  if (
-    text.includes(';') ||
-    text.includes('"') ||
-    text.includes('\n')
-  ) {
+  if (text.includes(';') || text.includes('"') || text.includes('\n')) {
     return `"${text.replaceAll('"', '""')}"`;
   }
 
   return text;
 }
 
-
 function buildCsv(statistics) {
-  const rows = [
-    [
-      'Период',
-      'Начало',
-      'Окончание',
-      'Сайт',
-      'Посещения',
-      'Заявки',
-      'Конверсия',
-    ],
-  ];
+  const rows = [['Период', 'Начало', 'Окончание', 'Сайт', 'Посещения', 'Заявки', 'Конверсия']];
 
-  for (
-    const definition
-    of STAT_PERIODS
-  ) {
-    const period =
-      statistics.periods[
-        definition.key
-      ];
+  for (const definition of STAT_PERIODS) {
+    const period = statistics.periods[definition.key];
 
-    const federalRow =
-      period.rows?.[0] || {
-        name: 'Россия',
-      };
+    const federalRow = period.rows?.[0] || {
+      name: 'Россия',
+    };
 
     rows.push([
       period.label,
-      formatDate(
-        period.range.start,
-      ),
-      formatDate(
-        getPeriodEndDate(
-          period,
-        ),
-      ),
+      formatDate(period.range.start),
+      formatDate(getPeriodEndDate(period)),
       federalRow.name || 'Россия',
       period.totals.visits,
       period.totals.leads,
-      formatPercent(
-        period.totals.conversion,
-        period.totals.visits,
-      ),
+      formatPercent(period.totals.conversion, period.totals.visits),
     ]);
   }
 
-  return (
-    '\uFEFF' +
-    rows
-      .map(
-        (row) =>
-          row
-            .map(
-              csvCell,
-            )
-            .join(';'),
-      )
-      .join('\r\n')
-  );
+  return '\uFEFF' + rows.map(row => row.map(csvCell).join(';')).join('\r\n');
 }
-
 
 function buildHtml(statistics) {
   return `
@@ -704,18 +551,9 @@ function buildHtml(statistics) {
           </div>
 
 
-          ${
-            STAT_PERIODS
-              .map(
-                (definition) =>
-                  buildPeriodHtml(
-                    statistics.periods[
-                      definition.key
-                    ],
-                  ),
-              )
-              .join('')
-          }
+          ${STAT_PERIODS.map(definition =>
+            buildPeriodHtml(statistics.periods[definition.key]),
+          ).join('')}
 
 
           <div style="
@@ -738,35 +576,23 @@ function buildHtml(statistics) {
   `;
 }
 
-
 function createTransport() {
-  const host =
-    process.env.SMTP_HOST;
+  const host = process.env.SMTP_HOST;
 
-  const user =
-    process.env.SMTP_USER;
+  const user = process.env.SMTP_USER;
 
-  const pass =
-    process.env.SMTP_PASS;
+  const pass = process.env.SMTP_PASS;
 
   if (!host || !user || !pass) {
-    throw new Error(
-      'SMTP не настроен: проверьте SMTP_HOST, SMTP_USER и SMTP_PASS',
-    );
+    throw new Error('SMTP не настроен: проверьте SMTP_HOST, SMTP_USER и SMTP_PASS');
   }
 
   return nodemailer.createTransport({
     host,
 
-    port: Number(
-      process.env.SMTP_PORT || 465,
-    ),
+    port: Number(process.env.SMTP_PORT || 465),
 
-    secure:
-      String(
-        process.env.SMTP_SECURE ??
-        'true',
-      ).toLowerCase() === 'true',
+    secure: String(process.env.SMTP_SECURE ?? 'true').toLowerCase() === 'true',
 
     auth: {
       user,
@@ -775,89 +601,52 @@ function createTransport() {
   });
 }
 
+const statistics = await getStatistics();
 
-const statistics =
-  await getStatistics();
+const dayPeriod = statistics.periods.day;
 
-const dayPeriod =
-  statistics.periods.day;
+const reportDate = formatDate(getPeriodEndDate(dayPeriod));
 
-const reportDate =
-  formatDate(
-    getPeriodEndDate(dayPeriod),
-  );
+const fileDate = reportDate.split('.').reverse().join('-');
 
-const fileDate =
-  reportDate
-    .split('.')
-    .reverse()
-    .join('-');
-
-const transport =
-  createTransport();
-
+const transport = createTransport();
 
 await transport.sendMail({
   from: FROM_EMAIL,
   to: REPORT_EMAIL,
 
-  subject:
-    `Статистика pasport-bezopasnosty.ru — ${reportDate}`,
+  subject: `Статистика pasport-bezopasnosty.ru — ${reportDate}`,
 
-  text:
-    buildText(statistics),
+  text: buildText(statistics),
 
-  html:
-    buildHtml(statistics),
+  html: buildHtml(statistics),
 
   attachments: [
     {
-      filename:
-        `statistics-${fileDate}.csv`,
+      filename: `statistics-${fileDate}.csv`,
 
-      content:
-        buildCsv(statistics),
+      content: buildCsv(statistics),
 
-      contentType:
-        'text/csv; charset=utf-8',
+      contentType: 'text/csv; charset=utf-8',
     },
   ],
 });
 
+console.log(`✓ Отчёт отправлен: ${REPORT_EMAIL}`);
 
-console.log(
-  `✓ Отчёт отправлен: ${REPORT_EMAIL}`,
-);
+console.log(`✓ Отчётная дата: ${reportDate}`);
 
-console.log(
-  `✓ Отчётная дата: ${reportDate}`,
-);
+console.log('✓ Федеральный сайт: Россия');
 
-console.log(
-  '✓ Федеральный сайт: Россия',
-);
+console.log('✓ Полная статистика приложена в CSV');
 
-console.log(
-  '✓ Полная статистика приложена в CSV',
-);
-
-
-for (
-  const definition
-  of STAT_PERIODS
-) {
-  const period =
-    statistics.periods[
-      definition.key
-    ];
+for (const definition of STAT_PERIODS) {
+  const period = statistics.periods[definition.key];
 
   console.log(
-    `${period.label}: `
-    + `${period.totals.visits} посещений, `
-    + `${period.totals.leads} заявок, `
-    + `${formatPercent(
-      period.totals.conversion,
-      period.totals.visits,
-    )}`,
+    `${period.label}: ` +
+      `${period.totals.visits} посещений, ` +
+      `${period.totals.leads} заявок, ` +
+      `${formatPercent(period.totals.conversion, period.totals.visits)}`,
   );
 }

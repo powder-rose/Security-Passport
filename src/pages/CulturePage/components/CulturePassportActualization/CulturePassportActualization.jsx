@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { cultureActualizationReasons } from "../../culturePageData";
+import { cultureActualizationReasons } from '../../culturePageData';
 
 export default function CulturePassportActualization() {
   return (
@@ -39,11 +39,8 @@ export default function CulturePassportActualization() {
                 Актуализация требуется также при изменении
               </p>
 
-              {cultureActualizationReasons.map((item) => (
-                <article
-                  className="culture-actualization__reason"
-                  key={item.number}
-                >
+              {cultureActualizationReasons.map(item => (
+                <article className="culture-actualization__reason" key={item.number}>
                   <span>{item.number}</span>
 
                   <div>
@@ -57,18 +54,16 @@ export default function CulturePassportActualization() {
 
             <aside className="culture-actualization__aside">
               <div>
-                <span className="culture-actualization__aside-kicker">
-                  После актуализации
-                </span>
+                <span className="culture-actualization__aside-kicker">После актуализации</span>
 
                 <p>
-                  Изменения заверяются подписью руководителя организации в сфере
-                  культуры — правообладателя объекта.
+                  Изменения заверяются подписью руководителя организации в сфере культуры —
+                  правообладателя объекта.
                 </p>
 
                 <p>
-                  После завершения актуализации паспорт снова направляется на
-                  предусмотренное согласование.
+                  После завершения актуализации паспорт снова направляется на предусмотренное
+                  согласование.
                 </p>
               </div>
 

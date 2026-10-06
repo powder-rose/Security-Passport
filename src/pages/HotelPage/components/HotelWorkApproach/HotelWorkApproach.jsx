@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { hotelWhyItems } from "../../hotelPageData";
+import { hotelWhyItems } from '../../hotelPageData';
 
 export default function HotelWorkApproach() {
   return (
@@ -15,15 +15,14 @@ export default function HotelWorkApproach() {
             </div>
 
             <p>
-              Для гостиницы важно не просто заполнить форму, а правильно пройти
-              всю последовательность: определить применимые требования, провести
-              категорирование и подготовить паспорт к предусмотренному
-              согласованию.
+              Для гостиницы важно не просто заполнить форму, а правильно пройти всю
+              последовательность: определить применимые требования, провести категорирование и
+              подготовить паспорт к предусмотренному согласованию.
             </p>
           </div>
 
           <div className="hotel-why__grid">
-            {hotelWhyItems.map((item) => (
+            {hotelWhyItems.map(item => (
               <article className="hotel-why__item" key={item.number}>
                 <span className="hotel-why__number">{item.number}</span>
 

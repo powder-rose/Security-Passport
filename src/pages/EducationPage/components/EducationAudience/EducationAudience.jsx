@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { educationAudienceItems } from "../../educationPageData";
+import { educationAudienceItems } from '../../educationPageData';
 
 export default function EducationAudience() {
   return (
@@ -15,15 +15,14 @@ export default function EducationAudience() {
             </div>
 
             <p>
-              Для школы, детского сада, колледжа и иной образовательной
-              организации сначала определяется нормативный режим конкретного
-              объекта, после чего проводится категорирование и оформляется
-              предусмотренный комплект документов.
+              Для школы, детского сада, колледжа и иной образовательной организации сначала
+              определяется нормативный режим конкретного объекта, после чего проводится
+              категорирование и оформляется предусмотренный комплект документов.
             </p>
           </div>
 
           <div className="education-audience__list">
-            {educationAudienceItems.map((item) => (
+            {educationAudienceItems.map(item => (
               <article className="education-audience__item" key={item.number}>
                 <span>{item.number}</span>
 

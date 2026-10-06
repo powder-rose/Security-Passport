@@ -10,7 +10,7 @@
 .hotel-form__layout {
   display: grid;
   grid-template-columns:
-    minmax(0, .82fr)
+    minmax(0, 0.82fr)
     minmax(420px, 1.18fr);
   gap: clamp(60px, 9vw, 150px);
   align-items: center;
@@ -22,8 +22,7 @@
 
 .hotel-form__lead {
   margin: 30px 0 0;
-  font-size:
-    clamp(19px, 1.65vw, 24px);
+  font-size: clamp(19px, 1.65vw, 24px);
   line-height: 1.5;
 }
 
@@ -31,7 +30,7 @@
   margin: 18px 0 0;
   font-size: 16px;
   line-height: 1.65;
-  opacity: .68;
+  opacity: 0.68;
 }
 
 .hotel-form__action {
@@ -46,8 +45,7 @@
   font-size: 14px;
   font-weight: 800;
   text-decoration: none;
-  transition:
-    transform .2s ease;
+  transition: transform 0.2s ease;
 }
 
 .hotel-form__action:hover {
@@ -55,22 +53,19 @@
 }
 
 .hotel-form__action span {
-  transition: transform .2s ease;
+  transition: transform 0.2s ease;
 }
 
 .hotel-form__action:hover span {
-  transform:
-    translate(3px, -3px);
+  transform: translate(3px, -3px);
 }
 
 .hotel-form__document {
   overflow: hidden;
-  border:
-    1px solid rgb(21 21 21 / 13%);
+  border: 1px solid rgb(21 21 21 / 13%);
   border-radius: 28px;
   background: #f7f7f3;
-  box-shadow:
-    0 30px 70px rgb(0 0 0 / 7%);
+  box-shadow: 0 30px 70px rgb(0 0 0 / 7%);
 }
 
 .hotel-form__document-top {
@@ -79,14 +74,13 @@
   align-items: center;
   justify-content: space-between;
   padding: 28px 30px;
-  border-bottom:
-    1px solid rgb(21 21 21 / 12%);
+  border-bottom: 1px solid rgb(21 21 21 / 12%);
 }
 
 .hotel-form__document-top > span {
   font-size: 12px;
   font-weight: 800;
-  letter-spacing: .07em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
 }
 
@@ -102,13 +96,11 @@
 
 .hotel-form__structure li {
   display: grid;
-  grid-template-columns:
-    44px minmax(0, 1fr);
+  grid-template-columns: 44px minmax(0, 1fr);
   gap: 18px;
   align-items: center;
   padding: 18px 0;
-  border-bottom:
-    1px solid rgb(21 21 21 / 11%);
+  border-bottom: 1px solid rgb(21 21 21 / 11%);
 }
 
 .hotel-form__structure li > span {

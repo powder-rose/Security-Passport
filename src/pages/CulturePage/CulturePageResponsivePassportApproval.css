@@ -32,8 +32,7 @@
   .culture-approval__distribution > div {
     min-height: 0;
     border-right: 0;
-    border-bottom:
-      1px solid rgb(255 255 255 / 15%);
+    border-bottom: 1px solid rgb(255 255 255 / 15%);
   }
 
   .culture-restricted__mark {
@@ -60,8 +59,7 @@
   }
 
   .culture-passport__process li {
-    grid-template-columns:
-      48px minmax(0, 1fr);
+    grid-template-columns: 48px minmax(0, 1fr);
     gap: 12px 18px;
   }
 
@@ -94,8 +92,7 @@
   }
 
   .culture-passport__process li {
-    grid-template-columns:
-      38px minmax(0, 1fr);
+    grid-template-columns: 38px minmax(0, 1fr);
   }
 
   .culture-passport__process li:hover {
@@ -124,8 +121,7 @@
   .culture-approval__items article,
   .culture-approval__distribution > div,
   .culture-approval__action {
-    padding:
-      26px 24px;
+    padding: 26px 24px;
   }
 
   .culture-approval__items article {

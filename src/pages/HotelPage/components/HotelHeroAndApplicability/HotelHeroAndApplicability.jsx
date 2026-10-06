@@ -1,10 +1,8 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { heroFacts } from "../../hotelPageData";
+import { heroFacts } from '../../hotelPageData';
 
-export default function HotelHeroAndApplicability({
-  objectType,
-}) {
+export default function HotelHeroAndApplicability({ objectType }) {
   return (
     <>
       <section className="hotel-hero">
@@ -19,19 +17,13 @@ export default function HotelHeroAndApplicability({
 
           <div className="hotel-hero__layout">
             <div className="hotel-hero__content">
-              <p className="hotel-kicker">
-                Антитеррористическая защищённость средств размещения
-              </p>
+              <p className="hotel-kicker">Антитеррористическая защищённость средств размещения</p>
 
               <h1>{objectType.h1}</h1>
 
               <p className="hotel-hero__lead">
-                {objectType.pageLead}
-                {" "}
-                <span className="coverage-emphasis">
-                  Работаем по всей России
-                </span>
-                .
+                {objectType.pageLead}{' '}
+                <span className="coverage-emphasis">Работаем по всей России</span>.
               </p>
 
               <div className="hotel-hero__commercial">
@@ -64,7 +56,7 @@ export default function HotelHeroAndApplicability({
               <div className="hotel-hero__panel-list">
                 {heroFacts.map((item, index) => (
                   <div className="hotel-hero__panel-item" key={item}>
-                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <span>{String(index + 1).padStart(2, '0')}</span>
 
                     <p>{item}</p>
                   </div>
@@ -86,16 +78,14 @@ export default function HotelHeroAndApplicability({
 
             <div className="hotel-check__content">
               <p className="hotel-check__lead">
-                Постановление Правительства РФ от 13.04.2017 №447 устанавливает
-                требования к антитеррористической защищённости гостиниц и иных
-                средств размещения, включая категорирование и разработку
-                паспорта безопасности.
+                Постановление Правительства РФ от 13.04.2017 №447 устанавливает требования к
+                антитеррористической защищённости гостиниц и иных средств размещения, включая
+                категорирование и разработку паспорта безопасности.
               </p>
 
               <p>
-                Но применять требования только потому, что объект называется
-                гостиницей, неправильно. Для части объектов может действовать
-                иной нормативный режим.
+                Но применять требования только потому, что объект называется гостиницей,
+                неправильно. Для части объектов может действовать иной нормативный режим.
               </p>
 
               <aside className="hotel-check__important">
@@ -105,10 +95,9 @@ export default function HotelHeroAndApplicability({
                   <h3>Сначала проверяем статус объекта</h3>
 
                   <p>
-                    Требования №447, в частности, не применяются к гостиницам,
-                    включённым в перечни мест массового пребывания людей по
-                    Постановлению Правительства РФ №272, а также к отдельным
-                    объектам, для которых установлены специальные требования.
+                    Требования №447, в частности, не применяются к гостиницам, включённым в перечни
+                    мест массового пребывания людей по Постановлению Правительства РФ №272, а также
+                    к отдельным объектам, для которых установлены специальные требования.
                   </p>
                 </div>
               </aside>

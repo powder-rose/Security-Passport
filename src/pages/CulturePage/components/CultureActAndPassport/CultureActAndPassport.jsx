@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { culturePassportProcess } from "../../culturePageData";
+import { culturePassportProcess } from '../../culturePageData';
 
 export default function CultureActAndPassport() {
   return (
@@ -21,8 +21,8 @@ export default function CultureActAndPassport() {
                 <h2>Акт обследования и категорирования объекта культуры</h2>
 
                 <p>
-                  Результаты работы комиссии оформляются актом обследования и
-                  категорирования объекта или территории.
+                  Результаты работы комиссии оформляются актом обследования и категорирования
+                  объекта или территории.
                 </p>
               </div>
 
@@ -75,8 +75,8 @@ export default function CultureActAndPassport() {
 
             <div className="culture-passport__summary">
               <p>
-                На каждый объект или территорию, подпадающие под требования ПП
-                РФ №176, составляется паспорт безопасности.
+                На каждый объект или территорию, подпадающие под требования ПП РФ №176, составляется
+                паспорт безопасности.
               </p>
 
               <div className="culture-passport__copies">
@@ -97,11 +97,9 @@ export default function CultureActAndPassport() {
             </div>
 
             <ol>
-              {culturePassportProcess.map((item) => (
+              {culturePassportProcess.map(item => (
                 <li key={item.number}>
-                  <span className="culture-passport__number">
-                    {item.number}
-                  </span>
+                  <span className="culture-passport__number">{item.number}</span>
 
                   <strong>{item.stage}</strong>
 
@@ -115,9 +113,8 @@ export default function CultureActAndPassport() {
             <span aria-hidden="true">✓</span>
 
             <p>
-              Паспорт составляется комиссией в двух экземплярах, подписывается
-              членами комиссии и утверждается руководителем организации в сфере
-              культуры — правообладателем объекта.
+              Паспорт составляется комиссией в двух экземплярах, подписывается членами комиссии и
+              утверждается руководителем организации в сфере культуры — правообладателем объекта.
             </p>
           </div>
         </Container>

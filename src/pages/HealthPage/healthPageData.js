@@ -1,7 +1,4 @@
-import {
-  getRegulationClaim,
-} from '../../data/regulationClaims';
-
+import { getRegulationClaim } from '../../data/regulationClaims';
 
 export const healthObjects = [
   {
@@ -37,7 +34,6 @@ export const healthObjects = [
     title: 'Иные медицинские объекты',
   },
 ];
-
 
 export const healthFaqItems = [
   {
@@ -97,8 +93,7 @@ export const healthFaqItems = [
     answer: getRegulationClaim('8', 'health.faq.13'),
   },
   {
-    question:
-      'Можно ли публиковать заполненный паспорт?',
+    question: 'Можно ли публиковать заполненный паспорт?',
     answer:
       'Реальный заполненный паспорт, содержащий сведения о защищённости действующего объекта, публично не размещаем. Можно показывать официальную форму, структуру документа и обезличенный пример.',
   },

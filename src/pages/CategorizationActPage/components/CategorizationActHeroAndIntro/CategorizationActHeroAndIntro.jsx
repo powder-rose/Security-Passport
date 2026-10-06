@@ -1,14 +1,11 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
 export default function CategorizationActHeroAndIntro() {
   return (
     <>
       <section className="categorization-act-hero">
         <Container>
-          <nav
-            className="categorization-act-breadcrumbs"
-            aria-label="Хлебные крошки"
-          >
+          <nav className="categorization-act-breadcrumbs" aria-label="Хлебные крошки">
             <a href="/">Главная</a>
 
             <span aria-hidden="true">/</span>
@@ -25,13 +22,9 @@ export default function CategorizationActHeroAndIntro() {
               <h1>Акт обследования и категорирования объекта</h1>
 
               <p className="categorization-act-hero__lead">
-                Подготовим документы для работы комиссии, определим применимые
-                требования и оформим проект акта по результатам обследования и
-                категорирования.{" "}
-                <span className="coverage-emphasis">
-                  Работаем по всей России
-                </span>
-                .
+                Подготовим документы для работы комиссии, определим применимые требования и оформим
+                проект акта по результатам обследования и категорирования.{' '}
+                <span className="coverage-emphasis">Работаем по всей России</span>.
               </p>
 
               <div className="categorization-act-hero__price-row">
@@ -46,10 +39,7 @@ export default function CategorizationActHeroAndIntro() {
                 </a>
               </div>
 
-              <a
-                className="categorization-act-hero__check"
-                href="#who-needs-act"
-              >
+              <a className="categorization-act-hero__check" href="#who-needs-act">
                 Проверить, нужно ли категорирование
                 <span aria-hidden="true">↓</span>
               </a>
@@ -116,23 +106,20 @@ export default function CategorizationActHeroAndIntro() {
 
           <div className="categorization-act-intro__text">
             <p>
-              Категорирование проводится для определения требований к
-              антитеррористической защищённости конкретного объекта с учётом
-              установленных критериев, возможных последствий террористического
-              акта и фактического состояния защищённости.
+              Категорирование проводится для определения требований к антитеррористической
+              защищённости конкретного объекта с учётом установленных критериев, возможных
+              последствий террористического акта и фактического состояния защищённости.
             </p>
 
             <p>
-              Результаты работы комиссии оформляются актом обследования и
-              категорирования либо актом категорирования. Конкретное
-              наименование, форма и содержание документа зависят от требований,
-              распространяющихся на соответствующий тип объекта.
+              Результаты работы комиссии оформляются актом обследования и категорирования либо актом
+              категорирования. Конкретное наименование, форма и содержание документа зависят от
+              требований, распространяющихся на соответствующий тип объекта.
             </p>
 
             <p>
-              В предусмотренных нормативными требованиями случаях результаты
-              категорирования используются при последующей разработке паспорта
-              безопасности объекта.
+              В предусмотренных нормативными требованиями случаях результаты категорирования
+              используются при последующей разработке паспорта безопасности объекта.
             </p>
           </div>
         </Container>

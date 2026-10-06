@@ -1,4 +1,4 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
 export default function SportCategorizationAct() {
   return (
@@ -18,8 +18,8 @@ export default function SportCategorizationAct() {
               <h2>Акт обследования и категорирования объекта спорта</h2>
 
               <p className="sport-act__lead">
-                Результаты работы комиссии оформляются актом обследования и
-                категорирования объекта спорта.
+                Результаты работы комиссии оформляются актом обследования и категорирования объекта
+                спорта.
               </p>
 
               <div className="sport-act__facts">
@@ -29,10 +29,7 @@ export default function SportCategorizationAct() {
                   <div>
                     <strong>Один экземпляр</strong>
 
-                    <p>
-                      По действующей редакции ПП РФ №202 акт составляется в
-                      одном экземпляре.
-                    </p>
+                    <p>По действующей редакции ПП РФ №202 акт составляется в одном экземпляре.</p>
                   </div>
                 </article>
 
@@ -52,22 +49,14 @@ export default function SportCategorizationAct() {
                   <div>
                     <strong>Хранение с паспортом</strong>
 
-                    <p>
-                      Акт хранится вместе с паспортом безопасности объекта
-                      спорта.
-                    </p>
+                    <p>Акт хранится вместе с паспортом безопасности объекта спорта.</p>
                   </div>
                 </article>
               </div>
 
               <div className="sport-act__action">
-                <a
-                  href="/akt-obsledovaniya-i-kategorirovaniya-obekta/"
-                  className="sport-act__link"
-                >
-                  <span>
-                    Подробнее об акте обследования и категорирования объекта
-                  </span>
+                <a href="/akt-obsledovaniya-i-kategorirovaniya-obekta/" className="sport-act__link">
+                  <span>Подробнее об акте обследования и категорирования объекта</span>
 
                   <span aria-hidden="true">→</span>
                 </a>

@@ -20,7 +20,7 @@ ActualizationWorkProcess.jsx — WORK PROCESS
 }
 
 .actualization-work__timeline::before {
-  content: "";
+  content: '';
 
   position: absolute;
 

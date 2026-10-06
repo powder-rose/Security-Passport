@@ -7,33 +7,26 @@
 ==========================================================================
  */
 
-
 .regulation-guide {
-  padding:
-    clamp(96px, 11vw, 168px)
-    0;
+  padding: clamp(96px, 11vw, 168px) 0;
 
   background: #111111;
   color: #ffffff;
 }
-
 
 .regulation-guide__heading {
   display: grid;
 
   grid-template-columns:
     minmax(0, 1.25fr)
-    minmax(300px, .55fr);
+    minmax(300px, 0.55fr);
 
-  gap:
-    clamp(48px, 6vw, 90px);
+  gap: clamp(48px, 6vw, 90px);
 
   align-items: end;
 
-  margin-bottom:
-    clamp(52px, 6vw, 82px);
+  margin-bottom: clamp(52px, 6vw, 82px);
 }
-
 
 .regulation-guide__kicker {
   display: flex;
@@ -44,16 +37,15 @@
 
   color: #ffffff;
 
-  font-size: .76rem;
+  font-size: 0.76rem;
   font-weight: 820;
-  letter-spacing: .14em;
+  letter-spacing: 0.14em;
 
   text-transform: uppercase;
 }
 
-
 .regulation-guide__kicker::before {
-  content: "";
+  content: '';
 
   width: 26px;
   height: 4px;
@@ -63,7 +55,6 @@
   background: #a9f04a;
 }
 
-
 .regulation-guide h2 {
   max-width: 850px;
 
@@ -71,33 +62,29 @@
 
   color: #ffffff;
 
-  font-size:
-    clamp(2.85rem, 4.7vw, 5.25rem);
+  font-size: clamp(2.85rem, 4.7vw, 5.25rem);
 
-  line-height: .96;
-  letter-spacing: -.055em;
+  line-height: 0.96;
+  letter-spacing: -0.055em;
 
   text-wrap: balance;
 }
 
-
 .regulation-guide h2 em {
-  color: rgba(255, 255, 255, .48);
+  color: rgba(255, 255, 255, 0.48);
 
   font-style: normal;
   font-weight: inherit;
 }
 
-
 .regulation-guide__lead {
   max-width: 470px;
 
-  margin: 0 0 .25em;
+  margin: 0 0 0.25em;
 
-  color: rgba(255, 255, 255, .62);
+  color: rgba(255, 255, 255, 0.62);
 
-  font-size:
-    clamp(1rem, 1.25vw, 1.12rem);
+  font-size: clamp(1rem, 1.25vw, 1.12rem);
 
   line-height: 1.68;
 }
@@ -105,10 +92,8 @@
 .regulation-guide__table-wrap {
   width: 100%;
 
-  border-top:
-    1px solid rgba(255, 255, 255, .18);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
 }
-
 
 .regulation-guide__table {
   width: 100%;
@@ -117,51 +102,41 @@
   table-layout: fixed;
 }
 
-
 .regulation-guide__table th {
-  padding:
-    18px 22px;
+  padding: 18px 22px;
 
-  color: rgba(255, 255, 255, .42);
+  color: rgba(255, 255, 255, 0.42);
 
-  font-size: .7rem;
+  font-size: 0.7rem;
   font-weight: 800;
-  letter-spacing: .12em;
+  letter-spacing: 0.12em;
 
   text-align: left;
   text-transform: uppercase;
 
-  border-bottom:
-    1px solid rgba(255, 255, 255, .12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-
 .regulation-guide__table td {
-  padding:
-    clamp(22px, 2.8vw, 34px)
-    22px;
+  padding: clamp(22px, 2.8vw, 34px) 22px;
 
-  border-bottom:
-    1px solid rgba(255, 255, 255, .12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 
-  transition:
-    background-color 180ms ease;
+  transition: background-color 180ms ease;
   position: relative;
   vertical-align: middle;
 }
-
 
 .regulation-guide__object a {
   justify-content: space-between;
 
   color: #ffffff;
 
-  font-size:
-    clamp(1.2rem, 1.85vw, 1.75rem);
+  font-size: clamp(1.2rem, 1.85vw, 1.75rem);
 
   font-weight: 730;
   line-height: 1.08;
-  letter-spacing: -.035em;
+  letter-spacing: -0.035em;
 
   text-decoration: none;
   width: 100%;
@@ -175,21 +150,19 @@
   align-items: center;
 }
 
-
 .regulation-guide__arrow {
   display: grid;
   place-items: center;
 
   flex: 0 0 auto;
 
-  border:
-    1px solid rgba(255, 255, 255, .18);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 
   border-radius: 50%;
 
   color: #a9f04a;
 
-  font-size: .92rem;
+  font-size: 0.92rem;
 
   transition:
     background-color 180ms ease,
@@ -201,15 +174,12 @@
   height: 38px;
 }
 
-
 .regulation-guide__requirements {
   display: flex;
   align-items: center;
 
-  gap:
-    clamp(18px, 2.5vw, 34px);
+  gap: clamp(18px, 2.5vw, 34px);
 }
-
 
 .regulation-guide__focus {
   min-width: 0;
@@ -218,29 +188,25 @@
 
   max-width: 620px;
 
-  color: rgba(255,255,255,.7);
+  color: rgba(255, 255, 255, 0.7);
 
   line-height: 1.55;
 }
 
-
 .regulation-guide__act {
   flex: 0 0 auto;
 
-  padding:
-    8px 12px;
+  padding: 8px 12px;
 
-  border:
-    1px solid rgba(169, 240, 74, .68);
+  border: 1px solid rgba(169, 240, 74, 0.68);
 
   border-radius: 999px;
 
-  background:
-    rgba(169, 240, 74, .09);
+  background: rgba(169, 240, 74, 0.09);
 
   color: #a9f04a;
 
-  font-size: .76rem;
+  font-size: 0.76rem;
   font-weight: 820;
   line-height: 1.2;
 
@@ -257,15 +223,12 @@
   transform: translateY(-50%);
 }
 
-
 @media (hover: hover) and (pointer: fine) {
   .regulation-guide__table tbody tr:hover td {
-    background:
-      rgba(255, 255, 255, .035);
+    background: rgba(255, 255, 255, 0.035);
   }
 
-  .regulation-guide__table tbody tr:hover
-  .regulation-guide__arrow {
+  .regulation-guide__table tbody tr:hover .regulation-guide__arrow {
     border-color: #a9f04a;
 
     background: #a9f04a;
@@ -290,7 +253,6 @@
   margin-top: 30px;
 }
 
-
 .regulation-guide__footer-mark {
   color: #a9f04a;
 
@@ -299,13 +261,12 @@
   line-height: 1.5;
 }
 
-
 .regulation-guide__footer p {
   margin: 0;
 
-  color: rgba(255, 255, 255, .48);
+  color: rgba(255, 255, 255, 0.48);
 
-  font-size: .88rem;
+  font-size: 0.88rem;
   line-height: 1.65;
 }
 
@@ -334,13 +295,11 @@
 
 @media (max-width: 680px) {
   .regulation-guide {
-    padding:
-      78px 0;
+    padding: 78px 0;
   }
 
   .regulation-guide h2 {
-    font-size:
-      clamp(2.55rem, 11vw, 3.8rem);
+    font-size: clamp(2.55rem, 11vw, 3.8rem);
   }
 
   .regulation-guide__table-wrap {
@@ -361,16 +320,13 @@
   }
 
   .regulation-guide__table tr {
-    padding:
-      24px 0;
+    padding: 24px 0;
 
-    border-top:
-      1px solid rgba(255, 255, 255, .14);
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
   }
 
   .regulation-guide__table tr:last-child {
-    border-bottom:
-      1px solid rgba(255, 255, 255, .14);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
   }
 
   .regulation-guide__table td {
@@ -434,8 +390,7 @@
   }
 
   .regulation-guide__object a {
-    font-size:
-      clamp(1.25rem, 5.8vw, 1.6rem);
+    font-size: clamp(1.25rem, 5.8vw, 1.6rem);
     grid-template-columns:
       minmax(0, 1fr)
       36px;

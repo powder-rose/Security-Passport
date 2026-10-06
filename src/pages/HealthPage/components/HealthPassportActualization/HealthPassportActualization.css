@@ -85,7 +85,7 @@
 
   background: var(--health-accent);
 
-  content: "";
+  content: '';
 }
 
 .health-actualization__period > span {

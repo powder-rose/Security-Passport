@@ -1,4 +1,4 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
 export default function HealthPassportStructure() {
   return (
@@ -12,8 +12,8 @@ export default function HealthPassportStructure() {
               <h2>Форма паспорта безопасности объекта здравоохранения</h2>
 
               <p>
-                Официальная форма паспорта утверждена непосредственно
-                Постановлением Правительства РФ №8.
+                Официальная форма паспорта утверждена непосредственно Постановлением Правительства
+                РФ №8.
               </p>
 
               <a className="button button--primary" href="#lead-form">
@@ -81,10 +81,7 @@ export default function HealthPassportStructure() {
               <aside className="health-form__attachments">
                 <span>В приложениях</span>
 
-                <p>
-                  В том числе планы объекта, схема охраны и акт обследования и
-                  категорирования.
-                </p>
+                <p>В том числе планы объекта, схема охраны и акт обследования и категорирования.</p>
               </aside>
             </div>
           </div>

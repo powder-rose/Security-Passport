@@ -10,7 +10,7 @@
   display: grid;
   grid-template-columns:
     minmax(0, 1.2fr)
-    minmax(360px, .8fr);
+    minmax(360px, 0.8fr);
   gap: clamp(50px, 7vw, 110px);
   align-items: stretch;
 }
@@ -24,8 +24,8 @@
   margin: 0;
   font-size: clamp(46px, 5.25vw, 82px);
   font-weight: 600;
-  line-height: .98;
-  letter-spacing: -.045em;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
   text-wrap: balance;
 }
 
@@ -53,13 +53,13 @@
 .hotel-hero__price > small {
   font-size: 13px;
   line-height: 1.35;
-  opacity: .62;
+  opacity: 0.62;
 }
 
 .hotel-hero__price strong {
   font-size: clamp(35px, 3vw, 48px);
   line-height: 1;
-  letter-spacing: -.04em;
+  letter-spacing: -0.04em;
 }
 
 .hotel-hero__actions {
@@ -81,7 +81,7 @@
 }
 
 .hotel-hero__check span {
-  transition: transform .2s ease;
+  transition: transform 0.2s ease;
 }
 
 .hotel-hero__check:hover span {
@@ -109,10 +109,10 @@
   height: 260px;
   border-radius: 50%;
   background: #a9f04a;
-  content: "";
-  opacity: .95;
+  content: '';
+  opacity: 0.95;
   transform: translate3d(0, 0, 0);
-  transition: transform .5s ease;
+  transition: transform 0.5s ease;
 }
 
 .hotel-hero__panel:hover::after {
@@ -126,7 +126,7 @@
   color: #a9f04a;
   font-size: 13px;
   font-weight: 800;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -138,7 +138,7 @@
   font-size: clamp(29px, 2.55vw, 42px);
   font-weight: 600;
   line-height: 1.04;
-  letter-spacing: -.035em;
+  letter-spacing: -0.035em;
   text-wrap: balance;
 }
 
@@ -177,7 +177,7 @@
 .hotel-check__layout {
   display: grid;
   grid-template-columns:
-    minmax(300px, .72fr)
+    minmax(300px, 0.72fr)
     minmax(0, 1.28fr);
   gap: clamp(60px, 9vw, 150px);
   align-items: start;
@@ -189,7 +189,7 @@
   font-size: clamp(36px, 4vw, 62px);
   font-weight: 600;
   line-height: 1.02;
-  letter-spacing: -.04em;
+  letter-spacing: -0.04em;
   text-wrap: balance;
 }
 
@@ -229,7 +229,7 @@
   color: #a9f04a;
   font-size: clamp(4rem, 5vw, 5.2rem);
   font-weight: 800;
-  line-height: .8;
+  line-height: 0.8;
   letter-spacing: 0;
   text-transform: none;
 }
@@ -259,7 +259,7 @@
 }
 
 .hotel-inline-link span {
-  transition: transform .2s ease;
+  transition: transform 0.2s ease;
 }
 
 .hotel-inline-link:hover span {

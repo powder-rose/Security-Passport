@@ -1,4 +1,4 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
 export default function HealthRequiredDocuments() {
   return (
@@ -12,8 +12,8 @@ export default function HealthRequiredDocuments() {
               <h2>Какие данные нужны для подготовки документов</h2>
 
               <p>
-                На старте собираются основные сведения об организации, объекте,
-                людях, защите и имеющейся документации.
+                На старте собираются основные сведения об организации, объекте, людях, защите и
+                имеющейся документации.
               </p>
             </div>
 
@@ -104,8 +104,8 @@ export default function HealthRequiredDocuments() {
             <span>Состав уточняется</span>
 
             <p>
-              Окончательный состав исходных данных определяется после проверки
-              объекта и применимых требований.
+              Окончательный состав исходных данных определяется после проверки объекта и применимых
+              требований.
             </p>
           </aside>
         </Container>

@@ -14,8 +14,7 @@
   }
 
   .object-service-hero h1 {
-    font-size:
-      clamp(2.8rem, 5.2vw, 4.7rem);
+    font-size: clamp(2.8rem, 5.2vw, 4.7rem);
   }
 }
 
@@ -38,17 +37,13 @@
 
 @media (max-width: 620px) {
   .object-service-hero {
-    padding:
-      106px
-      0
-      70px;
+    padding: 106px 0 70px;
   }
 
   .object-service-hero h1 {
-    font-size:
-      clamp(2.45rem, 12vw, 3.7rem);
+    font-size: clamp(2.45rem, 12vw, 3.7rem);
 
-    line-height: .96;
+    line-height: 0.96;
   }
 
   .object-service-hero__lead {

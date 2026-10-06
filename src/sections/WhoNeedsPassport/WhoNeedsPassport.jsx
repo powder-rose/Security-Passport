@@ -1,5 +1,8 @@
 import Container from '../../components/ui/Container/Container';
-import { ObjectTypeIllustration, ShieldBuildingIllustration } from '../../components/illustrations/BlushIllustrations';
+import {
+  ObjectTypeIllustration,
+  ShieldBuildingIllustration,
+} from '../../components/illustrations/BlushIllustrations';
 import { objectTypes } from '../../data/objectTypes';
 import './WhoNeedsPassport.css';
 
@@ -47,9 +50,9 @@ export default function WhoNeedsPassport() {
             <div>
               <p className="who-needs-passport__intro-label">Иллюстративный обзор</p>
               <p>
-                Ниже — типовые категории объектов, для которых вопрос категорирования и{'\u00A0'}разработки
-                паспорта встречается чаще всего. Точный состав документов зависит от категории
-                объекта и{'\u00A0'}применимого постановления.
+                Ниже — типовые категории объектов, для которых вопрос категорирования и{'\u00A0'}
+                разработки паспорта встречается чаще всего. Точный состав документов зависит от
+                категории объекта и{'\u00A0'}применимого постановления.
               </p>
             </div>
           </div>
@@ -61,19 +64,25 @@ export default function WhoNeedsPassport() {
           ))}
         </div>
 
-        <aside className="who-needs-passport__note" aria-label="Дополнительная информация о типах объектов">
+        <aside
+          className="who-needs-passport__note"
+          aria-label="Дополнительная информация о типах объектов"
+        >
           <div className="who-needs-passport__note-copy">
             <p className="who-needs-passport__note-kicker">Если вашего объекта нет в списке</p>
             <h3>Проверим основание для категорирования индивидуально</h3>
             <p>
               Для нестандартных объектов анализируем профиль деятельности, посещаемость,
-              функциональное назначение здания и{'\u00A0'}применимые нормативные акты. После этого можно
-              определить, требуется ли акт категорирования, паспорт безопасности или оба документа.
+              функциональное назначение здания и{'\u00A0'}применимые нормативные акты. После этого
+              можно определить, требуется ли акт категорирования, паспорт безопасности или оба
+              документа.
             </p>
           </div>
           <a className="button button--primary individual-check__button" href="#contact">
             <span className="individual-check__button-label">Получить консультацию</span>
-            <span className="individual-check__button-icon" aria-hidden="true">↗</span>
+            <span className="individual-check__button-icon" aria-hidden="true">
+              ↗
+            </span>
           </a>
         </aside>
       </Container>

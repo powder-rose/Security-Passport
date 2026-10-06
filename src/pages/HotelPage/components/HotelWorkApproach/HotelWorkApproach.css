@@ -11,7 +11,7 @@
   display: grid;
   grid-template-columns:
     minmax(0, 1fr)
-    minmax(320px, .7fr);
+    minmax(320px, 0.7fr);
   gap: clamp(60px, 8vw, 130px);
   align-items: end;
 }
@@ -25,29 +25,23 @@
 
 .hotel-why__grid {
   display: grid;
-  grid-template-columns:
-    repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-top: 62px;
-  border-top:
-    1px solid rgb(21 21 21 / 15%);
-  border-left:
-    1px solid rgb(21 21 21 / 15%);
+  border-top: 1px solid rgb(21 21 21 / 15%);
+  border-left: 1px solid rgb(21 21 21 / 15%);
 }
 
 .hotel-why__item {
   display: grid;
-  grid-template-columns:
-    58px minmax(0, 1fr);
+  grid-template-columns: 58px minmax(0, 1fr);
   gap: 22px;
   min-height: 260px;
   padding: 32px;
-  border-right:
-    1px solid rgb(21 21 21 / 15%);
-  border-bottom:
-    1px solid rgb(21 21 21 / 15%);
+  border-right: 1px solid rgb(21 21 21 / 15%);
+  border-bottom: 1px solid rgb(21 21 21 / 15%);
   transition:
-    background-color .22s ease,
-    transform .22s ease;
+    background-color 0.22s ease,
+    transform 0.22s ease;
 }
 
 .hotel-why__item:hover {
@@ -64,11 +58,10 @@
 .hotel-why__item h3 {
   max-width: 430px;
   margin: 0;
-  font-size:
-    clamp(23px, 2vw, 31px);
+  font-size: clamp(23px, 2vw, 31px);
   font-weight: 600;
   line-height: 1.1;
-  letter-spacing: -.03em;
+  letter-spacing: -0.03em;
 }
 
 .hotel-why__item p {
@@ -76,5 +69,5 @@
   margin: 18px 0 0;
   font-size: 15px;
   line-height: 1.65;
-  opacity: .68;
+  opacity: 0.68;
 }

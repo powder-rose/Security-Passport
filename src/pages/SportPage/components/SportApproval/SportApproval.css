@@ -10,13 +10,9 @@
 .sport-approval__layout {
   display: grid;
   grid-template-columns:
-    minmax(300px, .7fr)
+    minmax(300px, 0.7fr)
     minmax(0, 1.3fr);
-  gap: clamp(
-    58px,
-    8vw,
-    128px
-  );
+  gap: clamp(58px, 8vw, 128px);
   align-items: start;
 }
 
@@ -28,13 +24,9 @@
 .sport-approval__intro h2 {
   max-width: 600px;
   margin: 0;
-  font-size: clamp(
-    2.6rem,
-    3.8vw,
-    4.25rem
-  );
+  font-size: clamp(2.6rem, 3.8vw, 4.25rem);
   line-height: 1;
-  letter-spacing: -.052em;
+  letter-spacing: -0.052em;
   text-wrap: balance;
 }
 
@@ -56,9 +48,7 @@
     minmax(0, 1fr);
   gap: 22px;
   padding: 30px;
-  border:
-    1px solid
-    var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: #fff;
 
@@ -79,25 +69,20 @@
 
 .sport-approval__authority-number {
   color: var(--color-primary);
-  font-size: .78rem;
+  font-size: 0.78rem;
   font-weight: 850;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
 }
 
-.sport-approval__authority--final
-.sport-approval__authority-number {
+.sport-approval__authority--final .sport-approval__authority-number {
   color: var(--color-accent);
 }
 
 .sport-approval__authority h3 {
   margin: 0;
-  font-size: clamp(
-    1.32rem,
-    1.8vw,
-    1.7rem
-  );
+  font-size: clamp(1.32rem, 1.8vw, 1.7rem);
   line-height: 1.16;
-  letter-spacing: -.03em;
+  letter-spacing: -0.03em;
 }
 
 .sport-approval__authority p {
@@ -126,15 +111,13 @@
 .sport-approval__deadline {
   display: grid;
   grid-template-columns:
-    minmax(260px, .65fr)
+    minmax(260px, 0.65fr)
     minmax(0, 1fr);
   gap: 46px;
   align-items: center;
   margin-top: 54px;
   padding-top: 34px;
-  border-top:
-    1px solid
-    var(--color-border);
+  border-top: 1px solid var(--color-border);
 }
 
 .sport-approval__deadline-main {
@@ -145,20 +128,16 @@
 
 .sport-approval__deadline-main span {
   color: var(--color-text-secondary);
-  font-size: .78rem;
+  font-size: 0.78rem;
   font-weight: 800;
-  letter-spacing: .09em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
 }
 
 .sport-approval__deadline-main strong {
-  font-size: clamp(
-    2.4rem,
-    3.6vw,
-    4rem
-  );
+  font-size: clamp(2.4rem, 3.6vw, 4rem);
   line-height: 1;
-  letter-spacing: -.05em;
+  letter-spacing: -0.05em;
 }
 
 .sport-approval__deadline > p {
@@ -232,11 +211,7 @@
 @media (max-width: 430px) {
   .sport-process__heading h2,
   .sport-approval__intro h2 {
-    font-size: clamp(
-      2.15rem,
-      10vw,
-      2.9rem
-    );
+    font-size: clamp(2.15rem, 10vw, 2.9rem);
   }
 
   .sport-process__steps {

@@ -1,4 +1,4 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
 export default function TradePassportForm() {
   return (
@@ -12,44 +12,33 @@ export default function TradePassportForm() {
               <h2>Форма паспорта безопасности торгового объекта</h2>
 
               <p className="trade-form__lead">
-                Форма паспорта безопасности торгового объекта была изменена с 13
-                марта 2026 года. ПП РФ №229 внесло изменения непосредственно в
-                форму документа.
+                Форма паспорта безопасности торгового объекта была изменена с 13 марта 2026 года. ПП
+                РФ №229 внесло изменения непосредственно в форму документа.
               </p>
 
               <div className="trade-form__statement">
                 <span>Используем</span>
 
-                <strong>
-                  форму паспорта безопасности в редакции ПП РФ №229 от
-                  04.03.2026
-                </strong>
+                <strong>форму паспорта безопасности в редакции ПП РФ №229 от 04.03.2026</strong>
               </div>
 
               <div className="trade-form__notes">
                 <article>
                   <span>01</span>
 
-                  <p>
-                    Изменились отдельные грифы, таблицы и другие элементы формы
-                    документа.
-                  </p>
+                  <p>Изменились отдельные грифы, таблицы и другие элементы формы документа.</p>
                 </article>
 
                 <article>
                   <span>02</span>
 
                   <p>
-                    Старый шаблон нельзя механически использовать для подготовки
-                    нового паспорта.
+                    Старый шаблон нельзя механически использовать для подготовки нового паспорта.
                   </p>
                 </article>
               </div>
 
-              <a
-                className="button button--primary trade-form__button"
-                href="#lead-form"
-              >
+              <a className="button button--primary trade-form__button" href="#lead-form">
                 <span>Получить актуальную форму паспорта</span>
 
                 <span className="trade-form__button-arrow" aria-hidden="true">
@@ -87,8 +76,8 @@ export default function TradePassportForm() {
                 <span>№229</span>
 
                 <p>
-                  Схематичное отображение. Заполненный паспорт действующего
-                  объекта публично не размещаем.
+                  Схематичное отображение. Заполненный паспорт действующего объекта публично не
+                  размещаем.
                 </p>
               </div>
             </aside>

@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { cultureWhyItems } from "../../culturePageData";
+import { cultureWhyItems } from '../../culturePageData';
 
 export default function CultureWorkApproach() {
   return (
@@ -15,14 +15,14 @@ export default function CultureWorkApproach() {
             </div>
 
             <p>
-              Для объекта культуры важно правильно определить нормативный режим
-              и последовательно пройти категорирование, оформление акта,
-              разработку паспорта и предусмотренное согласование.
+              Для объекта культуры важно правильно определить нормативный режим и последовательно
+              пройти категорирование, оформление акта, разработку паспорта и предусмотренное
+              согласование.
             </p>
           </div>
 
           <div className="culture-why__grid">
-            {cultureWhyItems.map((item) => (
+            {cultureWhyItems.map(item => (
               <article className="culture-why__item" key={item.number}>
                 <span>{item.number}</span>
 

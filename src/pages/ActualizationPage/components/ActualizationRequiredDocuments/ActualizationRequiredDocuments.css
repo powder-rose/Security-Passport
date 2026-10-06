@@ -55,9 +55,7 @@ ActualizationRequiredDocuments.jsx — REQUIRED DOCUMENTS
   text-wrap: balance;
 }
 
-.actualization-documents__grid
-  > div:first-child
-  > p:not(.actualization-kicker) {
+.actualization-documents__grid > div:first-child > p:not(.actualization-kicker) {
   max-width: 540px;
 
   margin: 23px 0 30px;

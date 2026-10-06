@@ -16,7 +16,7 @@
   display: grid;
   grid-template-columns:
     minmax(0, 1.25fr)
-    minmax(280px, .55fr);
+    minmax(280px, 0.55fr);
   gap: 60px;
   align-items: end;
 }
@@ -30,7 +30,7 @@
 .education-form__layout {
   display: grid;
   grid-template-columns:
-    minmax(280px, .55fr)
+    minmax(280px, 0.55fr)
     minmax(0, 1.45fr);
   gap: 64px;
   margin-top: 64px;
@@ -47,15 +47,15 @@
   display: block;
   font-size: clamp(4rem, 7vw, 6.5rem);
   font-weight: 900;
-  line-height: .85;
-  letter-spacing: -.08em;
+  line-height: 0.85;
+  letter-spacing: -0.08em;
 }
 
 .education-form__intro h3 {
   margin: 42px 0 0;
   font-size: clamp(1.55rem, 2vw, 2rem);
   line-height: 1.1;
-  letter-spacing: -.035em;
+  letter-spacing: -0.035em;
 }
 
 .education-form__intro p {
@@ -88,9 +88,9 @@
 
 .education-form__structure span {
   color: var(--color-accent);
-  font-size: .72rem;
+  font-size: 0.72rem;
   font-weight: 800;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
 }
 
 .education-form__structure p {

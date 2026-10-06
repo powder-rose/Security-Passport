@@ -103,14 +103,12 @@
   }
 
   .culture-categorization__step {
-    grid-template-columns:
-      44px minmax(0, 1fr);
+    grid-template-columns: 44px minmax(0, 1fr);
     gap: 15px;
     min-height: 135px;
   }
 
-  .culture-categorization__step-head
-  > span:first-child {
+  .culture-categorization__step-head > span:first-child {
     width: 40px;
     height: 40px;
   }

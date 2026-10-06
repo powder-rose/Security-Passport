@@ -1,6 +1,6 @@
-import Container from "../../../../components/ui/Container/Container";
+import Container from '../../../../components/ui/Container/Container';
 
-import { sportFaqItems } from "../../sportPageData";
+import { sportFaqItems } from '../../sportPageData';
 
 export default function SportFaq() {
   return (
@@ -16,8 +16,8 @@ export default function SportFaq() {
               </div>
 
               <p>
-                Ответы о применимости ПП РФ №202, категорировании, акте, сроках,
-                согласовании, форме, стоимости и актуализации.
+                Ответы о применимости ПП РФ №202, категорировании, акте, сроках, согласовании,
+                форме, стоимости и актуализации.
               </p>
             </div>
 
@@ -25,9 +25,7 @@ export default function SportFaq() {
               {sportFaqItems.map((item, index) => (
                 <details className="sport-faq__item" key={item.question}>
                   <summary>
-                    <span className="sport-faq__number">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
+                    <span className="sport-faq__number">{String(index + 1).padStart(2, '0')}</span>
 
                     <span className="sport-faq__question">{item.question}</span>
 
