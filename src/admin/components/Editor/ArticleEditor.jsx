@@ -52,6 +52,111 @@ const ArticleImage = Image.extend({
 });
 
 
+function getEditorLinks(
+  editor
+){
+
+  if(
+    !editor
+  ){
+    return [];
+  }
+
+
+  const links = [];
+
+
+  editor.state.doc.descendants(
+    (
+      node,
+      position
+    ) => {
+
+      if(
+        !node.isText
+      ){
+        return;
+      }
+
+
+      const linkMark =
+        node.marks.find(
+          mark =>
+            mark.type.name ===
+            'link'
+        );
+
+
+      if(
+        !linkMark
+      ){
+        return;
+      }
+
+
+      const href =
+        String(
+          linkMark.attrs?.href ||
+          ''
+        );
+
+
+      const from =
+        position;
+
+      const to =
+        position +
+        node.nodeSize;
+
+
+      const previous =
+        links[
+          links.length - 1
+        ];
+
+
+      /*
+       * Один link может состоять из нескольких
+       * text-node. Склеиваем соседние части.
+       */
+      if(
+        previous
+        &&
+        previous.href === href
+        &&
+        previous.to === from
+      ){
+
+        previous.to =
+          to;
+
+        previous.text +=
+          node.text || '';
+
+        return;
+
+      }
+
+
+      links.push({
+        href,
+
+        text:
+          node.text || '',
+
+        from,
+        to,
+      });
+
+    }
+  );
+
+
+  return links;
+
+}
+
+
 
 export default function ArticleEditor({
   value,
@@ -60,6 +165,12 @@ export default function ArticleEditor({
 
 
 const [, update] = useState(0);
+
+
+const [
+  linksOpen,
+  setLinksOpen,
+] = useState(false);
 
 
 const editor = useEditor({
@@ -151,6 +262,216 @@ useEffect(()=>{
   }
 
 },[value,editor]);
+
+
+
+const links =
+  getEditorLinks(
+    editor
+  );
+
+
+function editCurrentLink(){
+
+  const isLink =
+    editor.isActive(
+      'link'
+    );
+
+
+  if(
+    !isLink
+    &&
+    editor.state.selection.empty
+  ){
+
+    alert(
+      'Сначала выделите текст для ссылки.'
+    );
+
+    return;
+
+  }
+
+
+  const currentHref =
+    isLink
+      ? (
+          editor
+            .getAttributes(
+              'link'
+            )
+            .href ||
+          ''
+        )
+      : '';
+
+
+  const href =
+    window.prompt(
+      isLink
+        ? 'Изменить ссылку'
+        : 'Введите ссылку',
+      currentHref
+    );
+
+
+  if(
+    href === null
+  ){
+    return;
+  }
+
+
+  const cleanHref =
+    href.trim();
+
+
+  if(
+    !cleanHref
+  ){
+
+    if(
+      isLink
+    ){
+
+      editor
+        .chain()
+        .focus()
+        .extendMarkRange(
+          'link'
+        )
+        .unsetLink()
+        .run();
+
+    }
+
+    return;
+
+  }
+
+
+  const chain =
+    editor
+      .chain()
+      .focus();
+
+
+  if(
+    isLink
+  ){
+
+    chain.extendMarkRange(
+      'link'
+    );
+
+  }
+
+
+  chain
+    .setLink({
+      href:
+        cleanHref,
+    })
+    .run();
+
+}
+
+
+
+function editArticleLink(
+  link
+){
+
+  const href =
+    window.prompt(
+      'Изменить адрес ссылки',
+      link.href
+    );
+
+
+  if(
+    href === null
+  ){
+    return;
+  }
+
+
+  const cleanHref =
+    href.trim();
+
+
+  if(
+    !cleanHref
+  ){
+
+    removeArticleLink(
+      link
+    );
+
+    return;
+
+  }
+
+
+  editor
+    .chain()
+    .focus()
+    .setTextSelection({
+      from:
+        link.from,
+
+      to:
+        link.to,
+    })
+    .setLink({
+      href:
+        cleanHref,
+    })
+    .run();
+
+}
+
+
+
+function removeArticleLink(
+  link
+){
+
+  editor
+    .chain()
+    .focus()
+    .setTextSelection({
+      from:
+        link.from,
+
+      to:
+        link.to,
+    })
+    .unsetLink()
+    .run();
+
+}
+
+
+
+function focusArticleLink(
+  link
+){
+
+  editor
+    .chain()
+    .focus()
+    .setTextSelection({
+      from:
+        link.from,
+
+      to:
+        link.to,
+    })
+    .run();
+
+}
 
 
 
@@ -361,28 +682,37 @@ H3
    ? 'editor-button active'
    : 'editor-button'
  }
+ title={
+   editor.isActive('link')
+     ? 'Изменить ссылку'
+     : 'Добавить ссылку'
+ }
+ onClick={
+   editCurrentLink
+ }
+>
+🔗
+</button>
+
+
+<button
+ type="button"
+ className={
+   linksOpen
+     ? 'editor-button active'
+     : 'editor-button'
+ }
+ title="Просмотреть ссылки статьи"
  onClick={()=>{
 
-   const url = window.prompt(
-     'Введите ссылку'
+   setLinksOpen(
+     value =>
+       !value
    );
-
-
-   if(url){
-
-     editor
-      .chain()
-      .focus()
-      .setLink({
-        href:url
-      })
-      .run();
-
-   }
 
  }}
 >
-🔗
+Ссылки ({links.length})
 </button>
 
 
@@ -621,6 +951,164 @@ Tx
 
 
 </div>
+
+
+{
+  linksOpen
+  &&
+  (
+    <div className="article-links-panel">
+
+      <div className="article-links-panel__head">
+
+        <strong>
+          Ссылки в статье
+        </strong>
+
+        <span>
+          {links.length}
+        </span>
+
+      </div>
+
+
+      {
+        links.length === 0
+        ?
+        (
+          <div className="article-links-panel__empty">
+            В тексте статьи ссылок нет.
+          </div>
+        )
+        :
+        (
+          <div className="article-links-panel__list">
+
+            {
+              links.map(
+                (
+                  link,
+                  index
+                ) => (
+
+                  <div
+                    key={
+                      `${link.from}-${link.to}-${link.href}`
+                    }
+                    className="article-links-panel__item"
+                  >
+
+                    <button
+                      type="button"
+                      className="article-links-panel__info"
+                      title="Выделить ссылку в тексте"
+                      onClick={()=>{
+
+                        focusArticleLink(
+                          link
+                        );
+
+                      }}
+                    >
+
+                      <span>
+                        {
+                          String(
+                            index + 1
+                          ).padStart(
+                            2,
+                            '0'
+                          )
+                        }
+                      </span>
+
+                      <div>
+
+                        <strong>
+                          {
+                            link.text.trim()
+                            ||
+                            'Ссылка без текста'
+                          }
+                        </strong>
+
+                        <small>
+                          {link.href}
+                        </small>
+
+                      </div>
+
+                    </button>
+
+
+                    <div className="article-links-panel__actions">
+
+                      <a
+                        href={
+                          link.href
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Открыть ↗
+                      </a>
+
+
+                      <button
+                        type="button"
+                        onClick={()=>{
+
+                          editArticleLink(
+                            link
+                          );
+
+                        }}
+                      >
+                        Изменить
+                      </button>
+
+
+                      <button
+                        type="button"
+                        className="is-danger"
+                        onClick={()=>{
+
+                          const ok =
+                            window.confirm(
+                              'Удалить ссылку? Текст останется.'
+                            );
+
+
+                          if(
+                            ok
+                          ){
+
+                            removeArticleLink(
+                              link
+                            );
+
+                          }
+
+                        }}
+                      >
+                        Удалить
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                )
+              )
+            }
+
+          </div>
+        )
+      }
+
+    </div>
+  )
+}
 
 
 <div className="article-editor">
