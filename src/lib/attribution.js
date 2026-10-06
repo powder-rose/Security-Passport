@@ -23,7 +23,7 @@ export function captureAttribution() {
   try {
     stored = JSON.parse(window.sessionStorage.getItem(STORAGE_KEY) || '{}');
   } catch {
-    stored = {};
+    // Keep the empty fallback when session storage contains invalid JSON.
   }
 
   const payload = {

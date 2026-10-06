@@ -109,8 +109,8 @@ export default function FinalCTA({
 
           <ul className="final-cta__benefits" aria-label="Что уточним на консультации">
             <li><span aria-hidden="true">01</span> Проверим основание для категорирования</li>
-            <li><span aria-hidden="true">02</span> Определим состав документов и работ</li>
-            <li><span aria-hidden="true">03</span> Сориентируем по стоимости и этапам</li>
+            <li><span aria-hidden="true">02</span> Определим состав документов и{'\u00A0'}работ</li>
+            <li><span aria-hidden="true">03</span> Сориентируем по стоимости и{'\u00A0'}этапам</li>
           </ul>
 
           <div className="final-cta__contacts">
@@ -224,7 +224,7 @@ export default function FinalCTA({
               required
             />
             <span>
-              Я согласен на обработку персональных данных в целях обратной связи и принимаю{' '}
+              Я согласен на обработку персональных данных в целях обратной связи и{'\u00A0'}принимаю{' '}
               <a href={SITE.privacyUrl} target="_blank" rel="noopener noreferrer">политику конфиденциальности</a>.
             </span>
           </label>

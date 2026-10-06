@@ -24,10 +24,15 @@ export default function useQuizGeography({
       let cancelled =
         false;
 
+      const controller =
+        new AbortController();
+
       fetch(
         '/assets/quiz-geography-v1.json',
         {
           cache: 'force-cache',
+          signal:
+            controller.signal,
         },
       )
         .then(
@@ -63,6 +68,7 @@ export default function useQuizGeography({
 
       return () => {
         cancelled = true;
+        controller.abort();
       };
     },
     [],
@@ -70,8 +76,12 @@ export default function useQuizGeography({
 
 
   const regionOptions =
-    geography?.regions ??
-    [];
+    useMemo(
+      () =>
+        geography?.regions ??
+        [],
+      [geography],
+    );
 
 
   const selectedGeoRegion =

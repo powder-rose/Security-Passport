@@ -1,5 +1,6 @@
 import {
   useEffect,
+  useReducer,
   useState,
 } from 'react';
 
@@ -164,7 +165,10 @@ export default function ArticleEditor({
 }){
 
 
-const [, update] = useState(0);
+const [, forceUpdate] = useReducer(
+  value => value + 1,
+  0,
+);
 
 
 const [
@@ -219,15 +223,9 @@ const editor = useEditor({
 
 
 
-  onCreate({editor}){
-
-
-  },
-
-
   onTransaction(){
 
-    update(v=>v+1);
+    forceUpdate();
 
   },
 

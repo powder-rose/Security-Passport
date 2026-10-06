@@ -1,5 +1,9 @@
 import React from 'react';
 
+import {
+  createStableEntries,
+} from '../../../lib/stableEntries';
+
 
 function renderInline(
   value,
@@ -354,19 +358,18 @@ export default function DocumentationMarkdown({
             `ul-${blockIndex}`
           }
         >
-          {items.map(
-            (
-              item,
-              itemIndex,
-            ) => (
-              <li
-                key={
-                  `ul-${blockIndex}-${itemIndex}`
-                }
-              >
+          {createStableEntries(
+            items,
+            `ul-${blockIndex}`,
+          ).map(
+            ({
+              key,
+              value: item,
+            }) => (
+              <li key={key}>
                 {renderInline(
                   item,
-                  `ul-${blockIndex}-${itemIndex}`,
+                  key,
                 )}
               </li>
             ),
@@ -411,19 +414,18 @@ export default function DocumentationMarkdown({
             `ol-${blockIndex}`
           }
         >
-          {items.map(
-            (
-              item,
-              itemIndex,
-            ) => (
-              <li
-                key={
-                  `ol-${blockIndex}-${itemIndex}`
-                }
-              >
+          {createStableEntries(
+            items,
+            `ol-${blockIndex}`,
+          ).map(
+            ({
+              key,
+              value: item,
+            }) => (
+              <li key={key}>
                 {renderInline(
                   item,
-                  `ol-${blockIndex}-${itemIndex}`,
+                  key,
                 )}
               </li>
             ),

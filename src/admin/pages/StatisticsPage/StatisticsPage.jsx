@@ -143,6 +143,33 @@ export default function StatisticsPage() {
     setPeriod,
   ] = useState('day');
 
+  async function loadStatistics() {
+    setLoading(true);
+    setError('');
+
+    try {
+      const result = await getStatistics();
+
+      if (!result?.ok || !result?.periods) {
+        throw new Error('STATISTICS_LOAD_FAILED');
+      }
+
+      setStatistics(result);
+    } catch (loadError) {
+      console.error(loadError);
+      setError('Не удалось загрузить статистику.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    loadStatistics();
+  }, []);
+
+  const currentPeriod =
+    statistics?.periods?.[period] || null;
+
   if (
     loading &&
     !statistics

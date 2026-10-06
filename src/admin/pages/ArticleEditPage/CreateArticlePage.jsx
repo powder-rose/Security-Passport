@@ -361,42 +361,6 @@ async function uploadImage(e){
   }
 
 
-  const dimensionsValid =
-    await new Promise((resolve)=>{
-
-      const img = new Image();
-
-      img.onload = ()=>{
-
-        const ratio =
-          img.width / img.height;
-
-
-        if(
-          ratio > 0.75
-          &&
-          ratio < 0.9
-        ){
-
-          resolve(true);
-
-        }
-        else{
-
-          resolve(false);
-
-        }
-
-      };
-
-
-      img.onerror = ()=>resolve(false);
-
-
-      img.src =
-        URL.createObjectURL(file);
-
-    });
 
 
   const preview =

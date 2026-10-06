@@ -4,6 +4,9 @@ import { SITE } from "../../../../config/site";
 
 import { legalDocuments } from "../../../../content/legalDocuments";
 
+const CURRENT_YEAR =
+  new Date().getFullYear();
+
 export default function LegalFooter() {
   const allDocuments = Object.values(legalDocuments);
 
@@ -41,7 +44,7 @@ export default function LegalFooter() {
         </nav>
 
         <div className="legal-footer__bottom">
-          © {new Date().getFullYear()} {SITE.brand}
+          © {CURRENT_YEAR} {SITE.brand}
         </div>
       </Container>
     </footer>

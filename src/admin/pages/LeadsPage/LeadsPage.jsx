@@ -1,4 +1,5 @@
 import {
+  useCallback,
   useEffect,
   useState,
 } from 'react';
@@ -124,10 +125,10 @@ export default function LeadsPage() {
   ] = useState('');
 
 
-  async function loadLeads({
+  const loadLeads = useCallback(async ({
     page = 1,
-    query = appliedSearch,
-  } = {}) {
+    query = '',
+  } = {}) => {
     setLoading(true);
     setError('');
 
@@ -175,7 +176,7 @@ export default function LeadsPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, []);
 
 
   useEffect(
@@ -185,7 +186,7 @@ export default function LeadsPage() {
         query: '',
       });
     },
-    [],
+    [loadLeads],
   );
 
 
@@ -537,6 +538,8 @@ export default function LeadsPage() {
                   page:
                     pagination.page -
                     1,
+                  query:
+                    appliedSearch,
                 })
             }
           >
@@ -561,6 +564,8 @@ export default function LeadsPage() {
                   page:
                     pagination.page +
                     1,
+                  query:
+                    appliedSearch,
                 })
             }
           >

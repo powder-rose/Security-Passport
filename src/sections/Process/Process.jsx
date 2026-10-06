@@ -38,10 +38,10 @@ const processSteps = [
 
 export default function Process() {
   const [activeStep, setActiveStep] = useState(0);
-  const stepRefs = useRef([]);
+  const stepsRef = useRef([]);
 
   useEffect(() => {
-    const markers = stepRefs.current.filter(Boolean);
+    const markers = stepsRef.current.filter(Boolean);
     if (!markers.length) return undefined;
 
     const setNearestStep = () => {
@@ -105,7 +105,7 @@ export default function Process() {
           <p className="process-section__kicker">Разработка паспорта безопасности</p>
           <h2 id="process-title">Как проходит подготовка документа</h2>
           <p className="process-section__lead">
-            Сначала разбираемся с объектом и исходными сведениями, затем готовим документ и
+            Сначала разбираемся с объектом и{'\u00A0'}исходными сведениями, затем готовим документ и
             сопровождаем его до согласования. Каждый этап связан с предыдущим — без лишней
             передачи задачи между исполнителями.
           </p>
@@ -139,7 +139,7 @@ export default function Process() {
                   className="process-step__observer"
                   data-step-index={index}
                   ref={(node) => {
-                    stepRefs.current[index] = node;
+                    stepsRef.current[index] = node;
                   }}
                   aria-hidden="true"
                 />
@@ -159,7 +159,7 @@ export default function Process() {
         <div className="process-section__cta">
           <div>
             <p className="process-section__cta-kicker">Нужно подготовить паспорт безопасности?</p>
-            <h3>Проверим объект и определим состав работ до старта</h3>
+            <h3>Проверим объект и{'\u00A0'}определим состав работ до старта</h3>
           </div>
           <a className="button button--primary" href="#lead-form">
             Рассчитать стоимость

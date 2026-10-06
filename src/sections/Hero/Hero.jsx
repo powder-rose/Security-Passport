@@ -17,7 +17,7 @@ export default function Hero() {
           </p>
 
           <h1 id="hero-title" className="hero__title">
-            <span>Разработка и согласование</span>
+            <span>Разработка и{'\u00A0'}согласование</span>
             <span>паспорта безопасности объекта</span>
           </h1>
 

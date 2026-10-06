@@ -20,7 +20,23 @@ async function readArticles() {
         'utf8'
       );
 
-    return JSON.parse(data);
+    const articles =
+      JSON.parse(data);
+
+    if (!Array.isArray(articles)) {
+      return [];
+    }
+
+    return articles.map(
+      article => ({
+        ...article,
+
+        content:
+          sanitizeArticleContent(
+            article?.content,
+          ),
+      }),
+    );
 
   } catch {
     return [];

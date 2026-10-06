@@ -48,7 +48,7 @@ export default function RelatedServices() {
           </div>
 
           <p className="related-services__lead">
-            Помимо паспорта безопасности подготавливаем сопутствующие документы и обучаем
+            Помимо паспорта безопасности подготавливаем сопутствующие документы и{'\u00A0'}обучаем
             ответственных работников. Услуги можно заказать отдельно или включить в общий проект.
           </p>
         </div>
@@ -62,7 +62,7 @@ export default function RelatedServices() {
         <div className="related-services__footer">
           <div>
             <p className="related-services__footer-kicker">Не знаете, какой комплект нужен?</p>
-            <h3>Сначала определим задачу и не будем добавлять лишние документы</h3>
+            <h3>Сначала определим задачу и{'\u00A0'}не будем добавлять лишние документы</h3>
           </div>
           <a className="button button--primary related-services-task-button" href="#contact">
               <span className="related-services-task-button__label">Обсудить задачу</span>

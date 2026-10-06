@@ -312,7 +312,7 @@ export default function QuizStepFields({
             required
           />
           <span>
-            Я соглашаюсь на обработку персональных данных и принимаю{' '}
+            Я соглашаюсь на обработку персональных данных и{'\u00A0'}принимаю{' '}
             <a href={SITE.privacyUrl} target="_blank" rel="noopener noreferrer">политику конфиденциальности</a>.
           </span>
         </label>

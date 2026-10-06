@@ -13,6 +13,10 @@ import {
 
 
 
+const CURRENT_YEAR =
+  new Date().getFullYear();
+
+
 const BLOG_CATEGORIES = [
   {
     id: 'hotels',
@@ -434,7 +438,7 @@ export default function ArticlesPage() {
               {
                 updatingYear
                   ? 'Обновляем…'
-                  : `Обновить год → ${new Date().getFullYear()}`
+                  : `Обновить год → ${CURRENT_YEAR}`
               }
             </button>
 

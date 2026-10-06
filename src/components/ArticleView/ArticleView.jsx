@@ -313,6 +313,28 @@ function splitArticleHtml(html) {
 
 }
 
+/*
+ * Public article HTML is sanitized on write and again when read from storage.
+ * Preview HTML is produced by the authenticated article editor.
+ * Keep React's raw-HTML escape hatch isolated in this component.
+ */
+/* eslint-disable @eslint-react/dom-no-dangerously-set-innerhtml */
+function ArticleHtml({
+  className,
+  html,
+}) {
+  return (
+    <div
+      className={className}
+      dangerouslySetInnerHTML={{
+        __html: html,
+      }}
+    />
+  );
+}
+/* eslint-enable @eslint-react/dom-no-dangerously-set-innerhtml */
+
+
 function RelatedServices() {
 
   const services =
@@ -677,12 +699,9 @@ export default function ArticleView({
             contentBeforeQuiz
             &&
             (
-              <div
+              <ArticleHtml
                 className="article-view__content"
-                dangerouslySetInnerHTML={{
-                  __html:
-                    contentBeforeQuiz,
-                }}
+                html={contentBeforeQuiz}
               />
             )
           }
@@ -704,15 +723,12 @@ export default function ArticleView({
             contentAfterQuiz
             &&
             (
-              <div
+              <ArticleHtml
                 className="
                   article-view__content
                   article-view__content--after-quiz
                 "
-                dangerouslySetInnerHTML={{
-                  __html:
-                    contentAfterQuiz,
-                }}
+                html={contentAfterQuiz}
               />
             )
           }

@@ -2,19 +2,29 @@ import Container from "../../../../components/ui/Container/Container";
 
 import { SITE } from "../../../../config/site";
 
+import {
+  createStableEntries,
+} from "../../../../lib/stableEntries";
+
 function RichText({ text }) {
   const parts = String(text).split(
     /(https:\/\/[^\s]+|mail@pasport-bezopasnosty\.ru)/g,
   );
 
-  return parts.map((part, index) => {
+  return createStableEntries(
+    parts,
+    "rich-text",
+  ).map(({
+    key,
+    value: part,
+  }) => {
     if (part.startsWith("https://")) {
       const cleanUrl = part.replace(/[.,;]+$/, "");
 
       const suffix = part.slice(cleanUrl.length);
 
       return (
-        <span key={`${part}-${index}`}>
+        <span key={key}>
           <a href={cleanUrl} target="_blank" rel="noopener noreferrer">
             {cleanUrl}
           </a>
@@ -25,7 +35,7 @@ function RichText({ text }) {
 
     if (part === "mail@pasport-bezopasnosty.ru") {
       return (
-        <a key={`${part}-${index}`} href={`mailto:${part}`}>
+        <a key={key} href={`mailto:${part}`}>
           {part}
         </a>
       );
@@ -100,9 +110,15 @@ export default function LegalContent({ document }) {
         </div>
 
         <article className="legal-document">
-          {document.lines.map((line, index) => (
+          {createStableEntries(
+            document.lines,
+            "legal-line",
+          ).map(({
+            key,
+            value: line,
+          }, index) => (
             <LegalLine
-              key={`${index}-${line.slice(0, 40)}`}
+              key={key}
               line={line}
               index={index}
               document={document}
