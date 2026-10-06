@@ -2,6 +2,10 @@ import crypto from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
+import {
+  sanitizeArticleContent,
+} from './article-html.mjs';
+
 
 const FILE = path.resolve(
   'data/articles.json'
@@ -229,7 +233,9 @@ export async function createArticle(data) {
       data.title || '',
 
     content:
-      data.content || '',
+      sanitizeArticleContent(
+        data.content
+      ),
 
     image:
       data.image || null,
@@ -409,8 +415,11 @@ export async function updateArticle(
 
 
     content:
-      data.content ??
-      article.content,
+      data.content !== undefined
+        ? sanitizeArticleContent(
+            data.content
+          )
+        : article.content,
 
 
     image:
