@@ -313,6 +313,13 @@ async function bootstrap() {
     );
 
 
+  if (!root) {
+    throw new Error(
+      'Application root element #root was not found.',
+    );
+  }
+
+
   const isRegionalDynamicPage =
     !initialCity?.isDefault &&
     (
