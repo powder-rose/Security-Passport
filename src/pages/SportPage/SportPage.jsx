@@ -46,14 +46,11 @@ import SportRelatedLinks from "./components/SportRelatedLinks/SportRelatedLinks"
 
 import SportFaq from "./components/SportFaq/SportFaq";
 import FinalCTA from "../../sections/FinalCTA/FinalCTA";
-import { CITY } from "../../config/city";
 
 export default function SportPage() {
-  const city = CITY;
-
   return (
     <main id="main-content" className="sport-page">
-      <SportHeroAndObjects city={city} />
+      <SportHeroAndObjects />
 
       <SportRegulation />
 

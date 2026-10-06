@@ -19,8 +19,6 @@ import "./components/CultureFaq/CultureFaq.css";
 import "./CulturePageResponsiveTail.css";
 import "./CulturePageSharedPresentation.css";
 
-import { getCultureRegionalWorkText } from "./cultureRegion";
-
 import CultureHeroAndObjects from "./components/CultureHeroAndObjects/CultureHeroAndObjects";
 
 import CultureRegulationAndCategories from "./components/CultureRegulationAndCategories/CultureRegulationAndCategories";
@@ -47,18 +45,12 @@ import CultureWorkApproach from "./components/CultureWorkApproach/CultureWorkApp
 
 import CultureFaq from "./components/CultureFaq/CultureFaq";
 import FinalCTA from "../../sections/FinalCTA/FinalCTA";
-import { CITY } from "../../config/city";
 
 export default function CulturePage({ objectType }) {
-  const city = CITY;
-
-  const regionalWorkText = getCultureRegionalWorkText(city);
-
   return (
     <main id="main-content" className="culture-page">
       <CultureHeroAndObjects
         objectType={objectType}
-        regionalWorkText={regionalWorkText}
       />
 
       <CultureRegulationAndCategories />

@@ -220,9 +220,7 @@
   letter-spacing: -.035em;
 }
 
-.sport-hero__legal > p:not(
-  .sport-hero__region
-) {
+.sport-hero__legal > p {
   margin: 22px 0 0;
   color: rgb(255 255 255 / 64%);
   line-height: 1.62;
@@ -263,16 +261,6 @@
   margin-top: 7px;
   color: rgb(255 255 255 / 54%);
   font-size: .82rem;
-}
-
-.sport-hero__region {
-  margin: 22px 0 0;
-  padding-top: 18px;
-  border-top:
-    1px solid
-    rgb(255 255 255 / 13%);
-  color: rgb(255 255 255 / 72%);
-  font-size: .88rem;
 }
 
 .sport-objects {

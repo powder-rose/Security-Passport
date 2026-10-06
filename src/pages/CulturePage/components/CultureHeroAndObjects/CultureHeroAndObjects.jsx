@@ -4,7 +4,6 @@ import { cultureObjects } from "../../culturePageData";
 
 export default function CultureHeroAndObjects({
   objectType,
-  regionalWorkText,
 }) {
   return (
     <>
@@ -28,7 +27,7 @@ export default function CultureHeroAndObjects({
 
               <p className="culture-hero__lead">
                 {objectType.pageLead}
-                {regionalWorkText ? <> {regionalWorkText}</> : null}{" "}
+                {" "}
                 <span className="coverage-emphasis">
                   Работаем по всей России
                 </span>

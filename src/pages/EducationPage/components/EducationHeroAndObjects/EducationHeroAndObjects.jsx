@@ -4,7 +4,6 @@ import { educationObjects } from "../../educationPageData";
 
 export default function EducationHeroAndObjects({
   objectType,
-  regionalWorkText,
 }) {
   return (
     <>
@@ -26,7 +25,7 @@ export default function EducationHeroAndObjects({
 
               <p className="education-hero__lead">
                 {objectType.pageLead}
-                {regionalWorkText ? <> {regionalWorkText}</> : null}{" "}
+                {" "}
                 <span className="coverage-emphasis">
                   Работаем по всей России
                 </span>

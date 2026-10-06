@@ -20,8 +20,6 @@ import "./components/HotelFaq/HotelFaq.css";
 import "./HotelPageResponsiveWorkFaq.css";
 import "./HotelPageSharedPresentation.css";
 
-import { getRegionalWorkText } from "./hotelRegion";
-
 import HotelHeroAndApplicability from "./components/HotelHeroAndApplicability/HotelHeroAndApplicability";
 
 import HotelRegulation from "./components/HotelRegulation/HotelRegulation";
@@ -50,18 +48,12 @@ import HotelWorkApproach from "./components/HotelWorkApproach/HotelWorkApproach"
 
 import HotelFaq from "./components/HotelFaq/HotelFaq";
 import FinalCTA from "../../sections/FinalCTA/FinalCTA";
-import { CITY } from "../../config/city";
 
 export default function HotelPage({ objectType }) {
-  const city = CITY;
-
-  const regionalWorkText = getRegionalWorkText(city);
-
   return (
     <main id="main-content" className="hotel-page">
       <HotelHeroAndApplicability
         objectType={objectType}
-        regionalWorkText={regionalWorkText}
       />
 
       <HotelRegulation />

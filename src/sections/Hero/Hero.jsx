@@ -1,25 +1,7 @@
 import Container from '../../components/ui/Container/Container';
-import { CITY } from '../../config/city';
 import './Hero.css';
 
 export default function Hero() {
-  const city = CITY;
-
-  const heroLocationPhrase =
-    city.isDefault
-      ? ''
-      : (
-          city.seoNeedsSubject &&
-          city.subject &&
-          city.subject !== city.name
-        )
-        ? (
-            `— ${city.name}, ${city.subject}`
-          )
-        : city.hasTrustedInflection
-          ? city.locationPhrase
-          : `— ${city.locationSeo}`;
-
   const handlePortraitError = (event) => {
     event.currentTarget.hidden = true;
     event.currentTarget.parentElement?.classList.add('hero-portrait__media--fallback');
@@ -36,24 +18,12 @@ export default function Hero() {
 
           <h1 id="hero-title" className="hero__title">
             <span>Разработка и согласование</span>
-            <span>
-              {heroLocationPhrase
-                ? 'паспорта безопасности'
-                : 'паспорта безопасности объекта'}
-            </span>
-            {heroLocationPhrase ? (
-              <span className="hero__title-location">
-                {heroLocationPhrase}
-              </span>
-            ) : null}
+            <span>паспорта безопасности объекта</span>
           </h1>
 
           <p className="hero__lead">
-            {heroLocationPhrase
-              ? 'Разработаем паспорт безопасности объекта и сопроводим его согласование.'
-              : 'Категорирование, разработка паспорта и сопровождение согласования.'}
-                {' '}
-                <span className="coverage-emphasis">Работаем по всей России</span>.
+            Категорирование, разработка паспорта и сопровождение согласования.{' '}
+            <span className="coverage-emphasis">Работаем по всей России</span>.
           </p>
 
           <div

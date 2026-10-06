@@ -32,20 +32,12 @@ import {
   getServicePageByPathname,
 } from '../data/servicePages';
 
-import {
-  CITY,
-} from '../config/city';
-
-
 export default function App({
   pathname,
   initialBlogArticles = null,
   initialArticle = null,
   routeComponents = {},
 }) {
-  const city =
-    CITY;
-
   const resolvedPathname =
     pathname ||
     (
@@ -149,11 +141,9 @@ export default function App({
 
 
   const legalDocument =
-    city.isDefault
-      ? getLegalDocumentByPathname(
-          resolvedPathname,
-        )
-      : null;
+    getLegalDocumentByPathname(
+      resolvedPathname,
+    );
 
   if (legalDocument) {
     return (

@@ -22,8 +22,6 @@ import "./components/EducationFaq/EducationFaq.css";
 import "./EducationPageResponsiveTail.css";
 import "./EducationPageSharedDesktop.css";
 
-import { getRegionalWorkText } from "./educationRegion";
-
 import EducationHeroAndObjects from "./components/EducationHeroAndObjects/EducationHeroAndObjects";
 
 import EducationRegulation from "./components/EducationRegulation/EducationRegulation";
@@ -56,18 +54,12 @@ import EducationRelatedLinks from "./components/EducationRelatedLinks/EducationR
 
 import EducationFaq from "./components/EducationFaq/EducationFaq";
 import FinalCTA from "../../sections/FinalCTA/FinalCTA";
-import { CITY } from "../../config/city";
 
 export default function EducationPage({ objectType }) {
-  const city = CITY;
-
-  const regionalWorkText = getRegionalWorkText(city);
-
   return (
     <main id="main-content" className="education-page">
       <EducationHeroAndObjects
         objectType={objectType}
-        regionalWorkText={regionalWorkText}
       />
 
       <EducationRegulation />

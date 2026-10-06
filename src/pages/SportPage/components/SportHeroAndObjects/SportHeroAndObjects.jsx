@@ -2,7 +2,7 @@ import Container from "../../../../components/ui/Container/Container";
 
 import { sportObjects } from "../../sportPageData";
 
-export default function SportHeroAndObjects({ city }) {
+export default function SportHeroAndObjects() {
   return (
     <>
       <section className="sport-hero" id="top">
@@ -98,9 +98,6 @@ export default function SportHeroAndObjects({ city }) {
                 </div>
               </div>
 
-              {!city.isDefault && (
-                <p className="sport-hero__region">Регион: {city.name}</p>
-              )}
             </aside>
           </div>
         </Container>

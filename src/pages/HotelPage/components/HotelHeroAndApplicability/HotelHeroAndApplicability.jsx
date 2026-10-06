@@ -4,7 +4,6 @@ import { heroFacts } from "../../hotelPageData";
 
 export default function HotelHeroAndApplicability({
   objectType,
-  regionalWorkText,
 }) {
   return (
     <>
@@ -28,7 +27,7 @@ export default function HotelHeroAndApplicability({
 
               <p className="hotel-hero__lead">
                 {objectType.pageLead}
-                {regionalWorkText ? <> {regionalWorkText}</> : null}{" "}
+                {" "}
                 <span className="coverage-emphasis">
                   Работаем по всей России
                 </span>

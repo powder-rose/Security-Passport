@@ -231,15 +231,6 @@
   line-height: 1.65;
 }
 
-.trade-hero__edition > .trade-hero__region {
-  margin-top: auto;
-  padding-top: 28px;
-  font-size: 0.78rem;
-  font-weight: 750;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
 .trade-applicability {
   padding: 104px 0 112px;
   background: #fff;

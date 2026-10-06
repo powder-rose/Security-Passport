@@ -17,7 +17,6 @@ import "./components/HealthFaq/HealthFaq.css";
 
 import FinalCTA from "../../sections/FinalCTA/FinalCTA";
 
-import { CITY } from "../../config/city";
 
 import HealthHeroAndObjects from "./components/HealthHeroAndObjects/HealthHeroAndObjects";
 
@@ -48,11 +47,9 @@ import HealthWorkApproach from "./components/HealthWorkApproach/HealthWorkApproa
 import HealthFaq from "./components/HealthFaq/HealthFaq";
 
 export default function HealthPage() {
-  const city = CITY;
-
   return (
     <main id="main-content" className="health-page">
-      <HealthHeroAndObjects city={city} />
+      <HealthHeroAndObjects />
 
       <HealthRegulationAndCategories />
 

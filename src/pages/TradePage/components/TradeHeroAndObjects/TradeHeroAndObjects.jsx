@@ -2,7 +2,7 @@ import Container from "../../../../components/ui/Container/Container";
 
 import { tradeObjects } from "../../tradePageData";
 
-export default function TradeHeroAndObjects({ city }) {
+export default function TradeHeroAndObjects() {
   return (
     <>
       <section className="trade-hero" id="top">
@@ -92,9 +92,6 @@ export default function TradeHeroAndObjects({ city }) {
                 согласования, актуализации и формы паспорта.
               </p>
 
-              {!city.isDefault && (
-                <p className="trade-hero__region">Регион: {city.name}</p>
-              )}
             </aside>
           </div>
         </Container>

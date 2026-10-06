@@ -50,14 +50,11 @@ import TradeWorkApproach from "./components/TradeWorkApproach/TradeWorkApproach"
 import TradeFaq from "./components/TradeFaq/TradeFaq";
 import FinalCTA from "../../sections/FinalCTA/FinalCTA";
 
-import { CITY } from "../../config/city";
 
 export default function TradePage() {
-  const city = CITY;
-
   return (
     <main id="main-content" className="trade-page">
-      <TradeHeroAndObjects city={city} />
+      <TradeHeroAndObjects />
 
       <TradeRegulation />
 

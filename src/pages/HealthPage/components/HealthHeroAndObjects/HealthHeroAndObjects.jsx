@@ -2,7 +2,7 @@ import Container from "../../../../components/ui/Container/Container";
 
 import { healthObjects } from "../../healthPageData";
 
-export default function HealthHeroAndObjects({ city }) {
+export default function HealthHeroAndObjects() {
   return (
     <>
       <section className="health-hero" id="top">
@@ -99,9 +99,6 @@ export default function HealthHeroAndObjects({ city }) {
                 категорирования объекта.
               </p>
 
-              {!city.isDefault && (
-                <p className="health-hero__region">Регион: {city.name}</p>
-              )}
             </aside>
           </div>
         </Container>
