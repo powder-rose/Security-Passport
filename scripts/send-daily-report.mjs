@@ -21,14 +21,6 @@ const FROM_EMAIL =
   process.env.SMTP_USER ||
   '';
 
-const TOP_REGIONS = Math.max(
-  1,
-  Number(
-    process.env.DAILY_REPORT_TOP_REGIONS || 30,
-  ) || 30,
-);
-
-
 function escapeHtml(value) {
   return String(value ?? '')
     .replaceAll('&', '&amp;')
@@ -54,15 +46,6 @@ function formatPercent(value, visits) {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     }).format(Number(value) || 0) + '%'
-  );
-}
-
-
-function calculateConversion(leads, visits) {
-  if (!visits) return 0;
-
-  return Number(
-    ((leads / visits) * 100).toFixed(2),
   );
 }
 
@@ -99,26 +82,6 @@ function periodRangeText(period) {
 }
 
 
-function pluralRegions(count) {
-  const n = Math.abs(count) % 100;
-  const n1 = n % 10;
-
-  if (n > 10 && n < 20) {
-    return `${count} регионов`;
-  }
-
-  if (n1 === 1) {
-    return `${count} регион`;
-  }
-
-  if (n1 >= 2 && n1 <= 4) {
-    return `${count} региона`;
-  }
-
-  return `${count} регионов`;
-}
-
-
 function getActiveRows(period) {
   return period.rows
     .filter(
@@ -147,80 +110,6 @@ function getActiveRows(period) {
 }
 
 
-function compactPeriod(period) {
-  const activeRows =
-    getActiveRows(period);
-
-  const topRows =
-    activeRows.slice(0, TOP_REGIONS);
-
-  const hiddenRows =
-    activeRows.slice(TOP_REGIONS);
-
-  const displayRows =
-    topRows.map((row, index) => ({
-      ...row,
-      displayName:
-        `${index + 1}. ${row.name}`,
-      isOther: false,
-    }));
-
-  if (hiddenRows.length) {
-    const otherTotals =
-      hiddenRows.reduce(
-        (totals, row) => {
-          totals.visits += row.visits;
-          totals.leads += row.leads;
-          return totals;
-        },
-        {
-          visits: 0,
-          leads: 0,
-        },
-      );
-
-    displayRows.push({
-      slug: '__other__',
-
-      name: 'Остальные регионы',
-
-      displayName:
-        `Остальные ${pluralRegions(
-          hiddenRows.length,
-        )}`,
-
-      visits: otherTotals.visits,
-      leads: otherTotals.leads,
-
-      conversion:
-        calculateConversion(
-          otherTotals.leads,
-          otherTotals.visits,
-        ),
-
-      isOther: true,
-    });
-  }
-
-  return {
-    activeRows,
-    displayRows,
-
-    activeCount:
-      activeRows.length,
-
-    shownCount:
-      Math.min(
-        TOP_REGIONS,
-        activeRows.length,
-      ),
-
-    hiddenCount:
-      hiddenRows.length,
-  };
-}
-
-
 function buildRowsHtml(rows) {
   if (!rows.length) {
     return `
@@ -241,19 +130,13 @@ function buildRowsHtml(rows) {
   }
 
   return rows.map((row) => `
-    <tr
-      style="${
-        row.isOther
-          ? 'background:#f2f0e9;font-weight:700;'
-          : ''
-      }"
-    >
+    <tr>
       <td style="
         padding:10px 12px;
         border-bottom:1px solid #e7e7e7;
         text-align:left;
       ">
-        ${escapeHtml(row.displayName)}
+        ${escapeHtml(row.name)}
       </td>
 
       <td style="
@@ -449,13 +332,8 @@ function buildOverviewHtml(statistics) {
 
 
 function buildPeriodHtml(period) {
-  const compact =
-    compactPeriod(period);
-
-  const compactNote =
-    compact.hiddenCount > 0
-      ? `Показан ТОП-${compact.shownCount}. Остальные ${pluralRegions(compact.hiddenCount)} объединены в одну строку.`
-      : `Показаны все активные регионы.`;
+  const activeRows =
+    getActiveRows(period);
 
   return `
     <div style="
@@ -490,14 +368,12 @@ function buildPeriodHtml(period) {
         font-size:11px;
         line-height:1.55;
       ">
-        Активных регионов:
+        Федеральный сайт:
         <strong style="color:#111;">
-          ${formatNumber(
-            compact.activeCount,
-          )}
+          Россия
         </strong>.
-        ${escapeHtml(compactNote)}
-        Полный список — в CSV-файле.
+        Показатели объединены по всему сайту
+        без регионального разделения.
       </div>
 
       <table
@@ -519,7 +395,7 @@ function buildPeriodHtml(period) {
               padding:10px 12px;
               text-align:left;
             ">
-              Регион
+              Сайт
             </th>
 
             <th style="
@@ -547,7 +423,7 @@ function buildPeriodHtml(period) {
 
         <tbody>
           ${buildRowsHtml(
-            compact.displayRows,
+            activeRows,
           )}
         </tbody>
       </table>
@@ -593,7 +469,7 @@ function buildText(statistics) {
     '',
     '==============================',
     '',
-    'ДЕТАЛЬНАЯ СТАТИСТИКА ПО РЕГИОНАМ',
+    'ФЕДЕРАЛЬНАЯ СТАТИСТИКА',
     '',
   );
 
@@ -606,35 +482,39 @@ function buildText(statistics) {
         definition.key
       ];
 
-    const compact =
-      compactPeriod(period);
+    const activeRows =
+      getActiveRows(period);
 
     lines.push(
       period.label.toUpperCase(),
       periodRangeText(period),
-      `Активных регионов: ${
-        compact.activeCount
-      }`,
       '',
     );
 
-    for (
-      const row
-      of compact.displayRows
-    ) {
+    if (!activeRows.length) {
       lines.push(
-        `${row.displayName}: `
-        + `${formatNumber(
-          row.visits,
-        )} посещений, `
-        + `${formatNumber(
-          row.leads,
-        )} заявок, `
-        + `${formatPercent(
-          row.conversion,
-          row.visits,
-        )}`,
+        'Россия: активности нет',
       );
+    }
+    else {
+      for (
+        const row
+        of activeRows
+      ) {
+        lines.push(
+          `${row.name}: `
+          + `${formatNumber(
+            row.visits,
+          )} посещений, `
+          + `${formatNumber(
+            row.leads,
+          )} заявок, `
+          + `${formatPercent(
+            row.conversion,
+            row.visits,
+          )}`,
+        );
+      }
     }
 
     lines.push(
@@ -670,46 +550,38 @@ function buildCsv(statistics) {
       'Период',
       'Начало',
       'Окончание',
-      'Регион',
+      'Сайт',
       'Посещения',
       'Заявки',
       'Конверсия',
     ],
   ];
 
-  for (const definition of STAT_PERIODS) {
+  for (
+    const definition
+    of STAT_PERIODS
+  ) {
     const period =
       statistics.periods[
         definition.key
       ];
 
-    const activeRows =
-      getActiveRows(period);
-
-    for (const row of activeRows) {
-      rows.push([
-        period.label,
-        formatDate(period.range.start),
-        formatDate(
-          getPeriodEndDate(period),
-        ),
-        row.name,
-        row.visits,
-        row.leads,
-        formatPercent(
-          row.conversion,
-          row.visits,
-        ),
-      ]);
-    }
+    const federalRow =
+      period.rows?.[0] || {
+        name: 'Россия',
+      };
 
     rows.push([
       period.label,
-      formatDate(period.range.start),
       formatDate(
-        getPeriodEndDate(period),
+        period.range.start,
       ),
-      'Итого',
+      formatDate(
+        getPeriodEndDate(
+          period,
+        ),
+      ),
+      federalRow.name || 'Россия',
       period.totals.visits,
       period.totals.leads,
       formatPercent(
@@ -722,10 +594,13 @@ function buildCsv(statistics) {
   return (
     '\uFEFF' +
     rows
-      .map((row) =>
-        row
-          .map(csvCell)
-          .join(';')
+      .map(
+        (row) =>
+          row
+            .map(
+              csvCell,
+            )
+            .join(';'),
       )
       .join('\r\n')
   );
@@ -790,10 +665,10 @@ function buildHtml(statistics) {
             font-size:12px;
             line-height:1.5;
           ">
-            В каждой таблице показано не более
-            ${TOP_REGIONS} регионов.
-            Регионы без посещений и заявок скрыты.
-            Полная статистика активных регионов
+            Все показатели объединены
+            на федеральном уровне.
+            Регионального разделения нет.
+            Полная статистика по периодам
             приложена к письму в CSV.
           </p>
 
@@ -814,7 +689,7 @@ function buildHtml(statistics) {
               letter-spacing:-.02em;
               margin-bottom:8px;
             ">
-              Детальная статистика по регионам
+              Федеральная статистика
             </div>
 
             <div style="
@@ -823,7 +698,7 @@ function buildHtml(statistics) {
               line-height:1.5;
             ">
               Посещения, заявки и конверсия
-              по отдельным регионам.
+              по федеральному сайту Россия.
             </div>
 
           </div>
@@ -959,7 +834,7 @@ console.log(
 );
 
 console.log(
-  `✓ Максимум регионов в таблице: ${TOP_REGIONS}`,
+  '✓ Федеральный сайт: Россия',
 );
 
 console.log(
@@ -967,14 +842,14 @@ console.log(
 );
 
 
-for (const definition of STAT_PERIODS) {
+for (
+  const definition
+  of STAT_PERIODS
+) {
   const period =
     statistics.periods[
       definition.key
     ];
-
-  const compact =
-    compactPeriod(period);
 
   console.log(
     `${period.label}: `
@@ -983,7 +858,6 @@ for (const definition of STAT_PERIODS) {
     + `${formatPercent(
       period.totals.conversion,
       period.totals.visits,
-    )}; `
-    + `активных регионов: ${compact.activeCount}`,
+    )}`,
   );
 }

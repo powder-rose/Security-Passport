@@ -95,26 +95,14 @@ const FEDERAL_SITE =
   });
 
 
-function getKnownCities() {
-  return [
-    FEDERAL_SITE,
-  ];
+function createFederalRow() {
+  return {
+    ...FEDERAL_SITE,
+    visits: 0,
+    leads: 0,
+  };
 }
 
-
-function createCityMap() {
-  return new Map(
-    getKnownCities().map((city) => [
-      city.slug,
-      {
-        slug: city.slug,
-        name: city.name,
-        visits: 0,
-        leads: 0,
-      },
-    ]),
-  );
-}
 
 function calculateConversion(leads, visits) {
   if (!visits) return 0;
@@ -131,7 +119,7 @@ function aggregatePeriod({
   now,
 }) {
   const range = getPeriodRange(days, now);
-  const cities = createCityMap();
+  const siteRow = createFederalRow();
 
   for (const visit of visits) {
     const timestamp = getTimestamp(visit, 'visit');
@@ -144,12 +132,7 @@ function aggregatePeriod({
       continue;
     }
 
-    const city =
-      cities.get(
-        FEDERAL_SITE.slug,
-      );
-
-    city.visits += 1;
+    siteRow.visits += 1;
   }
 
   for (const lead of leads) {
@@ -163,36 +146,18 @@ function aggregatePeriod({
       continue;
     }
 
-    const city =
-      cities.get(
-        FEDERAL_SITE.slug,
-      );
-
-    city.leads += 1;
+    siteRow.leads += 1;
   }
 
-  const rows = [...cities.values()]
-    .map((city) => ({
-      ...city,
+  const rows = [
+    {
+      ...siteRow,
       conversion: calculateConversion(
-        city.leads,
-        city.visits,
+        siteRow.leads,
+        siteRow.visits,
       ),
-    }))
-    .sort((a, b) => {
-      if (b.leads !== a.leads) {
-        return b.leads - a.leads;
-      }
-
-      if (b.visits !== a.visits) {
-        return b.visits - a.visits;
-      }
-
-      return a.name.localeCompare(
-        b.name,
-        'ru',
-      );
-    });
+    },
+  ];
 
   const totals = rows.reduce(
     (result, row) => {

@@ -1,6 +1,5 @@
 import {
   useEffect,
-  useMemo,
   useState,
 } from 'react';
 
@@ -143,234 +142,6 @@ export default function StatisticsPage() {
     period,
     setPeriod,
   ] = useState('day');
-
-  const [
-    search,
-    setSearch,
-  ] = useState('');
-
-  const [
-    sort,
-    setSort,
-  ] = useState({
-    key: 'leads',
-    direction: 'desc',
-  });
-
-
-  async function loadStatistics() {
-    setLoading(true);
-    setError('');
-
-    try {
-      const result =
-        await getStatistics();
-
-      if (
-        !result?.ok ||
-        !result?.periods
-      ) {
-        throw new Error(
-          'STATISTICS_LOAD_FAILED',
-        );
-      }
-
-      setStatistics(
-        result,
-      );
-    } catch (loadError) {
-      console.error(
-        loadError,
-      );
-
-      setError(
-        'Не удалось загрузить статистику.',
-      );
-    } finally {
-      setLoading(false);
-    }
-  }
-
-
-  useEffect(
-    () => {
-      loadStatistics();
-    },
-    [],
-  );
-
-
-  const currentPeriod =
-    statistics
-      ?.periods
-      ?.[period] ||
-    null;
-
-
-  const rows =
-    useMemo(
-      () => {
-        if (!currentPeriod) {
-          return [];
-        }
-
-        const query =
-          search
-            .trim()
-            .toLocaleLowerCase(
-              'ru',
-            );
-
-        let result =
-          Array.isArray(
-            currentPeriod.rows,
-          )
-            ? [
-                ...currentPeriod.rows,
-              ]
-            : [];
-
-        if (query) {
-          result =
-            result.filter(
-              (row) =>
-                String(
-                  row.name || '',
-                )
-                  .toLocaleLowerCase(
-                    'ru',
-                  )
-                  .includes(
-                    query,
-                  ),
-            );
-        }
-
-        const factor =
-          sort.direction ===
-          'asc'
-            ? 1
-            : -1;
-
-        result.sort(
-          (a, b) => {
-            if (
-              sort.key ===
-              'name'
-            ) {
-              return (
-                String(
-                  a.name || '',
-                ).localeCompare(
-                  String(
-                    b.name || '',
-                  ),
-                  'ru',
-                ) *
-                factor
-              );
-            }
-
-            const first =
-              Number(
-                a[
-                  sort.key
-                ],
-              ) || 0;
-
-            const second =
-              Number(
-                b[
-                  sort.key
-                ],
-              ) || 0;
-
-            if (
-              first ===
-              second
-            ) {
-              return String(
-                a.name || '',
-              ).localeCompare(
-                String(
-                  b.name || '',
-                ),
-                'ru',
-              );
-            }
-
-            return (
-              (
-                first -
-                second
-              ) *
-              factor
-            );
-          },
-        );
-
-        return result;
-      },
-      [
-        currentPeriod,
-        search,
-        sort,
-      ],
-    );
-
-
-  function handleSort(
-    key,
-  ) {
-    setSort(
-      (current) => {
-        if (
-          current.key ===
-          key
-        ) {
-          return {
-            key,
-            direction:
-              current.direction ===
-              'desc'
-                ? 'asc'
-                : 'desc',
-          };
-        }
-
-        return {
-          key,
-          direction:
-            key === 'name'
-              ? 'asc'
-              : 'desc',
-        };
-      },
-    );
-  }
-
-
-  function sortLabel(
-    key,
-    label,
-  ) {
-    if (
-      sort.key !==
-      key
-    ) {
-      return label;
-    }
-
-    return (
-      `${label} ${
-        sort.direction ===
-        'asc'
-          ? '↑'
-          : '↓'
-      }`
-    );
-  }
-
 
   if (
     loading &&
@@ -583,17 +354,17 @@ export default function StatisticsPage() {
       </section>
 
 
-      <section className="statistics-cities">
+      <section className="statistics-federal">
 
-        <div className="statistics-cities__heading">
+        <div className="statistics-federal__heading">
 
           <div>
             <p className="statistics-eyebrow">
-              География
+              Федеральный сайт
             </p>
 
             <h2>
-              Статистика
+              Россия
             </h2>
           </div>
 
@@ -608,54 +379,15 @@ export default function StatisticsPage() {
               <tr>
 
                 <th>
-                  <button
-                    type="button"
-                    onClick={
-                      () =>
-                        handleSort(
-                          'visits',
-                        )
-                    }
-                  >
-                    {sortLabel(
-                      'visits',
-                      'Посещения',
-                    )}
-                  </button>
+                  Посещения
                 </th>
 
                 <th>
-                  <button
-                    type="button"
-                    onClick={
-                      () =>
-                        handleSort(
-                          'leads',
-                        )
-                    }
-                  >
-                    {sortLabel(
-                      'leads',
-                      'Заявки',
-                    )}
-                  </button>
+                  Заявки
                 </th>
 
                 <th>
-                  <button
-                    type="button"
-                    onClick={
-                      () =>
-                        handleSort(
-                          'conversion',
-                        )
-                    }
-                  >
-                    {sortLabel(
-                      'conversion',
-                      'Конверсия',
-                    )}
-                  </button>
+                  Конверсия
                 </th>
 
               </tr>
