@@ -1,3 +1,12 @@
+/* ==========================================================================
+   Footer.jsx — SITE FOOTER
+
+   Shared site footer containing section navigation, contact details,
+   legal links and optional regional address information.
+
+   Responsive behavior for Footer is defined locally in this stylesheet.
+   ========================================================================== */
+
 .site-footer {
   padding: clamp(58px, 7vw, 92px) 0 30px;
   border-top: 1px solid rgba(21,21,21,.10);
@@ -170,8 +179,6 @@
   color: var(--color-text);
 }
 
-
-/* === regional address === */
 .site-footer__address {
   display: flex;
   flex-direction: column;
@@ -193,7 +200,6 @@
   font-weight: 500;
   line-height: 1.35;
 }
-/* === /regional address === */
 
 @media (max-width: 620px) {
   .site-footer__legal-links {
