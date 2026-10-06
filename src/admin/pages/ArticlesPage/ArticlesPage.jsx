@@ -459,7 +459,7 @@ export default function ArticlesPage() {
 
 
             <a
-              href="/admin/articles/new"
+              href="/admin/articles/new?fresh=1"
               className="admin-button"
             >
               Создать статью

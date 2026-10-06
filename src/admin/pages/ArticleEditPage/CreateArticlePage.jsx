@@ -133,6 +133,54 @@ function loadArticleDraft(){
 
   try {
 
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+
+    /*
+     * Переход по кнопке «Создать статью»
+     * всегда должен начинать новую статью
+     * с чистой формы.
+     *
+     * После очистки убираем ?fresh=1 из URL,
+     * чтобы обычное обновление страницы уже
+     * восстанавливало текущий автосохранённый
+     * черновик.
+     */
+    if(
+      params.get(
+        'fresh'
+      ) === '1'
+    ){
+
+      window.localStorage.removeItem(
+        ARTICLE_DRAFT_KEY
+      );
+
+
+      params.delete(
+        'fresh'
+      );
+
+
+      const query =
+        params.toString();
+
+
+      window.history.replaceState(
+        null,
+        '',
+        `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash || ''}`
+      );
+
+
+      return null;
+
+    }
+
+
     const raw =
       window.localStorage.getItem(
         ARTICLE_DRAFT_KEY
