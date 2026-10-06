@@ -1,0 +1,13 @@
+node_modules/
+dist/
+
+data/
+public/uploads/
+public/assets/quiz-geography-v1.json
+
+*.jsonl
+*.log
+*.bak
+*.backup
+
+package-lock.json

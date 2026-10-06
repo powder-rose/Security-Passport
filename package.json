@@ -15,7 +15,11 @@
     "dev:api": "node --watch server/index.mjs",
     "start": "node server/index.mjs",
     "server:check": "node --check server/index.mjs",
-    "qa:regulations": "node scripts/qa-regulations.mjs"
+    "qa:regulations": "node scripts/qa-regulations.mjs",
+    "format": "prettier --write \"src/**/*.{js,jsx,css}\" \"server/**/*.mjs\" \"scripts/**/*.mjs\" \"*.{js,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,css}\" \"server/**/*.mjs\" \"scripts/**/*.mjs\" \"*.{js,json,md}\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
@@ -38,7 +42,14 @@
     "yup": "^1.7.1"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.3",
+    "@eslint-react/eslint-plugin": "5.24.6",
+    "@eslint/js": "10.0.1",
+    "@vitejs/plugin-react": "^6.1.2",
+    "eslint": "10.12.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "globals": "17.12.0",
+    "prettier": "3.9.9",
     "vite": "^8.3.1"
   },
   "engines": {
