@@ -274,9 +274,21 @@ export default function CreateArticlePage() {
 
               const result = await uploadArticleImage(file);
 
-              if (result.url) {
-                change('image', result.url);
+              if (!result?.ok || !result.url) {
+                if (result?.error === 'INVALID_IMAGE') {
+                  alert('Не удалось обработать изображение. Выберите другой файл.');
+                } else {
+                  alert('Не удалось загрузить изображение.');
+                }
+
+                return;
               }
+
+              change('image', result.url);
+            } catch (error) {
+              console.error(error);
+
+              alert('Не удалось загрузить изображение. Попробуйте ещё раз.');
             } finally {
               URL.revokeObjectURL(cropImage.preview);
 
