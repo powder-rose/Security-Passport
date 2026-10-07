@@ -1,0 +1,233 @@
+/* ==========================================================================
+   REGULATIONS LIST
+   ==========================================================================
+
+   React entry:
+   RegulationsList.jsx
+
+   COMPONENT OWNERSHIP
+
+   01. RegulationsList.jsx
+       .regulations-list*
+       .regulations-add*
+
+   Component-specific styles live next to their React component.
+   ========================================================================== */
+
+.regulations-add:focus-visible,
+.regulations-list__row:focus-visible {
+  outline: 3px solid #1260ff;
+  outline-offset: 3px;
+}
+
+.regulations-list {
+  width: min(100%, 640px);
+
+  margin: 14px auto 0;
+
+  padding: 10px 12px;
+
+  border-radius: 4px;
+
+  background: #111;
+
+  box-shadow: 0 12px 28px rgba(17, 17, 17, 0.08);
+}
+
+.regulations-list__row {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(180px, 280px);
+
+  align-items: center;
+
+  width: 100%;
+
+  gap: 12px;
+
+  min-height: 34px;
+
+  padding: 5px 4px;
+
+  border: 0;
+
+  background: transparent;
+  color: #fff;
+
+  font: inherit;
+
+  cursor: pointer;
+}
+
+.regulations-list__row + .regulations-list__row {
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.regulations-list__name {
+  overflow: hidden;
+
+  color: #fff;
+
+  font-size: 13px;
+  font-weight: 680;
+
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.regulations-list__status {
+  display: block;
+
+  padding: 4px 10px;
+
+  overflow: hidden;
+
+  border-radius: 4px;
+
+  background: #fff;
+  color: #111;
+
+  font-size: 11px;
+  font-weight: 680;
+
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.regulations-list__row:hover .regulations-list__status {
+  background: #a9f04a;
+}
+
+.regulations-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: min(100%, 470px);
+  height: 54px;
+  min-height: 54px;
+
+  margin: 13px auto 11px;
+  padding: 0 24px;
+
+  border: 1px solid rgba(17, 17, 17, 0.5);
+  border-radius: 9px;
+
+  background: #fff;
+  color: #111;
+
+  font: inherit;
+
+  cursor: pointer;
+
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.regulations-add:hover {
+  border-color: #111;
+
+  box-shadow: 0 12px 30px rgba(17, 17, 17, 0.08);
+}
+
+.regulations-add__label {
+  display: inline;
+
+  margin: 0;
+
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 680;
+  line-height: 1.2;
+}
+
+.regulations-add__label::after {
+  content: ' +';
+  font-weight: 700;
+}
+
+.regulations-add__plus {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .regulations-list {
+    padding: 8px;
+  }
+
+  .regulations-list__row {
+    grid-template-columns: 1fr;
+
+    gap: 5px;
+
+    padding: 8px 4px;
+  }
+
+  .regulations-list__status {
+    width: fit-content;
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .regulations-add {
+    transition: none;
+  }
+}
+
+/* Theme overrides intentionally follow the base rules to preserve cascade. */
+
+.regulations-list {
+  background: #22191b;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: none;
+}
+
+.regulations-list__row {
+  background: transparent;
+  border-radius: 10px;
+  transition:
+    background-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.regulations-list__row:hover,
+.regulations-list__row:focus-visible,
+.regulations-list__row:active {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 2px #2d6bff;
+  outline: none;
+}
+
+.regulations-list__name {
+  color: #ffffff;
+}
+
+.regulations-list__row:hover .regulations-list__name,
+.regulations-list__row:focus-visible .regulations-list__name,
+.regulations-list__row:active .regulations-list__name {
+  color: #ffffff;
+}
+
+.regulations-list__status {
+  background: #ffffff;
+  color: #111111;
+}
+
+.regulations-list__row:hover .regulations-list__status,
+.regulations-list__row:focus-visible .regulations-list__status,
+.regulations-list__row:active .regulations-list__status {
+  box-shadow: inset 0 0 0 2px #2d6bff;
+}
+
+.regulations-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.regulations-list::-webkit-scrollbar-track {
+  background: #22191b;
+}
