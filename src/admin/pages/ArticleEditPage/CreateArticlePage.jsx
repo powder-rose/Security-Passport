@@ -146,12 +146,12 @@ export default function CreateArticlePage() {
   }
 
   async function getCroppedFile(imageSrc, pixelCrop) {
-    const image = await new Promise(resolve => {
+    const image = await new Promise((resolve, reject) => {
       const img = new Image();
 
-      img.onload = () => {
-        resolve(img);
-      };
+      img.onload = () => resolve(img);
+
+      img.onerror = reject;
 
       img.src = imageSrc;
     });
@@ -184,15 +184,13 @@ export default function CreateArticlePage() {
       canvas.toBlob(resolve, 'image/webp', 0.9);
     });
 
-    return new File(
-      [blob],
+    if (!blob) {
+      throw new Error('Не удалось подготовить изображение');
+    }
 
-      'article-image.webp',
-
-      {
-        type: 'image/webp',
-      },
-    );
+    return new File([blob], 'article-image.webp', {
+      type: 'image/webp',
+    });
   }
 
   function previewArticle() {
