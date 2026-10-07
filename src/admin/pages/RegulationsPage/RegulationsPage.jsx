@@ -1,4 +1,4 @@
-import './RegulationsPage.polish.css';
+import './RegulationsPage.css';
 
 import { useMemo, useState } from 'react';
 

@@ -1,25 +1,30 @@
 /* ==========================================================================
-   ADMIN REGULATIONS
+   ADMIN REGULATIONS PAGE
    ==========================================================================
 
    React entry:
    RegulationsPage.jsx
 
-   Scope:
-       Regulations page layout
-       Regulations accordion
-       Publication controls
-       Regulation messages and loading states
-       Regulations quiz
+   COMPONENT OWNERSHIP
 
-   Primary selectors:
-       .regulations-page*
+   01. RegulationsPage.jsx
        .regulations-heading*
+       .regulations-message
+       .regulations-loading
        .regulations-accordion*
-       .regulations-publication*
-       .regulations-message*
-       .regulations-loading*
-       .regulations-quiz*
+       .regulations-quiz
+
+   Shared page selectors:
+       .regulations-page
+
+   External components:
+       RegulationsList.jsx
+       RegulationsQuizContent.jsx
+       RegulationsQuizActions.jsx
+       RegulationsPublicationStatus.jsx
+       keep their own component styles.
+
+   Component-specific styles live next to their React components.
    ========================================================================== */
 
 .regulations-page {
@@ -29,7 +34,11 @@
 }
 
 .regulations-heading {
+  width: min(760px, 100%);
+  margin-right: auto;
   margin-bottom: 18px;
+  margin-left: auto;
+  text-align: center;
 }
 
 .regulations-page h1 {
@@ -129,17 +138,6 @@
   .regulations-accordion {
     font-size: 17px;
   }
-}
-
-/* --------------------------------------------------------------------------
-   Regulations heading alignment
-   -------------------------------------------------------------------------- */
-
-.regulations-heading {
-  width: min(760px, 100%);
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
 }
 
 .regulations-heading h1 {
