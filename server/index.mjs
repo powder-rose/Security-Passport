@@ -12,6 +12,7 @@ import { getStatistics } from './statistics.mjs';
 import { getAdminLeadsPage } from './admin-leads.mjs';
 import { appendLeadToFile, deleteLeadFromFile } from './lead-storage.mjs';
 import { createAdminAuth } from './admin-auth.mjs';
+import { quizContactSchema } from '../src/lib/validation/leadValidation.js';
 import {
   getArticles,
   getArticleById,
@@ -227,6 +228,7 @@ function validateLead(lead) {
     if (!cleanString(contact.phone, 120)) return 'PHONE_REQUIRED';
     if (!cleanString(contact.email, 320)) return 'EMAIL_REQUIRED';
     if (contact.consent !== true) return 'CONSENT_REQUIRED';
+    if (!quizContactSchema.isValidSync(contact)) return 'INVALID_CONTACT';
   }
 
   return '';
