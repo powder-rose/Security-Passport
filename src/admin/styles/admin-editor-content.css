@@ -1,0 +1,627 @@
+/* =========================
+   ARTICLE EDITOR CONTENT
+========================= */
+
+.article-editor-toolbar {
+  order: 2;
+
+  display: flex;
+
+  gap: 8px;
+
+  padding: 12px;
+
+  background: #f7f7f7;
+
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.editor-button {
+  height: 34px;
+
+  padding: 0 12px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #d0d5dd;
+  border-radius: 6px;
+
+  background: #fff;
+
+  cursor: pointer;
+
+  font-weight: 600;
+
+  transition: 0.2s;
+}
+
+.editor-button:hover {
+  background: #f5f5f5;
+}
+
+.editor-button.active {
+  background: #1260ff;
+
+  color: #fff;
+}
+
+.article-upload-button input {
+  display: none;
+}
+
+.article-editor-toolbar button:hover {
+  background: #fff;
+
+  color: inherit;
+}
+
+.article-editor-toolbar button:focus {
+  outline: none;
+}
+
+.article-editor .ProseMirror,
+.article-editor .ProseMirror p {
+  font-weight: 400 !important;
+}
+
+.article-editor .ProseMirror strong,
+.article-editor .ProseMirror b {
+  font-weight: 700;
+}
+
+/* ARTICLE IMAGE BUTTON */
+
+.article-upload-button {
+  height: 34px;
+
+  padding: 0 14px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border: 1px solid #d0d5dd;
+
+  border-radius: 6px;
+
+  background: #fff;
+
+  cursor: pointer;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  transition: 0.2s;
+}
+
+.article-upload-button input[type='file'] {
+  display: none !important;
+}
+
+.article-upload-button > input[type='file'] {
+  position: absolute;
+
+  width: 1px;
+
+  height: 1px;
+
+  overflow: hidden;
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+.article-upload-button:hover {
+  background: #f5f5f5;
+}
+
+.main-image-upload {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: max-content;
+
+  height: 36px;
+
+  padding: 0 16px;
+
+  border: 1px solid #d0d5dd;
+
+  border-radius: 8px;
+
+  background: #fff;
+
+  cursor: pointer;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  transition: 0.2s;
+}
+
+.main-image-upload:hover {
+  background: #f5f5f5;
+}
+
+.main-image-upload input {
+  display: none !important;
+}
+
+.admin-image-wrapper {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+
+  margin-top: 12px;
+}
+
+.admin-image-remove {
+  width: max-content;
+
+  height: 34px;
+
+  padding: 0 14px;
+
+  border: 1px solid #dc2626;
+
+  border-radius: 6px;
+
+  background: #fff;
+
+  color: #dc2626;
+
+  cursor: pointer;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+.admin-image-remove:hover {
+  background: #dc2626;
+
+  color: #fff;
+}
+
+.image-cropper {
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.45);
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  z-index: 1000;
+}
+
+.image-cropper-area {
+  position: relative;
+
+  width: min(800px, calc(100vw - 40px));
+
+  aspect-ratio: 16 / 9;
+
+  background: #111;
+
+  border-radius: 12px;
+
+  overflow: hidden;
+}
+
+.image-cropper input {
+  width: min(800px, calc(100vw - 40px));
+
+  margin: 20px 0;
+}
+
+.image-cropper-actions {
+  display: flex;
+
+  gap: 12px;
+}
+
+.image-cropper-actions button {
+  padding: 10px 18px;
+
+  border-radius: 8px;
+
+  border: 0;
+
+  cursor: pointer;
+}
+
+/* =========================
+   ARTICLE IMAGE PREVIEW INFO
+========================= */
+
+.admin-image-preview-header {
+  width: min(100%, 480px);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 16px;
+
+  margin-top: 18px;
+
+  margin-bottom: 8px;
+}
+
+.admin-image-preview-header span {
+  font-size: 12px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.04em;
+}
+
+.admin-image-preview-header small {
+  font-size: 12px;
+
+  font-weight: 500;
+
+  color: rgba(17, 17, 17, 0.5);
+
+  white-space: nowrap;
+}
+
+.admin-image-preview-header + .admin-image-preview {
+  margin-top: 0;
+}
+
+@media (max-width: 600px) {
+  .admin-image-preview-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 4px;
+  }
+}
+
+/* =========================
+   ARTICLE PREVIEW ACTIONS
+========================= */
+
+.admin-editor__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.admin-editor__actions .admin-button--preview {
+  background: #1260ff;
+}
+
+@media (max-width: 600px) {
+  .admin-editor__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-editor__actions .admin-button {
+    width: 100%;
+  }
+}
+
+/* =========================================
+   ARTICLE EDITOR — CONTENT WIDTH
+========================================= */
+
+.admin-field {
+  width: 100%;
+  min-width: 0;
+
+  overflow: visible !important;
+}
+
+.article-editor {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+
+  background: #fff;
+}
+
+.article-editor .ProseMirror {
+  box-sizing: border-box;
+
+  order: 1;
+
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 260px;
+
+  padding: 20px;
+
+  outline: none;
+
+  font-size: 16px;
+
+  line-height: 1.6;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.article-editor .ProseMirror p,
+.article-editor .ProseMirror h2,
+.article-editor .ProseMirror h3,
+.article-editor .ProseMirror li,
+.article-editor .ProseMirror blockquote {
+  max-width: 100%;
+
+  white-space: normal;
+
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.article-editor .ProseMirror ul,
+.article-editor .ProseMirror ol {
+  box-sizing: border-box;
+
+  max-width: 100%;
+
+  padding-right: 20px;
+}
+
+.article-editor .ProseMirror img {
+  display: block;
+
+  width: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.admin-editor__card > * {
+  min-width: 0;
+}
+
+/* =========================================
+   ARTICLE EDITOR — STICKY TOOLBAR
+========================================= */
+
+.article-editor-shell {
+  position: relative;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.article-editor-shell .article-editor-toolbar {
+  position: sticky !important;
+
+  top: 12px;
+
+  z-index: 200;
+
+  width: 100%;
+  max-width: 100%;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+
+  margin: 0 0 10px;
+
+  padding: 10px 12px;
+
+  border: 1px solid rgba(17, 17, 17, 0.1);
+
+  border-radius: 10px;
+
+  background: rgba(247, 247, 247, 0.97);
+
+  box-shadow: 0 8px 26px rgba(17, 17, 17, 0.1);
+
+  backdrop-filter: blur(12px);
+
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.article-editor-shell .article-editor {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+
+  overflow: visible;
+}
+
+/* Sticky positioning requires ancestor overflow to remain visible. */
+@media (max-width: 700px) {
+  .article-editor-shell .article-editor-toolbar {
+    top: 8px;
+
+    gap: 6px;
+
+    padding: 8px;
+  }
+}
+
+/* =========================================
+   ARTICLE EDITOR ACTIONS
+========================================= */
+
+.admin-button--preview {
+  background: #fff;
+  color: #111;
+
+  border: 1px solid rgba(17, 17, 17, 0.14);
+}
+
+.admin-button--preview:hover {
+  border-color: #1260ff;
+  color: #1260ff;
+}
+
+/* =========================================
+   ARTICLE EDITOR — IMPORTANT BLOCK
+========================================= */
+
+.article-editor .ProseMirror blockquote strong {
+  font-weight: 800;
+}
+
+.article-editor-toolbar .editor-button--active {
+  border-color: #1260ff;
+
+  background: rgba(18, 96, 255, 0.08);
+
+  color: #1260ff;
+}
+
+/* =========================================
+   ARTICLE EDITOR — CALLOUT / ВРЕЗКА
+========================================= */
+
+.article-editor .ProseMirror blockquote {
+  position: relative;
+
+  margin: 24px 0;
+
+  padding: 18px 20px 18px 22px;
+
+  border: 0;
+  border-radius: 12px;
+
+  background: rgba(18, 96, 255, 0.08);
+
+  color: inherit;
+}
+
+.article-editor .ProseMirror blockquote::before {
+  content: '';
+
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+  left: 0;
+
+  width: 5px;
+
+  border-radius: 12px 0 0 12px;
+
+  background: #1260ff;
+}
+
+.article-editor .ProseMirror blockquote p {
+  margin: 0;
+
+  line-height: 1.6;
+}
+
+/* =========================================
+   ARTICLE EDITOR — TABLES
+========================================= */
+
+.article-editor .ProseMirror table {
+  width: 100%;
+
+  margin: 24px 0;
+
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  table-layout: auto;
+}
+
+.article-editor .ProseMirror th,
+.article-editor .ProseMirror td {
+  position: relative;
+
+  min-width: 80px;
+
+  padding: 10px 12px;
+
+  border: 1px solid rgba(17, 17, 17, 0.14);
+
+  vertical-align: top;
+
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+.article-editor .ProseMirror th {
+  background: rgba(18, 96, 255, 0.08);
+
+  font-weight: 750;
+
+  color: #111;
+}
+
+.article-editor .ProseMirror td {
+  background: #fff;
+}
+
+.article-editor .ProseMirror th p,
+.article-editor .ProseMirror td p {
+  margin: 0;
+}
+
+.article-editor .ProseMirror th p + p,
+.article-editor .ProseMirror td p + p {
+  margin-top: 6px;
+}
+
+.article-editor .ProseMirror .selectedCell::after {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  background: rgba(18, 96, 255, 0.08);
+}
+
+.editor-button--danger {
+  color: #a62e2e;
+}
+
+.editor-button--danger:hover {
+  border-color: rgba(166, 46, 46, 0.4);
+
+  background: rgba(166, 46, 46, 0.06);
+}

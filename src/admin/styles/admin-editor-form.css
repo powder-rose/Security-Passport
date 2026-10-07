@@ -1,0 +1,334 @@
+/* ARTICLE EDITOR */
+
+.admin-editor h1 {
+  margin: 0 0 30px;
+
+  font-size: 42px;
+
+  letter-spacing: -0.04em;
+}
+
+.admin-editor label {
+  display: grid;
+
+  gap: 10px;
+}
+
+.admin-editor label span {
+  font-size: 12px;
+
+  font-weight: 800;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+}
+
+.admin-editor input,
+.admin-editor textarea {
+  width: 100%;
+
+  padding: 16px;
+
+  border: 1px solid rgba(17, 17, 17, 0.15);
+
+  border-radius: 12px;
+
+  font-size: 18px;
+
+  font-family: inherit;
+}
+
+.admin-editor textarea {
+  resize: vertical;
+}
+
+/* ARTICLES */
+
+.admin-button {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 14px 22px;
+
+  border-radius: 999px;
+
+  background: #1260ff;
+
+  color: white;
+
+  text-decoration: none;
+
+  border: none;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.admin-button:hover {
+  transform: translateY(-2px);
+
+  background: #064de0;
+}
+
+.admin-editor select {
+  width: 100%;
+
+  padding: 16px;
+
+  border-radius: 12px;
+
+  border: 1px solid rgba(17, 17, 17, 0.15);
+
+  background: white;
+
+  font-size: 16px;
+}
+
+/* =========================================
+   ARTICLE EDITOR — FORM LAYOUT
+========================================= */
+
+.admin-content {
+  flex: 1;
+
+  padding: 36px 36px 60px;
+
+  background: #d9d6d0;
+}
+
+.admin-editor {
+  max-width: 980px;
+}
+
+.admin-back {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 8px;
+  margin-bottom: 18px;
+
+  color: #1260ff;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+.admin-back:hover {
+  text-decoration: underline;
+}
+
+.admin-editor > h1 {
+  margin: 0 0 28px;
+
+  color: #111;
+  font-size: clamp(2.4rem, 4vw, 4.6rem);
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+  font-weight: 700;
+}
+
+.admin-editor__card {
+  position: relative;
+
+  display: grid;
+
+  max-width: 900px;
+  min-width: 0;
+
+  gap: 24px;
+  margin-bottom: 24px;
+  padding: 30px 30px 32px;
+
+  overflow: visible !important;
+
+  border: 1px solid rgba(17, 17, 17, 0.06);
+  border-radius: 28px;
+
+  background: #f4f1e8;
+
+  box-shadow: 0 20px 50px rgba(17, 17, 17, 0.05);
+}
+
+.admin-editor__card::after {
+  content: '';
+
+  position: absolute;
+  right: -82px;
+  top: -82px;
+
+  width: 220px;
+  height: 220px;
+
+  border: 2px solid #1260ff;
+  border-radius: 50%;
+
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.admin-editor__card > h2 {
+  position: relative;
+  z-index: 1;
+
+  margin: 0 0 28px;
+
+  color: #111;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.admin-editor__card label {
+  position: relative;
+  z-index: 1;
+
+  display: grid;
+  gap: 10px;
+
+  margin-bottom: 20px;
+}
+
+.admin-editor__card label:last-child {
+  margin-bottom: 0;
+}
+
+.admin-editor__card label span {
+  color: #111;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.admin-editor__card input,
+.admin-editor__card textarea,
+.admin-editor__card select {
+  width: 100%;
+
+  padding: 18px 18px 16px;
+
+  color: #111;
+  font: inherit;
+  font-size: 17px;
+  line-height: 1.45;
+
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  border-radius: 18px;
+  outline: none;
+
+  background: rgba(255, 255, 255, 0.55);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.admin-editor__card textarea {
+  min-height: 220px;
+  resize: vertical;
+}
+
+.admin-editor__card input::placeholder,
+.admin-editor__card textarea::placeholder {
+  color: rgba(17, 17, 17, 0.42);
+}
+
+.admin-editor__card input:focus,
+.admin-editor__card textarea:focus,
+.admin-editor__card select:focus {
+  border-color: #1260ff;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(18, 96, 255, 0.12);
+}
+
+.admin-editor > .admin-button,
+.admin-editor__actions .admin-button,
+.admin-button {
+  position: relative;
+  z-index: 1;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 190px;
+
+  padding: 16px 24px;
+
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 16px;
+
+  border: 0;
+  border-radius: 999px;
+
+  background: #111;
+  box-shadow:
+    inset 0 -2px 0 rgba(255, 255, 255, 0.08),
+    0 10px 24px rgba(17, 17, 17, 0.16);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.admin-editor > .admin-button:hover,
+.admin-editor__actions .admin-button:hover,
+.admin-button:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 -2px 0 rgba(255, 255, 255, 0.08),
+    0 14px 30px rgba(17, 17, 17, 0.2);
+}
+
+.admin-editor > .admin-button:active,
+.admin-editor__actions .admin-button:active,
+.admin-button:active {
+  transform: translateY(0);
+}
+
+.admin-editor > .admin-button::after,
+.admin-editor__actions .admin-button::after,
+.admin-button::after {
+  content: '→';
+
+  margin-left: 12px;
+
+  color: #a9f04a;
+  font-weight: 800;
+}
+
+@media (max-width: 900px) {
+  .admin-content {
+    padding: 24px 18px 40px;
+  }
+
+  .admin-editor__card {
+    padding: 22px 18px 24px;
+    border-radius: 22px;
+  }
+
+  .admin-editor__card::after {
+    width: 170px;
+    height: 170px;
+    right: -70px;
+    top: -70px;
+  }
+
+  .admin-editor > h1 {
+    margin-bottom: 22px;
+  }
+}

@@ -1,0 +1,310 @@
+/* =========================================
+   ADMIN SIDEBAR — PUBLIC BLOG LINK
+========================================= */
+
+.admin-sidebar__menu a.admin-sidebar__blog-link {
+  color: #6f92ff;
+}
+
+.admin-sidebar__menu a.admin-sidebar__blog-link:hover {
+  color: #fff;
+
+  background: rgba(18, 96, 255, 0.22);
+}
+
+/* =========================================
+   ARTICLES — BULK YEAR UPDATE
+========================================= */
+
+.admin-articles-header-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+}
+
+.admin-year-button {
+  min-height: 46px;
+
+  padding: 0 18px;
+
+  border: 1px solid rgba(18, 96, 255, 0.22);
+
+  border-radius: 999px;
+
+  background: rgba(18, 96, 255, 0.07);
+
+  color: #1260ff;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.admin-year-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+
+  background: rgba(18, 96, 255, 0.12);
+
+  border-color: rgba(18, 96, 255, 0.35);
+}
+
+.admin-year-button:disabled {
+  opacity: 0.5;
+
+  cursor: wait;
+}
+
+@media (max-width: 760px) {
+  .admin-articles-header-actions {
+    width: 100%;
+
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .admin-year-button {
+    width: 100%;
+  }
+}
+
+/* =========================================
+   ARTICLES — HEADER ACTIONS WRAPPER
+========================================= */
+
+@media (max-width: 700px) {
+  .admin-articles-header-actions-wrap {
+    align-items: flex-start;
+  }
+}
+
+/* =========================================
+   ARTICLES — YEAR TOOLTIP
+========================================= */
+
+.admin-articles-header-actions-wrap {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  gap: 0;
+}
+
+.admin-year-help {
+  position: relative;
+
+  width: 26px;
+  height: 26px;
+
+  flex: 0 0 26px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: -2px;
+  margin-right: 2px;
+
+  border: 1px solid rgba(18, 96, 255, 0.22);
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  color: #1260ff;
+
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+
+  cursor: help;
+
+  outline: none;
+}
+
+.admin-year-help:hover,
+.admin-year-help:focus-visible {
+  border-color: #1260ff;
+
+  background: rgba(18, 96, 255, 0.07);
+}
+
+.admin-year-tooltip {
+  position: absolute;
+
+  z-index: 100;
+
+  top: calc(100% + 10px);
+
+  left: 50%;
+
+  width: 260px;
+
+  padding: 12px 14px;
+
+  border-radius: 10px;
+
+  background: #111;
+
+  color: #fff;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.16);
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+
+  text-align: left;
+
+  transform: translateX(-50%) translateY(-4px);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity 0.16s ease,
+    transform 0.16s ease,
+    visibility 0.16s ease;
+}
+
+.admin-year-tooltip::before {
+  content: '';
+
+  position: absolute;
+
+  bottom: 100%;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  border: 6px solid transparent;
+
+  border-bottom-color: #111;
+}
+
+.admin-year-help:hover .admin-year-tooltip,
+.admin-year-help:focus .admin-year-tooltip,
+.admin-year-help:focus-visible .admin-year-tooltip {
+  opacity: 1;
+  visibility: visible;
+
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 700px) {
+  .admin-year-tooltip {
+    left: auto;
+    right: 0;
+
+    width: 230px;
+
+    transform: translateY(-4px);
+  }
+
+  .admin-year-tooltip::before {
+    left: auto;
+    right: 7px;
+
+    transform: none;
+  }
+
+  .admin-year-help:hover .admin-year-tooltip,
+  .admin-year-help:focus .admin-year-tooltip,
+  .admin-year-help:focus-visible .admin-year-tooltip {
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   ARTICLE EDIT — PUBLISHED NOTICE
+========================================= */
+
+.admin-published-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 24px;
+
+  margin: 0 0 24px;
+
+  padding: 18px 20px;
+
+  border: 1px solid rgba(18, 96, 255, 0.13);
+
+  border-radius: 16px;
+
+  background: rgba(18, 96, 255, 0.045);
+}
+
+.admin-published-notice__status {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 12px;
+
+  min-width: 0;
+}
+
+.admin-published-notice__dot {
+  width: 9px;
+  height: 9px;
+
+  flex: 0 0 9px;
+
+  margin-top: 6px;
+
+  border-radius: 50%;
+
+  background: #22a06b;
+
+  box-shadow: 0 0 0 4px rgba(34, 160, 107, 0.1);
+}
+
+.admin-published-notice__status > div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+
+  min-width: 0;
+}
+
+.admin-published-notice__status strong {
+  color: #111;
+
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.admin-published-notice__status span {
+  color: rgba(17, 17, 17, 0.55);
+
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.admin-published-notice__link {
+  flex: 0 0 auto;
+
+  color: #1260ff;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+.admin-published-notice__link:hover {
+  text-decoration: underline;
+}

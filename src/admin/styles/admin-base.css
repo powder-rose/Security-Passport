@@ -1,0 +1,324 @@
+:root {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+
+  color: #111;
+  background: #f1efe8;
+
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background: #f1efe8;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* LOGIN */
+
+.admin-login {
+  min-height: 100vh;
+
+  display: grid;
+  place-items: center;
+
+  padding: 32px;
+
+  background:
+    radial-gradient(circle at 85% 14%, rgba(169, 240, 74, 0.95) 0 82px, transparent 83px), #111;
+}
+
+.admin-login__card {
+  position: relative;
+
+  width: min(100%, 520px);
+
+  padding: 42px;
+
+  overflow: hidden;
+
+  background: #f4f1e8;
+  border-radius: 3px;
+}
+
+.admin-login__card::after {
+  content: '';
+
+  position: absolute;
+  right: -90px;
+  bottom: -110px;
+
+  width: 230px;
+  height: 230px;
+
+  border: 2px solid #1260ff;
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+.admin-login__brand {
+  margin-bottom: 70px;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  letter-spacing: 0.09em;
+}
+
+.admin-login__number {
+  color: #1260ff;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+}
+
+.admin-login__card h1 {
+  max-width: 370px;
+
+  margin: 12px 0 14px;
+
+  font-size: clamp(2.7rem, 8vw, 5rem);
+
+  line-height: 0.88;
+  letter-spacing: -0.065em;
+  font-weight: 650;
+}
+
+.admin-login__card > p {
+  max-width: 330px;
+
+  margin: 0 0 42px;
+
+  color: rgba(17, 17, 17, 0.58);
+
+  line-height: 1.5;
+}
+
+.admin-login__card form {
+  display: grid;
+  gap: 18px;
+}
+
+.admin-login__card label {
+  display: grid;
+  gap: 8px;
+}
+
+.admin-login__card label span {
+  font-size: 12px;
+  font-weight: 750;
+
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.admin-login__card input {
+  width: 100%;
+
+  padding: 16px 0 13px;
+
+  color: #111;
+
+  font-size: 20px;
+
+  border: 0;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.25);
+
+  border-radius: 0;
+  outline: none;
+
+  background: transparent;
+}
+
+.admin-login__card input:focus {
+  border-bottom-color: #1260ff;
+}
+
+.admin-login__card form button {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: fit-content;
+
+  gap: 30px;
+  margin-top: 14px;
+  padding: 15px 19px 15px 21px;
+
+  border: 0;
+  border-radius: 999px;
+
+  background: #1260ff;
+
+  color: #fff;
+
+  font-weight: 700;
+}
+
+.admin-form-error {
+  margin: 0 !important;
+
+  color: #bd271f !important;
+
+  font-size: 14px;
+}
+
+.admin-login__card form button span:last-child {
+  color: #a9f04a;
+}
+
+/* ADMIN LAYOUT */
+
+.admin-layout {
+  min-height: 100vh;
+
+  display: flex;
+
+  background: #f1efe8;
+}
+
+.admin-sidebar {
+  width: 260px;
+
+  min-height: 100vh;
+
+  padding: 32px 24px;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #111;
+
+  color: #fff;
+}
+
+.admin-sidebar__brand {
+  margin-bottom: 50px;
+
+  font-size: 14px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.1em;
+}
+
+.admin-sidebar__menu {
+  display: grid;
+
+  gap: 12px;
+}
+
+.admin-sidebar__menu a {
+  padding: 12px 14px;
+
+  color: rgba(255, 255, 255, 0.75);
+
+  text-decoration: none;
+
+  border-radius: 8px;
+
+  transition: 0.2s;
+}
+
+.admin-sidebar__menu a:hover {
+  background: rgba(255, 255, 255, 0.08);
+
+  color: #fff;
+}
+
+.admin-sidebar__logout {
+  margin-top: auto;
+
+  padding: 12px;
+
+  border: 0;
+
+  border-radius: 999px;
+
+  background: #1260ff;
+
+  color: #fff;
+
+  font-weight: 700;
+}
+
+/* ARTICLES PAGE */
+
+/* CREATE BUTTON */
+
+.admin-page-header a {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 14px 22px;
+
+  background: #1260ff;
+
+  color: white;
+
+  text-decoration: none;
+
+  border-radius: 999px;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  transition: 0.2s ease;
+}
+
+.admin-page-header a:hover {
+  transform: translateY(-2px);
+
+  background: #0d4fd4;
+}
+
+/* EMPTY */
+
+/* ARTICLES LIST */
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+  .admin-page-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 20px;
+  }
+
+  .admin-page-header h1 {
+    font-size: 34px;
+  }
+}
