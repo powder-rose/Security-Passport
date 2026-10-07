@@ -1,0 +1,97 @@
+/* ==========================================================================
+   REGULATIONS QUIZ ACTIONS
+   ==========================================================================
+
+   React entry:
+   RegulationsQuizActions.jsx
+
+   COMPONENT OWNERSHIP
+
+   01. RegulationsQuizActions.jsx
+       .regulations-quiz__actions*
+       .regulations-quiz__back
+       .regulations-quiz__next
+       .regulations-quiz__save
+
+   Component-specific styles live next to their React component.
+   ========================================================================== */
+
+.regulations-quiz button:focus-visible {
+  outline: 3px solid #1260ff;
+  outline-offset: 3px;
+}
+
+.regulations-quiz__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  padding: 0 clamp(18px, 5vw, 38px) 26px;
+}
+
+.regulations-quiz__actions button {
+  min-height: 44px;
+
+  padding: 10px 18px;
+
+  border: 1px solid #111;
+  border-radius: 999px;
+
+  background: #fff;
+  color: #111;
+
+  font: inherit;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.regulations-quiz__actions .regulations-quiz__next,
+.regulations-quiz__actions .regulations-quiz__save {
+  margin-left: auto;
+
+  border-color: #1260ff;
+
+  background: #1260ff;
+  color: #fff;
+}
+
+.regulations-quiz__next {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 12px;
+}
+
+.regulations-quiz__actions button:hover {
+  transform: translateY(-1px);
+}
+
+.regulations-quiz__actions button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+@media (max-width: 760px) {
+  .regulations-quiz__actions {
+    padding: 0 18px 20px;
+  }
+}
+
+@media (max-width: 520px) {
+  .regulations-quiz__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .regulations-quiz__actions button {
+    width: 100%;
+  }
+
+  .regulations-quiz__actions .regulations-quiz__next,
+  .regulations-quiz__actions .regulations-quiz__save {
+    margin-left: 0;
+  }
+}

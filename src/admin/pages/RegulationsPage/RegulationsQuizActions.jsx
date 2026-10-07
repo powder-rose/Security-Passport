@@ -1,3 +1,5 @@
+import './RegulationsQuizActions.css';
+
 export default function RegulationsQuizActions({
   isFirstStep,
   isLastStep,

@@ -98,8 +98,7 @@
   box-shadow: 0 0 0 2px rgba(169, 240, 74, 0.32);
 }
 
-.regulations-accordion:focus-visible,
-.regulations-quiz button:focus-visible {
+.regulations-accordion:focus-visible {
   outline: 3px solid #1260ff;
   outline-offset: 3px;
 }
@@ -118,59 +117,6 @@
   background: #fff;
 
   box-shadow: 0 12px 30px rgba(17, 17, 17, 0.05);
-}
-
-.regulations-quiz__actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 12px;
-
-  padding: 0 clamp(18px, 5vw, 38px) 26px;
-}
-
-.regulations-quiz__actions button {
-  min-height: 44px;
-
-  padding: 10px 18px;
-
-  border: 1px solid #111;
-  border-radius: 999px;
-
-  background: #fff;
-  color: #111;
-
-  font: inherit;
-  font-weight: 700;
-
-  cursor: pointer;
-}
-
-.regulations-quiz__actions .regulations-quiz__next,
-.regulations-quiz__actions .regulations-quiz__save {
-  margin-left: auto;
-
-  border-color: #1260ff;
-
-  background: #1260ff;
-  color: #fff;
-}
-
-.regulations-quiz__next {
-  display: inline-flex;
-  align-items: center;
-
-  gap: 12px;
-}
-
-.regulations-quiz__actions button:hover {
-  transform: translateY(-1px);
-}
-
-.regulations-quiz__actions button:disabled {
-  opacity: 0.55;
-  cursor: wait;
 }
 
 .regulations-publication {
@@ -213,29 +159,11 @@
   .regulations-page h1 {
     font-size: clamp(32px, 9vw, 44px);
   }
-
-  .regulations-quiz__actions {
-    padding: 0 18px 20px;
-  }
 }
 
 @media (max-width: 520px) {
   .regulations-accordion {
     font-size: 17px;
-  }
-
-  .regulations-quiz__actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .regulations-quiz__actions button {
-    width: 100%;
-  }
-
-  .regulations-quiz__actions .regulations-quiz__next,
-  .regulations-quiz__actions .regulations-quiz__save {
-    margin-left: 0;
   }
 }
 
