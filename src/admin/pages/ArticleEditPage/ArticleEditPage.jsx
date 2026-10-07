@@ -52,6 +52,8 @@ export default function ArticleEditPage() {
 
   const [loading, setLoading] = useState(true);
 
+  const [loadError, setLoadError] = useState('');
+
   const [cropImage, setCropImage] = useState(null);
 
   const savingRef = useRef(false);
@@ -65,6 +67,8 @@ export default function ArticleEditPage() {
 
   useEffect(() => {
     async function load() {
+      setLoadError('');
+
       try {
         const result = await getArticle(id);
 
@@ -100,7 +104,15 @@ export default function ArticleEditPage() {
 
             ogImage: result.article.ogImage || '',
           });
+        } else if (result?.error === 'ARTICLE_NOT_FOUND') {
+          setLoadError('Статья не найдена.');
+        } else {
+          setLoadError('Не удалось загрузить статью.');
         }
+      } catch (error) {
+        console.error(error);
+
+        setLoadError('Не удалось загрузить статью. Попробуйте позже.');
       } finally {
         setLoading(false);
       }
@@ -265,6 +277,22 @@ export default function ArticleEditPage() {
 
   if (loading) {
     return <div>Загрузка статьи...</div>;
+  }
+
+  if (loadError) {
+    return (
+      <div className="admin-editor">
+        <a href="/admin/articles" className="admin-back">
+          ← Назад
+        </a>
+
+        <section className="admin-editor__card">
+          <h2>Не удалось открыть статью</h2>
+
+          <p>{loadError}</p>
+        </section>
+      </div>
+    );
   }
 
   return (
