@@ -1,6 +1,18 @@
-/* =========================================
-   ARTICLE EDITOR — LINKS PANEL
-========================================= */
+/* ==========================================================================
+   ADMIN ARTICLE LINKS
+   ==========================================================================
+
+   Scope:
+       Internal article links panel
+       Link metadata
+       Link actions
+       Empty state
+       Rich-text article links
+
+   Primary selectors:
+       .article-links-panel*
+       .article-editor .ProseMirror a
+   ========================================================================== */
 
 .article-links-panel {
   margin: 0 0 10px;

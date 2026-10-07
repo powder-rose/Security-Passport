@@ -1,6 +1,22 @@
-/* =========================================
-   ADMIN SIDEBAR — PUBLIC BLOG LINK
-========================================= */
+/* ==========================================================================
+   ADMIN ARTICLE TOOLS
+   ==========================================================================
+
+   Scope:
+       Public blog navigation
+       Bulk publication-year update
+       Header action wrapper
+       Year help tooltip
+       Published article notice
+
+   Primary selectors:
+       .admin-sidebar__blog-link
+       .admin-articles-header-actions*
+       .admin-year-button*
+       .admin-year-help*
+       .admin-year-tooltip*
+       .admin-published-notice*
+   ========================================================================== */
 
 .admin-sidebar__menu a.admin-sidebar__blog-link {
   color: #6f92ff;
@@ -12,9 +28,9 @@
   background: rgba(18, 96, 255, 0.22);
 }
 
-/* =========================================
-   ARTICLES — BULK YEAR UPDATE
-========================================= */
+/* --------------------------------------------------------------------------
+   Bulk publication-year update
+   -------------------------------------------------------------------------- */
 
 .admin-articles-header-actions {
   display: flex;
@@ -75,9 +91,9 @@
   }
 }
 
-/* =========================================
-   ARTICLES — HEADER ACTIONS WRAPPER
-========================================= */
+/* --------------------------------------------------------------------------
+   Header actions wrapper
+   -------------------------------------------------------------------------- */
 
 @media (max-width: 700px) {
   .admin-articles-header-actions-wrap {
@@ -85,9 +101,9 @@
   }
 }
 
-/* =========================================
-   ARTICLES — YEAR TOOLTIP
-========================================= */
+/* --------------------------------------------------------------------------
+   Year update tooltip
+   -------------------------------------------------------------------------- */
 
 .admin-articles-header-actions-wrap {
   position: relative;
@@ -225,9 +241,9 @@
   }
 }
 
-/* =========================================
-   ARTICLE EDIT — PUBLISHED NOTICE
-========================================= */
+/* --------------------------------------------------------------------------
+   Published article notice
+   -------------------------------------------------------------------------- */
 
 .admin-published-notice {
   display: flex;

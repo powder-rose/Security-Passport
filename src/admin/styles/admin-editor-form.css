@@ -1,4 +1,21 @@
-/* ARTICLE EDITOR */
+/* ==========================================================================
+   ADMIN EDITOR FORM
+   ==========================================================================
+
+   Scope:
+       Article editor headings and labels
+       Shared admin buttons
+       Editor content container
+       Back navigation
+       Editor card and form controls
+
+   Primary selectors:
+       .admin-editor*
+       .admin-button*
+       .admin-content
+       .admin-back*
+       .admin-editor__card*
+   ========================================================================== */
 
 .admin-editor h1 {
   margin: 0 0 30px;
@@ -43,7 +60,9 @@
   resize: vertical;
 }
 
-/* ARTICLES */
+/* --------------------------------------------------------------------------
+   Shared admin buttons
+   -------------------------------------------------------------------------- */
 
 .admin-button {
   display: inline-flex;
@@ -91,9 +110,9 @@
   font-size: 16px;
 }
 
-/* =========================================
-   ARTICLE EDITOR — FORM LAYOUT
-========================================= */
+/* --------------------------------------------------------------------------
+   Editor form layout
+   -------------------------------------------------------------------------- */
 
 .admin-content {
   flex: 1;

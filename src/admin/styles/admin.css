@@ -1,3 +1,39 @@
+/* ==========================================================================
+   ADMIN STYLES
+   ==========================================================================
+
+   React entry:
+   src/admin/main.jsx
+
+   MODULE ORDER
+
+   01. admin-base.css
+       Login, application shell, sidebar and shared page header.
+
+   02. admin-editor-form.css
+       Editor form controls, shared buttons and content container.
+
+   03. admin-articles.css
+       Article list, cards, filters, statuses and article images.
+
+   04. admin-editor-content.css
+       Rich-text editor, toolbar, uploads, cropper and content blocks.
+
+   05. admin-article-tools.css
+       Blog link, year update controls, tooltips and publication notice.
+
+   06. admin-editor-layout.css
+       Editor workspace, sticky actions, responsive layout and public URL.
+
+   07. admin-article-meta.css
+       Article status, category controls, publication date and category input.
+
+   08. admin-links-panel.css
+       Article links panel and editor link presentation.
+
+   Import order is intentional and preserves the admin cascade.
+   ========================================================================== */
+
 @import './admin-base.css';
 @import './admin-editor-form.css';
 @import './admin-articles.css';
