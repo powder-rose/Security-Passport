@@ -119,42 +119,6 @@
   box-shadow: 0 12px 30px rgba(17, 17, 17, 0.05);
 }
 
-.regulations-publication {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  width: min(100%, 760px);
-
-  gap: 16px;
-
-  margin: 16px auto 0;
-
-  padding: 11px 14px;
-
-  border-radius: 7px;
-
-  background: #e9eef9;
-
-  font-size: 13px;
-}
-
-.regulations-publication button {
-  border: 0;
-
-  background: transparent;
-  color: #1260ff;
-
-  font: inherit;
-  font-weight: 700;
-
-  cursor: pointer;
-}
-
-.regulations-publication--failed {
-  background: #f9e7e4;
-}
-
 @media (max-width: 760px) {
   .regulations-page h1 {
     font-size: clamp(32px, 9vw, 44px);

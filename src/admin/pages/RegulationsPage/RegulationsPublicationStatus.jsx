@@ -1,3 +1,5 @@
+import './RegulationsPublicationStatus.css';
+
 export default function RegulationsPublicationStatus({ publication, onRetry }) {
   if (!publication) {
     return null;

@@ -1,0 +1,50 @@
+/* ==========================================================================
+   REGULATIONS PUBLICATION STATUS
+   ==========================================================================
+
+   React entry:
+   RegulationsPublicationStatus.jsx
+
+   COMPONENT OWNERSHIP
+
+   01. RegulationsPublicationStatus.jsx
+       .regulations-publication*
+
+   Component-specific styles live next to their React component.
+   ========================================================================== */
+
+.regulations-publication {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: min(100%, 760px);
+
+  gap: 16px;
+
+  margin: 16px auto 0;
+
+  padding: 11px 14px;
+
+  border-radius: 7px;
+
+  background: #e9eef9;
+
+  font-size: 13px;
+}
+
+.regulations-publication button {
+  border: 0;
+
+  background: transparent;
+  color: #1260ff;
+
+  font: inherit;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.regulations-publication--failed {
+  background: #f9e7e4;
+}
