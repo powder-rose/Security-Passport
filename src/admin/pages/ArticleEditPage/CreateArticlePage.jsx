@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { createArticle, uploadArticleImage } from '../../api/adminApi';
 
@@ -165,6 +165,10 @@ export default function CreateArticlePage() {
 
   const [cropImage, setCropImage] = useState(null);
 
+  const savingRef = useRef(false);
+
+  const [saving, setSaving] = useState(false);
+
   useEffect(() => {
     const timer = window.setTimeout(() => {
       try {
@@ -293,35 +297,52 @@ export default function CreateArticlePage() {
   }
 
   async function save() {
+    if (savingRef.current) {
+      return;
+    }
+
     if (!validatePublicationSeo(form)) {
       return;
     }
 
-    const result = await createArticle({
-      ...form,
+    savingRef.current = true;
+    setSaving(true);
 
-      seoTitle: String(form.seoTitle || '').trim(),
+    try {
+      const result = await createArticle({
+        ...form,
 
-      seoDescription: String(form.seoDescription || '').trim(),
+        seoTitle: String(form.seoTitle || '').trim(),
 
-      slug: createSlug(form.slug || form.title),
-    });
+        seoDescription: String(form.seoDescription || '').trim(),
 
-    if (result?.ok === false) {
-      if (result.error === 'ARTICLE_SEO_REQUIRED') {
-        alert('Статью нельзя опубликовать: заполните SEO Title и SEO Description.');
+        slug: createSlug(form.slug || form.title),
+      });
+
+      if (result?.ok === false) {
+        if (result.error === 'ARTICLE_SEO_REQUIRED') {
+          alert('Статью нельзя опубликовать: заполните SEO Title и SEO Description.');
+        } else {
+          alert('Не удалось сохранить статью.');
+        }
+
+        savingRef.current = false;
+        setSaving(false);
 
         return;
       }
 
+      window.localStorage.removeItem(ARTICLE_DRAFT_KEY);
+
+      window.location.href = '/admin/articles';
+    } catch (error) {
+      console.error(error);
+
       alert('Не удалось сохранить статью.');
 
-      return;
+      savingRef.current = false;
+      setSaving(false);
     }
-
-    window.localStorage.removeItem(ARTICLE_DRAFT_KEY);
-
-    window.location.href = '/admin/articles';
   }
 
   return (
@@ -541,8 +562,9 @@ export default function CreateArticlePage() {
             className="admin-button"
 
             onClick={save}
+            disabled={saving}
           >
-            Сохранить
+            {saving ? 'Сохранение...' : 'Сохранить'}
           </button>
         </div>
       </div>
