@@ -1,0 +1,147 @@
+/* ==========================================================================
+   REGULATIONS QUIZ CONTENT
+   ==========================================================================
+
+   React entry:
+   RegulationsQuizContent.jsx
+
+   COMPONENT OWNERSHIP
+
+   01. RegulationsQuizContent.jsx
+       .regulations-quiz__top
+       .regulations-quiz__progress*
+       .regulations-quiz__body
+       .regulations-quiz__label
+       .regulations-quiz__field*
+
+   RegulationsQuizField.jsx renders the controls inside
+   .regulations-quiz__field.
+
+   Component-specific styles live next to their React component.
+   ========================================================================== */
+
+.regulations-quiz input:focus-visible,
+.regulations-quiz select:focus-visible,
+.regulations-quiz textarea:focus-visible {
+  outline: 3px solid #1260ff;
+  outline-offset: 3px;
+}
+
+.regulations-quiz__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 10px 18px 8px;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.regulations-quiz__progress {
+  width: 100%;
+  height: 3px;
+
+  overflow: hidden;
+
+  background: #e7e7e7;
+}
+
+.regulations-quiz__progress span {
+  display: block;
+
+  height: 100%;
+
+  background: #1260ff;
+
+  transition: width 180ms ease;
+}
+
+.regulations-quiz__body {
+  display: grid;
+  justify-items: center;
+
+  min-height: 270px;
+
+  padding: 48px clamp(24px, 8vw, 86px) 42px;
+}
+
+.regulations-quiz__label {
+  display: block;
+
+  width: 100%;
+
+  margin-bottom: 18px;
+
+  font-size: 14px;
+  font-weight: 720;
+
+  text-align: center;
+}
+
+.regulations-quiz__field {
+  width: min(100%, 500px);
+}
+
+.regulations-quiz__field input,
+.regulations-quiz__field select,
+.regulations-quiz__field textarea {
+  display: block;
+
+  width: 100%;
+
+  min-height: 50px;
+
+  padding: 12px 14px;
+
+  border: 1px solid #b8db7e;
+  border-radius: 6px;
+
+  background: #fff;
+  color: #111;
+
+  font: inherit;
+  font-size: 15px;
+
+  outline: none;
+}
+
+.regulations-quiz__field textarea {
+  min-height: 156px;
+
+  line-height: 1.5;
+
+  resize: vertical;
+}
+
+.regulations-quiz__field input:focus,
+.regulations-quiz__field select:focus,
+.regulations-quiz__field textarea:focus {
+  border-color: #a9f04a;
+
+  box-shadow: 0 0 0 2px rgba(169, 240, 74, 0.22);
+}
+
+@media (max-width: 760px) {
+  .regulations-quiz__body {
+    min-height: 230px;
+
+    padding: 36px 18px 30px;
+  }
+}
+
+@media (max-width: 520px) {
+  .regulations-quiz__top {
+    padding-inline: 14px;
+
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .regulations-quiz__progress span {
+    transition: none;
+  }
+}

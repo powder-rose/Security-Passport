@@ -1,3 +1,5 @@
+import './RegulationsQuizContent.css';
+
 import RegulationsQuizField from './RegulationsQuizField.jsx';
 
 export default function RegulationsQuizContent({
