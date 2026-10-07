@@ -13,7 +13,7 @@ import {
 
 import RegulationsList from './RegulationsList.jsx';
 import RegulationsQuizActions from './RegulationsQuizActions.jsx';
-import RegulationsQuizField from './RegulationsQuizField.jsx';
+import RegulationsQuizContent from './RegulationsQuizContent.jsx';
 import RegulationsPublicationStatus from './RegulationsPublicationStatus.jsx';
 
 import {
@@ -420,38 +420,17 @@ export default function RegulationsPage() {
 
       {!loading && mode === 'quiz' && form && currentStep && (
         <section className="regulations-quiz">
-          <div className="regulations-quiz__top">
-            <span>ПП РФ</span>
-
-            <span>{counterText}</span>
-          </div>
-
-          <div className="regulations-quiz__progress" aria-hidden="true">
-            <span
-              style={{
-                width: `${progress}%`,
-              }}
-            />
-          </div>
-
-          <div className="regulations-quiz__body">
-            <label className="regulations-quiz__label" htmlFor="regulations-quiz-field">
-              {currentStep.label}
-            </label>
-
-            <div className="regulations-quiz__field">
-              <RegulationsQuizField
-                fieldId="regulations-quiz-field"
-                step={currentStep}
-                form={form}
-                isCreating={isCreating}
-                topicQuestions={topicQuestions}
-                onChange={change}
-                onTopicChange={changeTopic}
-                onTopicQuestionChange={changeTopicQuestion}
-              />
-            </div>
-          </div>
+          <RegulationsQuizContent
+            step={currentStep}
+            counterText={counterText}
+            progress={progress}
+            form={form}
+            isCreating={isCreating}
+            topicQuestions={topicQuestions}
+            onChange={change}
+            onTopicChange={changeTopic}
+            onTopicQuestionChange={changeTopicQuestion}
+          />
 
           <RegulationsQuizActions
             isFirstStep={stepIndex === 0}
