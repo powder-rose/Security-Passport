@@ -1,7 +1,18 @@
 /* ==========================================================================
-   EducationPage.jsx — RESPONSIVE: DOCUMENTS / FORM / ACTUALIZATION
+   EDUCATION PAGE — RESPONSIVE DOCUMENTS / FORM
+   ==========================================================================
 
-   Preserves the original cross-component responsive cascade.
+   React entry:
+   EducationPage.jsx
+
+   Scope:
+       EducationRequiredDocuments.jsx
+       EducationPassportForm.jsx
+       EducationPassportActualization.jsx
+
+   Purpose:
+       Cross-component responsive rules.
+       Import position preserves cascade order.
    ========================================================================== */
 
 @media (max-width: 1024px) {

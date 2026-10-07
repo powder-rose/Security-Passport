@@ -1,8 +1,18 @@
 /* ==========================================================================
-   HotelPage.jsx — SHARED PRESENTATION AND LATE REFINEMENTS
+   HOTEL PAGE — SHARED PRESENTATION
+   ==========================================================================
 
-   Shared heading/kicker presentation and late responsive refinements remain
-   page-level and retain their original position in the cascade.
+   React entry:
+   HotelPage.jsx
+
+   Scope:
+       Shared page presentation
+       Shared kicker presentation
+       Applicability presentation
+
+   Purpose:
+       Cross-component presentation and responsive refinements.
+       Import position preserves cascade order.
    ========================================================================== */
 
 .hotel-page h1,

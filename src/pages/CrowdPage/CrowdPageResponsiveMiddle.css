@@ -1,9 +1,19 @@
 /* ==========================================================================
-   CrowdPage.jsx — SHARED RESPONSIVE: REGULATION / LISTING / CATEGORIES / COUNT
+   CROWD PAGE — RESPONSIVE MIDDLE
+   ==========================================================================
 
-   These rules remain page-level because their original media-query blocks
-   contain selectors owned by several components. Their import position is
-   intentional and preserves the historical cascade.
+   React entry:
+   CrowdPage.jsx
+
+   Scope:
+       CrowdRegulation.jsx
+       CrowdListing.jsx
+       CrowdCategories.jsx
+       CrowdPeopleCount.jsx
+
+   Purpose:
+       Shared responsive rules for the middle page sections.
+       Import position preserves cascade order.
    ========================================================================== */
 
 @media (max-width: 1180px) {

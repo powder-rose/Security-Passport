@@ -1,8 +1,20 @@
 /* ==========================================================================
-   SPORT PAGE — LATE RESPONSIVE AND OVERRIDES
+   SPORT PAGE — LATE RESPONSIVE
+   ==========================================================================
 
-   Historical late responsive and corrective rules for several SportPage
-   components. Kept together at page level to preserve cascade order.
+   React entry:
+   SportPage.jsx
+
+   Scope:
+       SportApproval.jsx
+       SportRestrictedDocuments.jsx
+       SportPricing.jsx
+       SportWorkApproach.jsx
+       SportRelatedLinks.jsx
+
+   Purpose:
+       Cross-component responsive and corrective rules.
+       Import position preserves cascade order.
    ========================================================================== */
 
 @media (max-width: 1180px) {

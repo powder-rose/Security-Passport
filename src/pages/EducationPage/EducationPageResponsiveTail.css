@@ -1,7 +1,19 @@
 /* ==========================================================================
-   EducationPage.jsx — RESPONSIVE: AUDIENCE / REQUIREMENTS / LINKS / FAQ
+   EDUCATION PAGE — RESPONSIVE TAIL
+   ==========================================================================
 
-   Preserves the original cross-component responsive cascade.
+   React entry:
+   EducationPage.jsx
+
+   Scope:
+       EducationAudience.jsx
+       EducationCurrentRequirements.jsx
+       EducationRelatedLinks.jsx
+       EducationFaq.jsx
+
+   Purpose:
+       Cross-component responsive rules for the closing sections.
+       Import position preserves cascade order.
    ========================================================================== */
 
 @media (max-width: 1180px) {

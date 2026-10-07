@@ -1,7 +1,19 @@
 /* ==========================================================================
-   EducationPage.jsx — RESPONSIVE: COPIES / RESTRICTIONS / SERVICE / PRICING
+   EDUCATION PAGE — RESPONSIVE SERVICE / PRICING
+   ==========================================================================
 
-   Preserves the original cross-component responsive cascade.
+   React entry:
+   EducationPage.jsx
+
+   Scope:
+       EducationPassportCopies.jsx
+       EducationRestrictedDocuments.jsx
+       EducationServiceScope.jsx
+       EducationPricing.jsx
+
+   Purpose:
+       Cross-component responsive rules.
+       Import position preserves cascade order.
    ========================================================================== */
 
 @media (max-width: 1024px) {

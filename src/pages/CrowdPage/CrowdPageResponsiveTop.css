@@ -1,9 +1,18 @@
 /* ==========================================================================
-   CrowdPage.jsx — SHARED RESPONSIVE: HERO / APPLICABILITY / REGIME
+   CROWD PAGE — RESPONSIVE TOP
+   ==========================================================================
 
-   These rules remain page-level because their original media-query blocks
-   contain selectors owned by several components. Their import position is
-   intentional and preserves the historical cascade.
+   React entry:
+   CrowdPage.jsx
+
+   Scope:
+       CrowdHero.jsx
+       CrowdApplicability.jsx
+       CrowdRegime.jsx
+
+   Purpose:
+       Shared responsive rules for the top page sections.
+       Import position preserves cascade order.
    ========================================================================== */
 
 @media (max-width: 1180px) {

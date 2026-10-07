@@ -1,7 +1,18 @@
 /* ==========================================================================
-   HotelPage.jsx — RESPONSIVE: CATEGORIES / PROCESS / APPROVAL
+   HOTEL PAGE — RESPONSIVE CATEGORIES / PROCESS
+   ==========================================================================
 
-   Preserves the original cross-component responsive cascade.
+   React entry:
+   HotelPage.jsx
+
+   Scope:
+       HotelCategories.jsx
+       HotelPassportProcess.jsx
+       HotelApproval.jsx
+
+   Purpose:
+       Cross-component responsive rules.
+       Import position preserves cascade order.
    ========================================================================== */
 
 @media (max-width: 1180px) {

@@ -1,7 +1,17 @@
 /* ==========================================================================
-   HotelPage.jsx — RESPONSIVE: WORK APPROACH / FAQ
+   HOTEL PAGE — RESPONSIVE WORK / FAQ
+   ==========================================================================
 
-   Preserves the original cross-component responsive cascade.
+   React entry:
+   HotelPage.jsx
+
+   Scope:
+       HotelWorkApproach.jsx
+       HotelFaq.jsx
+
+   Purpose:
+       Responsive rules for the closing page sections.
+       Import position preserves cascade order.
    ========================================================================== */
 
 @media (max-width: 1024px) {

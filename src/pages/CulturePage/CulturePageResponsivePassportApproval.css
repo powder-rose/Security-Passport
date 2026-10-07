@@ -1,8 +1,17 @@
 /* ==========================================================================
-   CulturePage.jsx — SHARED RESPONSIVE: PASSPORT / APPROVAL / RESTRICTIONS
+   CULTURE PAGE — RESPONSIVE PASSPORT / APPROVAL
+   ==========================================================================
 
-   This page-level segment preserves the original cross-component
-   media-query order.
+   React entry:
+   CulturePage.jsx
+
+   Scope:
+       CultureActAndPassport.jsx
+       CultureApprovalAndRestrictions.jsx
+
+   Purpose:
+       Cross-component responsive rules.
+       Import position preserves cascade order.
    ========================================================================== */
 
 @media (max-width: 1180px) {

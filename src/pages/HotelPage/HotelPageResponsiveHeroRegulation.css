@@ -1,7 +1,17 @@
 /* ==========================================================================
-   HotelPage.jsx — RESPONSIVE: HERO / APPLICABILITY / REGULATION
+   HOTEL PAGE — RESPONSIVE HERO / REGULATION
+   ==========================================================================
 
-   Preserves the original cross-component responsive cascade.
+   React entry:
+   HotelPage.jsx
+
+   Scope:
+       HotelHeroAndApplicability.jsx
+       HotelRegulation.jsx
+
+   Purpose:
+       Shared responsive rules for the top page sections.
+       Import position preserves cascade order.
    ========================================================================== */
 
 @media (max-width: 1180px) {

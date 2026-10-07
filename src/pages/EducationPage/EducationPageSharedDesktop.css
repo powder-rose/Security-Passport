@@ -1,8 +1,19 @@
 /* ==========================================================================
-   EducationPage.jsx — SHARED DESKTOP REFINEMENTS
+   EDUCATION PAGE — SHARED DESKTOP
+   ==========================================================================
 
-   Late cross-component desktop layout refinements intentionally remain
-   page-level and retain their original position in the cascade.
+   React entry:
+   EducationPage.jsx
+
+   Scope:
+       EducationHeroAndObjects.jsx
+       EducationApproval.jsx
+       EducationPricing.jsx
+       EducationRequiredDocuments.jsx
+
+   Purpose:
+       Cross-component desktop layout refinements.
+       Import position preserves cascade order.
    ========================================================================== */
 
 .education-approval__heading,

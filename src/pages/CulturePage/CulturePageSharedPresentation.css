@@ -1,8 +1,18 @@
 /* ==========================================================================
-   CulturePage.jsx — SHARED PRESENTATION
+   CULTURE PAGE — SHARED PRESENTATION
+   ==========================================================================
 
-   Cross-component typography and kicker synchronization intentionally
-   remain page-level because these selectors span several sections.
+   React entry:
+   CulturePage.jsx
+
+   Scope:
+       Cross-component typography
+       Shared kicker presentation
+       Shared page-level section presentation
+
+   Purpose:
+       Presentation rules shared by multiple CulturePage components.
+       These rules remain page-level to avoid duplicated styles.
    ========================================================================== */
 
 .culture-page h1,

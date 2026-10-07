@@ -1,11 +1,20 @@
-/*
-==========================================================================
-   ObjectTypePage.jsx — SCOPED SHARED FAQ PRESENTATION
+/* ==========================================================================
+   OBJECT TYPE PAGE — SCOPED FAQ
+   ==========================================================================
 
-   ObjectTypePage renders the shared FAQ component from src/sections/FAQ.
-   These selectors intentionally scope the page-specific FAQ presentation.
-==========================================================================
- */
+   React entry:
+   ObjectTypePage.jsx
+
+   Scope:
+       Shared FAQ component from src/sections/FAQ
+       .object-service-page*
+       .faq*
+       .faq-item*
+
+   Purpose:
+       Page-scoped presentation for the shared FAQ component.
+       Shared FAQ base styles remain owned by src/sections/FAQ.
+   ========================================================================== */
 
 .object-service-page > .faq {
   padding: 116px 0 126px;

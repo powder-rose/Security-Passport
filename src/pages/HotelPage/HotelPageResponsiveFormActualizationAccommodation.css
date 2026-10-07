@@ -1,7 +1,19 @@
 /* ==========================================================================
-   HotelPage.jsx — RESPONSIVE: FORM / ACTUALIZATION / ACCOMMODATION / REQUIREMENTS
+   HOTEL PAGE — RESPONSIVE FORM / ACTUALIZATION
+   ==========================================================================
 
-   Preserves the original cross-component responsive cascade.
+   React entry:
+   HotelPage.jsx
+
+   Scope:
+       HotelPassportForm.jsx
+       HotelPassportActualization.jsx
+       HotelAccommodationTypes.jsx
+       HotelCurrentRequirements.jsx
+
+   Purpose:
+       Cross-component responsive rules.
+       Import position preserves cascade order.
    ========================================================================== */
 
 @media (max-width: 1180px) {

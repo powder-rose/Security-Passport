@@ -1,8 +1,18 @@
 /* ==========================================================================
-   LegalPage.jsx — RESPONSIVE
+   LEGAL PAGE — RESPONSIVE
+   ==========================================================================
 
-   Cross-component mobile adjustments remain page-level to preserve
-   the historical cascade.
+   React entry:
+   LegalPage.jsx
+
+   Scope:
+       LegalHeader.jsx
+       LegalContent.jsx
+       LegalFooter.jsx
+
+   Purpose:
+       Cross-component mobile presentation.
+       Import position preserves cascade order.
    ========================================================================== */
 
 @media (max-width: 640px) {

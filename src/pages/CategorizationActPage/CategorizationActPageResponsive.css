@@ -1,11 +1,20 @@
 /* ==========================================================================
-   CategorizationActPage.jsx — SHARED RESPONSIVE AND REDUCED MOTION
+   CATEGORIZATION ACT PAGE — RESPONSIVE
+   ==========================================================================
 
-   Cross-component responsive rules remain page-level because they group
-   selectors from several CategorizationActPage components.
+   React entry:
+   CategorizationActPage.jsx
 
-   Reduced-motion !important declarations are intentional accessibility
-   overrides.
+   Scope:
+       Hero, object types and requirements
+       Process, pricing, standard and difference
+       Shared page controls
+       Reduced-motion accessibility behavior
+
+   Purpose:
+       Cross-component responsive rules.
+       Reduced-motion !important declarations are intentional.
+       Import position preserves cascade order.
    ========================================================================== */
 
 @media (max-width: 1100px) {
