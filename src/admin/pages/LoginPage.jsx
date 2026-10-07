@@ -18,9 +18,19 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      await signIn(password);
+      const result = await signIn(password);
+
+      if (!result?.ok) {
+        if (result?.error === 'INVALID_ADMIN_PASSWORD') {
+          setError('Неверный пароль.');
+        } else if (result?.error === 'TOO_MANY_LOGIN_ATTEMPTS') {
+          setError('Слишком много попыток входа. Попробуйте позже.');
+        } else {
+          setError('Не удалось войти. Попробуйте позже.');
+        }
+      }
     } catch {
-      setError('Неверный пароль');
+      setError('Не удалось войти. Проверьте соединение и попробуйте снова.');
     } finally {
       setLoading(false);
     }
