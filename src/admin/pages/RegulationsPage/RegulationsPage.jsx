@@ -11,6 +11,7 @@ import {
   retryRegulationPublication,
 } from '../../api/adminApi';
 
+import RegulationsList from './RegulationsList.jsx';
 import RegulationsQuizField from './RegulationsQuizField.jsx';
 import RegulationsPublicationStatus from './RegulationsPublicationStatus.jsx';
 
@@ -19,7 +20,6 @@ import {
   createEmptyRegulation,
   generalSteps,
   getTopicQuestions,
-  reviewReminder,
 } from './regulationsModel.js';
 
 export default function RegulationsPage() {
@@ -408,31 +408,13 @@ export default function RegulationsPage() {
 
       {loading && <div className="regulations-loading">Загрузка...</div>}
 
-      {!loading && mode === 'list' && expanded && (
-        <div className="regulations-list">
-          {items.map(item => (
-            <button
-              type="button"
-              className="regulations-list__row"
-              key={item.number}
-              onClick={() => openExisting(item)}
-            >
-              <span className="regulations-list__name">Постановление №{item.number}</span>
-
-              <span className="regulations-list__status">{reviewReminder(item)}</span>
-            </button>
-          ))}
-        </div>
-      )}
-
       {!loading && mode === 'list' && (
-        <button type="button" className="regulations-add" onClick={openCreate}>
-          <span className="regulations-add__label">Добавить постановление</span>
-
-          <span className="regulations-add__plus" aria-hidden="true">
-            +
-          </span>
-        </button>
+        <RegulationsList
+          items={items}
+          expanded={expanded}
+          onOpen={openExisting}
+          onCreate={openCreate}
+        />
       )}
 
       {!loading && mode === 'quiz' && form && currentStep && (
