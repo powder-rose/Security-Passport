@@ -12,6 +12,7 @@ import {
 } from '../../api/adminApi';
 
 import RegulationsList from './RegulationsList.jsx';
+import RegulationsQuizActions from './RegulationsQuizActions.jsx';
 import RegulationsQuizField from './RegulationsQuizField.jsx';
 import RegulationsPublicationStatus from './RegulationsPublicationStatus.jsx';
 
@@ -452,33 +453,15 @@ export default function RegulationsPage() {
             </div>
           </div>
 
-          <div className="regulations-quiz__actions">
-            <button
-              type="button"
-              className="regulations-quiz__back"
-              onClick={stepIndex === 0 ? showList : previousStep}
-            >
-              {stepIndex === 0 ? 'К списку' : 'Назад'}
-            </button>
-
-            {!isLastStep && (
-              <button type="button" className="regulations-quiz__next" onClick={nextStep}>
-                Далее
-                <span aria-hidden="true">→</span>
-              </button>
-            )}
-
-            {isLastStep && (
-              <button
-                type="button"
-                className="regulations-quiz__save"
-                onClick={save}
-                disabled={saving}
-              >
-                {saving ? 'Сохранение...' : isCreating ? 'Добавить постановление' : 'Сохранить'}
-              </button>
-            )}
-          </div>
+          <RegulationsQuizActions
+            isFirstStep={stepIndex === 0}
+            isLastStep={isLastStep}
+            saving={saving}
+            isCreating={isCreating}
+            onBack={stepIndex === 0 ? showList : previousStep}
+            onNext={nextStep}
+            onSave={save}
+          />
         </section>
       )}
 
