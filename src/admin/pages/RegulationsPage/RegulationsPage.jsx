@@ -243,6 +243,7 @@ function QuizField({
   onChange,
   onTopicChange,
   onTopicQuestionChange,
+  fieldId,
 }) {
   if (!step) {
     return null;
@@ -253,6 +254,7 @@ function QuizField({
 
     return (
       <textarea
+        id={fieldId}
         rows={6}
         maxLength={1000}
         value={question?.text || ''}
@@ -267,6 +269,7 @@ function QuizField({
     return (
       <>
         <select
+          id={fieldId}
           value={form.topic || ''}
           onChange={event => onTopicChange(event.target.value)}
           disabled={!isCreating}
@@ -300,6 +303,7 @@ function QuizField({
   if (step.type === 'status') {
     return (
       <select
+        id={fieldId}
         value={form.reviewStatus || 'needs_review'}
         onChange={event => onChange('reviewStatus', event.target.value)}
         autoFocus
@@ -316,6 +320,7 @@ function QuizField({
   if (step.type === 'date') {
     return (
       <input
+        id={fieldId}
         type="date"
         value={form[step.key]?.slice?.(0, 10) || ''}
         onChange={event => onChange(step.key, event.target.value || null)}
@@ -327,6 +332,7 @@ function QuizField({
   if (step.type === 'number') {
     return (
       <input
+        id={fieldId}
         type="text"
         inputMode="numeric"
         maxLength={6}
@@ -340,6 +346,7 @@ function QuizField({
 
   return (
     <input
+      id={fieldId}
       type="text"
       value={form[step.key] || ''}
       onChange={event => onChange(step.key, event.target.value)}
@@ -779,10 +786,13 @@ export default function RegulationsPage() {
           </div>
 
           <div className="regulations-quiz__body">
-            <label className="regulations-quiz__label">{currentStep.label}</label>
+            <label className="regulations-quiz__label" htmlFor="regulations-quiz-field">
+              {currentStep.label}
+            </label>
 
             <div className="regulations-quiz__field">
               <QuizField
+                fieldId="regulations-quiz-field"
                 step={currentStep}
                 form={form}
                 isCreating={isCreating}
