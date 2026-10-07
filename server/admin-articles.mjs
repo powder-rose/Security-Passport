@@ -6,6 +6,8 @@ import { sanitizeArticleContent } from './article-html.mjs';
 
 const FILE = path.resolve('data/articles.json');
 
+let writes = Promise.resolve();
+
 async function readArticles() {
   try {
     const data = await fs.readFile(FILE, 'utf8');
@@ -13,7 +15,7 @@ async function readArticles() {
     const articles = JSON.parse(data);
 
     if (!Array.isArray(articles)) {
-      return [];
+      throw new Error('INVALID_ARTICLES_STORAGE');
     }
 
     return articles.map(article => ({
@@ -21,13 +23,44 @@ async function readArticles() {
 
       content: sanitizeArticleContent(article?.content),
     }));
-  } catch {
-    return [];
+  } catch (error) {
+    if (error?.code === 'ENOENT') {
+      return [];
+    }
+
+    throw error;
   }
 }
 
 async function saveArticles(articles) {
-  await fs.writeFile(FILE, JSON.stringify(articles, null, 2), 'utf8');
+  const temporary = `${FILE}.${process.pid}.${Date.now()}.tmp`;
+
+  try {
+    await fs.mkdir(path.dirname(FILE), {
+      recursive: true,
+    });
+
+    await fs.writeFile(temporary, `${JSON.stringify(articles, null, 2)}\n`, {
+      encoding: 'utf8',
+      mode: 0o600,
+    });
+
+    await fs.rename(temporary, FILE);
+  } catch (error) {
+    await fs.rm(temporary, {
+      force: true,
+    });
+
+    throw error;
+  }
+}
+
+function queueArticleWrite(operation) {
+  const queued = writes.then(operation);
+
+  writes = queued.catch(() => {});
+
+  return queued;
 }
 
 function normalizeArticleCategory(value) {
@@ -147,7 +180,7 @@ export async function getArticles() {
   });
 }
 
-export async function createArticle(data) {
+async function createArticleMutation(data) {
   const articles = await readArticles();
 
   const now = new Date().toISOString();
@@ -207,7 +240,7 @@ export async function createArticle(data) {
   return article;
 }
 
-export async function updateArticle(id, data) {
+async function updateArticleMutation(id, data) {
   const articles = await readArticles();
 
   const index = articles.findIndex(item => item.id === id);
@@ -315,7 +348,7 @@ export async function updateArticle(id, data) {
   return articles[index];
 }
 
-export async function updatePublishedArticlesYear(year = new Date().getUTCFullYear()) {
+async function updatePublishedArticlesYearMutation(year = new Date().getUTCFullYear()) {
   const articles = await readArticles();
 
   let updated = 0;
@@ -395,7 +428,7 @@ export async function updatePublishedArticlesYear(year = new Date().getUTCFullYe
   };
 }
 
-export async function deleteArticle(id) {
+async function deleteArticleMutation(id) {
   const articles = await readArticles();
 
   const filtered = articles.filter(item => item.id !== id);
@@ -403,6 +436,22 @@ export async function deleteArticle(id) {
   await saveArticles(filtered);
 
   return true;
+}
+
+export function createArticle(data) {
+  return queueArticleWrite(() => createArticleMutation(data));
+}
+
+export function updateArticle(id, data) {
+  return queueArticleWrite(() => updateArticleMutation(id, data));
+}
+
+export function updatePublishedArticlesYear(year = new Date().getUTCFullYear()) {
+  return queueArticleWrite(() => updatePublishedArticlesYearMutation(year));
+}
+
+export function deleteArticle(id) {
+  return queueArticleWrite(() => deleteArticleMutation(id));
 }
 
 export async function getArticleById(id) {
