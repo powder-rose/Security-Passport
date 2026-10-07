@@ -18,10 +18,10 @@
        .regulations-page
 
    External components:
-       RegulationsList.jsx
-       RegulationsQuizContent.jsx
-       RegulationsQuizActions.jsx
-       RegulationsPublicationStatus.jsx
+       components/RegulationsList.jsx
+       components/quiz/RegulationsQuizContent.jsx
+       components/quiz/RegulationsQuizActions.jsx
+       components/RegulationsPublicationStatus.jsx
        keep their own component styles.
 
    Component-specific styles live next to their React components.

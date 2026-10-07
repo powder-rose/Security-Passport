@@ -2,15 +2,19 @@ import './RegulationsPage.css';
 
 import { useMemo, useState } from 'react';
 
-import RegulationsList from './RegulationsList.jsx';
-import RegulationsQuizActions from './RegulationsQuizActions.jsx';
-import RegulationsQuizContent from './RegulationsQuizContent.jsx';
-import RegulationsPublicationStatus from './RegulationsPublicationStatus.jsx';
-import useRegulationPublication from './useRegulationPublication.js';
-import useRegulations from './useRegulations.js';
-import saveRegulationOperation from './regulationSaveOperation.js';
+import RegulationsList from './components/RegulationsList.jsx';
+import RegulationsQuizActions from './components/quiz/RegulationsQuizActions.jsx';
+import RegulationsQuizContent from './components/quiz/RegulationsQuizContent.jsx';
+import RegulationsPublicationStatus from './components/RegulationsPublicationStatus.jsx';
+import useRegulationPublication from './hooks/useRegulationPublication.js';
+import useRegulations from './hooks/useRegulations.js';
+import saveRegulationOperation from './model/regulationSaveOperation.js';
 
-import { createEmptyRegulation, generalSteps, getTopicQuestions } from './regulationsModel.js';
+import {
+  createEmptyRegulation,
+  generalSteps,
+  getTopicQuestions,
+} from './model/regulationsModel.js';
 
 export default function RegulationsPage() {
   const [expanded, setExpanded] = useState(false);

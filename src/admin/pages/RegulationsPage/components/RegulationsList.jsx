@@ -1,6 +1,6 @@
 import './RegulationsList.css';
 
-import { reviewReminder } from './regulationsModel.js';
+import { reviewReminder } from '../model/regulationsModel.js';
 
 export default function RegulationsList({ items, expanded, onOpen, onCreate }) {
   return (

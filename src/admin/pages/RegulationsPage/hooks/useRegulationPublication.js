@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { getRegulationPublication, retryRegulationPublication } from '../../api/adminApi';
+import { getRegulationPublication, retryRegulationPublication } from '../../../api/adminApi';
 
 export default function useRegulationPublication() {
   const [publication, setPublication] = useState(null);

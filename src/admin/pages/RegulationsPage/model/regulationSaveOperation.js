@@ -1,4 +1,4 @@
-import { createRegulation, saveRegulation, saveRegulationTopicClaims } from '../../api/adminApi';
+import { createRegulation, saveRegulation, saveRegulationTopicClaims } from '../../../api/adminApi';
 
 import { buildPayload } from './regulationsModel.js';
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { getRegulations } from '../../api/adminApi';
+import { getRegulations } from '../../../api/adminApi';
 
 async function fetchRegulations() {
   const result = await getRegulations();
