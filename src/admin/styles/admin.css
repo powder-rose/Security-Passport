@@ -168,24 +168,18 @@ button {
 
   width: fit-content;
 
-  margin-top: 14px;
-
-  padding: 15px 19px 15px 21px;
-
   gap: 30px;
-
-  color: #fff;
+  margin-top: 14px;
+  padding: 15px 19px 15px 21px;
 
   border: 0;
   border-radius: 999px;
 
-  background: #111;
+  background: #1260ff;
+
+  color: #fff;
 
   font-weight: 700;
-}
-
-.admin-login__card form button span:last-child {
-  color: #a9f04a;
 }
 
 .admin-form-error {
@@ -194,10 +188,6 @@ button {
   color: #bd271f !important;
 
   font-size: 14px;
-}
-
-.admin-login__card form button {
-  background: #1260ff;
 }
 
 .admin-login__card form button span:last-child {
@@ -279,80 +269,7 @@ button {
   font-weight: 700;
 }
 
-.admin-content {
-  flex: 1;
-
-  padding: 40px;
-}
-
-.admin-form {
-  max-width: 700px;
-
-  display: grid;
-
-  gap: 24px;
-}
-
-.admin-form label {
-  display: grid;
-
-  gap: 8px;
-
-  font-weight: 700;
-}
-
-.admin-form input,
-.admin-form textarea {
-  width: 100%;
-
-  padding: 14px;
-
-  border: 1px solid #ddd;
-
-  border-radius: 10px;
-
-  font-size: 16px;
-}
-
-.admin-form button {
-  width: max-content;
-
-  padding: 14px 24px;
-
-  border: none;
-
-  border-radius: 999px;
-
-  background: #1260ff;
-
-  color: white;
-
-  font-weight: 700;
-}
-
 /* ARTICLES PAGE */
-
-.admin-page-header {
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  margin-bottom: 32px;
-}
-
-.admin-page-header h1 {
-  margin: 0;
-
-  font-size: 42px;
-
-  line-height: 1;
-
-  letter-spacing: -0.04em;
-
-  font-weight: 700;
-}
 
 /* CREATE BUTTON */
 
@@ -388,57 +305,7 @@ button {
 
 /* EMPTY */
 
-.admin-empty {
-  padding: 40px;
-
-  background: white;
-
-  border-radius: 18px;
-
-  color: rgba(17, 17, 17, 0.55);
-
-  font-size: 18px;
-}
-
 /* ARTICLES LIST */
-
-.admin-articles-list {
-  display: grid;
-
-  gap: 18px;
-}
-
-.admin-article-card {
-  padding: 28px;
-
-  background: white;
-
-  border-radius: 18px;
-
-  border: 1px solid rgba(17, 17, 17, 0.06);
-
-  transition: 0.2s ease;
-}
-
-.admin-article-card:hover {
-  transform: translateY(-3px);
-
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
-}
-
-.admin-article-card h3 {
-  margin: 0 0 12px;
-
-  font-size: 24px;
-
-  letter-spacing: -0.03em;
-}
-
-.admin-article-card p {
-  margin: 0;
-
-  color: rgba(17, 17, 17, 0.55);
-}
 
 /* MOBILE */
 
@@ -456,30 +323,6 @@ button {
   }
 }
 
-.admin-button {
-  display: inline-flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  padding: 14px 22px;
-
-  background: #1260ff;
-
-  color: white;
-
-  border-radius: 999px;
-
-  text-decoration: none;
-
-  font-weight: 700;
-}
-
-.admin-button:hover {
-  background: #0d4fd4;
-}
-
 /* ARTICLE EDITOR */
 
 .admin-editor h1 {
@@ -488,20 +331,6 @@ button {
   font-size: 42px;
 
   letter-spacing: -0.04em;
-}
-
-.admin-editor__card {
-  max-width: 900px;
-
-  padding: 32px;
-
-  background: white;
-
-  border-radius: 20px;
-
-  display: grid;
-
-  gap: 24px;
 }
 
 .admin-editor label {
@@ -541,24 +370,6 @@ button {
 
 /* ARTICLES */
 
-.admin-page-header {
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  margin-bottom: 32px;
-}
-
-.admin-page-header h1 {
-  margin: 0;
-
-  font-size: 42px;
-
-  letter-spacing: -0.04em;
-}
-
 .admin-button {
   display: inline-flex;
 
@@ -591,90 +402,6 @@ button {
   background: #064de0;
 }
 
-.admin-empty {
-  padding: 40px;
-
-  background: white;
-
-  border-radius: 20px;
-
-  color: rgba(17, 17, 17, 0.55);
-}
-
-.admin-articles-list {
-  display: grid;
-
-  gap: 18px;
-}
-
-.admin-article-card {
-  background: white;
-
-  padding: 24px;
-
-  border-radius: 20px;
-
-  border: 1px solid rgba(17, 17, 17, 0.08);
-}
-
-.admin-article-card h3 {
-  margin: 0 0 12px;
-
-  font-size: 24px;
-}
-
-.admin-article-card p {
-  margin: 0;
-
-  color: rgba(17, 17, 17, 0.55);
-}
-
-.admin-back {
-  display: inline-block;
-
-  margin-bottom: 20px;
-
-  color: #1260ff;
-
-  text-decoration: none;
-
-  font-weight: 700;
-}
-
-.admin-article-actions {
-  display: flex;
-
-  gap: 12px;
-
-  margin-top: 20px;
-}
-
-.admin-button--small {
-  padding: 10px 18px;
-
-  font-size: 14px;
-}
-
-.admin-danger {
-  border: 0;
-
-  padding: 10px 18px;
-
-  border-radius: 999px;
-
-  background: #111;
-
-  color: white;
-
-  cursor: pointer;
-
-  font-weight: 700;
-}
-
-.admin-danger:hover {
-  background: #d52b2b;
-}
-
 .admin-editor select {
   width: 100%;
 
@@ -690,11 +417,14 @@ button {
 }
 
 /* =========================================
-   ARTICLE EDITOR — LOGIN STYLE
+   ARTICLE EDITOR — FORM LAYOUT
 ========================================= */
 
 .admin-content {
+  flex: 1;
+
   padding: 36px 36px 60px;
+
   background: #d9d6d0;
 }
 
@@ -705,14 +435,16 @@ button {
 .admin-back {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
 
+  gap: 8px;
   margin-bottom: 18px;
 
   color: #1260ff;
-  text-decoration: none;
+
   font-size: 15px;
   font-weight: 700;
+
+  text-decoration: none;
 }
 
 .admin-back:hover {
@@ -732,14 +464,22 @@ button {
 .admin-editor__card {
   position: relative;
 
+  display: grid;
+
+  max-width: 900px;
+  min-width: 0;
+
+  gap: 24px;
   margin-bottom: 24px;
   padding: 30px 30px 32px;
 
-  overflow: hidden;
+  overflow: visible !important;
+
+  border: 1px solid rgba(17, 17, 17, 0.06);
+  border-radius: 28px;
 
   background: #f4f1e8;
-  border-radius: 28px;
-  border: 1px solid rgba(17, 17, 17, 0.06);
+
   box-shadow: 0 20px 50px rgba(17, 17, 17, 0.05);
 }
 
@@ -924,9 +664,7 @@ button {
 
 .admin-page-header {
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
 
   margin-bottom: 32px;
@@ -938,44 +676,14 @@ button {
   color: #111;
 
   font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 700;
 
   line-height: 0.9;
-
   letter-spacing: -0.055em;
 }
 
 .admin-page-header .admin-button {
   background: #1260ff;
-}
-
-.admin-articles-list {
-  display: grid;
-
-  gap: 20px;
-}
-
-.admin-article-card {
-  position: relative;
-
-  overflow: hidden;
-
-  padding: 28px 32px;
-
-  min-height: 140px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: center;
-
-  background: #f4f1e8;
-
-  border-radius: 28px;
-
-  border: 1px solid rgba(17, 17, 17, 0.06);
-
-  box-shadow: 0 20px 50px rgba(17, 17, 17, 0.05);
 }
 
 .admin-article-card::after {
@@ -998,75 +706,12 @@ button {
   opacity: 0.6;
 }
 
-.admin-article-card h3 {
-  position: relative;
-
-  z-index: 1;
-
-  margin: 0 0 12px;
-
-  font-size: 26px;
-
-  line-height: 1.1;
-
-  letter-spacing: -0.03em;
-}
-
-.admin-article-card p {
-  position: relative;
-
-  z-index: 1;
-
-  margin: 0;
-
-  color: rgba(17, 17, 17, 0.55);
-}
-
-.admin-article-card__actions {
-  position: relative;
-
-  z-index: 2;
-
-  display: flex;
-
-  gap: 12px;
-
-  margin-top: 20px;
-}
-
-.admin-small-button {
-  display: inline-flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  padding: 10px 18px;
-
-  border-radius: 999px;
-
-  background: #111;
-
-  color: white;
-
-  text-decoration: none;
-
-  font-weight: 700;
-
-  font-size: 14px;
-}
-
-.admin-small-button:hover {
-  background: #1260ff;
-}
-
 .admin-status {
   display: inline-flex;
 
   width: max-content;
 
-  margin-top: 8px;
-
+  margin-top: 10px;
   padding: 6px 14px;
 
   border-radius: 999px;
@@ -1076,7 +721,6 @@ button {
   color: white;
 
   font-size: 12px;
-
   font-weight: 700;
 
   text-transform: uppercase;
@@ -1090,145 +734,30 @@ button {
   background: #f4f1e8;
 
   color: rgba(17, 17, 17, 0.55);
+
+  font-size: 18px;
 }
 
-/* =========================================
-   CREATE PAGE
-========================================= */
-
-.admin-create {
-  max-width: 980px;
-}
-
-.admin-create > h1 {
-  margin: 0 0 28px;
-
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-
-  line-height: 0.9;
-
-  letter-spacing: -0.055em;
-}
-
-/* REMOVE DECORATIVE CIRCLES */
+/* CARD DECORATION */
 
 .admin-editor__card::after,
-.admin-article-card::after,
-.login-card::after {
+.admin-article-card::after {
   display: none !important;
-}
-
-.admin-article-card {
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  gap: 20px;
-}
-
-.admin-article-actions {
-  display: flex;
-
-  gap: 12px;
-}
-
-.admin-button-secondary {
-  padding: 10px 18px;
-
-  border-radius: 12px;
-
-  background: #111;
-
-  color: #fff;
-
-  text-decoration: none;
-
-  font-size: 14px;
-}
-
-.admin-button-danger {
-  padding: 10px 18px;
-
-  border-radius: 12px;
-
-  border: none;
-
-  cursor: pointer;
-
-  background: #d64545;
-
-  color: white;
-
-  font-size: 14px;
-}
-
-.admin-button-secondary:hover,
-.admin-button-danger:hover {
-  opacity: 0.85;
 }
 
 /* ARTICLES LIST */
 
 .admin-articles-list {
   display: flex;
-
   flex-direction: column;
 
   gap: 16px;
-}
-
-.admin-article-card {
-  background: #fff;
-
-  border-radius: 24px;
-
-  padding: 28px 32px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: space-between;
-
-  gap: 30px;
-
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-
-  transition: 0.2s ease;
 }
 
 .admin-article-card:hover {
   transform: translateY(-2px);
 
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.07);
-}
-
-.admin-article-card h3 {
-  margin: 0 0 8px;
-
-  font-size: 22px;
-
-  font-weight: 700;
-
-  color: #111;
-}
-
-.admin-article-card p {
-  margin: 0;
-
-  color: #8b8b8b;
-
-  font-size: 14px;
-}
-
-.admin-article-actions {
-  display: flex;
-
-  gap: 10px;
-
-  flex-shrink: 0;
 }
 
 .admin-button-secondary,
@@ -1277,86 +806,66 @@ button {
   opacity: 0.9;
 }
 
-.admin-article-info {
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 6px;
-}
-
-/* FINAL ARTICLE CARD OVERRIDE */
+/* ARTICLE CARD LAYOUT */
 
 .admin-article-card {
   position: relative;
 
   display: flex !important;
-
   flex-direction: row !important;
-
   align-items: center;
-
   justify-content: space-between;
 
   min-height: auto;
 
+  gap: 30px;
   padding: 24px 30px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(17, 17, 17, 0.06);
+  border-radius: 22px;
 
   background: #fff;
 
-  border-radius: 22px;
-
-  border: 1px solid rgba(17, 17, 17, 0.06);
-
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
-}
 
-.admin-article-info {
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 6px;
+  transition: 0.2s ease;
 }
 
 .admin-article-card h3 {
+  position: relative;
+  z-index: 1;
+
   margin: 0;
 
+  color: #111;
+
   font-size: 22px;
+  font-weight: 700;
 
   line-height: 1.2;
+  letter-spacing: -0.03em;
 }
 
 .admin-article-card p {
+  position: relative;
+  z-index: 1;
+
   margin: 0;
 
-  font-size: 14px;
-
   color: rgba(17, 17, 17, 0.5);
+
+  font-size: 14px;
 }
 
 .admin-article-actions {
   display: flex;
-
   flex-direction: row;
+  flex-shrink: 0;
 
   gap: 12px;
-
   margin: 0;
-}
-
-.admin-status {
-  display: inline-flex;
-
-  width: max-content;
-
-  padding: 6px 14px;
-
-  border-radius: 999px;
-
-  font-size: 12px;
-
-  font-weight: 700;
 }
 
 .admin-status--draft {
@@ -1369,14 +878,6 @@ button {
   background: #dff7e7;
 
   color: #17833b;
-}
-
-.admin-article-date {
-  margin-top: 8px;
-
-  font-size: 13px;
-
-  color: rgba(17, 17, 17, 0.45);
 }
 
 .admin-filter-tabs {
@@ -1465,39 +966,16 @@ button {
 
 .admin-article-info {
   flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
 }
 
 /* =========================
-   CLEAN ARTICLE EDITOR
+   ARTICLE EDITOR CONTENT
 ========================= */
-
-.article-editor {
-  display: flex;
-
-  flex-direction: column;
-
-  border: 1px solid rgba(0, 0, 0, 0.08);
-
-  border-radius: 18px;
-
-  overflow: hidden;
-
-  background: #fff;
-}
-
-.article-editor .ProseMirror {
-  order: 1;
-
-  min-height: 260px;
-
-  padding: 20px;
-
-  outline: none;
-
-  font-size: 16px;
-
-  line-height: 1.6;
-}
 
 .article-editor-toolbar {
   order: 2;
@@ -1513,8 +991,7 @@ button {
   border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-.editor-button,
-.article-upload-button {
+.editor-button {
   height: 34px;
 
   padding: 0 12px;
@@ -1522,11 +999,9 @@ button {
   display: inline-flex;
 
   align-items: center;
-
   justify-content: center;
 
   border: 1px solid #d0d5dd;
-
   border-radius: 6px;
 
   background: #fff;
@@ -1538,8 +1013,7 @@ button {
   transition: 0.2s;
 }
 
-.editor-button:hover,
-.article-upload-button:hover {
+.editor-button:hover {
   background: #f5f5f5;
 }
 
@@ -1573,7 +1047,7 @@ button {
   font-weight: 700;
 }
 
-/* FINAL ARTICLE IMAGE BUTTON */
+/* ARTICLE IMAGE BUTTON */
 
 .article-upload-button {
   height: 34px;
@@ -1601,10 +1075,6 @@ button {
   transition: 0.2s;
 }
 
-.article-upload-button:hover {
-  background: #f5f5f5;
-}
-
 .article-upload-button input[type='file'] {
   display: none !important;
 }
@@ -1621,30 +1091,6 @@ button {
   opacity: 0;
 
   pointer-events: none;
-}
-
-.article-upload-button {
-  display: inline-flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  height: 34px;
-
-  padding: 0 14px;
-
-  border: 1px solid #d0d5dd;
-
-  border-radius: 6px;
-
-  background: #fff;
-
-  cursor: pointer;
-
-  font-size: 14px;
-
-  font-weight: 600;
 }
 
 .article-upload-button:hover {
@@ -1840,8 +1286,10 @@ button {
 .admin-editor__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
   align-items: center;
+
+  gap: 12px;
+  margin-top: 24px;
 }
 
 .admin-editor__actions .admin-button--preview {
@@ -1860,29 +1308,51 @@ button {
 }
 
 /* =========================================
-   ARTICLE EDITOR — CONTENT WIDTH FIX
+   ARTICLE EDITOR — CONTENT WIDTH
 ========================================= */
 
 .admin-field {
-  min-width: 0;
   width: 100%;
+  min-width: 0;
+
+  overflow: visible !important;
 }
 
 .article-editor {
+  display: flex;
+  flex-direction: column;
+
   width: 100%;
   min-width: 0;
   max-width: 100%;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+
+  background: #fff;
 }
 
 .article-editor .ProseMirror {
   box-sizing: border-box;
 
+  order: 1;
+
   width: 100%;
   min-width: 0;
   max-width: 100%;
+  min-height: 260px;
+
+  padding: 20px;
+
+  outline: none;
+
+  font-size: 16px;
+
+  line-height: 1.6;
 
   white-space: normal;
-
   overflow-wrap: anywhere;
   word-break: normal;
 }
@@ -1917,16 +1387,12 @@ button {
   height: auto;
 }
 
-.admin-editor__card {
-  min-width: 0;
-}
-
 .admin-editor__card > * {
   min-width: 0;
 }
 
 /* =========================================
-   ARTICLE EDITOR — STICKY TOOLBAR FINAL
+   ARTICLE EDITOR — STICKY TOOLBAR
 ========================================= */
 
 .article-editor-shell {
@@ -1976,19 +1442,7 @@ button {
   overflow: visible;
 }
 
-/*
- * Sticky не работает корректно,
- * если предки его обрезают.
- */
-.admin-field {
-  min-width: 0;
-  overflow: visible !important;
-}
-
-.admin-editor__card {
-  overflow: visible !important;
-}
-
+/* Sticky positioning requires ancestor overflow to remain visible. */
 @media (max-width: 700px) {
   .article-editor-shell .article-editor-toolbar {
     top: 8px;
@@ -2003,15 +1457,6 @@ button {
    ARTICLE EDITOR ACTIONS
 ========================================= */
 
-.admin-editor__actions {
-  display: flex;
-  flex-wrap: wrap;
-
-  gap: 12px;
-
-  margin-top: 24px;
-}
-
 .admin-button--preview {
   background: #fff;
   color: #111;
@@ -2024,37 +1469,9 @@ button {
   color: #1260ff;
 }
 
-@media (max-width: 600px) {
-  .admin-editor__actions {
-    flex-direction: column;
-  }
-
-  .admin-editor__actions .admin-button {
-    width: 100%;
-  }
-}
-
 /* =========================================
    ARTICLE EDITOR — IMPORTANT BLOCK
 ========================================= */
-
-.article-editor .ProseMirror blockquote {
-  margin: 24px 0;
-
-  padding: 4px 0 4px 20px;
-
-  border-left: 5px solid #d9d9d9;
-
-  background: transparent;
-
-  color: inherit;
-}
-
-.article-editor .ProseMirror blockquote p {
-  margin: 0;
-
-  line-height: 1.65;
-}
 
 .article-editor .ProseMirror blockquote strong {
   font-weight: 800;
@@ -2262,33 +1679,12 @@ button {
 }
 
 /* =========================================
-   ARTICLES — YEAR UPDATE HINT
+   ARTICLES — HEADER ACTIONS WRAPPER
 ========================================= */
-
-.admin-articles-header-actions-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-
-  gap: 8px;
-}
-
-.admin-year-hint {
-  color: rgba(17, 17, 17, 0.48);
-
-  font-size: 12px;
-  line-height: 1.35;
-
-  text-align: right;
-}
 
 @media (max-width: 700px) {
   .admin-articles-header-actions-wrap {
     align-items: flex-start;
-  }
-
-  .admin-year-hint {
-    text-align: left;
   }
 }
 
@@ -2299,13 +1695,11 @@ button {
 .admin-articles-header-actions-wrap {
   position: relative;
 
+  display: flex;
+  flex-direction: column;
   align-items: flex-end;
 
   gap: 0;
-}
-
-.admin-year-hint {
-  display: none;
 }
 
 .admin-year-help {
@@ -2820,65 +2214,25 @@ button {
 .admin-category-hint {
   display: block;
 
-  margin-top: -2px;
+  margin-top: 6px;
 
   color: rgba(17, 17, 17, 0.48);
 
   font-size: 12px;
-
   line-height: 1.45;
 }
 
-.admin-article-category {
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-
-  margin-top: 5px;
-}
-
 .admin-article-category > span {
+  margin: 0;
+
   color: rgba(17, 17, 17, 0.42);
 
-  font-size: 11px;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
 
-  font-weight: 700;
-
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-
-  letter-spacing: 0.06em;
-}
-
-.admin-article-category select {
-  width: auto;
-
-  max-width: 260px;
-
-  min-height: 34px;
-
-  padding: 6px 30px 6px 10px;
-
-  border: 1px solid rgba(17, 17, 17, 0.11);
-
-  border-radius: 9px;
-
-  background: #f6f5f2;
-
-  color: #111;
-
-  font: inherit;
-
-  font-size: 12px;
-
-  cursor: pointer;
-}
-
-.admin-article-category select:focus {
-  outline: 2px solid rgba(18, 96, 255, 0.18);
-
-  border-color: #1260ff;
 }
 
 .admin-article-category select:disabled {
@@ -2889,15 +2243,7 @@ button {
 
 @media (max-width: 800px) {
   .admin-article-category {
-    align-items: flex-start;
-
     flex-direction: column;
-  }
-
-  .admin-article-category select {
-    width: 100%;
-
-    max-width: none;
   }
 }
 
@@ -2910,87 +2256,13 @@ button {
  * категорию и дату в более аккуратный meta-row.
  */
 
-.admin-status,
-.admin-article-category,
-.admin-article-date {
-  display: inline-flex;
-
-  vertical-align: middle;
-}
-
 /* -----------------------------------------
    STATUS
 ----------------------------------------- */
 
-.admin-status {
-  margin-top: 10px;
-}
-
 /* -----------------------------------------
    CATEGORY
 ----------------------------------------- */
-
-.admin-article-category {
-  align-items: center;
-
-  gap: 8px;
-
-  margin-top: 10px;
-  margin-left: 10px;
-
-  padding: 4px 10px;
-
-  border: 1px solid rgba(17, 17, 17, 0.08);
-
-  border-radius: 999px;
-
-  background: rgba(17, 17, 17, 0.03);
-}
-
-.admin-article-category > span {
-  margin: 0;
-
-  color: rgba(17, 17, 17, 0.42);
-
-  font-size: 10px;
-  font-weight: 800;
-
-  line-height: 1;
-
-  letter-spacing: 0.08em;
-
-  text-transform: uppercase;
-}
-
-.admin-article-category select {
-  width: auto;
-
-  max-width: 230px;
-
-  min-height: auto;
-
-  margin: 0;
-  padding: 0 18px 0 0;
-
-  border: 0;
-
-  background: transparent;
-
-  color: #111;
-
-  font: inherit;
-
-  font-size: 13px;
-  font-weight: 600;
-
-  line-height: 1.2;
-
-  cursor: pointer;
-
-  appearance: auto;
-
-  box-shadow: none;
-}
 
 .admin-article-category select:focus {
   outline: none;
@@ -3000,8 +2272,7 @@ button {
 
 /* hover / focus даём мягкий фирменный акцент */
 
-.admin-article-category:hover,
-.admin-article-category:focus-within {
+.admin-article-category:hover {
   border-color: rgba(18, 96, 255, 0.22);
 
   background: rgba(18, 96, 255, 0.04);
@@ -3012,13 +2283,15 @@ button {
 ----------------------------------------- */
 
 .admin-article-date {
+  display: inline-flex;
+  vertical-align: middle;
+
   margin-top: 10px;
   margin-left: 12px;
 
   color: rgba(17, 17, 17, 0.42);
 
   font-size: 13px;
-
   line-height: 1.2;
 }
 
@@ -3026,52 +2299,23 @@ button {
    EDIT / CREATE hint
 ----------------------------------------- */
 
-.admin-category-hint {
-  margin-top: 6px;
-
-  color: rgba(17, 17, 17, 0.48);
-
-  font-size: 12px;
-
-  line-height: 1.45;
-}
-
 /* -----------------------------------------
    MOBILE
 ----------------------------------------- */
 
 @media (max-width: 900px) {
-  .admin-article-category {
-    margin-left: 0;
-  }
-
   .admin-article-date {
     display: block;
 
-    margin-left: 0;
     margin-top: 10px;
+    margin-left: 0;
   }
 }
 
 @media (max-width: 640px) {
   .admin-status,
-  .admin-article-category,
   .admin-article-date {
     display: flex;
-  }
-
-  .admin-article-category {
-    width: 100%;
-
-    justify-content: space-between;
-
-    margin-top: 10px;
-
-    padding: 8px 10px;
-  }
-
-  .admin-article-category select {
-    max-width: 58%;
   }
 
   .admin-article-date {
@@ -3084,39 +2328,67 @@ button {
 ========================================= */
 
 .admin-article-category {
+  display: inline-flex;
+  align-items: center;
   align-self: flex-start;
 
   width: max-content;
   max-width: 320px;
 
+  gap: 8px;
+  margin-top: 10px;
   margin-left: 0;
-
   padding: 4px 9px;
-}
 
-.admin-article-category select {
-  width: auto;
+  vertical-align: middle;
 
-  min-width: 150px;
-  max-width: 230px;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  border-radius: 999px;
 
-  padding-right: 22px;
+  background: rgba(17, 17, 17, 0.03);
 }
 
 /* Длинное название категории не растягивает карточку */
 
 .admin-article-category select {
+  width: auto;
+  min-width: 150px;
+  max-width: 230px;
+  min-height: auto;
+
+  margin: 0;
+  padding: 0 22px 0 0;
+
   overflow: hidden;
 
-  text-overflow: ellipsis;
+  border: 0;
+  border-radius: 9px;
 
+  background: transparent;
+
+  color: #111;
+
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+
+  text-overflow: ellipsis;
   white-space: nowrap;
+
+  cursor: pointer;
+
+  appearance: auto;
+
+  box-shadow: none;
 }
 
 @media (max-width: 640px) {
   .admin-article-category {
-    width: min(100%, 320px);
+    display: flex;
+    justify-content: space-between;
 
+    width: min(100%, 320px);
     max-width: 100%;
   }
 
