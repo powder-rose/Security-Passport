@@ -1,31 +1,78 @@
 /* ==========================================================================
    SPORT PAGE
+   ==========================================================================
 
    React entry:
-   - SportPage.jsx
+   SportPage.jsx
 
-   LOCAL COMPONENT OWNERSHIP:
+   COMPONENT OWNERSHIP
 
-   01. SportHeroAndObjects
-   02. SportRegulation
-   03. SportCategories
-   04. SportCategorizationAct
-   05. SportPassportProcess
-   06. SportApproval
-   07. SportRestrictedDocuments
-   08. SportServiceScope
-   09. SportPricing
-   10. SportRequiredDocuments
-   11. SportPassportForm
-   12. SportPassportActualization
-   13. SportWorkApproach
-   14. SportRelatedLinks
-   15. SportFaq
+   01. SportHeroAndObjects.jsx
+       .sport-breadcrumbs*
+       .sport-hero*
+       .sport-inline-link*
+       .sport-object*
+       .sport-objects*
+       .sport-text-action*
 
-   ARCHITECTURE:
-   Component-specific CSS lives next to each local React component.
-   The late mixed responsive/corrective cascade remains page-level
-   to preserve its original ordering and presentation behavior.
+   02. SportRegulation.jsx
+       .sport-regulation*
+
+   03. SportCategories.jsx
+       .sport-categories*
+       .sport-category*
+
+   04. SportCategorizationAct.jsx
+       .sport-act*
+       .sport-categories*
+       .sport-category*
+
+   05. SportPassportProcess.jsx
+       .sport-process*
+
+   06. SportApproval.jsx
+       .sport-approval*
+       .sport-process*
+
+   07. SportRestrictedDocuments.jsx
+       .sport-dsp*
+
+   08. SportServiceScope.jsx
+       .sport-service*
+
+   09. SportPricing.jsx
+       .sport-dsp*
+       .sport-price*
+       .sport-prices*
+       .sport-service*
+
+   10. SportRequiredDocuments.jsx
+       .sport-source-data*
+
+   11. SportPassportForm.jsx
+       .sport-form*
+
+   12. SportPassportActualization.jsx
+       .sport-actualization*
+       .sport-form*
+       .sport-source-data*
+
+   13. SportWorkApproach.jsx
+       .sport-why*
+
+   14. SportRelatedLinks.jsx
+       .sport-related*
+
+   15. SportFaq.jsx
+       .sport-faq*
+
+   Shared page selectors:
+       .sport-page
+       .sport-kicker
+
+   Component-specific styles live next to their React components.
+   Late responsive and corrective rules remain page-level in
+   SportPageLateResponsiveAndOverrides.css to preserve cascade order.
    ========================================================================== */
 
 .sport-page {

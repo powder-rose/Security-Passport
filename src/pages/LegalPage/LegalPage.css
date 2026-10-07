@@ -1,20 +1,33 @@
 /* ==========================================================================
    LEGAL PAGE
+   ==========================================================================
 
    React entry:
-   - LegalPage.jsx
+   LegalPage.jsx
 
-   COMPONENT OWNERSHIP:
+   COMPONENT OWNERSHIP
 
    01. LegalSeo
-   02. LegalHeader
-   03. LegalContent
-   04. LegalFooter
+       Document metadata only; no visual CSS ownership.
 
-   ARCHITECTURE:
-   Component-specific CSS lives next to the owning React component.
+   02. LegalHeader.jsx
+       .legal-header*
+
+   03. LegalContent.jsx
+       .legal-document*
+       .legal-hero*
+       .legal-main*
+       .legal-page*
+
+   04. LegalFooter.jsx
+       .legal-footer*
+
+   Shared page selectors:
+       .legal-page
+
+   Component-specific styles live next to their React components.
    Shared mobile adjustments remain page-level in LegalPageResponsive.css
-   to preserve the original cross-component cascade order.
+   to preserve the cross-component cascade order.
    ========================================================================== */
 
 .legal-page {

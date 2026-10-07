@@ -1,53 +1,50 @@
 /* ==========================================================================
    BLOG PAGE
+   ==========================================================================
 
    React entry:
-   - BlogPage.jsx
+   BlogPage.jsx
 
-   COMPONENT OWNERSHIP:
+   COMPONENT OWNERSHIP
 
    01. BlogHero
        .blog-hero*
 
    02. BlogContentState
-       .blog-state
+       .blog-state*
 
    03. BlogCategories
        .blog-categories*
-       .blog-category-*
+       .blog-category-chip*
+       .blog-category-chips*
+       .blog-category-seo-descriptions*
 
    04. BlogArticleResults
        .blog-featured*
-       .blog-category-results
-       .blog-results-context
-       .blog-grid
-       .blog-list
+       .blog-featured-card*
+       .blog-category-results*
+       .blog-results-context*
+       .blog-grid*
+       .blog-list*
 
    05. BlogArticleCard
        .blog-card*
 
    06. ArticleImage
        .blog-card__placeholder
-       shared image rendering treatment
 
    07. BlogSeo
-       document metadata only;
-       no visual CSS ownership
+       Document metadata only; no visual CSS ownership.
 
-   PAGE / SHARED SELECTORS:
-   - .blog-page
-   - .blog-section-heading
+   Shared page selectors:
+       .blog-page
+       .blog-section-heading
 
-   EXTERNAL SECTION:
-   - FinalCTA.jsx owns its own styles.
+   External section:
+       FinalCTA.jsx keeps its own component styles.
 
-   ARCHITECTURE NOTE:
-   BlogPage.css intentionally remains a page-level stylesheet.
-   Component styles are interleaved throughout the original cascade and
-   several selectors are shared by multiple BlogPage components.
-   Splitting this file by component would change stylesheet ordering or
-   require artificial cascade fragments, so the existing rule order is
-   intentionally preserved.
+   BlogPage.css remains page-level because several selectors share an
+   interleaved cascade that must retain its original order.
    ========================================================================== */
 
 .blog-page {

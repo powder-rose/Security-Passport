@@ -1,61 +1,63 @@
 /* ==========================================================================
    CATEGORIZATION ACT PAGE
+   ==========================================================================
 
    React entry:
-   - CategorizationActPage.jsx
+   CategorizationActPage.jsx
 
-   COMPONENT OWNERSHIP:
+   COMPONENT OWNERSHIP
 
-   01. CategorizationActHeroAndIntro
-       hero, introductory content and expert visual
+   01. CategorizationActHeroAndIntro.jsx
+       .categorization-act-breadcrumbs*
+       .categorization-act-expert-visual*
+       .categorization-act-hero*
+       .categorization-act-intro*
+       .categorization-act-section-head*
 
-   02. CategorizationActObjectTypes
-       object directory and regulation references
+   02. CategorizationActObjectTypes.jsx
+       .categorization-act-types*
 
-   03. CategorizationActRequirements
-       categorization requirements
+   03. CategorizationActRequirements.jsx
+       .categorization-act-requirements*
 
-   04. CategorizationActProcess
-       process flow and process details
+   04. CategorizationActProcess.jsx
+       .categorization-act-flow*
+       .categorization-act-process*
 
-   05. CategorizationActServiceScope
-       service scope
+   05. CategorizationActServiceScope.jsx
+       .categorization-act-service*
 
-   06. CategorizationActPricing
-       pricing and passport link
+   06. CategorizationActPricing.jsx
+       .categorization-act-cost*
+       .categorization-act-passport-link*
 
-   07. CategorizationActSourceData
-       source data required from the client
+   07. CategorizationActSourceData.jsx
+       .categorization-act-source-data*
 
-   08. CategorizationActSample
-       sample act / document structure
+   08. CategorizationActSample.jsx
+       .categorization-act-sample*
+       .categorization-act-section-head*
 
-   09. CategorizationActStandard
-       categorization standard
+   09. CategorizationActStandard.jsx
+       .categorization-act-standard*
 
-   10. CategorizationActDifference
-       act vs passport comparison
+   10. CategorizationActDifference.jsx
+       .categorization-act-difference*
 
-   11. CategorizationActFaq
-       FAQ
+   11. CategorizationActFaq.jsx
+       .categorization-act-faq*
+       .categorization-act-section-head*
 
-   SHARED / PAGE-LEVEL SELECTORS:
-   - .categorization-act-page
-   - .categorization-act-kicker
-   - .categorization-act-section-head
-   - page-scoped .button variants
+   Shared page selectors:
+       .categorization-act-page
+       .categorization-act-kicker
+       .categorization-act-section-head
 
-   RESPONSIVE:
-   - shared cross-component responsive and reduced-motion rules live in
-     CategorizationActPageResponsive.css
+   External sections:
+       Expert.jsx and FinalCTA.jsx keep their own component styles.
 
-   EXTERNAL SECTIONS:
-   - Expert.jsx owns its own section styles
-   - FinalCTA.jsx owns its own section styles
-
-   Component-specific styles live next to their React components.
-   CSS imports in CategorizationActPage.jsx intentionally preserve the
-   original stylesheet cascade.
+   Shared responsive and reduced-motion rules remain page-level in
+   CategorizationActPageResponsive.css to preserve cascade order.
    ========================================================================== */
 
 .categorization-act-page {

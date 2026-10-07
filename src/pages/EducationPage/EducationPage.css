@@ -1,36 +1,82 @@
 /* ==========================================================================
    EDUCATION PAGE
+   ==========================================================================
 
    Route:
    /pasport-bezopasnosti-obrazovatelnoj-organizacii/
 
    React entry:
-   - EducationPage.jsx
+   EducationPage.jsx
 
-   COMPONENT OWNERSHIP:
+   COMPONENT OWNERSHIP
 
-   01. EducationHeroAndObjects
-   02. EducationRegulation
-   03. EducationCategories
-   04. EducationPassportProcess
-   05. EducationApproval
-   06. EducationPassportCopies
-   07. EducationRestrictedDocuments
-   08. EducationServiceScope
-   09. EducationPricing
-   10. EducationRequiredDocuments
-   11. EducationPassportForm
-   12. EducationPassportActualization
-   13. EducationAudience
-   14. EducationCurrentRequirements
-   15. EducationRelatedLinks
-   16. EducationFaq
+   01. EducationHeroAndObjects.jsx
+       .education-breadcrumbs*
+       .education-hero*
+       .education-object*
+       .education-objects*
+       .education-section-heading*
 
-   ARCHITECTURE:
-   Component-specific CSS lives next to its React component.
+   02. EducationRegulation.jsx
+       .education-regulation*
+       .education-kicker*
+
+   03. EducationCategories.jsx
+       .education-categories*
+       .education-category*
+       .education-process*
+       .education-text-link*
+
+   04. EducationPassportProcess.jsx
+       .education-process*
+
+   05. EducationApproval.jsx
+       .education-approval*
+       .education-kicker*
+
+   06. EducationPassportCopies.jsx
+       .education-copies*
+
+   07. EducationRestrictedDocuments.jsx
+       .education-restricted*
+
+   08. EducationServiceScope.jsx
+       .education-service*
+
+   09. EducationPricing.jsx
+       .education-price*
+
+   10. EducationRequiredDocuments.jsx
+       .education-source-data*
+
+   11. EducationPassportForm.jsx
+       .education-form*
+       .education-kicker*
+
+   12. EducationPassportActualization.jsx
+       .education-actualization*
+       .education-text-link*
+
+   13. EducationAudience.jsx
+       .education-audience*
+
+   14. EducationCurrentRequirements.jsx
+       .education-current*
+       .education-kicker*
+
+   15. EducationRelatedLinks.jsx
+       .education-related*
+
+   16. EducationFaq.jsx
+       .education-faq*
+
+   Shared page selectors:
+       .education-page
+       .education-kicker
+
+   Component-specific styles live next to their React components.
    Cross-component responsive and desktop refinement groups remain
-   page-level because their historical cascade spans several components.
-   EducationPage.jsx imports all CSS files in the original cascade order.
+   page-level to preserve their original cascade positions.
    ========================================================================== */
 
 .education-page {

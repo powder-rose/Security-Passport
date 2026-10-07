@@ -1,41 +1,72 @@
 /* ==========================================================================
    CULTURE PAGE
+   ==========================================================================
 
    Route:
    /pasport-bezopasnosti-obekta-kultury/
 
    React entry:
-   - CulturePage.jsx
+   CulturePage.jsx
 
-   COMPONENT OWNERSHIP:
+   COMPONENT OWNERSHIP
 
-   01. CultureHeroAndObjects
-   02. CultureRegulationAndCategories
-   03. CultureCategorization
-   04. CultureActAndPassport
-   05. CultureApprovalAndRestrictions
-   06. CultureServiceScope
-   07. CulturePricing
-   08. CultureRequiredDocuments
-   09. CulturePassportForm
-   10. CulturePassportActualization
-   11. CultureCurrentRequirements
-   12. CultureWorkApproach
-   13. CultureFaq
+   01. CultureHeroAndObjects.jsx
+       .culture-hero*
+       .culture-scope*
+       .culture-inline-link*
 
-   SHARED / PAGE-LEVEL SELECTORS:
-   - .culture-page
-   - .culture-kicker
-   - .culture-inline-link
-   - shared button presentation
+   02. CultureRegulationAndCategories.jsx
+       .culture-regulation*
+       .culture-categories*
+       .culture-breadcrumbs*
+       .culture-kicker*
 
-   ARCHITECTURE:
-   Component-specific CSS lives next to its React component.
-   Shared responsive groups remain page-level because their original
-   media-query blocks contain selectors owned by several components.
-   CultureActAndPassport intentionally has two CSS segments because a
-   shared responsive block historically sits between those rule groups.
-   CulturePage.jsx imports all CSS files in the original cascade order.
+   03. CultureCategorization.jsx
+       .culture-categorization*
+       .culture-inline-link*
+
+   04. CultureActAndPassport.jsx
+       .culture-act*
+       .culture-passport*
+
+   05. CultureApprovalAndRestrictions.jsx
+       .culture-approval*
+       .culture-restricted*
+
+   06. CultureServiceScope.jsx
+       .culture-service*
+
+   07. CulturePricing.jsx
+       .culture-price*
+
+   08. CultureRequiredDocuments.jsx
+       .culture-source*
+
+   09. CulturePassportForm.jsx
+       .culture-form*
+
+   10. CulturePassportActualization.jsx
+       .culture-actualization*
+       .culture-inline-link*
+
+   11. CultureCurrentRequirements.jsx
+       .culture-standard*
+
+   12. CultureWorkApproach.jsx
+       .culture-why*
+
+   13. CultureFaq.jsx
+       .culture-faq*
+
+   Shared page selectors:
+       .culture-page
+       .culture-kicker
+       .culture-breadcrumbs
+       .culture-inline-link
+
+   Component-specific styles live next to their React components.
+   Shared responsive groups remain page-level to preserve cascade order.
+   CultureActAndPassport keeps two CSS segments for the same reason.
    ========================================================================== */
 
 .culture-page {

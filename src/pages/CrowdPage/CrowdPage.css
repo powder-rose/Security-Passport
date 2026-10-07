@@ -1,52 +1,50 @@
 /* ==========================================================================
    CROWD PAGE
+   ==========================================================================
 
    React entry:
-   - CrowdPage.jsx
+   CrowdPage.jsx
 
-   COMPONENT OWNERSHIP:
+   COMPONENT OWNERSHIP
 
-   01. CrowdHero
-       hero, breadcrumbs and commercial intro
+   01. CrowdHero.jsx
+       .crowd-breadcrumbs*
+       .crowd-hero*
+       .crowd-text-action*
 
-   02. CrowdApplicability
-       applicability criteria and CTA
+   02. CrowdApplicability.jsx
+       .crowd-applicability*
 
-   03. CrowdRegime
-       object regime and identification
+   03. CrowdRegime.jsx
+       .crowd-regime*
 
-   04. CrowdRegulation
-       regulation details
+   04. CrowdRegulation.jsx
+       .crowd-regulation*
 
-   05. CrowdListing
-       authority / listing flow
+   05. CrowdListing.jsx
+       .crowd-listing*
 
-   06. CrowdCategories
-       categories and category metrics
+   06. CrowdCategories.jsx
+       .crowd-categories*
+       .crowd-category*
+       .crowd-kicker*
 
-   07. CrowdPeopleCount
-       people-count criteria
+   07. CrowdPeopleCount.jsx
+       .crowd-count*
 
-   08. CrowdPassportProcess
-       passport preparation process
+   08. CrowdPassportProcess.jsx
+       .crowd-process*
 
-   09. CrowdFaq
-       FAQ
+   09. CrowdFaq.jsx
+       .crowd-faq*
 
-   SHARED / PAGE-LEVEL SELECTORS:
-   - .crowd-page
-   - .crowd-kicker
-   - shared button usage
+   Shared page selectors:
+       .crowd-page
+       .crowd-kicker
 
-   RESPONSIVE:
-   - CrowdPageResponsiveTop.css preserves the original shared responsive
-     cascade for Hero, Applicability and Regime.
-   - CrowdPageResponsiveMiddle.css preserves the original shared responsive
-     cascade for Regulation, Listing, Categories and PeopleCount.
-
-   Component-specific styles live next to their React components.
-   CSS imports in CrowdPage.jsx intentionally preserve the historical
-   stylesheet cascade.
+   Shared responsive groups remain page-level in
+   CrowdPageResponsiveTop.css and CrowdPageResponsiveMiddle.css
+   to preserve the original cross-component cascade.
    ========================================================================== */
 
 .crowd-page {

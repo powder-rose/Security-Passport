@@ -1,23 +1,34 @@
 /* ==========================================================================
    OBJECT TYPE PAGE
+   ==========================================================================
 
    React entry:
-   - ObjectTypePage.jsx
+   ObjectTypePage.jsx
 
-   LOCAL COMPONENT OWNERSHIP:
+   COMPONENT OWNERSHIP
 
-   01. ObjectTypeHero
-   02. ObjectTypeServiceScope
-   03. ObjectTypeLegalGuide
+   01. ObjectTypeHero.jsx
+       .object-service-breadcrumbs*
+       .object-service-hero*
+       .object-service-scope*
 
-   SHARED SECTIONS:
-   ObjectQuiz, Process, Advantages, Prices, RequiredDocuments,
-   Expert, FAQ and FinalCTA remain shared section components.
+   02. ObjectTypeServiceScope.jsx
+       .object-service-breadcrumbs*
+       .object-service-hero*
+       .object-service-scope*
 
-   ARCHITECTURE:
-   Component-specific CSS lives next to each local React component.
-   Late Hero responsive rules and page-scoped FAQ presentation remain
-   page-level to preserve the historical cascade.
+   03. ObjectTypeLegalGuide.jsx
+       .object-legal*
+
+   Shared page selectors:
+       .object-service-page
+
+   External sections:
+       ObjectQuiz, Process, Advantages, Prices, RequiredDocuments,
+       Expert, FAQ and FinalCTA keep their own component styles.
+
+   Late Hero responsive rules and scoped shared FAQ presentation remain
+   page-level to preserve their original cascade positions.
    ========================================================================== */
 
 .object-service-page {

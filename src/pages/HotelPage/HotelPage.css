@@ -1,31 +1,68 @@
 /* ==========================================================================
    HOTEL PAGE
+   ==========================================================================
 
    React entry:
-   - HotelPage.jsx
+   HotelPage.jsx
 
-   COMPONENT OWNERSHIP:
+   COMPONENT OWNERSHIP
 
-   01. HotelHeroAndApplicability
-   02. HotelRegulation
-   03. HotelCategories
-   04. HotelPassportProcess
-   05. HotelApproval
-   06. HotelServiceScope
-   07. HotelPricing
-   08. HotelRequiredDocuments
-   09. HotelPassportForm
-   10. HotelPassportActualization
-   11. HotelAccommodationTypes
-   12. HotelCurrentRequirements
-   13. HotelWorkApproach
-   14. HotelFaq
+   01. HotelHeroAndApplicability.jsx
+       .hotel-check*
+       .hotel-hero*
+       .hotel-inline-link*
+       .hotel-section-heading*
 
-   ARCHITECTURE:
-   Component-specific CSS lives next to its React component.
-   Cross-component responsive groups remain page-level because they span
-   several components and preserve the historical cascade.
-   HotelPage.jsx imports all CSS files in their original order.
+   02. HotelRegulation.jsx
+       .hotel-regulation*
+
+   03. HotelCategories.jsx
+       .hotel-categories*
+       .hotel-inline-link*
+
+   04. HotelPassportProcess.jsx
+       .hotel-process*
+
+   05. HotelApproval.jsx
+       .hotel-approval*
+       .hotel-kicker*
+
+   06. HotelServiceScope.jsx
+       .hotel-service*
+
+   07. HotelPricing.jsx
+       .hotel-price*
+
+   08. HotelRequiredDocuments.jsx
+       .hotel-source*
+
+   09. HotelPassportForm.jsx
+       .hotel-form*
+
+   10. HotelPassportActualization.jsx
+       .hotel-actualization*
+       .hotel-inline-link*
+
+   11. HotelAccommodationTypes.jsx
+       .hotel-accommodation*
+
+   12. HotelCurrentRequirements.jsx
+       .hotel-standard*
+
+   13. HotelWorkApproach.jsx
+       .hotel-why*
+
+   14. HotelFaq.jsx
+       .hotel-faq*
+
+   Shared page selectors:
+       .hotel-page
+       .hotel-kicker
+       .hotel-breadcrumbs
+
+   Component-specific styles live next to their React components.
+   Cross-component responsive and presentation groups remain page-level
+   to preserve their original cascade positions.
    ========================================================================== */
 
 .hotel-page {
