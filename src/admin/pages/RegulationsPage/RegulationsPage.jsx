@@ -1,19 +1,15 @@
 import './RegulationsPage.polish.css';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
-import {
-  createRegulation,
-  getRegulations,
-  saveRegulation,
-  saveRegulationTopicClaims,
-} from '../../api/adminApi';
+import { createRegulation, saveRegulation, saveRegulationTopicClaims } from '../../api/adminApi';
 
 import RegulationsList from './RegulationsList.jsx';
 import RegulationsQuizActions from './RegulationsQuizActions.jsx';
 import RegulationsQuizContent from './RegulationsQuizContent.jsx';
 import RegulationsPublicationStatus from './RegulationsPublicationStatus.jsx';
 import useRegulationPublication from './useRegulationPublication.js';
+import useRegulations from './useRegulations.js';
 
 import {
   buildPayload,
@@ -23,8 +19,6 @@ import {
 } from './regulationsModel.js';
 
 export default function RegulationsPage() {
-  const [items, setItems] = useState([]);
-
   const [expanded, setExpanded] = useState(false);
 
   const [mode, setMode] = useState('list');
@@ -41,56 +35,15 @@ export default function RegulationsPage() {
 
   const [message, setMessage] = useState('');
 
-  const [loading, setLoading] = useState(true);
-
   const [saving, setSaving] = useState(false);
+
+  const { items, loading, reload: loadItems } = useRegulations(setMessage);
 
   const {
     publication,
     setPublication,
     retryPublication: retryPublicationRequest,
   } = useRegulationPublication();
-
-  async function loadItems() {
-    const result = await getRegulations();
-
-    if (!result?.ok || !Array.isArray(result.regulations)) {
-      throw new Error('Не удалось загрузить постановления');
-    }
-
-    setItems(result.regulations);
-
-    return result.regulations;
-  }
-
-  useEffect(() => {
-    let active = true;
-
-    getRegulations()
-      .then(result => {
-        if (!result?.ok || !Array.isArray(result.regulations)) {
-          throw new Error('Не удалось загрузить постановления');
-        }
-
-        if (active) {
-          setItems(result.regulations);
-        }
-      })
-      .catch(error => {
-        if (active) {
-          setMessage(error.message);
-        }
-      })
-      .finally(() => {
-        if (active) {
-          setLoading(false);
-        }
-      });
-
-    return () => {
-      active = false;
-    };
-  }, []);
 
   const questionSteps = useMemo(
     () =>
