@@ -203,6 +203,45 @@ export function createRegulation(input) {
   return operation;
 }
 
+function hasRegulationChanges(previous, change) {
+  const stringFields = ['title', 'edition', 'officialUrl', 'reviewNote'];
+
+  if (String(previous.number ?? '') !== change.number) {
+    return true;
+  }
+
+  if (stringFields.some(field => String(previous[field] || '') !== change[field])) {
+    return true;
+  }
+
+  if ((previous.documentDate || null) !== change.documentDate) {
+    return true;
+  }
+
+  if ((previous.reviewStatus || 'needs_review') !== change.reviewStatus) {
+    return true;
+  }
+
+  if ((previous.reviewedAt || null) !== change.reviewedAt) {
+    return true;
+  }
+
+  if (Object.hasOwn(change, 'topic') && (previous.topic || '') !== change.topic) {
+    return true;
+  }
+
+  if (
+    Object.hasOwn(change, 'reviewDueDate') &&
+    (previous.reviewDueDate || null) !== change.reviewDueDate
+  ) {
+    return true;
+  }
+
+  const previousClaims = previous.claims || [];
+
+  return previousClaims.some((claim, index) => claim.text !== change.claims[index]?.text);
+}
+
 export function updateRegulation(number, input) {
   const change = validate(input);
   const operation = writes.then(async () => {
@@ -228,6 +267,13 @@ export function updateRegulation(number, input) {
       throw new TypeError(
         'Тематика существующего постановления привязана к контенту сайта и не может быть изменена автоматически',
       );
+    }
+
+    if (!hasRegulationChanges(previous, change)) {
+      return {
+        ...previous,
+        publicationNeeded: false,
+      };
     }
 
     const oldNumber = String(previous.number);
