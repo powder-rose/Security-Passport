@@ -1,3 +1,29 @@
+/* ==========================================================================
+   ADMIN DOCUMENTATION
+   ==========================================================================
+
+   React entry:
+   DocumentationPage.jsx
+
+   Scope:
+       Documentation header
+       Search and navigation
+       Content states
+       Table of contents
+       Documentation warnings
+
+   Primary selectors:
+       .documentation-page*
+       .documentation-header*
+       .documentation-search*
+       .documentation-layout*
+       .documentation-nav*
+       .documentation-content*
+       .documentation-toc*
+       .documentation-state*
+       .documentation-warning*
+   ========================================================================== */
+
 .documentation-page {
   width: 100%;
   max-width: 1180px;
@@ -307,9 +333,9 @@
   }
 }
 
-/* =========================================================
+/* --------------------------------------------------------------------------
    Documentation navigation
-   ========================================================= */
+   -------------------------------------------------------------------------- */
 
 .documentation-page {
   max-width: 1480px;
@@ -522,7 +548,9 @@
   scroll-margin-top: 30px;
 }
 
-/* scrollbar */
+/* --------------------------------------------------------------------------
+   Documentation scrollbar
+   -------------------------------------------------------------------------- */
 
 .documentation-nav {
   scrollbar-width: thin;

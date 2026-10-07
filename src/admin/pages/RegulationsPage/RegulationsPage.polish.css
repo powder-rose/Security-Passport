@@ -1,4 +1,28 @@
-/* REGULATIONS QUIZ / PROTOTYPE */
+/* ==========================================================================
+   ADMIN REGULATIONS
+   ==========================================================================
+
+   React entry:
+   RegulationsPage.jsx
+
+   Scope:
+       Regulations page layout
+       Regulations accordion
+       Publication controls
+       Regulation messages and loading states
+       Regulations quiz
+
+   Primary selectors:
+       .regulations-page*
+       .regulations-heading*
+       .regulations-accordion*
+       .regulations-list*
+       .regulations-publication*
+       .regulations-message*
+       .regulations-loading*
+       .regulations-add*
+       .regulations-quiz*
+   ========================================================================== */
 
 .regulations-page {
   width: min(100%, 1080px);
@@ -508,7 +532,9 @@
   }
 }
 
-/* === REGULATIONS DROPDOWN THEME START === */
+/* --------------------------------------------------------------------------
+   Regulations dropdown theme
+   -------------------------------------------------------------------------- */
 
 .regulations-list {
   background: #22191b;
@@ -562,9 +588,9 @@
   background: #22191b;
 }
 
-/* === REGULATIONS DROPDOWN THEME END === */
-
-/* === REGULATIONS HEADING CENTER === */
+/* --------------------------------------------------------------------------
+   Regulations heading alignment
+   -------------------------------------------------------------------------- */
 
 .regulations-heading {
   width: min(760px, 100%);
@@ -579,5 +605,3 @@
   margin-right: 0;
   text-align: center;
 }
-
-/* === /REGULATIONS HEADING CENTER === */

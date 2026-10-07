@@ -1,3 +1,32 @@
+/* ==========================================================================
+   ADMIN STATISTICS
+   ==========================================================================
+
+   React entry:
+   StatisticsPage.jsx
+
+   Scope:
+       Statistics introduction
+       Period controls
+       Summary cards
+       Federal statistics
+       Statistics tables
+       Empty and loading states
+
+   Primary selectors:
+       .statistics-page*
+       .statistics-intro*
+       .statistics-eyebrow*
+       .statistics-periods*
+       .statistics-summary*
+       .statistics-summary-card*
+       .statistics-federal*
+       .statistics-table*
+       .statistics-table-wrap*
+       .statistics-state*
+       .statistics-empty*
+   ========================================================================== */
+
 .statistics-page {
   width: 100%;
   max-width: 1500px;
@@ -297,7 +326,9 @@
   }
 }
 
-/* === STATISTICS THREE COLUMNS === */
+/* --------------------------------------------------------------------------
+   Statistics three-column layout
+   -------------------------------------------------------------------------- */
 
 .statistics-table {
   table-layout: fixed;
@@ -314,5 +345,3 @@
   padding-right: 14px;
   text-align: center;
 }
-
-/* === /STATISTICS THREE COLUMNS === */
