@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { getArticle, updateArticle, uploadArticleImage } from '../../api/adminApi';
 
@@ -140,6 +140,10 @@ export default function ArticleEditPage() {
   const [loading, setLoading] = useState(true);
 
   const [cropImage, setCropImage] = useState(null);
+
+  const savingRef = useRef(false);
+
+  const [saving, setSaving] = useState(false);
 
   const [savedPublication, setSavedPublication] = useState({
     status: '',
@@ -300,33 +304,50 @@ export default function ArticleEditPage() {
   }
 
   async function save() {
+    if (savingRef.current) {
+      return;
+    }
+
     if (!validatePublicationSeo(form)) {
       return;
     }
 
-    const result = await updateArticle(id, {
-      ...form,
+    savingRef.current = true;
+    setSaving(true);
 
-      seoTitle: String(form.seoTitle || '').trim(),
+    try {
+      const result = await updateArticle(id, {
+        ...form,
 
-      seoDescription: String(form.seoDescription || '').trim(),
+        seoTitle: String(form.seoTitle || '').trim(),
 
-      updateSlug: form.slug !== savedPublication.slug,
-    });
+        seoDescription: String(form.seoDescription || '').trim(),
 
-    if (result?.ok === false) {
-      if (result.error === 'ARTICLE_SEO_REQUIRED') {
-        alert('Статью нельзя опубликовать: заполните SEO Title и SEO Description.');
+        updateSlug: form.slug !== savedPublication.slug,
+      });
+
+      if (result?.ok === false) {
+        if (result.error === 'ARTICLE_SEO_REQUIRED') {
+          alert('Статью нельзя опубликовать: заполните SEO Title и SEO Description.');
+        } else {
+          alert('Не удалось сохранить статью.');
+        }
+
+        savingRef.current = false;
+        setSaving(false);
 
         return;
       }
 
+      window.location.href = '/admin/articles';
+    } catch (error) {
+      console.error(error);
+
       alert('Не удалось сохранить статью.');
 
-      return;
+      savingRef.current = false;
+      setSaving(false);
     }
-
-    window.location.href = '/admin/articles';
   }
 
   if (loading) {
@@ -558,8 +579,8 @@ export default function ArticleEditPage() {
               Предпросмотр
             </button>
 
-            <button type="button" className="admin-button" onClick={save}>
-              Сохранить
+            <button type="button" className="admin-button" onClick={save} disabled={saving}>
+              {saving ? 'Сохранение...' : 'Сохранить'}
             </button>
 
             {savedPublication.status === 'published' && savedPublication.slug && (
