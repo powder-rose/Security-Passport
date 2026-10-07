@@ -1,10 +1,21 @@
 /* ==========================================================================
-   RequiredDocuments.jsx — REQUIRED DOCUMENTS
+   REQUIRED DOCUMENTS
+   ==========================================================================
 
-   Shared source-data section containing the required document list,
-   supporting illustration and missing-document guidance CTA.
+   React component:
+   RequiredDocuments.jsx
 
-   Responsive behavior for RequiredDocuments is defined locally in this stylesheet.
+   SELECTOR OWNERSHIP
+
+       .required-documents*
+
+   RESPONSIBILITIES
+
+       Required source documents
+       Supporting illustration
+       Missing-document guidance
+
+   Responsive behavior is defined locally in this stylesheet.
    ========================================================================== */
 
 .required-documents {

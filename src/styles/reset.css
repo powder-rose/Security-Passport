@@ -1,7 +1,13 @@
 /* ==========================================================================
    GLOBAL RESET
+   ==========================================================================
 
-   Minimal browser normalization shared by the public site and article preview.
+   SCOPE
+
+       Browser normalization
+       Box sizing
+       Default element margins
+       Shared media and form normalization
    ========================================================================== */
 
 *,

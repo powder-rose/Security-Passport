@@ -1,10 +1,22 @@
 /* ==========================================================================
-   RelatedServices.jsx — RELATED SERVICES
+   RELATED SERVICES
+   ==========================================================================
 
-   Shared homepage/service section containing the related-service list,
-   supporting copy and final task CTA.
+   React component:
+   RelatedServices.jsx
 
-   Responsive behavior for RelatedServices is defined locally in this stylesheet.
+   SELECTOR OWNERSHIP
+
+       .related-services*
+       .related-service*
+
+   RESPONSIBILITIES
+
+       Related-service directory
+       Supporting service copy
+       Task CTA
+
+   Responsive behavior is defined locally in this stylesheet.
    ========================================================================== */
 
 .related-services {

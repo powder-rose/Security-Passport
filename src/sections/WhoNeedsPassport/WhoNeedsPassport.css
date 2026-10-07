@@ -1,10 +1,22 @@
 /* ==========================================================================
-   WhoNeedsPassport.jsx — WHO NEEDS PASSPORT
+   WHO NEEDS PASSPORT
+   ==========================================================================
 
-   Shared object-type overview with linked service cards, supporting guidance
-   and the individual consultation CTA for unlisted object types.
+   React component:
+   WhoNeedsPassport.jsx
 
-   Responsive behavior for WhoNeedsPassport is defined locally in this stylesheet.
+   SELECTOR OWNERSHIP
+
+       .who-needs-passport*
+
+   RESPONSIBILITIES
+
+       Object-type overview
+       Linked service cards
+       Object-specific guidance
+       Consultation CTA
+
+   Responsive behavior is defined locally in this stylesheet.
    ========================================================================== */
 
 .who-needs-passport {

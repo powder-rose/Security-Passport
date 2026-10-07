@@ -1,10 +1,22 @@
 /* ==========================================================================
-   FinalCTA.jsx — FINAL CTA
+   FINAL CTA
+   ==========================================================================
 
-   Shared lead-generation section containing consultation benefits, contacts
-   and the primary specialist request form.
+   React component:
+   FinalCTA.jsx
 
-   Responsive behavior for FinalCTA is defined locally in this stylesheet.
+   SELECTOR OWNERSHIP
+
+       .final-cta*
+
+   RESPONSIBILITIES
+
+       Lead-generation section
+       Consultation benefits
+       Contact information
+       Specialist request form
+
+   Responsive behavior is defined locally in this stylesheet.
    ========================================================================== */
 
 .final-cta {

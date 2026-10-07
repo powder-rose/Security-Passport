@@ -1,10 +1,21 @@
 /* ==========================================================================
-   Penalties.jsx — PENALTIES
+   PENALTIES
+   ==========================================================================
 
-   Shared responsibility section containing administrative penalty ranges,
-   legal context and the object-check CTA.
+   React component:
+   Penalties.jsx
 
-   Responsive behavior for Penalties is defined locally in this stylesheet.
+   SELECTOR OWNERSHIP
+
+       .penalties*
+
+   RESPONSIBILITIES
+
+       Administrative penalty ranges
+       Legal context
+       Object-check CTA
+
+   Responsive behavior is defined locally in this stylesheet.
    ========================================================================== */
 
 .penalties {

@@ -1,10 +1,22 @@
 /* ==========================================================================
-   Hero.jsx — MAIN HERO
+   MAIN HERO
+   ==========================================================================
 
-   Primary landing-page hero containing service messaging, actions,
-   commercial price accent and expert portrait presentation.
+   React component:
+   Hero.jsx
 
-   Responsive behavior for Hero is defined locally in this stylesheet.
+   SELECTOR OWNERSHIP
+
+       .hero*
+
+   RESPONSIBILITIES
+
+       Primary service messaging
+       Commercial actions
+       Price presentation
+       Expert portrait presentation
+
+   Responsive behavior is defined locally in this stylesheet.
    ========================================================================== */
 
 .hero {

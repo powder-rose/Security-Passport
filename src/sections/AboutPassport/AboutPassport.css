@@ -1,10 +1,21 @@
 /* ==========================================================================
-   AboutPassport.jsx — ABOUT PASSPORT
+   ABOUT PASSPORT
+   ==========================================================================
 
-   Shared explanatory section describing the security passport, its core
-   document layers and the CTA for checking object-specific requirements.
+   React component:
+   AboutPassport.jsx
 
-   Responsive behavior for AboutPassport is defined locally in this stylesheet.
+   SELECTOR OWNERSHIP
+
+       .about-passport*
+
+   RESPONSIBILITIES
+
+       Security passport explanation
+       Document structure presentation
+       Object-requirements CTA
+
+   Responsive behavior is defined locally in this stylesheet.
    ========================================================================== */
 
 .about-passport {

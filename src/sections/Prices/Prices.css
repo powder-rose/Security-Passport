@@ -1,10 +1,21 @@
 /* ==========================================================================
-   Prices.jsx — PRICES
+   PRICES
+   ==========================================================================
 
-   Shared pricing section containing the service price list,
-   featured pricing and express-check CTA.
+   React component:
+   Prices.jsx
 
-   Responsive behavior for Prices is defined locally in this stylesheet.
+   SELECTOR OWNERSHIP
+
+       .prices-section*
+
+   RESPONSIBILITIES
+
+       Service price list
+       Featured pricing
+       Express-check CTA
+
+   Responsive behavior is defined locally in this stylesheet.
    ========================================================================== */
 
 .prices-section {

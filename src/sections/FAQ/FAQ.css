@@ -1,10 +1,21 @@
 /* ==========================================================================
-   FAQ.jsx — SHARED FAQ
+   SHARED FAQ
+   ==========================================================================
 
-   Shared FAQ presentation, accordion interaction states and responsive layout.
-   ObjectTypePage may override this presentation through its scoped FAQ styles.
+   React component:
+   FAQ.jsx
 
-   Responsive behavior for the shared FAQ is defined locally in this stylesheet.
+   SELECTOR OWNERSHIP
+
+       .faq*
+
+   RESPONSIBILITIES
+
+       Shared FAQ presentation
+       Accordion interaction states
+       Object-page compatible presentation
+
+   Responsive behavior is defined locally in this stylesheet.
    ========================================================================== */
 
 .faq {

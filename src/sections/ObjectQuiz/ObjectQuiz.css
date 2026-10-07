@@ -1,10 +1,23 @@
 /* ==========================================================================
-   ObjectQuiz.jsx — OBJECT QUIZ
+   OBJECT QUIZ
+   ==========================================================================
 
-   Shared multi-step object assessment used on the homepage and article pages,
-   including contact submission and the inline article variant.
+   React component:
+   ObjectQuiz.jsx
 
-   Responsive behavior for ObjectQuiz is defined locally in this stylesheet.
+   SELECTOR OWNERSHIP
+
+       .object-quiz*
+       .quiz-*
+
+   RESPONSIBILITIES
+
+       Multi-step object assessment
+       Contact submission
+       Homepage quiz presentation
+       Inline article variant
+
+   Responsive behavior is defined locally in this stylesheet.
    ========================================================================== */
 
 .object-quiz {

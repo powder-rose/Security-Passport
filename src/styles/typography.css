@@ -1,7 +1,12 @@
 /* ==========================================================================
    GLOBAL TYPOGRAPHY
+   ==========================================================================
 
-   Base font settings and shared heading behavior for the public interface.
+   SCOPE
+
+       Base font family
+       Default text sizing
+       Shared heading behavior
    ========================================================================== */
 
 body {

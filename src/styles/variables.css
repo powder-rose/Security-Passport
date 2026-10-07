@@ -1,7 +1,13 @@
 /* ==========================================================================
    DESIGN TOKENS
+   ==========================================================================
 
-   Shared color, layout, radius and shadow tokens for the public interface.
+   SCOPE
+
+       Color tokens
+       Layout width
+       Radius tokens
+       Shared shadow tokens
    ========================================================================== */
 
 :root {

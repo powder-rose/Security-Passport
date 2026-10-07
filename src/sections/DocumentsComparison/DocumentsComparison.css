@@ -1,10 +1,21 @@
 /* ==========================================================================
-   DocumentsComparison.jsx — DOCUMENTS COMPARISON
+   DOCUMENTS COMPARISON
+   ==========================================================================
 
-   Shared comparison section contrasting the categorization act with the
-   security passport, including supporting illustrations and service CTAs.
+   React component:
+   DocumentsComparison.jsx
 
-   Responsive behavior for DocumentsComparison is defined locally in this stylesheet.
+   SELECTOR OWNERSHIP
+
+       .documents-comparison*
+
+   RESPONSIBILITIES
+
+       Categorization act comparison
+       Security passport comparison
+       Supporting service actions
+
+   Responsive behavior is defined locally in this stylesheet.
    ========================================================================== */
 
 .documents-comparison {

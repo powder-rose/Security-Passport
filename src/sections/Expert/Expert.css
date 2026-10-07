@@ -1,10 +1,22 @@
 /* ==========================================================================
-   Expert.jsx — EXPERT
+   EXPERT
+   ==========================================================================
 
-   Shared expert-profile section containing the portrait, project approach,
-   working principles and CTA for discussing an object with a specialist.
+   React component:
+   Expert.jsx
 
-   Responsive behavior for Expert is defined locally in this stylesheet.
+   SELECTOR OWNERSHIP
+
+       .expert*
+
+   RESPONSIBILITIES
+
+       Expert profile
+       Project approach
+       Working principles
+       Specialist consultation CTA
+
+   Responsive behavior is defined locally in this stylesheet.
    ========================================================================== */
 
 .expert {

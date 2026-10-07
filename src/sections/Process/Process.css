@@ -1,10 +1,22 @@
 /* ==========================================================================
-   Process.jsx — PROCESS
+   PROCESS
+   ==========================================================================
 
-   Shared five-stage passport workflow with active-step tracking, supporting
-   illustration, process summary and final calculation CTA.
+   React component:
+   Process.jsx
 
-   Responsive behavior for Process is defined locally in this stylesheet.
+   SELECTOR OWNERSHIP
+
+       .process-section*
+
+   RESPONSIBILITIES
+
+       Passport workflow
+       Active process steps
+       Process illustration
+       Calculation CTA
+
+   Responsive behavior is defined locally in this stylesheet.
    ========================================================================== */
 
 .process-section {

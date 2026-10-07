@@ -1,10 +1,22 @@
 /* ==========================================================================
-   Header.jsx — SITE HEADER
+   SITE HEADER
+   ==========================================================================
 
-   Shared sticky site header with desktop navigation, section directory,
-   mobile menu portal and responsive navigation controls.
+   React component:
+   Header.jsx
 
-   Responsive behavior for Header is defined locally in this stylesheet.
+   SELECTOR OWNERSHIP
+
+       .site-header*
+
+   RESPONSIBILITIES
+
+       Sticky site header
+       Desktop navigation
+       Section directory
+       Mobile navigation
+
+   Responsive behavior is defined locally in this stylesheet.
    ========================================================================== */
 
 .site-header {

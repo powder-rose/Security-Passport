@@ -1,10 +1,22 @@
 /* ==========================================================================
-   Footer.jsx — SITE FOOTER
+   SITE FOOTER
+   ==========================================================================
 
-   Shared site footer containing section navigation, contact details,
-   legal links and federal contact information.
+   React component:
+   Footer.jsx
 
-   Responsive behavior for Footer is defined locally in this stylesheet.
+   SELECTOR OWNERSHIP
+
+       .site-footer*
+
+   RESPONSIBILITIES
+
+       Footer navigation
+       Contact information
+       Legal links
+       Federal contact information
+
+   Responsive behavior is defined locally in this stylesheet.
    ========================================================================== */
 
 .site-footer {

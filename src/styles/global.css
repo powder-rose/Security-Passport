@@ -1,7 +1,13 @@
 /* ==========================================================================
    GLOBAL LAYOUT AND INTERACTION
+   ==========================================================================
 
-   Shared layout primitives, focus behavior and accessibility helpers.
+   SCOPE
+
+       Document and root layout
+       Shared container primitives
+       Anchor scroll behavior
+       Focus and accessibility helpers
    ========================================================================== */
 
 html {

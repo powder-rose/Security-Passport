@@ -1,10 +1,21 @@
 /* ==========================================================================
-   Experience.jsx — EXPERIENCE
+   EXPERIENCE
+   ==========================================================================
 
-   Shared company-experience section containing three service-proof cards
-   and the supporting route through the main stages of work.
+   React component:
+   Experience.jsx
 
-   Responsive behavior for Experience is defined locally in this stylesheet.
+   SELECTOR OWNERSHIP
+
+       .experience*
+
+   RESPONSIBILITIES
+
+       Company experience
+       Service proof cards
+       Work-stage presentation
+
+   Responsive behavior is defined locally in this stylesheet.
    ========================================================================== */
 
 .experience {

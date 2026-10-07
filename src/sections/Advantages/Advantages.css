@@ -1,10 +1,21 @@
 /* ==========================================================================
-   Advantages.jsx — ADVANTAGES
+   ADVANTAGES
+   ==========================================================================
 
-   Shared trust-proof section presenting experience, company details and
-   verifiable licensing information in three proof cards.
+   React component:
+   Advantages.jsx
 
-   Responsive behavior for Advantages is defined locally in this stylesheet.
+   SELECTOR OWNERSHIP
+
+       .proofs*
+
+   RESPONSIBILITIES
+
+       Company experience
+       Trust and licensing proof
+       Proof-card presentation
+
+   Responsive behavior is defined locally in this stylesheet.
    ========================================================================== */
 
 .proofs {

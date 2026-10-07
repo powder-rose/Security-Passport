@@ -1,10 +1,22 @@
 /* ==========================================================================
-   ArticleView.jsx — ARTICLE VIEW
+   ARTICLE VIEW
+   ==========================================================================
 
-   Shared article renderer with rich-text typography, embedded article quiz,
-   related services/articles and responsive reading layout.
+   React component:
+   ArticleView.jsx
 
-   Article-specific presentation is defined locally in this stylesheet.
+   SELECTOR OWNERSHIP
+
+       .article-view*
+
+   RESPONSIBILITIES
+
+       Shared article presentation
+       Rich-text typography
+       Embedded article quiz layout
+       Related content presentation
+
+   Responsive behavior is defined locally in this stylesheet.
    ========================================================================== */
 
 .article-view {

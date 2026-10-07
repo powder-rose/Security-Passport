@@ -1,11 +1,22 @@
-/*
-==========================================================================
-   RegulationByObject.jsx — REGULATION BY OBJECT
+/* ==========================================================================
+   REGULATION BY OBJECT
+   ==========================================================================
 
-   Shared section mapping object types to their regulatory requirements.
-   Desktop table layout switches to a stacked presentation on small screens.
-==========================================================================
- */
+   React component:
+   RegulationByObject.jsx
+
+   SELECTOR OWNERSHIP
+
+       .regulation-guide*
+
+   RESPONSIBILITIES
+
+       Object-type regulation mapping
+       Desktop regulation table
+       Small-screen stacked presentation
+
+   Responsive behavior is defined locally in this stylesheet.
+   ========================================================================== */
 
 .regulation-guide {
   padding: clamp(96px, 11vw, 168px) 0;
