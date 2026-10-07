@@ -2,21 +2,15 @@ import './RegulationsPage.polish.css';
 
 import { useMemo, useState } from 'react';
 
-import { createRegulation, saveRegulation, saveRegulationTopicClaims } from '../../api/adminApi';
-
 import RegulationsList from './RegulationsList.jsx';
 import RegulationsQuizActions from './RegulationsQuizActions.jsx';
 import RegulationsQuizContent from './RegulationsQuizContent.jsx';
 import RegulationsPublicationStatus from './RegulationsPublicationStatus.jsx';
 import useRegulationPublication from './useRegulationPublication.js';
 import useRegulations from './useRegulations.js';
+import saveRegulationOperation from './regulationSaveOperation.js';
 
-import {
-  buildPayload,
-  createEmptyRegulation,
-  generalSteps,
-  getTopicQuestions,
-} from './regulationsModel.js';
+import { createEmptyRegulation, generalSteps, getTopicQuestions } from './regulationsModel.js';
 
 export default function RegulationsPage() {
   const [expanded, setExpanded] = useState(false);
@@ -211,23 +205,6 @@ export default function RegulationsPage() {
     }
   }
 
-  function buildOwnClaims() {
-    if (isCreating) {
-      return [];
-    }
-
-    const answers = new Map(topicQuestions.map(question => [question.key, question.text]));
-
-    return (form.claims || []).map(claim => {
-      const key = `${selected}:${claim.id}`;
-
-      return {
-        ...claim,
-        text: answers.has(key) ? answers.get(key) : claim.text,
-      };
-    });
-  }
-
   async function save() {
     if (!canContinue()) {
       setMessage('Заполни текущий вопрос');
@@ -248,36 +225,15 @@ export default function RegulationsPage() {
     setMessage('');
 
     try {
-      const ownClaims = buildOwnClaims();
+      const saveResult = await saveRegulationOperation({
+        form,
+        isCreating,
+        selected,
+        topicQuestions,
+      });
 
-      const payload = buildPayload(form, ownClaims);
-
-      const baseResult = isCreating
-        ? await createRegulation(payload)
-        : await saveRegulation(selected, payload);
-
-      if (!baseResult?.ok || !baseResult.regulation) {
-        throw new Error(baseResult?.message || 'Не удалось сохранить постановление');
-      }
-
-      const newNumber = String(baseResult.regulation.number);
-
-      const topicPayload = topicQuestions.map(question => ({
-        number: !isCreating && question.ownerNumber === selected ? newNumber : question.ownerNumber,
-
-        id: question.id,
-
-        text: question.text,
-      }));
-
-      const topicResult = await saveRegulationTopicClaims(form.topic, topicPayload);
-
-      if (!topicResult?.ok) {
-        throw new Error(topicResult?.message || 'Не удалось сохранить тематические вопросы');
-      }
-
-      if (topicResult.publication || baseResult.publication) {
-        setPublication(topicResult.publication || baseResult.publication);
+      if (saveResult.publication) {
+        setPublication(saveResult.publication);
       }
 
       await loadItems();
@@ -288,7 +244,7 @@ export default function RegulationsPage() {
       setMessage(
         isCreating
           ? 'Постановление добавлено'
-          : topicResult.publication || baseResult.publication
+          : saveResult.publication
             ? 'Сохранено. Публикация запущена'
             : 'Изменения сохранены',
       );
