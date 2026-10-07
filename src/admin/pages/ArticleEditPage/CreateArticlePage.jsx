@@ -265,19 +265,25 @@ export default function CreateArticlePage() {
           image={cropImage.preview}
 
           onCancel={() => {
+            URL.revokeObjectURL(cropImage.preview);
+
             setCropImage(null);
           }}
 
           onCrop={async pixels => {
-            const file = await getCroppedFile(cropImage.preview, pixels);
+            try {
+              const file = await getCroppedFile(cropImage.preview, pixels);
 
-            const result = await uploadArticleImage(file);
+              const result = await uploadArticleImage(file);
 
-            if (result.url) {
-              change('image', result.url);
+              if (result.url) {
+                change('image', result.url);
+              }
+            } finally {
+              URL.revokeObjectURL(cropImage.preview);
+
+              setCropImage(null);
             }
-
-            setCropImage(null);
           }}
         />
       )}
