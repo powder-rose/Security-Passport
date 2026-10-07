@@ -7,14 +7,13 @@ import {
   getRegulations,
   saveRegulation,
   saveRegulationTopicClaims,
-  getRegulationPublication,
-  retryRegulationPublication,
 } from '../../api/adminApi';
 
 import RegulationsList from './RegulationsList.jsx';
 import RegulationsQuizActions from './RegulationsQuizActions.jsx';
 import RegulationsQuizContent from './RegulationsQuizContent.jsx';
 import RegulationsPublicationStatus from './RegulationsPublicationStatus.jsx';
+import useRegulationPublication from './useRegulationPublication.js';
 
 import {
   buildPayload,
@@ -42,11 +41,15 @@ export default function RegulationsPage() {
 
   const [message, setMessage] = useState('');
 
-  const [publication, setPublication] = useState(null);
-
   const [loading, setLoading] = useState(true);
 
   const [saving, setSaving] = useState(false);
+
+  const {
+    publication,
+    setPublication,
+    retryPublication: retryPublicationRequest,
+  } = useRegulationPublication();
 
   async function loadItems() {
     const result = await getRegulations();
@@ -86,37 +89,6 @@ export default function RegulationsPage() {
 
     return () => {
       active = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    let active = true;
-
-    async function checkPublication() {
-      try {
-        const result = await getRegulationPublication();
-
-        if (active && result?.ok) {
-          setPublication(result.publication);
-        }
-      } catch (error) {
-        if (active) {
-          setPublication({
-            phase: 'failed',
-            error: error.message,
-          });
-        }
-      }
-    }
-
-    checkPublication();
-
-    const timer = window.setInterval(checkPublication, 4000);
-
-    return () => {
-      active = false;
-
-      window.clearInterval(timer);
     };
   }, []);
 
@@ -278,13 +250,7 @@ export default function RegulationsPage() {
 
   async function retryPublication() {
     try {
-      const result = await retryRegulationPublication();
-
-      if (!result?.ok) {
-        throw new Error(result?.message || 'Не удалось запустить публикацию');
-      }
-
-      setPublication(result.publication);
+      await retryPublicationRequest();
 
       setMessage('Повторная публикация запущена');
     } catch (error) {
