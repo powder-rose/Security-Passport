@@ -192,15 +192,6 @@
   background: #a9f04a;
 }
 
-.regulations-list__empty {
-  margin: 0;
-  padding: 24px;
-
-  color: rgba(255, 255, 255, 0.72);
-
-  text-align: center;
-}
-
 .regulations-add {
   display: flex;
   align-items: center;
@@ -417,17 +408,6 @@
 .regulations-quiz__actions button:disabled {
   opacity: 0.55;
   cursor: wait;
-}
-
-.regulations-quiz__meta {
-  padding: 13px 18px;
-
-  border-top: 1px solid rgba(17, 17, 17, 0.08);
-
-  color: rgba(17, 17, 17, 0.58);
-
-  font-size: 12px;
-  text-align: center;
 }
 
 .regulations-publication {
