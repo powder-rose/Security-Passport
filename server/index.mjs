@@ -5,14 +5,13 @@ import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
 import dotenv from 'dotenv';
-import { resolveSiteFromHost } from './site-region.mjs';
 import { getStatistics } from './statistics.mjs';
 import { getAdminLeadsPage } from './admin-leads.mjs';
 import { deleteLeadFromFile } from './lead-storage.mjs';
 import { createLeadDelivery } from './lead-delivery.mjs';
+import { createLeadIntake } from './lead-intake.mjs';
 import { createVisitTracking } from './visit-tracking.mjs';
 import { createAdminAuth } from './admin-auth.mjs';
-import { quizContactSchema } from '../src/lib/validation/leadValidation.js';
 import {
   getArticles,
   getArticleById,
@@ -41,9 +40,6 @@ const HOST = process.env.HOST || '0.0.0.0';
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const IS_PRODUCTION = NODE_ENV === 'production';
 const BODY_LIMIT = process.env.LEAD_BODY_LIMIT || '1mb';
-const RATE_WINDOW_MS = Number(process.env.LEAD_RATE_WINDOW_MS || 10 * 60 * 1000);
-const RATE_MAX = Number(process.env.LEAD_RATE_MAX || 8);
-const DEDUPE_TTL_MS = Number(process.env.LEAD_DEDUPE_TTL_MS || 24 * 60 * 60 * 1000);
 const BACKUP_ENABLED = String(process.env.LEADS_BACKUP_ENABLED ?? 'true').toLowerCase() === 'true';
 const LEADS_FILE = path.resolve(projectRoot, process.env.LEADS_FILE || 'data/leads.jsonl');
 const VISITS_FILE = path.resolve(projectRoot, process.env.VISITS_FILE || 'data/visits.jsonl');
@@ -54,29 +50,6 @@ const allowedOrigins = new Set(
     .map(value => value.trim())
     .filter(Boolean),
 );
-
-const rateBuckets = new Map();
-const requestIds = new Map();
-
-function pruneLeadMaps(now = Date.now()) {
-  for (const [key, bucket] of rateBuckets) {
-    if (now - bucket.startedAt > RATE_WINDOW_MS) {
-      rateBuckets.delete(key);
-    }
-  }
-
-  for (const [requestId, timestamp] of requestIds) {
-    if (now - timestamp > DEDUPE_TTL_MS) {
-      requestIds.delete(requestId);
-    }
-  }
-}
-
-setInterval(pruneLeadMaps, Math.min(RATE_WINDOW_MS, 5 * 60 * 1000)).unref();
-
-function getClientIp(req) {
-  return req.ip || req.socket.remoteAddress || 'unknown';
-}
 
 function isLocalDevOrigin(origin) {
   if (IS_PRODUCTION) return false;
@@ -132,105 +105,14 @@ app.use((req, res, next) => {
 
 app.use('/api', express.json({ limit: BODY_LIMIT, type: 'application/json' }));
 
-function rateLimit(req, res, next) {
-  const now = Date.now();
-  const ip = getClientIp(req);
-  const bucket = rateBuckets.get(ip);
-
-  if (!bucket || now - bucket.startedAt > RATE_WINDOW_MS) {
-    rateBuckets.set(ip, { startedAt: now, count: 1 });
-    return next();
-  }
-
-  bucket.count += 1;
-  if (bucket.count > RATE_MAX) {
-    const retryAfterSeconds = Math.max(
-      1,
-      Math.ceil((RATE_WINDOW_MS - (now - bucket.startedAt)) / 1000),
-    );
-    res.setHeader('Retry-After', String(retryAfterSeconds));
-    return res.status(429).json({ ok: false, error: 'TOO_MANY_REQUESTS' });
-  }
-
-  next();
-}
-
-function cleanString(value, maxLength = 2000) {
-  if (typeof value !== 'string') return '';
-  return value
-    .replace(/\u0000/g, '')
-    .trim()
-    .slice(0, maxLength);
-}
-
-function cleanValue(value, depth = 0) {
-  if (depth > 5) return null;
-  if (typeof value === 'string') return cleanString(value, 4000);
-  if (typeof value === 'number' || typeof value === 'boolean' || value === null) return value;
-  if (Array.isArray(value)) return value.slice(0, 40).map(item => cleanValue(item, depth + 1));
-  if (typeof value === 'object' && value) {
-    return Object.fromEntries(
-      Object.entries(value)
-        .slice(0, 60)
-        .map(([key, item]) => [cleanString(key, 80), cleanValue(item, depth + 1)]),
-    );
-  }
-  return null;
-}
-
-function normalizeLead(body, req) {
-  const source = cleanString(body?.source, 120);
-  const requestId = cleanString(body?.requestId, 160);
-  const data = cleanValue(body?.data || {});
-  const attribution = cleanValue(body?.attribution || {});
-
-  return {
-    id: crypto.randomUUID(),
-    requestId,
-    source,
-    submittedAt: cleanString(body?.submittedAt, 80) || new Date().toISOString(),
-    receivedAt: new Date().toISOString(),
-    page: cleanString(body?.page, 1200),
-    referrer: cleanString(body?.referrer, 1200),
-    site: resolveSiteFromHost(req.get('x-forwarded-host') || req.get('host') || ''),
-    attribution,
-    data,
-    meta: {
-      ip: getClientIp(req),
-      userAgent: cleanString(req.get('user-agent'), 600),
-    },
-  };
-}
-
-function validateLead(lead) {
-  const allowedSources = new Set(['passport-security-final-cta', 'passport-security-quiz']);
-  if (!allowedSources.has(lead.source)) return 'INVALID_SOURCE';
-  if (!lead.requestId || lead.requestId.length < 8) return 'INVALID_REQUEST_ID';
-  if (!lead.data || typeof lead.data !== 'object') return 'INVALID_DATA';
-
-  if (lead.source === 'passport-security-final-cta') {
-    if (cleanString(lead.data.website, 200)) return 'SPAM_DETECTED';
-    if (!cleanString(lead.data.name, 160)) return 'NAME_REQUIRED';
-    if (!cleanString(lead.data.phone, 120)) return 'PHONE_REQUIRED';
-    if (lead.data.consent !== true) return 'CONSENT_REQUIRED';
-  }
-
-  if (lead.source === 'passport-security-quiz') {
-    const contact = lead.data?.answers?.contact;
-    if (!contact || typeof contact !== 'object') return 'CONTACT_REQUIRED';
-    if (!cleanString(contact.name, 160)) return 'NAME_REQUIRED';
-    if (!cleanString(contact.phone, 120)) return 'PHONE_REQUIRED';
-    if (!cleanString(contact.email, 320)) return 'EMAIL_REQUIRED';
-    if (contact.consent !== true) return 'CONSENT_REQUIRED';
-    if (!quizContactSchema.isValidSync(contact)) return 'INVALID_CONTACT';
-  }
-
-  return '';
-}
-
 const leadDelivery = createLeadDelivery({
   backupEnabled: BACKUP_ENABLED,
   leadsFile: LEADS_FILE,
+  env: process.env,
+});
+
+const leadIntake = createLeadIntake({
+  leadDelivery,
   env: process.env,
 });
 
@@ -847,38 +729,7 @@ app.get('/api/health', (req, res) => {
 
 app.post('/api/visits', visitTracking.handleVisit);
 
-app.post('/api/leads', rateLimit, async (req, res) => {
-  pruneLeadMaps();
-  const lead = normalizeLead(req.body, req);
-  const validationError = validateLead(lead);
-
-  if (validationError) {
-    return res.status(validationError === 'SPAM_DETECTED' ? 202 : 400).json({
-      ok: validationError === 'SPAM_DETECTED',
-      error: validationError === 'SPAM_DETECTED' ? undefined : validationError,
-    });
-  }
-
-  if (requestIds.has(lead.requestId)) {
-    return res.status(200).json({ ok: true, duplicate: true, requestId: lead.requestId });
-  }
-  requestIds.set(lead.requestId, Date.now());
-
-  try {
-    const delivery = await leadDelivery.deliverLead(lead);
-    if (!delivery.ok) {
-      requestIds.delete(lead.requestId);
-      return res.status(503).json({ ok: false, error: 'NO_DELIVERY_CHANNEL_AVAILABLE' });
-    }
-
-    console.info(`[lead] accepted ${lead.id} (${lead.source})`);
-    return res.status(201).json({ ok: true, id: lead.id, requestId: lead.requestId });
-  } catch (error) {
-    requestIds.delete(lead.requestId);
-    console.error('[lead] unexpected delivery error:', error);
-    return res.status(500).json({ ok: false, error: 'LEAD_DELIVERY_FAILED' });
-  }
-});
+app.post('/api/leads', leadIntake.rateLimit, leadIntake.handleLead);
 
 app.get('/admin/', async (req, res) => {
   try {
