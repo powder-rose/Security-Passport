@@ -2,6 +2,7 @@ import process from 'node:process';
 
 import nodemailer from 'nodemailer';
 
+import { LEAD_SOURCE_QUIZ } from '../../shared/contracts/lead.js';
 import { appendLeadToFile } from './lead-storage.mjs';
 
 function cleanString(value, maxLength = 2000) {
@@ -174,7 +175,7 @@ function buildFormLeadText(lead) {
 }
 
 function buildLeadText(lead) {
-  if (lead.source === 'passport-security-quiz') {
+  if (lead.source === LEAD_SOURCE_QUIZ) {
     return buildQuizLeadText(lead);
   }
 
@@ -280,7 +281,7 @@ export function createLeadDelivery({ backupEnabled, leadsFile, env = process.env
       from,
       to,
       subject:
-        lead.source === 'passport-security-quiz'
+        lead.source === LEAD_SOURCE_QUIZ
           ? 'Новая заявка: квиз паспорта безопасности'
           : 'Новая заявка: паспорт безопасности',
       text,

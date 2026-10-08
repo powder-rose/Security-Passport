@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { LEAD_SOURCE_QUIZ } from '../../shared/contracts/lead.js';
 import { readJsonLines } from '../shared/jsonl.mjs';
 import { resolveSiteFromHost } from '../shared/site-region.mjs';
 
@@ -42,7 +43,7 @@ function resolveLeadSite(lead) {
 }
 
 function getContactData(lead) {
-  if (lead.source === 'passport-security-quiz') {
+  if (lead.source === LEAD_SOURCE_QUIZ) {
     return lead?.data?.answers?.contact || {};
   }
 
@@ -60,7 +61,7 @@ function normalizeLead(lead) {
 
     source: text(lead.source, 150),
 
-    sourceTitle: lead.source === 'passport-security-quiz' ? 'Квиз' : 'Форма',
+    sourceTitle: lead.source === LEAD_SOURCE_QUIZ ? 'Квиз' : 'Форма',
 
     city: site,
 

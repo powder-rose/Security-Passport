@@ -1,7 +1,12 @@
 import crypto from 'node:crypto';
 import process from 'node:process';
 
-import { quizContactSchema } from '../../src/lib/validation/leadValidation.js';
+import {
+  LEAD_SOURCE_FINAL_CTA,
+  LEAD_SOURCE_QUIZ,
+  LEAD_SOURCES,
+} from '../../shared/contracts/lead.js';
+import { quizContactSchema } from '../../shared/validation/leadValidation.js';
 import { resolveSiteFromHost } from '../shared/site-region.mjs';
 
 function cleanString(value, maxLength = 2000) {
@@ -83,7 +88,7 @@ function normalizeLead(body, req) {
 }
 
 function validateLead(lead) {
-  const allowedSources = new Set(['passport-security-final-cta', 'passport-security-quiz']);
+  const allowedSources = new Set(LEAD_SOURCES);
 
   if (!allowedSources.has(lead.source)) {
     return 'INVALID_SOURCE';
@@ -97,7 +102,7 @@ function validateLead(lead) {
     return 'INVALID_DATA';
   }
 
-  if (lead.source === 'passport-security-final-cta') {
+  if (lead.source === LEAD_SOURCE_FINAL_CTA) {
     if (cleanString(lead.data.website, 200)) {
       return 'SPAM_DETECTED';
     }
@@ -115,7 +120,7 @@ function validateLead(lead) {
     }
   }
 
-  if (lead.source === 'passport-security-quiz') {
+  if (lead.source === LEAD_SOURCE_QUIZ) {
     const contact = lead.data?.answers?.contact;
 
     if (!contact || typeof contact !== 'object') {
