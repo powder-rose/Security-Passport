@@ -1,6 +1,7 @@
-import fs from 'node:fs/promises';
-
-const ROOT = new URL('../', import.meta.url);
+import {
+  applyRegulationSyncWorkspace,
+  createRegulationSyncWorkspace,
+} from './regulation-sync-workspace.mjs';
 
 /*
  * Резервный список файлов.
@@ -125,48 +126,34 @@ export function replaceRegulationNumber(value, oldNumber, newNumber) {
   return text;
 }
 
-export async function syncRegulationNumber(oldNumber, newNumber, occurrences = []) {
+export async function planRegulationNumberSync(workspace, oldNumber, newNumber, occurrences = []) {
   const files = getFiles(oldNumber, occurrences);
 
   let changedFiles = 0;
   let changedOccurrences = 0;
 
   for (const relative of files) {
-    const url = new URL(relative, ROOT);
+    const result = await workspace.transform(
+      relative,
+      source => replaceRegulationNumber(source, oldNumber, newNumber),
+      {
+        ignoreMissing: true,
+      },
+    );
 
-    let original;
-
-    try {
-      original = await fs.readFile(url, 'utf8');
-    } catch (error) {
-      if (error?.code === 'ENOENT') {
-        continue;
-      }
-
-      throw error;
-    }
-
-    const updated = replaceRegulationNumber(original, oldNumber, newNumber);
-
-    if (updated === original) {
+    if (!result?.changed) {
       continue;
     }
 
-    /*
-     * Считаем количество изменённых
-     * упоминаний приблизительно для отчёта.
-     */
-    const oldMatches = original.match(new RegExp(`№\\s*${escapeRegExp(oldNumber)}\\b`, 'g')) || [];
+    const oldMatches =
+      result.before.match(new RegExp(`№\\s*${escapeRegExp(oldNumber)}\\b`, 'g')) || [];
 
     const claimMatches =
-      original.match(
+      result.before.match(
         new RegExp(`getRegulationClaim\\(\\s*['"]${escapeRegExp(oldNumber)}['"]`, 'g'),
       ) || [];
 
     changedOccurrences += oldMatches.length + claimMatches.length;
-
-    await fs.writeFile(url, updated, 'utf8');
-
     changedFiles += 1;
   }
 
@@ -175,4 +162,14 @@ export async function syncRegulationNumber(oldNumber, newNumber, occurrences = [
     changedOccurrences,
     files,
   };
+}
+
+export async function syncRegulationNumber(oldNumber, newNumber, occurrences = []) {
+  const workspace = createRegulationSyncWorkspace();
+
+  const result = await planRegulationNumberSync(workspace, oldNumber, newNumber, occurrences);
+
+  await applyRegulationSyncWorkspace(workspace);
+
+  return result;
 }

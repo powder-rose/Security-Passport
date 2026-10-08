@@ -1,6 +1,7 @@
-import fs from 'node:fs/promises';
-
-const ROOT = new URL('../', import.meta.url);
+import {
+  applyRegulationSyncWorkspace,
+  createRegulationSyncWorkspace,
+} from './regulation-sync-workspace.mjs';
 
 const FILES_BY_NUMBER = {
   8: [
@@ -109,36 +110,43 @@ function getFiles(number, occurrences) {
   return occurrenceFiles.length ? occurrenceFiles : FILES_BY_NUMBER[String(number)] || [];
 }
 
-export async function syncRegulationDate(number, newDate, occurrences = []) {
+export async function planRegulationDateSync(workspace, number, newDate, occurrences = []) {
   const files = getFiles(number, occurrences);
 
   let changedFiles = 0;
-
   let changedOccurrences = 0;
 
   for (const relative of [...new Set(files)]) {
-    const url = new URL(relative, ROOT);
+    const result = await workspace.transform(relative, source =>
+      replaceRegulationDate(source, number, newDate),
+    );
 
-    const original = await fs.readFile(url, 'utf8');
-
-    const updated = replaceRegulationDate(original, number, newDate);
-
-    if (updated !== original) {
-      changedFiles += 1;
-
-      const newDateRu = formatRegulationDate(newDate);
-
-      changedOccurrences += Math.max(
-        1,
-        updated.split(newDateRu).length - original.split(newDateRu).length,
-      );
-
-      await fs.writeFile(url, updated, 'utf8');
+    if (!result.changed) {
+      continue;
     }
+
+    const newDateRu = formatRegulationDate(newDate);
+
+    changedOccurrences += Math.max(
+      1,
+      result.after.split(newDateRu).length - result.before.split(newDateRu).length,
+    );
+
+    changedFiles += 1;
   }
 
   return {
     changedFiles,
     changedOccurrences,
   };
+}
+
+export async function syncRegulationDate(number, newDate, occurrences = []) {
+  const workspace = createRegulationSyncWorkspace();
+
+  const result = await planRegulationDateSync(workspace, number, newDate, occurrences);
+
+  await applyRegulationSyncWorkspace(workspace);
+
+  return result;
 }

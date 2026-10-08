@@ -1,6 +1,7 @@
-import fs from 'node:fs/promises';
-
-const ROOT = new URL('../', import.meta.url);
+import {
+  applyRegulationSyncWorkspace,
+  createRegulationSyncWorkspace,
+} from './regulation-sync-workspace.mjs';
 
 const FILES_BY_NUMBER = {
   8: [
@@ -71,33 +72,60 @@ function getFiles(number, occurrences) {
   return occurrenceFiles.length ? occurrenceFiles : FILES_BY_NUMBER[String(number)] || [];
 }
 
-export async function syncRegulationTitle(number, oldTitle, newTitle, occurrences = []) {
+export async function planRegulationTitleSync(
+  workspace,
+  number,
+  oldTitle,
+  newTitle,
+  occurrences = [],
+) {
   const files = getFiles(number, occurrences);
+
   let changedFiles = 0;
   let changedOccurrences = 0;
 
   for (const relative of [...new Set(files)]) {
-    const url = new URL(relative, ROOT);
-    const file = await fs.readFile(url, 'utf8');
-    let updated = file;
+    let occurrenceDelta = 0;
 
-    for (const oldValue of variants(number, oldTitle)) {
-      if (oldValue === newTitle) continue;
-      const count = updated.split(oldValue).length - 1;
-      if (count > 0) {
-        updated = updated.split(oldValue).join(newTitle);
-        changedOccurrences += count;
+    const result = await workspace.transform(relative, source => {
+      let updated = source;
+
+      for (const oldValue of variants(number, oldTitle)) {
+        if (oldValue === newTitle) {
+          continue;
+        }
+
+        const count = updated.split(oldValue).length - 1;
+
+        if (count > 0) {
+          updated = updated.split(oldValue).join(newTitle);
+          occurrenceDelta += count;
+        }
       }
+
+      return updated;
+    });
+
+    if (!result.changed) {
+      continue;
     }
 
-    if (updated !== file) {
-      await fs.writeFile(url, updated, 'utf8');
-      changedFiles += 1;
-    }
+    changedFiles += 1;
+    changedOccurrences += occurrenceDelta;
   }
 
   return {
     changedFiles,
     changedOccurrences,
   };
+}
+
+export async function syncRegulationTitle(number, oldTitle, newTitle, occurrences = []) {
+  const workspace = createRegulationSyncWorkspace();
+
+  const result = await planRegulationTitleSync(workspace, number, oldTitle, newTitle, occurrences);
+
+  await applyRegulationSyncWorkspace(workspace);
+
+  return result;
 }
