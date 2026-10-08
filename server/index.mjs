@@ -50,6 +50,8 @@ const VISITS_FILE = path.resolve(projectRoot, process.env.VISITS_FILE || 'data/v
 const VISIT_DEDUPE_TTL_MS = Number(process.env.VISIT_DEDUPE_TTL_MS || 30 * 60 * 1000);
 const VISIT_RATE_WINDOW_MS = Number(process.env.VISIT_RATE_WINDOW_MS || 10 * 60 * 1000);
 const VISIT_RATE_MAX = Number(process.env.VISIT_RATE_MAX || 30);
+const TELEGRAM_TIMEOUT_MS = getPositiveTimeout(process.env.TELEGRAM_TIMEOUT_MS, 10_000);
+const SMTP_TIMEOUT_MS = getPositiveTimeout(process.env.SMTP_TIMEOUT_MS, 20_000);
 
 const allowedOrigins = new Set(
   String(process.env.LEAD_ALLOWED_ORIGINS || '')
@@ -83,6 +85,16 @@ function pruneMaps(now = Date.now()) {
 }
 
 setInterval(pruneMaps, Math.min(RATE_WINDOW_MS, VISIT_RATE_WINDOW_MS, 5 * 60 * 1000)).unref();
+
+function getPositiveTimeout(value, fallback) {
+  const timeout = Number(value);
+
+  if (!Number.isFinite(timeout) || timeout <= 0) {
+    return fallback;
+  }
+
+  return Math.floor(timeout);
+}
 
 function getClientIp(req) {
   return req.ip || req.socket.remoteAddress || 'unknown';
@@ -453,6 +465,7 @@ async function sendTelegram(text) {
 
   const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: 'POST',
+    signal: AbortSignal.timeout(TELEGRAM_TIMEOUT_MS),
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       chat_id: chatId,
@@ -477,6 +490,10 @@ function createMailTransport() {
     host,
     port: Number(process.env.SMTP_PORT || 465),
     secure: String(process.env.SMTP_SECURE ?? 'true').toLowerCase() === 'true',
+    connectionTimeout: SMTP_TIMEOUT_MS,
+    greetingTimeout: SMTP_TIMEOUT_MS,
+    socketTimeout: SMTP_TIMEOUT_MS,
+    dnsTimeout: SMTP_TIMEOUT_MS,
     auth: { user, pass },
   });
 }
