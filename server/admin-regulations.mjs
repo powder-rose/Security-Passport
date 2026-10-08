@@ -27,6 +27,25 @@ async function readRegistry() {
   return data;
 }
 
+async function writeRegistry(data) {
+  const temporary = `${FILE}.${process.pid}.${Date.now()}.tmp`;
+
+  try {
+    await fs.writeFile(temporary, JSON.stringify(data, null, 2) + '\n', {
+      encoding: 'utf8',
+      mode: 0o600,
+    });
+
+    await fs.rename(temporary, FILE);
+  } catch (error) {
+    await fs.rm(temporary, {
+      force: true,
+    });
+
+    throw error;
+  }
+}
+
 function validate(input) {
   if (!input || typeof input !== 'object' || Array.isArray(input)) {
     throw new TypeError('Неверные данные');
@@ -175,22 +194,7 @@ export function createRegulation(input) {
 
     data.items.push(created);
 
-    const temporary = `${FILE}.${process.pid}.${Date.now()}.tmp`;
-
-    try {
-      await fs.writeFile(temporary, JSON.stringify(data, null, 2) + '\n', {
-        encoding: 'utf8',
-        mode: 0o600,
-      });
-
-      await fs.rename(temporary, FILE);
-    } catch (error) {
-      await fs.rm(temporary, {
-        force: true,
-      });
-
-      throw error;
-    }
+    await writeRegistry(data);
 
     return {
       ...created,
@@ -355,17 +359,7 @@ export function updateRegulation(number, input) {
     };
     data.items[index] = updated;
 
-    const temporary = `${FILE}.${process.pid}.${Date.now()}.tmp`;
-    try {
-      await fs.writeFile(temporary, JSON.stringify(data, null, 2) + '\n', {
-        encoding: 'utf8',
-        mode: 0o600,
-      });
-      await fs.rename(temporary, FILE);
-    } catch (error) {
-      await fs.rm(temporary, { force: true });
-      throw error;
-    }
+    await writeRegistry(data);
     return { ...updated, publicationNeeded };
   });
 
@@ -493,22 +487,7 @@ export function updateTopicClaims(topic, input) {
         }
       }
 
-      const temporary = `${FILE}.${process.pid}.${Date.now()}.tmp`;
-
-      try {
-        await fs.writeFile(temporary, JSON.stringify(data, null, 2) + '\n', {
-          encoding: 'utf8',
-          mode: 0o600,
-        });
-
-        await fs.rename(temporary, FILE);
-      } catch (error) {
-        await fs.rm(temporary, {
-          force: true,
-        });
-
-        throw error;
-      }
+      await writeRegistry(data);
     }
 
     return {
