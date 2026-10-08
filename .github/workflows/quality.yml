@@ -1,0 +1,68 @@
+name: Quality Gate
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Format, lint, test, QA and build
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 25
+
+    env:
+      CI: 'true'
+      VITE_BASE_DOMAIN: pasport-bezopasnosty.ru
+      VITE_SITE_PROTOCOL: https
+      VITE_SITE_ORIGIN: https://pasport-bezopasnosty.ru
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22.x
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Prepare CI runtime directories
+        run: |
+          if [ -L public/uploads ] && [ ! -e public/uploads ]; then
+            rm public/uploads
+            mkdir -p public/uploads
+          fi
+
+      - name: Check formatting
+        run: npm run format:check
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run tests and source QA
+        run: npm run qa
+
+      - name: Build production artifacts
+        run: npm run build:artifacts
