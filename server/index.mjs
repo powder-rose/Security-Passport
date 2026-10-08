@@ -6,11 +6,11 @@ import { fileURLToPath } from 'node:url';
 import express from 'express';
 import dotenv from 'dotenv';
 import { resolveSiteFromHost } from './site-region.mjs';
-import { isBotUserAgent } from './bot-detection.mjs';
 import { getStatistics } from './statistics.mjs';
 import { getAdminLeadsPage } from './admin-leads.mjs';
 import { deleteLeadFromFile } from './lead-storage.mjs';
 import { createLeadDelivery } from './lead-delivery.mjs';
+import { createVisitTracking } from './visit-tracking.mjs';
 import { createAdminAuth } from './admin-auth.mjs';
 import { quizContactSchema } from '../src/lib/validation/leadValidation.js';
 import {
@@ -47,9 +47,6 @@ const DEDUPE_TTL_MS = Number(process.env.LEAD_DEDUPE_TTL_MS || 24 * 60 * 60 * 10
 const BACKUP_ENABLED = String(process.env.LEADS_BACKUP_ENABLED ?? 'true').toLowerCase() === 'true';
 const LEADS_FILE = path.resolve(projectRoot, process.env.LEADS_FILE || 'data/leads.jsonl');
 const VISITS_FILE = path.resolve(projectRoot, process.env.VISITS_FILE || 'data/visits.jsonl');
-const VISIT_DEDUPE_TTL_MS = Number(process.env.VISIT_DEDUPE_TTL_MS || 30 * 60 * 1000);
-const VISIT_RATE_WINDOW_MS = Number(process.env.VISIT_RATE_WINDOW_MS || 10 * 60 * 1000);
-const VISIT_RATE_MAX = Number(process.env.VISIT_RATE_MAX || 30);
 
 const allowedOrigins = new Set(
   String(process.env.LEAD_ALLOWED_ORIGINS || '')
@@ -60,29 +57,22 @@ const allowedOrigins = new Set(
 
 const rateBuckets = new Map();
 const requestIds = new Map();
-const visitIds = new Map();
-const visitRateBuckets = new Map();
 
-function pruneMaps(now = Date.now()) {
+function pruneLeadMaps(now = Date.now()) {
   for (const [key, bucket] of rateBuckets) {
-    if (now - bucket.startedAt > RATE_WINDOW_MS) rateBuckets.delete(key);
+    if (now - bucket.startedAt > RATE_WINDOW_MS) {
+      rateBuckets.delete(key);
+    }
   }
+
   for (const [requestId, timestamp] of requestIds) {
-    if (now - timestamp > DEDUPE_TTL_MS) requestIds.delete(requestId);
-  }
-
-  for (const [visitId, timestamp] of visitIds) {
-    if (now - timestamp > VISIT_DEDUPE_TTL_MS) visitIds.delete(visitId);
-  }
-
-  for (const [ip, bucket] of visitRateBuckets) {
-    if (now - bucket.startedAt > VISIT_RATE_WINDOW_MS) {
-      visitRateBuckets.delete(ip);
+    if (now - timestamp > DEDUPE_TTL_MS) {
+      requestIds.delete(requestId);
     }
   }
 }
 
-setInterval(pruneMaps, Math.min(RATE_WINDOW_MS, VISIT_RATE_WINDOW_MS, 5 * 60 * 1000)).unref();
+setInterval(pruneLeadMaps, Math.min(RATE_WINDOW_MS, 5 * 60 * 1000)).unref();
 
 function getClientIp(req) {
   return req.ip || req.socket.remoteAddress || 'unknown';
@@ -165,46 +155,6 @@ function rateLimit(req, res, next) {
   next();
 }
 
-function acquireVisitRateSlot(req, now = Date.now()) {
-  const key = getClientIp(req);
-  const bucket = visitRateBuckets.get(key);
-
-  if (!bucket || now - bucket.startedAt > VISIT_RATE_WINDOW_MS) {
-    visitRateBuckets.set(key, {
-      startedAt: now,
-      count: 1,
-    });
-
-    return key;
-  }
-
-  if (bucket.count >= VISIT_RATE_MAX) {
-    return null;
-  }
-
-  bucket.count += 1;
-
-  return key;
-}
-
-function releaseVisitRateSlot(key) {
-  if (!key) {
-    return;
-  }
-
-  const bucket = visitRateBuckets.get(key);
-
-  if (!bucket) {
-    return;
-  }
-
-  bucket.count -= 1;
-
-  if (bucket.count <= 0) {
-    visitRateBuckets.delete(key);
-  }
-}
-
 function cleanString(value, maxLength = 2000) {
   if (typeof value !== 'string') return '';
   return value
@@ -281,6 +231,11 @@ function validateLead(lead) {
 const leadDelivery = createLeadDelivery({
   backupEnabled: BACKUP_ENABLED,
   leadsFile: LEADS_FILE,
+  env: process.env,
+});
+
+const visitTracking = createVisitTracking({
+  visitsFile: VISITS_FILE,
   env: process.env,
 });
 
@@ -890,86 +845,10 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-app.post('/api/visits', async (req, res) => {
-  pruneMaps();
-
-  const userAgent = cleanString(req.get('user-agent'), 600);
-
-  if (isBotUserAgent(userAgent)) {
-    return res.status(200).json({
-      ok: true,
-      ignored: true,
-      reason: 'BOT_VISIT',
-    });
-  }
-
-  const sessionId = cleanString(req.body?.sessionId, 160);
-
-  if (!sessionId || sessionId.length < 8) {
-    return res.status(400).json({
-      ok: false,
-      error: 'INVALID_VISIT_ID',
-    });
-  }
-
-  if (visitIds.has(sessionId)) {
-    return res.status(200).json({
-      ok: true,
-      duplicate: true,
-    });
-  }
-
-  const visitRateKey = acquireVisitRateSlot(req);
-
-  if (!visitRateKey) {
-    return res.status(200).json({
-      ok: true,
-      ignored: true,
-      reason: 'VISIT_RATE_LIMITED',
-    });
-  }
-
-  const visit = {
-    id: crypto.randomUUID(),
-    sessionId,
-    receivedAt: new Date().toISOString(),
-    site: resolveSiteFromHost(req.get('x-forwarded-host') || req.get('host') || ''),
-    path: cleanString(req.body?.path, 1200),
-    referrer: cleanString(req.body?.referrer, 1200),
-    attribution: cleanValue(req.body?.attribution || {}),
-    meta: {
-      userAgent,
-    },
-  };
-
-  try {
-    await fs.mkdir(path.dirname(VISITS_FILE), { recursive: true });
-
-    await fs.appendFile(VISITS_FILE, `${JSON.stringify(visit)}\n`, {
-      encoding: 'utf8',
-      mode: 0o600,
-    });
-
-    visitIds.set(sessionId, Date.now());
-
-    return res.status(201).json({
-      ok: true,
-      id: visit.id,
-    });
-  } catch (error) {
-    releaseVisitRateSlot(visitRateKey);
-
-    console.error('[visit] write failed:', error?.message || error);
-
-    return res.status(500).json({
-      ok: false,
-      error: 'VISIT_WRITE_FAILED',
-    });
-  }
-});
+app.post('/api/visits', visitTracking.handleVisit);
 
 app.post('/api/leads', rateLimit, async (req, res) => {
-  pruneMaps();
+  pruneLeadMaps();
   const lead = normalizeLead(req.body, req);
   const validationError = validateLead(lead);
 
