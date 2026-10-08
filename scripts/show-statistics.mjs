@@ -1,4 +1,4 @@
-import { getStatistics, STAT_PERIODS } from '../server/statistics.mjs';
+import { getStatistics, STAT_PERIODS } from '../server/analytics/statistics.mjs';
 
 const statistics = await getStatistics();
 

@@ -1,11 +1,14 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import { getAdminLeadsPage } from './admin-leads.mjs';
-import { listRegulations, saveRegulationBundle } from './admin-regulations.mjs';
-import { deleteLeadFromFile } from './lead-storage.mjs';
-import { getRegulationPublication, queueRegulationPublication } from './regulation-publisher.mjs';
-import { getStatistics } from './statistics.mjs';
+import { getAdminLeadsPage } from '../leads/admin-leads.mjs';
+import { listRegulations, saveRegulationBundle } from '../regulations/admin-regulations.mjs';
+import { deleteLeadFromFile } from '../leads/lead-storage.mjs';
+import {
+  getRegulationPublication,
+  queueRegulationPublication,
+} from '../regulations/regulation-publisher.mjs';
+import { getStatistics } from '../analytics/statistics.mjs';
 
 export function registerAdminRoutes({ app, adminAuth, projectRoot, leadsFile }) {
   app.post('/api/admin/login', adminAuth.login);

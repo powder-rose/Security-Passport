@@ -2,10 +2,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { isBotVisit } from './bot-detection.mjs';
-import { readJsonLines } from './jsonl.mjs';
+import { readJsonLines } from '../shared/jsonl.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const projectRoot = path.resolve(__dirname, '..');
+const projectRoot = path.resolve(__dirname, '../..');
 
 const LEADS_FILE = path.resolve(projectRoot, process.env.LEADS_FILE || 'data/leads.jsonl');
 

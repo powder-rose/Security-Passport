@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import { readLines } from './jsonl.mjs';
+import { readLines } from '../shared/jsonl.mjs';
 
 let leadsFileQueue = Promise.resolve();
 

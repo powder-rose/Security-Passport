@@ -12,7 +12,7 @@ import {
   rollbackRegulationSyncChanges,
 } from './regulation-sync-workspace.mjs';
 
-const FILE = fileURLToPath(new URL('../data/regulations.json', import.meta.url));
+const FILE = fileURLToPath(new URL('../../data/regulations.json', import.meta.url));
 
 const TOPICS = new Set([
   'hotel',

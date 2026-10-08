@@ -3,15 +3,15 @@ import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
 import dotenv from 'dotenv';
-import { createLeadDelivery } from './lead-delivery.mjs';
-import { createLeadIntake } from './lead-intake.mjs';
-import { createVisitTracking } from './visit-tracking.mjs';
-import { createAdminAuth } from './admin-auth.mjs';
-import { registerAdminRoutes } from './admin-routes.mjs';
-import { registerArticleRoutes } from './article-routes.mjs';
-import { registerPublicApiRoutes } from './public-api-routes.mjs';
-import { registerFrontendServing } from './frontend-serving.mjs';
-import { registerHttpMiddleware, registerHttpErrorHandler } from './http-middleware.mjs';
+import { createLeadDelivery } from './leads/lead-delivery.mjs';
+import { createLeadIntake } from './leads/lead-intake.mjs';
+import { createVisitTracking } from './analytics/visit-tracking.mjs';
+import { createAdminAuth } from './auth/admin-auth.mjs';
+import { registerAdminRoutes } from './http/admin-routes.mjs';
+import { registerArticleRoutes } from './http/article-routes.mjs';
+import { registerPublicApiRoutes } from './http/public-api-routes.mjs';
+import { registerFrontendServing } from './http/frontend-serving.mjs';
+import { registerHttpMiddleware, registerHttpErrorHandler } from './http/http-middleware.mjs';
 
 dotenv.config({ path: process.env.SERVER_ENV_FILE || '.env.server' });
 

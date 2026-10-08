@@ -345,20 +345,20 @@ SEO metadata должны присутствовать в prerendered HTML.
 
 Отдельные модули:
 
-    server/admin-articles.mjs
-    server/admin-auth.mjs
-    server/admin-leads.mjs
-    server/admin-regulations.mjs
-    server/blog-publication.mjs
-    server/bot-detection.mjs
-    server/lead-storage.mjs
-    server/regulation-date-sync.mjs
-    server/regulation-number-sync.mjs
-    server/regulation-publisher.mjs
-    server/regulation-reminders.mjs
-    server/regulation-title-sync.mjs
-    server/site-region.mjs
-    server/statistics.mjs
+    server/articles/admin-articles.mjs
+    server/auth/admin-auth.mjs
+    server/leads/admin-leads.mjs
+    server/regulations/admin-regulations.mjs
+    server/articles/blog-publication.mjs
+    server/analytics/bot-detection.mjs
+    server/leads/lead-storage.mjs
+    server/regulations/regulation-date-sync.mjs
+    server/regulations/regulation-number-sync.mjs
+    server/regulations/regulation-publisher.mjs
+    server/regulations/regulation-reminders.mjs
+    server/regulations/regulation-title-sync.mjs
+    server/shared/site-region.mjs
+    server/analytics/statistics.mjs
 
 ## Основные API
 
@@ -408,7 +408,7 @@ Runtime-файлы с заявками не должны попадать в Git
 
 Основной server-модуль:
 
-    server/statistics.mjs
+    server/analytics/statistics.mjs
 
 Admin получает статистику через:
 

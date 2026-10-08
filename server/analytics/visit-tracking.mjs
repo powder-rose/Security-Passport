@@ -4,7 +4,7 @@ import path from 'node:path';
 import process from 'node:process';
 
 import { isBotUserAgent } from './bot-detection.mjs';
-import { resolveSiteFromHost } from './site-region.mjs';
+import { resolveSiteFromHost } from '../shared/site-region.mjs';
 
 function cleanString(value, maxLength = 2000) {
   if (typeof value !== 'string') {

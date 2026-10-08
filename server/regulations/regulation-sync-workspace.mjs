@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 
-const ROOT = new URL('../', import.meta.url);
+const ROOT = new URL('../../', import.meta.url);
 
 export function createRegulationSyncWorkspace() {
   const entries = new Map();

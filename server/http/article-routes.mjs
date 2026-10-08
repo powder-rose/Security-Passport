@@ -12,9 +12,9 @@ import {
   updateArticle,
   deleteArticle,
   updatePublishedArticlesYear,
-} from './admin-articles.mjs';
+} from '../articles/admin-articles.mjs';
 
-import { queueBlogPublication, getBlogPublicationStatus } from './blog-publication.mjs';
+import { queueBlogPublication, getBlogPublicationStatus } from '../articles/blog-publication.mjs';
 
 export function registerArticleRoutes({ app, adminAuth, clientDir }) {
   app.get(['/blog/:slug', '/blog/:slug/'], async (req, res) => {

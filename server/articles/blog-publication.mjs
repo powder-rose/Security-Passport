@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 import path from 'node:path';
 
-const PROJECT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const PROJECT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
 const PUBLISH_SCRIPT = path.join(PROJECT_ROOT, 'scripts', 'publish-blog.sh');
 

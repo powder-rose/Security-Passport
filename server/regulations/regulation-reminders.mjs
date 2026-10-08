@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
 
-const root = fileURLToPath(new URL('../', import.meta.url));
+const root = fileURLToPath(new URL('../../', import.meta.url));
 dotenv.config({ path: path.join(root, '.env.server') });
 
 const registryFile = path.join(root, 'data/regulations.json');

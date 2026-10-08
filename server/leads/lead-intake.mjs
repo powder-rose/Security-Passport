@@ -1,8 +1,8 @@
 import crypto from 'node:crypto';
 import process from 'node:process';
 
-import { quizContactSchema } from '../src/lib/validation/leadValidation.js';
-import { resolveSiteFromHost } from './site-region.mjs';
+import { quizContactSchema } from '../../src/lib/validation/leadValidation.js';
+import { resolveSiteFromHost } from '../shared/site-region.mjs';
 
 function cleanString(value, maxLength = 2000) {
   if (typeof value !== 'string') {

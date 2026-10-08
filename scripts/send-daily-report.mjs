@@ -6,7 +6,7 @@ dotenv.config({
   path: process.env.SERVER_ENV_FILE || '.env.server',
 });
 
-const { getStatistics, STAT_PERIODS } = await import('../server/statistics.mjs');
+const { getStatistics, STAT_PERIODS } = await import('../server/analytics/statistics.mjs');
 
 const REPORT_EMAIL = process.env.DAILY_REPORT_EMAIL || 'mail@pasport-bezopasnosty.ru';
 
