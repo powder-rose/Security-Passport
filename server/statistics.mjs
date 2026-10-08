@@ -1,8 +1,8 @@
-import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { isBotVisit } from './bot-detection.mjs';
+import { readJsonLines } from './jsonl.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
@@ -20,36 +20,6 @@ export const STAT_PERIODS = [
   { key: '30days', label: '30 дней', days: 30 },
   { key: '365days', label: '365 дней', days: 365 },
 ];
-
-async function readJsonLines(filePath) {
-  let content = '';
-
-  try {
-    content = await fs.readFile(filePath, 'utf8');
-  } catch (error) {
-    if (error?.code === 'ENOENT') {
-      return [];
-    }
-
-    throw error;
-  }
-
-  const rows = [];
-
-  for (const line of content.split('\n')) {
-    const trimmed = line.trim();
-
-    if (!trimmed) continue;
-
-    try {
-      rows.push(JSON.parse(trimmed));
-    } catch {
-      // Одна повреждённая строка не должна ломать весь отчёт.
-    }
-  }
-
-  return rows;
-}
 
 function getStartOfMoscowDay(date = new Date()) {
   const shifted = date.getTime() + MOSCOW_OFFSET_MS;
@@ -82,97 +52,91 @@ const FEDERAL_SITE = Object.freeze({
   name: 'Россия',
 });
 
-function createFederalRow() {
-  return {
-    ...FEDERAL_SITE,
-    visits: 0,
-    leads: 0,
-  };
-}
-
 function calculateConversion(leads, visits) {
-  if (!visits) return 0;
+  if (!visits) {
+    return 0;
+  }
 
   return Number(((leads / visits) * 100).toFixed(2));
 }
 
-function aggregatePeriod({ visits, leads, days, now }) {
-  const range = getPeriodRange(days, now);
-  const siteRow = createFederalRow();
+function createPeriodStates(now) {
+  return STAT_PERIODS.map(definition => {
+    const range = getPeriodRange(definition.days, now);
 
-  for (const visit of visits) {
-    const timestamp = getTimestamp(visit, 'visit');
-
-    if (timestamp === null || timestamp < range.startMs || timestamp >= range.endMs) {
-      continue;
-    }
-
-    siteRow.visits += 1;
-  }
-
-  for (const lead of leads) {
-    const timestamp = getTimestamp(lead, 'lead');
-
-    if (timestamp === null || timestamp < range.startMs || timestamp >= range.endMs) {
-      continue;
-    }
-
-    siteRow.leads += 1;
-  }
-
-  const rows = [
-    {
-      ...siteRow,
-      conversion: calculateConversion(siteRow.leads, siteRow.visits),
-    },
-  ];
-
-  const totals = rows.reduce(
-    (result, row) => {
-      result.visits += row.visits;
-      result.leads += row.leads;
-      return result;
-    },
-    {
+    return {
+      ...definition,
+      ...range,
       visits: 0,
       leads: 0,
-    },
-  );
+    };
+  });
+}
 
-  totals.conversion = calculateConversion(totals.leads, totals.visits);
+function recordTimestamp(states, timestamp, field) {
+  if (timestamp === null) {
+    return;
+  }
+
+  for (const state of states) {
+    if (timestamp < state.startMs || timestamp >= state.endMs) {
+      continue;
+    }
+
+    state[field] += 1;
+  }
+}
+
+async function aggregateJsonLines(filePath, type, states) {
+  for await (const row of readJsonLines(filePath)) {
+    if (type === 'visit' && isBotVisit(row)) {
+      continue;
+    }
+
+    recordTimestamp(states, getTimestamp(row, type), type === 'visit' ? 'visits' : 'leads');
+  }
+}
+
+function finalizePeriod(state) {
+  const row = {
+    ...FEDERAL_SITE,
+    visits: state.visits,
+    leads: state.leads,
+    conversion: calculateConversion(state.leads, state.visits),
+  };
 
   return {
+    key: state.key,
+    label: state.label,
+
     range: {
-      start: range.start,
-      end: range.end,
-      days,
+      start: state.start,
+      end: state.end,
+      days: state.days,
     },
-    totals,
-    rows,
+
+    totals: {
+      visits: row.visits,
+      leads: row.leads,
+      conversion: row.conversion,
+    },
+
+    rows: [row],
   };
 }
 
 export async function getStatistics({ now = new Date() } = {}) {
-  const [visits, leads] = await Promise.all([
-    readJsonLines(VISITS_FILE),
-    readJsonLines(LEADS_FILE),
-  ]);
+  const states = createPeriodStates(now);
 
-  const humanVisits = visits.filter(visit => !isBotVisit(visit));
+  await Promise.all([
+    aggregateJsonLines(VISITS_FILE, 'visit', states),
+    aggregateJsonLines(LEADS_FILE, 'lead', states),
+  ]);
 
   const periods = {};
 
-  for (const period of STAT_PERIODS) {
-    periods[period.key] = {
-      key: period.key,
-      label: period.label,
-      ...aggregatePeriod({
-        visits: humanVisits,
-        leads,
-        days: period.days,
-        now,
-      }),
-    };
+  for (const state of states) {
+    periods[state.key] = finalizePeriod(state);
   }
 
   return {
