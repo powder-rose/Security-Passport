@@ -57,6 +57,7 @@ export function createVisitTracking({ visitsFile, env = process.env }) {
   const rateMax = Number(env.VISIT_RATE_MAX || 30);
 
   const visitIds = new Map();
+  const pendingVisitIds = new Set();
   const rateBuckets = new Map();
 
   function prune(now = Date.now()) {
@@ -138,7 +139,7 @@ export function createVisitTracking({ visitsFile, env = process.env }) {
       });
     }
 
-    if (visitIds.has(sessionId)) {
+    if (visitIds.has(sessionId) || pendingVisitIds.has(sessionId)) {
       return res.status(200).json({
         ok: true,
         duplicate: true,
@@ -154,6 +155,8 @@ export function createVisitTracking({ visitsFile, env = process.env }) {
         reason: 'VISIT_RATE_LIMITED',
       });
     }
+
+    pendingVisitIds.add(sessionId);
 
     const visit = {
       id: crypto.randomUUID(),
@@ -200,6 +203,8 @@ export function createVisitTracking({ visitsFile, env = process.env }) {
         ok: false,
         error: 'VISIT_WRITE_FAILED',
       });
+    } finally {
+      pendingVisitIds.delete(sessionId);
     }
   }
 
