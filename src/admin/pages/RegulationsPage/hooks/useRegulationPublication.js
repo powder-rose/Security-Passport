@@ -2,8 +2,12 @@ import { useEffect, useState } from 'react';
 
 import { getRegulationPublication, retryRegulationPublication } from '../../../api/adminApi';
 
+const POLLING_PHASES = new Set(['queued', 'publishing']);
+
 export default function useRegulationPublication() {
   const [publication, setPublication] = useState(null);
+
+  const publicationPhase = publication?.phase;
 
   useEffect(() => {
     let active = true;
@@ -25,16 +29,23 @@ export default function useRegulationPublication() {
       }
     }
 
-    checkPublication();
+    if (!publicationPhase) {
+      checkPublication();
+    }
+
+    if (!POLLING_PHASES.has(publicationPhase)) {
+      return () => {
+        active = false;
+      };
+    }
 
     const timer = window.setInterval(checkPublication, 4000);
 
     return () => {
       active = false;
-
       window.clearInterval(timer);
     };
-  }, []);
+  }, [publicationPhase]);
 
   async function retryPublication() {
     const result = await retryRegulationPublication();
