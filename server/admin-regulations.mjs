@@ -1,10 +1,16 @@
 import fs from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import { syncRegulationTitle } from './regulation-title-sync.mjs';
+import { planRegulationTitleSync } from './regulation-title-sync.mjs';
 
-import { syncRegulationNumber, replaceRegulationNumber } from './regulation-number-sync.mjs';
+import { planRegulationNumberSync, replaceRegulationNumber } from './regulation-number-sync.mjs';
 
-import { syncRegulationDate, replaceRegulationDate } from './regulation-date-sync.mjs';
+import { planRegulationDateSync, replaceRegulationDate } from './regulation-date-sync.mjs';
+
+import {
+  applyRegulationSyncWorkspace,
+  createRegulationSyncWorkspace,
+  rollbackRegulationSyncChanges,
+} from './regulation-sync-workspace.mjs';
 
 const FILE = fileURLToPath(new URL('../data/regulations.json', import.meta.url));
 
@@ -41,6 +47,22 @@ async function writeRegistry(data) {
     await fs.rm(temporary, {
       force: true,
     });
+
+    throw error;
+  }
+}
+
+async function commitRegulationUpdate(data, workspace) {
+  const applied = await applyRegulationSyncWorkspace(workspace);
+
+  try {
+    await writeRegistry(data);
+  } catch (error) {
+    try {
+      await rollbackRegulationSyncChanges(applied.changes);
+    } catch (rollbackError) {
+      throw new AggregateError([error, rollbackError], 'REGULATION_UPDATE_ROLLBACK_FAILED');
+    }
 
     throw error;
   }
@@ -256,7 +278,7 @@ function hasRegulationChanges(previous, change) {
   return previousClaims.some((claim, index) => claim.text !== change.claims[index]?.text);
 }
 
-async function updateRegulationInRegistry(data, number, change) {
+async function updateRegulationInRegistry(data, number, change, workspace) {
   const index = data.items.findIndex(item => String(item.number) === String(number));
 
   if (index < 0) {
@@ -307,7 +329,7 @@ async function updateRegulationInRegistry(data, number, change) {
   let previousTitleForSync = previous.title;
 
   if (numberChanged) {
-    await syncRegulationNumber(oldNumber, newNumber, previous.occurrences);
+    await planRegulationNumberSync(workspace, oldNumber, newNumber, previous.occurrences);
 
     previousTitleForSync = replaceRegulationNumber(previous.title, oldNumber, newNumber);
 
@@ -322,13 +344,19 @@ async function updateRegulationInRegistry(data, number, change) {
   }
 
   if (previousTitleForSync !== change.title) {
-    await syncRegulationTitle(newNumber, previousTitleForSync, change.title, previous.occurrences);
+    await planRegulationTitleSync(
+      workspace,
+      newNumber,
+      previousTitleForSync,
+      change.title,
+      previous.occurrences,
+    );
   }
 
   const documentDateChanged = previous.documentDate !== change.documentDate;
 
   if (documentDateChanged && change.documentDate) {
-    await syncRegulationDate(newNumber, change.documentDate, previous.occurrences);
+    await planRegulationDateSync(workspace, newNumber, change.documentDate, previous.occurrences);
 
     change.title = replaceRegulationDate(change.title, newNumber, change.documentDate);
 
@@ -375,15 +403,16 @@ export function updateRegulation(number, input) {
 
   const operation = writes.then(async () => {
     const data = await readRegistry();
+    const workspace = createRegulationSyncWorkspace();
 
-    const result = await updateRegulationInRegistry(data, number, change);
+    const result = await updateRegulationInRegistry(data, number, change, workspace);
 
     if (!result) {
       return null;
     }
 
     if (result.changed) {
-      await writeRegistry(data);
+      await commitRegulationUpdate(data, workspace);
     }
 
     return {
@@ -571,13 +600,14 @@ export function saveRegulationBundle(input) {
 
   const operation = writes.then(async () => {
     const data = await readRegistry();
+    const workspace = createRegulationSyncWorkspace();
 
     assertTopicClaimUpdates(data, topicChange);
 
     const baseResult =
       mode === 'create'
         ? createRegulationInRegistry(data, regulationChange)
-        : await updateRegulationInRegistry(data, selected, regulationChange);
+        : await updateRegulationInRegistry(data, selected, regulationChange, workspace);
 
     if (!baseResult) {
       return null;
@@ -599,7 +629,7 @@ export function saveRegulationBundle(input) {
     const topicResult = applyTopicClaimUpdates(data, remappedTopicChange);
 
     if (baseResult.changed || topicResult.publicationNeeded) {
-      await writeRegistry(data);
+      await commitRegulationUpdate(data, workspace);
     }
 
     return {
