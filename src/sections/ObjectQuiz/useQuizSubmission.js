@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { LEAD_SOURCE_QUIZ } from '../../../shared/contracts/lead.js';
 
 import { SITE } from '../../config/site';
 
@@ -8,7 +9,7 @@ import { formatRussianPhone } from '../../lib/formInput';
 
 import { getLeadEndpoint, submitLead } from '../../lib/lead';
 
-import { quizContactSchema } from '../../lib/validation/leadValidation';
+import { quizContactSchema } from '../../../shared/validation/leadValidation.js';
 
 export default function useQuizSubmission({
   question,
@@ -115,7 +116,7 @@ export default function useQuizSubmission({
       setSubmitMessage('Отправляем ответы специалисту…');
 
       await submitLead({
-        source: 'passport-security-quiz',
+        source: LEAD_SOURCE_QUIZ,
 
         data: {
           answers: submissionAnswers,

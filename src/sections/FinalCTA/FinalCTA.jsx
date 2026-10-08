@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import { LEAD_SOURCE_FINAL_CTA } from '../../../shared/contracts/lead.js';
 import Container from '../../components/ui/Container/Container';
 import { SITE } from '../../config/site';
 import { METRICA_GOALS, reachGoal } from '../../lib/analytics';
 import { getLeadEndpoint, submitLead } from '../../lib/lead';
 import { formatRussianPhone, sanitizeEmailInput } from '../../lib/formInput';
-import { leadFormSchema } from '../../lib/validation/leadValidation';
+import { leadFormSchema } from '../../../shared/validation/leadValidation.js';
 import './FinalCTA.css';
 
 const initialForm = {
@@ -66,7 +67,7 @@ export default function FinalCTA({ preview = false }) {
       setMessage('Отправляем заявку…');
 
       await submitLead({
-        source: 'passport-security-final-cta',
+        source: LEAD_SOURCE_FINAL_CTA,
         data: form,
       });
 

@@ -5,6 +5,7 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import globals from 'globals';
 
 const frontendFiles = ['src/**/*.{js,jsx}'];
+const sharedFiles = ['shared/**/*.js'];
 const nodeFiles = [
   'server/**/*.mjs',
   'scripts/**/*.mjs',
@@ -56,6 +57,34 @@ export default [
       '@eslint-react/set-state-in-effect': 'off',
       'react-hooks/set-state-in-effect': 'off',
 
+      eqeqeq: ['error', 'always'],
+
+      'no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+        },
+      ],
+    },
+  },
+
+  {
+    files: sharedFiles,
+
+    ...js.configs.recommended,
+
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+
+      globals: {
+        ...globals.es2021,
+      },
+    },
+
+    rules: {
       eqeqeq: ['error', 'always'],
 
       'no-unused-vars': [

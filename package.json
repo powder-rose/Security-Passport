@@ -17,11 +17,11 @@
     "start": "node server/index.mjs",
     "server:check": "node --check server/index.mjs",
     "qa:regulations": "node scripts/qa-regulations.mjs",
-    "format": "prettier --write \"src/**/*.{js,jsx,css}\" \"server/**/*.mjs\" \"scripts/**/*.mjs\" \"tests/**/*.mjs\" \".github/**/*.{yml,yaml}\" \"*.{js,json,md}\"",
-    "format:check": "prettier --check \"src/**/*.{js,jsx,css}\" \"server/**/*.mjs\" \"scripts/**/*.mjs\" \"tests/**/*.mjs\" \".github/**/*.{yml,yaml}\" \"*.{js,json,md}\"",
+    "format": "prettier --write \"src/**/*.{js,jsx,css}\" \"shared/**/*.js\" \"server/**/*.mjs\" \"scripts/**/*.mjs\" \"tests/**/*.mjs\" \".github/**/*.{yml,yaml}\" \"*.{js,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,css}\" \"shared/**/*.js\" \"server/**/*.mjs\" \"scripts/**/*.mjs\" \"tests/**/*.mjs\" \".github/**/*.{yml,yaml}\" \"*.{js,json,md}\"",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test:server": "node --test --test-concurrency=1 tests/server/jsonl.test.mjs tests/server/lead-storage.test.mjs tests/server/lead-intake.test.mjs tests/server/visit-tracking.test.mjs tests/server/admin-auth.test.mjs tests/server/article-html.test.mjs tests/server/article-slug.test.mjs tests/server/regulation-sync-workspace.test.mjs tests/server/route-registration.test.mjs",
+    "test:server": "node --test --test-concurrency=1 tests/server/jsonl.test.mjs tests/server/lead-storage.test.mjs tests/server/lead-intake.test.mjs tests/server/visit-tracking.test.mjs tests/server/admin-auth.test.mjs tests/server/article-html.test.mjs tests/server/article-slug.test.mjs tests/server/regulation-sync-workspace.test.mjs tests/server/route-registration.test.mjs tests/server/module-boundaries.test.mjs",
     "test": "npm run test:server"
   },
   "dependencies": {
