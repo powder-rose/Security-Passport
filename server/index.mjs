@@ -9,6 +9,7 @@ import { createVisitTracking } from './visit-tracking.mjs';
 import { createAdminAuth } from './admin-auth.mjs';
 import { registerAdminRoutes } from './admin-routes.mjs';
 import { registerArticleRoutes } from './article-routes.mjs';
+import { registerPublicApiRoutes } from './public-api-routes.mjs';
 import { registerFrontendServing } from './frontend-serving.mjs';
 import { registerHttpMiddleware, registerHttpErrorHandler } from './http-middleware.mjs';
 
@@ -67,44 +68,14 @@ registerArticleRoutes({
   clientDir,
 });
 
-app.get('/api/geo', (_req, res) => {
-  const baseDomain = String(process.env.BASE_DOMAIN || 'pasport-bezopasnosty.ru')
-    .trim()
-    .toLowerCase();
-
-  return res.json({
-    ok: true,
-    kind: 'federal',
-    reason: 'federal-only',
-
-    detected: {
-      country: null,
-      city: null,
-      subdivision: null,
-    },
-
-    location: {
-      slug: 'russia',
-      name: 'Россия',
-      type: 'country',
-    },
-
-    targetOrigin: `https://${baseDomain}`,
-  });
+registerPublicApiRoutes({
+  app,
+  environment: NODE_ENV,
+  leadDelivery,
+  leadIntake,
+  visitTracking,
+  env: process.env,
 });
-
-app.get('/api/health', (req, res) => {
-  res.json({
-    ok: true,
-    service: 'passport-security-leads',
-    environment: NODE_ENV,
-    transports: leadDelivery.getTransportStatus(),
-  });
-});
-
-app.post('/api/visits', visitTracking.handleVisit);
-
-app.post('/api/leads', leadIntake.rateLimit, leadIntake.handleLead);
 
 registerFrontendServing({
   app,
