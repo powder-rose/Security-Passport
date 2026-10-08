@@ -29,6 +29,7 @@ import {
   createRegulation,
   updateRegulation,
   updateTopicClaims,
+  saveRegulationBundle,
 } from './admin-regulations.mjs';
 import { queueRegulationPublication, getRegulationPublication } from './regulation-publisher.mjs';
 import formidable from 'formidable';
@@ -619,6 +620,40 @@ app.get('/api/admin/regulations', adminAuth.requireAdmin, async (req, res) => {
   } catch (error) {
     console.error('[admin] regulations read failed:', error);
     res.status(500).json({ ok: false, error: 'REGULATIONS_READ_FAILED' });
+  }
+});
+
+app.post('/api/admin/regulations/save', adminAuth.requireAdmin, async (req, res) => {
+  try {
+    const result = await saveRegulationBundle(req.body);
+
+    if (!result) {
+      return res.status(404).json({
+        ok: false,
+        message: 'Документ не найден',
+      });
+    }
+
+    return res.status(result.created ? 201 : 200).json({
+      ok: true,
+      regulation: result.regulation,
+      changedClaims: result.changedClaims,
+      publication: result.publicationNeeded ? queueRegulationPublication() : null,
+    });
+  } catch (error) {
+    if (error instanceof TypeError) {
+      return res.status(400).json({
+        ok: false,
+        message: error.message,
+      });
+    }
+
+    console.error('[admin] regulation bundle save failed:', error);
+
+    return res.status(500).json({
+      ok: false,
+      message: 'Ошибка сохранения постановления',
+    });
   }
 });
 

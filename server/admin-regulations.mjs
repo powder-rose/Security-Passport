@@ -167,38 +167,48 @@ export async function listRegulations() {
   return (await readRegistry()).items;
 }
 
-export function createRegulation(input) {
-  const change = validate(input);
-
+function createRegulationInRegistry(data, change) {
   if (!change.topic) {
     throw new TypeError('Выберите тематику постановления');
   }
 
+  if (data.items.some(item => String(item.number) === String(change.number))) {
+    throw new TypeError('Постановление с таким номером уже существует');
+  }
+
+  const now = new Date().toISOString();
+
+  const created = {
+    ...change,
+    occurrences: [],
+    claims: [],
+    contentUpdatedAt: null,
+    createdAt: now,
+    updatedAt: now,
+  };
+
+  data.items.push(created);
+
+  return {
+    regulation: created,
+    publicationNeeded: false,
+    changed: true,
+  };
+}
+
+export function createRegulation(input) {
+  const change = validate(input);
+
   const operation = writes.then(async () => {
     const data = await readRegistry();
 
-    if (data.items.some(item => String(item.number) === String(change.number))) {
-      throw new TypeError('Постановление с таким номером уже существует');
-    }
-
-    const now = new Date().toISOString();
-
-    const created = {
-      ...change,
-      occurrences: [],
-      claims: [],
-      contentUpdatedAt: null,
-      createdAt: now,
-      updatedAt: now,
-    };
-
-    data.items.push(created);
+    const result = createRegulationInRegistry(data, change);
 
     await writeRegistry(data);
 
     return {
-      ...created,
-      publicationNeeded: false,
+      ...result.regulation,
+      publicationNeeded: result.publicationNeeded,
     };
   });
 
@@ -246,126 +256,147 @@ function hasRegulationChanges(previous, change) {
   return previousClaims.some((claim, index) => claim.text !== change.claims[index]?.text);
 }
 
+async function updateRegulationInRegistry(data, number, change) {
+  const index = data.items.findIndex(item => String(item.number) === String(number));
+
+  if (index < 0) {
+    return null;
+  }
+
+  const existingClaims = data.items[index].claims || [];
+
+  if (
+    change.claims.length !== existingClaims.length ||
+    change.claims.some(claim => !existingClaims.some(existing => existing.id === claim.id))
+  ) {
+    throw new TypeError('Состав нормативных полей изменён');
+  }
+
+  change.claims = existingClaims.map(existing => ({
+    ...existing,
+    text: change.claims.find(claim => claim.id === existing.id).text,
+  }));
+
+  const previous = data.items[index];
+
+  if (change.topic && previous.topic && change.topic !== previous.topic) {
+    throw new TypeError(
+      'Тематика существующего постановления привязана к контенту сайта и не может быть изменена автоматически',
+    );
+  }
+
+  if (!hasRegulationChanges(previous, change)) {
+    return {
+      regulation: previous,
+      publicationNeeded: false,
+      changed: false,
+    };
+  }
+
+  const oldNumber = String(previous.number);
+  const newNumber = String(change.number);
+  const numberChanged = oldNumber !== newNumber;
+
+  if (
+    numberChanged &&
+    data.items.some((item, itemIndex) => itemIndex !== index && String(item.number) === newNumber)
+  ) {
+    throw new TypeError('Постановление с таким номером уже существует');
+  }
+
+  let previousTitleForSync = previous.title;
+
+  if (numberChanged) {
+    await syncRegulationNumber(oldNumber, newNumber, previous.occurrences);
+
+    previousTitleForSync = replaceRegulationNumber(previous.title, oldNumber, newNumber);
+
+    change.title = replaceRegulationNumber(change.title, oldNumber, newNumber);
+    change.edition = replaceRegulationNumber(change.edition, oldNumber, newNumber);
+    change.reviewNote = replaceRegulationNumber(change.reviewNote, oldNumber, newNumber);
+
+    change.claims = change.claims.map(claim => ({
+      ...claim,
+      text: replaceRegulationNumber(claim.text, oldNumber, newNumber),
+    }));
+  }
+
+  if (previousTitleForSync !== change.title) {
+    await syncRegulationTitle(newNumber, previousTitleForSync, change.title, previous.occurrences);
+  }
+
+  const documentDateChanged = previous.documentDate !== change.documentDate;
+
+  if (documentDateChanged && change.documentDate) {
+    await syncRegulationDate(newNumber, change.documentDate, previous.occurrences);
+
+    change.title = replaceRegulationDate(change.title, newNumber, change.documentDate);
+
+    change.claims = change.claims.map(claim => ({
+      ...claim,
+      text: replaceRegulationDate(claim.text, newNumber, change.documentDate),
+    }));
+  }
+
+  const contentChanged =
+    previous.edition !== change.edition ||
+    existingClaims.some(
+      existing => existing.text !== change.claims.find(claim => claim.id === existing.id).text,
+    );
+
+  const publicationNeeded =
+    contentChanged ||
+    previous.title !== change.title ||
+    previous.reviewStatus !== change.reviewStatus ||
+    previous.reviewedAt !== change.reviewedAt ||
+    previous.documentDate !== change.documentDate ||
+    String(previous.number) !== String(change.number);
+
+  const now = new Date().toISOString();
+
+  const updated = {
+    ...previous,
+    ...change,
+    contentUpdatedAt: contentChanged ? now : previous.contentUpdatedAt || null,
+    updatedAt: now,
+  };
+
+  data.items[index] = updated;
+
+  return {
+    regulation: updated,
+    publicationNeeded,
+    changed: true,
+  };
+}
+
 export function updateRegulation(number, input) {
   const change = validate(input);
+
   const operation = writes.then(async () => {
     const data = await readRegistry();
-    const index = data.items.findIndex(item => String(item.number) === String(number));
-    if (index < 0) return null;
 
-    const existingClaims = data.items[index].claims || [];
-    if (
-      change.claims.length !== existingClaims.length ||
-      change.claims.some(claim => !existingClaims.some(existing => existing.id === claim.id))
-    ) {
-      throw new TypeError('Состав нормативных полей изменён');
-    }
-    change.claims = existingClaims.map(existing => ({
-      ...existing,
-      text: change.claims.find(claim => claim.id === existing.id).text,
-    }));
+    const result = await updateRegulationInRegistry(data, number, change);
 
-    const previous = data.items[index];
-
-    if (change.topic && previous.topic && change.topic !== previous.topic) {
-      throw new TypeError(
-        'Тематика существующего постановления привязана к контенту сайта и не может быть изменена автоматически',
-      );
+    if (!result) {
+      return null;
     }
 
-    if (!hasRegulationChanges(previous, change)) {
-      return {
-        ...previous,
-        publicationNeeded: false,
-      };
+    if (result.changed) {
+      await writeRegistry(data);
     }
 
-    const oldNumber = String(previous.number);
-
-    const newNumber = String(change.number);
-
-    const numberChanged = oldNumber !== newNumber;
-
-    if (
-      numberChanged &&
-      data.items.some((item, itemIndex) => itemIndex !== index && String(item.number) === newNumber)
-    ) {
-      throw new TypeError('Постановление с таким номером уже существует');
-    }
-
-    let previousTitleForSync = previous.title;
-
-    if (numberChanged) {
-      await syncRegulationNumber(oldNumber, newNumber, previous.occurrences);
-
-      previousTitleForSync = replaceRegulationNumber(previous.title, oldNumber, newNumber);
-
-      change.title = replaceRegulationNumber(change.title, oldNumber, newNumber);
-
-      change.edition = replaceRegulationNumber(change.edition, oldNumber, newNumber);
-
-      change.reviewNote = replaceRegulationNumber(change.reviewNote, oldNumber, newNumber);
-
-      change.claims = change.claims.map(claim => ({
-        ...claim,
-
-        text: replaceRegulationNumber(claim.text, oldNumber, newNumber),
-      }));
-    }
-
-    if (previousTitleForSync !== change.title) {
-      await syncRegulationTitle(
-        newNumber,
-        previousTitleForSync,
-        change.title,
-        previous.occurrences,
-      );
-    }
-
-    const documentDateChanged = previous.documentDate !== change.documentDate;
-
-    if (documentDateChanged && change.documentDate) {
-      await syncRegulationDate(newNumber, change.documentDate, previous.occurrences);
-
-      change.title = replaceRegulationDate(change.title, newNumber, change.documentDate);
-
-      change.claims = change.claims.map(claim => ({
-        ...claim,
-
-        text: replaceRegulationDate(claim.text, newNumber, change.documentDate),
-      }));
-    }
-
-    const contentChanged =
-      previous.edition !== change.edition ||
-      existingClaims.some(
-        existing => existing.text !== change.claims.find(claim => claim.id === existing.id).text,
-      );
-
-    const publicationNeeded =
-      contentChanged ||
-      previous.title !== change.title ||
-      previous.reviewStatus !== change.reviewStatus ||
-      previous.reviewedAt !== change.reviewedAt ||
-      previous.documentDate !== change.documentDate ||
-      String(previous.number) !== String(change.number);
-
-    const now = new Date().toISOString();
-    const updated = {
-      ...previous,
-      ...change,
-      contentUpdatedAt: contentChanged ? now : previous.contentUpdatedAt || null,
-      updatedAt: now,
+    return {
+      ...result.regulation,
+      publicationNeeded: result.publicationNeeded,
     };
-    data.items[index] = updated;
-
-    await writeRegistry(data);
-    return { ...updated, publicationNeeded };
   });
 
   writes = operation.catch(() => {});
+
   return operation;
 }
+
 function validateTopicClaimUpdates(topic, input) {
   const normalizedTopic = String(topic || '').trim();
 
@@ -415,85 +446,167 @@ function validateTopicClaimUpdates(topic, input) {
   };
 }
 
+function assertTopicClaimUpdates(data, change) {
+  const expected = new Map();
+
+  for (const item of data.items) {
+    if (item.topic !== change.topic) {
+      continue;
+    }
+
+    for (const claim of item.claims || []) {
+      expected.set(`${item.number}:${claim.id}`, {
+        item,
+        claim,
+      });
+    }
+  }
+
+  if (change.claims.length !== expected.size) {
+    throw new TypeError('Состав тематических вопросов изменён. Обновите страницу.');
+  }
+
+  for (const claim of change.claims) {
+    const key = `${claim.number}:${claim.id}`;
+
+    if (!expected.has(key)) {
+      throw new TypeError('Неизвестный тематический вопрос. Обновите страницу.');
+    }
+  }
+}
+
+function applyTopicClaimUpdates(data, change) {
+  let changedClaims = 0;
+  const changedNumbers = new Set();
+
+  for (const update of change.claims) {
+    const regulation = data.items.find(
+      item => String(item.number) === update.number && item.topic === change.topic,
+    );
+
+    if (!regulation) {
+      throw new TypeError(`Не найдено постановление №${update.number}`);
+    }
+
+    const claim = (regulation.claims || []).find(item => item.id === update.id);
+
+    if (!claim) {
+      throw new TypeError(`Не найден вопрос ${update.id}`);
+    }
+
+    if (claim.text !== update.text) {
+      claim.text = update.text;
+
+      changedClaims += 1;
+      changedNumbers.add(String(regulation.number));
+    }
+  }
+
+  if (changedClaims > 0) {
+    const now = new Date().toISOString();
+
+    for (const item of data.items) {
+      if (changedNumbers.has(String(item.number))) {
+        item.contentUpdatedAt = now;
+        item.updatedAt = now;
+      }
+    }
+  }
+
+  return {
+    topic: change.topic,
+    changedClaims,
+    publicationNeeded: changedClaims > 0,
+  };
+}
+
 export function updateTopicClaims(topic, input) {
   const change = validateTopicClaimUpdates(topic, input);
 
   const operation = writes.then(async () => {
     const data = await readRegistry();
 
-    const expected = new Map();
+    assertTopicClaimUpdates(data, change);
 
-    for (const item of data.items) {
-      if (item.topic !== change.topic) {
-        continue;
-      }
+    const result = applyTopicClaimUpdates(data, change);
 
-      for (const claim of item.claims || []) {
-        expected.set(`${item.number}:${claim.id}`, {
-          item,
-          claim,
-        });
-      }
+    if (result.publicationNeeded) {
+      await writeRegistry(data);
     }
 
-    if (change.claims.length !== expected.size) {
-      throw new TypeError('Состав тематических вопросов изменён. Обновите страницу.');
+    return result;
+  });
+
+  writes = operation.catch(() => {});
+
+  return operation;
+}
+
+export function saveRegulationBundle(input) {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) {
+    throw new TypeError('Неверные данные');
+  }
+
+  const mode = input.mode;
+
+  if (!['create', 'update'].includes(mode)) {
+    throw new TypeError('Неверный режим сохранения');
+  }
+
+  const regulationChange = validate(input.regulation);
+
+  if (!regulationChange.topic) {
+    throw new TypeError('Выберите тематику постановления');
+  }
+
+  const topicChange = validateTopicClaimUpdates(regulationChange.topic, {
+    claims: input.topicClaims,
+  });
+
+  const selected = String(input.selected ?? '').trim();
+
+  if (mode === 'update' && !/^\d{1,6}$/.test(selected)) {
+    throw new TypeError('Неверный номер редактируемого постановления');
+  }
+
+  const operation = writes.then(async () => {
+    const data = await readRegistry();
+
+    assertTopicClaimUpdates(data, topicChange);
+
+    const baseResult =
+      mode === 'create'
+        ? createRegulationInRegistry(data, regulationChange)
+        : await updateRegulationInRegistry(data, selected, regulationChange);
+
+    if (!baseResult) {
+      return null;
     }
 
-    for (const claim of change.claims) {
-      const key = `${claim.number}:${claim.id}`;
+    const newNumber = String(baseResult.regulation.number);
 
-      if (!expected.has(key)) {
-        throw new TypeError('Неизвестный тематический вопрос. Обновите страницу.');
-      }
-    }
+    const remappedTopicChange =
+      mode === 'update' && selected !== newNumber
+        ? {
+            ...topicChange,
+            claims: topicChange.claims.map(claim => ({
+              ...claim,
+              number: claim.number === selected ? newNumber : claim.number,
+            })),
+          }
+        : topicChange;
 
-    let changedClaims = 0;
+    const topicResult = applyTopicClaimUpdates(data, remappedTopicChange);
 
-    const changedNumbers = new Set();
-
-    for (const update of change.claims) {
-      const regulation = data.items.find(
-        item => String(item.number) === update.number && item.topic === change.topic,
-      );
-
-      if (!regulation) {
-        throw new TypeError(`Не найдено постановление №${update.number}`);
-      }
-
-      const claim = (regulation.claims || []).find(item => item.id === update.id);
-
-      if (!claim) {
-        throw new TypeError(`Не найден вопрос ${update.id}`);
-      }
-
-      if (claim.text !== update.text) {
-        claim.text = update.text;
-
-        changedClaims += 1;
-
-        changedNumbers.add(String(regulation.number));
-      }
-    }
-
-    if (changedClaims > 0) {
-      const now = new Date().toISOString();
-
-      for (const item of data.items) {
-        if (changedNumbers.has(String(item.number))) {
-          item.contentUpdatedAt = now;
-
-          item.updatedAt = now;
-        }
-      }
-
+    if (baseResult.changed || topicResult.publicationNeeded) {
       await writeRegistry(data);
     }
 
     return {
-      topic: change.topic,
-      changedClaims,
-      publicationNeeded: changedClaims > 0,
+      regulation: baseResult.regulation,
+      changedClaims: topicResult.changedClaims,
+      publicationNeeded: baseResult.publicationNeeded || topicResult.publicationNeeded,
+      created: mode === 'create',
     };
   });
 
