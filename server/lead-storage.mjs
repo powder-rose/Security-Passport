@@ -1,6 +1,8 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
+import { readLines } from './jsonl.mjs';
+
 let leadsFileQueue = Promise.resolve();
 
 function enqueueLeadsFileOperation(operation) {
@@ -33,10 +35,8 @@ export function deleteLeadFromFile(filePath, leadId) {
       };
     }
 
-    let content = '';
-
     try {
-      content = await fs.readFile(filePath, 'utf8');
+      await fs.access(filePath);
     } catch (error) {
       if (error?.code === 'ENOENT') {
         return {
@@ -48,49 +48,69 @@ export function deleteLeadFromFile(filePath, leadId) {
       throw error;
     }
 
-    const lines = content.split('\n');
-    const kept = [];
+    const temporary = `${filePath}.tmp-${process.pid}-${Date.now()}`;
+    let temporaryFile = null;
     let deleted = false;
 
-    for (const line of lines) {
-      if (!line.trim()) continue;
+    try {
+      temporaryFile = await fs.open(temporary, 'wx', 0o600);
 
-      let isTarget = false;
+      for await (const line of readLines(filePath)) {
+        if (!line.trim()) {
+          continue;
+        }
 
-      try {
-        const lead = JSON.parse(line);
+        let isTarget = false;
 
-        isTarget = String(lead?.id || '') === id;
-      } catch {
-        // Повреждённую строку не удаляем.
+        try {
+          const lead = JSON.parse(line);
+
+          isTarget = String(lead?.id || '') === id;
+        } catch {
+          // Preserve malformed non-empty rows when rewriting the file.
+        }
+
+        if (isTarget) {
+          deleted = true;
+          continue;
+        }
+
+        await temporaryFile.write(`${line}\n`);
       }
 
-      if (isTarget) {
-        deleted = true;
-        continue;
+      await temporaryFile.close();
+      temporaryFile = null;
+
+      if (!deleted) {
+        await fs.rm(temporary, {
+          force: true,
+        });
+
+        return {
+          deleted: false,
+          reason: 'NOT_FOUND',
+        };
       }
 
-      kept.push(line);
-    }
+      await fs.rename(temporary, filePath);
 
-    if (!deleted) {
       return {
-        deleted: false,
-        reason: 'NOT_FOUND',
+        deleted: true,
       };
+    } catch (error) {
+      if (temporaryFile) {
+        try {
+          await temporaryFile.close();
+        } catch {
+          // Preserve the original operation error.
+        }
+      }
+
+      await fs.rm(temporary, {
+        force: true,
+      });
+
+      throw error;
     }
-
-    const temporary = `${filePath}.tmp-${process.pid}-${Date.now()}`;
-
-    await fs.writeFile(temporary, kept.length ? `${kept.join('\n')}\n` : '', {
-      encoding: 'utf8',
-      mode: 0o600,
-    });
-
-    await fs.rename(temporary, filePath);
-
-    return {
-      deleted: true,
-    };
   });
 }
