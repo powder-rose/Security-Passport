@@ -6,8 +6,15 @@ import path from 'node:path';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const script = path.join(root, 'scripts/deploy-federal.sh');
 const registry = path.join(root, 'data/regulations.json');
-const publishedPage =
-  '/var/www/pasport-bezopasnosty.ru/current/pasport-bezopasnosti-gostinicy/index.html';
+
+const defaultPublishedPage = path.resolve(
+  root,
+  '../../current/pasport-bezopasnosti-gostinicy/index.html',
+);
+
+function resolvePublishedPage() {
+  return path.resolve(root, process.env.REGULATION_PUBLISHED_PAGE || defaultPublishedPage);
+}
 
 const state = {
   phase: 'idle',
@@ -81,7 +88,7 @@ export function queueRegulationPublication() {
 export async function getRegulationPublication() {
   if (state.phase !== 'idle') return { ...state };
 
-  const [source, page] = await Promise.all([stat(registry), stat(publishedPage)]);
+  const [source, page] = await Promise.all([stat(registry), stat(resolvePublishedPage())]);
 
   return {
     ...state,
