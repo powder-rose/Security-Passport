@@ -1,7 +1,7 @@
-import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { readJsonLines } from './jsonl.mjs';
 import { resolveSiteFromHost } from './site-region.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -76,43 +76,52 @@ function normalizeLead(lead) {
   };
 }
 
+function getLeadTimestamp(lead) {
+  return Date.parse(lead.receivedAt) || 0;
+}
+
+function findOldestLeadIndex(entries) {
+  let oldestIndex = 0;
+
+  for (let index = 1; index < entries.length; index += 1) {
+    const entry = entries[index];
+    const oldest = entries[oldestIndex];
+
+    if (
+      entry.timestamp < oldest.timestamp ||
+      (entry.timestamp === oldest.timestamp && entry.order > oldest.order)
+    ) {
+      oldestIndex = index;
+    }
+  }
+
+  return oldestIndex;
+}
+
 export async function getAdminLeads({ limit = 100 } = {}) {
-  let content = '';
+  const safeLimit = Math.max(1, Math.min(Number.parseInt(limit, 10) || 100, 500));
+  const entries = [];
+  let order = 0;
 
-  try {
-    content = await fs.readFile(LEADS_FILE, 'utf8');
-  } catch (error) {
-    if (error?.code === 'ENOENT') {
-      return [];
-    }
+  for await (const lead of readJsonLines(LEADS_FILE)) {
+    const normalized = normalizeLead(lead);
 
-    throw error;
-  }
+    entries.push({
+      lead: normalized,
+      timestamp: getLeadTimestamp(normalized),
+      order,
+    });
 
-  const rows = [];
+    order += 1;
 
-  for (const line of content.split('\n')) {
-    const trimmed = line.trim();
-
-    if (!trimmed) continue;
-
-    try {
-      const lead = JSON.parse(trimmed);
-      rows.push(normalizeLead(lead));
-    } catch {
-      // повреждённую строку пропускаем
+    if (entries.length > safeLimit) {
+      entries.splice(findOldestLeadIndex(entries), 1);
     }
   }
 
-  return rows
-    .sort((a, b) => {
-      const aTime = Date.parse(a.receivedAt) || 0;
+  entries.sort((a, b) => b.timestamp - a.timestamp || a.order - b.order);
 
-      const bTime = Date.parse(b.receivedAt) || 0;
-
-      return bTime - aTime;
-    })
-    .slice(0, Math.max(1, Math.min(limit, 500)));
+  return entries.map(entry => entry.lead);
 }
 
 export async function getAdminLeadsPage({ page = 1, limit = 50, search = '' } = {}) {
