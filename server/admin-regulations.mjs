@@ -218,27 +218,6 @@ function createRegulationInRegistry(data, change) {
   };
 }
 
-export function createRegulation(input) {
-  const change = validate(input);
-
-  const operation = writes.then(async () => {
-    const data = await readRegistry();
-
-    const result = createRegulationInRegistry(data, change);
-
-    await writeRegistry(data);
-
-    return {
-      ...result.regulation,
-      publicationNeeded: result.publicationNeeded,
-    };
-  });
-
-  writes = operation.catch(() => {});
-
-  return operation;
-}
-
 function hasRegulationChanges(previous, change) {
   const stringFields = ['title', 'edition', 'officialUrl', 'reviewNote'];
 
@@ -398,34 +377,6 @@ async function updateRegulationInRegistry(data, number, change, workspace) {
   };
 }
 
-export function updateRegulation(number, input) {
-  const change = validate(input);
-
-  const operation = writes.then(async () => {
-    const data = await readRegistry();
-    const workspace = createRegulationSyncWorkspace();
-
-    const result = await updateRegulationInRegistry(data, number, change, workspace);
-
-    if (!result) {
-      return null;
-    }
-
-    if (result.changed) {
-      await commitRegulationUpdate(data, workspace);
-    }
-
-    return {
-      ...result.regulation,
-      publicationNeeded: result.publicationNeeded,
-    };
-  });
-
-  writes = operation.catch(() => {});
-
-  return operation;
-}
-
 function validateTopicClaimUpdates(topic, input) {
   const normalizedTopic = String(topic || '').trim();
 
@@ -547,28 +498,6 @@ function applyTopicClaimUpdates(data, change) {
     changedClaims,
     publicationNeeded: changedClaims > 0,
   };
-}
-
-export function updateTopicClaims(topic, input) {
-  const change = validateTopicClaimUpdates(topic, input);
-
-  const operation = writes.then(async () => {
-    const data = await readRegistry();
-
-    assertTopicClaimUpdates(data, change);
-
-    const result = applyTopicClaimUpdates(data, change);
-
-    if (result.publicationNeeded) {
-      await writeRegistry(data);
-    }
-
-    return result;
-  });
-
-  writes = operation.catch(() => {});
-
-  return operation;
 }
 
 export function saveRegulationBundle(input) {

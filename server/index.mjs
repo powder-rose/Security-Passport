@@ -24,13 +24,7 @@ import {
 
 import { queueBlogPublication, getBlogPublicationStatus } from './blog-publication.mjs';
 
-import {
-  listRegulations,
-  createRegulation,
-  updateRegulation,
-  updateTopicClaims,
-  saveRegulationBundle,
-} from './admin-regulations.mjs';
+import { listRegulations, saveRegulationBundle } from './admin-regulations.mjs';
 import { queueRegulationPublication, getRegulationPublication } from './regulation-publisher.mjs';
 import formidable from 'formidable';
 import sharp from 'sharp';
@@ -657,65 +651,6 @@ app.post('/api/admin/regulations/save', adminAuth.requireAdmin, async (req, res)
   }
 });
 
-app.post('/api/admin/regulations', adminAuth.requireAdmin, async (req, res) => {
-  try {
-    const regulation = await createRegulation(req.body);
-
-    const { publicationNeeded, ...savedRegulation } = regulation;
-
-    return res.status(201).json({
-      ok: true,
-      regulation: savedRegulation,
-      publication: publicationNeeded ? queueRegulationPublication() : null,
-    });
-  } catch (error) {
-    if (error instanceof TypeError) {
-      return res.status(400).json({
-        ok: false,
-        message: error.message,
-      });
-    }
-
-    console.error('[admin] regulations create failed:', error);
-
-    return res.status(500).json({
-      ok: false,
-      message: 'Ошибка создания постановления',
-    });
-  }
-});
-
-app.patch(
-  '/api/admin/regulations/topic/:topic/claims',
-  adminAuth.requireAdmin,
-  async (req, res) => {
-    try {
-      const result = await updateTopicClaims(req.params.topic, req.body);
-
-      return res.json({
-        ok: true,
-        topic: result.topic,
-        changedClaims: result.changedClaims,
-        publication: result.publicationNeeded ? queueRegulationPublication() : null,
-      });
-    } catch (error) {
-      if (error instanceof TypeError) {
-        return res.status(400).json({
-          ok: false,
-          message: error.message,
-        });
-      }
-
-      console.error('[admin] topic claims update failed:', error);
-
-      return res.status(500).json({
-        ok: false,
-        message: 'Ошибка сохранения тематических вопросов',
-      });
-    }
-  },
-);
-
 app.get('/api/admin/regulations/publication', adminAuth.requireAdmin, async (req, res) => {
   try {
     res.json({ ok: true, publication: await getRegulationPublication() });
@@ -727,27 +662,6 @@ app.get('/api/admin/regulations/publication', adminAuth.requireAdmin, async (req
 
 app.post('/api/admin/regulations/publication', adminAuth.requireAdmin, (req, res) => {
   res.status(202).json({ ok: true, publication: queueRegulationPublication() });
-});
-
-app.patch('/api/admin/regulations/:number', adminAuth.requireAdmin, async (req, res) => {
-  try {
-    const regulation = await updateRegulation(req.params.number, req.body);
-    if (!regulation) {
-      return res.status(404).json({ ok: false, message: 'Документ не найден' });
-    }
-    const { publicationNeeded, ...savedRegulation } = regulation;
-    return res.json({
-      ok: true,
-      regulation: savedRegulation,
-      publication: publicationNeeded ? queueRegulationPublication() : null,
-    });
-  } catch (error) {
-    if (error instanceof TypeError) {
-      return res.status(400).json({ ok: false, message: error.message });
-    }
-    console.error('[admin] regulations update failed:', error);
-    return res.status(500).json({ ok: false, message: 'Ошибка сохранения' });
-  }
 });
 
 /*
