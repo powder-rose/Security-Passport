@@ -48,6 +48,8 @@ const BACKUP_ENABLED = String(process.env.LEADS_BACKUP_ENABLED ?? 'true').toLowe
 const LEADS_FILE = path.resolve(projectRoot, process.env.LEADS_FILE || 'data/leads.jsonl');
 const VISITS_FILE = path.resolve(projectRoot, process.env.VISITS_FILE || 'data/visits.jsonl');
 const VISIT_DEDUPE_TTL_MS = Number(process.env.VISIT_DEDUPE_TTL_MS || 30 * 60 * 1000);
+const VISIT_RATE_WINDOW_MS = Number(process.env.VISIT_RATE_WINDOW_MS || 10 * 60 * 1000);
+const VISIT_RATE_MAX = Number(process.env.VISIT_RATE_MAX || 30);
 
 const allowedOrigins = new Set(
   String(process.env.LEAD_ALLOWED_ORIGINS || '')
@@ -59,6 +61,7 @@ const allowedOrigins = new Set(
 const rateBuckets = new Map();
 const requestIds = new Map();
 const visitIds = new Map();
+const visitRateBuckets = new Map();
 
 function pruneMaps(now = Date.now()) {
   for (const [key, bucket] of rateBuckets) {
@@ -71,9 +74,15 @@ function pruneMaps(now = Date.now()) {
   for (const [visitId, timestamp] of visitIds) {
     if (now - timestamp > VISIT_DEDUPE_TTL_MS) visitIds.delete(visitId);
   }
+
+  for (const [ip, bucket] of visitRateBuckets) {
+    if (now - bucket.startedAt > VISIT_RATE_WINDOW_MS) {
+      visitRateBuckets.delete(ip);
+    }
+  }
 }
 
-setInterval(pruneMaps, Math.min(RATE_WINDOW_MS, 5 * 60 * 1000)).unref();
+setInterval(pruneMaps, Math.min(RATE_WINDOW_MS, VISIT_RATE_WINDOW_MS, 5 * 60 * 1000)).unref();
 
 function getClientIp(req) {
   return req.ip || req.socket.remoteAddress || 'unknown';
@@ -154,6 +163,46 @@ function rateLimit(req, res, next) {
   }
 
   next();
+}
+
+function acquireVisitRateSlot(req, now = Date.now()) {
+  const key = getClientIp(req);
+  const bucket = visitRateBuckets.get(key);
+
+  if (!bucket || now - bucket.startedAt > VISIT_RATE_WINDOW_MS) {
+    visitRateBuckets.set(key, {
+      startedAt: now,
+      count: 1,
+    });
+
+    return key;
+  }
+
+  if (bucket.count >= VISIT_RATE_MAX) {
+    return null;
+  }
+
+  bucket.count += 1;
+
+  return key;
+}
+
+function releaseVisitRateSlot(key) {
+  if (!key) {
+    return;
+  }
+
+  const bucket = visitRateBuckets.get(key);
+
+  if (!bucket) {
+    return;
+  }
+
+  bucket.count -= 1;
+
+  if (bucket.count <= 0) {
+    visitRateBuckets.delete(key);
+  }
 }
 
 function cleanString(value, maxLength = 2000) {
@@ -1128,6 +1177,16 @@ app.post('/api/visits', async (req, res) => {
     });
   }
 
+  const visitRateKey = acquireVisitRateSlot(req);
+
+  if (!visitRateKey) {
+    return res.status(200).json({
+      ok: true,
+      ignored: true,
+      reason: 'VISIT_RATE_LIMITED',
+    });
+  }
+
   const visit = {
     id: crypto.randomUUID(),
     sessionId,
@@ -1156,6 +1215,8 @@ app.post('/api/visits', async (req, res) => {
       id: visit.id,
     });
   } catch (error) {
+    releaseVisitRateSlot(visitRateKey);
+
     console.error('[visit] write failed:', error?.message || error);
 
     return res.status(500).json({
