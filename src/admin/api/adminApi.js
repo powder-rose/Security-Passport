@@ -111,6 +111,13 @@ export function createRegulation(data) {
   });
 }
 
+export function saveRegulationBundle(data) {
+  return request('/regulations/save', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
 export function saveRegulation(number, data) {
   return request(`/regulations/${encodeURIComponent(number)}`, {
     method: 'PATCH',

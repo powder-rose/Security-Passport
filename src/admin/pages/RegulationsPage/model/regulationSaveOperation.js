@@ -1,4 +1,4 @@
-import { createRegulation, saveRegulation, saveRegulationTopicClaims } from '../../../api/adminApi';
+import { saveRegulationBundle } from '../../../api/adminApi';
 
 import { buildPayload } from './regulationsModel.js';
 
@@ -32,33 +32,26 @@ export default async function saveRegulationOperation({
     topicQuestions,
   });
 
-  const payload = buildPayload(form, ownClaims);
+  const regulation = buildPayload(form, ownClaims);
 
-  const baseResult = isCreating
-    ? await createRegulation(payload)
-    : await saveRegulation(selected, payload);
-
-  if (!baseResult?.ok || !baseResult.regulation) {
-    throw new Error(baseResult?.message || 'Не удалось сохранить постановление');
-  }
-
-  const newNumber = String(baseResult.regulation.number);
-
-  const topicPayload = topicQuestions.map(question => ({
-    number: !isCreating && question.ownerNumber === selected ? newNumber : question.ownerNumber,
-
+  const topicClaims = topicQuestions.map(question => ({
+    number: question.ownerNumber,
     id: question.id,
-
     text: question.text,
   }));
 
-  const topicResult = await saveRegulationTopicClaims(form.topic, topicPayload);
+  const result = await saveRegulationBundle({
+    mode: isCreating ? 'create' : 'update',
+    selected,
+    regulation,
+    topicClaims,
+  });
 
-  if (!topicResult?.ok) {
-    throw new Error(topicResult?.message || 'Не удалось сохранить тематические вопросы');
+  if (!result?.ok || !result.regulation) {
+    throw new Error(result?.message || 'Не удалось сохранить постановление');
   }
 
   return {
-    publication: topicResult.publication || baseResult.publication || null,
+    publication: result.publication || null,
   };
 }
