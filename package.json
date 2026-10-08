@@ -10,16 +10,18 @@
     "build:ssr": "vite build --ssr src/entry-server.jsx --outDir dist/server",
     "prerender": "node scripts/prerender.mjs",
     "preview": "vite preview --outDir dist/client",
-    "qa": "node scripts/qa.mjs && npm run qa:regulations && npm run server:check",
+    "qa": "node scripts/qa.mjs && npm run qa:regulations && npm run test:server && npm run server:check",
     "qa:dist": "node scripts/qa.mjs --dist",
     "dev:api": "node --watch server/index.mjs",
     "start": "node server/index.mjs",
     "server:check": "node --check server/index.mjs",
     "qa:regulations": "node scripts/qa-regulations.mjs",
-    "format": "prettier --write \"src/**/*.{js,jsx,css}\" \"server/**/*.mjs\" \"scripts/**/*.mjs\" \"*.{js,json,md}\"",
-    "format:check": "prettier --check \"src/**/*.{js,jsx,css}\" \"server/**/*.mjs\" \"scripts/**/*.mjs\" \"*.{js,json,md}\"",
+    "format": "prettier --write \"src/**/*.{js,jsx,css}\" \"server/**/*.mjs\" \"scripts/**/*.mjs\" \"tests/**/*.mjs\" \"*.{js,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,css}\" \"server/**/*.mjs\" \"scripts/**/*.mjs\" \"tests/**/*.mjs\" \"*.{js,json,md}\"",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "test:server": "node --test --test-concurrency=1 tests/server/jsonl.test.mjs tests/server/lead-intake.test.mjs tests/server/visit-tracking.test.mjs",
+    "test": "npm run test:server"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",

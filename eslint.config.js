@@ -5,7 +5,13 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import globals from 'globals';
 
 const frontendFiles = ['src/**/*.{js,jsx}'];
-const nodeFiles = ['server/**/*.mjs', 'scripts/**/*.mjs', 'vite.config.js', 'eslint.config.js'];
+const nodeFiles = [
+  'server/**/*.mjs',
+  'scripts/**/*.mjs',
+  'tests/**/*.mjs',
+  'vite.config.js',
+  'eslint.config.js',
+];
 
 export default [
   {
