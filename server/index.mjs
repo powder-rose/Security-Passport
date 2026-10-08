@@ -4,13 +4,13 @@ import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
-import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import { resolveSiteFromHost } from './site-region.mjs';
 import { isBotUserAgent } from './bot-detection.mjs';
 import { getStatistics } from './statistics.mjs';
 import { getAdminLeadsPage } from './admin-leads.mjs';
-import { appendLeadToFile, deleteLeadFromFile } from './lead-storage.mjs';
+import { deleteLeadFromFile } from './lead-storage.mjs';
+import { createLeadDelivery } from './lead-delivery.mjs';
 import { createAdminAuth } from './admin-auth.mjs';
 import { quizContactSchema } from '../src/lib/validation/leadValidation.js';
 import {
@@ -50,8 +50,6 @@ const VISITS_FILE = path.resolve(projectRoot, process.env.VISITS_FILE || 'data/v
 const VISIT_DEDUPE_TTL_MS = Number(process.env.VISIT_DEDUPE_TTL_MS || 30 * 60 * 1000);
 const VISIT_RATE_WINDOW_MS = Number(process.env.VISIT_RATE_WINDOW_MS || 10 * 60 * 1000);
 const VISIT_RATE_MAX = Number(process.env.VISIT_RATE_MAX || 30);
-const TELEGRAM_TIMEOUT_MS = getPositiveTimeout(process.env.TELEGRAM_TIMEOUT_MS, 10_000);
-const SMTP_TIMEOUT_MS = getPositiveTimeout(process.env.SMTP_TIMEOUT_MS, 20_000);
 
 const allowedOrigins = new Set(
   String(process.env.LEAD_ALLOWED_ORIGINS || '')
@@ -85,16 +83,6 @@ function pruneMaps(now = Date.now()) {
 }
 
 setInterval(pruneMaps, Math.min(RATE_WINDOW_MS, VISIT_RATE_WINDOW_MS, 5 * 60 * 1000)).unref();
-
-function getPositiveTimeout(value, fallback) {
-  const timeout = Number(value);
-
-  if (!Number.isFinite(timeout) || timeout <= 0) {
-    return fallback;
-  }
-
-  return Math.floor(timeout);
-}
 
 function getClientIp(req) {
   return req.ip || req.socket.remoteAddress || 'unknown';
@@ -290,275 +278,16 @@ function validateLead(lead) {
   return '';
 }
 
-function formatLeadValue(value) {
-  if (value === null || value === undefined || value === '') {
-    return '—';
-  }
-
-  if (value === true) {
-    return 'Да';
-  }
-
-  if (value === false) {
-    return 'Нет';
-  }
-
-  if (Array.isArray(value)) {
-    return (
-      value.filter(item => item !== null && item !== undefined && item !== '').join(', ') || '—'
-    );
-  }
-
-  return String(value);
-}
-
-function addLeadField(lines, label, value) {
-  if (value === null || value === undefined || value === '') {
-    return;
-  }
-
-  lines.push(`${label}: ${formatLeadValue(value)}`);
-}
-
-function addLeadSection(lines, title, fields) {
-  const section = [];
-
-  fields.forEach(([label, value]) => {
-    addLeadField(section, label, value);
-  });
-
-  if (!section.length) {
-    return;
-  }
-
-  lines.push('', `=== ${title} ===`, ...section);
-}
-
-function getAnswerSelected(value) {
-  if (value && typeof value === 'object' && !Array.isArray(value)) {
-    return value.selected ?? value.value ?? '';
-  }
-
-  return value;
-}
-
-function getAnswerOther(value) {
-  if (value && typeof value === 'object' && !Array.isArray(value)) {
-    return value.other ?? '';
-  }
-
-  return '';
-}
-
-function addLeadAttribution(lines, lead) {
-  const attribution = lead.attribution || {};
-
-  addLeadSection(lines, 'РЕКЛАМА / АТРИБУЦИЯ', [
-    ['Посадочная страница', attribution.landingPage],
-    ['Источник перехода', attribution.referrer || lead.referrer],
-    ['UTM source', attribution.utm_source || attribution.utmSource],
-    ['UTM medium', attribution.utm_medium || attribution.utmMedium],
-    ['UTM campaign', attribution.utm_campaign || attribution.utmCampaign],
-    ['UTM content', attribution.utm_content || attribution.utmContent],
-    ['UTM term', attribution.utm_term || attribution.utmTerm],
-    ['YCLID', attribution.yclid],
-  ]);
-}
-
-function buildQuizLeadText(lead) {
-  const answers = lead.data?.answers || {};
-
-  const objectType = answers.objectType || {};
-
-  const location = answers.location || {};
-
-  const objectMetrics = answers.objectMetrics || {};
-
-  const contact = answers.contact || {};
-
-  const lines = [
-    'НОВАЯ ЗАЯВКА — КВИЗ «ПАСПОРТ БЕЗОПАСНОСТИ»',
-    '',
-    `ID: ${lead.id}`,
-    `Получена: ${lead.receivedAt}`,
-  ];
-
-  if (lead.page) {
-    lines.push(`Страница: ${lead.page}`);
-  }
-
-  addLeadSection(lines, 'ОБЪЕКТ', [
-    ['Тип объекта', getAnswerSelected(objectType)],
-    ['Уточнение', getAnswerOther(objectType)],
-    ['Регион', location.region],
-    ['Город', location.city],
-  ]);
-
-  addLeadSection(lines, 'ТЕКУЩАЯ СИТУАЦИЯ', [
-    ['Уведомление о включении в перечень', getAnswerSelected(answers.notification)],
-    ['Документы', getAnswerSelected(answers.documentsStatus)],
-    ['Площадь, м²', objectMetrics.area],
-    ['Максимум людей', objectMetrics.people],
-  ]);
-
-  addLeadSection(lines, 'КОНТАКТЫ', [
-    ['Имя', contact.name],
-    ['Телефон', contact.phone],
-    ['Email', contact.email],
-    ['Организация', contact.company],
-    ['Согласие', contact.consent],
-  ]);
-
-  addLeadAttribution(lines, lead);
-
-  return lines.join('\n').slice(0, 12000);
-}
-
-function buildFormLeadText(lead) {
-  const data = lead.data || {};
-
-  const lines = [
-    'НОВАЯ ЗАЯВКА — ФОРМА «ОБСУДИТЬ ОБЪЕКТ»',
-    '',
-    `ID: ${lead.id}`,
-    `Получена: ${lead.receivedAt}`,
-  ];
-
-  if (lead.page) {
-    lines.push(`Страница: ${lead.page}`);
-  }
-
-  addLeadSection(lines, 'КОНТАКТЫ', [
-    ['Имя', data.name],
-    ['Телефон', data.phone],
-    ['Email', data.email],
-    ['Организация', data.company],
-    ['Объект / задача', data.object],
-    ['Согласие', data.consent],
-  ]);
-
-  addLeadAttribution(lines, lead);
-
-  return lines.join('\n').slice(0, 12000);
-}
-
-function buildLeadText(lead) {
-  if (lead.source === 'passport-security-quiz') {
-    return buildQuizLeadText(lead);
-  }
-
-  return buildFormLeadText(lead);
-}
-
-async function saveBackup(lead) {
-  if (!BACKUP_ENABLED) return { channel: 'backup', ok: false, skipped: true };
-
-  await appendLeadToFile(LEADS_FILE, lead);
-
-  return { channel: 'backup', ok: true };
-}
-
-async function sendTelegram(text) {
-  const token = cleanString(process.env.TELEGRAM_BOT_TOKEN, 300);
-  const chatId = cleanString(process.env.TELEGRAM_CHAT_ID, 120);
-  if (!token || !chatId) return { channel: 'telegram', ok: false, skipped: true };
-
-  const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: 'POST',
-    signal: AbortSignal.timeout(TELEGRAM_TIMEOUT_MS),
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      chat_id: chatId,
-      text: text.slice(0, 4000),
-      disable_web_page_preview: true,
-    }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`TELEGRAM_${response.status}`);
-  }
-  return { channel: 'telegram', ok: true };
-}
-
-function createMailTransport() {
-  const host = cleanString(process.env.SMTP_HOST, 300);
-  const user = cleanString(process.env.SMTP_USER, 300);
-  const pass = process.env.SMTP_PASS || '';
-  if (!host || !user || !pass) return null;
-
-  return nodemailer.createTransport({
-    host,
-    port: Number(process.env.SMTP_PORT || 465),
-    secure: String(process.env.SMTP_SECURE ?? 'true').toLowerCase() === 'true',
-    connectionTimeout: SMTP_TIMEOUT_MS,
-    greetingTimeout: SMTP_TIMEOUT_MS,
-    socketTimeout: SMTP_TIMEOUT_MS,
-    dnsTimeout: SMTP_TIMEOUT_MS,
-    auth: { user, pass },
-  });
-}
-
-const mailTransport = createMailTransport();
+const leadDelivery = createLeadDelivery({
+  backupEnabled: BACKUP_ENABLED,
+  leadsFile: LEADS_FILE,
+  env: process.env,
+});
 
 const adminAuth = createAdminAuth({
   password: process.env.ADMIN_PASSWORD || '',
   isProduction: IS_PRODUCTION,
 });
-
-async function sendEmail(text, lead) {
-  const to = cleanString(process.env.LEAD_EMAIL_TO, 500);
-  const from =
-    cleanString(process.env.LEAD_EMAIL_FROM, 500) || cleanString(process.env.SMTP_USER, 300);
-  if (!mailTransport || !to || !from) return { channel: 'email', ok: false, skipped: true };
-
-  await mailTransport.sendMail({
-    from,
-    to,
-    subject:
-      lead.source === 'passport-security-quiz'
-        ? 'Новая заявка: квиз паспорта безопасности'
-        : 'Новая заявка: паспорт безопасности',
-    text,
-  });
-
-  return { channel: 'email', ok: true };
-}
-
-async function deliverLead(lead) {
-  const text = buildLeadText(lead);
-  const tasks = [saveBackup(lead), sendTelegram(text), sendEmail(text, lead)];
-  const settled = await Promise.allSettled(tasks);
-
-  const results = settled.map((result, index) => {
-    const channel = ['backup', 'telegram', 'email'][index];
-    if (result.status === 'fulfilled') return result.value;
-    console.error(`[lead] ${channel} delivery failed:`, result.reason?.message || result.reason);
-    return { channel, ok: false, error: true };
-  });
-
-  const configured = results.filter(result => !result.skipped);
-  const successful = configured.filter(result => result.ok);
-  const configuredNotifications = configured.filter(result =>
-    ['telegram', 'email'].includes(result.channel),
-  );
-  const successfulNotifications = configuredNotifications.filter(result => result.ok);
-
-  // If a notification channel is configured, do not hide a notification outage behind the local backup.
-  // Protected JSONL backup is always a valid
-  // acceptance channel.
-  //
-  // Notification transports are best-effort:
-  // a temporary email failure must not turn an
-  // already saved lead into a failed submission.
-  const backupSucceeded = successful.some(result => result.channel === 'backup');
-
-  const ok = backupSucceeded || successfulNotifications.length > 0;
-
-  return {
-    ok,
-    results,
-  };
-}
 
 app.post('/api/admin/login', adminAuth.login);
 
@@ -1157,11 +886,7 @@ app.get('/api/health', (req, res) => {
     ok: true,
     service: 'passport-security-leads',
     environment: NODE_ENV,
-    transports: {
-      backup: BACKUP_ENABLED,
-      telegram: Boolean(process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID),
-      email: Boolean(mailTransport && process.env.LEAD_EMAIL_TO),
-    },
+    transports: leadDelivery.getTransportStatus(),
   });
 });
 
@@ -1261,7 +986,7 @@ app.post('/api/leads', rateLimit, async (req, res) => {
   requestIds.set(lead.requestId, Date.now());
 
   try {
-    const delivery = await deliverLead(lead);
+    const delivery = await leadDelivery.deliverLead(lead);
     if (!delivery.ok) {
       requestIds.delete(lead.requestId);
       return res.status(503).json({ ok: false, error: 'NO_DELIVERY_CHANNEL_AVAILABLE' });
