@@ -1,6 +1,6 @@
 import Container from '../../../../components/ui/Container/Container.jsx';
 
-export default function BlogHero() {
+export default function BlogHero({ showCategoryLink }) {
   return (
     <>
       <section className="blog-hero">
@@ -37,10 +37,12 @@ export default function BlogHero() {
                 <span>Документы</span>
               </div>
 
-              <a href="#blog-categories" className="blog-hero__aside-link">
-                Выбрать тему
-                <span aria-hidden="true">↓</span>
-              </a>
+              {showCategoryLink && (
+                <a href="#blog-categories" className="blog-hero__aside-link">
+                  Выбрать тему
+                  <span aria-hidden="true">↓</span>
+                </a>
+              )}
             </aside>
           </div>
         </Container>

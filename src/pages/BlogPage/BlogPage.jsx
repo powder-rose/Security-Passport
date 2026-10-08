@@ -30,12 +30,14 @@ export default function BlogPage({ initialArticles = null }) {
     initialArticles,
   });
 
+  const showCategoryLink = !loading && !error && articles.length > 0;
+
   return (
     <>
       <BlogSeo />
 
       <main className="blog-page" id="main-content">
-        <BlogHero />
+        <BlogHero showCategoryLink={showCategoryLink} />
 
         <BlogContentState loading={loading} error={error} articles={articles} />
 
