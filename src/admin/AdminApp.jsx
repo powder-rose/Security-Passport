@@ -1,6 +1,4 @@
-import ArticleEditPage from './pages/ArticleEditPage/ArticleEditPage.jsx';
-
-import CreateArticlePage from './pages/ArticleEditPage/CreateArticlePage.jsx';
+import { lazy, Suspense } from 'react';
 
 import LoginPage from './pages/LoginPage.jsx';
 import AdminLayout from './components/Layout/AdminLayout.jsx';
@@ -13,6 +11,10 @@ import LeadsPage from './pages/LeadsPage/LeadsPage.jsx';
 import DocumentationPage from './pages/DocumentationPage/DocumentationPage.jsx';
 
 import { useAuth } from './auth/AuthProvider.jsx';
+
+const ArticleEditPage = lazy(() => import('./pages/ArticleEditPage/ArticleEditPage.jsx'));
+
+const CreateArticlePage = lazy(() => import('./pages/ArticleEditPage/CreateArticlePage.jsx'));
 
 function RouterView() {
   const path = window.location.pathname;
@@ -61,7 +63,9 @@ export default function AdminApp() {
 
   return (
     <AdminLayout>
-      <RouterView />
+      <Suspense fallback={<div>Загрузка раздела...</div>}>
+        <RouterView />
+      </Suspense>
     </AdminLayout>
   );
 }
