@@ -63,6 +63,110 @@ function queueArticleWrite(operation) {
   return queued;
 }
 
+function createArticleInputError(field = 'payload') {
+  const error = new TypeError(`Invalid article input: ${field}`);
+
+  error.code = 'ARTICLE_INPUT_INVALID';
+
+  return error;
+}
+
+function assertArticleInputObject(input) {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) {
+    throw createArticleInputError();
+  }
+}
+
+function assertOptionalString(input, field) {
+  if (!Object.hasOwn(input, field) || input[field] === undefined) {
+    return;
+  }
+
+  if (typeof input[field] !== 'string') {
+    throw createArticleInputError(field);
+  }
+}
+
+function assertOptionalNullableString(input, field) {
+  if (!Object.hasOwn(input, field) || input[field] === undefined) {
+    return;
+  }
+
+  if (input[field] !== null && typeof input[field] !== 'string') {
+    throw createArticleInputError(field);
+  }
+}
+
+function assertOptionalArticleStatus(input) {
+  if (!Object.hasOwn(input, 'status') || input.status === undefined) {
+    return;
+  }
+
+  if (!['draft', 'published'].includes(input.status)) {
+    throw createArticleInputError('status');
+  }
+}
+
+function validateCreateArticleInput(input) {
+  assertArticleInputObject(input);
+
+  for (const field of [
+    'title',
+    'content',
+    'imageAlt',
+    'category',
+    'slug',
+    'seoTitle',
+    'seoDescription',
+  ]) {
+    assertOptionalString(input, field);
+  }
+
+  assertOptionalNullableString(input, 'image');
+
+  assertOptionalArticleStatus(input);
+
+  return input;
+}
+
+function validateUpdateArticleInput(input) {
+  assertArticleInputObject(input);
+
+  for (const field of [
+    'title',
+    'content',
+    'imageAlt',
+    'category',
+    'slug',
+    'seoTitle',
+    'seoDescription',
+    'ogTitle',
+    'ogDescription',
+  ]) {
+    assertOptionalString(input, field);
+  }
+
+  for (const field of ['image', 'ogImage']) {
+    assertOptionalNullableString(input, field);
+  }
+
+  assertOptionalArticleStatus(input);
+
+  if (
+    Object.hasOwn(input, 'updateSlug') &&
+    input.updateSlug !== undefined &&
+    typeof input.updateSlug !== 'boolean'
+  ) {
+    throw createArticleInputError('updateSlug');
+  }
+
+  if (input.updateSlug === true && typeof input.slug !== 'string') {
+    throw createArticleInputError('slug');
+  }
+
+  return input;
+}
+
 function normalizeArticleCategory(value) {
   return String(value || '')
     .replace(/[\u0000-\u001F\u007F]/g, '')
@@ -359,11 +463,11 @@ async function deleteArticleMutation(id) {
 }
 
 export function createArticle(data) {
-  return queueArticleWrite(() => createArticleMutation(data));
+  return queueArticleWrite(() => createArticleMutation(validateCreateArticleInput(data)));
 }
 
 export function updateArticle(id, data) {
-  return queueArticleWrite(() => updateArticleMutation(id, data));
+  return queueArticleWrite(() => updateArticleMutation(id, validateUpdateArticleInput(data)));
 }
 
 export function deleteArticle(id) {
