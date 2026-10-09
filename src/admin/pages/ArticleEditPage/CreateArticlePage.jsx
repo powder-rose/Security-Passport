@@ -2,6 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 
 import { createArticle, uploadArticleImage } from '../../api/adminApi';
 import { BLOG_CATEGORIES, createSlug, validatePublicationSeo } from './articleEditorUtils.js';
+import {
+  createCroppedArticleImageFile,
+  getArticleImageValidationError,
+} from '../../features/articles/utils/articleImage.js';
 
 import ArticleEditor from '../../components/Editor/ArticleEditor.jsx';
 
@@ -118,18 +122,10 @@ export default function CreateArticlePage() {
       return;
     }
 
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    const validationError = getArticleImageValidationError(file);
 
-    if (!allowedTypes.includes(file.type)) {
-      alert('Разрешены только JPG, PNG и WEBP');
-
-      e.target.value = '';
-
-      return;
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      alert('Размер изображения не должен превышать 5 МБ');
+    if (validationError) {
+      alert(validationError);
 
       e.target.value = '';
 
@@ -142,54 +138,6 @@ export default function CreateArticlePage() {
       file,
 
       preview,
-    });
-  }
-
-  async function getCroppedFile(imageSrc, pixelCrop) {
-    const image = await new Promise((resolve, reject) => {
-      const img = new Image();
-
-      img.onload = () => resolve(img);
-
-      img.onerror = reject;
-
-      img.src = imageSrc;
-    });
-
-    const canvas = document.createElement('canvas');
-
-    canvas.width = 1200;
-
-    canvas.height = 675;
-
-    const ctx = canvas.getContext('2d');
-
-    ctx.drawImage(
-      image,
-
-      pixelCrop.x,
-      pixelCrop.y,
-
-      pixelCrop.width,
-      pixelCrop.height,
-
-      0,
-      0,
-
-      1200,
-      675,
-    );
-
-    const blob = await new Promise(resolve => {
-      canvas.toBlob(resolve, 'image/webp', 0.9);
-    });
-
-    if (!blob) {
-      throw new Error('Не удалось подготовить изображение');
-    }
-
-    return new File([blob], 'article-image.webp', {
-      type: 'image/webp',
     });
   }
 
@@ -270,7 +218,7 @@ export default function CreateArticlePage() {
 
           onCrop={async pixels => {
             try {
-              const file = await getCroppedFile(cropImage.preview, pixels);
+              const file = await createCroppedArticleImageFile(cropImage.preview, pixels);
 
               const result = await uploadArticleImage(file);
 
