@@ -12,6 +12,10 @@ import { registerArticleRoutes } from './http/article-routes.mjs';
 import { registerPublicApiRoutes } from './http/public-api-routes.mjs';
 import { registerFrontendServing } from './http/frontend-serving.mjs';
 import { registerHttpMiddleware, registerHttpErrorHandler } from './http/http-middleware.mjs';
+import {
+  registerGracefulShutdown,
+  resolveGracefulShutdownTimeout,
+} from './http/graceful-shutdown.mjs';
 import { recoverRegulationSyncTransactions } from './regulations/regulation-sync-workspace.mjs';
 
 dotenv.config({ path: process.env.SERVER_ENV_FILE || '.env.server' });
@@ -94,7 +98,12 @@ registerHttpErrorHandler({
   app,
 });
 
-app.listen(PORT, HOST, () => {
+const server = app.listen(PORT, HOST, () => {
   console.log(`Passport Security server: http://${HOST}:${PORT}`);
   console.log(`Lead backup: ${BACKUP_ENABLED ? LEADS_FILE : 'disabled'}`);
+});
+
+registerGracefulShutdown({
+  server,
+  timeoutMs: resolveGracefulShutdownTimeout(process.env.GRACEFUL_SHUTDOWN_TIMEOUT_MS),
 });
