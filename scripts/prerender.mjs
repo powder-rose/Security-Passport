@@ -68,7 +68,7 @@ await mkdir(generatorTemplateDir, {
 
 await writeFile(generatorTemplatePath, template, 'utf8');
 
-const clientManifestPath = path.join(projectRoot, 'dist', 'client', '.vite', 'manifest.json');
+const clientManifestPath = path.join(clientDir, '.vite', 'manifest.json');
 
 const clientManifest = JSON.parse(await readFile(clientManifestPath, 'utf8'));
 

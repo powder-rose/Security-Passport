@@ -21,7 +21,7 @@
     "format:check": "prettier --check \"src/**/*.{js,jsx,css}\" \"shared/**/*.js\" \"server/**/*.mjs\" \"scripts/**/*.mjs\" \"tests/**/*.mjs\" \".github/**/*.{yml,yaml}\" \"*.{js,json,md}\"",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test:server": "node --test --test-concurrency=1 tests/server/jsonl.test.mjs tests/server/lead-storage.test.mjs tests/server/lead-intake.test.mjs tests/server/visit-tracking.test.mjs tests/server/admin-auth.test.mjs tests/server/article-html.test.mjs tests/server/article-slug.test.mjs tests/server/article-dates.test.mjs tests/server/article-input-validation.test.mjs tests/server/regulation-sync-workspace.test.mjs tests/server/graceful-shutdown.test.mjs tests/server/route-registration.test.mjs tests/server/article-route-errors.test.mjs tests/server/module-boundaries.test.mjs tests/server/admin-api.test.mjs tests/server/admin-documentation.test.mjs tests/server/release-retention.test.mjs",
+    "test:server": "node --test --test-concurrency=1 tests/server/jsonl.test.mjs tests/server/lead-storage.test.mjs tests/server/lead-intake.test.mjs tests/server/visit-tracking.test.mjs tests/server/admin-auth.test.mjs tests/server/article-html.test.mjs tests/server/article-slug.test.mjs tests/server/article-dates.test.mjs tests/server/article-input-validation.test.mjs tests/server/prerender-client-manifest.test.mjs tests/server/regulation-sync-workspace.test.mjs tests/server/graceful-shutdown.test.mjs tests/server/route-registration.test.mjs tests/server/article-route-errors.test.mjs tests/server/module-boundaries.test.mjs tests/server/admin-api.test.mjs tests/server/admin-documentation.test.mjs tests/server/release-retention.test.mjs",
     "test": "npm run test:server"
   },
   "dependencies": {
