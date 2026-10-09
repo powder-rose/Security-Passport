@@ -12,6 +12,7 @@ import { registerArticleRoutes } from './http/article-routes.mjs';
 import { registerPublicApiRoutes } from './http/public-api-routes.mjs';
 import { registerFrontendServing } from './http/frontend-serving.mjs';
 import { registerHttpMiddleware, registerHttpErrorHandler } from './http/http-middleware.mjs';
+import { recoverRegulationSyncTransactions } from './regulations/regulation-sync-workspace.mjs';
 
 dotenv.config({ path: process.env.SERVER_ENV_FILE || '.env.server' });
 
@@ -27,6 +28,12 @@ const IS_PRODUCTION = NODE_ENV === 'production';
 const BACKUP_ENABLED = String(process.env.LEADS_BACKUP_ENABLED ?? 'true').toLowerCase() === 'true';
 const LEADS_FILE = path.resolve(projectRoot, process.env.LEADS_FILE || 'data/leads.jsonl');
 const VISITS_FILE = path.resolve(projectRoot, process.env.VISITS_FILE || 'data/visits.jsonl');
+
+const regulationRecovery = await recoverRegulationSyncTransactions();
+
+if (regulationRecovery.recoveredTransactions > 0) {
+  console.warn('[regulations] recovered transactions:', regulationRecovery);
+}
 
 registerHttpMiddleware({
   app,
