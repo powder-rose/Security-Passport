@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { createArticle } from '../../api/adminApi';
-import { BLOG_CATEGORIES, createSlug, validatePublicationSeo } from './articleEditorUtils.js';
+import { createSlug, validatePublicationSeo } from './articleEditorUtils.js';
 import { useArticleImage } from '../../features/articles/hooks/useArticleImage.js';
 import {
   createEmptyArticleForm,
   getNormalizedArticleSeo,
 } from '../../features/articles/model/articleForm.js';
 
-import ArticleEditor from '../../components/Editor/ArticleEditor.jsx';
+import ArticleFormFields from '../../features/articles/components/ArticleFormFields.jsx';
 
 import ImageCropper from '../../components/ImageCropper/ImageCropper.jsx';
 
@@ -181,174 +181,14 @@ export default function CreateArticlePage() {
 
         <h1>Новая статья</h1>
 
-        <section className="admin-editor__card">
-          <h2>Основная информация</h2>
-
-          <label>
-            <span>Заголовок</span>
-
-            <input
-              value={form.title}
-
-              onChange={e => change('title', e.target.value)}
-            />
-          </label>
-
-          <label className="admin-slug-field">
-            <span>URL статьи</span>
-
-            <div className="admin-slug-control">
-              <span className="admin-slug-prefix">/blog/</span>
-
-              <input
-                type="text"
-                value={form.slug || ''}
-                placeholder={createSlug(form.title) || 'url-stati'}
-                autoCapitalize="none"
-                autoComplete="off"
-                spellCheck="false"
-                onChange={e => change('slug', createSlug(e.target.value))}
-              />
-
-              <span className="admin-slug-suffix">/</span>
-            </div>
-
-            <small className="admin-slug-hint">
-              Можно оставить пустым — адрес автоматически сформируется из заголовка.
-            </small>
-          </label>
-
-          <label>
-            <span>Изображение</span>
-
-            <label className="main-image-upload">
-              Выбрать изображение
-              <input
-                type="file"
-
-                accept="image/*"
-
-                onChange={selectImage}
-              />
-            </label>
-
-            {form.image && (
-              <div className="admin-image-wrapper">
-                <div className="admin-image-preview-header">
-                  <span>Предпросмотр</span>
-
-                  <small>1200 × 675 px · 16:9</small>
-                </div>
-
-                <img
-                  src={form.image}
-                  alt="Превью изображения статьи"
-                  width="1200"
-                  height="675"
-                  className="admin-image-preview"
-                />
-
-                <button
-                  type="button"
-                  className="admin-image-remove"
-                  onClick={() => {
-                    change('image', '');
-                  }}
-                >
-                  Удалить изображение
-                </button>
-              </div>
-            )}
-          </label>
-
-          <label>
-            <span>Alt изображения</span>
-
-            <input
-              type="text"
-
-              value={form.imageAlt}
-
-              onChange={e => {
-                change('imageAlt', e.target.value);
-              }}
-
-              placeholder="Например: Специалисты проводят обследование объекта"
-            />
-          </label>
-
-          <div className="admin-field">
-            <span>Текст статьи</span>
-
-            <ArticleEditor
-              value={form.content}
-
-              onChange={value => change('content', value)}
-            />
-          </div>
-
-          <label>
-            <span>Категория статьи</span>
-
-            <input
-              type="text"
-              list="blog-category-suggestions-create"
-              value={form.category || ''}
-              maxLength="80"
-              placeholder="Например: Культура"
-              autoComplete="off"
-              onChange={e => change('category', e.target.value)}
-            />
-
-            <datalist id="blog-category-suggestions-create">
-              {BLOG_CATEGORIES.map(category => (
-                <option key={category.id} value={category.label} />
-              ))}
-            </datalist>
-
-            <small className="admin-category-hint">
-              Выберите готовую категорию или впишите новую самостоятельно.
-            </small>
-          </label>
-
-          <label>
-            <span>Статус</span>
-
-            <select
-              value={form.status}
-
-              onChange={e => change('status', e.target.value)}
-            >
-              <option value="draft">Черновик</option>
-
-              <option value="published">Опубликовано</option>
-            </select>
-          </label>
-        </section>
-
-        <section className="admin-editor__card">
-          <h2>SEO</h2>
-
-          <p className="admin-seo-note">
-            Для черновика поля можно оставить пустыми. Для публикации обязательны SEO Title и SEO
-            Description.
-          </p>
-
-          <label>
-            <span>SEO Title</span>
-
-            <input value={form.seoTitle} onChange={e => change('seoTitle', e.target.value)} />
-          </label>
-
-          <label>
-            <span>SEO Description</span>
-
-            <textarea
-              value={form.seoDescription}
-              onChange={e => change('seoDescription', e.target.value)}
-            />
-          </label>
-        </section>
+        <ArticleFormFields
+          form={form}
+          mode="create"
+          onChange={change}
+          onSlugChange={value => change('slug', createSlug(value))}
+          onImageSelect={selectImage}
+          slugPlaceholder={createSlug(form.title) || 'url-stati'}
+        />
 
         <div className="admin-editor__actions">
           <button
