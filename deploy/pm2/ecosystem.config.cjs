@@ -8,6 +8,7 @@ module.exports = {
       exec_mode: 'fork',
       instances: 1,
       autorestart: true,
+      kill_timeout: 30_000,
       watch: false,
     },
   ],
