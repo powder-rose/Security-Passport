@@ -3,6 +3,10 @@ import { useEffect, useRef, useState } from 'react';
 import { createArticle } from '../../api/adminApi';
 import { BLOG_CATEGORIES, createSlug, validatePublicationSeo } from './articleEditorUtils.js';
 import { useArticleImage } from '../../features/articles/hooks/useArticleImage.js';
+import {
+  createEmptyArticleForm,
+  getNormalizedArticleSeo,
+} from '../../features/articles/model/articleForm.js';
 
 import ArticleEditor from '../../components/Editor/ArticleEditor.jsx';
 
@@ -62,19 +66,7 @@ export default function CreateArticlePage() {
   const [form, setForm] = useState(() => {
     const draft = loadArticleDraft();
 
-    return (
-      draft?.form || {
-        title: '',
-        slug: '',
-        content: '',
-        image: '',
-        imageAlt: '',
-        category: '',
-        status: 'draft',
-        seoTitle: '',
-        seoDescription: '',
-      }
-    );
+    return draft?.form || createEmptyArticleForm();
   });
 
   const savingRef = useRef(false);
@@ -145,9 +137,7 @@ export default function CreateArticlePage() {
       const result = await createArticle({
         ...form,
 
-        seoTitle: String(form.seoTitle || '').trim(),
-
-        seoDescription: String(form.seoDescription || '').trim(),
+        ...getNormalizedArticleSeo(form),
 
         slug: createSlug(form.slug || form.title),
       });
