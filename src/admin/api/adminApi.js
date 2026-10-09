@@ -1,15 +1,88 @@
 const API = '/api/admin';
 
-async function request(url, options = {}) {
-  const response = await fetch(API + url, {
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    ...options,
-  });
+export const ADMIN_AUTH_REQUIRED_EVENT = 'passport-admin-auth-required';
 
-  return response.json();
+export class AdminApiError extends Error {
+  constructor(message, { code = 'ADMIN_API_ERROR', status = 0, cause = null } = {}) {
+    super(message);
+
+    this.name = 'AdminApiError';
+    this.code = code;
+    this.status = status;
+
+    if (cause) {
+      this.cause = cause;
+    }
+  }
+}
+
+function notifyAdminAuthRequired() {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  window.dispatchEvent(new Event(ADMIN_AUTH_REQUIRED_EVENT));
+}
+
+async function parseResponseJson(response) {
+  const text = await response.text();
+
+  if (!text) {
+    throw new AdminApiError('Сервер вернул пустой ответ.', {
+      code: 'EMPTY_RESPONSE',
+      status: response.status,
+    });
+  }
+
+  try {
+    return JSON.parse(text);
+  } catch (cause) {
+    throw new AdminApiError('Сервер вернул некорректный JSON.', {
+      code: 'INVALID_JSON_RESPONSE',
+      status: response.status,
+      cause,
+    });
+  }
+}
+
+async function request(url, options = {}) {
+  const isFormData = typeof FormData !== 'undefined' && options.body instanceof FormData;
+
+  const headers = new Headers(options.headers || {});
+
+  if (!isFormData && !headers.has('Content-Type')) {
+    headers.set('Content-Type', 'application/json');
+  }
+
+  let response;
+
+  try {
+    response = await fetch(API + url, {
+      credentials: 'include',
+      ...options,
+      headers,
+    });
+  } catch (cause) {
+    throw new AdminApiError('Не удалось связаться с сервером.', {
+      code: 'NETWORK_ERROR',
+      cause,
+    });
+  }
+
+  const data = await parseResponseJson(response);
+
+  if (response.status === 401 && data?.error === 'ADMIN_AUTH_REQUIRED') {
+    notifyAdminAuthRequired();
+  }
+
+  if (!response.ok && (!data || typeof data !== 'object')) {
+    throw new AdminApiError('Сервер вернул ошибку без корректного описания.', {
+      code: 'HTTP_ERROR',
+      status: response.status,
+    });
+  }
+
+  return data;
 }
 
 export function login(password) {
@@ -59,18 +132,15 @@ export function updateArticle(id, data) {
   });
 }
 
-export async function uploadArticleImage(file) {
+export function uploadArticleImage(file) {
   const formData = new FormData();
 
   formData.append('image', file);
 
-  const response = await fetch('/api/admin/upload/article-image', {
+  return request('/upload/article-image', {
     method: 'POST',
-    credentials: 'include',
     body: formData,
   });
-
-  return response.json();
 }
 
 export function getStatistics() {
@@ -116,7 +186,9 @@ export function getRegulationPublication() {
 }
 
 export function retryRegulationPublication() {
-  return request('/regulations/publication', { method: 'POST' });
+  return request('/regulations/publication', {
+    method: 'POST',
+  });
 }
 
 export function updateArticlesYear() {

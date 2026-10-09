@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
-import { getSession, login, logout } from '../api/adminApi';
+import { ADMIN_AUTH_REQUIRED_EVENT, getSession, login, logout } from '../api/adminApi';
 
 const AuthContext = createContext(null);
 
@@ -40,7 +40,18 @@ export function AuthProvider({ children }) {
   }
 
   useEffect(() => {
+    function handleAuthRequired() {
+      setUser(null);
+      setChecking(false);
+    }
+
+    window.addEventListener(ADMIN_AUTH_REQUIRED_EVENT, handleAuthRequired);
+
     checkSession();
+
+    return () => {
+      window.removeEventListener(ADMIN_AUTH_REQUIRED_EVENT, handleAuthRequired);
+    };
   }, []);
 
   return (
