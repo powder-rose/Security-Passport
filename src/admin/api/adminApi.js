@@ -190,9 +190,3 @@ export function retryRegulationPublication() {
     method: 'POST',
   });
 }
-
-export function updateArticlesYear() {
-  return request('/articles/update-year', {
-    method: 'POST',
-  });
-}

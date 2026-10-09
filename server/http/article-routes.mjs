@@ -11,7 +11,6 @@ import {
   createArticle,
   updateArticle,
   deleteArticle,
-  updatePublishedArticlesYear,
 } from '../articles/admin-articles.mjs';
 
 import { queueBlogPublication, getBlogPublicationStatus } from '../articles/blog-publication.mjs';
@@ -154,35 +153,6 @@ export function registerArticleRoutes({ app, adminAuth, clientDir }) {
       publication: getBlogPublicationStatus(),
     });
   });
-
-  app.post(
-    '/api/admin/articles/update-year',
-    adminAuth.requireAdmin,
-    asyncRoute(async (_req, res) => {
-      try {
-        const currentYear = new Date().getUTCFullYear();
-
-        const result = await updatePublishedArticlesYear(currentYear);
-
-        queueBlogPublication('articles-year-updated');
-
-        return res.json({
-          ok: true,
-          ...result,
-          publication: {
-            queued: true,
-          },
-        });
-      } catch (error) {
-        console.error('[admin] articles year update failed:', error);
-
-        return res.status(500).json({
-          ok: false,
-          error: 'ARTICLE_YEAR_UPDATE_FAILED',
-        });
-      }
-    }),
-  );
 
   app.get(
     '/api/admin/articles',
