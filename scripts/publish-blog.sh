@@ -16,6 +16,8 @@ SHARED_UPLOADS="${SITE_ROOT}/shared/uploads"
 BASE_DOMAIN="pasport-bezopasnosty.ru"
 SERVER_IP="85.198.68.145"
 
+KEEP_RELEASES=5
+
 LOCK_FILE="${PROJECT}/data/.federal-deploy.lock"
 LOG_FILE="/var/log/passport-deploy.log"
 
@@ -437,6 +439,12 @@ if [ "${FAILED}" -ne 0 ]; then
     exit 1
 fi
 
+
+echo
+echo "Применяем retention releases и runtime..."
+
+PASSPORT_KEEP_RELEASES="${KEEP_RELEASES}" \
+    "${PROJECT}/scripts/cleanup-release-storage.sh"
 
 log_event "success"
 

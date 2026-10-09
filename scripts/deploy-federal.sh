@@ -389,57 +389,14 @@ fi
 
 
 echo
-echo "[7/7] Очищаем старые releases..."
+echo "[7/7] Применяем retention releases и runtime..."
 
-mapfile -t ALL_RELEASES < <(
-    find "${RELEASES}" \
-        -mindepth 1 \
-        -maxdepth 1 \
-        -type d \
-        -name '20*' \
-        -print \
-        | sort -r
-)
+PASSPORT_KEEP_RELEASES="${KEEP_RELEASES}" \
+    "${PROJECT}/scripts/cleanup-release-storage.sh"
 
-if [ "${#ALL_RELEASES[@]}" -gt "${KEEP_RELEASES}" ]; then
-
-    for OLD_RELEASE in \
-        "${ALL_RELEASES[@]:${KEEP_RELEASES}}"
-    do
-        if [ "$(
-            readlink -f "${CURRENT}"
-        )" = "${OLD_RELEASE}" ]; then
-            continue
-        fi
-
-        echo "Удаляем старый release:"
-        echo "${OLD_RELEASE}"
-
-        rm -rf "${OLD_RELEASE}"
-    done
-fi
 
 echo
 echo "=========================================="
-echo
-echo "Очищаем устаревшие runtime symlink..."
-
-for RUNTIME_ITEM in "${RUNTIMES}"/*; do
-    [ -L "${RUNTIME_ITEM}" ] || continue
-
-    RUNTIME_NAME="$(
-        basename "${RUNTIME_ITEM}"
-    )"
-
-    if [ ! -d "${RELEASES}/${RUNTIME_NAME}" ]; then
-        echo "Удаляем stale runtime link:"
-        echo "${RUNTIME_ITEM}"
-
-        rm -- "${RUNTIME_ITEM}"
-    fi
-done
-
-
 echo "✓ Федеральная версия опубликована"
 echo "current -> $(readlink -f "${CURRENT}")"
 echo "=========================================="
