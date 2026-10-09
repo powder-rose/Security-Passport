@@ -463,6 +463,16 @@ Backend и внутренняя статистика также использу
 
 Они рассчитаны на production-окружение проекта.
 
+Версионируемая production-инфраструктура находится в:
+
+    deploy/nginx/
+    deploy/pm2/
+    deploy/systemd/
+
+Описание production-конфигурации и правила её синхронизации находятся в:
+
+    deploy/README.md
+
 Не запускайте production deployment scripts на неподготовленной локальной машине.
 
 ## Environment

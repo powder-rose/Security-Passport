@@ -1,0 +1,16 @@
+[Unit]
+Description=Passport Security website health monitor
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/var/www/pasport-bezopasnosty.ru/app/passport-security-base
+
+Environment=HOME=/root
+Environment=PM2_HOME=/root/.pm2
+
+ExecStart=/usr/bin/node /var/www/pasport-bezopasnosty.ru/app/passport-security-base/scripts/site-monitor.mjs
+
+TimeoutStartSec=45
