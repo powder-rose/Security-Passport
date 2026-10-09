@@ -141,54 +141,6 @@ export default function CreateArticlePage() {
     });
   }
 
-  async function getCroppedFile(imageSrc, pixelCrop) {
-    const image = await new Promise((resolve, reject) => {
-      const img = new Image();
-
-      img.onload = () => resolve(img);
-
-      img.onerror = reject;
-
-      img.src = imageSrc;
-    });
-
-    const canvas = document.createElement('canvas');
-
-    canvas.width = 1200;
-
-    canvas.height = 675;
-
-    const ctx = canvas.getContext('2d');
-
-    ctx.drawImage(
-      image,
-
-      pixelCrop.x,
-      pixelCrop.y,
-
-      pixelCrop.width,
-      pixelCrop.height,
-
-      0,
-      0,
-
-      1200,
-      675,
-    );
-
-    const blob = await new Promise(resolve => {
-      canvas.toBlob(resolve, 'image/webp', 0.9);
-    });
-
-    if (!blob) {
-      throw new Error('Не удалось подготовить изображение');
-    }
-
-    return new File([blob], 'article-image.webp', {
-      type: 'image/webp',
-    });
-  }
-
   function previewArticle() {
     const previewData = {
       ...form,
