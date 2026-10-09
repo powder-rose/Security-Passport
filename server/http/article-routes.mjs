@@ -184,10 +184,10 @@ export function registerArticleRoutes({ app, adminAuth, clientDir }) {
           },
         });
       } catch (error) {
-        if (error?.code === 'ARTICLE_SEO_REQUIRED') {
+        if (error?.code === 'ARTICLE_INPUT_INVALID' || error?.code === 'ARTICLE_SEO_REQUIRED') {
           return res.status(400).json({
             ok: false,
-            error: 'ARTICLE_SEO_REQUIRED',
+            error: error.code,
           });
         }
 
@@ -240,10 +240,10 @@ export function registerArticleRoutes({ app, adminAuth, clientDir }) {
           },
         });
       } catch (error) {
-        if (error?.code === 'ARTICLE_SEO_REQUIRED') {
+        if (error?.code === 'ARTICLE_INPUT_INVALID' || error?.code === 'ARTICLE_SEO_REQUIRED') {
           return res.status(400).json({
             ok: false,
-            error: 'ARTICLE_SEO_REQUIRED',
+            error: error.code,
           });
         }
 

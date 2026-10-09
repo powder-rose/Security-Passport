@@ -173,6 +173,59 @@ registerArticleRoutes({
   clientDir: path.join(temporaryRoot, 'client'),
 });
 
+test('POST /api/admin/articles returns 400 for invalid article input', async () => {
+  const route = findRoute(routes, 'POST', '/api/admin/articles');
+
+  const handler = route.handlers.at(-1);
+
+  const { forwardedError, rejectedError, response } = await invokeRouteHandler(handler, {
+    params: {},
+    body: {
+      title: {
+        invalid: true,
+      },
+      status: 'draft',
+    },
+  });
+
+  assert.equal(rejectedError, undefined);
+
+  assert.equal(forwardedError, undefined);
+
+  assert.equal(response.statusCode, 400);
+
+  assert.deepEqual(response.body, {
+    ok: false,
+    error: 'ARTICLE_INPUT_INVALID',
+  });
+});
+
+test('PUT /api/admin/articles/:id returns 400 for invalid article input', async () => {
+  const route = findRoute(routes, 'PUT', '/api/admin/articles/:id');
+
+  const handler = route.handlers.at(-1);
+
+  const { forwardedError, rejectedError, response } = await invokeRouteHandler(handler, {
+    params: {
+      id: 'article-id',
+    },
+    body: {
+      status: 'banana',
+    },
+  });
+
+  assert.equal(rejectedError, undefined);
+
+  assert.equal(forwardedError, undefined);
+
+  assert.equal(response.statusCode, 400);
+
+  assert.deepEqual(response.body, {
+    ok: false,
+    error: 'ARTICLE_INPUT_INVALID',
+  });
+});
+
 test('public article route converts storage error into controlled 500 response', async () => {
   const route = findRoute(routes, 'GET', '/api/articles');
   const handler = route.handlers.at(-1);
