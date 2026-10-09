@@ -229,7 +229,7 @@ export default function DocumentationPage() {
         </div>
 
         <div className="documentation-header__meta">
-          <span>README_DEV.md</span>
+          <span>{documentation?.filename || 'README.md'}</span>
 
           <strong>Обновлён {formatUpdatedAt(documentation?.updatedAt)}</strong>
 
