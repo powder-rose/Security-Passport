@@ -9,7 +9,6 @@ import { planRegulationDateSync, replaceRegulationDate } from './regulation-date
 import {
   applyRegulationSyncWorkspace,
   createRegulationSyncWorkspace,
-  rollbackRegulationSyncChanges,
 } from './regulation-sync-workspace.mjs';
 
 const FILE = fileURLToPath(new URL('../../data/regulations.json', import.meta.url));
@@ -33,39 +32,12 @@ async function readRegistry() {
   return data;
 }
 
-async function writeRegistry(data) {
-  const temporary = `${FILE}.${process.pid}.${Date.now()}.tmp`;
-
-  try {
-    await fs.writeFile(temporary, JSON.stringify(data, null, 2) + '\n', {
-      encoding: 'utf8',
-      mode: 0o600,
-    });
-
-    await fs.rename(temporary, FILE);
-  } catch (error) {
-    await fs.rm(temporary, {
-      force: true,
-    });
-
-    throw error;
-  }
-}
-
 async function commitRegulationUpdate(data, workspace) {
-  const applied = await applyRegulationSyncWorkspace(workspace);
+  const registrySource = JSON.stringify(data, null, 2) + '\n';
 
-  try {
-    await writeRegistry(data);
-  } catch (error) {
-    try {
-      await rollbackRegulationSyncChanges(applied.changes);
-    } catch (rollbackError) {
-      throw new AggregateError([error, rollbackError], 'REGULATION_UPDATE_ROLLBACK_FAILED');
-    }
+  await workspace.transform('data/regulations.json', () => registrySource);
 
-    throw error;
-  }
+  await applyRegulationSyncWorkspace(workspace);
 }
 
 function validate(input) {
