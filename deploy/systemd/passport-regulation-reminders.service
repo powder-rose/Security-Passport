@@ -1,0 +1,8 @@
+[Unit]
+Description=Passport regulation expiry reminders
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/var/www/pasport-bezopasnosty.ru/app/passport-security-base
+ExecStart=/usr/bin/node /var/www/pasport-bezopasnosty.ru/app/passport-security-base/server/regulations/regulation-reminders.mjs

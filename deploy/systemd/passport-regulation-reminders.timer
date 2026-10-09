@@ -1,0 +1,10 @@
+[Unit]
+Description=Check regulation deadlines hourly
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+Unit=passport-regulation-reminders.service
+
+[Install]
+WantedBy=timers.target
