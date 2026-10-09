@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { getArticles, deleteArticle, updateArticle, updateArticlesYear } from '../../api/adminApi';
-
-const CURRENT_YEAR = new Date().getFullYear();
+import { getArticles, deleteArticle, updateArticle } from '../../api/adminApi';
 
 const BLOG_CATEGORIES = [
   {
@@ -73,37 +71,7 @@ export default function ArticlesPage() {
     loadArticles();
   }, []);
 
-  const [updatingYear, setUpdatingYear] = useState(false);
-
   const [updatingCategoryId, setUpdatingCategoryId] = useState(null);
-
-  async function updateYear() {
-    const year = new Date().getFullYear();
-
-    const ok = window.confirm(
-      `Обновить год публикации на ${year} у статей, дата которых уже наступила? Будущие даты изменены не будут.`,
-    );
-
-    if (!ok) {
-      return;
-    }
-
-    setUpdatingYear(true);
-
-    try {
-      const result = await updateArticlesYear();
-
-      if (result?.ok) {
-        alert(`Готово. Обновлено статей: ${result.updated || 0}`);
-
-        await loadArticles();
-      } else {
-        alert('Не удалось обновить год статей');
-      }
-    } finally {
-      setUpdatingYear(false);
-    }
-  }
 
   async function changeArticleCategory(id, category) {
     setUpdatingCategoryId(id);
@@ -183,27 +151,6 @@ export default function ArticlesPage() {
 
         <div className="admin-articles-header-actions-wrap">
           <div className="admin-articles-header-actions">
-            <button
-              type="button"
-              className="admin-year-button"
-              disabled={updatingYear}
-              onClick={updateYear}
-            >
-              {updatingYear ? 'Обновляем…' : `Обновить год → ${CURRENT_YEAR}`}
-            </button>
-
-            <span
-              className="admin-year-help"
-              tabIndex="0"
-              aria-label="Информация об обновлении года"
-            >
-              ?
-              <span className="admin-year-tooltip" role="tooltip">
-                Обновляет только год у опубликованных статей. День и месяц сохраняются. Черновики не
-                изменяются.
-              </span>
-            </span>
-
             <a href="/admin/articles/new?fresh=1" className="admin-button">
               Создать статью
             </a>

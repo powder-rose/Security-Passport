@@ -160,7 +160,7 @@ test('article route contract keeps public routes open and admin routes protected
     clientDir: '/tmp/passport-route-test/client',
   });
 
-  assert.equal(routes.length, 11);
+  assert.equal(routes.length, 10);
 
   const publicRoutes = [
     ['GET', ['/blog/:slug', '/blog/:slug/']],
@@ -182,7 +182,6 @@ test('article route contract keeps public routes open and admin routes protected
 
   const protectedRoutes = [
     ['GET', '/api/admin/blog-publication'],
-    ['POST', '/api/admin/articles/update-year'],
     ['GET', '/api/admin/articles'],
     ['POST', '/api/admin/articles'],
     ['GET', '/api/admin/articles/:id'],

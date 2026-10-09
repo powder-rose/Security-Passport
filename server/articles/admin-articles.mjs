@@ -348,86 +348,6 @@ async function updateArticleMutation(id, data) {
   return articles[index];
 }
 
-async function updatePublishedArticlesYearMutation(year = new Date().getUTCFullYear()) {
-  const articles = await readArticles();
-
-  let updated = 0;
-
-  const now = new Date();
-
-  const todayUtc = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
-
-  const nextArticles = articles.map(article => {
-    if (article.status !== 'published' || !article.publishedAt) {
-      return article;
-    }
-
-    const date = new Date(article.publishedAt);
-
-    if (Number.isNaN(date.getTime())) {
-      return article;
-    }
-
-    /*
-     * Если статья уже имеет нужный год,
-     * повторно её не обновляем.
-     */
-    if (date.getUTCFullYear() === year) {
-      return article;
-    }
-
-    const month = date.getUTCMonth();
-
-    const day = date.getUTCDate();
-
-    /*
-     * Проверяем день и месяц отдельно.
-     * Это также защищает 29 февраля:
-     * в невисокосном году дата не превратится
-     * автоматически в 1 марта.
-     */
-    const candidateDate = new Date(Date.UTC(year, month, day));
-
-    if (
-      candidateDate.getUTCFullYear() !== year ||
-      candidateDate.getUTCMonth() !== month ||
-      candidateDate.getUTCDate() !== day
-    ) {
-      return article;
-    }
-
-    /*
-     * Нельзя создавать дату публикации из будущего.
-     *
-     * Например, 1 января статья от 15 августа
-     * останется в прошлом году и обновится только
-     * после наступления 15 августа.
-     */
-    if (candidateDate.getTime() > todayUtc) {
-      return article;
-    }
-
-    date.setUTCFullYear(year);
-
-    updated += 1;
-
-    return {
-      ...article,
-
-      publishedAt: date.toISOString(),
-
-      updatedAt: new Date().toISOString(),
-    };
-  });
-
-  await saveArticles(nextArticles);
-
-  return {
-    updated,
-    year,
-  };
-}
-
 async function deleteArticleMutation(id) {
   const articles = await readArticles();
 
@@ -444,10 +364,6 @@ export function createArticle(data) {
 
 export function updateArticle(id, data) {
   return queueArticleWrite(() => updateArticleMutation(id, data));
-}
-
-export function updatePublishedArticlesYear(year = new Date().getUTCFullYear()) {
-  return queueArticleWrite(() => updatePublishedArticlesYearMutation(year));
 }
 
 export function deleteArticle(id) {
