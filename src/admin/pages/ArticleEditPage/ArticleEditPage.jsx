@@ -3,53 +3,19 @@ import { useEffect, useRef, useState } from 'react';
 import { getArticle, updateArticle } from '../../api/adminApi';
 import { BLOG_CATEGORIES, createSlug, validatePublicationSeo } from './articleEditorUtils.js';
 import { useArticleImage } from '../../features/articles/hooks/useArticleImage.js';
+import {
+  createArticleFormFromRecord,
+  getNormalizedArticleSeo,
+} from '../../features/articles/model/articleForm.js';
 
 import ArticleEditor from '../../components/Editor/ArticleEditor.jsx';
 
 import ImageCropper from '../../components/ImageCropper/ImageCropper.jsx';
 
-const LEGACY_CATEGORY_VALUES = new Set([
-  'passport',
-  'categorization',
-  'requirements',
-  'actualization',
-  'practice',
-  'паспорта безопасности',
-  'категорирование объектов',
-  'требования и законодательство',
-  'актуализация паспорта',
-  'практика и документы',
-]);
-
-function getEditableCategory(value) {
-  const category = String(value || '')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-  if (LEGACY_CATEGORY_VALUES.has(category.toLocaleLowerCase('ru-RU'))) {
-    return '';
-  }
-
-  return category;
-}
-
 export default function ArticleEditPage() {
   const id = window.location.pathname.split('/').filter(Boolean).pop();
 
-  const [form, setForm] = useState({
-    title: '',
-    slug: '',
-    content: '',
-    image: '',
-    imageAlt: '',
-    category: '',
-    status: 'draft',
-    seoTitle: '',
-    seoDescription: '',
-    ogTitle: '',
-    ogDescription: '',
-    ogImage: '',
-  });
+  const [form, setForm] = useState(() => createArticleFormFromRecord());
 
   const [loading, setLoading] = useState(true);
 
@@ -78,31 +44,7 @@ export default function ArticleEditPage() {
             slug: result.article.slug || '',
           });
 
-          setForm({
-            title: result.article.title || '',
-
-            slug: result.article.slug || '',
-
-            content: result.article.content || '',
-
-            image: result.article.image || '',
-
-            imageAlt: result.article.imageAlt || '',
-
-            category: getEditableCategory(result.article.category),
-
-            status: result.article.status || 'draft',
-
-            seoTitle: result.article.seoTitle || '',
-
-            seoDescription: result.article.seoDescription || '',
-
-            ogTitle: result.article.ogTitle || '',
-
-            ogDescription: result.article.ogDescription || '',
-
-            ogImage: result.article.ogImage || '',
-          });
+          setForm(createArticleFormFromRecord(result.article));
         } else if (result?.error === 'ARTICLE_NOT_FOUND') {
           setLoadError('Статья не найдена.');
         } else {
@@ -165,9 +107,7 @@ export default function ArticleEditPage() {
       const result = await updateArticle(id, {
         ...form,
 
-        seoTitle: String(form.seoTitle || '').trim(),
-
-        seoDescription: String(form.seoDescription || '').trim(),
+        ...getNormalizedArticleSeo(form),
 
         updateSlug: form.slug !== savedPublication.slug,
       });
