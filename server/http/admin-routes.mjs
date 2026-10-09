@@ -1,6 +1,3 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
-
 import { getAdminLeadsPage } from '../leads/admin-leads.mjs';
 import { listRegulations, saveRegulationBundle } from '../regulations/admin-regulations.mjs';
 import { deleteLeadFromFile } from '../leads/lead-storage.mjs';
@@ -9,6 +6,7 @@ import {
   queueRegulationPublication,
 } from '../regulations/regulation-publisher.mjs';
 import { getStatistics } from '../analytics/statistics.mjs';
+import { readAdminDocumentation } from '../shared/admin-documentation.mjs';
 
 export function registerAdminRoutes({ app, adminAuth, projectRoot, leadsFile }) {
   app.post('/api/admin/login', adminAuth.login);
@@ -18,27 +16,20 @@ export function registerAdminRoutes({ app, adminAuth, projectRoot, leadsFile }) 
   app.get('/api/admin/session', adminAuth.requireAdmin, adminAuth.session);
 
   app.get('/api/admin/documentation', adminAuth.requireAdmin, async (_req, res) => {
-    const documentationPath = path.resolve(projectRoot, 'README_DEV.md');
-
     try {
-      const [markdown, stats] = await Promise.all([
-        fs.readFile(documentationPath, 'utf8'),
-
-        fs.stat(documentationPath),
-      ]);
+      const documentation = await readAdminDocumentation(projectRoot);
 
       res.set('Cache-Control', 'no-store');
 
       return res.json({
         ok: true,
-        markdown,
-        updatedAt: stats.mtime.toISOString(),
+        ...documentation,
       });
     } catch (error) {
-      if (error?.code === 'ENOENT') {
+      if (error?.code === 'ADMIN_DOCUMENTATION_NOT_FOUND') {
         return res.status(404).json({
           ok: false,
-          error: 'README_DEV_NOT_FOUND',
+          error: 'ADMIN_DOCUMENTATION_NOT_FOUND',
         });
       }
 
