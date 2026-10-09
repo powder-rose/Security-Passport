@@ -1,11 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { getArticle, updateArticle, uploadArticleImage } from '../../api/adminApi';
+import { getArticle, updateArticle } from '../../api/adminApi';
 import { BLOG_CATEGORIES, createSlug, validatePublicationSeo } from './articleEditorUtils.js';
-import {
-  createCroppedArticleImageFile,
-  getArticleImageValidationError,
-} from '../../features/articles/utils/articleImage.js';
+import { useArticleImage } from '../../features/articles/hooks/useArticleImage.js';
 
 import ArticleEditor from '../../components/Editor/ArticleEditor.jsx';
 
@@ -57,8 +54,6 @@ export default function ArticleEditPage() {
   const [loading, setLoading] = useState(true);
 
   const [loadError, setLoadError] = useState('');
-
-  const [cropImage, setCropImage] = useState(null);
 
   const savingRef = useRef(false);
 
@@ -133,6 +128,11 @@ export default function ArticleEditPage() {
     }));
   }
 
+  const { cropImage, selectImage, cancelCrop, cropAndUpload } = useArticleImage({
+    onUploaded: url => change('image', url),
+    resetInputAfterSelect: true,
+  });
+
   function openPreview() {
     const previewArticle = {
       ...form,
@@ -147,33 +147,6 @@ export default function ArticleEditPage() {
     window.sessionStorage.setItem('passport-article-preview', JSON.stringify(previewArticle));
 
     window.open('/article-preview.html', '_blank');
-  }
-
-  async function uploadImage(e) {
-    const file = e.target.files?.[0];
-
-    if (!file) {
-      return;
-    }
-
-    const validationError = getArticleImageValidationError(file);
-
-    if (validationError) {
-      alert(validationError);
-
-      e.target.value = '';
-
-      return;
-    }
-
-    const preview = URL.createObjectURL(file);
-
-    setCropImage({
-      file,
-      preview,
-    });
-
-    e.target.value = '';
   }
 
   async function save() {
@@ -246,43 +219,7 @@ export default function ArticleEditPage() {
   return (
     <>
       {cropImage && (
-        <ImageCropper
-          image={cropImage.preview}
-
-          onCancel={() => {
-            URL.revokeObjectURL(cropImage.preview);
-
-            setCropImage(null);
-          }}
-
-          onCrop={async pixels => {
-            try {
-              const file = await createCroppedArticleImageFile(cropImage.preview, pixels);
-
-              const result = await uploadArticleImage(file);
-
-              if (!result?.ok || !result.url) {
-                if (result?.error === 'INVALID_IMAGE') {
-                  alert('Не удалось обработать изображение. Выберите другой файл.');
-                } else {
-                  alert('Не удалось загрузить изображение.');
-                }
-
-                return;
-              }
-
-              change('image', result.url);
-            } catch (error) {
-              console.error(error);
-
-              alert('Не удалось загрузить изображение. Попробуйте ещё раз.');
-            } finally {
-              URL.revokeObjectURL(cropImage.preview);
-
-              setCropImage(null);
-            }
-          }}
-        />
+        <ImageCropper image={cropImage.preview} onCancel={cancelCrop} onCrop={cropAndUpload} />
       )}
 
       <div className="admin-editor">
@@ -358,7 +295,7 @@ export default function ArticleEditPage() {
                   <input
                     type="file"
                     accept="image/jpeg,image/png,image/webp"
-                    onChange={uploadImage}
+                    onChange={selectImage}
                   />
                 </label>
 
