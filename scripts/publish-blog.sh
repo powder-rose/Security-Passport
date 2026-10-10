@@ -11,12 +11,17 @@ SITE_ROOT="/var/www/pasport-bezopasnosty.ru"
 RELEASES="${SITE_ROOT}/releases"
 RUNTIMES="${SITE_ROOT}/release-runtime"
 CURRENT="${SITE_ROOT}/current"
+BACKEND_CURRENT="${SITE_ROOT}/backend-current"
 SHARED_UPLOADS="${SITE_ROOT}/shared/uploads"
+
+GENERATION_HELPER="${PROJECT}/scripts/lib/release-generation.sh"
 
 BASE_DOMAIN="pasport-bezopasnosty.ru"
 SERVER_IP="85.198.68.145"
 
 KEEP_RELEASES=5
+
+source "${GENERATION_HELPER}"
 
 LOCK_FILE="${PROJECT}/data/.federal-deploy.lock"
 LOG_FILE="/var/log/passport-deploy.log"
@@ -55,41 +60,8 @@ RUNTIME="${RUNTIMES}/${ORIGINAL_NAME}"
 SERVER_ENTRY="${RUNTIME}/server/entry-server.js"
 RAW_TEMPLATE="${RUNTIME}/template/index.html"
 
-PROJECT_NODE_MODULES="${PROJECT}/node_modules"
-RUNTIME_NODE_MODULES="${RUNTIME}/node_modules"
-
-
-if [ ! -d "${PROJECT_NODE_MODULES}" ]; then
-    echo "ОШИБКА: node_modules проекта не найден:"
-    echo "${PROJECT_NODE_MODULES}"
-    exit 1
-fi
-
-
-if [ -e "${RUNTIME_NODE_MODULES}" ] \
-    || [ -L "${RUNTIME_NODE_MODULES}" ]
-then
-
-    if [ "$(
-        readlink -f "${RUNTIME_NODE_MODULES}" 2>/dev/null || true
-    )" != "$(
-        readlink -f "${PROJECT_NODE_MODULES}"
-    )" ]; then
-
-        echo "ОШИБКА: runtime/node_modules указывает не туда:"
-        echo "${RUNTIME_NODE_MODULES}"
-
-        exit 1
-    fi
-
-else
-
-    ln -s \
-        "${PROJECT_NODE_MODULES}" \
-        "${RUNTIME_NODE_MODULES}"
-
-fi
-
+validate_backend_runtime \
+    "${RUNTIME}"
 
 if [ ! -s "${SERVER_ENTRY}" ]; then
     echo "ОШИБКА: отсутствует SSR runtime:"
@@ -179,20 +151,7 @@ log_event() {
 }
 
 
-switch_current() {
-    local target="$1"
-    local temporary="${CURRENT}.next.$$"
 
-    rm -f "${temporary}"
-
-    ln -s \
-        "${target}" \
-        "${temporary}"
-
-    mv -Tf \
-        "${temporary}" \
-        "${CURRENT}"
-}
 
 
 remove_new_release() {
@@ -358,12 +317,16 @@ ln -s \
 echo "runtime -> $(readlink -f "${NEW_RUNTIME}")"
 
 
-echo "[6/7] Переключаем current..."
+echo "[6/7] Переключаем generation..."
 
-switch_current \
-    "${NEW_RELEASE}"
+switch_generation_links \
+    "${CURRENT}" \
+    "${BACKEND_CURRENT}" \
+    "${NEW_RELEASE}" \
+    "${NEW_RUNTIME}"
 
 echo "current -> $(readlink -f "${CURRENT}")"
+echo "backend-current -> $(readlink -f "${BACKEND_CURRENT}")"
 
 
 echo "[7/7] Проверяем production..."
@@ -427,8 +390,11 @@ if [ "${FAILED}" -ne 0 ]; then
     echo "ОШИБКА: production health-check не пройден."
     echo "Возвращаю ${ORIGINAL_NAME}..."
 
-    switch_current \
-        "${ORIGINAL_RELEASE}"
+    switch_generation_links \
+        "${CURRENT}" \
+        "${BACKEND_CURRENT}" \
+        "${ORIGINAL_RELEASE}" \
+        "${RUNTIME}"
 
     remove_new_release
 
@@ -452,4 +418,5 @@ echo
 echo "=========================================="
 echo "✓ БЛОГ ОПУБЛИКОВАН"
 echo "current -> $(readlink -f "${CURRENT}")"
+echo "backend-current -> $(readlink -f "${BACKEND_CURRENT}")"
 echo "=========================================="
