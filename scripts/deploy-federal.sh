@@ -15,9 +15,15 @@ SERVER_IP="85.198.68.145"
 RELEASES="${SITE_ROOT}/releases"
 RUNTIMES="${SITE_ROOT}/release-runtime"
 CURRENT="${SITE_ROOT}/current"
+BACKEND_CURRENT="${SITE_ROOT}/backend-current"
 SHARED_UPLOADS="${SITE_ROOT}/shared/uploads"
 
+PM2_CONFIG="${PROJECT}/deploy/pm2/ecosystem.config.cjs"
+GENERATION_HELPER="${PROJECT}/scripts/lib/release-generation.sh"
+
 KEEP_RELEASES=5
+
+source "${GENERATION_HELPER}"
 
 exec 9>"${PROJECT}/data/.federal-deploy.lock"
 
@@ -47,6 +53,86 @@ PREVIOUS_RELEASE="$(
     readlink -f "${CURRENT}" 2>/dev/null || true
 )"
 
+PREVIOUS_RUNTIME=""
+
+if [ -n "${PREVIOUS_RELEASE}" ]; then
+    PREVIOUS_NAME="$(
+        basename "${PREVIOUS_RELEASE}"
+    )"
+
+    PREVIOUS_RUNTIME="${RUNTIMES}/${PREVIOUS_NAME}"
+
+    if [ -z "$(
+        readlink -f "${PREVIOUS_RUNTIME}" 2>/dev/null || true
+    )" ]; then
+        echo "ОШИБКА: runtime активного release отсутствует:"
+        echo "${PREVIOUS_RUNTIME}"
+        exit 1
+    fi
+
+    if ! validate_backend_runtime \
+        "${PREVIOUS_RUNTIME}" \
+        >/dev/null 2>&1
+    then
+        echo "Активный runtime ещё legacy."
+        echo "Создаём rollback-capable backend snapshot..."
+
+        create_backend_runtime_snapshot \
+            "${PROJECT}" \
+            "${PREVIOUS_RUNTIME}"
+    fi
+
+    validate_backend_runtime \
+        "${PREVIOUS_RUNTIME}"
+
+    switch_generation_links \
+        "${CURRENT}" \
+        "${BACKEND_CURRENT}" \
+        "${PREVIOUS_RELEASE}" \
+        "${PREVIOUS_RUNTIME}"
+fi
+
+
+restore_previous_generation() {
+    if [ -z "${PREVIOUS_RELEASE}" ] \
+        || [ -z "${PREVIOUS_RUNTIME}" ]
+    then
+        return 1
+    fi
+
+    echo "Возвращаю предыдущую full-stack generation..."
+
+    if ! switch_generation_links \
+        "${CURRENT}" \
+        "${BACKEND_CURRENT}" \
+        "${PREVIOUS_RELEASE}" \
+        "${PREVIOUS_RUNTIME}"
+    then
+        echo "ОШИБКА: ссылки предыдущей generation восстановить не удалось."
+        return 1
+    fi
+
+    if ! pm2 startOrReload \
+        "${PM2_CONFIG}" \
+        --only passport-api \
+        --update-env
+    then
+        echo "ОШИБКА: предыдущий backend не перезапустился."
+        return 1
+    fi
+
+    if ! wait_backend_health; then
+        echo "ОШИБКА: предыдущий backend не стал healthy."
+        return 1
+    fi
+
+    echo "current -> $(readlink -f "${CURRENT}")"
+    echo "backend-current -> $(readlink -f "${BACKEND_CURRENT}")"
+
+    return 0
+}
+
+
 STAMP="$(date +%Y%m%d-%H%M%S)"
 
 BUILD_RELEASE="${RELEASES}/.${STAMP}.building"
@@ -65,18 +151,7 @@ cleanup_building() {
 trap cleanup_building EXIT
 
 
-switch_current() {
-    local target="$1"
-    local temporary="${CURRENT}.next.$$"
 
-    rm -f "${temporary}"
-
-    ln -s "${target}" "${temporary}"
-
-    mv -Tf \
-        "${temporary}" \
-        "${CURRENT}"
-}
 
 echo "Предыдущий release:"
 echo "${PREVIOUS_RELEASE:-нет}"
@@ -201,9 +276,9 @@ cp \
     dist/template/index.html \
     "${BUILD_RUNTIME}/template/index.html"
 
-ln -s \
-    "${PROJECT}/node_modules" \
-    "${BUILD_RUNTIME}/node_modules"
+create_backend_runtime_snapshot \
+    "${PROJECT}" \
+    "${BUILD_RUNTIME}"
 
 
 for FILE in \
@@ -245,14 +320,8 @@ then
 fi
 
 
-if [ "$(
-    readlink -f "${BUILD_RUNTIME}/node_modules"
-)" != "$(
-    readlink -f "${PROJECT}/node_modules"
-)" ]; then
-    echo "ОШИБКА: runtime/node_modules указывает не туда."
-    exit 1
-fi
+validate_backend_runtime \
+    "${BUILD_RUNTIME}"
 
 
 # Ensure nginx can traverse and read the static release.
@@ -281,12 +350,75 @@ echo "${NEW_RUNTIME}"
 
 
 echo
-echo "[5/7] Переключаем current..."
+echo "[5/7] Переключаем frontend/backend generation..."
 
-switch_current \
-    "${NEW_RELEASE}"
+switch_generation_links \
+    "${CURRENT}" \
+    "${BACKEND_CURRENT}" \
+    "${NEW_RELEASE}" \
+    "${NEW_RUNTIME}"
 
 echo "current -> $(readlink -f "${CURRENT}")"
+echo "backend-current -> $(readlink -f "${BACKEND_CURRENT}")"
+
+echo
+echo "Перезапускаем passport-api на новой generation..."
+
+if ! pm2 startOrReload \
+    "${PM2_CONFIG}" \
+    --only passport-api \
+    --update-env
+then
+    echo "ОШИБКА: passport-api не переключился на новую generation."
+
+    if ! restore_previous_generation; then
+        echo "КРИТИЧЕСКАЯ ОШИБКА: предыдущую generation восстановить не удалось."
+        exit 1
+    fi
+
+    rm -rf \
+        "${NEW_RELEASE}" \
+        "${NEW_RUNTIME}"
+
+    exit 1
+fi
+
+echo
+echo "Ждём готовность backend..."
+
+BACKEND_READY=0
+
+for ATTEMPT in $(seq 1 20); do
+    if curl \
+        -fsS \
+        --max-time 3 \
+        http://127.0.0.1:8787/api/health \
+        2>/dev/null \
+        | grep -q '"ok":true'
+    then
+        BACKEND_READY=1
+        break
+    fi
+
+    sleep 1
+done
+
+if [ "${BACKEND_READY}" -ne 1 ]; then
+    echo "ОШИБКА: backend новой generation не стал healthy."
+
+    if ! restore_previous_generation; then
+        echo "КРИТИЧЕСКАЯ ОШИБКА: предыдущую generation восстановить не удалось."
+        exit 1
+    fi
+
+    rm -rf \
+        "${NEW_RELEASE}" \
+        "${NEW_RUNTIME}"
+
+    exit 1
+fi
+
+echo "Backend ready."
 
 
 echo
@@ -367,17 +499,11 @@ if [ "${FAILED}" -ne 0 ]; then
     echo
     echo "Production-проверка не пройдена."
 
-    if [ -n "${PREVIOUS_RELEASE}" ] \
-        && [ -d "${PREVIOUS_RELEASE}" ]
-    then
-        echo "Выполняю автоматический rollback..."
-
-        switch_current \
-            "${PREVIOUS_RELEASE}"
-
-        echo "current -> $(readlink -f "${CURRENT}")"
+    if restore_previous_generation; then
+        echo "Full-stack rollback выполнен."
     else
-        echo "Предыдущий release отсутствует — автоматический rollback невозможен."
+        echo "КРИТИЧЕСКАЯ ОШИБКА: предыдущая generation недоступна."
+        exit 1
     fi
 
     rm -rf \
@@ -399,4 +525,5 @@ echo
 echo "=========================================="
 echo "✓ Федеральная версия опубликована"
 echo "current -> $(readlink -f "${CURRENT}")"
+echo "backend-current -> $(readlink -f "${BACKEND_CURRENT}")"
 echo "=========================================="

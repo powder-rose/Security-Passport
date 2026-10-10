@@ -6,11 +6,18 @@ PROJECT="/var/www/pasport-bezopasnosty.ru/app/passport-security-base"
 SITE_ROOT="/var/www/pasport-bezopasnosty.ru"
 
 RELEASES="${SITE_ROOT}/releases"
+RUNTIMES="${SITE_ROOT}/release-runtime"
 CURRENT="${SITE_ROOT}/current"
+BACKEND_CURRENT="${SITE_ROOT}/backend-current"
 SHARED_UPLOADS="${SITE_ROOT}/shared/uploads"
+
+PM2_CONFIG="${PROJECT}/deploy/pm2/ecosystem.config.cjs"
+GENERATION_HELPER="${PROJECT}/scripts/lib/release-generation.sh"
 
 BASE_DOMAIN="pasport-bezopasnosty.ru"
 SERVER_IP="85.198.68.145"
+
+source "${GENERATION_HELPER}"
 
 exec 9>"${PROJECT}/data/.federal-deploy.lock"
 
@@ -20,20 +27,7 @@ if ! flock -n 9; then
 fi
 
 
-switch_current() {
-    local target="$1"
-    local temporary="${CURRENT}.next.$$"
 
-    rm -f "${temporary}"
-
-    ln -s \
-        "${target}" \
-        "${temporary}"
-
-    mv -Tf \
-        "${temporary}" \
-        "${CURRENT}"
-}
 
 
 validate_release() {
@@ -183,6 +177,52 @@ then
     exit 1
 fi
 
+ORIGINAL_RUNTIME="$(
+    readlink -f "${BACKEND_CURRENT}" 2>/dev/null || true
+)"
+
+if [ -z "${ORIGINAL_RUNTIME}" ]; then
+    echo "ОШИБКА: backend-current не определён."
+    exit 1
+fi
+
+validate_backend_runtime \
+    "${ORIGINAL_RUNTIME}"
+
+
+restore_original_generation() {
+    echo "Возвращаю исходную full-stack generation..."
+
+    if ! switch_generation_links \
+        "${CURRENT}" \
+        "${BACKEND_CURRENT}" \
+        "${ORIGINAL}" \
+        "${ORIGINAL_RUNTIME}"
+    then
+        echo "ОШИБКА: исходные generation links восстановить не удалось."
+        return 1
+    fi
+
+    if ! pm2 startOrReload \
+        "${PM2_CONFIG}" \
+        --only passport-api \
+        --update-env
+    then
+        echo "ОШИБКА: исходный backend не перезапустился."
+        return 1
+    fi
+
+    if ! wait_backend_health; then
+        echo "ОШИБКА: исходный backend не стал healthy."
+        return 1
+    fi
+
+    echo "current -> $(readlink -f "${CURRENT}")"
+    echo "backend-current -> $(readlink -f "${BACKEND_CURRENT}")"
+
+    return 0
+}
+
 
 if [ "${1:-}" = "--to" ]; then
 
@@ -246,6 +286,15 @@ if [ "${TARGET}" = "${ORIGINAL}" ]; then
     exit 1
 fi
 
+TARGET_NAME="$(
+    basename "${TARGET}"
+)"
+
+TARGET_RUNTIME="${RUNTIMES}/${TARGET_NAME}"
+
+validate_backend_runtime \
+    "${TARGET_RUNTIME}"
+
 
 echo
 echo "=========================================="
@@ -265,16 +314,64 @@ echo "[1/3] Проверяем release..."
 validate_release \
     "${TARGET}"
 
-echo "Release OK."
+validate_backend_runtime \
+    "${TARGET_RUNTIME}"
+
+echo "Release + backend runtime OK."
 
 
 echo
-echo "[2/3] Переключаем current..."
+echo "[2/3] Переключаем full-stack generation..."
 
-switch_current \
-    "${TARGET}"
+switch_generation_links \
+    "${CURRENT}" \
+    "${BACKEND_CURRENT}" \
+    "${TARGET}" \
+    "${TARGET_RUNTIME}"
 
 echo "current -> $(readlink -f "${CURRENT}")"
+echo "backend-current -> $(readlink -f "${BACKEND_CURRENT}")"
+
+if ! pm2 startOrReload \
+    "${PM2_CONFIG}" \
+    --only passport-api \
+    --update-env
+then
+    echo "ОШИБКА: passport-api не запустился на rollback generation."
+
+    if ! restore_original_generation; then
+        echo "КРИТИЧЕСКАЯ ОШИБКА: исходную generation восстановить не удалось."
+    fi
+
+    exit 1
+fi
+
+BACKEND_READY=0
+
+for ATTEMPT in $(seq 1 20); do
+    if curl \
+        -fsS \
+        --max-time 3 \
+        http://127.0.0.1:8787/api/health \
+        2>/dev/null \
+        | grep -q '"ok":true'
+    then
+        BACKEND_READY=1
+        break
+    fi
+
+    sleep 1
+done
+
+if [ "${BACKEND_READY}" -ne 1 ]; then
+    echo "ОШИБКА: rollback backend не стал healthy."
+
+    if ! restore_original_generation; then
+        echo "КРИТИЧЕСКАЯ ОШИБКА: исходную generation восстановить не удалось."
+    fi
+
+    exit 1
+fi
 
 
 echo
@@ -286,6 +383,7 @@ if healthcheck; then
     echo "=========================================="
     echo "✓ ROLLBACK УСПЕШЕН"
     echo "current -> $(readlink -f "${CURRENT}")"
+echo "backend-current -> $(readlink -f "${BACKEND_CURRENT}")"
     echo "=========================================="
 
     exit 0
@@ -296,10 +394,10 @@ echo
 echo "ОШИБКА: проверка после rollback не пройдена."
 echo "Возвращаю исходный release..."
 
-switch_current \
-    "${ORIGINAL}"
-
-echo "current -> $(readlink -f "${CURRENT}")"
+if ! restore_original_generation; then
+    echo "КРИТИЧЕСКАЯ ОШИБКА: исходную generation восстановить не удалось."
+    exit 1
+fi
 
 echo
 echo "Проверяю восстановленную версию..."
