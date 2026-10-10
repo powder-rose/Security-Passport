@@ -1,5 +1,7 @@
 import fs from 'node:fs/promises';
-import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+
+import { resolveProjectRoot } from '../shared/project-root.mjs';
 import { planRegulationTitleSync } from './regulation-title-sync.mjs';
 
 import { planRegulationNumberSync, replaceRegulationNumber } from './regulation-number-sync.mjs';
@@ -11,7 +13,9 @@ import {
   createRegulationSyncWorkspace,
 } from './regulation-sync-workspace.mjs';
 
-const FILE = fileURLToPath(new URL('../../data/regulations.json', import.meta.url));
+const projectRoot = resolveProjectRoot();
+
+const FILE = path.join(projectRoot, 'data', 'regulations.json');
 
 const TOPICS = new Set([
   'hotel',

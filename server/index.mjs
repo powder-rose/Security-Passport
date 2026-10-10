@@ -1,6 +1,6 @@
 import path from 'node:path';
 import process from 'node:process';
-import { fileURLToPath } from 'node:url';
+
 import express from 'express';
 import dotenv from 'dotenv';
 import { createLeadDelivery } from './leads/lead-delivery.mjs';
@@ -17,11 +17,11 @@ import {
   resolveGracefulShutdownTimeout,
 } from './http/graceful-shutdown.mjs';
 import { recoverRegulationSyncTransactions } from './regulations/regulation-sync-workspace.mjs';
+import { resolveProjectRoot } from './shared/project-root.mjs';
 
 dotenv.config({ path: process.env.SERVER_ENV_FILE || '.env.server' });
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const projectRoot = path.resolve(__dirname, '..');
+const projectRoot = resolveProjectRoot();
 const clientDir = path.resolve(projectRoot, process.env.CLIENT_DIR || 'dist/client');
 
 const app = express();
