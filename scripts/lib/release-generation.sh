@@ -286,3 +286,114 @@ wait_backend_health() {
 
     return 1
 }
+
+pm2_app_exec_path() {
+    local app_name="$1"
+    local state
+
+    if ! state="$(pm2 jlist)"; then
+        echo "ОШИБКА: PM2 state прочитать не удалось." >&2
+        return 1
+    fi
+
+    PM2_APP_NAME="${app_name}" \
+        node -e '
+let input = "";
+
+process.stdin.on("data", chunk => {
+  input += chunk;
+});
+
+process.stdin.on("end", () => {
+  const apps = JSON.parse(input);
+
+  const app = apps.find(
+    item => item.name === process.env.PM2_APP_NAME,
+  );
+
+  if (!app) {
+    return;
+  }
+
+  process.stdout.write(
+    app.pm2_env?.pm_exec_path || "",
+  );
+});
+' <<< "${state}"
+}
+
+
+activate_pm2_generation() {
+    local config="$1"
+    local app_name="$2"
+    local expected_exec="$3"
+
+    local current_exec
+    local activated_exec
+
+    if ! current_exec="$(
+        pm2_app_exec_path "${app_name}"
+    )"; then
+        return 1
+    fi
+
+    if [ -z "${current_exec}" ]; then
+        echo "PM2 ${app_name}: процесс отсутствует, запускаем generation-aware registration."
+
+        if ! pm2 start \
+            "${config}" \
+            --only "${app_name}" \
+            --update-env
+        then
+            return 1
+        fi
+
+    elif [ "${current_exec}" != "${expected_exec}" ]; then
+        echo "PM2 ${app_name}: обнаружен legacy executable."
+        echo "FROM: ${current_exec}"
+        echo "TO:   ${expected_exec}"
+
+        if ! pm2 delete "${app_name}"; then
+            return 1
+        fi
+
+        if ! pm2 start \
+            "${config}" \
+            --only "${app_name}" \
+            --update-env
+        then
+            return 1
+        fi
+
+    else
+        echo "PM2 ${app_name}: executable уже generation-aware."
+
+        if ! pm2 startOrReload \
+            "${config}" \
+            --only "${app_name}" \
+            --update-env
+        then
+            return 1
+        fi
+    fi
+
+    if ! activated_exec="$(
+        pm2_app_exec_path "${app_name}"
+    )"; then
+        return 1
+    fi
+
+    if [ "${activated_exec}" != "${expected_exec}" ]; then
+        echo "ОШИБКА: PM2 executable не соответствует generation." >&2
+        echo "ACTUAL: ${activated_exec:-не определён}" >&2
+        echo "EXPECTED: ${expected_exec}" >&2
+        return 1
+    fi
+
+    if ! pm2 save; then
+        echo "ОШИБКА: PM2 process list сохранить не удалось."
+        return 1
+    fi
+
+    return 0
+}

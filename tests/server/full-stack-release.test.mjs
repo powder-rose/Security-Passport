@@ -43,7 +43,7 @@ test('federal deploy creates and activates a backend generation', async () => {
 
   assert.match(source, /switch_generation_links/);
 
-  assert.match(source, /pm2\s+(?:restart|startOrReload)/);
+  assert.match(source, /activate_pm2_generation/);
 
   assert.doesNotMatch(
     source,
@@ -67,7 +67,7 @@ test('federal rollback restores matching frontend and backend generations', asyn
 
   assert.match(source, /switch_generation_links/);
 
-  assert.match(source, /pm2\s+(?:restart|startOrReload)/);
+  assert.match(source, /activate_pm2_generation/);
 });
 
 test('blog releases preserve the backend generation mapping', async () => {
@@ -256,21 +256,192 @@ test(
 );
 
 test('backend recovery paths never mask PM2 restart failures', async () => {
-  const deploy = await readProjectFile('scripts/deploy-federal.sh');
+  const helper = await readProjectFile('scripts/lib/release-generation.sh');
 
-  const rollback = await readProjectFile('scripts/rollback-federal.sh');
-
-  const maskedPm2Failure = /pm2\s+startOrReload[\s\S]{0,240}?--update-env[\s\S]{0,80}?\|\|\s+true/;
+  const maskedPm2Failure = /pm2\s+(?:delete|start|startOrReload|save)[\s\S]{0,240}?\|\|\s+true/;
 
   assert.doesNotMatch(
-    deploy,
+    helper,
     maskedPm2Failure,
-    'Deploy recovery must fail if the previous backend cannot be restarted',
+    'PM2 generation activation must propagate process-management failures',
   );
+});
 
-  assert.doesNotMatch(
-    rollback,
-    maskedPm2Failure,
-    'Rollback recovery must not hide a failed backend restart',
-  );
+test('PM2 generation activation migrates legacy executable registrations', async () => {
+  const source = await readProjectFile('scripts/lib/release-generation.sh');
+
+  assert.match(source, /activate_pm2_generation\s*\(\)/);
+
+  assert.match(source, /pm2_app_exec_path\s*\(\)/);
+
+  assert.match(source, /pm2\s+delete/);
+
+  assert.match(source, /pm2\s+start\s+/);
+
+  assert.match(source, /pm2\s+startOrReload/);
+
+  assert.match(source, /pm2\s+save/);
+});
+
+test('deploy and rollback use the shared PM2 generation activator', async () => {
+  for (const relative of ['scripts/deploy-federal.sh', 'scripts/rollback-federal.sh']) {
+    const source = await readProjectFile(relative);
+
+    assert.match(source, /activate_pm2_generation/, `${relative} must use activate_pm2_generation`);
+
+    assert.doesNotMatch(
+      source,
+      /pm2\s+startOrReload/,
+      `${relative} must not bypass the shared PM2 generation activator`,
+    );
+  }
+});
+
+test(
+  'PM2 generation activator chooses migrate or reload from the registered executable',
+  {
+    skip: process.platform === 'win32',
+  },
+  async () => {
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), 'passport-pm2-generation-'));
+
+    const bin = path.join(root, 'bin');
+    const log = path.join(root, 'pm2.log');
+    const state = path.join(root, 'pm2-state.txt');
+
+    const helper = path.join(projectRoot, 'scripts', 'lib', 'release-generation.sh');
+
+    const fakePm2 = path.join(bin, 'pm2');
+
+    try {
+      await fs.mkdir(bin, {
+        recursive: true,
+      });
+
+      await fs.writeFile(
+        fakePm2,
+        `#!/usr/bin/env bash
+set -Eeuo pipefail
+
+printf '%s\\n' "$*" >> "$PM2_LOG"
+
+case "\${1:-}" in
+  jlist)
+    if [ -s "$PM2_STATE" ]; then
+      current_exec="$(cat "$PM2_STATE")"
+
+      printf '[{"name":"passport-api","pm2_env":{"pm_exec_path":"%s"}}]\n' \
+        "$current_exec"
+    else
+      printf '[]\n'
+    fi
+    ;;
+
+  delete)
+    : > "$PM2_STATE"
+    ;;
+
+  start|startOrReload)
+    printf '%s' "$EXPECTED_EXEC" > "$PM2_STATE"
+    ;;
+
+  save)
+    ;;
+
+  *)
+    exit 64
+    ;;
+esac
+`,
+        {
+          encoding: 'utf8',
+          mode: 0o755,
+        },
+      );
+
+      const expectedExec = '/var/www/pasport-bezopasnosty.ru/backend-current/app/server/index.mjs';
+
+      const config =
+        '/var/www/pasport-bezopasnosty.ru/app/passport-security-base/deploy/pm2/ecosystem.config.cjs';
+
+      const runActivator = async currentExec => {
+        await fs.writeFile(log, '', 'utf8');
+
+        await fs.writeFile(state, currentExec, 'utf8');
+
+        const command = `
+          set -Eeuo pipefail
+
+          source "$HELPER"
+
+          activate_pm2_generation \
+            "$CONFIG" \
+            passport-api \
+            "$EXPECTED_EXEC"
+        `;
+
+        await execFileAsync('bash', ['-c', command], {
+          env: {
+            ...process.env,
+            PATH: `${bin}:${process.env.PATH}`,
+            HELPER: helper,
+            CONFIG: config,
+            EXPECTED_EXEC: expectedExec,
+            PM2_LOG: log,
+            PM2_STATE: state,
+          },
+        });
+
+        return fs.readFile(log, 'utf8');
+      };
+
+      const legacyLog = await runActivator(
+        '/var/www/pasport-bezopasnosty.ru/app/passport-security-base/server/index.mjs',
+      );
+
+      assert.match(legacyLog, /delete passport-api/);
+
+      assert.match(legacyLog, /start .*ecosystem\.config\.cjs --only passport-api --update-env/);
+
+      assert.doesNotMatch(legacyLog, /startOrReload/);
+
+      assert.match(legacyLog, /save/);
+
+      const generationLog = await runActivator(expectedExec);
+
+      assert.doesNotMatch(generationLog, /delete passport-api/);
+
+      assert.match(
+        generationLog,
+        /startOrReload .*ecosystem\.config\.cjs --only passport-api --update-env/,
+      );
+
+      assert.match(generationLog, /save/);
+
+      const missingLog = await runActivator('');
+
+      assert.doesNotMatch(missingLog, /delete passport-api/);
+
+      assert.match(missingLog, /start .*ecosystem\.config\.cjs --only passport-api --update-env/);
+
+      assert.match(missingLog, /save/);
+    } finally {
+      await fs.rm(root, {
+        recursive: true,
+        force: true,
+      });
+    }
+  },
+);
+
+test('PM2 generation activation verifies the executable after process management', async () => {
+  const source = await readProjectFile('scripts/lib/release-generation.sh');
+
+  assert.match(source, /local activated_exec/);
+
+  assert.match(source, /activated_exec="\$\([\s\S]*?pm2_app_exec_path\s+"\$\{app_name\}"/);
+
+  assert.match(source, /\[ "\$\{activated_exec\}" != "\$\{expected_exec\}" \]/);
+
+  assert.match(source, /PM2 executable[\s\S]*?EXPECTED:/);
 });

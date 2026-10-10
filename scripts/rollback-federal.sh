@@ -12,6 +12,7 @@ BACKEND_CURRENT="${SITE_ROOT}/backend-current"
 SHARED_UPLOADS="${SITE_ROOT}/shared/uploads"
 
 PM2_CONFIG="${PROJECT}/deploy/pm2/ecosystem.config.cjs"
+PM2_EXEC="${BACKEND_CURRENT}/app/server/index.mjs"
 GENERATION_HELPER="${PROJECT}/scripts/lib/release-generation.sh"
 
 BASE_DOMAIN="pasport-bezopasnosty.ru"
@@ -203,10 +204,10 @@ restore_original_generation() {
         return 1
     fi
 
-    if ! pm2 startOrReload \
+    if ! activate_pm2_generation \
         "${PM2_CONFIG}" \
-        --only passport-api \
-        --update-env
+        passport-api \
+        "${PM2_EXEC}"
     then
         echo "ОШИБКА: исходный backend не перезапустился."
         return 1
@@ -332,10 +333,10 @@ switch_generation_links \
 echo "current -> $(readlink -f "${CURRENT}")"
 echo "backend-current -> $(readlink -f "${BACKEND_CURRENT}")"
 
-if ! pm2 startOrReload \
+if ! activate_pm2_generation \
     "${PM2_CONFIG}" \
-    --only passport-api \
-    --update-env
+    passport-api \
+    "${PM2_EXEC}"
 then
     echo "ОШИБКА: passport-api не запустился на rollback generation."
 
