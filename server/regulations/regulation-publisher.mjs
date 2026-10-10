@@ -1,9 +1,11 @@
 import { spawn } from 'node:child_process';
 import { stat } from 'node:fs/promises';
-import { fileURLToPath } from 'node:url';
+
 import path from 'node:path';
 
-const root = fileURLToPath(new URL('../../', import.meta.url));
+import { resolveProjectRoot } from '../shared/project-root.mjs';
+
+const root = resolveProjectRoot();
 const script = path.join(root, 'scripts/deploy-federal.sh');
 const registry = path.join(root, 'data/regulations.json');
 

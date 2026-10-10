@@ -1,12 +1,11 @@
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
 import { LEAD_SOURCE_QUIZ } from '../../shared/contracts/lead.js';
 import { readJsonLines } from '../shared/jsonl.mjs';
 import { resolveSiteFromHost } from '../shared/site-region.mjs';
+import { resolveProjectRoot } from '../shared/project-root.mjs';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const projectRoot = path.resolve(__dirname, '../..');
+const projectRoot = resolveProjectRoot();
 
 const LEADS_FILE = path.resolve(projectRoot, process.env.LEADS_FILE || 'data/leads.jsonl');
 

@@ -1,12 +1,16 @@
 import { randomUUID } from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
-const ROOT = new URL('../../', import.meta.url);
+import { resolveProjectRoot } from '../shared/project-root.mjs';
 
-const DEFAULT_TRANSACTION_DIRECTORY = fileURLToPath(
-  new URL('../../data/.regulation-sync-transactions/', import.meta.url),
+const PROJECT_ROOT = resolveProjectRoot();
+
+const DEFAULT_TRANSACTION_DIRECTORY = path.join(
+  PROJECT_ROOT,
+  'data',
+  '.regulation-sync-transactions',
 );
 
 const MANIFEST_VERSION = 1;
@@ -359,7 +363,7 @@ export function createRegulationSyncWorkspace() {
       return entries.get(relative);
     }
 
-    const url = new URL(relative, ROOT);
+    const url = pathToFileURL(path.resolve(PROJECT_ROOT, relative));
 
     try {
       const original = await fs.readFile(url, 'utf8');

@@ -1,10 +1,10 @@
 import { spawn } from 'node:child_process';
 
-import { fileURLToPath } from 'node:url';
-
 import path from 'node:path';
 
-const PROJECT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+import { resolveProjectRoot } from '../shared/project-root.mjs';
+
+const PROJECT_ROOT = resolveProjectRoot();
 
 const PUBLISH_SCRIPT = path.join(PROJECT_ROOT, 'scripts', 'publish-blog.sh');
 
