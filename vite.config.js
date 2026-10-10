@@ -2,8 +2,20 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'node:path';
 
+import { resolveRegulationRegistryPath } from './shared/regulations/registry-path.js';
+
+const regulationRegistry = resolveRegulationRegistryPath({
+  projectRoot: process.cwd(),
+});
+
 export default defineConfig({
   plugins: [react()],
+
+  resolve: {
+    alias: {
+      '@regulations-registry': regulationRegistry,
+    },
+  },
 
   build: {
     manifest: true,

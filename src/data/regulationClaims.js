@@ -1,4 +1,4 @@
-import registry from '../../data/regulations.json';
+import registry from '@regulations-registry';
 
 export function getRegulationClaim(number, id) {
   const regulation = registry.items.find(

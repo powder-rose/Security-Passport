@@ -2,9 +2,13 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { resolveRegulationRegistryPath } from '../shared/regulations/registry-path.js';
+
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-const REGISTRY_FILE = path.join(ROOT, 'data/regulations.json');
+const REGISTRY_FILE = resolveRegulationRegistryPath({
+  projectRoot: ROOT,
+});
 
 const SRC_DIR = path.join(ROOT, 'src');
 
@@ -84,7 +88,7 @@ let registry;
 try {
   registry = JSON.parse(await fs.readFile(REGISTRY_FILE, 'utf8'));
 } catch (err) {
-  console.error('QA regulations FAILED: cannot read data/regulations.json');
+  console.error(`QA regulations FAILED: cannot read ${REGISTRY_FILE}`);
 
   console.error(err.message);
 

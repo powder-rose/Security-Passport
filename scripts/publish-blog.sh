@@ -13,6 +13,7 @@ RUNTIMES="${SITE_ROOT}/release-runtime"
 CURRENT="${SITE_ROOT}/current"
 BACKEND_CURRENT="${SITE_ROOT}/backend-current"
 SHARED_UPLOADS="${SITE_ROOT}/shared/uploads"
+REGULATION_REGISTRY_FILE="${SITE_ROOT}/shared/regulations/regulations.json"
 
 GENERATION_HELPER="${PROJECT}/scripts/lib/release-generation.sh"
 
@@ -194,6 +195,7 @@ cp \
 
 echo "[2/7] Запускаем изолированный prerender..."
 
+REGULATION_REGISTRY_FILE="${REGULATION_REGISTRY_FILE}" \
 PRERENDER_CLIENT_DIR="${TMP_CLIENT}" \
 PRERENDER_SERVER_ENTRY="${SERVER_ENTRY}" \
 PRERENDER_TEMPLATE_DIR="${TMP_TEMPLATE_DIR}" \

@@ -1,6 +1,6 @@
 import { getRegulationClaim } from '../../data/regulationClaims';
 
-import regulationsRegistry from '../../../data/regulations.json';
+import regulationsRegistry from '@regulations-registry';
 
 const hotelRegulation = regulationsRegistry.items.find(item => String(item.number) === '447');
 const hotelClaim = (id, fallback) =>
