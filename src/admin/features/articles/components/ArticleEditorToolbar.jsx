@@ -219,7 +219,7 @@ export default function ArticleEditorToolbar({
 
       <label className="article-upload-button">
         Изображение
-        <input type="file" accept="image/*" onChange={onAddImage} />
+        <input type="file" accept="image/jpeg,image/png,image/webp" onChange={onAddImage} />
       </label>
     </div>
   );
