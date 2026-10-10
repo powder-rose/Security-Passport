@@ -19,6 +19,7 @@ BACKEND_CURRENT="${SITE_ROOT}/backend-current"
 SHARED_UPLOADS="${SITE_ROOT}/shared/uploads"
 
 PM2_CONFIG="${PROJECT}/deploy/pm2/ecosystem.config.cjs"
+PM2_EXEC="${BACKEND_CURRENT}/app/server/index.mjs"
 GENERATION_HELPER="${PROJECT}/scripts/lib/release-generation.sh"
 
 KEEP_RELEASES=5
@@ -112,10 +113,10 @@ restore_previous_generation() {
         return 1
     fi
 
-    if ! pm2 startOrReload \
+    if ! activate_pm2_generation \
         "${PM2_CONFIG}" \
-        --only passport-api \
-        --update-env
+        passport-api \
+        "${PM2_EXEC}"
     then
         echo "ОШИБКА: предыдущий backend не перезапустился."
         return 1
@@ -364,10 +365,10 @@ echo "backend-current -> $(readlink -f "${BACKEND_CURRENT}")"
 echo
 echo "Перезапускаем passport-api на новой generation..."
 
-if ! pm2 startOrReload \
+if ! activate_pm2_generation \
     "${PM2_CONFIG}" \
-    --only passport-api \
-    --update-env
+    passport-api \
+    "${PM2_EXEC}"
 then
     echo "ОШИБКА: passport-api не переключился на новую generation."
 
