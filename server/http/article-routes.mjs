@@ -310,6 +310,8 @@ export function registerArticleRoutes({ app, adminAuth, clientDir }) {
 
       const sourcePath = file.filepath;
 
+      const imageExtension = path.extname(file.originalFilename || '').toLowerCase();
+
       const optimizedName = `${crypto.randomUUID()}.webp`;
 
       const optimizedPath = path.join(uploadDir, optimizedName);
@@ -364,7 +366,12 @@ export function registerArticleRoutes({ app, adminAuth, clientDir }) {
           force: true,
         });
 
-        console.error('[article-image] optimization failed:', error?.message || error);
+        console.error('[article-image] optimization failed:', {
+          error: error?.message || String(error),
+          mimetype: typeof file.mimetype === 'string' ? file.mimetype : null,
+          size: Number.isFinite(file.size) ? file.size : null,
+          extension: imageExtension || null,
+        });
 
         return res.status(400).json({
           ok: false,

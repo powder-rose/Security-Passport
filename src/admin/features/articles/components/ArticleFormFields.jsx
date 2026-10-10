@@ -31,11 +31,7 @@ export default function ArticleFormFields({
 
       <label className="main-image-upload">
         Выбрать изображение
-        <input
-          type="file"
-          accept={isEdit ? 'image/jpeg,image/png,image/webp' : 'image/*'}
-          onChange={onImageSelect}
-        />
+        <input type="file" accept="image/jpeg,image/png,image/webp" onChange={onImageSelect} />
       </label>
 
       {form.image && (
