@@ -104,7 +104,6 @@ export default function CreateArticlePage() {
 
   const { cropImage, selectImage, cancelCrop, cropAndUpload } = useArticleImage({
     onUploaded: url => change('image', url),
-    resetInputAfterSelect: false,
   });
 
   function previewArticle() {
