@@ -17,6 +17,7 @@ RUNTIMES="${SITE_ROOT}/release-runtime"
 CURRENT="${SITE_ROOT}/current"
 BACKEND_CURRENT="${SITE_ROOT}/backend-current"
 SHARED_UPLOADS="${SITE_ROOT}/shared/uploads"
+REGULATION_REGISTRY_FILE="${SITE_ROOT}/shared/regulations/regulations.json"
 
 PM2_CONFIG="${PROJECT}/deploy/pm2/ecosystem.config.cjs"
 PM2_EXEC="${BACKEND_CURRENT}/app/server/index.mjs"
@@ -46,6 +47,20 @@ if [ ! -d "${SHARED_UPLOADS}" ]; then
     echo "ОШИБКА: отсутствует shared uploads:"
     echo "${SHARED_UPLOADS}"
     exit 1
+fi
+
+mkdir -p "$(dirname "${REGULATION_REGISTRY_FILE}")"
+
+if [ ! -s "${REGULATION_REGISTRY_FILE}" ]; then
+    echo "Runtime registry отсутствует."
+    echo "Инициализируем из tracked seed..."
+
+    cp \
+        "${PROJECT}/data/regulations.json" \
+        "${REGULATION_REGISTRY_FILE}"
+
+    chmod 600 \
+        "${REGULATION_REGISTRY_FILE}"
 fi
 
 mkdir -p "${RELEASES}" "${RUNTIMES}"
@@ -178,6 +193,7 @@ echo "DNS OK: ${BASE_DOMAIN} -> ${SERVER_IP}"
 echo
 echo "[2/7] Собираем федеральную версию..."
 
+REGULATION_REGISTRY_FILE="${REGULATION_REGISTRY_FILE}" \
 VITE_BASE_DOMAIN="${BASE_DOMAIN}" \
 VITE_SITE_PROTOCOL="${SITE_PROTOCOL}" \
 VITE_SITE_ORIGIN="${SITE_PROTOCOL}://${BASE_DOMAIN}" \

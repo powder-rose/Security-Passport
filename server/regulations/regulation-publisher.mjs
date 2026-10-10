@@ -3,11 +3,15 @@ import { stat } from 'node:fs/promises';
 
 import path from 'node:path';
 
+import { resolveRegulationRegistryPath } from '../../shared/regulations/registry-path.js';
+
 import { resolveProjectRoot } from '../shared/project-root.mjs';
 
 const root = resolveProjectRoot();
 const script = path.join(root, 'scripts/deploy-federal.sh');
-const registry = path.join(root, 'data/regulations.json');
+const registry = resolveRegulationRegistryPath({
+  projectRoot: root,
+});
 
 const defaultPublishedPage = path.resolve(
   root,

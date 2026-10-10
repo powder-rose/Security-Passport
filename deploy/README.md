@@ -118,7 +118,9 @@ Rollback:
     ├── releases/
     ├── release-runtime/
     ├── shared/
-    │   └── uploads/
+    │   ├── uploads/
+    │   └── regulations/
+    │       └── regulations.json
     └── app/
         └── passport-security-base/
 
@@ -127,6 +129,12 @@ current является указателем на активный frontend rel
 Runtime SSR хранится отдельно в release-runtime.
 
 Загруженные изображения не принадлежат конкретному release и находятся в shared/uploads.
+
+Рабочий реестр нормативных документов также не принадлежит конкретному release и хранится в:
+
+    shared/regulations/regulations.json
+
+`data/regulations.json` в Git является seed для чистого clone, CI и первоначальной инициализации. Production backend, QA и production build используют persistent shared registry через `REGULATION_REGISTRY_FILE`.
 
 ## Runtime data retention
 

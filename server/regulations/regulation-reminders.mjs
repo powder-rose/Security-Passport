@@ -4,10 +4,14 @@ import { fileURLToPath } from 'node:url';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
 
+import { resolveRegulationRegistryPath } from '../../shared/regulations/registry-path.js';
+
 const root = fileURLToPath(new URL('../../', import.meta.url));
 dotenv.config({ path: path.join(root, '.env.server') });
 
-const registryFile = path.join(root, 'data/regulations.json');
+const registryFile = resolveRegulationRegistryPath({
+  projectRoot: root,
+});
 const sentFile = path.join(root, 'data/regulation-reminder-sent.json');
 const dryRun = process.argv.includes('--dry-run');
 

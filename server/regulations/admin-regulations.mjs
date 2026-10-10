@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
-import path from 'node:path';
+
+import { resolveRegulationRegistryPath } from '../../shared/regulations/registry-path.js';
 
 import { resolveProjectRoot } from '../shared/project-root.mjs';
 import { planRegulationTitleSync } from './regulation-title-sync.mjs';
@@ -15,7 +16,9 @@ import {
 
 const projectRoot = resolveProjectRoot();
 
-const FILE = path.join(projectRoot, 'data', 'regulations.json');
+const FILE = resolveRegulationRegistryPath({
+  projectRoot,
+});
 
 const TOPICS = new Set([
   'hotel',
@@ -39,7 +42,7 @@ async function readRegistry() {
 async function commitRegulationUpdate(data, workspace) {
   const registrySource = JSON.stringify(data, null, 2) + '\n';
 
-  await workspace.transform('data/regulations.json', () => registrySource);
+  await workspace.transform(FILE, () => registrySource);
 
   await applyRegulationSyncWorkspace(workspace);
 }
