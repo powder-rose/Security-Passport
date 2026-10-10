@@ -28,6 +28,34 @@ const editorToolbarFile = path.join(
 
 const articleRoutesFile = path.join(repoRoot, 'server', 'http', 'article-routes.mjs');
 
+const articleImageHookFile = path.join(
+  repoRoot,
+  'src',
+  'admin',
+  'features',
+  'articles',
+  'hooks',
+  'useArticleImage.js',
+);
+
+const createArticlePageFile = path.join(
+  repoRoot,
+  'src',
+  'admin',
+  'pages',
+  'ArticleEditPage',
+  'CreateArticlePage.jsx',
+);
+
+const editArticlePageFile = path.join(
+  repoRoot,
+  'src',
+  'admin',
+  'pages',
+  'ArticleEditPage',
+  'ArticleEditPage.jsx',
+);
+
 const supportedAccept = 'image/jpeg,image/png,image/webp';
 
 test('main article image picker advertises only supported image formats', async () => {
@@ -69,5 +97,32 @@ test('invalid image diagnostics log safe metadata without logging the original f
     source,
     /originalFilename:\s*file\.originalFilename/,
     'raw original filenames must not be written to logs',
+  );
+});
+test('article image selection always resets the file input for repeat selection', async () => {
+  const [hookSource, createSource, editSource] = await Promise.all([
+    fs.readFile(articleImageHookFile, 'utf8'),
+    fs.readFile(createArticlePageFile, 'utf8'),
+    fs.readFile(editArticlePageFile, 'utf8'),
+  ]);
+
+  assert.match(
+    hookSource,
+    /setCropImage\(nextCropImage\);\s*event\.target\.value = '';/,
+    'valid image selection must reset the file input immediately after opening the cropper',
+  );
+
+  assert.doesNotMatch(hookSource, /resetInputAfterSelect/, 'input reset must not be optional');
+
+  assert.doesNotMatch(
+    createSource,
+    /resetInputAfterSelect/,
+    'create page must not disable repeat image selection',
+  );
+
+  assert.doesNotMatch(
+    editSource,
+    /resetInputAfterSelect/,
+    'edit page must use the same image-selection behavior',
   );
 });

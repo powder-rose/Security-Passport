@@ -72,7 +72,6 @@ export default function ArticleEditPage() {
 
   const { cropImage, selectImage, cancelCrop, cropAndUpload } = useArticleImage({
     onUploaded: url => change('image', url),
-    resetInputAfterSelect: true,
   });
 
   function openPreview() {

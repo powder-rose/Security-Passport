@@ -6,7 +6,7 @@ import {
   getArticleImageValidationError,
 } from '../utils/articleImage.js';
 
-export function useArticleImage({ onUploaded, resetInputAfterSelect = false }) {
+export function useArticleImage({ onUploaded }) {
   const [cropImage, setCropImage] = useState(null);
   const cropImageRef = useRef(null);
 
@@ -50,9 +50,7 @@ export function useArticleImage({ onUploaded, resetInputAfterSelect = false }) {
     cropImageRef.current = nextCropImage;
     setCropImage(nextCropImage);
 
-    if (resetInputAfterSelect) {
-      event.target.value = '';
-    }
+    event.target.value = '';
   }
 
   async function cropAndUpload(pixelCrop) {
