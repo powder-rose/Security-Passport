@@ -4,6 +4,8 @@ const statuses = {
   outdated: 'Требует обновления',
 };
 
+const structuralFields = new Set(['number', 'title', 'documentDate']);
+
 const topicOptions = [
   {
     value: 'hotel',
@@ -52,6 +54,20 @@ export default function RegulationsQuizField({
   if (!step) {
     return null;
   }
+
+  const structuralLocked = !isCreating && structuralFields.has(step.key);
+
+  const structuralHint = structuralLocked ? (
+    <small
+      style={{
+        display: 'block',
+        marginTop: 10,
+        opacity: 0.6,
+      }}
+    >
+      Номер, название и дата существующего постановления изменяются через код и PR.
+    </small>
+  ) : null;
 
   if (step.type === 'topic-question') {
     const question = topicQuestions.find(item => item.key === step.questionKey);
@@ -123,39 +139,54 @@ export default function RegulationsQuizField({
 
   if (step.type === 'date') {
     return (
-      <input
-        id={fieldId}
-        type="date"
-        value={form[step.key]?.slice?.(0, 10) || ''}
-        onChange={event => onChange(step.key, event.target.value || null)}
-        autoFocus
-      />
+      <>
+        <input
+          id={fieldId}
+          type="date"
+          value={form[step.key]?.slice?.(0, 10) || ''}
+          onChange={event => onChange(step.key, event.target.value || null)}
+          disabled={structuralLocked}
+          autoFocus={!structuralLocked}
+        />
+
+        {structuralHint}
+      </>
     );
   }
 
   if (step.type === 'number') {
     return (
-      <input
-        id={fieldId}
-        type="text"
-        inputMode="numeric"
-        maxLength={6}
-        value={form.number || ''}
-        onChange={event => onChange('number', event.target.value.replace(/\D/g, ''))}
-        autoFocus
-        required
-      />
+      <>
+        <input
+          id={fieldId}
+          type="text"
+          inputMode="numeric"
+          maxLength={6}
+          value={form.number || ''}
+          onChange={event => onChange('number', event.target.value.replace(/\D/g, ''))}
+          disabled={structuralLocked}
+          autoFocus={!structuralLocked}
+          required
+        />
+
+        {structuralHint}
+      </>
     );
   }
 
   return (
-    <input
-      id={fieldId}
-      type="text"
-      value={form[step.key] || ''}
-      onChange={event => onChange(step.key, event.target.value)}
-      autoFocus
-      required={step.key === 'title'}
-    />
+    <>
+      <input
+        id={fieldId}
+        type="text"
+        value={form[step.key] || ''}
+        onChange={event => onChange(step.key, event.target.value)}
+        disabled={structuralLocked}
+        autoFocus={!structuralLocked}
+        required={step.key === 'title'}
+      />
+
+      {structuralHint}
+    </>
   );
 }
