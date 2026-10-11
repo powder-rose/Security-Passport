@@ -3,23 +3,48 @@ import process from 'node:process';
 
 import express from 'express';
 import dotenv from 'dotenv';
-import { createLeadDelivery } from './leads/lead-delivery.mjs';
-import { createLeadIntake } from './leads/lead-intake.mjs';
-import { createVisitTracking } from './analytics/visit-tracking.mjs';
-import { createAdminAuth } from './auth/admin-auth.mjs';
-import { registerAdminRoutes } from './http/admin-routes.mjs';
-import { registerArticleRoutes } from './http/article-routes.mjs';
-import { registerPublicApiRoutes } from './http/public-api-routes.mjs';
-import { registerFrontendServing } from './http/frontend-serving.mjs';
-import { registerHttpMiddleware, registerHttpErrorHandler } from './http/http-middleware.mjs';
-import {
-  registerGracefulShutdown,
-  resolveGracefulShutdownTimeout,
-} from './http/graceful-shutdown.mjs';
-import { recoverRegulationSyncTransactions } from './regulations/regulation-sync-workspace.mjs';
-import { resolveProjectRoot } from './shared/project-root.mjs';
 
-dotenv.config({ path: process.env.SERVER_ENV_FILE || '.env.server' });
+/*
+ * Environment configuration is the backend bootstrap boundary.
+ *
+ * Local backend modules may resolve project paths and environment
+ * overrides during module initialization, so they must not be
+ * evaluated until the selected server environment file is loaded.
+ *
+ * Process-level variables keep their normal dotenv precedence and
+ * may still override values from .env.server.
+ */
+dotenv.config({
+  path: process.env.SERVER_ENV_FILE || '.env.server',
+});
+
+const [
+  { createLeadDelivery },
+  { createLeadIntake },
+  { createVisitTracking },
+  { createAdminAuth },
+  { registerAdminRoutes },
+  { registerArticleRoutes },
+  { registerPublicApiRoutes },
+  { registerFrontendServing },
+  { registerHttpMiddleware, registerHttpErrorHandler },
+  { registerGracefulShutdown, resolveGracefulShutdownTimeout },
+  { recoverRegulationSyncTransactions },
+  { resolveProjectRoot },
+] = await Promise.all([
+  import('./leads/lead-delivery.mjs'),
+  import('./leads/lead-intake.mjs'),
+  import('./analytics/visit-tracking.mjs'),
+  import('./auth/admin-auth.mjs'),
+  import('./http/admin-routes.mjs'),
+  import('./http/article-routes.mjs'),
+  import('./http/public-api-routes.mjs'),
+  import('./http/frontend-serving.mjs'),
+  import('./http/http-middleware.mjs'),
+  import('./http/graceful-shutdown.mjs'),
+  import('./regulations/regulation-sync-workspace.mjs'),
+  import('./shared/project-root.mjs'),
+]);
 
 const projectRoot = resolveProjectRoot();
 const clientDir = path.resolve(projectRoot, process.env.CLIENT_DIR || 'dist/client');
