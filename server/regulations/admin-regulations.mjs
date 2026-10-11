@@ -3,12 +3,6 @@ import fs from 'node:fs/promises';
 import { resolveRegulationRegistryPath } from '../../shared/regulations/registry-path.js';
 
 import { resolveProjectRoot } from '../shared/project-root.mjs';
-import { planRegulationTitleSync } from './regulation-title-sync.mjs';
-
-import { planRegulationNumberSync, replaceRegulationNumber } from './regulation-number-sync.mjs';
-
-import { planRegulationDateSync, replaceRegulationDate } from './regulation-date-sync.mjs';
-
 import {
   applyRegulationSyncWorkspace,
   createRegulationSyncWorkspace,
@@ -198,17 +192,9 @@ function createRegulationInRegistry(data, change) {
 }
 
 function hasRegulationChanges(previous, change) {
-  const stringFields = ['title', 'edition', 'officialUrl', 'reviewNote'];
-
-  if (String(previous.number ?? '') !== change.number) {
-    return true;
-  }
+  const stringFields = ['edition', 'officialUrl', 'reviewNote'];
 
   if (stringFields.some(field => String(previous[field] || '') !== change[field])) {
-    return true;
-  }
-
-  if ((previous.documentDate || null) !== change.documentDate) {
     return true;
   }
 
@@ -236,7 +222,29 @@ function hasRegulationChanges(previous, change) {
   return previousClaims.some((claim, index) => claim.text !== change.claims[index]?.text);
 }
 
-async function updateRegulationInRegistry(data, number, change, workspace) {
+function assertExistingRegulationStructure(previous, change) {
+  const changed = [];
+
+  if (String(previous.number ?? '') !== change.number) {
+    changed.push('номер');
+  }
+
+  if (String(previous.title ?? '') !== change.title) {
+    changed.push('название');
+  }
+
+  if ((previous.documentDate || null) !== change.documentDate) {
+    changed.push('дата');
+  }
+
+  if (changed.length > 0) {
+    throw new TypeError(
+      'Номер, название и дата существующего постановления изменяются только через код и PR',
+    );
+  }
+}
+
+async function updateRegulationInRegistry(data, number, change) {
   const index = data.items.findIndex(item => String(item.number) === String(number));
 
   if (index < 0) {
@@ -265,63 +273,14 @@ async function updateRegulationInRegistry(data, number, change, workspace) {
     );
   }
 
+  assertExistingRegulationStructure(previous, change);
+
   if (!hasRegulationChanges(previous, change)) {
     return {
       regulation: previous,
       publicationNeeded: false,
       changed: false,
     };
-  }
-
-  const oldNumber = String(previous.number);
-  const newNumber = String(change.number);
-  const numberChanged = oldNumber !== newNumber;
-
-  if (
-    numberChanged &&
-    data.items.some((item, itemIndex) => itemIndex !== index && String(item.number) === newNumber)
-  ) {
-    throw new TypeError('Постановление с таким номером уже существует');
-  }
-
-  let previousTitleForSync = previous.title;
-
-  if (numberChanged) {
-    await planRegulationNumberSync(workspace, oldNumber, newNumber, previous.occurrences);
-
-    previousTitleForSync = replaceRegulationNumber(previous.title, oldNumber, newNumber);
-
-    change.title = replaceRegulationNumber(change.title, oldNumber, newNumber);
-    change.edition = replaceRegulationNumber(change.edition, oldNumber, newNumber);
-    change.reviewNote = replaceRegulationNumber(change.reviewNote, oldNumber, newNumber);
-
-    change.claims = change.claims.map(claim => ({
-      ...claim,
-      text: replaceRegulationNumber(claim.text, oldNumber, newNumber),
-    }));
-  }
-
-  if (previousTitleForSync !== change.title) {
-    await planRegulationTitleSync(
-      workspace,
-      newNumber,
-      previousTitleForSync,
-      change.title,
-      previous.occurrences,
-    );
-  }
-
-  const documentDateChanged = previous.documentDate !== change.documentDate;
-
-  if (documentDateChanged && change.documentDate) {
-    await planRegulationDateSync(workspace, newNumber, change.documentDate, previous.occurrences);
-
-    change.title = replaceRegulationDate(change.title, newNumber, change.documentDate);
-
-    change.claims = change.claims.map(claim => ({
-      ...claim,
-      text: replaceRegulationDate(claim.text, newNumber, change.documentDate),
-    }));
   }
 
   const contentChanged =
@@ -332,11 +291,8 @@ async function updateRegulationInRegistry(data, number, change, workspace) {
 
   const publicationNeeded =
     contentChanged ||
-    previous.title !== change.title ||
     previous.reviewStatus !== change.reviewStatus ||
-    previous.reviewedAt !== change.reviewedAt ||
-    previous.documentDate !== change.documentDate ||
-    String(previous.number) !== String(change.number);
+    previous.reviewedAt !== change.reviewedAt;
 
   const now = new Date().toISOString();
 
@@ -515,26 +471,13 @@ export function saveRegulationBundle(input) {
     const baseResult =
       mode === 'create'
         ? createRegulationInRegistry(data, regulationChange)
-        : await updateRegulationInRegistry(data, selected, regulationChange, workspace);
+        : await updateRegulationInRegistry(data, selected, regulationChange);
 
     if (!baseResult) {
       return null;
     }
 
-    const newNumber = String(baseResult.regulation.number);
-
-    const remappedTopicChange =
-      mode === 'update' && selected !== newNumber
-        ? {
-            ...topicChange,
-            claims: topicChange.claims.map(claim => ({
-              ...claim,
-              number: claim.number === selected ? newNumber : claim.number,
-            })),
-          }
-        : topicChange;
-
-    const topicResult = applyTopicClaimUpdates(data, remappedTopicChange);
+    const topicResult = applyTopicClaimUpdates(data, topicChange);
 
     if (baseResult.changed || topicResult.publicationNeeded) {
       await commitRegulationUpdate(data, workspace);
