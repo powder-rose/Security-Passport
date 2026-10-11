@@ -13,7 +13,11 @@ import {
   deleteArticle,
 } from '../articles/admin-articles.mjs';
 
-import { queueBlogPublication, getBlogPublicationStatus } from '../articles/blog-publication.mjs';
+import {
+  queueBlogPublication,
+  getBlogPublicationStatus,
+  retryBlogPublication,
+} from '../articles/blog-publication.mjs';
 
 import { asyncRoute } from './async-route.mjs';
 
@@ -154,6 +158,34 @@ export function registerArticleRoutes({ app, adminAuth, clientDir }) {
     });
   });
 
+  app.post(
+    '/api/admin/blog-publication',
+    adminAuth.requireAdmin,
+    asyncRoute(async (_req, res) => {
+      try {
+        const publication = await retryBlogPublication();
+
+        return res.status(202).json({
+          ok: true,
+          publication,
+        });
+      } catch (error) {
+        if (
+          error?.code === 'BLOG_PUBLICATION_BUSY' ||
+          error?.code === 'BLOG_PUBLICATION_NOT_RETRYABLE'
+        ) {
+          return res.status(409).json({
+            ok: false,
+            error: error.code,
+            message: error.message,
+          });
+        }
+
+        throw error;
+      }
+    }),
+  );
+
   app.get(
     '/api/admin/articles',
     adminAuth.requireAdmin,
@@ -174,14 +206,12 @@ export function registerArticleRoutes({ app, adminAuth, clientDir }) {
       try {
         const article = await createArticle(req.body);
 
-        await queueBlogPublication('article-created');
+        const publication = await queueBlogPublication('article-created');
 
         return res.json({
           ok: true,
           article,
-          publication: {
-            queued: true,
-          },
+          publication,
         });
       } catch (error) {
         if (error?.code === 'ARTICLE_INPUT_INVALID' || error?.code === 'ARTICLE_SEO_REQUIRED') {
@@ -230,14 +260,12 @@ export function registerArticleRoutes({ app, adminAuth, clientDir }) {
           });
         }
 
-        await queueBlogPublication('article-updated');
+        const publication = await queueBlogPublication('article-updated');
 
         return res.json({
           ok: true,
           article,
-          publication: {
-            queued: true,
-          },
+          publication,
         });
       } catch (error) {
         if (error?.code === 'ARTICLE_INPUT_INVALID' || error?.code === 'ARTICLE_SEO_REQUIRED') {
@@ -258,13 +286,11 @@ export function registerArticleRoutes({ app, adminAuth, clientDir }) {
     asyncRoute(async (req, res) => {
       await deleteArticle(req.params.id);
 
-      await queueBlogPublication('article-deleted');
+      const publication = await queueBlogPublication('article-deleted');
 
       return res.json({
         ok: true,
-        publication: {
-          queued: true,
-        },
+        publication,
       });
     }),
   );
