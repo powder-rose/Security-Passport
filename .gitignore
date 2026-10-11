@@ -49,3 +49,7 @@ backups/
 
 # Runtime uploads
 public/uploads/
+
+# Playwright
+playwright-report/
+test-results/
