@@ -174,7 +174,7 @@ export function registerArticleRoutes({ app, adminAuth, clientDir }) {
       try {
         const article = await createArticle(req.body);
 
-        queueBlogPublication('article-created');
+        await queueBlogPublication('article-created');
 
         return res.json({
           ok: true,
@@ -230,7 +230,7 @@ export function registerArticleRoutes({ app, adminAuth, clientDir }) {
           });
         }
 
-        queueBlogPublication('article-updated');
+        await queueBlogPublication('article-updated');
 
         return res.json({
           ok: true,
@@ -258,7 +258,7 @@ export function registerArticleRoutes({ app, adminAuth, clientDir }) {
     asyncRoute(async (req, res) => {
       await deleteArticle(req.params.id);
 
-      queueBlogPublication('article-deleted');
+      await queueBlogPublication('article-deleted');
 
       return res.json({
         ok: true,
