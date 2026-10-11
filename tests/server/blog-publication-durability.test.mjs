@@ -91,6 +91,32 @@ async function waitForState(file, predicate, { timeoutMs = 4000, intervalMs = 25
   throw new Error(`Timed out waiting for publication state: ${JSON.stringify(lastState)}`);
 }
 
+async function waitForPublicationStatus(
+  publication,
+  predicate,
+  { timeoutMs = 4000, intervalMs = 10 } = {},
+) {
+  const deadline = Date.now() + timeoutMs;
+
+  let lastStatus = null;
+
+  while (Date.now() < deadline) {
+    lastStatus = publication.getBlogPublicationStatus();
+
+    if (predicate(lastStatus)) {
+      return lastStatus;
+    }
+
+    await new Promise(resolve => {
+      setTimeout(resolve, intervalMs);
+    });
+  }
+
+  throw new Error(
+    `Timed out waiting for in-memory publication status: ${JSON.stringify(lastStatus)}`,
+  );
+}
+
 async function withTemporaryPublicationEnvironment(temporary, callback) {
   const keys = ['PASSPORT_PROJECT_ROOT', 'BLOG_PUBLICATION_EXECUTABLE', 'BLOG_PUBLISH_SCRIPT'];
 
@@ -153,7 +179,12 @@ test(
 
         assert.equal(recovered.reason, 'interrupted-publication');
 
-        assert.equal(publication.getBlogPublicationStatus().status, 'success');
+        const inMemoryStatus = await waitForPublicationStatus(
+          publication,
+          status => status.status === 'success' && status.running === false,
+        );
+
+        assert.equal(inMemoryStatus.reason, 'interrupted-publication');
 
         const runs = await fs.readFile(temporary.runLog, 'utf8');
 
