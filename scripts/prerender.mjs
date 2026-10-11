@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
@@ -446,6 +446,21 @@ if (canonical) {
   });
 
   const blogOutputDirectory = path.join(clientDir, 'blog');
+
+  /*
+   * /blog полностью принадлежит prerender.
+   *
+   * Клиентская директория может быть скопирована
+   * из предыдущего release, поэтому перед генерацией
+   * удаляем старое blog-дерево целиком.
+   *
+   * Это гарантирует, что снятые с публикации статьи
+   * и старые slug не переживут следующую публикацию.
+   */
+  await rm(blogOutputDirectory, {
+    recursive: true,
+    force: true,
+  });
 
   await mkdir(blogOutputDirectory, {
     recursive: true,

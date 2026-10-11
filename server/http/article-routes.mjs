@@ -30,6 +30,25 @@ export function registerArticleRoutes({ app, adminAuth, clientDir }) {
 
         const requestedSlug = req.params.slug;
 
+        const target = articles.find(
+          article =>
+            article.status === 'published' &&
+            Array.isArray(article.legacySlugs) &&
+            article.legacySlugs.includes(requestedSlug),
+        );
+
+        if (target) {
+          return res.redirect(301, `/blog/${encodeURIComponent(target.slug)}/`);
+        }
+
+        const current = articles.find(
+          article => article.status === 'published' && article.slug === requestedSlug,
+        );
+
+        if (!current) {
+          return res.status(404).type('text/plain').send('Article not found');
+        }
+
         const articleStaticRoot = path.resolve(clientDir, 'blog');
 
         const articleStaticPath = path.resolve(articleStaticRoot, requestedSlug, 'index.html');
@@ -50,26 +69,7 @@ export function registerArticleRoutes({ app, adminAuth, clientDir }) {
           }
         }
 
-        const target = articles.find(
-          article =>
-            article.status === 'published' &&
-            Array.isArray(article.legacySlugs) &&
-            article.legacySlugs.includes(requestedSlug),
-        );
-
-        if (target) {
-          return res.redirect(301, `/blog/${encodeURIComponent(target.slug)}/`);
-        }
-
-        const current = articles.find(
-          article => article.status === 'published' && article.slug === requestedSlug,
-        );
-
-        if (current) {
-          return res.status(503).type('text/plain').send('Article page is being published.');
-        }
-
-        return res.status(404).type('text/plain').send('Article not found');
+        return res.status(503).type('text/plain').send('Article page is being published.');
       } catch (error) {
         console.error('[articles] legacy redirect failed:', error);
 
