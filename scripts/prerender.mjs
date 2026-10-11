@@ -90,6 +90,71 @@ function getClientCssLinks(sourceFile) {
     .join('\n');
 }
 
+function getClientCssFilesFromManifestGraph(sourceFile) {
+  const visitedEntries = new Set();
+
+  const cssFiles = new Set();
+
+  function visit(entryKey) {
+    if (visitedEntries.has(entryKey)) {
+      return;
+    }
+
+    visitedEntries.add(entryKey);
+
+    const manifestEntry = clientManifest[entryKey];
+
+    if (!manifestEntry) {
+      throw new Error(`Client manifest entry not found: ${entryKey}`);
+    }
+
+    for (const cssFile of manifestEntry.css || []) {
+      cssFiles.add(cssFile);
+    }
+
+    for (const importedEntry of manifestEntry.imports || []) {
+      visit(importedEntry);
+    }
+  }
+
+  visit(sourceFile);
+
+  if (cssFiles.size === 0) {
+    throw new Error(`Client CSS not found in manifest graph: ${sourceFile}`);
+  }
+
+  return [...cssFiles];
+}
+
+function getLinkedClientStylesheets(htmlDocument) {
+  const linkedCssFiles = new Set();
+
+  const linkTags = String(htmlDocument).match(/<link\b[^>]*>/gi) || [];
+
+  for (const linkTag of linkTags) {
+    if (!/\brel=["']stylesheet["']/i.test(linkTag)) {
+      continue;
+    }
+
+    const hrefMatch = linkTag.match(/\bhref=["']\/([^"'?#]+\.css)(?:[?#][^"']*)?["']/i);
+
+    if (hrefMatch?.[1]) {
+      linkedCssFiles.add(hrefMatch[1]);
+    }
+  }
+
+  return linkedCssFiles;
+}
+
+function getClientRouteCssLinks(sourceFile, htmlDocument) {
+  const linkedCssFiles = getLinkedClientStylesheets(htmlDocument);
+
+  return getClientCssFilesFromManifestGraph(sourceFile)
+    .filter(cssFile => !linkedCssFiles.has(cssFile))
+    .map(cssFile => `<link rel="stylesheet" crossorigin href="/${cssFile}">`)
+    .join('\n');
+}
+
 template = template
   .replace(/<title>[\s\S]*?<\/title>/i, '')
   .replace(/<meta\s+name=["']robots["'][^>]*>/i, '')
@@ -240,18 +305,23 @@ if (canonical) {
     }
   }
 
-  function createBlogDocument(renderResult, blogData) {
+  function createBlogDocument(renderResult, blogData, routeCssSource) {
     let document = objectTypeBaseTemplate
       .replace(/<title>[\s\S]*?<\/title>/i, '')
       .replace(/<meta\s+name=["']robots["'][^>]*>/i, '')
       .replace(/<meta\s+name=["']description["'][^>]*>/i, '');
 
+    const routeCssTags = getClientRouteCssLinks(routeCssSource, document);
+
     const resultHeadTags = [
       renderResult.helmet?.title?.toString() || '',
       renderResult.helmet?.meta?.toString() || '',
       renderResult.helmet?.link?.toString() || '',
+      routeCssTags,
       renderResult.helmet?.script?.toString() || '',
-    ].join('\n');
+    ]
+      .filter(Boolean)
+      .join('\n');
 
     const serializedBlogData = JSON.stringify(blogData)
       .replace(/</g, '\\u003c')
@@ -439,11 +509,17 @@ if (canonical) {
     article: null,
   });
 
-  const blogDocument = createBlogDocument(blogResult, {
-    articles: publishedArticles,
+  const blogDocument = createBlogDocument(
+    blogResult,
 
-    article: null,
-  });
+    {
+      articles: publishedArticles,
+
+      article: null,
+    },
+
+    'src/pages/BlogPage/BlogPage.jsx',
+  );
 
   const blogOutputDirectory = path.join(clientDir, 'blog');
 
@@ -481,11 +557,17 @@ if (canonical) {
       article,
     });
 
-    const articleDocument = createBlogDocument(articleResult, {
-      articles: publishedArticles,
+    const articleDocument = createBlogDocument(
+      articleResult,
 
-      article,
-    });
+      {
+        articles: publishedArticles,
+
+        article,
+      },
+
+      'src/pages/ArticlePage/ArticlePage.jsx',
+    );
 
     const articleOutputDirectory = path.join(clientDir, 'blog', article.slug);
 

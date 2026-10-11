@@ -154,6 +154,10 @@ export function render({
         'src/pages/LegalPage/LegalPage.jsx': {
           css: ['assets/legal-fixture.css'],
         },
+
+        'src/pages/BlogPage/BlogPage.jsx': {
+          css: ['assets/blog-fixture.css'],
+        },
       },
       null,
       2,
