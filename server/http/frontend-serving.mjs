@@ -4,7 +4,7 @@ import path from 'node:path';
 import express from 'express';
 
 export function registerFrontendServing({ app, clientDir, isProduction }) {
-  app.get('/admin/', async (_req, res) => {
+  async function serveAdminShell(_req, res) {
     try {
       const html = await fs.readFile(path.join(clientDir, 'admin.html'), 'utf8');
 
@@ -14,7 +14,20 @@ export function registerFrontendServing({ app, clientDir, isProduction }) {
 
       return res.status(500).send('Admin unavailable');
     }
-  });
+  }
+
+  /*
+   * Admin navigation is client-side and reads
+   * window.location.pathname directly.
+   *
+   * Every browser GET inside the /admin namespace
+   * therefore needs the same admin.html shell.
+   *
+   * /api/admin/* is a different namespace and is
+   * registered by the API routes before frontend
+   * serving, so it is intentionally unaffected.
+   */
+  app.get(['/admin', '/admin/', '/admin/*'], serveAdminShell);
 
   app.use(
     express.static(clientDir, {
