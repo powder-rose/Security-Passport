@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 
 import { getArticles, deleteArticle, updateArticle } from '../../api/adminApi';
 
+import BlogPublicationStatus from './components/BlogPublicationStatus.jsx';
+import useBlogPublication from './hooks/useBlogPublication.js';
+
 const BLOG_CATEGORIES = [
   {
     id: 'hotels',
@@ -57,6 +60,13 @@ export default function ArticlesPage() {
 
   const [filter, setFilter] = useState('all');
 
+  const {
+    publication,
+    setPublication,
+    retryPublication: retryPublicationRequest,
+    retrying,
+  } = useBlogPublication();
+
   async function loadArticles() {
     setLoading(true);
 
@@ -86,6 +96,10 @@ export default function ArticlesPage() {
           current.map(article => (article.id === id ? result.article : article)),
         );
 
+        if (result.publication) {
+          setPublication(result.publication);
+        }
+
         return true;
       }
 
@@ -108,9 +122,21 @@ export default function ArticlesPage() {
       return;
     }
 
-    await deleteArticle(id);
+    const result = await deleteArticle(id);
 
-    setArticles(articles.filter(item => item.id !== id));
+    if (result?.publication) {
+      setPublication(result.publication);
+    }
+
+    setArticles(current => current.filter(item => item.id !== id));
+  }
+
+  async function retryPublication() {
+    try {
+      await retryPublicationRequest();
+    } catch (error) {
+      alert(error.message || 'Не удалось повторить публикацию');
+    }
   }
 
   const filteredArticles = articles.filter(article => {
@@ -157,6 +183,12 @@ export default function ArticlesPage() {
           </div>
         </div>
       </div>
+
+      <BlogPublicationStatus
+        publication={publication}
+        retrying={retrying}
+        onRetry={retryPublication}
+      />
 
       {loading ? (
         <div className="admin-empty">Загрузка...</div>

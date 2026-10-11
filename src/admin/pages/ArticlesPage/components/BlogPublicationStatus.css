@@ -1,0 +1,119 @@
+/* ==========================================================================
+   BLOG PUBLICATION STATUS
+   ==========================================================================
+
+   React entry:
+   BlogPublicationStatus.jsx
+
+   COMPONENT OWNERSHIP
+
+   01. BlogPublicationStatus.jsx
+       .blog-publication*
+
+   Component-specific styles live next to their React component.
+   ========================================================================== */
+
+.blog-publication {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin: 0 0 24px;
+
+  padding: 14px 16px;
+
+  border: 1px solid rgba(18, 96, 255, 0.12);
+  border-radius: 16px;
+
+  background: rgba(18, 96, 255, 0.045);
+}
+
+.blog-publication__copy {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  gap: 4px;
+}
+
+.blog-publication__copy strong {
+  color: #111;
+
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.blog-publication__copy span {
+  color: rgba(17, 17, 17, 0.58);
+
+  font-size: 12px;
+  line-height: 1.45;
+
+  overflow-wrap: anywhere;
+}
+
+.blog-publication__retry {
+  flex: 0 0 auto;
+
+  min-height: 38px;
+
+  padding: 0 16px;
+
+  border: 0;
+  border-radius: 10px;
+
+  background: #111;
+  color: #fff;
+
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease;
+}
+
+.blog-publication__retry:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.blog-publication__retry:disabled {
+  opacity: 0.55;
+
+  cursor: default;
+}
+
+.blog-publication--success {
+  border-color: rgba(34, 160, 107, 0.16);
+
+  background: rgba(34, 160, 107, 0.07);
+}
+
+.blog-publication--error {
+  border-color: rgba(220, 75, 57, 0.16);
+
+  background: rgba(220, 75, 57, 0.07);
+}
+
+.blog-publication--unavailable {
+  border-color: rgba(17, 17, 17, 0.1);
+
+  background: rgba(17, 17, 17, 0.035);
+}
+
+@media (max-width: 620px) {
+  .blog-publication {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .blog-publication__retry {
+    width: 100%;
+  }
+}

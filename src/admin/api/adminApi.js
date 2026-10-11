@@ -108,6 +108,16 @@ export function getArticles() {
   return request('/articles');
 }
 
+export function getBlogPublication() {
+  return request('/blog-publication');
+}
+
+export function retryBlogPublication() {
+  return request('/blog-publication', {
+    method: 'POST',
+  });
+}
+
 export function createArticle(data) {
   return request('/articles', {
     method: 'POST',

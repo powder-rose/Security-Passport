@@ -17,6 +17,14 @@ const STATE_FILE = path.join(PROJECT_ROOT, 'data', 'blog-publication.json');
 
 const VALID_STATUSES = new Set(['idle', 'queued', 'running', 'success', 'error']);
 
+function createPublicationStateError(code, message) {
+  const error = new Error(message);
+
+  error.code = code;
+
+  return error;
+}
+
 function createIdleState() {
   return {
     version: 1,
@@ -357,7 +365,7 @@ export async function queueBlogPublication(reason = 'article-change') {
    * API callers await this write before acknowledging
    * that publication has been queued.
    */
-  await updateState(current => ({
+  const queuedState = await updateState(current => ({
     ...current,
 
     status: running ? current.status : 'queued',
@@ -374,7 +382,48 @@ export async function queueBlogPublication(reason = 'article-change') {
   startQueueProcessing();
 
   return {
+    ...queuedState,
+
     queued: true,
+    running,
+  };
+}
+
+export async function retryBlogPublication() {
+  const queuedState = await updateState(current => {
+    if (running || current.pending || current.status === 'queued' || current.status === 'running') {
+      throw createPublicationStateError('BLOG_PUBLICATION_BUSY', 'Публикация уже выполняется');
+    }
+
+    if (current.status !== 'error') {
+      throw createPublicationStateError(
+        'BLOG_PUBLICATION_NOT_RETRYABLE',
+        'Повторная публикация доступна только после ошибки',
+      );
+    }
+
+    return {
+      ...current,
+
+      status: 'queued',
+
+      reason: current.reason || 'manual-retry',
+
+      startedAt: null,
+
+      finishedAt: null,
+
+      error: null,
+
+      pending: true,
+    };
+  });
+
+  startQueueProcessing();
+
+  return {
+    ...queuedState,
+
     running,
   };
 }
