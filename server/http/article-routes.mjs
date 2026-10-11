@@ -21,7 +21,8 @@ import {
 
 import { asyncRoute } from './async-route.mjs';
 
-export function registerArticleRoutes({ app, adminAuth, clientDir }) {
+export function registerArticleRoutes({ app, adminAuth, clientDir, uploadsDir }) {
+  const articleImageUploadDir = path.resolve(uploadsDir, 'articles');
   app.get(
     ['/blog/:slug', '/blog/:slug/'],
     asyncRoute(async (req, res) => {
@@ -299,14 +300,12 @@ export function registerArticleRoutes({ app, adminAuth, clientDir }) {
     '/api/admin/upload/article-image',
     adminAuth.requireAdmin,
     asyncRoute(async (req, res) => {
-      const uploadDir = path.resolve('public/uploads/articles');
-
-      await fs.mkdir(uploadDir, {
+      await fs.mkdir(articleImageUploadDir, {
         recursive: true,
       });
 
       const form = formidable({
-        uploadDir,
+        uploadDir: articleImageUploadDir,
         keepExtensions: true,
         maxFiles: 1,
         maxFileSize: 20 * 1024 * 1024,
@@ -340,7 +339,7 @@ export function registerArticleRoutes({ app, adminAuth, clientDir }) {
 
       const optimizedName = `${crypto.randomUUID()}.webp`;
 
-      const optimizedPath = path.join(uploadDir, optimizedName);
+      const optimizedPath = path.join(articleImageUploadDir, optimizedName);
 
       try {
         const metadata = await sharp(sourcePath).metadata();

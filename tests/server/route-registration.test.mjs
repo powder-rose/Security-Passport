@@ -158,6 +158,7 @@ test('article route contract keeps public routes open and admin routes protected
     app,
     adminAuth,
     clientDir: '/tmp/passport-route-test/client',
+    uploadsDir: '/tmp/passport-route-test/uploads',
   });
 
   assert.equal(routes.length, 11);

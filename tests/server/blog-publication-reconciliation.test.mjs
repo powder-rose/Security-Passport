@@ -351,6 +351,8 @@ async function createArticleRouteFixture() {
       },
 
       clientDir,
+
+      uploadsDir: path.join(root, 'uploads'),
     });
 
     const publicArticleRoute = findRoute(routes, 'GET', ['/blog/:slug', '/blog/:slug/']);
