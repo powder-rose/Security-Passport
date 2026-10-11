@@ -58,6 +58,8 @@ export default function ArticlesPage() {
 
   const [loading, setLoading] = useState(true);
 
+  const [error, setError] = useState('');
+
   const [filter, setFilter] = useState('all');
 
   const {
@@ -69,12 +71,23 @@ export default function ArticlesPage() {
 
   async function loadArticles() {
     setLoading(true);
+    setError('');
 
-    const result = await getArticles();
+    try {
+      const result = await getArticles();
 
-    setArticles(result.articles || []);
+      if (!result?.ok || !Array.isArray(result.articles)) {
+        throw new Error(result?.error || 'ARTICLES_LOAD_FAILED');
+      }
 
-    setLoading(false);
+      setArticles(result.articles);
+    } catch (loadError) {
+      console.error(loadError);
+
+      setError('Не удалось загрузить статьи.');
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -122,13 +135,25 @@ export default function ArticlesPage() {
       return;
     }
 
-    const result = await deleteArticle(id);
+    try {
+      const result = await deleteArticle(id);
 
-    if (result?.publication) {
-      setPublication(result.publication);
+      if (!result?.ok) {
+        alert('Не удалось удалить статью.');
+
+        return;
+      }
+
+      if (result.publication) {
+        setPublication(result.publication);
+      }
+
+      setArticles(current => current.filter(item => item.id !== id));
+    } catch (deleteError) {
+      console.error(deleteError);
+
+      alert('Не удалось удалить статью.');
     }
-
-    setArticles(current => current.filter(item => item.id !== id));
   }
 
   async function retryPublication() {
@@ -192,6 +217,14 @@ export default function ArticlesPage() {
 
       {loading ? (
         <div className="admin-empty">Загрузка...</div>
+      ) : error ? (
+        <div className="admin-empty">
+          <p>{error}</p>
+
+          <button type="button" className="admin-button-secondary" onClick={loadArticles}>
+            Повторить
+          </button>
+        </div>
       ) : articles.length === 0 ? (
         <div className="admin-empty">Статей пока нет</div>
       ) : (
