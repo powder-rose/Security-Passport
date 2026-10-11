@@ -1,36 +1,153 @@
 import { spawn } from 'node:child_process';
-
+import fs from 'node:fs/promises';
 import path from 'node:path';
 
 import { resolveProjectRoot } from '../shared/project-root.mjs';
 
 const PROJECT_ROOT = resolveProjectRoot();
 
-const PUBLISH_SCRIPT = path.join(PROJECT_ROOT, 'scripts', 'publish-blog.sh');
+const PUBLISH_SCRIPT = path.resolve(
+  PROJECT_ROOT,
+  process.env.BLOG_PUBLISH_SCRIPT || 'scripts/publish-blog.sh',
+);
 
-let running = false;
+const PUBLISH_EXECUTABLE = process.env.BLOG_PUBLICATION_EXECUTABLE || 'bash';
 
-let pending = false;
+const STATE_FILE = path.join(PROJECT_ROOT, 'data', 'blog-publication.json');
 
-let lastState = {
-  status: 'idle',
+const VALID_STATUSES = new Set(['idle', 'queued', 'running', 'success', 'error']);
 
-  reason: null,
+function createIdleState() {
+  return {
+    version: 1,
+    status: 'idle',
+    reason: null,
+    startedAt: null,
+    finishedAt: null,
+    error: null,
+    pending: false,
+  };
+}
 
-  startedAt: null,
+function normalizeState(value) {
+  if (
+    !value ||
+    typeof value !== 'object' ||
+    Array.isArray(value) ||
+    value.version !== 1 ||
+    !VALID_STATUSES.has(value.status)
+  ) {
+    throw new Error('INVALID_BLOG_PUBLICATION_STATE');
+  }
 
-  finishedAt: null,
+  return {
+    version: 1,
 
-  error: null,
-};
+    status: value.status,
+
+    reason: typeof value.reason === 'string' && value.reason.trim() ? value.reason.trim() : null,
+
+    startedAt: typeof value.startedAt === 'string' ? value.startedAt : null,
+
+    finishedAt: typeof value.finishedAt === 'string' ? value.finishedAt : null,
+
+    error: typeof value.error === 'string' && value.error ? value.error : null,
+
+    pending: Boolean(value.pending),
+  };
+}
+
+async function readDurableState() {
+  try {
+    const source = await fs.readFile(STATE_FILE, 'utf8');
+
+    return normalizeState(JSON.parse(source));
+  } catch (error) {
+    if (error?.code === 'ENOENT') {
+      return createIdleState();
+    }
+
+    throw error;
+  }
+}
+
+async function persistState(value) {
+  const next = normalizeState(value);
+
+  await fs.mkdir(path.dirname(STATE_FILE), {
+    recursive: true,
+  });
+
+  const temporary = `${STATE_FILE}.${process.pid}.${Date.now()}.tmp`;
+
+  try {
+    await fs.writeFile(temporary, `${JSON.stringify(next, null, 2)}\n`, {
+      encoding: 'utf8',
+      mode: 0o600,
+    });
+
+    try {
+      /*
+
+       * POSIX rename replaces the destination atomically.
+
+       * Production runs on Linux, so this remains the
+
+       * durable production path.
+
+       *
+
+       * Windows may reject rename over an existing file.
+
+       * The fallback exists only for local Windows
+
+       * development and regression tests.
+
+       */
+
+      await fs.rename(
+        temporary,
+
+        STATE_FILE,
+      );
+    } catch (error) {
+      const windowsReplaceError =
+        process.platform === 'win32' && ['EPERM', 'EEXIST'].includes(error?.code);
+
+      if (!windowsReplaceError) {
+        throw error;
+      }
+
+      await fs.rm(
+        STATE_FILE,
+
+        {
+          force: true,
+        },
+      );
+
+      await fs.rename(
+        temporary,
+
+        STATE_FILE,
+      );
+    }
+  } catch (error) {
+    await fs.rm(temporary, {
+      force: true,
+    });
+
+    throw error;
+  }
+
+  return next;
+}
 
 function runPublication(reason) {
   return new Promise((resolve, reject) => {
-    const child = spawn('bash', [PUBLISH_SCRIPT, reason], {
+    const child = spawn(PUBLISH_EXECUTABLE, [PUBLISH_SCRIPT, reason], {
       cwd: PROJECT_ROOT,
-
       stdio: 'inherit',
-
       env: process.env,
     });
 
@@ -47,38 +164,30 @@ function runPublication(reason) {
   });
 }
 
-async function publishOnce(reason) {
-  const startedAt = new Date().toISOString();
+let state = await readDurableState();
 
-  lastState = {
-    status: 'running',
+let stateWrites = Promise.resolve();
 
-    reason,
+let running = false;
 
-    startedAt,
+function updateState(mutator) {
+  const operation = stateWrites.then(async () => {
+    const next = normalizeState(
+      mutator({
+        ...state,
+      }),
+    );
 
-    finishedAt: null,
+    state = await persistState(next);
 
-    error: null,
-  };
+    return {
+      ...state,
+    };
+  });
 
-  console.log(`[blog-publication] started: ${reason}`);
+  stateWrites = operation.catch(() => {});
 
-  await runPublication(reason);
-
-  lastState = {
-    status: 'success',
-
-    reason,
-
-    startedAt,
-
-    finishedAt: new Date().toISOString(),
-
-    error: null,
-  };
-
-  console.log('[blog-publication] completed');
+  return operation;
 }
 
 async function processQueue() {
@@ -89,25 +198,119 @@ async function processQueue() {
   running = true;
 
   try {
-    while (pending) {
-      pending = false;
+    while (true) {
+      await stateWrites;
 
-      const reason = lastState.reason || 'article-change';
+      if (!state.pending) {
+        break;
+      }
+
+      let activeReason = state.reason || 'article-change';
+
+      const startedAt = new Date().toISOString();
+
+      const runningState = await updateState(current => {
+        activeReason = current.reason || activeReason;
+
+        return {
+          ...current,
+
+          status: 'running',
+
+          reason: activeReason,
+
+          startedAt,
+
+          finishedAt: null,
+
+          error: null,
+
+          pending: false,
+        };
+      });
+
+      activeReason = runningState.reason || activeReason;
+
+      console.log(`[blog-publication] started: ${activeReason}`);
 
       try {
-        await publishOnce(reason);
+        await runPublication(activeReason);
       } catch (error) {
         console.error('[blog-publication] failed:', error);
 
-        lastState = {
-          ...lastState,
+        const message = error instanceof Error ? error.message : String(error);
 
-          status: 'error',
+        const failedState = await updateState(current => {
+          if (current.pending) {
+            return {
+              ...current,
+
+              status: 'queued',
+
+              startedAt: null,
+
+              finishedAt: new Date().toISOString(),
+
+              error: null,
+            };
+          }
+
+          return {
+            ...current,
+
+            status: 'error',
+
+            reason: activeReason,
+
+            finishedAt: new Date().toISOString(),
+
+            error: message,
+
+            pending: false,
+          };
+        });
+
+        if (!failedState.pending) {
+          break;
+        }
+
+        continue;
+      }
+
+      const completedState = await updateState(current => {
+        if (current.pending) {
+          return {
+            ...current,
+
+            status: 'queued',
+
+            startedAt: null,
+
+            finishedAt: new Date().toISOString(),
+
+            error: null,
+          };
+        }
+
+        return {
+          ...current,
+
+          status: 'success',
+
+          reason: activeReason,
 
           finishedAt: new Date().toISOString(),
 
-          error: error instanceof Error ? error.message : String(error),
+          error: null,
+
+          pending: false,
         };
+      });
+
+      console.log('[blog-publication] completed');
+
+      if (!completedState.pending) {
+        break;
       }
     }
   } finally {
@@ -115,28 +318,77 @@ async function processQueue() {
   }
 }
 
-export function queueBlogPublication(reason = 'article-change') {
-  pending = true;
+function startQueueProcessing() {
+  void processQueue().catch(error => {
+    console.error('[blog-publication] queue processing failed:', error);
+  });
+}
 
-  lastState = {
-    ...lastState,
-    reason,
-  };
+async function recoverInterruptedPublication() {
+  if (state.status !== 'queued' && state.status !== 'running' && !state.pending) {
+    return false;
+  }
 
-  void processQueue();
+  await updateState(current => ({
+    ...current,
+
+    status: 'queued',
+
+    reason: current.reason || 'recovered-publication',
+
+    startedAt: null,
+
+    finishedAt: null,
+
+    error: null,
+
+    pending: true,
+  }));
+
+  return true;
+}
+
+export async function queueBlogPublication(reason = 'article-change') {
+  const normalizedReason = String(reason || 'article-change').trim() || 'article-change';
+
+  /*
+   * Durability boundary:
+   *
+   * API callers await this write before acknowledging
+   * that publication has been queued.
+   */
+  await updateState(current => ({
+    ...current,
+
+    status: running ? current.status : 'queued',
+
+    reason: normalizedReason,
+
+    finishedAt: null,
+
+    error: null,
+
+    pending: true,
+  }));
+
+  startQueueProcessing();
 
   return {
     queued: true,
-
     running,
   };
 }
 
 export function getBlogPublicationStatus() {
   return {
-    ...lastState,
+    ...state,
 
     running,
-    pending,
+
+    pending: state.pending,
   };
+}
+
+if (await recoverInterruptedPublication()) {
+  startQueueProcessing();
 }
