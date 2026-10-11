@@ -171,6 +171,7 @@ registerArticleRoutes({
   app,
   adminAuth,
   clientDir: path.join(temporaryRoot, 'client'),
+  uploadsDir: path.join(temporaryRoot, 'public', 'uploads'),
 });
 
 test('POST /api/admin/articles returns 400 for invalid article input', async () => {

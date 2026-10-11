@@ -13,6 +13,7 @@ module.exports = {
       env: {
         PASSPORT_PROJECT_ROOT: '/var/www/pasport-bezopasnosty.ru/app/passport-security-base',
         CLIENT_DIR: '/var/www/pasport-bezopasnosty.ru/current',
+        UPLOADS_DIR: '/var/www/pasport-bezopasnosty.ru/shared/uploads',
         REGULATION_REGISTRY_FILE:
           '/var/www/pasport-bezopasnosty.ru/shared/regulations/regulations.json',
       },

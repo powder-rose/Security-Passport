@@ -58,6 +58,8 @@ const BACKUP_ENABLED = String(process.env.LEADS_BACKUP_ENABLED ?? 'true').toLowe
 const LEADS_FILE = path.resolve(projectRoot, process.env.LEADS_FILE || 'data/leads.jsonl');
 const VISITS_FILE = path.resolve(projectRoot, process.env.VISITS_FILE || 'data/visits.jsonl');
 
+const uploadsDir = path.resolve(projectRoot, process.env.UPLOADS_DIR || 'public/uploads');
+
 const regulationRecovery = await recoverRegulationSyncTransactions();
 
 if (regulationRecovery.recoveredTransactions > 0) {
@@ -102,6 +104,7 @@ registerArticleRoutes({
   app,
   adminAuth,
   clientDir,
+  uploadsDir,
 });
 
 registerPublicApiRoutes({

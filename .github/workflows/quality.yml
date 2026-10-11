@@ -48,13 +48,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Prepare CI runtime directories
-        run: |
-          if [ -L public/uploads ] && [ ! -e public/uploads ]; then
-            rm public/uploads
-            mkdir -p public/uploads
-          fi
-
       - name: Check formatting
         run: npm run format:check
 
