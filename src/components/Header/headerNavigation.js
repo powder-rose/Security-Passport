@@ -98,12 +98,37 @@ export function isPathActive(href, pathname) {
   return target === pathname;
 }
 
+export function getDirectNavigationTarget(hash) {
+  if (typeof document === 'undefined' || typeof hash !== 'string' || !hash.startsWith('#')) {
+    return null;
+  }
+
+  const rawId = hash.slice(1);
+
+  if (!rawId) {
+    return null;
+  }
+
+  let decodedId = rawId;
+
+  try {
+    decodedId = decodeURIComponent(rawId);
+  } catch {
+    // Malformed percent-encoding must never break page hydration.
+  }
+
+  return (
+    document.getElementById(decodedId) ||
+    (decodedId !== rawId ? document.getElementById(rawId) : null)
+  );
+}
+
 export function getNavigationTarget(hash) {
   if (typeof window === 'undefined' || typeof document === 'undefined') {
     return null;
   }
 
-  const directTarget = document.querySelector(hash);
+  const directTarget = getDirectNavigationTarget(hash);
 
   if (directTarget) {
     return directTarget;

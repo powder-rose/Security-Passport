@@ -331,3 +331,88 @@ test('article callback remains available without safe headings', async ({ page }
 
   expect(errors).toEqual([]);
 });
+
+test('custom blog category hash stays reload-safe and migrates legacy encoded hashes', async ({
+  page,
+}) => {
+  const pageErrors = collectPageErrors(page);
+
+  await page.route('**/api/articles', async route => {
+    await route.fulfill({
+      status: 200,
+
+      contentType: 'application/json',
+
+      body: JSON.stringify({
+        ok: true,
+
+        articles: [
+          {
+            id: 'education-category-test',
+            title: 'Паспорт безопасности образовательной организации',
+            slug: 'education-category-test',
+            image: '',
+            imageAlt: '',
+            seoDescription: 'Тестовый материал.',
+            category: 'Образовательные организации',
+            createdAt: '2026-10-12T10:00:00.000Z',
+            updatedAt: '2026-10-12T10:00:00.000Z',
+            publishedAt: '2026-10-12T10:00:00.000Z',
+          },
+        ],
+      }),
+    });
+  });
+
+  await page.goto('/');
+
+  await page.evaluate(() => {
+    localStorage.setItem('passport-cookie-notice-v1', 'dismissed');
+  });
+
+  const blog = await page.goto('/blog/');
+
+  expect(blog?.status()).toBe(200);
+
+  const category = page.getByRole('button', {
+    name: /^Образовательные организации\./,
+  });
+
+  await expect(category).toBeVisible();
+
+  await expect(category).toHaveAttribute('id', 'blog-category-custom-obrazovatelnye-organizacii');
+
+  await category.click();
+
+  await expect(category).toHaveAttribute('aria-pressed', 'true');
+
+  await expect(page).toHaveURL(/#blog-category-custom-obrazovatelnye-organizacii$/);
+
+  expect(page.url()).not.toContain('%');
+
+  await page.reload();
+
+  const reloadedCategory = page.getByRole('button', {
+    name: /^Образовательные организации\./,
+  });
+
+  await expect(reloadedCategory).toHaveAttribute('aria-pressed', 'true');
+
+  const legacyHash = '#blog-category-custom-' + encodeURIComponent('образовательные организации');
+
+  await page.goto(`/blog/${legacyHash}`);
+
+  const migratedCategory = page.getByRole('button', {
+    name: /^Образовательные организации\./,
+  });
+
+  await expect(migratedCategory).toBeVisible();
+
+  await expect(migratedCategory).toHaveAttribute('aria-pressed', 'true');
+
+  await expect(page).toHaveURL(/#blog-category-custom-obrazovatelnye-organizacii$/);
+
+  expect(page.url()).not.toContain('%');
+
+  expect(pageErrors).toEqual([]);
+});
