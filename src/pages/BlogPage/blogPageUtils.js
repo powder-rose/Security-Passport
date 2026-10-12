@@ -102,8 +102,10 @@ function createBlogCategorySlug(value) {
   return slug || `category-${createCategorySlugFallback(source)}`;
 }
 
-function createCustomBlogCategoryId(value) {
-  return `custom-${createBlogCategorySlug(value)}`;
+function createBlogCategoryId(value) {
+  const slug = createBlogCategorySlug(value);
+
+  return slug === 'all' ? 'category-all' : slug;
 }
 
 export function normalizeBlogCategoryId(value) {
@@ -117,11 +119,13 @@ export function normalizeBlogCategoryId(value) {
     return categoryId;
   }
 
-  if (!categoryId.startsWith('custom-')) {
-    return categoryId;
-  }
+  const rawValue = categoryId.startsWith('custom-')
+    ? categoryId.slice('custom-'.length)
+    : categoryId;
 
-  const rawValue = categoryId.slice('custom-'.length);
+  if (!rawValue) {
+    return '';
+  }
 
   let decodedValue;
 
@@ -131,11 +135,23 @@ export function normalizeBlogCategoryId(value) {
     return '';
   }
 
-  if (!decodedValue) {
+  const normalizedValue = normalizeCategoryLabel(decodedValue).toLocaleLowerCase('ru-RU');
+
+  if (!normalizedValue) {
     return '';
   }
 
-  return createCustomBlogCategoryId(decodedValue);
+  const predefined = BLOG_CATEGORIES.find(
+    category =>
+      category.id === normalizedValue ||
+      category.label.toLocaleLowerCase('ru-RU') === normalizedValue,
+  );
+
+  if (predefined) {
+    return predefined.id;
+  }
+
+  return createBlogCategoryId(normalizedValue);
 }
 
 export function resolveArticleCategory(article) {
@@ -161,7 +177,7 @@ export function resolveArticleCategory(article) {
   }
 
   return {
-    id: createCustomBlogCategoryId(normalized),
+    id: createBlogCategoryId(normalized),
 
     label,
 

@@ -332,9 +332,7 @@ test('article callback remains available without safe headings', async ({ page }
   expect(errors).toEqual([]);
 });
 
-test('custom blog category hash stays reload-safe and migrates legacy encoded hashes', async ({
-  page,
-}) => {
+test('blog category hash stays clean and migrates legacy custom hashes', async ({ page }) => {
   const pageErrors = collectPageErrors(page);
 
   await page.route('**/api/articles', async route => {
@@ -380,15 +378,16 @@ test('custom blog category hash stays reload-safe and migrates legacy encoded ha
 
   await expect(category).toBeVisible();
 
-  await expect(category).toHaveAttribute('id', 'blog-category-custom-obrazovatelnye-organizacii');
+  await expect(category).toHaveAttribute('id', 'blog-category-obrazovatelnye-organizacii');
 
   await category.click();
 
   await expect(category).toHaveAttribute('aria-pressed', 'true');
 
-  await expect(page).toHaveURL(/#blog-category-custom-obrazovatelnye-organizacii$/);
+  await expect(page).toHaveURL(/#blog-category-obrazovatelnye-organizacii$/);
 
   expect(page.url()).not.toContain('%');
+  expect(page.url()).not.toContain('custom-');
 
   await page.reload();
 
@@ -398,21 +397,43 @@ test('custom blog category hash stays reload-safe and migrates legacy encoded ha
 
   await expect(reloadedCategory).toHaveAttribute('aria-pressed', 'true');
 
-  const legacyHash = '#blog-category-custom-' + encodeURIComponent('образовательные организации');
+  await expect(page).toHaveURL(/#blog-category-obrazovatelnye-organizacii$/);
 
-  await page.goto(`/blog/${legacyHash}`);
+  // Legacy format #1:
+  // custom- + percent-encoded Cyrillic category.
 
-  const migratedCategory = page.getByRole('button', {
+  const legacyEncodedHash =
+    '#blog-category-custom-' + encodeURIComponent('образовательные организации');
+
+  await page.goto(`/blog/${legacyEncodedHash}`);
+
+  const legacyEncodedCategory = page.getByRole('button', {
     name: /^Образовательные организации\./,
   });
 
-  await expect(migratedCategory).toBeVisible();
+  await expect(legacyEncodedCategory).toHaveAttribute('aria-pressed', 'true');
 
-  await expect(migratedCategory).toHaveAttribute('aria-pressed', 'true');
-
-  await expect(page).toHaveURL(/#blog-category-custom-obrazovatelnye-organizacii$/);
+  await expect(page).toHaveURL(/#blog-category-obrazovatelnye-organizacii$/);
 
   expect(page.url()).not.toContain('%');
+  expect(page.url()).not.toContain('custom-');
+
+  // Legacy format #2:
+  // the temporary readable custom-* format.
+
+  const legacyReadableHash = '#blog-category-custom-obrazovatelnye-organizacii';
+
+  await page.goto(`/blog/${legacyReadableHash}`);
+
+  const legacyReadableCategory = page.getByRole('button', {
+    name: /^Образовательные организации\./,
+  });
+
+  await expect(legacyReadableCategory).toHaveAttribute('aria-pressed', 'true');
+
+  await expect(page).toHaveURL(/#blog-category-obrazovatelnye-organizacii$/);
+
+  expect(page.url()).not.toContain('custom-');
 
   expect(pageErrors).toEqual([]);
 });
