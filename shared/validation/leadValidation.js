@@ -1,5 +1,7 @@
 import * as yup from 'yup';
 
+import { ARTICLE_CALLBACK_INTERESTS } from '../contracts/lead.js';
+
 const PHONE_MIN_DIGITS = 10;
 const PHONE_MAX_DIGITS = 15;
 
@@ -265,4 +267,36 @@ export const quizContactSchema = yup.object({
   email: emailSchema.required('Укажите электронную почту.'),
 
   consent: consentSchema,
+});
+
+export const articleCallbackSchema = yup.object({
+  interest: yup
+    .string()
+    .oneOf(ARTICLE_CALLBACK_INTERESTS, 'Выберите тему обращения.')
+    .required('Выберите тему обращения.'),
+
+  name: optionalHumanTextSchema(80, 'Имя слишком длинное.')
+    .matches(
+      /^[A-Za-zА-Яа-яЁё\s'-]*$/,
+      'Имя может содержать только буквы, пробел, дефис и апостроф.',
+    )
+    .test('optional-name', 'Укажите настоящее имя.', value => {
+      if (!value) {
+        return true;
+      }
+
+      return value.length >= 2 && !obviousGarbage.has(compactText(value));
+    }),
+
+  phone: russianPhoneSchema,
+
+  articleTitle: yup
+    .string()
+    .transform(value => value?.trim() ?? '')
+    .max(300, 'Название статьи слишком длинное.')
+    .default(''),
+
+  consent: consentSchema,
+
+  website: yup.string().max(0, 'Некорректная отправка формы.').default(''),
 });

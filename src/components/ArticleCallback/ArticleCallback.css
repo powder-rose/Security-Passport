@@ -1,0 +1,424 @@
+.article-callback {
+  width: min(100%, var(--article-reading-width, 720px));
+  margin: clamp(48px, 7vw, 76px) auto;
+  color: var(--color-text);
+}
+
+.article-callback__teaser {
+  padding: 12px;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 14px 48px rgba(21, 21, 21, 0.06);
+}
+
+.article-callback__teaser-inner {
+  padding: clamp(20px, 3.5vw, 30px);
+  border-radius: 16px;
+  background: #f8f7f3;
+}
+
+.article-callback__eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+  color: #777771;
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+}
+
+.article-callback__badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 23px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: #151515;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.article-callback__title {
+  margin: 0;
+  color: #151515;
+  font-size: clamp(25px, 3.5vw, 33px);
+  font-weight: 760;
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+}
+
+.article-callback__question {
+  margin: 20px 0 0;
+  color: #343434;
+  font-size: clamp(15px, 1.8vw, 17px);
+  font-weight: 680;
+  line-height: 1.5;
+}
+
+.article-callback__description {
+  margin: 15px 0 0;
+  color: #686863;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.article-callback__open {
+  width: 100%;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 22px;
+  padding: 15px 20px;
+  border-radius: 12px;
+  background: #151515;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 740;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.article-callback__open > span:last-child {
+  color: var(--color-accent);
+  font-size: 21px;
+  line-height: 1;
+}
+
+.article-callback__open:hover {
+  transform: translateY(-2px);
+  background: #303030;
+}
+
+.article-callback__hint {
+  margin: 13px 0 0;
+  color: #777771;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.article-callback__panel {
+  padding: clamp(24px, 4vw, 36px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 22px;
+  background: #151515;
+  color: #f7f7f5;
+  box-shadow: 0 18px 60px rgba(21, 21, 21, 0.12);
+}
+
+.article-callback__form-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.article-callback__form-kicker {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 11px;
+  font-weight: 760;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.article-callback__back {
+  flex: 0 0 auto;
+  padding: 8px 0;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.article-callback__back:hover {
+  color: #fff;
+}
+
+.article-callback__form-title {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(24px, 3.5vw, 32px);
+  font-weight: 740;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+}
+
+.article-callback__form-title:focus {
+  outline: none;
+}
+
+.article-callback__form-description {
+  margin: 11px 0 24px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.article-callback__form {
+  display: grid;
+  gap: 20px;
+}
+
+.article-callback__interests {
+  display: grid;
+  gap: 13px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.article-callback__interests legend {
+  margin-bottom: 13px;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  font-weight: 740;
+}
+
+.article-callback__interest {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 14px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.article-callback__interest input {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 19px;
+  margin: 1px 0 0;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.article-callback__fields {
+  display: grid;
+  gap: 18px;
+}
+
+.article-callback__field {
+  display: grid;
+  gap: 9px;
+  min-width: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.article-callback__field input {
+  width: 100%;
+  min-width: 0;
+  min-height: 54px;
+  padding: 0 17px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.025);
+  color: #fff;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 450;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.article-callback__field input::placeholder {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.article-callback__field input:focus {
+  border-color: var(--color-accent);
+  outline: none;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.article-callback__consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 13px;
+  line-height: 1.6;
+  cursor: pointer;
+}
+
+.article-callback__consent input {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 19px;
+  margin: 1px 0 0;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.article-callback__consent a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.article-callback__submit {
+  width: 100%;
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 4px;
+  padding: 13px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  background: transparent;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 750;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.article-callback__submit-arrow {
+  color: var(--color-accent);
+  font-size: 22px;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.article-callback__submit:hover:not(:disabled) {
+  color: var(--color-accent);
+}
+
+.article-callback__submit:hover:not(:disabled) .article-callback__submit-arrow {
+  transform: translate(2px, -2px);
+}
+
+.article-callback__submit:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.article-callback__message {
+  margin: 0;
+  padding: 13px 15px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.article-callback__message--error {
+  background: rgba(255, 100, 100, 0.12);
+  color: #ffb9b9;
+}
+
+.article-callback__message--loading,
+.article-callback__message--notice {
+  background: rgba(169, 240, 74, 0.1);
+  color: #d7f8aa;
+}
+
+.article-callback__complete {
+  display: grid;
+  justify-items: start;
+  gap: 14px;
+}
+
+.article-callback__complete-mark {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: #151515;
+  font-size: 23px;
+  font-weight: 800;
+}
+
+.article-callback__complete p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.article-callback__honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .article-callback__teaser {
+    padding: 8px;
+    border-radius: 18px;
+  }
+
+  .article-callback__teaser-inner {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+
+  .article-callback__eyebrow {
+    gap: 8px;
+    margin-bottom: 17px;
+  }
+
+  .article-callback__title {
+    font-size: clamp(23px, 6vw, 29px);
+  }
+
+  .article-callback__question {
+    margin-top: 16px;
+    font-size: 15px;
+  }
+
+  .article-callback__description {
+    font-size: 13px;
+  }
+
+  .article-callback__open {
+    min-height: 52px;
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+
+  .article-callback__panel {
+    padding: 22px 17px;
+    border-radius: 18px;
+  }
+
+  .article-callback__interest {
+    font-size: 13px;
+  }
+
+  .article-callback__form-description {
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .article-callback__open,
+  .article-callback__back,
+  .article-callback__field input,
+  .article-callback__submit,
+  .article-callback__submit-arrow {
+    transition: none;
+  }
+}

@@ -13,6 +13,7 @@ export const METRICA_GOALS = Object.freeze({
   contactCtaClick: 'contact_cta_click',
   phoneClick: 'phone_click',
   emailClick: 'email_click',
+  articleCallbackOpen: 'article_callback_open',
   quizStart: 'quiz_start',
   quizStepCompleted: 'quiz_step_completed',
   quizSubmitSuccess: 'quiz_submit_success',

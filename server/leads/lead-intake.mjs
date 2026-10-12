@@ -2,11 +2,15 @@ import crypto from 'node:crypto';
 import process from 'node:process';
 
 import {
+  LEAD_SOURCE_ARTICLE_CALLBACK,
   LEAD_SOURCE_FINAL_CTA,
   LEAD_SOURCE_QUIZ,
   LEAD_SOURCES,
 } from '../../shared/contracts/lead.js';
-import { quizContactSchema } from '../../shared/validation/leadValidation.js';
+import {
+  articleCallbackSchema,
+  quizContactSchema,
+} from '../../shared/validation/leadValidation.js';
 import { resolveSiteFromHost } from '../shared/site-region.mjs';
 
 function cleanString(value, maxLength = 2000) {
@@ -117,6 +121,24 @@ function validateLead(lead) {
 
     if (lead.data.consent !== true) {
       return 'CONSENT_REQUIRED';
+    }
+  }
+
+  if (lead.source === LEAD_SOURCE_ARTICLE_CALLBACK) {
+    if (cleanString(lead.data.website, 200)) {
+      return 'SPAM_DETECTED';
+    }
+
+    if (!cleanString(lead.data.phone, 120)) {
+      return 'PHONE_REQUIRED';
+    }
+
+    if (lead.data.consent !== true) {
+      return 'CONSENT_REQUIRED';
+    }
+
+    if (!articleCallbackSchema.isValidSync(lead.data)) {
+      return 'INVALID_ARTICLE_CALLBACK';
     }
   }
 

@@ -1,6 +1,6 @@
 import path from 'node:path';
 
-import { LEAD_SOURCE_QUIZ } from '../../shared/contracts/lead.js';
+import { LEAD_SOURCE_ARTICLE_CALLBACK, LEAD_SOURCE_QUIZ } from '../../shared/contracts/lead.js';
 import { readJsonLines } from '../shared/jsonl.mjs';
 import { resolveSiteFromHost } from '../shared/site-region.mjs';
 import { resolveProjectRoot } from '../shared/project-root.mjs';
@@ -49,6 +49,27 @@ function getContactData(lead) {
   return lead?.data || {};
 }
 
+function getArticleUrl(lead) {
+  if (lead.source !== LEAD_SOURCE_ARTICLE_CALLBACK || !lead.page) {
+    return '';
+  }
+
+  try {
+    const url = new URL(lead.page);
+
+    if (
+      url.origin !== 'https://pasport-bezopasnosty.ru' ||
+      !/^\/blog\/[^/]+\/$/.test(url.pathname)
+    ) {
+      return '';
+    }
+
+    return `${url.origin}${url.pathname}`;
+  } catch {
+    return '';
+  }
+}
+
 function normalizeLead(lead) {
   const contact = getContactData(lead);
   const site = resolveLeadSite(lead);
@@ -60,7 +81,12 @@ function normalizeLead(lead) {
 
     source: text(lead.source, 150),
 
-    sourceTitle: lead.source === LEAD_SOURCE_QUIZ ? 'Квиз' : 'Форма',
+    sourceTitle:
+      lead.source === LEAD_SOURCE_ARTICLE_CALLBACK
+        ? 'Статья / звонок'
+        : lead.source === LEAD_SOURCE_QUIZ
+          ? 'Квиз'
+          : 'Форма',
 
     city: site,
 
@@ -71,6 +97,13 @@ function normalizeLead(lead) {
     company: text(contact.company, 300) || text(lead?.data?.company, 300),
 
     object: text(contact.object, 500) || text(lead?.data?.object, 500),
+
+    interest: lead.source === LEAD_SOURCE_ARTICLE_CALLBACK ? text(lead?.data?.interest, 200) : '',
+
+    articleTitle:
+      lead.source === LEAD_SOURCE_ARTICLE_CALLBACK ? text(lead?.data?.articleTitle, 300) : '',
+
+    articleUrl: getArticleUrl(lead),
 
     page: text(lead.page, 1200),
   };
@@ -154,6 +187,8 @@ export async function getAdminLeadsPage({ page = 1, limit = 50, search = '' } = 
           lead?.email,
           lead?.company,
           lead?.sourceTitle,
+          lead?.interest,
+          lead?.articleTitle,
           lead?.object,
         ]
           .filter(Boolean)

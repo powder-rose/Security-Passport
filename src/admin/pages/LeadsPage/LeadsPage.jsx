@@ -241,6 +241,7 @@ export default function LeadsPage() {
                 <th>Источник</th>
                 <th>Имя</th>
                 <th>Телефон</th>
+                <th>Запрос / статья</th>
                 <th>Организация</th>
                 <th>Действия</th>
               </tr>
@@ -281,6 +282,22 @@ export default function LeadsPage() {
                       ) : (
                         '—'
                       )}
+                    </td>
+
+                    <td className="leads-page__request">
+                      {lead.interest || lead.object ? (
+                        <strong>{lead.interest || lead.object}</strong>
+                      ) : (
+                        <span>—</span>
+                      )}
+
+                      {lead.articleTitle ? <span>{lead.articleTitle}</span> : null}
+
+                      {lead.articleUrl ? (
+                        <a href={lead.articleUrl} target="_blank" rel="noopener noreferrer">
+                          Открыть статью ↗
+                        </a>
+                      ) : null}
                     </td>
 
                     <td className="leads-page__company">{lead.company || '—'}</td>

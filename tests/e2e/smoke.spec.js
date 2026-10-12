@@ -197,3 +197,137 @@ test('cookie notice fits the mobile viewport', async ({ page }) => {
   expect(bounds.x + bounds.width).toBeLessThanOrEqual(375);
   expect(bounds.y + bounds.height).toBeLessThanOrEqual(812);
 });
+
+test('article callback replaces the inline quiz and previews without submitting a lead', async ({
+  page,
+}) => {
+  const errors = collectPageErrors(page);
+  const leadRequests = [];
+
+  await page.goto('/');
+
+  await page.evaluate(() => {
+    sessionStorage.setItem(
+      'passport-article-preview',
+      JSON.stringify({
+        id: 'article-callback-e2e',
+        slug: 'article-callback-e2e',
+        title: 'Паспорт безопасности тестового объекта',
+        status: 'published',
+        content:
+          '<p>Введение в требования к объекту.</p>' +
+          '<h2>Следующий раздел статьи</h2>' +
+          '<p>Продолжение материала после предложения помощи.</p>',
+      }),
+    );
+  });
+
+  await page.route('**/api/leads', async route => {
+    leadRequests.push(route.request().url());
+
+    await route.fulfill({
+      status: 201,
+      contentType: 'application/json',
+      body: '{"ok":true}',
+    });
+  });
+
+  const response = await page.goto('/article-preview.html');
+
+  expect(response?.status()).toBe(200);
+
+  const article = page.locator('.article-view__article');
+  const callback = article.locator('.article-callback');
+
+  await expect(callback).toBeVisible();
+
+  await expect(
+    callback.getByRole('heading', {
+      name: 'Не знаете, с чего начать?',
+    }),
+  ).toBeVisible();
+
+  await expect(article.locator('.object-quiz')).toHaveCount(0);
+
+  await expect(article.locator('.article-view__content').first()).toContainText(
+    'Введение в требования',
+  );
+
+  await expect(article.locator('.article-view__content').last()).toContainText(
+    'Продолжение материала',
+  );
+
+  await callback.getByRole('button', { name: 'Помочь разобраться' }).click();
+
+  await callback.getByRole('button', { name: 'Вернуться к описанию' }).click();
+
+  await expect(callback.getByRole('button', { name: 'Помочь разобраться' })).toBeFocused();
+
+  await callback.getByRole('button', { name: 'Помочь разобраться' }).click();
+
+  const form = callback.locator('.article-callback__form');
+
+  await expect(form).toBeVisible();
+
+  await expect(
+    form.getByRole('radio', {
+      name: 'Нужен ли мне паспорт безопасности?',
+    }),
+  ).toBeChecked();
+
+  await form.locator('input[name="phone"]').fill('9991234567');
+  await form.locator('input[name="consent"]').check();
+
+  await form.getByRole('button', { name: 'Жду звонка специалиста' }).click();
+
+  await expect(form.getByRole('status')).toContainText(
+    'Режим предпросмотра: заявка не отправлена.',
+  );
+
+  expect(leadRequests).toHaveLength(0);
+
+  await page.setViewportSize({ width: 375, height: 812 });
+
+  const bounds = await callback.boundingBox();
+
+  expect(bounds).not.toBeNull();
+  expect(bounds.x).toBeGreaterThanOrEqual(0);
+  expect(bounds.x + bounds.width).toBeLessThanOrEqual(375);
+
+  expect(errors).toEqual([]);
+});
+
+test('article callback remains available without safe headings', async ({ page }) => {
+  const errors = collectPageErrors(page);
+
+  await page.goto('/');
+
+  await page.evaluate(() => {
+    sessionStorage.setItem(
+      'passport-article-preview',
+      JSON.stringify({
+        id: 'article-without-headings',
+        slug: 'article-without-headings',
+        title: 'Тестовая статья без подзаголовков',
+        status: 'published',
+        content: '<p>Текст статьи без заголовков второго уровня.</p>',
+      }),
+    );
+  });
+
+  const response = await page.goto('/article-preview.html');
+
+  expect(response?.status()).toBe(200);
+
+  const article = page.locator('.article-view__article');
+
+  await expect(article.locator('.article-view__content')).toContainText(
+    'Текст статьи без заголовков второго уровня.',
+  );
+
+  await expect(article.locator('.article-view__content + .article-callback')).toBeVisible();
+
+  await expect(article.locator('.article-callback__title')).toHaveText('Не знаете, с чего начать?');
+
+  expect(errors).toEqual([]);
+});

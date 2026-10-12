@@ -1,4 +1,4 @@
-import ObjectQuiz from '../../sections/ObjectQuiz/ObjectQuiz.jsx';
+import ArticleCallback from '../ArticleCallback/ArticleCallback.jsx';
 
 import FinalCTA from '../../sections/FinalCTA/FinalCTA.jsx';
 
@@ -46,9 +46,9 @@ function splitArticleHtml(html) {
 
   if (!value) {
     return {
-      contentBeforeQuiz: '',
-      contentAfterQuiz: '',
-      shouldShowQuiz: false,
+      contentBeforeCallback: '',
+      contentAfterCallback: '',
+      shouldShowCallback: false,
     };
   }
 
@@ -100,21 +100,11 @@ function splitArticleHtml(html) {
 
   if (!blocks.length) {
     return {
-      contentBeforeQuiz: value,
-      contentAfterQuiz: '',
-      shouldShowQuiz: false,
+      contentBeforeCallback: value,
+      contentAfterCallback: '',
+      shouldShowCallback: true,
     };
   }
-
-  /*
-   * Квиз разрешён только непосредственно
-   * перед заголовком H2.
-   *
-   * При этом не используем H2, если
-   * предыдущий HTML-блок содержит фото.
-   * Это не позволяет квизу оказаться
-   * сразу после img / figure / picture.
-   */
 
   const safeHeadingIndexes = blocks
     .map((block, index) => {
@@ -134,19 +124,11 @@ function splitArticleHtml(html) {
 
   if (!safeHeadingIndexes.length) {
     return {
-      contentBeforeQuiz: value,
-      contentAfterQuiz: '',
-      shouldShowQuiz: false,
+      contentBeforeCallback: value,
+      contentAfterCallback: '',
+      shouldShowCallback: true,
     };
   }
-
-  /*
-   * Сохраняем прежнюю идею:
-   * квиз желательно показывать примерно
-   * после 40% материала.
-   *
-   * Но теперь выбираем только допустимый H2.
-   */
 
   const targetIndex = Math.max(1, Math.ceil(blocks.length * 0.4));
 
@@ -155,11 +137,11 @@ function splitArticleHtml(html) {
   const splitIndex = headingAfterTarget ?? safeHeadingIndexes[safeHeadingIndexes.length - 1];
 
   return {
-    contentBeforeQuiz: blocks.slice(0, splitIndex).join('\n'),
+    contentBeforeCallback: blocks.slice(0, splitIndex).join('\n'),
 
-    contentAfterQuiz: blocks.slice(splitIndex).join('\n'),
+    contentAfterCallback: blocks.slice(splitIndex).join('\n'),
 
-    shouldShowQuiz: true,
+    shouldShowCallback: true,
   };
 }
 
@@ -294,7 +276,8 @@ export default function ArticleView({ article, preview = false, relatedArticles 
 
   const date = formatArticleDate(article?.publishedAt || article?.createdAt);
 
-  const { contentBeforeQuiz, contentAfterQuiz, shouldShowQuiz } = splitArticleHtml(content);
+  const { contentBeforeCallback, contentAfterCallback, shouldShowCallback } =
+    splitArticleHtml(content);
 
   return (
     <>
@@ -320,20 +303,14 @@ export default function ArticleView({ article, preview = false, relatedArticles 
             </figure>
           )}
 
-          {contentBeforeQuiz && (
-            <ArticleHtml className="article-view__content" html={contentBeforeQuiz} />
+          {contentBeforeCallback && (
+            <ArticleHtml className="article-view__content" html={contentBeforeCallback} />
           )}
 
-          {shouldShowQuiz && <ObjectQuiz variant="article" preview={preview} />}
+          {shouldShowCallback && <ArticleCallback article={article} preview={preview} />}
 
-          {contentAfterQuiz && (
-            <ArticleHtml
-              className="
-                  article-view__content
-                  article-view__content--after-quiz
-                "
-              html={contentAfterQuiz}
-            />
+          {contentAfterCallback && (
+            <ArticleHtml className="article-view__content" html={contentAfterCallback} />
           )}
 
           {!content && <div className="article-view__empty">Здесь появится текст статьи.</div>}
