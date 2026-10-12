@@ -2,7 +2,11 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { getPublicArticles } from '../../lib/articles.js';
 
-import { BLOG_CATEGORIES, resolveArticleCategory } from './blogPageUtils.js';
+import {
+  BLOG_CATEGORIES,
+  normalizeBlogCategoryId,
+  resolveArticleCategory,
+} from './blogPageUtils.js';
 
 export default function useBlogArticles({ initialArticles = null }) {
   const [articles, setArticles] = useState(Array.isArray(initialArticles) ? initialArticles : []);
@@ -54,26 +58,44 @@ export default function useBlogArticles({ initialArticles = null }) {
 
   useEffect(() => {
     if (typeof window === 'undefined') {
-      return;
+      return undefined;
     }
 
     const prefix = '#blog-category-';
 
-    if (!window.location.hash.startsWith(prefix)) {
-      return;
-    }
+    function syncCategoryFromHash() {
+      if (!window.location.hash.startsWith(prefix)) {
+        return;
+      }
 
-    const categoryId = window.location.hash.slice(prefix.length);
+      const rawCategoryId = window.location.hash.slice(prefix.length);
 
-    if (categoryId === 'all') {
-      setSelectedCategory('all');
+      const categoryId = normalizeBlogCategoryId(rawCategoryId);
 
-      return;
-    }
+      if (!categoryId) {
+        return;
+      }
 
-    if (categoryId) {
+      if (categoryId !== rawCategoryId) {
+        const normalizedHash = `${prefix}${categoryId}`;
+
+        window.history.replaceState(
+          null,
+          '',
+          `${window.location.pathname}${window.location.search}${normalizedHash}`,
+        );
+      }
+
       setSelectedCategory(categoryId);
     }
+
+    syncCategoryFromHash();
+
+    window.addEventListener('hashchange', syncCategoryFromHash);
+
+    return () => {
+      window.removeEventListener('hashchange', syncCategoryFromHash);
+    };
   }, []);
 
   const categorizedArticles = useMemo(() => {
@@ -115,7 +137,7 @@ export default function useBlogArticles({ initialArticles = null }) {
   }, [categorizedArticles]);
 
   useEffect(() => {
-    if (loading || selectedCategory === 'all') {
+    if (loading || selectedCategory === 'all' || visibleCategories.length === 0) {
       return;
     }
 
@@ -144,13 +166,19 @@ export default function useBlogArticles({ initialArticles = null }) {
       : visibleCategories.find(category => category.id === selectedCategory) || null;
 
   function chooseCategory(categoryId) {
-    setSelectedCategory(categoryId);
+    const normalizedCategoryId = normalizeBlogCategoryId(categoryId);
+
+    if (!normalizedCategoryId) {
+      return;
+    }
+
+    setSelectedCategory(normalizedCategoryId);
 
     if (typeof window === 'undefined') {
       return;
     }
 
-    const hash = `#blog-category-${categoryId}`;
+    const hash = `#blog-category-${normalizedCategoryId}`;
 
     window.history.replaceState(
       null,

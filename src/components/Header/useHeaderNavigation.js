@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import {
   MOBILE_BREAKPOINT,
+  getDirectNavigationTarget,
   getNavigationTarget,
   isDirectoryActive,
   normalizePathname,
@@ -110,7 +111,7 @@ export default function useHeaderNavigation({ pathname = '/' } = {}) {
 
     const hash = window.location.hash;
 
-    const directTarget = document.querySelector(hash);
+    const directTarget = getDirectNavigationTarget(hash);
 
     if (directTarget) {
       return undefined;
