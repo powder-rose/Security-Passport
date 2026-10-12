@@ -61,144 +61,152 @@ async function listNames(directory) {
   return (await fs.readdir(directory)).sort();
 }
 
-test('release retention keeps current release and shared runtime target', async () => {
-  const root = await createWorkspace();
+test(
+  'release retention keeps current release and shared runtime target',
+  { skip: process.platform === 'win32' },
+  async () => {
+    const root = await createWorkspace();
 
-  try {
-    const oldFull = await createRelease(root, '20261001-010000');
+    try {
+      const oldFull = await createRelease(root, '20261001-010000');
 
-    const sharedFull = await createRelease(root, '20261001-020000');
+      const sharedFull = await createRelease(root, '20261001-020000');
 
-    const oldBlog = await createRelease(root, '20261001-025000-blog');
+      const oldBlog = await createRelease(root, '20261001-025000-blog');
 
-    const blogOne = await createRelease(root, '20261001-030000-blog');
+      const blogOne = await createRelease(root, '20261001-030000-blog');
 
-    const blogTwo = await createRelease(root, '20261001-040000-blog');
+      const blogTwo = await createRelease(root, '20261001-040000-blog');
 
-    const blogThree = await createRelease(root, '20261001-050000-blog');
+      const blogThree = await createRelease(root, '20261001-050000-blog');
 
-    const oldRuntime = await createRuntime(root, '20261001-010000');
+      const oldRuntime = await createRuntime(root, '20261001-010000');
 
-    const sharedRuntime = await createRuntime(root, '20261001-020000');
+      const sharedRuntime = await createRuntime(root, '20261001-020000');
 
-    await createRuntimeLink(root, '20261001-025000-blog', sharedRuntime);
+      await createRuntimeLink(root, '20261001-025000-blog', sharedRuntime);
 
-    await createRuntimeLink(root, '20261001-030000-blog', sharedRuntime);
+      await createRuntimeLink(root, '20261001-030000-blog', sharedRuntime);
 
-    await createRuntimeLink(root, '20261001-040000-blog', sharedRuntime);
+      await createRuntimeLink(root, '20261001-040000-blog', sharedRuntime);
 
-    await createRuntimeLink(root, '20261001-050000-blog', sharedRuntime);
+      await createRuntimeLink(root, '20261001-050000-blog', sharedRuntime);
 
-    await setCurrent(root, blogTwo);
+      await setCurrent(root, blogTwo);
 
-    await runCleanup(root, {
-      keep: 3,
-    });
+      await runCleanup(root, {
+        keep: 3,
+      });
 
-    assert.deepEqual(
-      await listNames(path.join(root, 'releases')),
-      [path.basename(blogOne), path.basename(blogTwo), path.basename(blogThree)].sort(),
-    );
+      assert.deepEqual(
+        await listNames(path.join(root, 'releases')),
+        [path.basename(blogOne), path.basename(blogTwo), path.basename(blogThree)].sort(),
+      );
 
-    assert.equal(
-      await fs
-        .stat(sharedRuntime)
-        .then(() => true)
-        .catch(() => false),
-      true,
-    );
+      assert.equal(
+        await fs
+          .stat(sharedRuntime)
+          .then(() => true)
+          .catch(() => false),
+        true,
+      );
 
-    assert.equal(
-      await fs
-        .stat(oldRuntime)
-        .then(() => true)
-        .catch(() => false),
-      false,
-    );
+      assert.equal(
+        await fs
+          .stat(oldRuntime)
+          .then(() => true)
+          .catch(() => false),
+        false,
+      );
 
-    assert.equal(
-      await fs
-        .lstat(path.join(root, 'release-runtime', path.basename(oldBlog)))
-        .then(() => true)
-        .catch(() => false),
-      false,
-    );
+      assert.equal(
+        await fs
+          .lstat(path.join(root, 'release-runtime', path.basename(oldBlog)))
+          .then(() => true)
+          .catch(() => false),
+        false,
+      );
 
-    assert.equal(
-      await fs
-        .stat(oldFull)
-        .then(() => true)
-        .catch(() => false),
-      false,
-    );
+      assert.equal(
+        await fs
+          .stat(oldFull)
+          .then(() => true)
+          .catch(() => false),
+        false,
+      );
 
-    assert.equal(
-      await fs
-        .stat(sharedFull)
-        .then(() => true)
-        .catch(() => false),
-      false,
-    );
-  } finally {
-    await fs.rm(root, {
-      recursive: true,
-      force: true,
-    });
-  }
-});
+      assert.equal(
+        await fs
+          .stat(sharedFull)
+          .then(() => true)
+          .catch(() => false),
+        false,
+      );
+    } finally {
+      await fs.rm(root, {
+        recursive: true,
+        force: true,
+      });
+    }
+  },
+);
 
-test('release retention dry-run does not modify storage', async () => {
-  const root = await createWorkspace();
+test(
+  'release retention dry-run does not modify storage',
+  { skip: process.platform === 'win32' },
+  async () => {
+    const root = await createWorkspace();
 
-  try {
-    const releaseOne = await createRelease(root, '20261001-010000');
+    try {
+      const releaseOne = await createRelease(root, '20261001-010000');
 
-    const releaseTwo = await createRelease(root, '20261001-020000');
+      const releaseTwo = await createRelease(root, '20261001-020000');
 
-    const releaseThree = await createRelease(root, '20261001-030000');
+      const releaseThree = await createRelease(root, '20261001-030000');
 
-    await createRuntime(root, '20261001-010000');
+      await createRuntime(root, '20261001-010000');
 
-    await createRuntime(root, '20261001-020000');
+      await createRuntime(root, '20261001-020000');
 
-    await createRuntime(root, '20261001-030000');
+      await createRuntime(root, '20261001-030000');
 
-    await setCurrent(root, releaseThree);
+      await setCurrent(root, releaseThree);
 
-    const beforeReleases = await listNames(path.join(root, 'releases'));
+      const beforeReleases = await listNames(path.join(root, 'releases'));
 
-    const beforeRuntimes = await listNames(path.join(root, 'release-runtime'));
+      const beforeRuntimes = await listNames(path.join(root, 'release-runtime'));
 
-    const { stdout } = await runCleanup(root, {
-      keep: 2,
-      dryRun: true,
-    });
+      const { stdout } = await runCleanup(root, {
+        keep: 2,
+        dryRun: true,
+      });
 
-    assert.match(stdout, /DRY-RUN remove release: 20261001-010000/);
+      assert.match(stdout, /DRY-RUN remove release: 20261001-010000/);
 
-    assert.deepEqual(await listNames(path.join(root, 'releases')), beforeReleases);
+      assert.deepEqual(await listNames(path.join(root, 'releases')), beforeReleases);
 
-    assert.deepEqual(await listNames(path.join(root, 'release-runtime')), beforeRuntimes);
+      assert.deepEqual(await listNames(path.join(root, 'release-runtime')), beforeRuntimes);
 
-    assert.equal(
-      await fs
-        .stat(releaseOne)
-        .then(() => true)
-        .catch(() => false),
-      true,
-    );
+      assert.equal(
+        await fs
+          .stat(releaseOne)
+          .then(() => true)
+          .catch(() => false),
+        true,
+      );
 
-    assert.equal(
-      await fs
-        .stat(releaseTwo)
-        .then(() => true)
-        .catch(() => false),
-      true,
-    );
-  } finally {
-    await fs.rm(root, {
-      recursive: true,
-      force: true,
-    });
-  }
-});
+      assert.equal(
+        await fs
+          .stat(releaseTwo)
+          .then(() => true)
+          .catch(() => false),
+        true,
+      );
+    } finally {
+      await fs.rm(root, {
+        recursive: true,
+        force: true,
+      });
+    }
+  },
+);
