@@ -8,6 +8,12 @@ import { objectTypes } from '../src/data/objectTypes.js';
 
 import { servicePages } from '../src/data/servicePages.js';
 
+import {
+  pageModuleSources,
+  getObjectPageSource,
+  getServicePageSource,
+} from '../src/config/pageRouteRegistry.js';
+
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 const resolveEnvPath = (name, fallback) => {
@@ -241,7 +247,7 @@ for (const legalSlug of legalSlugs) {
     .replace(/<meta\s+name=["']robots["'][^>]*>/i, '')
     .replace(/<meta\s+name=["']description["'][^>]*>/i, '');
 
-  const legalRouteCssTags = getClientCssLinks('src/pages/LegalPage/LegalPage.jsx');
+  const legalRouteCssTags = getClientCssLinks(pageModuleSources.legal);
 
   const legalHeadTags = [
     legalResult.helmet?.title?.toString() || '',
@@ -348,24 +354,7 @@ if (canonical) {
       .replace(/<meta\s+name=["']robots["'][^>]*>/i, '')
       .replace(/<meta\s+name=["']description["'][^>]*>/i, '');
 
-    const objectRouteCssSources = {
-      hotel: 'src/pages/HotelPage/HotelPage.jsx',
-
-      culture: 'src/pages/CulturePage/CulturePage.jsx',
-
-      education: 'src/pages/EducationPage/EducationPage.jsx',
-
-      sport: 'src/pages/SportPage/SportPage.jsx',
-
-      trade: 'src/pages/TradePage/TradePage.jsx',
-
-      health: 'src/pages/HealthPage/HealthPage.jsx',
-
-      crowd: 'src/pages/CrowdPage/CrowdPage.jsx',
-    };
-
-    const objectRouteCssSource =
-      objectRouteCssSources[objectType.id] || 'src/pages/ObjectTypePage/ObjectTypePage.jsx';
+    const objectRouteCssSource = getObjectPageSource(objectType.id);
 
     const objectRouteCssTags = getClientCssLinks(objectRouteCssSource);
 
@@ -431,13 +420,7 @@ if (canonical) {
       .replace(/<meta\s+name=["']robots["'][^>]*>/i, '')
       .replace(/<meta\s+name=["']description["'][^>]*>/i, '');
 
-    const serviceRouteCssSources = {
-      'categorization-act': 'src/pages/CategorizationActPage/CategorizationActPage.jsx',
-
-      'passport-actualization': 'src/pages/ActualizationPage/ActualizationPage.jsx',
-    };
-
-    const serviceRouteCssSource = serviceRouteCssSources[servicePage.id];
+    const serviceRouteCssSource = getServicePageSource(servicePage.id);
 
     if (!serviceRouteCssSource) {
       throw new Error(`Client CSS route source not found: ${servicePage.id}`);
@@ -518,7 +501,7 @@ if (canonical) {
       article: null,
     },
 
-    'src/pages/BlogPage/BlogPage.jsx',
+    pageModuleSources.blog,
   );
 
   const blogOutputDirectory = path.join(clientDir, 'blog');
@@ -566,7 +549,7 @@ if (canonical) {
         article,
       },
 
-      'src/pages/ArticlePage/ArticlePage.jsx',
+      pageModuleSources.article,
     );
 
     const articleOutputDirectory = path.join(clientDir, 'blog', article.slug);
