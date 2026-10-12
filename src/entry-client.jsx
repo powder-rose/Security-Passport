@@ -13,93 +13,88 @@ import { getServicePageByPathname } from './data/servicePages';
 
 import { getLegalDocumentByPathname } from './content/legalDocuments';
 
+import {
+  pageModuleSources,
+  getObjectPageSource,
+  getServicePageSource,
+  getPageImportKey,
+} from './config/pageRouteRegistry.js';
+
 import './styles/reset.css';
 import './styles/variables.css';
 import './styles/typography.css';
 import './styles/global.css';
 
-const objectPageLoaders = {
-  hotel: () => import('./pages/HotelPage/HotelPage'),
+const pageModuleLoaders = import.meta.glob('./pages/*/*Page.jsx');
 
-  culture: () => import('./pages/CulturePage/CulturePage'),
+async function loadPageComponent(source) {
+  const importKey = getPageImportKey(source);
 
-  education: () => import('./pages/EducationPage/EducationPage'),
+  const loader = pageModuleLoaders[importKey];
 
-  sport: () => import('./pages/SportPage/SportPage'),
+  if (!loader) {
+    throw new Error(`Page module not registered: ${importKey}`);
+  }
 
-  trade: () => import('./pages/TradePage/TradePage'),
+  const module = await loader();
 
-  health: () => import('./pages/HealthPage/HealthPage'),
+  if (!module.default) {
+    throw new Error(`Page module has no default export: ${importKey}`);
+  }
 
-  crowd: () => import('./pages/CrowdPage/CrowdPage'),
-};
-
-const servicePageLoaders = {
-  'categorization-act': () => import('./pages/CategorizationActPage/CategorizationActPage'),
-
-  'passport-actualization': () => import('./pages/ActualizationPage/ActualizationPage'),
-};
+  return module.default;
+}
 
 async function loadRouteComponents(pathname) {
   const normalizedPathname = pathname.replace(/\/+$/, '') || '/';
 
   if (normalizedPathname === '/blog') {
-    const { default: BlogPage } = await import('./pages/BlogPage/BlogPage');
-
     return {
-      BlogPage,
+      BlogPage: await loadPageComponent(pageModuleSources.blog),
     };
   }
 
   if (/^\/blog\/[^/]+$/.test(normalizedPathname)) {
-    const { default: ArticlePage } = await import('./pages/ArticlePage/ArticlePage');
-
     return {
-      ArticlePage,
+      ArticlePage: await loadPageComponent(pageModuleSources.article),
     };
   }
 
   if (getLegalDocumentByPathname(pathname)) {
-    const { default: LegalPage } = await import('./pages/LegalPage/LegalPage');
-
     return {
-      LegalPage,
+      LegalPage: await loadPageComponent(pageModuleSources.legal),
     };
   }
 
   const objectType = getObjectTypeByPathname(pathname);
 
   if (objectType) {
-    const loader = objectPageLoaders[objectType.id];
+    const source = getObjectPageSource(objectType.id);
 
-    if (loader) {
-      const { default: ObjectPage } = await loader();
+    const component = await loadPageComponent(source);
 
+    if (source === pageModuleSources.genericObject) {
       return {
-        objectTypeComponents: {
-          [objectType.id]: ObjectPage,
-        },
+        ObjectTypePage: component,
       };
     }
 
-    const { default: ObjectTypePage } = await import('./pages/ObjectTypePage/ObjectTypePage');
-
     return {
-      ObjectTypePage,
+      objectTypeComponents: {
+        [objectType.id]: component,
+      },
     };
   }
 
   const servicePage = getServicePageByPathname(pathname);
 
   if (servicePage) {
-    const loader = servicePageLoaders[servicePage.id];
+    const source = getServicePageSource(servicePage.id);
 
-    if (loader) {
-      const { default: ServicePage } = await loader();
-
+    if (source) {
       return {
         servicePageComponents: {
-          [servicePage.id]: ServicePage,
+          [servicePage.id]: await loadPageComponent(source),
         },
       };
     }

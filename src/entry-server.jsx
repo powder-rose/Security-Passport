@@ -5,59 +5,48 @@ import { HelmetProvider } from 'react-helmet-async';
 import { createAppStore } from './app/store';
 import App from './app/App';
 
-import LegalPage from './pages/LegalPage/LegalPage';
+import {
+  pageModuleSources,
+  objectPageSources,
+  servicePageSources,
+  getPageImportKey,
+} from './config/pageRouteRegistry.js';
 
-import ObjectTypePage from './pages/ObjectTypePage/ObjectTypePage';
+const serverPageModules = import.meta.glob('./pages/*/*Page.jsx', {
+  eager: true,
+  import: 'default',
+});
 
-import HotelPage from './pages/HotelPage/HotelPage';
+function resolveServerPageComponent(source) {
+  const importKey = getPageImportKey(source);
 
-import CulturePage from './pages/CulturePage/CulturePage';
+  const component = serverPageModules[importKey];
 
-import EducationPage from './pages/EducationPage/EducationPage';
+  if (!component) {
+    throw new Error(`SSR page module not found: ${importKey}`);
+  }
 
-import SportPage from './pages/SportPage/SportPage';
+  return component;
+}
 
-import TradePage from './pages/TradePage/TradePage';
-
-import HealthPage from './pages/HealthPage/HealthPage';
-
-import CrowdPage from './pages/CrowdPage/CrowdPage';
-
-import ActualizationPage from './pages/ActualizationPage/ActualizationPage';
-
-import CategorizationActPage from './pages/CategorizationActPage/CategorizationActPage';
-
-import BlogPage from './pages/BlogPage/BlogPage';
-
-import ArticlePage from './pages/ArticlePage/ArticlePage';
+function resolvePageComponents(sources) {
+  return Object.fromEntries(
+    Object.entries(sources).map(([id, source]) => [id, resolveServerPageComponent(source)]),
+  );
+}
 
 const serverRouteComponents = {
-  LegalPage,
-  ObjectTypePage,
-  BlogPage,
-  ArticlePage,
+  LegalPage: resolveServerPageComponent(pageModuleSources.legal),
 
-  objectTypeComponents: {
-    hotel: HotelPage,
+  ObjectTypePage: resolveServerPageComponent(pageModuleSources.genericObject),
 
-    culture: CulturePage,
+  BlogPage: resolveServerPageComponent(pageModuleSources.blog),
 
-    education: EducationPage,
+  ArticlePage: resolveServerPageComponent(pageModuleSources.article),
 
-    sport: SportPage,
+  objectTypeComponents: resolvePageComponents(objectPageSources),
 
-    trade: TradePage,
-
-    health: HealthPage,
-
-    crowd: CrowdPage,
-  },
-
-  servicePageComponents: {
-    'categorization-act': CategorizationActPage,
-
-    'passport-actualization': ActualizationPage,
-  },
+  servicePageComponents: resolvePageComponents(servicePageSources),
 };
 
 export function render({ pathname = '/', blogArticles = null, article = null } = {}) {

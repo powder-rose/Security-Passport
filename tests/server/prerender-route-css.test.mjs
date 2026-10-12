@@ -65,6 +65,17 @@ async function createFixture() {
 
   await fs.copyFile(prerenderFile, copiedPrerender);
 
+  const registryDirectory = path.join(root, 'src', 'config');
+
+  await fs.mkdir(registryDirectory, {
+    recursive: true,
+  });
+
+  await fs.copyFile(
+    path.resolve(path.dirname(prerenderFile), '../src/config/pageRouteRegistry.js'),
+    path.join(registryDirectory, 'pageRouteRegistry.js'),
+  );
+
   await fs.writeFile(
     path.join(root, 'package.json'),
     `${JSON.stringify(
