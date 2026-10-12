@@ -148,3 +148,52 @@ test('article-list API failure renders retry UI instead of a false empty state',
     }),
   ).toHaveCount(0);
 });
+
+test('cookie notice persists its dismissal across public pages', async ({ page }) => {
+  await page.goto('/');
+
+  const notice = page.getByRole('complementary', {
+    name: /cookie/i,
+  });
+
+  await expect(notice).toBeVisible();
+
+  await expect(
+    notice.getByRole('link', {
+      name: /Политика конфиденциальности/,
+    }),
+  ).toHaveAttribute('href', '/privacy/');
+
+  await notice.getByRole('button', { name: 'Понятно' }).click();
+
+  await expect(notice).toHaveCount(0);
+
+  const saved = await page.evaluate(() => localStorage.getItem('passport-cookie-notice-v1'));
+
+  expect(saved).toBe('dismissed');
+
+  await page.reload();
+  await expect(notice).toHaveCount(0);
+
+  await page.goto('/blog/');
+  await expect(notice).toHaveCount(0);
+});
+
+test('cookie notice fits the mobile viewport', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto('/');
+
+  const notice = page.getByRole('complementary', {
+    name: /cookie/i,
+  });
+
+  await expect(notice).toBeVisible();
+
+  const bounds = await notice.boundingBox();
+
+  expect(bounds).not.toBeNull();
+  expect(bounds.x).toBeGreaterThanOrEqual(0);
+  expect(bounds.y).toBeGreaterThanOrEqual(0);
+  expect(bounds.x + bounds.width).toBeLessThanOrEqual(375);
+  expect(bounds.y + bounds.height).toBeLessThanOrEqual(812);
+});

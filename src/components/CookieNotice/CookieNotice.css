@@ -1,0 +1,209 @@
+.cookie-notice {
+  position: fixed;
+  right: 24px;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  z-index: 120;
+  width: min(460px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  padding: 26px 28px 28px;
+  border: 1px solid rgba(21, 21, 21, 0.12);
+  border-top: 3px solid var(--color-accent);
+  border-radius: 26px;
+  background: radial-gradient(circle at 94% 0%, rgba(169, 240, 74, 0.18), transparent 45%), #f8f7f2;
+  box-shadow: 0 22px 76px rgba(21, 21, 21, 0.18);
+  color: var(--color-text);
+  animation: cookie-notice-enter 0.38s cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+.cookie-notice__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.cookie-notice__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-text-secondary);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cookie-notice__dot {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 9px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 1px rgba(21, 21, 21, 0.12);
+}
+
+.cookie-notice__close {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  flex: 0 0 40px;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(21, 21, 21, 0.06);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.cookie-notice__close:hover {
+  background: rgba(21, 21, 21, 0.12);
+}
+
+.cookie-notice__close span {
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.cookie-notice__title {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  font-size: clamp(27px, 3vw, 35px);
+  font-weight: 780;
+  line-height: 1.08;
+  letter-spacing: -0.055em;
+}
+
+.cookie-notice__title span {
+  color: #6b6b68;
+}
+
+.cookie-notice__description {
+  max-width: 385px;
+  margin: 20px 0 26px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.cookie-notice__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.cookie-notice__link {
+  color: var(--color-text);
+  font-size: 11px;
+  font-weight: 650;
+  text-decoration: underline;
+  text-decoration-color: rgba(21, 21, 21, 0.35);
+  text-underline-offset: 4px;
+  transition: color 0.2s ease;
+}
+
+.cookie-notice__link:hover {
+  color: var(--color-primary);
+}
+
+.cookie-notice__accept {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 23px;
+  padding: 10px 13px 10px 20px;
+  border-radius: 999px;
+  background: var(--color-text);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.cookie-notice__accept span {
+  width: 29px;
+  height: 29px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-text);
+  font-size: 17px;
+  line-height: 1;
+}
+
+.cookie-notice__accept:hover {
+  transform: translateY(-2px);
+  background: #303030;
+}
+
+@keyframes cookie-notice-enter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 540px) {
+  .cookie-notice {
+    right: 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    left: 12px;
+    width: auto;
+    padding: 20px;
+    border-radius: 22px;
+  }
+
+  .cookie-notice__top {
+    margin-bottom: 14px;
+  }
+
+  .cookie-notice__title {
+    font-size: clamp(25px, 7vw, 31px);
+  }
+
+  .cookie-notice__description {
+    margin: 16px 0 21px;
+    font-size: 13px;
+  }
+
+  .cookie-notice__actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 18px;
+  }
+
+  .cookie-notice__accept {
+    width: 100%;
+  }
+
+  .cookie-notice__link {
+    align-self: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cookie-notice {
+    animation: none;
+  }
+
+  .cookie-notice__close,
+  .cookie-notice__link,
+  .cookie-notice__accept {
+    transition: none;
+  }
+}
