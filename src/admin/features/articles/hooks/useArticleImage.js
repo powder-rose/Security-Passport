@@ -66,7 +66,9 @@ export function useArticleImage({ onUploaded }) {
       const result = await uploadArticleImage(file);
 
       if (!result?.ok || !result.url) {
-        if (result?.error === 'INVALID_IMAGE') {
+        if (result?.error === 'IMAGE_TOO_LARGE') {
+          alert('Размер изображения не должен превышать 5 МБ');
+        } else if (result?.error === 'INVALID_IMAGE') {
           alert('Не удалось обработать изображение. Выберите другой файл.');
         } else {
           alert('Не удалось загрузить изображение.');
@@ -79,7 +81,11 @@ export function useArticleImage({ onUploaded }) {
     } catch (error) {
       console.error(error);
 
-      alert('Не удалось загрузить изображение. Попробуйте ещё раз.');
+      alert(
+        error?.status === 413
+          ? 'Размер изображения не должен превышать 5 МБ'
+          : 'Не удалось загрузить изображение. Попробуйте ещё раз.',
+      );
     } finally {
       closeCrop();
     }

@@ -4,6 +4,9 @@ import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 
+import { ARTICLE_IMAGE_MAX_SIZE } from '../../shared/contracts/article-image.js';
+import { getArticleImageValidationError } from '../../src/admin/features/articles/utils/articleImage.js';
+
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
 const formFieldsFile = path.join(
@@ -125,4 +128,47 @@ test('article image selection always resets the file input for repeat selection'
     /resetInputAfterSelect/,
     'edit page must use the same image-selection behavior',
   );
+});
+
+test('article image limits use the shared five-mebibyte contract', async () => {
+  assert.equal(ARTICLE_IMAGE_MAX_SIZE, 5 * 1024 * 1024);
+
+  assert.equal(
+    getArticleImageValidationError({
+      type: 'image/webp',
+      size: ARTICLE_IMAGE_MAX_SIZE,
+    }),
+    '',
+  );
+
+  assert.equal(
+    getArticleImageValidationError({
+      type: 'image/webp',
+      size: ARTICLE_IMAGE_MAX_SIZE + 1,
+    }),
+    'Размер изображения не должен превышать 5 МБ',
+  );
+
+  const [routeSource, hookSource] = await Promise.all([
+    fs.readFile(articleRoutesFile, 'utf8'),
+    fs.readFile(articleImageHookFile, 'utf8'),
+  ]);
+
+  assert.match(routeSource, /const sourceImage = await fs\.readFile\(sourcePath\)/);
+  assert.match(routeSource, /sharp\(sourceImage\)\.metadata\(\)/);
+  assert.match(routeSource, /const result = await sharp\(sourceImage\)/);
+  assert.doesNotMatch(routeSource, /sharp\(sourcePath\)/);
+
+  assert.match(routeSource, /maxFileSize:\s*ARTICLE_IMAGE_MAX_SIZE/);
+  assert.match(routeSource, /maxTotalFileSize:\s*ARTICLE_IMAGE_MAX_SIZE/);
+  assert.match(routeSource, /formidableErrors\.biggerThanMaxFileSize/);
+  assert.match(routeSource, /formidableErrors\.biggerThanTotalMaxFileSize/);
+
+  assert.match(
+    routeSource,
+    /res\.status\(413\)\.json\(\{\s*ok:\s*false,\s*error:\s*'IMAGE_TOO_LARGE'/,
+  );
+
+  assert.match(hookSource, /result\?\.error === 'IMAGE_TOO_LARGE'/);
+  assert.match(hookSource, /error\?\.status === 413/);
 });
