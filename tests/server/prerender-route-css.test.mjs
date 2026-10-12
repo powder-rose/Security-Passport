@@ -336,3 +336,100 @@ test('blog and article prerender include route CSS from the complete Vite manife
     });
   }
 });
+
+test('sitemaps use published article dates without inventing timestamps', async () => {
+  const fixture = await createFixture();
+
+  try {
+    const articlesFile = path.join(fixture.root, 'data', 'articles.json');
+    const [article] = JSON.parse(await fs.readFile(articlesFile, 'utf8'));
+
+    const articles = [
+      {
+        ...article,
+        publishedAt: '2026-10-09T12:00:00.000Z',
+        updatedAt: '2026-10-11T15:30:00.000Z',
+      },
+      {
+        ...article,
+        id: 'published-only',
+        slug: 'published-only',
+        publishedAt: '2026-10-10T09:00:00.000Z',
+        updatedAt: null,
+      },
+      {
+        ...article,
+        id: 'future-update',
+        slug: 'future-update',
+        publishedAt: '2026-10-10T09:00:00.000Z',
+        updatedAt: '2099-01-01T00:00:00.000Z',
+      },
+      {
+        ...article,
+        id: 'invalid-dates',
+        slug: 'invalid-dates',
+        publishedAt: 'invalid',
+        updatedAt: null,
+      },
+      {
+        ...article,
+        id: 'draft-article',
+        slug: 'draft-article',
+        status: 'draft',
+      },
+    ];
+
+    await fs.writeFile(articlesFile, `${JSON.stringify(articles, null, 2)}\n`, 'utf8');
+
+    await execFileAsync(process.execPath, [fixture.copiedPrerender], {
+      cwd: fixture.root,
+      env: {
+        ...process.env,
+        PRERENDER_CLIENT_DIR: fixture.clientDirectory,
+        PRERENDER_SERVER_ENTRY: fixture.serverEntry,
+        PRERENDER_TEMPLATE_DIR: fixture.templateDirectory,
+      },
+      windowsHide: true,
+    });
+
+    for (const filename of ['sitemap.xml', 'sitemap-google.xml']) {
+      const xml = await fs.readFile(path.join(fixture.clientDirectory, filename), 'utf8');
+      const entries = xml.match(/<url>[\s\S]*?<\/url>/g) || [];
+
+      const findArticle = slug =>
+        entries.find(entry =>
+          entry.includes(`<loc>https://pasport-bezopasnosty.ru/blog/${slug}/</loc>`),
+        );
+
+      assert.match(
+        findArticle('css-fixture') || '',
+        /<lastmod>2026-10-11T15:30:00\.000Z<\/lastmod>/,
+      );
+
+      assert.match(
+        findArticle('published-only') || '',
+        /<lastmod>2026-10-10T09:00:00\.000Z<\/lastmod>/,
+      );
+
+      assert.match(
+        findArticle('future-update') || '',
+        /<lastmod>2026-10-10T09:00:00\.000Z<\/lastmod>/,
+      );
+
+      assert.doesNotMatch(findArticle('invalid-dates') || '', /<lastmod>/);
+      assert.equal(findArticle('draft-article'), undefined);
+
+      const home = entries.find(entry =>
+        entry.includes('<loc>https://pasport-bezopasnosty.ru</loc>'),
+      );
+
+      assert.ok(home);
+      assert.doesNotMatch(home, /<lastmod>/);
+    }
+  } finally {
+    await fs.rm(fixture.root, {
+      recursive: true,
+      force: true,
+    });
+  }
+});

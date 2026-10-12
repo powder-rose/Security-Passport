@@ -571,6 +571,15 @@ if (canonical) {
 
   // Перезаписываем федеральный sitemap:
   // главная + индексируемые дочерние SEO-страницы.
+  function getArticleLastmod(article) {
+    const timestamps = [article.publishedAt, article.updatedAt]
+      .filter(value => typeof value === 'string')
+      .map(value => Date.parse(value))
+      .filter(value => Number.isFinite(value) && value <= Date.now());
+
+    return timestamps.length ? new Date(Math.max(...timestamps)).toISOString() : null;
+  }
+
   const federalObjectSitemapUrls = [
     {
       loc: canonical,
@@ -598,6 +607,8 @@ if (canonical) {
     ...publishedArticles.map(article => ({
       loc: `${canonical}/blog/` + `${encodeURIComponent(article.slug)}/`,
 
+      lastmod: getArticleLastmod(article),
+
       priority: '0.7',
     })),
   ];
@@ -609,9 +620,10 @@ if (canonical) {
       `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
       federalObjectSitemapUrls
         .map(
-          ({ loc, priority }) =>
+          ({ loc, lastmod, priority }) =>
             `  <url>\n` +
             `    <loc>${loc}</loc>\n` +
+            (lastmod ? `    <lastmod>${lastmod}</lastmod>\n` : '') +
             `    <changefreq>monthly</changefreq>\n` +
             `    <priority>${priority}</priority>\n` +
             `  </url>\n`,
@@ -626,9 +638,9 @@ if (canonical) {
    * Google sitemap contains the same
    * federal indexable URLs as sitemap.xml.
    */
-  const googleObjectUrls = federalObjectSitemapUrls.map(({ loc }) => loc);
-
-  const uniqueGoogleObjectUrls = [...new Set(googleObjectUrls)];
+  const uniqueGoogleObjectUrls = [
+    ...new Map(federalObjectSitemapUrls.map(entry => [entry.loc, entry])).values(),
+  ];
 
   await writeFile(
     path.join(clientDir, 'sitemap-google.xml'),
@@ -636,7 +648,13 @@ if (canonical) {
     `<?xml version="1.0" encoding="UTF-8"?>\n` +
       `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
       uniqueGoogleObjectUrls
-        .map(url => `  <url>\n` + `    <loc>${url}</loc>\n` + `  </url>\n`)
+        .map(
+          ({ loc, lastmod }) =>
+            `  <url>\n` +
+            `    <loc>${loc}</loc>\n` +
+            (lastmod ? `    <lastmod>${lastmod}</lastmod>\n` : '') +
+            `  </url>\n`,
+        )
         .join('') +
       `</urlset>\n`,
 
