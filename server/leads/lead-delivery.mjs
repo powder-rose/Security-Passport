@@ -2,7 +2,7 @@ import process from 'node:process';
 
 import nodemailer from 'nodemailer';
 
-import { LEAD_SOURCE_QUIZ } from '../../shared/contracts/lead.js';
+import { LEAD_SOURCE_ARTICLE_CALLBACK, LEAD_SOURCE_QUIZ } from '../../shared/contracts/lead.js';
 import { appendLeadToFile } from './lead-storage.mjs';
 
 function cleanString(value, maxLength = 2000) {
@@ -146,6 +146,36 @@ function buildQuizLeadText(lead) {
   return lines.join('\n').slice(0, 12000);
 }
 
+function buildArticleCallbackLeadText(lead) {
+  const data = lead.data || {};
+
+  const lines = [
+    'НОВАЯ ЗАЯВКА — ОБРАТНЫЙ ЗВОНОК ИЗ СТАТЬИ',
+    '',
+    `ID: ${lead.id}`,
+    `Получена: ${lead.receivedAt}`,
+  ];
+
+  if (lead.page) {
+    lines.push(`Страница: ${lead.page}`);
+  }
+
+  addLeadSection(lines, 'ВОПРОС КЛИЕНТА', [
+    ['Что хочет выяснить', data.interest],
+    ['Название статьи', data.articleTitle],
+  ]);
+
+  addLeadSection(lines, 'КОНТАКТЫ', [
+    ['Имя', data.name],
+    ['Телефон', data.phone],
+    ['Согласие', data.consent],
+  ]);
+
+  addLeadAttribution(lines, lead);
+
+  return lines.join('\n').slice(0, 12000);
+}
+
 function buildFormLeadText(lead) {
   const data = lead.data || {};
 
@@ -175,6 +205,10 @@ function buildFormLeadText(lead) {
 }
 
 function buildLeadText(lead) {
+  if (lead.source === LEAD_SOURCE_ARTICLE_CALLBACK) {
+    return buildArticleCallbackLeadText(lead);
+  }
+
   if (lead.source === LEAD_SOURCE_QUIZ) {
     return buildQuizLeadText(lead);
   }
@@ -281,9 +315,11 @@ export function createLeadDelivery({ backupEnabled, leadsFile, env = process.env
       from,
       to,
       subject:
-        lead.source === LEAD_SOURCE_QUIZ
-          ? 'Новая заявка: квиз паспорта безопасности'
-          : 'Новая заявка: паспорт безопасности',
+        lead.source === LEAD_SOURCE_ARTICLE_CALLBACK
+          ? 'Новая заявка: обратный звонок из статьи'
+          : lead.source === LEAD_SOURCE_QUIZ
+            ? 'Новая заявка: квиз паспорта безопасности'
+            : 'Новая заявка: паспорт безопасности',
       text,
     });
 

@@ -1,6 +1,11 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
+import {
+  ARTICLE_CALLBACK_INTERESTS,
+  LEAD_SOURCE_ARTICLE_CALLBACK,
+} from '../../shared/contracts/lead.js';
+
 import { createLeadIntake } from '../../server/leads/lead-intake.mjs';
 
 import { createRequest, createResponse, withMutedConsole } from './http-test-utils.mjs';
@@ -254,4 +259,145 @@ test('lead rate limiter blocks requests over the configured maximum', () => {
   assert.equal(blocked.body?.error, 'TOO_MANY_REQUESTS');
 
   assert.ok(blocked.headers['Retry-After']);
+});
+
+test('article callback accepts a phone-only contact and deduplicates submissions', async () => {
+  const delivered = [];
+
+  const intake = createLeadIntake({
+    leadDelivery: {
+      async deliverLead(lead) {
+        delivered.push(lead);
+
+        return { ok: true };
+      },
+    },
+    env: {
+      LEAD_RATE_MAX: '100',
+    },
+  });
+
+  const body = {
+    source: LEAD_SOURCE_ARTICLE_CALLBACK,
+    requestId: 'article-callback-valid-001',
+    page: 'https://pasport-bezopasnosty.ru/blog/hotel-article/',
+    data: {
+      interest: ARTICLE_CALLBACK_INTERESTS[0],
+      name: '',
+      phone: '+7 (999) 123-45-67',
+      articleTitle: 'Hotel security passport',
+      consent: true,
+      website: '',
+    },
+  };
+
+  const first = createResponse();
+
+  await withMutedConsole('info', () => intake.handleLead(createRequest({ body }), first));
+
+  assert.equal(first.statusCode, 201);
+  assert.equal(first.body?.ok, true);
+  assert.equal(delivered.length, 1);
+
+  assert.equal(delivered[0].source, LEAD_SOURCE_ARTICLE_CALLBACK);
+  assert.equal(delivered[0].data.name, '');
+  assert.equal(delivered[0].data.phone, '+7 (999) 123-45-67');
+  assert.equal(delivered[0].data.interest, ARTICLE_CALLBACK_INTERESTS[0]);
+  assert.equal(delivered[0].data.articleTitle, 'Hotel security passport');
+  assert.equal(delivered[0].page, 'https://pasport-bezopasnosty.ru/blog/hotel-article/');
+
+  const duplicate = createResponse();
+
+  await intake.handleLead(createRequest({ body }), duplicate);
+
+  assert.equal(duplicate.statusCode, 200);
+  assert.equal(duplicate.body?.duplicate, true);
+  assert.equal(delivered.length, 1);
+});
+
+test('article callback rejects invalid or spam submissions before delivery', async () => {
+  const delivered = [];
+
+  const intake = createLeadIntake({
+    leadDelivery: {
+      async deliverLead(lead) {
+        delivered.push(lead);
+
+        return { ok: true };
+      },
+    },
+    env: {
+      LEAD_RATE_MAX: '100',
+    },
+  });
+
+  const validData = {
+    interest: ARTICLE_CALLBACK_INTERESTS[0],
+    name: '',
+    phone: '+7 (999) 123-45-67',
+    articleTitle: 'Hotel security passport',
+    consent: true,
+    website: '',
+  };
+
+  const cases = [
+    {
+      label: 'Missing phone',
+      changes: { phone: '' },
+      status: 400,
+      error: 'PHONE_REQUIRED',
+    },
+    {
+      label: 'Invalid phone',
+      changes: { phone: '+7 (999) 12' },
+      status: 400,
+      error: 'INVALID_ARTICLE_CALLBACK',
+    },
+    {
+      label: 'Missing consent',
+      changes: { consent: false },
+      status: 400,
+      error: 'CONSENT_REQUIRED',
+    },
+    {
+      label: 'Unknown interest',
+      changes: { interest: 'invalid' },
+      status: 400,
+      error: 'INVALID_ARTICLE_CALLBACK',
+    },
+    {
+      label: 'Invalid name',
+      changes: { name: '123' },
+      status: 400,
+      error: 'INVALID_ARTICLE_CALLBACK',
+    },
+    {
+      label: 'Spam honeypot',
+      changes: { website: 'https://spam.example' },
+      status: 202,
+      error: undefined,
+    },
+  ];
+
+  for (const [index, scenario] of cases.entries()) {
+    const response = createResponse();
+
+    await intake.handleLead(
+      createRequest({
+        body: {
+          source: LEAD_SOURCE_ARTICLE_CALLBACK,
+          requestId: `article-callback-invalid-${index}`,
+          data: {
+            ...validData,
+            ...scenario.changes,
+          },
+        },
+      }),
+      response,
+    );
+
+    assert.equal(response.statusCode, scenario.status, scenario.label);
+    assert.equal(response.body?.error, scenario.error, scenario.label);
+    assert.equal(delivered.length, 0, scenario.label);
+  }
 });

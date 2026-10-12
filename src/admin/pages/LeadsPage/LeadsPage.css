@@ -143,7 +143,7 @@
 
 .leads-page__table {
   width: 100%;
-  min-width: 980px;
+  min-width: 1200px;
   border-collapse: collapse;
 }
 
@@ -238,6 +238,41 @@
 
 .leads-page__company {
   color: rgba(17, 17, 17, 0.62);
+}
+
+.leads-page__request {
+  min-width: 240px;
+  max-width: 360px;
+}
+
+.leads-page__request strong,
+.leads-page__request span,
+.leads-page__request a {
+  display: block;
+}
+
+.leads-page__request strong {
+  color: #111;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.leads-page__request span {
+  margin-top: 5px;
+  color: rgba(17, 17, 17, 0.58);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.leads-page__request a {
+  width: fit-content;
+  margin-top: 8px;
+  color: #1260ff;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .leads-page__empty,
