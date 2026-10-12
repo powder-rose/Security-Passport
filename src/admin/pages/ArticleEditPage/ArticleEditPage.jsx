@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { getArticle, updateArticle } from '../../api/adminApi';
 import { createSlug, validatePublicationSeo } from './articleEditorUtils.js';
 import { useArticleImage } from '../../features/articles/hooks/useArticleImage.js';
+import { useArticleCategoryOptions } from '../../features/articles/hooks/useArticleCategoryOptions.js';
 import {
   createArticleFormFromRecord,
   getNormalizedArticleSeo,
@@ -24,6 +25,8 @@ export default function ArticleEditPage() {
   const savingRef = useRef(false);
 
   const [saving, setSaving] = useState(false);
+
+  const { categoryOptions } = useArticleCategoryOptions();
 
   const [savedPublication, setSavedPublication] = useState({
     status: '',
@@ -196,6 +199,7 @@ export default function ArticleEditPage() {
             <ArticleFormFields
               form={form}
               mode="edit"
+              categoryOptions={categoryOptions}
               onChange={change}
               onSlugChange={value => change('slug', createSlug(value))}
               onImageSelect={selectImage}

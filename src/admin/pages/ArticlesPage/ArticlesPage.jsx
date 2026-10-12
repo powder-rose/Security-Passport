@@ -1,45 +1,11 @@
 import { useEffect, useState } from 'react';
 
 import { getArticles, deleteArticle, updateArticle } from '../../api/adminApi';
+import { useArticleCategoryOptions } from '../../features/articles/hooks/useArticleCategoryOptions.js';
+import { normalizeArticleCategory } from '../../features/articles/model/articleCategoryOptions.js';
 
 import BlogPublicationStatus from './components/BlogPublicationStatus.jsx';
 import useBlogPublication from './hooks/useBlogPublication.js';
-
-const BLOG_CATEGORIES = [
-  {
-    id: 'hotels',
-    label: 'Гостиницы',
-  },
-  {
-    id: 'culture',
-    label: 'Культура',
-  },
-];
-
-const LEGACY_CATEGORY_VALUES = new Set([
-  'passport',
-  'categorization',
-  'requirements',
-  'actualization',
-  'practice',
-  'паспорта безопасности',
-  'категорирование объектов',
-  'требования и законодательство',
-  'актуализация паспорта',
-  'практика и документы',
-]);
-
-function getEditableCategory(value) {
-  const category = String(value || '')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-  if (LEGACY_CATEGORY_VALUES.has(category.toLocaleLowerCase('ru-RU'))) {
-    return '';
-  }
-
-  return category;
-}
 
 function formatDate(date) {
   if (!date) {
@@ -61,6 +27,8 @@ export default function ArticlesPage() {
   const [error, setError] = useState('');
 
   const [filter, setFilter] = useState('all');
+
+  const { categoryOptions, rememberCategory } = useArticleCategoryOptions();
 
   const {
     publication,
@@ -108,6 +76,8 @@ export default function ArticlesPage() {
         setArticles(current =>
           current.map(article => (article.id === id ? result.article : article)),
         );
+
+        rememberCategory(result.article.category);
 
         if (result.publication) {
           setPublication(result.publication);
@@ -175,8 +145,8 @@ export default function ArticlesPage() {
   return (
     <div className="admin-page">
       <datalist id="admin-blog-category-options">
-        {BLOG_CATEGORIES.map(category => (
-          <option key={category.id} value={category.label} />
+        {categoryOptions.map(category => (
+          <option key={category} value={category} />
         ))}
       </datalist>
 
@@ -263,7 +233,7 @@ export default function ArticlesPage() {
                   <input
                     type="text"
                     list="admin-blog-category-options"
-                    defaultValue={getEditableCategory(article.category)}
+                    defaultValue={normalizeArticleCategory(article.category)}
                     maxLength="80"
                     placeholder="Без категории"
                     autoComplete="off"
@@ -278,9 +248,9 @@ export default function ArticlesPage() {
                     onBlur={async e => {
                       const input = e.currentTarget;
 
-                      const previous = getEditableCategory(article.category);
+                      const previous = normalizeArticleCategory(article.category);
 
-                      const next = input.value.replace(/\s+/g, ' ').trim();
+                      const next = normalizeArticleCategory(input.value);
 
                       input.value = next;
 

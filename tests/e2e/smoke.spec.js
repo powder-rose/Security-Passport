@@ -92,6 +92,57 @@ test('direct lazy article-create route boots and consumes fresh=1', async ({ pag
   await expect(page).toHaveURL(/\/admin\/articles\/new$/);
 });
 
+test('article category autocomplete uses dynamic admin categories', async ({ page }) => {
+  const categories = ['Гостиницы', 'Культура', 'Образовательные организации', 'Торговые объекты'];
+
+  await page.route('**/api/admin/article-categories', async route => {
+    if (route.request().method() !== 'GET') {
+      await route.continue();
+
+      return;
+    }
+
+    await route.fulfill({
+      status: 200,
+
+      contentType: 'application/json',
+
+      body: JSON.stringify({
+        ok: true,
+        categories,
+      }),
+    });
+  });
+
+  await login(page, '/admin/articles');
+
+  const listOptions = page.locator('#admin-blog-category-options option');
+
+  await expect(listOptions).toHaveCount(categories.length);
+
+  expect(await listOptions.evaluateAll(options => options.map(option => option.value))).toEqual(
+    categories,
+  );
+
+  const createPage = await page.goto('/admin/articles/new?fresh=1');
+
+  expect(createPage?.status()).toBe(200);
+
+  await expect(
+    page.getByRole('heading', {
+      name: text.newArticle,
+      exact: true,
+    }),
+  ).toBeVisible();
+
+  const createOptions = page.locator('#blog-category-suggestions-create option');
+
+  await expect(createOptions).toHaveCount(categories.length);
+
+  expect(await createOptions.evaluateAll(options => options.map(option => option.value))).toEqual(
+    categories,
+  );
+});
 test('invalid admin login exposes its browser error state', async ({ page }) => {
   const response = await page.goto('/admin/articles');
 

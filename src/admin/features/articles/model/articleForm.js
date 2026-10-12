@@ -1,15 +1,6 @@
-const LEGACY_CATEGORY_VALUES = new Set([
-  'passport',
-  'categorization',
-  'requirements',
-  'actualization',
-  'practice',
-  'паспорта безопасности',
-  'категорирование объектов',
-  'требования и законодательство',
-  'актуализация паспорта',
-  'практика и документы',
-]);
+import { normalizeArticleCategory } from './articleCategoryOptions.js';
+
+export { normalizeArticleCategory };
 
 export function createEmptyArticleForm() {
   return {
@@ -23,18 +14,6 @@ export function createEmptyArticleForm() {
     seoTitle: '',
     seoDescription: '',
   };
-}
-
-export function normalizeArticleCategory(value) {
-  const category = String(value || '')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-  if (LEGACY_CATEGORY_VALUES.has(category.toLocaleLowerCase('ru-RU'))) {
-    return '';
-  }
-
-  return category;
 }
 
 export function createArticleFormFromRecord(article = {}) {

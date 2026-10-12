@@ -1,22 +1,12 @@
 import ArticleEditor from '../../../components/Editor/ArticleEditor.jsx';
 
-const BLOG_CATEGORIES = [
-  {
-    id: 'hotels',
-    label: 'Гостиницы',
-  },
-  {
-    id: 'culture',
-    label: 'Культура',
-  },
-];
-
 export default function ArticleFormFields({
   form,
   mode,
   onChange,
   onSlugChange,
   onImageSelect,
+  categoryOptions = [],
   slugPlaceholder = '',
 }) {
   const isEdit = mode === 'edit';
@@ -134,8 +124,8 @@ export default function ArticleFormFields({
           />
 
           <datalist id={categoryListId}>
-            {BLOG_CATEGORIES.map(category => (
-              <option key={category.id} value={category.label} />
+            {categoryOptions.map(category => (
+              <option key={category} value={category} />
             ))}
           </datalist>
 
