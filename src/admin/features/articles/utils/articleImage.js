@@ -1,6 +1,6 @@
-const ARTICLE_IMAGE_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
+import { ARTICLE_IMAGE_MAX_SIZE } from '../../../../../shared/contracts/article-image.js';
 
-const ARTICLE_IMAGE_MAX_SIZE = 5 * 1024 * 1024;
+const ARTICLE_IMAGE_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
 
 const ARTICLE_IMAGE_WIDTH = 1200;
 const ARTICLE_IMAGE_HEIGHT = 675;

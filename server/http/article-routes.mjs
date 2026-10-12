@@ -2,8 +2,10 @@ import crypto from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import formidable from 'formidable';
+import formidable, { errors as formidableErrors } from 'formidable';
 import sharp from 'sharp';
+
+import { ARTICLE_IMAGE_MAX_SIZE } from '../../shared/contracts/article-image.js';
 
 import {
   getArticles,
@@ -308,7 +310,8 @@ export function registerArticleRoutes({ app, adminAuth, clientDir, uploadsDir })
         uploadDir: articleImageUploadDir,
         keepExtensions: true,
         maxFiles: 1,
-        maxFileSize: 20 * 1024 * 1024,
+        maxFileSize: ARTICLE_IMAGE_MAX_SIZE,
+        maxTotalFileSize: ARTICLE_IMAGE_MAX_SIZE,
       });
 
       let files;
@@ -316,6 +319,16 @@ export function registerArticleRoutes({ app, adminAuth, clientDir, uploadsDir })
       try {
         [, files] = await form.parse(req);
       } catch (error) {
+        if (
+          error?.code === formidableErrors.biggerThanMaxFileSize ||
+          error?.code === formidableErrors.biggerThanTotalMaxFileSize
+        ) {
+          return res.status(413).json({
+            ok: false,
+            error: 'IMAGE_TOO_LARGE',
+          });
+        }
+
         console.error('[article-image] upload failed:', error?.message || error);
 
         return res.status(400).json({
@@ -342,7 +355,9 @@ export function registerArticleRoutes({ app, adminAuth, clientDir, uploadsDir })
       const optimizedPath = path.join(articleImageUploadDir, optimizedName);
 
       try {
-        const metadata = await sharp(sourcePath).metadata();
+        const sourceImage = await fs.readFile(sourcePath);
+
+        const metadata = await sharp(sourceImage).metadata();
 
         if (!metadata.width || !metadata.height) {
           throw new Error('INVALID_IMAGE');
@@ -350,7 +365,7 @@ export function registerArticleRoutes({ app, adminAuth, clientDir, uploadsDir })
 
         const sourceStat = await fs.stat(sourcePath);
 
-        const result = await sharp(sourcePath)
+        const result = await sharp(sourceImage)
           .rotate()
           .resize({
             width: 1920,
