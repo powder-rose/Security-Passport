@@ -2,6 +2,7 @@ import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import Seo from '../components/Seo/Seo';
 import Analytics from '../components/Analytics/Analytics';
+import CookieNotice from '../components/CookieNotice/CookieNotice';
 
 import Hero from '../sections/Hero/Hero';
 import Experience from '../sections/Experience/Experience';
@@ -55,6 +56,7 @@ export default function App({
     return (
       <>
         <Analytics />
+        <CookieNotice />
 
         <Header pathname={resolvedPathname} />
 
@@ -79,6 +81,7 @@ export default function App({
     return (
       <>
         <Analytics />
+        <CookieNotice />
 
         <Header pathname={resolvedPathname} />
 
@@ -99,6 +102,7 @@ export default function App({
     return (
       <>
         <Analytics />
+        <CookieNotice />
 
         <LegalPageComponent document={legalDocument} />
       </>
@@ -115,6 +119,7 @@ export default function App({
         <Seo pathname={resolvedPathname} />
 
         <Analytics />
+        <CookieNotice />
         <Header pathname={resolvedPathname} />
 
         <ObjectPageComponent objectType={objectType} />
@@ -134,6 +139,7 @@ export default function App({
         <Seo pathname={resolvedPathname} />
 
         <Analytics />
+        <CookieNotice />
         <Header pathname={resolvedPathname} />
 
         <ServicePageComponent servicePage={servicePage} />
@@ -147,6 +153,7 @@ export default function App({
     <>
       <Seo pathname="/" />
       <Analytics />
+      <CookieNotice />
       <Header pathname={resolvedPathname} />
 
       <main id="main-content">
