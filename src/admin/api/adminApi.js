@@ -108,6 +108,10 @@ export function getArticles() {
   return request('/articles');
 }
 
+export function getArticleCategories() {
+  return request('/article-categories');
+}
+
 export function getBlogPublication() {
   return request('/blog-publication');
 }

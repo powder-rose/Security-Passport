@@ -9,6 +9,7 @@ import { ARTICLE_IMAGE_MAX_SIZE } from '../../shared/contracts/article-image.js'
 
 import {
   getArticles,
+  getArticleCategories,
   getArticleById,
   createArticle,
   updateArticle,
@@ -186,6 +187,19 @@ export function registerArticleRoutes({ app, adminAuth, clientDir, uploadsDir })
 
         throw error;
       }
+    }),
+  );
+
+  app.get(
+    '/api/admin/article-categories',
+    adminAuth.requireAdmin,
+    asyncRoute(async (_req, res) => {
+      const categories = await getArticleCategories();
+
+      return res.json({
+        ok: true,
+        categories,
+      });
     }),
   );
 

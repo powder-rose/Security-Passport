@@ -2,13 +2,18 @@ import crypto from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
+import {
+  buildArticleCategoryOptions,
+  sanitizeArticleCategory as normalizeArticleCategory,
+} from '../../shared/contracts/article-category.js';
+
 import { sanitizeArticleContent } from './article-html.mjs';
 
 const FILE = path.resolve('data/articles.json');
 
 let writes = Promise.resolve();
 
-async function readArticles() {
+async function readStoredArticles() {
   try {
     const data = await fs.readFile(FILE, 'utf8');
 
@@ -18,11 +23,7 @@ async function readArticles() {
       throw new Error('INVALID_ARTICLES_STORAGE');
     }
 
-    return articles.map(article => ({
-      ...article,
-
-      content: sanitizeArticleContent(article?.content),
-    }));
+    return articles;
   } catch (error) {
     if (error?.code === 'ENOENT') {
       return [];
@@ -30,6 +31,16 @@ async function readArticles() {
 
     throw error;
   }
+}
+
+async function readArticles() {
+  const articles = await readStoredArticles();
+
+  return articles.map(article => ({
+    ...article,
+
+    content: sanitizeArticleContent(article?.content),
+  }));
 }
 
 async function saveArticles(articles) {
@@ -167,14 +178,6 @@ function validateUpdateArticleInput(input) {
   return input;
 }
 
-function normalizeArticleCategory(value) {
-  return String(value || '')
-    .replace(/[\u0000-\u001F\u007F]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .slice(0, 80);
-}
-
 function normalizeSeoField(value) {
   return String(value ?? '').trim();
 }
@@ -282,6 +285,12 @@ export async function getArticles() {
   return articles.sort((a, b) => {
     return new Date(b.createdAt) - new Date(a.createdAt);
   });
+}
+
+export async function getArticleCategories() {
+  const articles = await readStoredArticles();
+
+  return buildArticleCategoryOptions(articles.map(article => article?.category));
 }
 
 async function createArticleMutation(data) {

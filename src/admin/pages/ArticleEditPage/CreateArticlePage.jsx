@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { createArticle } from '../../api/adminApi';
 import { createSlug, validatePublicationSeo } from './articleEditorUtils.js';
 import { useArticleImage } from '../../features/articles/hooks/useArticleImage.js';
+import { useArticleCategoryOptions } from '../../features/articles/hooks/useArticleCategoryOptions.js';
 import {
   createEmptyArticleForm,
   getNormalizedArticleSeo,
@@ -72,6 +73,8 @@ export default function CreateArticlePage() {
   const savingRef = useRef(false);
 
   const [saving, setSaving] = useState(false);
+
+  const { categoryOptions } = useArticleCategoryOptions();
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -183,6 +186,7 @@ export default function CreateArticlePage() {
         <ArticleFormFields
           form={form}
           mode="create"
+          categoryOptions={categoryOptions}
           onChange={change}
           onSlugChange={value => change('slug', createSlug(value))}
           onImageSelect={selectImage}

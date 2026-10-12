@@ -4,6 +4,7 @@ import test from 'node:test';
 import {
   ADMIN_AUTH_REQUIRED_EVENT,
   AdminApiError,
+  getArticleCategories,
   getArticles,
   getSession,
   login,
@@ -48,6 +49,30 @@ test('admin API returns successful JSON responses', async () => {
   );
 });
 
+test('admin API requests lightweight article category options', async () => {
+  let requestedUrl = '';
+
+  await withFetch(
+    async url => {
+      requestedUrl = String(url);
+
+      return createJsonResponse({
+        ok: true,
+        categories: ['Гостиницы', 'Культура', 'Образовательные организации'],
+      });
+    },
+    async () => {
+      const result = await getArticleCategories();
+
+      assert.equal(requestedUrl, '/api/admin/article-categories');
+
+      assert.deepEqual(result, {
+        ok: true,
+        categories: ['Гостиницы', 'Культура', 'Образовательные организации'],
+      });
+    },
+  );
+});
 test('admin API preserves expected login errors without auth-expiry event', async () => {
   const originalWindow = globalThis.window;
 

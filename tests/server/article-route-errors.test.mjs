@@ -256,6 +256,14 @@ test('public article route converts storage error into controlled 500 response',
 const adminErrorCases = [
   {
     method: 'GET',
+    routePath: '/api/admin/article-categories',
+    request: {
+      params: {},
+      body: {},
+    },
+  },
+  {
+    method: 'GET',
     routePath: '/api/admin/articles',
     request: {
       params: {},
