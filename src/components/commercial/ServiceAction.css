@@ -1,0 +1,45 @@
+.service-action {
+  max-width: 100%;
+  font-weight: 700;
+  text-align: left;
+  white-space: normal;
+}
+
+.service-action--accent {
+  background: var(--color-accent);
+  color: var(--color-text);
+}
+
+.service-action--secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  max-width: 100%;
+  min-height: 44px;
+  color: var(--color-primary);
+  font-size: 0.94rem;
+  font-weight: 750;
+  line-height: 1.45;
+  text-decoration: none;
+  text-underline-offset: 5px;
+}
+
+.service-action--secondary span {
+  flex: 0 0 auto;
+  transition: transform 180ms ease;
+}
+
+@media (hover: hover) {
+  .service-action--secondary:hover {
+    text-decoration: underline;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @media (hover: hover) {
+    .service-action--secondary:hover span {
+      transform: translateX(4px);
+    }
+  }
+}

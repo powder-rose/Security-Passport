@@ -1,0 +1,119 @@
+.service-price-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.service-price-card {
+  --service-price-ink: var(--color-text);
+  --service-price-muted: var(--color-text-secondary);
+  --service-price-surface: var(--color-surface);
+  --service-price-border: var(--color-border);
+  --service-price-accent: var(--color-primary);
+  --service-price-value: var(--color-text);
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  gap: 26px;
+  min-width: 0;
+  padding: 30px 26px;
+  border: 1px solid var(--service-price-border);
+  border-radius: 24px;
+  background: var(--service-price-surface);
+  color: var(--service-price-ink);
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.service-price-card--featured {
+  --service-price-ink: #fff;
+  --service-price-muted: rgb(255 255 255 / 65%);
+  --service-price-surface: var(--color-text);
+  --service-price-border: var(--color-text);
+  --service-price-accent: var(--color-accent);
+  --service-price-value: var(--color-accent);
+}
+
+.service-price-card--featured::before {
+  position: absolute;
+  top: 0;
+  right: 28px;
+  width: 72px;
+  height: 7px;
+  border-radius: 0 0 7px 7px;
+  background: var(--color-accent);
+  content: '';
+}
+
+.service-price-card__number {
+  color: var(--service-price-accent);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.service-price-card__number::before {
+  content: attr(data-number);
+}
+
+.service-price-card h3 {
+  min-height: 96px;
+  margin: 0;
+  font-size: 1.2rem;
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
+}
+
+.service-price-card__price-line {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  color: var(--service-price-value);
+  white-space: nowrap;
+}
+
+.service-price-card__price-line > span {
+  color: var(--service-price-muted);
+  font-size: 0.94rem;
+  font-weight: 650;
+}
+
+.service-price-card__price-line > strong {
+  font-size: clamp(1.9rem, 2.7vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.055em;
+}
+
+@media (hover: hover) {
+  .service-price-card:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-soft);
+  }
+}
+
+@media (max-width: 1180px) {
+  .service-price-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .service-price-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .service-price-card {
+    gap: 22px;
+  }
+
+  .service-price-card h3 {
+    min-height: 0;
+  }
+
+  .service-price-card__price-line > strong {
+    font-size: 2.5rem;
+  }
+}
