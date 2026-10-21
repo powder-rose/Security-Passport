@@ -61,7 +61,7 @@ export function IndustryCategorizationAct({ section, onServiceSelect }) {
             className="industry-statement"
           />
         </div>
-        <div className="industry-act-document" data-industry-reveal>
+        <div className="industry-act-document" data-scroll-reveal>
           <IndustrySubheading>{document.title}</IndustrySubheading>
           <IndustryParagraph text={document.paragraphs[0]} />
           <IndustryParagraph text={document.paragraphs[1]} className="industry-document-name" />

@@ -7,7 +7,7 @@ export default function IndustryTable({ headers, rows, label, variant }) {
       role="region"
       aria-label={label}
       tabIndex={0}
-      data-industry-reveal
+      data-scroll-reveal
     >
       <table className={`industry-table industry-table--${variant}`}>
         <thead>

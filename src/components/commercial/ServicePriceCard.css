@@ -13,20 +13,52 @@
   --service-price-value: var(--color-text);
   position: relative;
   display: grid;
-  grid-template-rows: auto 1fr auto auto;
-  gap: 26px;
+  grid-template-columns: var(--service-price-columns, minmax(0, 1fr));
+  grid-template-rows: var(--service-price-rows, auto 1fr auto auto);
+  grid-template-areas: var(--service-price-areas, 'number' 'title' 'price' 'action');
+  gap: var(--service-price-gap, 26px);
   min-width: 0;
-  padding: 30px 26px;
-  border: 1px solid var(--service-price-border);
-  border-radius: 24px;
+  min-height: var(--service-price-min-height, auto);
+  padding: var(--service-price-padding, 30px 26px);
+  border-color: var(--service-price-border);
+  border-style: solid;
+  border-width: var(--service-price-border-width, 1px);
+  border-radius: var(--service-price-radius, 24px);
   background: var(--service-price-surface);
   color: var(--service-price-ink);
-  transition:
-    border-color 220ms ease,
-    box-shadow 220ms ease;
 }
 
-.service-price-card--featured {
+.service-price-card--primary {
+  --service-price-rows: auto auto 1fr auto;
+  --service-price-gap: 32px;
+  --service-price-min-height: 430px;
+  --service-price-padding: clamp(30px, 3.2vw, 46px);
+  --service-price-radius: 28px;
+  --service-price-title-min-height: 0;
+  --service-price-title-size: clamp(1.45rem, 2.2vw, 2rem);
+  --service-price-value-size: clamp(3rem, 4.6vw, 4.75rem);
+  --service-price-value-align: end;
+  --service-price-action-align: start;
+}
+
+.service-price-card--row {
+  --service-price-columns: minmax(0, 1fr) auto;
+  --service-price-rows: auto auto;
+  --service-price-areas: 'number price' 'title action';
+  --service-price-gap: 14px 24px;
+  --service-price-min-height: 0;
+  --service-price-padding: 24px 0;
+  --service-price-border-width: 0 0 1px;
+  --service-price-radius: 0;
+  --service-price-surface: transparent;
+  --service-price-title-min-height: 0;
+  --service-price-title-size: 1.15rem;
+  --service-price-value-size: clamp(1.55rem, 2vw, 1.9rem);
+  --service-price-action-align: end;
+}
+
+.service-price-card--featured,
+.service-price-card--primary {
   --service-price-ink: #fff;
   --service-price-muted: rgb(255 255 255 / 65%);
   --service-price-surface: var(--color-text);
@@ -35,7 +67,13 @@
   --service-price-value: var(--color-accent);
 }
 
-.service-price-card--featured::before {
+.service-price-card--row.service-price-card--featured {
+  --service-price-padding: 26px 24px;
+  --service-price-radius: 18px;
+}
+
+.service-price-card--featured::before,
+.service-price-card--primary::before {
   position: absolute;
   top: 0;
   right: 28px;
@@ -47,6 +85,7 @@
 }
 
 .service-price-card__number {
+  grid-area: number;
   color: var(--service-price-accent);
   font-size: 0.76rem;
   font-weight: 800;
@@ -58,17 +97,20 @@
 }
 
 .service-price-card h3 {
-  min-height: 96px;
+  grid-area: title;
+  min-height: var(--service-price-title-min-height, 96px);
   margin: 0;
-  font-size: 1.2rem;
+  font-size: var(--service-price-title-size, 1.2rem);
   line-height: 1.35;
   letter-spacing: -0.025em;
   overflow-wrap: anywhere;
 }
 
 .service-price-card__price-line {
+  grid-area: price;
   display: flex;
   align-items: baseline;
+  align-self: var(--service-price-value-align, auto);
   gap: 7px;
   color: var(--service-price-value);
   white-space: nowrap;
@@ -81,16 +123,30 @@
 }
 
 .service-price-card__price-line > strong {
-  font-size: clamp(1.9rem, 2.7vw, 2.6rem);
+  font-size: var(--service-price-value-size, clamp(1.9rem, 2.7vw, 2.6rem));
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.055em;
 }
 
+.service-price-card > .service-action {
+  grid-area: action;
+  justify-self: var(--service-price-action-align, stretch);
+}
+
 @media (hover: hover) {
-  .service-price-card:hover {
+  .service-price-card--card:hover,
+  .service-price-card--primary:hover {
     border-color: var(--color-accent);
     box-shadow: var(--shadow-soft);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .service-price-card {
+    transition:
+      border-color 220ms ease,
+      box-shadow 220ms ease;
   }
 }
 
@@ -105,15 +161,27 @@
     grid-template-columns: 1fr;
   }
 
-  .service-price-card {
-    gap: 22px;
+  .service-price-card--card {
+    --service-price-gap: 22px;
+    --service-price-title-min-height: 0;
+    --service-price-value-size: 2.5rem;
   }
 
-  .service-price-card h3 {
-    min-height: 0;
+  .service-price-card--primary {
+    --service-price-gap: 26px;
+    --service-price-min-height: 360px;
+    --service-price-padding: 28px;
+    --service-price-radius: 22px;
+    --service-price-value-size: clamp(2.75rem, 10.5vw, 4rem);
   }
 
-  .service-price-card__price-line > strong {
-    font-size: 2.5rem;
+  .service-price-card--row {
+    --service-price-columns: 28px minmax(0, 1fr);
+    --service-price-rows: auto auto auto;
+    --service-price-areas: 'number title' '. price' '. action';
+    --service-price-gap: 12px 16px;
+    --service-price-padding: 22px 0;
+    --service-price-value-size: clamp(1.65rem, 6.6vw, 2rem);
+    --service-price-action-align: start;
   }
 }

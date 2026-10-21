@@ -6,22 +6,27 @@ export function EnergyPassportForm({ section, onServiceSelect }) {
     <div className="energy-split-layout">
       <div className="energy-section-intro">
         <EnergyHeading section={section} />
-        <EnergySubheading>{section.subheading}</EnergySubheading>
         <EnergyParagraphs items={section.paragraphs.slice(0, 2)} />
       </div>
 
-      <div className="energy-passport-form" data-scroll-reveal>
-        <span className="energy-passport-form__mark" aria-hidden="true">
-          № 3722-р
-        </span>
-        <EnergyParagraphs items={section.paragraphs.slice(2)} />
+      <article className="energy-passport-form" data-scroll-reveal>
+        <header className="energy-passport-form__header">
+          <span className="energy-passport-form__mark" aria-hidden="true">
+            № 3722-р
+          </span>
+          <EnergySubheading>{section.subheading}</EnergySubheading>
+        </header>
 
-        <div className="energy-passport-form__request">
+        <div className="energy-passport-form__body">
+          <EnergyParagraphs items={section.paragraphs.slice(2)} />
+        </div>
+
+        <footer className="energy-passport-form__request">
           <EnergySubheading>{section.request.title}</EnergySubheading>
           <EnergyParagraphs items={section.request.paragraphs} />
           <EnergyAction action={section.request.action} onServiceSelect={onServiceSelect} />
-        </div>
-      </div>
+        </footer>
+      </article>
     </div>
   );
 }

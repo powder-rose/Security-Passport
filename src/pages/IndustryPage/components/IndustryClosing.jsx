@@ -17,7 +17,7 @@ export function IndustryAdvantages({ section }) {
       </div>
       <div className="industry-advantages">
         {advantages.advantages.items.map((item, index) => (
-          <article className="industry-advantage" key={item.title} data-industry-reveal>
+          <article className="industry-advantage" key={item.title} data-scroll-reveal>
             <span
               className="industry-advantage__number"
               data-number={String(index + 1).padStart(2, '0')}

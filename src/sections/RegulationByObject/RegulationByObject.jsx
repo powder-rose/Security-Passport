@@ -1,6 +1,10 @@
 function formatRegulationAct(value) {
   const text = String(value || '');
 
+  if (!/^(?:ПП\s+РФ|Постановление)/i.test(text)) {
+    return text;
+  }
+
   const numbers = [...text.matchAll(/№\s*(\d+)/g)].map(match => match[1]);
 
   if (!numbers.length) {

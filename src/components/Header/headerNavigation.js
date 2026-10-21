@@ -48,6 +48,11 @@ const pageNavAliases = {
     '#faq': '#faq',
   },
 
+  '/pasport-bezopasnosti-obekta-tek': {
+    '#top': '.energy-hero',
+    '#about-passport': '#regulations',
+  },
+
   '/aktualizaciya-pasporta-bezopasnosti-obekta': {
     '#top': '.actualization-hero',
     '#about-passport': '.actualization-definition',

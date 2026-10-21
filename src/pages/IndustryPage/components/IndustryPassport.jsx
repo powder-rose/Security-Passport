@@ -21,7 +21,7 @@ export function IndustryPassportForm({ section, onServiceSelect }) {
           <IndustrySubheading>{form.title}</IndustrySubheading>
           <IndustryParagraphs items={form.paragraphs.slice(0, 2)} />
         </div>
-        <div className="industry-form-document" data-industry-reveal>
+        <div className="industry-form-document" data-scroll-reveal>
           <IndustryParagraph text={form.paragraphs[2]} className="industry-form-document__label" />
           <IndustryList items={form.list.items} variant="contents" />
           <div className="industry-form-document__attachments">

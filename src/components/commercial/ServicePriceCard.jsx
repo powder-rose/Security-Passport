@@ -1,10 +1,12 @@
 import ServiceAction from './ServiceAction';
 import './ServicePriceCard.css';
 
-export default function ServicePriceCard({ item, onServiceSelect }) {
+export default function ServicePriceCard({ item, onServiceSelect, layout = 'card' }) {
+  const emphasized = item.featured || layout === 'primary';
+
   return (
     <article
-      className={`service-price-card${item.featured ? ' service-price-card--featured' : ''}`}
+      className={`service-price-card service-price-card--${layout}${item.featured ? ' service-price-card--featured' : ''}`}
       data-scroll-reveal
     >
       <span className="service-price-card__number" data-number={item.number} aria-hidden="true" />
@@ -17,8 +19,8 @@ export default function ServicePriceCard({ item, onServiceSelect }) {
         service={item.service}
         onSelect={onServiceSelect}
         ariaLabel={`Заказать: ${item.title}`}
-        secondary={!item.featured}
-        accent={item.featured}
+        secondary={!emphasized}
+        accent={emphasized}
       >
         Заказать
       </ServiceAction>

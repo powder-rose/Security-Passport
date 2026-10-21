@@ -232,6 +232,7 @@
   font-size: clamp(1.8rem, 3vw, 3rem);
   line-height: 1;
   letter-spacing: -0.05em;
+  overflow-wrap: anywhere;
 }
 
 .process-step p {

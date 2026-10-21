@@ -4,11 +4,11 @@ import FinalCTA from '../../sections/FinalCTA/FinalCTA';
 import IndustryHero from './components/IndustryHero';
 import IndustrySection from './components/IndustrySection';
 import { industryHeroFacts, industrySections } from './industryPageData';
-import useIndustryMotion from './useIndustryMotion';
+import useScrollReveal from '../../components/commercial/useScrollReveal';
 
 export default function IndustryPage({ objectType }) {
   const [selectedService, setSelectedService] = useState(objectType.seoName);
-  const pageRef = useIndustryMotion();
+  const pageRef = useScrollReveal();
 
   return (
     <main id="main-content" className="industry-page" ref={pageRef}>

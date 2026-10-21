@@ -7,7 +7,7 @@ import {
   IndustrySubheading,
 } from './IndustryContent';
 import { IndustryDocumentRegister } from './IndustryRegisters';
-import IndustryPriceCard from './IndustryPriceCard';
+import ServicePriceCard from '../../../components/commercial/ServicePriceCard';
 import IndustryTable from './IndustryTable';
 import './IndustryServices.css';
 
@@ -41,9 +41,9 @@ export function IndustryPricing({ section, onServiceSelect }) {
         <IndustryHeading section={section} />
         <IndustryParagraph text={conditions.paragraphs[0]} />
       </div>
-      <div className="industry-price-cards">
+      <div className="service-price-cards">
         {pricing.prices.items.map(item => (
-          <IndustryPriceCard key={item.id} item={item} onServiceSelect={onServiceSelect} />
+          <ServicePriceCard key={item.id} item={item} onServiceSelect={onServiceSelect} />
         ))}
       </div>
       <div className="industry-price-conditions">

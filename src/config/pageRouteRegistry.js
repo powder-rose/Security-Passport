@@ -14,6 +14,7 @@ export const objectPageSources = Object.freeze({
   health: 'src/pages/HealthPage/HealthPage.jsx',
   crowd: 'src/pages/CrowdPage/CrowdPage.jsx',
   industry: 'src/pages/IndustryPage/IndustryPage.jsx',
+  energy: 'src/pages/EnergyPage/EnergyPage.jsx',
 });
 
 export const servicePageSources = Object.freeze({
