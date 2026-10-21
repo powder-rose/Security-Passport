@@ -8,6 +8,8 @@ import {
 
 import { createLeadIntake } from '../../server/leads/lead-intake.mjs';
 
+import { leadFormSchema, leadFormWithEmailSchema } from '../../shared/validation/leadValidation.js';
+
 import { createRequest, createResponse, withMutedConsole } from './http-test-utils.mjs';
 
 function createValidLeadBody(requestId = 'request-success-001') {
@@ -120,6 +122,97 @@ test('lead intake normalizes a valid lead and deduplicates requestId', async () 
   assert.equal(duplicate.body?.requestId, 'request-success-001');
 
   assert.equal(delivered.length, 1);
+});
+
+test('final CTA accepts email-only contact and preserves industrial service context', async () => {
+  const delivered = [];
+  const intake = createLeadIntake({
+    leadDelivery: {
+      async deliverLead(lead) {
+        delivered.push(lead);
+        return { ok: true };
+      },
+    },
+    env: { LEAD_RATE_MAX: '100' },
+  });
+  const body = createValidLeadBody('industry-email-contact');
+  body.page = 'https://pasport-bezopasnosty.ru/pasport-bezopasnosti-obekta-promyshlennosti/';
+  body.data.phone = '';
+  body.data.object =
+    'Тип объекта: Объекты промышленности\n' +
+    'Услуга: Акт категорирования промышленного объекта\n\n' +
+    'Нужна подготовка документов для комиссии.';
+  const response = createResponse();
+
+  await withMutedConsole('info', () => intake.handleLead(createRequest({ body }), response));
+
+  assert.equal(response.statusCode, 201);
+  assert.equal(delivered.length, 1);
+  assert.equal(delivered[0].data.phone, '');
+  assert.equal(delivered[0].data.email, 'test@example.com');
+  assert.equal(delivered[0].data.object, body.data.object);
+  assert.equal(delivered[0].data.consent, true);
+});
+
+test('email-only final CTA rejects invalid contact and preserves consent and spam checks', async () => {
+  const delivered = [];
+  const intake = createLeadIntake({
+    leadDelivery: {
+      async deliverLead(lead) {
+        delivered.push(lead);
+        return { ok: true };
+      },
+    },
+    env: { LEAD_RATE_MAX: '100' },
+  });
+  const cases = [
+    { data: { email: '' }, error: 'CONTACT_REQUIRED' },
+    { data: { email: 'invalid-email' }, error: 'INVALID_CONTACT' },
+    { data: { email: 'mail@localhost' }, error: 'INVALID_CONTACT' },
+    { data: { name: '' }, error: 'NAME_REQUIRED' },
+    { data: { consent: false }, error: 'CONSENT_REQUIRED' },
+    { data: { website: 'https://spam.example' }, status: 202 },
+  ];
+
+  for (const [index, item] of cases.entries()) {
+    const body = createValidLeadBody(`industry-email-invalid-${index}`);
+    body.data = { ...body.data, phone: '', ...item.data };
+    const response = createResponse();
+
+    await intake.handleLead(createRequest({ body }), response);
+
+    assert.equal(response.statusCode, item.status || 400);
+    assert.equal(response.body?.error, item.error);
+  }
+
+  assert.equal(delivered.length, 0);
+});
+
+test('optional email contact keeps default phone requirements and validates composed comments', () => {
+  const data = {
+    name: 'Иван',
+    phone: '',
+    email: 'mail@example.ru',
+    object: 'Тип объекта: Объекты промышленности\nУслуга: Подготовка паспорта',
+    consent: true,
+    website: '',
+  };
+
+  assert.equal(leadFormSchema.isValidSync(data), false);
+  assert.equal(leadFormWithEmailSchema.isValidSync(data), true);
+  assert.equal(
+    leadFormWithEmailSchema.isValidSync({ ...data, phone: '+79991234567', email: '' }),
+    true,
+  );
+  assert.equal(leadFormWithEmailSchema.isValidSync({ ...data, email: '' }), false);
+  assert.equal(leadFormWithEmailSchema.isValidSync({ ...data, email: 'invalid-email' }), false);
+  assert.equal(leadFormWithEmailSchema.isValidSync({ ...data, phone: '123' }), false);
+
+  const description = 'Описание промышленного объекта и необходимых документов. '.repeat(20);
+  const object = `${data.object}\n\n${description}`.slice(0, 1000);
+
+  assert.equal(leadFormWithEmailSchema.isValidSync({ ...data, object }), true);
+  assert.equal(leadFormWithEmailSchema.isValidSync({ ...data, object: `${object}а` }), false);
 });
 
 test('lead honeypot returns accepted spam response without delivery', async () => {

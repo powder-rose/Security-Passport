@@ -90,7 +90,10 @@ async function createFixture() {
 
   await fs.writeFile(
     path.join(sourceDataDirectory, 'objectTypes.js'),
-    'export const objectTypes = [];\n',
+    `export const objectTypes = ${JSON.stringify([
+      { id: 'social', path: '/object-fixture/', h1: 'Object fixture page' },
+      { id: 'hotel', path: '/hotel-fixture/', h1: 'Hotel fixture page' },
+    ])};\n`,
     'utf8',
   );
 
@@ -143,6 +146,8 @@ async function createFixture() {
   await fs.writeFile(
     serverEntry,
     `
+import { objectTypes } from '../src/data/objectTypes.js';
+
 function tag(value = '') {
   return {
     toString() {
@@ -159,9 +164,11 @@ export function render({
       ? 'https://pasport-bezopasnosty.ru'
       : \`https://pasport-bezopasnosty.ru\${pathname}\`;
 
+  const objectType = objectTypes.find(item => item.path === pathname);
+
   return {
     html:
-      \`<main>\${pathname}</main>\`,
+      \`<main><h1>\${objectType?.h1 ?? pathname}</h1></main>\`,
 
     helmet: {
       title:
@@ -230,6 +237,24 @@ export function render({
       imports: ['_article-view.js', '_shared-app.js'],
     },
 
+    'src/pages/ObjectTypePage/ObjectTypePage.jsx': {
+      css: ['assets/object-page.css'],
+
+      imports: ['_object-type-hero.js', '_shared-app.js'],
+    },
+
+    'src/pages/HotelPage/HotelPage.jsx': {
+      css: ['assets/hotel-page.css'],
+
+      imports: ['_object-type-hero.js', '_shared-app.js'],
+    },
+
+    '_object-type-hero.js': {
+      css: ['assets/object-type-hero.css'],
+
+      imports: ['_shared-app.js'],
+    },
+
     '_article-view.js': {
       css: ['assets/article-view.css'],
 
@@ -253,6 +278,9 @@ export function render({
     'blog-page.css',
     'article-page.css',
     'article-view.css',
+    'object-page.css',
+    'hotel-page.css',
+    'object-type-hero.css',
   ]) {
     await fs.writeFile(path.join(assetsDirectory, cssFile), `/* ${cssFile} */\n`, 'utf8');
   }
@@ -270,7 +298,7 @@ function countOccurrences(source, value) {
   return source.split(value).length - 1;
 }
 
-test('blog and article prerender include route CSS from the complete Vite manifest graph without duplicating base CSS', async () => {
+test('blog, article and object prerender include route CSS from the complete Vite manifest graph without duplicating base CSS', async () => {
   const fixture = await createFixture();
 
   try {
@@ -329,6 +357,34 @@ test('blog and article prerender include route CSS from the complete Vite manife
       1,
       'Article prerender must not duplicate CSS already present in the base document',
     );
+
+    for (const [slug, routeCss] of [
+      ['object-fixture', 'object-page.css'],
+      ['hotel-fixture', 'hotel-page.css'],
+    ]) {
+      const objectHtml = await fs.readFile(
+        path.join(fixture.clientDirectory, slug, 'index.html'),
+        'utf8',
+      );
+
+      assert.equal(
+        countOccurrences(objectHtml, `href="/assets/${routeCss}"`),
+        1,
+        `${slug} prerender must include its route stylesheet once`,
+      );
+
+      assert.equal(
+        countOccurrences(objectHtml, 'href="/assets/object-type-hero.css"'),
+        1,
+        `${slug} prerender must include CSS owned by the imported ObjectTypeHero chunk`,
+      );
+
+      assert.equal(
+        countOccurrences(objectHtml, 'href="/assets/base.css"'),
+        1,
+        `${slug} prerender must not duplicate CSS already present in the base document`,
+      );
+    }
   } finally {
     await fs.rm(fixture.root, {
       recursive: true,

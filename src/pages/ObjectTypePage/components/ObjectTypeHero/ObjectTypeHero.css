@@ -65,6 +65,7 @@
 
   line-height: 0.95;
   letter-spacing: -0.058em;
+  overflow-wrap: anywhere;
 }
 
 .object-service-hero__lead {
@@ -87,6 +88,29 @@
   line-height: 1.2;
   font-weight: 850;
   letter-spacing: -0.025em;
+}
+
+.object-service-hero__facts {
+  display: grid;
+  gap: 10px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-text-secondary);
+  font-size: 0.96rem;
+  line-height: 1.5;
+}
+
+.object-service-hero__facts li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.object-service-hero__facts li::before {
+  content: '✓';
+  color: var(--color-primary);
+  font-weight: 800;
 }
 
 .object-service-hero__actions {

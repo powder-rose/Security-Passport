@@ -170,6 +170,7 @@
   font-size: clamp(1.55rem, 2.2vw, 2.45rem);
   line-height: 1;
   letter-spacing: -0.045em;
+  overflow-wrap: anywhere;
 }
 
 .price-row__service p {

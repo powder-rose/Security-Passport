@@ -186,10 +186,18 @@
   grid-column: 1 / -1;
 }
 
+.final-cta__contact-hint {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
 .final-cta input[type='text'],
 .final-cta input[type='tel'],
 .final-cta input[type='email'],
-.final-cta textarea {
+.final-cta textarea,
+.final-cta__context-value {
   width: 100%;
   min-width: 0;
   border: 1px solid rgba(21, 21, 21, 0.12);
@@ -201,6 +209,13 @@
   transition:
     border-color 0.2s ease,
     box-shadow 0.2s ease;
+}
+
+.final-cta__context-value {
+  display: block;
+  padding: 15px 16px;
+  overflow-wrap: anywhere;
+  line-height: 1.5;
 }
 
 .final-cta input[type='text'],

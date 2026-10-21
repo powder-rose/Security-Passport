@@ -122,12 +122,11 @@ const nameSchema = yup
     return true;
   });
 
-const phoneSchema = yup
+const optionalPhoneSchema = yup
   .string()
   .transform(value => value?.trim() ?? '')
-  .required('Укажите номер телефона.')
   .test('phone-digits', 'Укажите корректный номер телефона.', value => {
-    if (!value) return false;
+    if (!value) return true;
 
     const digits = value.replace(/\D/g, '');
 
@@ -147,6 +146,8 @@ const phoneSchema = yup
 
     return true;
   });
+
+const phoneSchema = optionalPhoneSchema.required('Укажите номер телефона.');
 
 const emailSchema = yup
   .string()
@@ -254,6 +255,18 @@ export const leadFormSchema = yup.object({
   consent: consentSchema,
 
   website: yup.string().max(0, 'Некорректная отправка формы.').default(''),
+});
+
+export const leadEmailContactSchema = emailSchema.required(
+  'Укажите номер телефона или электронную почту.',
+);
+
+export const leadFormWithEmailSchema = leadFormSchema.shape({
+  phone: optionalPhoneSchema.default(''),
+  email: emailSchema.when('phone', {
+    is: value => !value,
+    then: () => leadEmailContactSchema,
+  }),
 });
 
 export const quizContactSchema = yup.object({
