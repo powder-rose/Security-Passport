@@ -137,7 +137,7 @@
 }
 
 .industry-hero__facts li::before {
-  content: "";
+  content: '';
   background-color: var(--color-accent);
   border-radius: 50%;
   width: 6px;
