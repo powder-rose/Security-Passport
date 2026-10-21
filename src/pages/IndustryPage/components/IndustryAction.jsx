@@ -1,8 +1,20 @@
-export default function IndustryAction({ children, service, onSelect, secondary = false }) {
+export default function IndustryAction({
+  children,
+  service,
+  onSelect,
+  secondary = false,
+  accent = false,
+  ariaLabel,
+}) {
   return (
     <a
-      className={secondary ? 'object-service-hero__back' : 'button button--primary'}
+      className={
+        secondary
+          ? 'industry-action industry-action--secondary'
+          : `button industry-action ${accent ? 'industry-action--accent' : 'button--primary'}`
+      }
       href="#lead-form"
+      aria-label={ariaLabel}
       onClick={() => onSelect(service)}
     >
       {children}

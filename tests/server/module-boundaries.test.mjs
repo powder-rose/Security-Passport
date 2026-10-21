@@ -91,3 +91,36 @@ test('frontend src does not import server modules', async () => {
 
   assert.deepEqual(violations, [], `src -> server imports found: ${JSON.stringify(violations)}`);
 });
+
+test('frontend extensionless imports have unambiguous module names on case-insensitive filesystems', async () => {
+  const files = await collectSourceFiles(SRC_ROOT);
+  const modulesByStem = new Map();
+
+  for (const file of files) {
+    const stem = file.slice(0, -path.extname(file).length).toLowerCase();
+    const candidates = modulesByStem.get(stem) || [];
+    candidates.push(path.relative(ROOT, file));
+    modulesByStem.set(stem, candidates);
+  }
+
+  const violations = [];
+
+  for (const file of files) {
+    const source = await fs.readFile(file, 'utf8');
+
+    for (const match of source.matchAll(IMPORT_PATTERN)) {
+      const specifier = match[1];
+
+      if (!specifier.startsWith('.') || path.extname(specifier)) continue;
+
+      const resolved = path.resolve(path.dirname(file), specifier).toLowerCase();
+      const candidates = modulesByStem.get(resolved) || [];
+
+      if (candidates.length > 1) {
+        violations.push({ file: path.relative(ROOT, file), specifier, candidates });
+      }
+    }
+  }
+
+  assert.deepEqual(violations, [], `Ambiguous frontend imports: ${JSON.stringify(violations)}`);
+});

@@ -1,0 +1,85 @@
+.industry-table-scroll {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  border-radius: 20px;
+}
+.industry-table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  text-align: left;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.industry-table th,
+.industry-table td {
+  padding: 26px 28px;
+  vertical-align: middle;
+}
+.industry-table thead th {
+  background: var(--color-text);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 650;
+}
+.industry-table tr > :first-child {
+  border-radius: 18px 0 0 18px;
+}
+.industry-table tr > :last-child {
+  border-radius: 0 18px 18px 0;
+}
+.industry-table tbody th,
+.industry-table tbody td {
+  background: var(--color-surface);
+  transition: background-color 200ms ease;
+}
+.industry-table tbody th {
+  width: 32%;
+  color: var(--color-text);
+  font-weight: 750;
+}
+.industry-table tbody td {
+  color: var(--color-text-secondary);
+}
+.industry-table__label {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.industry-table__index {
+  display: grid;
+  flex: 0 0 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-text);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+.industry-table__index::before {
+  content: attr(data-number);
+}
+.industry-table--categories tbody th {
+  font-size: 1.2rem;
+}
+.industry-table--categories tbody td {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+.industry-table--services tbody th {
+  width: 45%;
+}
+@media (hover: hover) {
+  .industry-table tbody tr:hover > * {
+    background: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface));
+  }
+}
+@media (max-width: 640px) {
+  .industry-table th,
+  .industry-table td {
+    padding: 22px;
+  }
+}

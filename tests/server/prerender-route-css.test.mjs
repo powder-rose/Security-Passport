@@ -168,7 +168,7 @@ export function render({
 
   return {
     html:
-      \`<main><h1>\${objectType?.h1 ?? pathname}</h1></main>\`,
+      \`<main><h1>\${(objectType?.h1 ?? pathname).replace(/^(\\S+)/, '<span>$1</span>')}</h1></main>\`,
 
     helmet: {
       title:

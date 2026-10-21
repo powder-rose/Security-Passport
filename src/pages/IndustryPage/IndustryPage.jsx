@@ -1,46 +1,21 @@
+import './IndustryPage.css';
 import { useState } from 'react';
-import ObjectTypeHero from '../ObjectTypePage/components/ObjectTypeHero/ObjectTypeHero';
 import FinalCTA from '../../sections/FinalCTA/FinalCTA';
-import IndustryAction from './components/IndustryAction';
+import IndustryHero from './components/IndustryHero';
 import IndustrySection from './components/IndustrySection';
 import { industryHeroFacts, industrySections } from './industryPageData';
-import './IndustryPage.css';
+import useIndustryMotion from './useIndustryMotion';
 
 export default function IndustryPage({ objectType }) {
   const [selectedService, setSelectedService] = useState(objectType.seoName);
+  const pageRef = useIndustryMotion();
 
   return (
-    <main id="main-content" className="industry-page">
-      <ObjectTypeHero
+    <main id="main-content" className="industry-page" ref={pageRef}>
+      <IndustryHero
         objectType={objectType}
-        breadcrumbLabel="Разработка паспорта безопасности объекта"
-        showCoverage={false}
         facts={industryHeroFacts}
-        actions={
-          <>
-            <IndustryAction service={objectType.seoName} onSelect={setSelectedService}>
-              Заказать паспорт
-            </IndustryAction>
-            <IndustryAction
-              service="Проверить требования для объекта"
-              onSelect={setSelectedService}
-              secondary
-            >
-              Проверить требования для объекта
-            </IndustryAction>
-          </>
-        }
-        aside={
-          <>
-            <p className="object-service-hero__card-label">Нормативное основание</p>
-            <div className="industry-regulation-number">
-              <span>ПП РФ</span>
-              <strong>№ 258</strong>
-            </div>
-            <p className="industry-regulation-date">от 01.03.2024</p>
-            <p>{objectType.regulationFocus}</p>
-          </>
-        }
+        onServiceSelect={setSelectedService}
       />
 
       {industrySections.map(section => (

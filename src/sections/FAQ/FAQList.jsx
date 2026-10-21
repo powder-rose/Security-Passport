@@ -42,11 +42,11 @@ function FAQItem({ item, index, isOpen, onToggle }) {
   );
 }
 
-export default function FAQList({ items }) {
+export default function FAQList({ items, compact = false }) {
   const [openId, setOpenId] = useState(items[0]?.id ?? null);
 
   return (
-    <div className="faq__list">
+    <div className={`faq__list${compact ? ' faq__list--compact' : ''}`}>
       {items.map((item, index) => (
         <FAQItem
           key={item.id}
