@@ -9,6 +9,7 @@ import {
 } from '../../shared/contracts/lead.js';
 import {
   articleCallbackSchema,
+  leadEmailContactSchema,
   quizContactSchema,
 } from '../../shared/validation/leadValidation.js';
 import { resolveSiteFromHost } from '../shared/site-region.mjs';
@@ -116,7 +117,13 @@ function validateLead(lead) {
     }
 
     if (!cleanString(lead.data.phone, 120)) {
-      return 'PHONE_REQUIRED';
+      if (!cleanString(lead.data.email, 320)) {
+        return 'CONTACT_REQUIRED';
+      }
+
+      if (!leadEmailContactSchema.isValidSync(lead.data.email)) {
+        return 'INVALID_CONTACT';
+      }
     }
 
     if (lead.data.consent !== true) {

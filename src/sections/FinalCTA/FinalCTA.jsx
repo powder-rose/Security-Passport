@@ -5,7 +5,10 @@ import { SITE } from '../../config/site';
 import { METRICA_GOALS, reachGoal } from '../../lib/analytics';
 import { getLeadEndpoint, submitLead } from '../../lib/lead';
 import { formatRussianPhone, sanitizeEmailInput } from '../../lib/formInput';
-import { leadFormSchema } from '../../../shared/validation/leadValidation.js';
+import {
+  leadFormSchema,
+  leadFormWithEmailSchema,
+} from '../../../shared/validation/leadValidation.js';
 import './FinalCTA.css';
 
 const initialForm = {
@@ -17,15 +20,33 @@ const initialForm = {
   website: '',
 };
 
-export default function FinalCTA({ preview = false }) {
+export default function FinalCTA({
+  preview = false,
+  service = '',
+  objectType = '',
+  allowEmailOnly = false,
+  objectPlaceholder = 'Например: гостиница, 2 400 м², требуется актуализация паспорта',
+}) {
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState('idle');
   const [message, setMessage] = useState('');
 
+  const objectContext = [
+    objectType ? `Тип объекта: ${objectType}` : '',
+    service ? `Услуга: ${service}` : '',
+  ]
+    .filter(Boolean)
+    .join('\n');
+  const objectPrefix = objectContext ? `${objectContext}\n\n` : '';
+  const objectMaxLength = Math.max(0, 1000 - objectPrefix.length);
+
   const endpoint = getLeadEndpoint();
   const nameInvalid = status === 'error' && !form.name.trim();
-  const phoneInvalid = status === 'error' && !form.phone.trim();
+  const contactMissing = !form.phone.trim() && !form.email.trim();
+  const phoneInvalid = status === 'error' && (allowEmailOnly ? contactMissing : !form.phone.trim());
+  const emailInvalid = status === 'error' && allowEmailOnly && contactMissing;
   const consentInvalid = status === 'error' && !form.consent;
+  const contactDescription = allowEmailOnly ? 'final-cta-contact-hint' : undefined;
 
   const updateField = (field, value) => {
     setForm(current => ({ ...current, [field]: value }));
@@ -44,8 +65,14 @@ export default function FinalCTA({ preview = false }) {
       return;
     }
 
+    const data = {
+      ...form,
+      object: `${objectPrefix}${form.object}`.trim(),
+    };
+    const schema = allowEmailOnly ? leadFormWithEmailSchema : leadFormSchema;
+
     try {
-      await leadFormSchema.validate(form, {
+      await schema.validate(data, {
         abortEarly: false,
       });
     } catch (error) {
@@ -68,7 +95,7 @@ export default function FinalCTA({ preview = false }) {
 
       await submitLead({
         source: LEAD_SOURCE_FINAL_CTA,
-        data: form,
+        data,
       });
 
       reachGoal(METRICA_GOALS.leadSubmitSuccess, { source: 'final_cta' });
@@ -146,7 +173,25 @@ export default function FinalCTA({ preview = false }) {
           </div>
 
           <div className="final-cta__fields">
-            <label>
+            {service ? (
+              <label className="final-cta__field--wide">
+                <span>Выбранная услуга</span>
+                <output className="final-cta__context-value" name="service">
+                  {service}
+                </output>
+              </label>
+            ) : null}
+
+            {objectType ? (
+              <label className="final-cta__field--wide">
+                <span>Тип объекта</span>
+                <output className="final-cta__context-value" name="objectType">
+                  {objectType}
+                </output>
+              </label>
+            ) : null}
+
+            <label className={allowEmailOnly ? 'final-cta__field--wide' : undefined}>
               <span>Ваше имя *</span>
               <input
                 type="text"
@@ -161,8 +206,17 @@ export default function FinalCTA({ preview = false }) {
               />
             </label>
 
+            {allowEmailOnly ? (
+              <p
+                className="final-cta__field--wide final-cta__contact-hint"
+                id="final-cta-contact-hint"
+              >
+                Укажите телефон или электронную почту.
+              </p>
+            ) : null}
+
             <label>
-              <span>Телефон *</span>
+              <span>{allowEmailOnly ? 'Телефон' : 'Телефон *'}</span>
               <input
                 type="tel"
                 name="phone"
@@ -172,8 +226,8 @@ export default function FinalCTA({ preview = false }) {
                 onChange={event => updateField('phone', formatRussianPhone(event.target.value))}
                 placeholder="+7 (900) 000-00-00"
                 aria-invalid={phoneInvalid || undefined}
-                aria-describedby={phoneInvalid ? 'final-cta-status' : undefined}
-                required
+                aria-describedby={phoneInvalid ? 'final-cta-status' : contactDescription}
+                required={!allowEmailOnly}
               />
             </label>
 
@@ -186,17 +240,21 @@ export default function FinalCTA({ preview = false }) {
                 value={form.email}
                 onChange={event => updateField('email', sanitizeEmailInput(event.target.value))}
                 placeholder="name@example.ru"
+                aria-invalid={emailInvalid || undefined}
+                aria-describedby={emailInvalid ? 'final-cta-status' : contactDescription}
+                required={allowEmailOnly && !form.phone.trim()}
               />
             </label>
 
             <label className="final-cta__field--wide">
-              <span>Объект или задача</span>
+              <span>{objectType ? 'Комментарий' : 'Объект или задача'}</span>
               <textarea
                 name="object"
                 rows="4"
                 value={form.object}
                 onChange={event => updateField('object', event.target.value)}
-                placeholder="Например: гостиница, 2 400 м², требуется актуализация паспорта"
+                placeholder={objectPlaceholder}
+                maxLength={objectMaxLength}
               />
             </label>
           </div>
