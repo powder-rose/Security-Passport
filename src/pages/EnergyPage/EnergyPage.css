@@ -1,0 +1,229 @@
+.energy-page {
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+.energy-section {
+  --energy-ink: var(--color-text);
+  --energy-muted: var(--color-text-secondary);
+  --energy-surface: var(--color-bg);
+  --energy-line: var(--color-border);
+  --energy-label: var(--color-primary);
+  --energy-heading-size: clamp(2.1rem, 4.1vw, 3.8rem);
+  padding: clamp(72px, 8vw, 120px) 0;
+  color: var(--energy-ink);
+  background: var(--energy-surface);
+}
+
+.energy-section--services,
+.energy-section--regulations,
+.energy-section--categorization-act,
+.energy-section--passport-form,
+.energy-section--prices,
+.energy-section--actualization,
+.energy-section--faq {
+  --energy-surface: var(--color-surface);
+}
+
+.energy-section--approval,
+.energy-section--restricted-documents {
+  --energy-ink: #fff;
+  --energy-muted: rgb(255 255 255 / 70%);
+  --energy-surface: var(--color-text);
+  --energy-line: rgb(255 255 255 / 18%);
+  --energy-label: var(--color-accent);
+}
+
+.energy-section > .container {
+  display: grid;
+  gap: clamp(36px, 4.5vw, 64px);
+}
+
+.energy-section-heading {
+  min-width: 0;
+}
+
+.energy-kicker {
+  margin: 0 0 18px;
+  color: var(--energy-label);
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.energy-heading {
+  max-width: 960px;
+  margin: 0;
+  color: var(--energy-ink);
+  font-size: var(--energy-heading-size);
+  line-height: 1.05;
+  letter-spacing: -0.055em;
+  overflow-wrap: anywhere;
+}
+
+.energy-subheading {
+  margin: 0;
+  color: var(--energy-ink);
+  font-size: clamp(1.18rem, 1.8vw, 1.55rem);
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
+}
+
+.energy-copy,
+.energy-section-intro {
+  display: grid;
+  align-content: start;
+  gap: 22px;
+  min-width: 0;
+}
+
+.energy-section-intro {
+  --energy-heading-size: clamp(2.1rem, 3.4vw, 3.25rem);
+  gap: 28px;
+}
+
+.energy-paragraph {
+  margin: 0;
+  color: var(--energy-muted);
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+
+.energy-split-layout,
+.energy-process-layout,
+.energy-faq-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  gap: clamp(40px, 7vw, 100px);
+  align-items: start;
+}
+
+.energy-section-lead {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(32px, 6vw, 88px);
+  align-items: start;
+}
+
+.energy-note {
+  padding: 24px 28px;
+  border-left: 4px solid var(--color-accent);
+  border-radius: 0 18px 18px 0;
+  background: rgb(169 240 74 / 12%);
+}
+
+.energy-section-action {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+}
+
+.energy-list {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.energy-list li {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  align-items: start;
+  gap: 14px;
+  min-width: 0;
+  color: var(--energy-ink);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.energy-list__marker {
+  display: grid;
+  min-width: 30px;
+  height: 26px;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: var(--color-text);
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.energy-list__marker::before {
+  content: attr(data-number);
+}
+
+.energy-disclosure {
+  border-top: 1px solid var(--energy-line);
+  border-bottom: 1px solid var(--energy-line);
+}
+
+.energy-disclosure summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.energy-disclosure summary::-webkit-details-marker {
+  display: none;
+}
+
+.energy-disclosure summary::after {
+  display: grid;
+  flex: 0 0 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-text);
+  font-size: 1.4rem;
+  content: '+';
+}
+
+.energy-disclosure[open] summary::after {
+  content: '−';
+}
+
+.energy-disclosure__body {
+  display: grid;
+  gap: 24px;
+  padding: 0 0 28px;
+}
+
+@media (min-width: 1025px) and (min-height: 720px) {
+  .energy-split-layout > .energy-section-intro,
+  .energy-process-layout > .energy-section-intro,
+  .energy-faq-layout > .energy-section-intro {
+    position: sticky;
+    top: 110px;
+    align-self: start;
+  }
+}
+
+@media (max-width: 1024px) {
+  .energy-split-layout,
+  .energy-process-layout,
+  .energy-faq-layout,
+  .energy-section-lead {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .energy-section,
+  .energy-section-intro {
+    --energy-heading-size: clamp(2rem, 8.8vw, 2.7rem);
+  }
+
+  .energy-note {
+    padding: 22px;
+  }
+}

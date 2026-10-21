@@ -1,0 +1,76 @@
+.energy-offers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.energy-offer {
+  --energy-ink: var(--color-text);
+  --energy-muted: var(--color-text-secondary);
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  align-content: start;
+  gap: 26px;
+  min-width: 0;
+  padding: clamp(28px, 3.7vw, 50px);
+  border-radius: 30px;
+  background: var(--color-bg);
+}
+
+.energy-offer:first-child {
+  --energy-ink: #fff;
+  --energy-muted: rgb(255 255 255 / 70%);
+  background: var(--color-text);
+}
+
+.energy-offer__number {
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.energy-offer:first-child .energy-offer__number {
+  color: var(--color-accent);
+}
+
+.energy-offer__number::before {
+  content: attr(data-number);
+}
+
+.energy-offer h3 {
+  max-width: 460px;
+  min-height: 2.25em;
+  margin: 0;
+  color: var(--energy-ink);
+  font-size: clamp(1.7rem, 2.6vw, 2.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.045em;
+}
+
+.energy-offer__footer {
+  display: grid;
+  gap: 24px;
+  align-content: end;
+  padding-top: 16px;
+}
+
+.energy-offer__price {
+  max-width: 340px;
+  margin: 0;
+  color: var(--energy-ink);
+  font-size: 1.28rem;
+  font-weight: 750;
+  line-height: 1.4;
+  letter-spacing: -0.025em;
+}
+
+@media (max-width: 800px) {
+  .energy-offers {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .energy-offer h3 {
+    min-height: 0;
+  }
+}
