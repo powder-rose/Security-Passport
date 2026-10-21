@@ -1,0 +1,119 @@
+.industry-price-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.industry-price-card {
+  --industry-price-ink: var(--color-text);
+  --industry-price-muted: var(--color-text-secondary);
+  --industry-price-surface: var(--color-surface);
+  --industry-price-border: var(--color-border);
+  --industry-price-accent: var(--color-primary);
+  --industry-price-value: var(--color-text);
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  gap: 26px;
+  min-width: 0;
+  padding: 30px 26px;
+  border: 1px solid var(--industry-price-border);
+  border-radius: 24px;
+  background: var(--industry-price-surface);
+  color: var(--industry-price-ink);
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.industry-price-card--featured {
+  --industry-price-ink: #fff;
+  --industry-price-muted: rgb(255 255 255 / 65%);
+  --industry-price-surface: var(--color-text);
+  --industry-price-border: var(--color-text);
+  --industry-price-accent: var(--color-accent);
+  --industry-price-value: var(--color-accent);
+}
+
+.industry-price-card--featured::before {
+  position: absolute;
+  top: 0;
+  right: 28px;
+  width: 72px;
+  height: 7px;
+  border-radius: 0 0 7px 7px;
+  background: var(--color-accent);
+  content: '';
+}
+
+.industry-price-card__number {
+  color: var(--industry-price-accent);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.industry-price-card__number::before {
+  content: attr(data-number);
+}
+
+.industry-price-card h3 {
+  min-height: 96px;
+  margin: 0;
+  font-size: 1.2rem;
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
+}
+
+.industry-price-card__price-line {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  color: var(--industry-price-value);
+  white-space: nowrap;
+}
+
+.industry-price-card__price-line > span {
+  color: var(--industry-price-muted);
+  font-size: 0.94rem;
+  font-weight: 650;
+}
+
+.industry-price-card__price-line > strong {
+  font-size: clamp(1.9rem, 2.7vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.055em;
+}
+
+@media (hover: hover) {
+  .industry-price-card:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-soft);
+  }
+}
+
+@media (max-width: 1180px) {
+  .industry-price-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .industry-price-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .industry-price-card {
+    gap: 22px;
+  }
+
+  .industry-price-card h3 {
+    min-height: 0;
+  }
+
+  .industry-price-card__price-line > strong {
+    font-size: 2.5rem;
+  }
+}

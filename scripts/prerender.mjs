@@ -401,7 +401,10 @@ if (canonical) {
       throw new Error(`Object prerender robots mismatch: ` + `${objectType.path}`);
     }
 
-    if (!objectDocument.includes(objectType.h1)) {
+    const objectHeading = objectDocument.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1];
+    const objectHeadingText = objectHeading?.replace(/<[^>]+>/g, '').trim();
+
+    if (objectHeadingText !== objectType.h1) {
       throw new Error(`Object prerender H1 mismatch: ` + `${objectType.path}`);
     }
 

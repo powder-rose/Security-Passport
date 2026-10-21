@@ -1,4 +1,4 @@
-import { objectTypes } from '../../data/objectTypes';
+import { getObjectTypeByPathname, objectTypes } from '../../data/objectTypes';
 
 import { servicePages } from '../../data/servicePages';
 
@@ -24,6 +24,9 @@ function DirectoryLink({ href, label, currentPathname, onNavigate }) {
 }
 
 export default function DirectoryContent({ currentPathname, onNavigate, mobile = false }) {
+  const excludedServiceIds = getObjectTypeByPathname(currentPathname)?.excludedServiceIds || [];
+  const visibleServices = servicePages.filter(page => !excludedServiceIds.includes(page.id));
+
   return (
     <div className={`site-directory__grid${mobile ? ' site-directory__grid--mobile' : ''}`}>
       <section className="site-directory__group">
@@ -37,7 +40,7 @@ export default function DirectoryContent({ currentPathname, onNavigate, mobile =
             onNavigate={onNavigate}
           />
 
-          {servicePages.map(page => (
+          {visibleServices.map(page => (
             <DirectoryLink
               key={page.path}
               href={page.path}
