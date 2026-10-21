@@ -17,13 +17,15 @@ export function EnergyApplicability({ section, onServiceSelect }) {
           <EnergyParagraphs items={section.paragraphs.slice(0, 2)} />
         </div>
       </div>
-      <div className="energy-copy">
-        <p className="energy-paragraph">{section.paragraphs[2]}</p>
-        <EnergyList items={section.items} variant="objects" />
-      </div>
-      <div className="energy-applicability-note">
-        <EnergyParagraphs items={section.notes} />
-        <EnergyAction action={section.action} onServiceSelect={onServiceSelect} />
+      <div className="energy-objects-layout">
+        <div className="energy-copy">
+          <p className="energy-paragraph">{section.paragraphs[2]}</p>
+          <EnergyList items={section.items} variant="objects" />
+        </div>
+        <aside className="energy-objects-scope" data-scroll-reveal>
+          <EnergyParagraphs items={section.notes} />
+          <EnergyAction action={section.action} onServiceSelect={onServiceSelect} accent />
+        </aside>
       </div>
       <details className="energy-disclosure">
         <summary>
@@ -44,25 +46,37 @@ export function EnergyApplicability({ section, onServiceSelect }) {
 
 export function EnergyRegulations({ section }) {
   return (
-    <div className="energy-split-layout">
-      <div className="energy-section-intro">
+    <>
+      <div className="energy-regulations-header">
         <EnergyHeading section={section} />
         <p className="energy-paragraph">{section.intro}</p>
-        <EnergyParagraphs items={section.paragraphs} />
       </div>
-      <dl className="energy-regulations">
-        {section.items.map((item, index) => (
-          <div className="energy-regulation" key={item.title} data-scroll-reveal>
-            <span
-              className="energy-regulation__number"
-              data-number={String(index + 1).padStart(2, '0')}
-              aria-hidden="true"
-            />
-            <dt>{item.title}</dt>
-            <dd>{item.text}</dd>
-          </div>
-        ))}
-      </dl>
-    </div>
+      <div className="energy-regulations-layout">
+        <aside className="energy-regulations-statement" data-scroll-reveal>
+          <span className="energy-regulations-mark" aria-hidden="true">
+            №256-ФЗ
+          </span>
+          <p className="energy-paragraph">{section.paragraphs[0]}</p>
+        </aside>
+        <dl className="energy-regulations">
+          {section.items.map((item, index) => (
+            <div className="energy-regulation" key={item.title} data-scroll-reveal>
+              <dt>
+                <span
+                  className="energy-regulation__number"
+                  data-number={String(index + 1).padStart(2, '0')}
+                  aria-hidden="true"
+                />
+                <span>{item.title}</span>
+              </dt>
+              <dd>{item.text}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+      <div className="energy-regulations-footer">
+        <EnergyParagraphs items={section.paragraphs.slice(1)} />
+      </div>
+    </>
   );
 }

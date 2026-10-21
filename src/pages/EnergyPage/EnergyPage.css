@@ -177,19 +177,25 @@
 }
 
 .energy-disclosure summary::after {
-  display: grid;
   flex: 0 0 36px;
   height: 36px;
-  place-items: center;
   border-radius: 50%;
-  background: var(--color-accent);
-  color: var(--color-text);
-  font-size: 1.4rem;
-  content: '+';
+  background-color: var(--color-accent);
+  background-image:
+    linear-gradient(var(--color-text), var(--color-text)),
+    linear-gradient(var(--color-text), var(--color-text));
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size:
+    14px 2px,
+    2px 14px;
+  content: '';
 }
 
 .energy-disclosure[open] summary::after {
-  content: '−';
+  background-size:
+    14px 2px,
+    2px 0;
 }
 
 .energy-disclosure__body {

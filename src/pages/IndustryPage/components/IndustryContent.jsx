@@ -1,4 +1,4 @@
-import IndustryAction from './IndustryAction';
+import ServiceAction from '../../../components/commercial/ServiceAction';
 
 const sectionLabels = {
   objects: 'Область применения',
@@ -21,7 +21,7 @@ const sectionLabels = {
 
 export function IndustryHeading({ section }) {
   return (
-    <header className="industry-section-heading" data-industry-reveal>
+    <header className="industry-section-heading" data-scroll-reveal>
       <p className="industry-kicker">{sectionLabels[section.id]}</p>
       <h2 className="industry-heading" id={`industry-${section.id}-title`}>
         {section.title}
@@ -66,7 +66,7 @@ export function IndustryList({ items, variant = 'lines' }) {
   return (
     <ul className={`industry-list industry-list--${variant}`}>
       {items.map((item, index) => (
-        <li key={item} data-industry-reveal>
+        <li key={item} data-scroll-reveal>
           <span
             className="industry-list__marker"
             data-number={String(index + 1).padStart(2, '0')}
@@ -87,14 +87,14 @@ export function IndustrySectionAction({
 }) {
   return (
     <div className="industry-section-action">
-      <IndustryAction
+      <ServiceAction
         service={action.service}
         onSelect={onServiceSelect}
         secondary={secondary}
         accent={accent}
       >
         {action.label}
-      </IndustryAction>
+      </ServiceAction>
     </div>
   );
 }

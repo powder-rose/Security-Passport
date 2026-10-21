@@ -1,5 +1,5 @@
 import Container from '../../../components/ui/Container/Container';
-import IndustryAction from './IndustryAction';
+import ServiceAction from '../../../components/commercial/ServiceAction';
 import './IndustryHero.css';
 
 export default function IndustryHero({ objectType, facts, onServiceSelect }) {
@@ -17,7 +17,7 @@ export default function IndustryHero({ objectType, facts, onServiceSelect }) {
         </nav>
 
         <div className="industry-hero__layout">
-          <div className="industry-hero__copy" data-industry-reveal>
+          <div className="industry-hero__copy" data-scroll-reveal>
             <p className="industry-hero__kicker">Паспорт безопасности объекта</p>
 
             <h1 className="industry-hero__title" id="industry-hero-title">
@@ -33,21 +33,21 @@ export default function IndustryHero({ objectType, facts, onServiceSelect }) {
               </p>
 
               <div className="industry-hero__actions">
-                <IndustryAction service={objectType.seoName} onSelect={onServiceSelect}>
+                <ServiceAction service={objectType.seoName} onSelect={onServiceSelect}>
                   Заказать паспорт
-                </IndustryAction>
-                <IndustryAction
+                </ServiceAction>
+                <ServiceAction
                   service="Проверить требования для объекта"
                   onSelect={onServiceSelect}
                   secondary
                 >
                   Проверить требования для объекта
-                </IndustryAction>
+                </ServiceAction>
               </div>
             </div>
           </div>
 
-          <aside className="industry-hero__regulation" data-industry-reveal>
+          <aside className="industry-hero__regulation" data-scroll-reveal>
             <p className="industry-hero__regulation-label">Нормативное основание</p>
             <div className="industry-hero__regulation-number">
               <span>ПП РФ</span>

@@ -44,13 +44,27 @@ export default function EnergyHero({ objectType, facts, actions, onServiceSelect
             </div>
           </div>
 
-          <aside className="energy-hero__regulation" data-scroll-reveal>
-            <p className="energy-hero__regulation-label">Федеральный закон</p>
-            <p className="energy-hero__regulation-number">
-              <span>№</span> 256<span>-ФЗ</span>
-            </p>
-            <p className="energy-hero__regulation-date">от 21.07.2011</p>
+          <aside className="energy-hero__panel" data-scroll-reveal>
+            <div className="energy-hero__regulation">
+              <p className="energy-hero__regulation-label">Федеральный закон</p>
+              <p className="energy-hero__regulation-number">№ 256-ФЗ</p>
+              <p className="energy-hero__regulation-date">от 21.07.2011</p>
+            </div>
             <p className="energy-hero__regulation-focus">{objectType.regulationFocus}</p>
+
+            <ul className="energy-hero__facts">
+              {facts.map((fact, index) => (
+                <li key={fact}>
+                  <span
+                    className="energy-hero__fact-number"
+                    data-number={String(index + 1).padStart(2, '0')}
+                    aria-hidden="true"
+                  />
+                  <span>{fact}</span>
+                </li>
+              ))}
+            </ul>
+
             <dl className="energy-hero__documents">
               <div>
                 <dt>Категорирование</dt>
@@ -63,12 +77,6 @@ export default function EnergyHero({ objectType, facts, actions, onServiceSelect
             </dl>
           </aside>
         </div>
-
-        <ul className="energy-hero__facts">
-          {facts.map(fact => (
-            <li key={fact}>{fact}</li>
-          ))}
-        </ul>
       </Container>
     </section>
   );

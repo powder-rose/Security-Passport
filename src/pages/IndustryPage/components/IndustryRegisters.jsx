@@ -27,7 +27,7 @@ export function IndustryApprovalTimeline({ table }) {
 
       <ol className="industry-approval-timeline__list">
         {table.rows.map(([procedure, deadline], index) => (
-          <li className="industry-approval-timeline__item" key={procedure} data-industry-reveal>
+          <li className="industry-approval-timeline__item" key={procedure} data-scroll-reveal>
             <span
               className="industry-approval-timeline__marker"
               data-number={String(index + 1).padStart(2, '0')}
@@ -57,7 +57,7 @@ export function IndustryCopyRegister({ table }) {
 
       <dl className="industry-copy-register__list">
         {table.rows.map(([copy, recipient], index) => (
-          <div className="industry-copy-register__row" key={copy} data-industry-reveal>
+          <div className="industry-copy-register__row" key={copy} data-scroll-reveal>
             <dt>
               <span
                 className="industry-copy-register__number"
@@ -87,7 +87,7 @@ export function IndustryDocumentRegister({ table }) {
 
       <dl className="industry-document-register__grid">
         {table.rows.map(([group, examples]) => (
-          <div className="industry-document-register__item" key={group} data-industry-reveal>
+          <div className="industry-document-register__item" key={group} data-scroll-reveal>
             <dt>{group}</dt>
             <dd>{examples}</dd>
           </div>

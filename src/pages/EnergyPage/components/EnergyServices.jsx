@@ -22,16 +22,26 @@ export function EnergyServiceScope({ section }) {
 }
 
 export function EnergyPricing({ section, onServiceSelect }) {
+  const [primary, ...additional] = section.items;
+
   return (
     <>
       <div className="energy-section-lead">
         <EnergyHeading section={section} />
         <p className="energy-paragraph">{section.paragraphs[0]}</p>
       </div>
-      <div className="service-price-cards">
-        {section.items.map(item => (
-          <ServicePriceCard key={item.title} item={item} onServiceSelect={onServiceSelect} />
-        ))}
+      <div className="energy-pricing-layout">
+        <ServicePriceCard item={primary} onServiceSelect={onServiceSelect} layout="primary" />
+        <div className="energy-price-rows">
+          {additional.map(item => (
+            <ServicePriceCard
+              key={item.title}
+              item={item}
+              onServiceSelect={onServiceSelect}
+              layout="row"
+            />
+          ))}
+        </div>
       </div>
       <div className="energy-price-conditions">
         <EnergySubheading>{section.subheading}</EnergySubheading>

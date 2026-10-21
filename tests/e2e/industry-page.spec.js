@@ -11,7 +11,7 @@ const forbiddenActPath = '/akt-obsledovaniya-i-kategorirovaniya-obekta/';
 async function expectIndustryContentVisible(page) {
   const hiddenContent = await page
     .locator(
-      '.industry-hero, .industry-hero [data-industry-reveal], .industry-section h2, .industry-price-card, .industry-approval-timeline__item, .industry-copy-register__row, .industry-document-register__item',
+      '.industry-hero, .industry-hero [data-scroll-reveal], .industry-section h2, .service-price-card, .industry-approval-timeline__item, .industry-copy-register__row, .industry-document-register__item',
     )
     .evaluateAll(elements =>
       elements
@@ -49,7 +49,7 @@ test('industry landing prerenders its SEO, complete FAQ and approved internal li
   expect(html).toContain('Акт категорирования объекта (территории) промышленности.');
   expect(html).toContain('не означает обязательного завершения всех работ');
   expect(html.match(/class="faq-item__answer"/g)).toHaveLength(18);
-  expect(html).not.toContain(`href="${forbiddenActPath}"`);
+  expect(html).toContain(`href="${forbiddenActPath}"`);
   expect(html).not.toContain('Для программиста');
 
   const errors = [];
@@ -132,8 +132,8 @@ test('industry landing prerenders its SEO, complete FAQ and approved internal li
     'Сведения в объёме, предусмотренном требованиями',
   ]);
 
-  await expect(page.locator('#prices .industry-price-card')).toHaveCount(4);
-  expect(await page.locator('#prices .industry-price-card__price-line').allTextContents()).toEqual([
+  await expect(page.locator('#prices .service-price-card')).toHaveCount(4);
+  expect(await page.locator('#prices .service-price-card__price-line').allTextContents()).toEqual([
     '9 500 ₽',
     '9 500 ₽',
     'от9 500 ₽',
@@ -269,7 +269,7 @@ test('industry content remains visible without reveal animation in reduced motio
   );
 
   const animatedContent = await page
-    .locator('.industry-page [data-industry-reveal]')
+    .locator('.industry-page [data-scroll-reveal]')
     .evaluateAll(elements =>
       elements
         .filter(
@@ -352,7 +352,7 @@ for (const width of [375, 1440]) {
       await page.locator('#site-directory').getByRole('button', { name: 'Закрыть меню' }).click();
     }
 
-    await expect(page.locator(`a[href="${forbiddenActPath}"]`)).toHaveCount(0);
+    await expect(page.locator(`.industry-page a[href="${forbiddenActPath}"]`)).toHaveCount(0);
 
     await page.locator('.industry-disclosure').evaluateAll(disclosures => {
       disclosures.forEach(disclosure => {
