@@ -1,0 +1,94 @@
+.energy-service-footer {
+  max-width: 900px;
+  padding-left: 28px;
+  border-left: 4px solid var(--color-accent);
+}
+
+.energy-price-conditions {
+  display: grid;
+  justify-self: end;
+  gap: 24px;
+  max-width: 1040px;
+}
+
+.energy-price-conditions__cases {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+  padding: 32px;
+  border-radius: 24px;
+  background: var(--color-bg);
+}
+
+.energy-documents {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  min-width: 0;
+  margin: 0;
+}
+
+.energy-document {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  min-width: 0;
+  padding: 26px;
+  border-top: 3px solid var(--color-accent);
+  border-radius: 0 0 20px 20px;
+  background: var(--color-surface);
+}
+
+.energy-document__number {
+  color: var(--color-primary);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.energy-document__number::before {
+  content: attr(data-number);
+}
+
+.energy-document dt {
+  color: var(--color-text);
+  font-size: 1.1rem;
+  font-weight: 750;
+  line-height: 1.4;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
+}
+
+.energy-document dd {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 0.96rem;
+  line-height: 1.7;
+}
+
+.energy-documents-note {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+  padding: 32px;
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  background: var(--color-surface);
+}
+
+.energy-documents-note > :last-child {
+  padding-left: 24px;
+  border-left: 3px solid var(--color-accent);
+}
+
+@media (max-width: 640px) {
+  .energy-price-conditions__cases,
+  .energy-documents,
+  .energy-documents-note {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .energy-price-conditions__cases,
+  .energy-documents-note {
+    padding: 26px;
+  }
+}
