@@ -47,9 +47,11 @@ export default function Experience() {
           {experienceItems.map(item => (
             <article className="experience-card" key={item.index}>
               <div className="experience-card__top">
-                <span className="experience-card__index" aria-hidden="true">
-                  {item.index}
-                </span>
+                <span
+                  className="experience-card__index"
+                  data-index={item.index}
+                  aria-hidden="true"
+                />
                 <span className="experience-card__label">{item.label}</span>
               </div>
 

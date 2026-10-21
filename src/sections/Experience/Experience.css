@@ -151,6 +151,10 @@
     color 0.2s ease;
 }
 
+.experience-card__index::before {
+  content: attr(data-index);
+}
+
 .experience-card:nth-child(3) .experience-card__index {
   border-color: rgba(255, 255, 255, 0.18);
   color: var(--color-accent);
