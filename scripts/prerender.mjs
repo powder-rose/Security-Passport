@@ -356,7 +356,7 @@ if (canonical) {
 
     const objectRouteCssSource = getObjectPageSource(objectType.id);
 
-    const objectRouteCssTags = getClientCssLinks(objectRouteCssSource);
+    const objectRouteCssTags = getClientRouteCssLinks(objectRouteCssSource, objectDocument);
 
     const objectHeadTags = [
       objectResult.helmet?.title?.toString() || '',

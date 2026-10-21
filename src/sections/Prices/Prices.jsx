@@ -1,35 +1,7 @@
 import Container from '../../components/ui/Container/Container';
 import { prices } from '../../data/prices';
+import PriceRow from './PriceRow';
 import './Prices.css';
-
-function PriceRow({ item }) {
-  return (
-    <article className={`price-row${item.featured ? ' price-row--featured' : ''}`}>
-      <div className="price-row__index" aria-hidden="true">
-        {item.number}
-      </div>
-
-      <div className="price-row__service">
-        <span className="price-row__label">{item.label}</span>
-        <h3>{item.title}</h3>
-        <p>{item.description}</p>
-      </div>
-
-      <div className="price-row__value">
-        <div className="price-row__price-line">
-          {item.pricePrefix ? <span className="price-row__prefix">{item.pricePrefix}</span> : null}
-          <strong>{item.price}</strong>
-        </div>
-        {item.note ? <span className="price-row__note">{item.note}</span> : null}
-      </div>
-
-      <a className="price-row__action" href="#contact" aria-label={`Заказать: ${item.title}`}>
-        <span>Заказать</span>
-        <span aria-hidden="true">↗</span>
-      </a>
-    </article>
-  );
-}
 
 export default function Prices() {
   return (
