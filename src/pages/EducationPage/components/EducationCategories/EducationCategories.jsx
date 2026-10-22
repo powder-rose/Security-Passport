@@ -1,6 +1,12 @@
 import Container from '../../../../components/ui/Container/Container';
+import EducationComparison from '../EducationComparison/EducationComparison';
+import EducationRegulationDetails from '../EducationRegulationDetails/EducationRegulationDetails';
 
-import { educationCategories } from '../../educationPageData';
+import {
+  educationActCopies,
+  educationCategories,
+  educationCategories1421,
+} from '../../educationPageData';
 
 export default function EducationCategories() {
   return (
@@ -64,6 +70,59 @@ export default function EducationCategories() {
             Акт обследования и категорирования объекта
             <span aria-hidden="true">→</span>
           </a>
+
+          <EducationRegulationDetails title="Категории опасности объектов Минобрнауки по ПП РФ № 1421">
+            <p>
+              Для объектов (территорий), подпадающих под Постановление Правительства РФ от
+              07.11.2019 № 1421, предусмотрены три категории опасности.
+            </p>
+
+            <EducationComparison
+              headers={['Категория', 'Критерий']}
+              rows={educationCategories1421}
+            />
+
+            <p>
+              Категория определяется комиссией по обследованию и категорированию на основании
+              установленных критериев.
+            </p>
+
+            <p>
+              Важно: при подготовке документации нельзя применять четыре категории по № 1006 к
+              объектам, подпадающим под № 1421.
+            </p>
+          </EducationRegulationDetails>
+
+          <EducationRegulationDetails title="Сколько экземпляров акта категорирования оформляется">
+            <p>Количество экземпляров акта зависит от применимого постановления.</p>
+
+            <EducationComparison
+              headers={['Постановление', 'Количество экземпляров акта']}
+              rows={educationActCopies}
+            />
+
+            <p>
+              В обоих случаях акт обследования и категорирования является основанием для разработки
+              и неотъемлемой частью паспорта безопасности.
+            </p>
+
+            <p>
+              Результаты работы комиссии оформляются в установленном порядке. Документ подписывается
+              всеми членами комиссии и утверждается председателем.
+            </p>
+
+            <p>
+              БОЙКОВГРУПП оказывает услуги по подготовке проекта акта и необходимых документов для
+              работы комиссии.
+            </p>
+
+            <a
+              className="button button--primary"
+              href="/akt-obsledovaniya-i-kategorirovaniya-obekta/"
+            >
+              Заказать акт обследования и категорирования
+            </a>
+          </EducationRegulationDetails>
         </Container>
       </section>
     </>

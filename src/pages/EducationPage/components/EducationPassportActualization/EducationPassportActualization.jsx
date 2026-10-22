@@ -1,6 +1,10 @@
 import Container from '../../../../components/ui/Container/Container';
+import EducationRegulationDetails from '../EducationRegulationDetails/EducationRegulationDetails';
 
-import { educationActualizationReasons } from '../../educationPageData';
+import {
+  educationActualizationReasons,
+  educationActualizationReasons1421,
+} from '../../educationPageData';
 
 export default function EducationPassportActualization() {
   return (
@@ -68,6 +72,40 @@ export default function EducationPassportActualization() {
               <span aria-hidden="true">→</span>
             </a>
           </div>
+
+          <EducationRegulationDetails title="Актуализация паспорта безопасности по ПП РФ № 1421">
+            <p>
+              Для объектов, подпадающих под ПП РФ № 1421, паспорт безопасности актуализируется не
+              реже одного раза в пять лет, а также при изменении предусмотренных постановлением
+              характеристик.
+            </p>
+
+            <p>К основаниям относятся:</p>
+
+            <div className="education-actualization__reasons">
+              {educationActualizationReasons1421.map((reason, index) => (
+                <article className="education-actualization__reason" key={reason}>
+                  <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+
+                  <p>{reason}</p>
+                </article>
+              ))}
+            </div>
+
+            <p>
+              При актуализации проводится подтверждение или изменение категории объекта в
+              установленном порядке.
+            </p>
+
+            <p>Заменённый паспорт хранится на объекте в течение пяти лет.</p>
+
+            <a
+              className="button button--primary"
+              href="/aktualizaciya-pasporta-bezopasnosti-obekta/"
+            >
+              Заказать актуализацию паспорта
+            </a>
+          </EducationRegulationDetails>
         </Container>
       </section>
     </>

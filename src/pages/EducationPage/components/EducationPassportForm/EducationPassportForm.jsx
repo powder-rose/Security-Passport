@@ -1,4 +1,5 @@
 import Container from '../../../../components/ui/Container/Container';
+import EducationRegulationDetails from '../EducationRegulationDetails/EducationRegulationDetails';
 
 import { educationPassportStructure } from '../../educationPageData';
 
@@ -46,6 +47,33 @@ export default function EducationPassportForm() {
               ))}
             </ol>
           </div>
+
+          <EducationRegulationDetails title="Форма паспорта безопасности образовательной организации по ПП РФ № 1421">
+            <p>
+              Для объектов Министерства науки и высшего образования Российской Федерации,
+              подведомственных организаций и объектов соответствующей сферы деятельности применяется
+              форма паспорта безопасности, утверждённая Постановлением Правительства РФ от
+              07.11.2019 № 1421.
+            </p>
+
+            <p>Форма паспорта № 1421 отличается от формы № 1006.</p>
+
+            <p>
+              Поэтому при подготовке документа необходимо сначала определить нормативную
+              принадлежность объекта, а затем использовать установленную для него форму.
+            </p>
+
+            <div className="education-form__intro">
+              <p>
+                БОЙКОВГРУПП помогает определить применимые требования и подготовить паспорт
+                безопасности по соответствующему постановлению.
+              </p>
+
+              <a className="button button--primary" href="#lead-form">
+                Получить форму паспорта
+              </a>
+            </div>
+          </EducationRegulationDetails>
         </Container>
       </section>
     </>

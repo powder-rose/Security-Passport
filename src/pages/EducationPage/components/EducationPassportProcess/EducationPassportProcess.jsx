@@ -1,6 +1,7 @@
 import Container from '../../../../components/ui/Container/Container';
+import EducationComparison from '../EducationComparison/EducationComparison';
 
-import { educationProcess } from '../../educationPageData';
+import { educationPassportTerms, educationProcess } from '../../educationPageData';
 
 export default function EducationPassportProcess() {
   return (
@@ -31,11 +32,19 @@ export default function EducationPassportProcess() {
           </ol>
 
           <aside className="education-process__term">
-            <span>Для объектов по ПП РФ №1006</span>
+            <h3>Сроки разработки паспорта безопасности</h3>
 
-            <strong>Паспорт составляется в течение 30 дней</strong>
+            <div>
+              <EducationComparison
+                headers={['Постановление', 'Нормативный срок']}
+                rows={educationPassportTerms}
+              />
 
-            <p>Срок отсчитывается после проведения обследования и категорирования объекта.</p>
+              <p>
+                Эти сроки регулируют подготовку паспорта и не означают гарантированного завершения
+                согласования со всеми государственными органами в тот же период.
+              </p>
+            </div>
           </aside>
         </Container>
       </section>
