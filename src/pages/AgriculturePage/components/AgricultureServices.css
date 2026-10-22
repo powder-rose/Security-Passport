@@ -1,0 +1,169 @@
+.agriculture-deliverables {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 52px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.agriculture-deliverable {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 20px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--agriculture-line);
+}
+
+.agriculture-deliverable:first-child {
+  grid-column: 1 / -1;
+  padding: 30px;
+  border: 0;
+  border-radius: 24px;
+  background: var(--color-text);
+  color: #fff;
+}
+
+.agriculture-deliverable__number {
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.7;
+}
+
+.agriculture-deliverable__number::before {
+  content: attr(data-number);
+}
+
+.agriculture-deliverable:first-child .agriculture-deliverable__number {
+  color: var(--color-accent);
+}
+
+.agriculture-deliverable h3 {
+  margin: 0 0 10px;
+  font-size: 1.16rem;
+  line-height: 1.4;
+  letter-spacing: -0.025em;
+}
+
+.agriculture-deliverable p {
+  margin: 0;
+  color: var(--agriculture-muted);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.agriculture-deliverable:first-child p {
+  color: rgb(255 255 255 / 75%);
+}
+
+.agriculture-service-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 0.65fr);
+  align-items: start;
+  gap: clamp(32px, 6vw, 88px);
+}
+
+.agriculture-price-disclosure {
+  border-top: 1px solid var(--agriculture-line);
+  border-bottom: 1px solid var(--agriculture-line);
+}
+
+.agriculture-price-disclosure summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.agriculture-price-disclosure summary::-webkit-details-marker {
+  display: none;
+}
+
+.agriculture-price-disclosure summary::after {
+  flex: 0 0 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  background-image:
+    linear-gradient(var(--color-text), var(--color-text)),
+    linear-gradient(var(--color-text), var(--color-text));
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size:
+    14px 2px,
+    2px 14px;
+  content: '';
+}
+
+.agriculture-price-disclosure[open] summary::after {
+  background-size:
+    14px 2px,
+    2px 0;
+}
+
+.agriculture-price-disclosure__body {
+  max-width: 960px;
+  padding: 0 0 28px;
+}
+
+.agriculture-document-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin: 0;
+}
+
+.agriculture-document-item {
+  min-width: 0;
+  padding: 26px;
+  border: 1px solid var(--color-border);
+  border-radius: 22px;
+  background: var(--color-surface);
+}
+
+.agriculture-document-item dt {
+  margin-bottom: 18px;
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.agriculture-document-item dd {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 1024px) {
+  .agriculture-service-footer {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .agriculture-document-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .agriculture-deliverables,
+  .agriculture-document-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .agriculture-deliverable {
+    gap: 12px;
+  }
+
+  .agriculture-deliverable:first-child {
+    padding: 24px;
+  }
+
+  .agriculture-document-item {
+    padding: 24px;
+  }
+}

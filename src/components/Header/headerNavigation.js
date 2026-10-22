@@ -53,6 +53,11 @@ const pageNavAliases = {
     '#about-passport': '#regulations',
   },
 
+  '/pasport-bezopasnosti-obekta-minselhoza': {
+    '#top': '.agriculture-hero',
+    '#about-passport': '#regulations',
+  },
+
   '/aktualizaciya-pasporta-bezopasnosti-obekta': {
     '#top': '.actualization-hero',
     '#about-passport': '.actualization-definition',

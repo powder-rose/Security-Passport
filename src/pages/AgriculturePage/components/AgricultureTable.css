@@ -1,0 +1,72 @@
+.agriculture-table-scroll {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  background: var(--color-surface);
+}
+
+.agriculture-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.agriculture-table thead {
+  background: var(--color-accent);
+  color: var(--color-text);
+}
+
+.agriculture-table thead th {
+  padding: 22px 28px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.5;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.agriculture-table tbody th,
+.agriculture-table tbody td {
+  padding: 28px;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+}
+
+.agriculture-table tbody th {
+  width: var(--agriculture-table-label-width, 28%);
+  color: var(--color-text);
+  font-size: var(--agriculture-table-label-size, 1.05rem);
+  font-weight: 750;
+  line-height: 1.45;
+  letter-spacing: -0.025em;
+}
+
+.agriculture-table tbody td {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.agriculture-table tbody tr:last-child > * {
+  border-bottom: 0;
+}
+
+@media (hover: hover) {
+  .agriculture-table tbody tr:hover {
+    background: rgb(169 240 74 / 9%);
+  }
+}
+
+@media (max-width: 640px) {
+  .agriculture-table {
+    min-width: 540px;
+  }
+
+  .agriculture-table thead th,
+  .agriculture-table tbody th,
+  .agriculture-table tbody td {
+    padding: 22px;
+  }
+}

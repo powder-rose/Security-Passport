@@ -1,0 +1,323 @@
+.agriculture-hero {
+  --agriculture-label: var(--color-primary);
+  padding: 30px 0 clamp(72px, 7.5vw, 112px);
+}
+
+.agriculture-breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin-bottom: 46px;
+  color: var(--color-text-secondary);
+  font-size: 0.77rem;
+  line-height: 1.6;
+}
+
+.agriculture-breadcrumbs a {
+  color: inherit;
+  text-decoration: none;
+  text-underline-offset: 4px;
+}
+
+.agriculture-breadcrumbs a:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.agriculture-hero__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr);
+  align-items: start;
+  gap: clamp(38px, 5.8vw, 82px);
+}
+
+.agriculture-hero__content {
+  min-width: 0;
+}
+
+.agriculture-hero h1 {
+  margin: 0;
+  font-size: clamp(2.8rem, 4.6vw, 4.6rem);
+  font-weight: 750;
+  line-height: 1.03;
+  letter-spacing: -0.055em;
+  overflow-wrap: anywhere;
+}
+
+.agriculture-hero__commercial {
+  display: grid;
+  gap: 22px;
+  margin-top: 28px;
+}
+
+.agriculture-hero__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  width: fit-content;
+  max-width: 100%;
+  padding: 18px 24px;
+  border-radius: 18px;
+  background: var(--color-accent);
+}
+
+.agriculture-hero__price > span {
+  max-width: 120px;
+  font-size: 0.87rem;
+  line-height: 1.45;
+}
+
+.agriculture-hero__price > strong {
+  font-size: clamp(2rem, 3.1vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.055em;
+  white-space: nowrap;
+}
+
+.agriculture-hero__facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.agriculture-hero__facts li {
+  display: grid;
+  grid-template-columns: 6px minmax(0, 1fr);
+  gap: 10px;
+  align-items: baseline;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.agriculture-hero__facts li::before {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  content: '';
+}
+
+.agriculture-hero__lead {
+  margin: 28px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+
+.agriculture-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 26px;
+  margin-top: 28px;
+}
+
+.agriculture-hero__regulation {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 36px;
+  min-width: 0;
+  padding: clamp(28px, 3vw, 42px);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 28px;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.agriculture-hero__regulation::before {
+  position: absolute;
+  top: 0;
+  left: 36px;
+  width: 72px;
+  height: 7px;
+  border-radius: 0 0 7px 7px;
+  background: var(--color-accent);
+  content: '';
+}
+
+.agriculture-hero__regulation-label {
+  max-width: 260px;
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.agriculture-hero__regulation-number {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  color: var(--color-text);
+}
+
+.agriculture-hero__regulation-number > span {
+  font-size: clamp(1.5rem, 2.3vw, 2rem);
+  font-weight: 750;
+}
+
+.agriculture-hero__regulation-number > strong {
+  font-size: clamp(4.5rem, 6.5vw, 6.3rem);
+  font-weight: 750;
+  line-height: 0.95;
+  letter-spacing: -0.08em;
+}
+
+.agriculture-hero__regulation-date {
+  margin: 18px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.agriculture-hero__departments {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-border);
+  list-style: none;
+}
+
+.agriculture-hero__departments li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.93rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.agriculture-hero__departments li::before {
+  flex: 0 0 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--color-accent);
+  content: '';
+}
+
+@media (min-width: 1025px) and (min-height: 720px) {
+  .agriculture-hero__regulation {
+    position: sticky;
+    top: 110px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .agriculture-hero__layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 38px;
+  }
+
+  .agriculture-hero h1 {
+    max-width: 850px;
+    font-size: clamp(2.75rem, 6.6vw, 4.5rem);
+  }
+
+  .agriculture-hero__regulation {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: center;
+    gap: 18px 40px;
+  }
+
+  .agriculture-hero__regulation-label {
+    grid-column: 1 / -1;
+    max-width: none;
+  }
+
+  .agriculture-hero__departments {
+    border-top: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .agriculture-hero {
+    padding-top: 22px;
+  }
+
+  .agriculture-breadcrumbs {
+    margin-bottom: 32px;
+  }
+
+  .agriculture-hero h1 {
+    font-size: clamp(2.2rem, 8.5vw, 3.3rem);
+  }
+
+  .agriculture-hero__price {
+    width: 100%;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 20px;
+  }
+
+  .agriculture-hero__price > span {
+    max-width: 100px;
+    font-size: 0.78rem;
+  }
+
+  .agriculture-hero__price > strong {
+    font-size: clamp(1.75rem, 7.6vw, 2.5rem);
+  }
+
+  .agriculture-hero__facts {
+    gap: 12px 16px;
+  }
+
+  .agriculture-hero__facts li {
+    font-size: 0.73rem;
+  }
+
+  .agriculture-hero__actions {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .agriculture-hero__regulation {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 20px 16px;
+    padding: 28px 22px;
+  }
+
+  .agriculture-hero__regulation-label {
+    font-size: 0.66rem;
+  }
+
+  .agriculture-hero__regulation-number {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .agriculture-hero__regulation-number > span {
+    font-size: 1.1rem;
+  }
+
+  .agriculture-hero__regulation-number > strong {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+  }
+
+  .agriculture-hero__regulation-date {
+    margin-top: 12px;
+    font-size: 0.72rem;
+  }
+
+  .agriculture-hero__departments li {
+    gap: 8px;
+    padding: 14px 0;
+    font-size: 0.72rem;
+    overflow-wrap: anywhere;
+  }
+}

@@ -1,0 +1,152 @@
+.agriculture-process-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 0.58fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 72px);
+  padding: 32px 0 0;
+  border-top: 1px solid var(--agriculture-line);
+}
+
+.agriculture-authorities {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.agriculture-authority {
+  --authority-ink: #fff;
+  --authority-surface: var(--color-text);
+  --authority-marker: var(--color-accent);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-content: space-between;
+  min-width: 0;
+  min-height: 250px;
+  gap: 40px 24px;
+  padding: clamp(26px, 3.2vw, 42px);
+  border-radius: 24px;
+  color: var(--authority-ink);
+  background: var(--authority-surface);
+}
+
+.agriculture-authority--accent {
+  --authority-ink: var(--color-text);
+  --authority-surface: var(--color-accent);
+  --authority-marker: var(--color-text);
+}
+
+.agriculture-authority__number {
+  color: var(--authority-marker);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.agriculture-authority__arrow {
+  color: var(--authority-marker);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.agriculture-authority__name {
+  grid-column: 1 / -1;
+  max-width: 540px;
+  margin: 0;
+  font-size: clamp(1.3rem, 2.2vw, 2rem);
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: -0.035em;
+}
+
+.agriculture-approval-details,
+.agriculture-copies-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: clamp(32px, 6vw, 88px);
+}
+
+.agriculture-approval-order {
+  display: grid;
+  gap: 24px;
+  padding-left: 30px;
+  border-left: 3px solid var(--color-accent);
+}
+
+.agriculture-approval-order__price {
+  margin: 0;
+  color: var(--agriculture-ink);
+  font-size: clamp(1.35rem, 2vw, 1.8rem);
+  font-weight: 750;
+  line-height: 1.35;
+  letter-spacing: -0.035em;
+}
+
+.agriculture-copies-band {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 72px);
+  padding: clamp(28px, 4vw, 48px);
+  border-radius: 24px;
+  color: #fff;
+  background: var(--color-text);
+}
+
+.agriculture-copies-band__number {
+  padding-right: clamp(28px, 5vw, 72px);
+  border-right: 1px solid rgb(255 255 255 / 20%);
+  color: var(--color-accent);
+  font-size: clamp(5rem, 8vw, 8rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+.agriculture-copies-band__text {
+  max-width: 850px;
+  margin: 0;
+  font-size: clamp(1.3rem, 2.4vw, 2.2rem);
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: -0.035em;
+}
+
+@media (max-width: 1024px) {
+  .agriculture-process-footer {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .agriculture-authorities,
+  .agriculture-approval-details,
+  .agriculture-copies-details {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .agriculture-authority {
+    min-height: 210px;
+  }
+}
+
+@media (max-width: 480px) {
+  .agriculture-copies-band {
+    gap: 20px;
+    padding: 26px 22px;
+    border-radius: 20px;
+  }
+
+  .agriculture-copies-band__number {
+    padding-right: 20px;
+    font-size: 4.5rem;
+  }
+
+  .agriculture-copies-band__text {
+    font-size: 1.12rem;
+  }
+
+  .agriculture-approval-order {
+    padding-left: 22px;
+  }
+}
