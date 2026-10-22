@@ -17,7 +17,7 @@ export default function HotelPassportForm() {
 
               <p className="hotel-form__lead">
                 Форма паспорта безопасности гостиницы или иного средства размещения утверждена
-                Постановлением Правительства РФ от 13.04.2017 №447.
+                Постановлением Правительства РФ от 14.04.2017 №447.
               </p>
 
               <p>
@@ -36,7 +36,7 @@ export default function HotelPassportForm() {
               aria-label="Структура паспорта безопасности гостиницы"
             >
               <div className="hotel-form__document-top">
-                <span>Постановление Правительства РФ от 13.04.2017 №447</span>
+                <span>Постановление Правительства РФ от 14.04.2017 №447</span>
 
                 <strong>Паспорт безопасности</strong>
               </div>

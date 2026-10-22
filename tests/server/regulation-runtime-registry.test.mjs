@@ -1,15 +1,19 @@
 import assert from 'node:assert/strict';
+import { execFile } from 'node:child_process';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { promisify } from 'node:util';
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
 const productionProject = '/var/www/pasport-bezopasnosty.ru/app/passport-security-base';
 
 const productionRegistry = '/var/www/pasport-bezopasnosty.ru/shared/regulations/regulations.json';
+
+const execFileAsync = promisify(execFile);
 
 async function readProjectFile(relative) {
   return fs.readFile(path.join(projectRoot, relative), 'utf8');
@@ -308,4 +312,140 @@ test('admin metadata saves mutate only the selected runtime registry', async () 
       force: true,
     });
   }
+});
+
+function hotelRegistryFixture() {
+  return {
+    version: 1,
+    customMetadata: { owner: 'editor' },
+    items: [
+      {
+        number: '447',
+        title: 'Постановление Правительства РФ от 13.04.2017 №447',
+        documentDate: '2017-04-13',
+        reviewNote: 'Сохранить отметку от 13.04.2017 №447',
+        reviewedAt: '2026-09-28',
+        updatedAt: '2026-09-28T11:57:28.682Z',
+        customData: { source: 'production' },
+        claims: [
+          {
+            id: 'hotel.faq.00',
+            label: 'Custom FAQ label',
+            text: 'Ручной текст: от 13.04.2017 № 447. Другой документ от 13.04.2017 №4470.',
+            customData: { retained: true },
+          },
+          { id: 'hotel.custom', text: 'Дата проверки: 13.04.2017.' },
+        ],
+      },
+      {
+        number: '272',
+        documentDate: '2015-03-25',
+        claims: [{ id: 'crowd.custom', text: 'Ссылка от 13.04.2017 №447 остаётся без изменений.' }],
+      },
+    ],
+  };
+}
+
+function runHotelDateCorrection(cwd, args = [], environment = {}) {
+  return execFileAsync(
+    process.execPath,
+    [path.join(projectRoot, 'scripts/fix-hotel-regulation-date.mjs'), ...args],
+    {
+      cwd,
+      env: {
+        ...process.env,
+        PASSPORT_PROJECT_ROOT: cwd,
+        REGULATION_REGISTRY_FILE: '',
+        ...environment,
+      },
+    },
+  );
+}
+
+test('hotel date correction preserves production data and is idempotent', async t => {
+  const temporaryRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'passport-hotel-date-'));
+  t.after(() => fs.rm(temporaryRoot, { recursive: true, force: true }));
+
+  const runtimeFile = path.join(temporaryRoot, 'regulations.json');
+  const ignoredFile = path.join(temporaryRoot, 'other-regulations.json');
+  const registry = hotelRegistryFixture();
+  const original = JSON.stringify(registry) + '\n';
+
+  await fs.writeFile(runtimeFile, original, { mode: 0o600 });
+  await fs.writeFile(ignoredFile, original);
+
+  const result = await runHotelDateCorrection(temporaryRoot, [runtimeFile], {
+    REGULATION_REGISTRY_FILE: ignoredFile,
+  });
+
+  const expected = structuredClone(registry);
+  expected.items[0].title = 'Постановление Правительства РФ от 14.04.2017 №447';
+  expected.items[0].documentDate = '2017-04-14';
+  expected.items[0].claims[0].text =
+    'Ручной текст: от 14.04.2017 № 447. Другой документ от 13.04.2017 №4470.';
+
+  const corrected = await fs.readFile(runtimeFile, 'utf8');
+  assert.deepEqual(JSON.parse(corrected), expected);
+  assert.equal(await fs.readFile(ignoredFile, 'utf8'), original);
+  assert.ok(result.stdout.includes(runtimeFile), JSON.stringify(result.stdout));
+  assert.match(result.stdout, /Updated regulation 447/);
+
+  if (process.platform !== 'win32') {
+    assert.equal((await fs.stat(runtimeFile)).mode & 0o777, 0o600);
+  }
+
+  const repeated = await runHotelDateCorrection(temporaryRoot, [], {
+    REGULATION_REGISTRY_FILE: runtimeFile,
+  });
+
+  assert.equal(await fs.readFile(runtimeFile, 'utf8'), corrected);
+  assert.match(repeated.stdout, /no files changed/);
+});
+
+test('hotel date correction rejects unexpected registry state without writing', async t => {
+  for (const scenario of ['missing', 'duplicate', 'unexpected date']) {
+    await t.test(scenario, async t => {
+      const temporaryRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'passport-hotel-invalid-'));
+      t.after(() => fs.rm(temporaryRoot, { recursive: true, force: true }));
+
+      const runtimeFile = path.join(temporaryRoot, 'regulations.json');
+      const registry = hotelRegistryFixture();
+
+      if (scenario === 'missing') {
+        registry.items.shift();
+      } else if (scenario === 'duplicate') {
+        registry.items.push(structuredClone(registry.items[0]));
+      } else {
+        registry.items[0].documentDate = '2018-04-13';
+      }
+
+      const original = JSON.stringify(registry) + '\n';
+      await fs.writeFile(runtimeFile, original);
+
+      await assert.rejects(
+        runHotelDateCorrection(temporaryRoot, [runtimeFile]),
+        /Expected exactly one regulation 447|Unexpected documentDate/,
+      );
+
+      assert.equal(await fs.readFile(runtimeFile, 'utf8'), original);
+    });
+  }
+});
+
+test('hotel date correction requires an explicit existing registry', async t => {
+  const temporaryRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'passport-hotel-target-'));
+  t.after(() => fs.rm(temporaryRoot, { recursive: true, force: true }));
+
+  const seedFile = path.join(temporaryRoot, 'data', 'regulations.json');
+  const original = JSON.stringify(hotelRegistryFixture()) + '\n';
+  await fs.mkdir(path.dirname(seedFile), { recursive: true });
+  await fs.writeFile(seedFile, original);
+
+  await assert.rejects(runHotelDateCorrection(temporaryRoot), /Provide a registry path/);
+  await assert.rejects(
+    runHotelDateCorrection(temporaryRoot, [path.join(temporaryRoot, 'missing.json')]),
+    /ENOENT/,
+  );
+
+  assert.equal(await fs.readFile(seedFile, 'utf8'), original);
 });
