@@ -15,6 +15,7 @@ export const objectPageSources = Object.freeze({
   crowd: 'src/pages/CrowdPage/CrowdPage.jsx',
   industry: 'src/pages/IndustryPage/IndustryPage.jsx',
   energy: 'src/pages/EnergyPage/EnergyPage.jsx',
+  agriculture: 'src/pages/AgriculturePage/AgriculturePage.jsx',
 });
 
 export const servicePageSources = Object.freeze({

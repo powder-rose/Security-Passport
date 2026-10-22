@@ -57,7 +57,19 @@ const child = spawn(process.execPath, [path.join(projectRoot, 'server', 'index.m
 
     REGULATION_REGISTRY_FILE: registryFile,
 
-    LEADS_BACKUP_ENABLED: 'false',
+    LEADS_BACKUP_ENABLED: 'true',
+
+    TELEGRAM_BOT_TOKEN: '',
+
+    TELEGRAM_CHAT_ID: '',
+
+    SMTP_HOST: '',
+
+    SMTP_USER: '',
+
+    SMTP_PASS: '',
+
+    LEAD_EMAIL_TO: '',
 
     LEADS_FILE: path.join(dataDirectory, 'leads.jsonl'),
 
