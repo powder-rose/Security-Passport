@@ -1,4 +1,6 @@
 import './EducationPage.css';
+import './components/EducationComparison/EducationComparison.css';
+import './components/EducationRegulationDetails/EducationRegulationDetails.css';
 import './components/EducationHeroAndObjects/EducationHeroAndObjects.css';
 import './components/EducationRegulation/EducationRegulation.css';
 import './EducationPageResponsiveTop.css';
@@ -90,7 +92,7 @@ export default function EducationPage({ objectType }) {
 
       <EducationFaq />
 
-      <FinalCTA />
+      <FinalCTA objectPlaceholder="Например: школа, 1 800 м², требуется разработка паспорта безопасности" />
     </main>
   );
 }

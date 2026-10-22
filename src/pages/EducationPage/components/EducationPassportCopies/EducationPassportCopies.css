@@ -12,7 +12,7 @@
 }
 
 .education-copies__heading h2,
-.education-restricted__content h2,
+.education-restricted__content h3,
 .education-service__heading h2,
 .education-price__heading h2 {
   margin: 0;
@@ -127,6 +127,14 @@
   color: var(--color-text-secondary);
   font-size: 1.08rem;
   line-height: 1.7;
+}
+
+.education-copies__card-text p {
+  margin: 0;
+}
+
+.education-copies__card-text p + p {
+  margin-top: 20px;
 }
 
 .education-copies__warning {

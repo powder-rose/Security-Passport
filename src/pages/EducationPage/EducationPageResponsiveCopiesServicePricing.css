@@ -66,7 +66,7 @@
 
 @media (max-width: 430px) {
   .education-copies__heading h2,
-  .education-restricted__content h2,
+  .education-restricted__content h3,
   .education-service__heading h2,
   .education-price__heading h2 {
     font-size: clamp(2.1rem, 10vw, 3rem);
@@ -101,7 +101,7 @@
 
 @media (max-width: 320px) {
   .education-copies__heading h2,
-  .education-restricted__content h2,
+  .education-restricted__content h3,
   .education-service__heading h2,
   .education-price__heading h2 {
     font-size: 2rem;
