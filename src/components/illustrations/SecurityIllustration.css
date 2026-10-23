@@ -1,0 +1,7 @@
+.security-illustration {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 18 / 13;
+  object-fit: contain;
+}

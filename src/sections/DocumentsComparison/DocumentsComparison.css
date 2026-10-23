@@ -161,11 +161,6 @@
   margin: 0 0 24px;
 }
 
-.document-card__illustration .blush-illustration {
-  width: 100%;
-  height: auto;
-  display: block;
-}
 .document-card h3 {
   max-width: 520px;
   margin: 0 0 34px;

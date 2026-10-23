@@ -52,7 +52,7 @@ function DocumentItem({ item }) {
   );
 }
 
-export default function RequiredDocuments() {
+export default function RequiredDocuments({ illustration = <DocumentFlowIllustration /> }) {
   return (
     <section
       className="required-documents"
@@ -72,7 +72,7 @@ export default function RequiredDocuments() {
           </p>
 
           <div className="required-documents__illustration" aria-hidden="true">
-            <DocumentFlowIllustration />
+            {illustration}
           </div>
         </div>
 

@@ -1,8 +1,5 @@
 import Container from '../../components/ui/Container/Container';
-import {
-  DocumentFlowIllustration,
-  ShieldBuildingIllustration,
-} from '../../components/illustrations/BlushIllustrations';
+import SecurityIllustration from '../../components/illustrations/SecurityIllustration';
 import './DocumentsComparison.css';
 
 const actPoints = [
@@ -99,7 +96,7 @@ export default function DocumentsComparison() {
             actionLabel="Заказать акт категорирования"
             actionHref="/akt-obsledovaniya-i-kategorirovaniya-obekta/"
             actionAriaLabel="Подробнее об услуге подготовки акта обследования и категорирования объекта"
-            illustration={<DocumentFlowIllustration />}
+            illustration={<SecurityIllustration variant="act" />}
           />
 
           <DocumentCard
@@ -109,7 +106,7 @@ export default function DocumentsComparison() {
             points={passportPoints}
             actionLabel="Заказать паспорт безопасности"
             variant="dark"
-            illustration={<ShieldBuildingIllustration />}
+            illustration={<SecurityIllustration variant="passport" />}
           />
         </div>
 

@@ -36,7 +36,7 @@ const processSteps = [
   },
 ];
 
-export default function Process() {
+export default function Process({ illustration = <DocumentFlowIllustration /> }) {
   return (
     <section className="process-section" id="process" aria-labelledby="process-title">
       <Container className="process-section__layout">
@@ -50,7 +50,7 @@ export default function Process() {
           </p>
 
           <div className="process-section__illustration" aria-hidden="true">
-            <DocumentFlowIllustration />
+            {illustration}
           </div>
 
           <div className="process-section__summary" aria-label="Кратко о процессе">
