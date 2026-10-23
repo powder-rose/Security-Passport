@@ -11,7 +11,7 @@ const illustrationSources = {
   industry: '/images/illustrations/industry.webp',
   energy: '/images/illustrations/energy.webp',
   agriculture: '/images/illustrations/agriculture.webp',
-  religion: '/images/illustrations/overview.webp',
+  religion: '/images/illustrations/religion.webp',
   social: '/images/illustrations/social.webp',
   act: '/images/illustrations/inspection-act.webp',
   passport: '/images/illustrations/security-passport.webp',
