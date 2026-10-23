@@ -190,7 +190,14 @@ test('religious home card and both directories preserve the categorization act l
 
     const card = page.locator(`.object-type-card[href="${religiousPath}"]`);
     await expect(card).toContainText(religiousObjectType);
-    await expect(card.locator('svg')).toHaveCount(1);
+    const illustration = card.getByRole('img', { name: religiousObjectType, exact: true });
+    await expect(illustration).toHaveCount(1);
+    await expect(illustration).toHaveAttribute('src', '/images/illustrations/overview.webp');
+    await illustration.scrollIntoViewIfNeeded();
+    await expect(illustration).toBeVisible();
+    await expect
+      .poll(() => illustration.evaluate(image => image.complete && image.naturalWidth > 0))
+      .toBe(true);
     const regulation = page.locator('#requirements-by-object tbody tr').filter({
       has: page.locator(`a[href="${religiousPath}"]`),
     });
