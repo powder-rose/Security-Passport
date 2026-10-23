@@ -1,8 +1,5 @@
 import Container from '../../components/ui/Container/Container';
-import {
-  ObjectTypeIllustration,
-  ShieldBuildingIllustration,
-} from '../../components/illustrations/BlushIllustrations';
+import SecurityIllustration from '../../components/illustrations/SecurityIllustration';
 import { objectTypes } from '../../data/objectTypes';
 import './WhoNeedsPassport.css';
 
@@ -14,7 +11,7 @@ function ObjectTypeCard({ item, featured = false }) {
       aria-label={`${item.title} — подробнее`}
     >
       <div className="object-type-card__illustration">
-        <ObjectTypeIllustration variant={item.id} title={item.title} />
+        <SecurityIllustration variant={item.id} title={item.title} />
       </div>
 
       <div className="object-type-card__content">
@@ -45,7 +42,7 @@ export default function WhoNeedsPassport() {
 
           <div className="who-needs-passport__intro-card">
             <div className="who-needs-passport__intro-illustration" aria-hidden="true">
-              <ShieldBuildingIllustration />
+              <SecurityIllustration />
             </div>
             <div>
               <p className="who-needs-passport__intro-label">Иллюстративный обзор</p>

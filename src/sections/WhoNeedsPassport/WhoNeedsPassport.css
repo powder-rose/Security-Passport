@@ -123,12 +123,6 @@
   padding: 4px;
 }
 
-.object-type-card__illustration .blush-illustration {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
 .object-type-card__content {
   min-width: 0;
 }

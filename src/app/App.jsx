@@ -3,6 +3,7 @@ import Footer from '../components/Footer/Footer';
 import Seo from '../components/Seo/Seo';
 import Analytics from '../components/Analytics/Analytics';
 import CookieNotice from '../components/CookieNotice/CookieNotice';
+import SecurityIllustration from '../components/illustrations/SecurityIllustration';
 
 import Hero from '../sections/Hero/Hero';
 import Experience from '../sections/Experience/Experience';
@@ -164,10 +165,10 @@ export default function App({
         <DocumentsComparison />
         <WhoNeedsPassport />
         <RegulationByObject />
-        <Process />
+        <Process illustration={<SecurityIllustration variant="passport" />} />
         <Advantages />
         <Prices />
-        <RequiredDocuments />
+        <RequiredDocuments illustration={<SecurityIllustration />} />
         <Penalties />
         <RelatedServices />
         <Expert />
