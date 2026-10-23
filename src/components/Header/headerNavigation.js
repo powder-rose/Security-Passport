@@ -58,6 +58,11 @@ const pageNavAliases = {
     '#about-passport': '#regulations',
   },
 
+  '/pasport-bezopasnosti-religioznoj-organizacii': {
+    '#top': '.religious-hero',
+    '#about-passport': '#regulations',
+  },
+
   '/aktualizaciya-pasporta-bezopasnosti-obekta': {
     '#top': '.actualization-hero',
     '#about-passport': '.actualization-definition',

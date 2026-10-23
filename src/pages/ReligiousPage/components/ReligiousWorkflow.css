@@ -1,0 +1,319 @@
+.religious-workflow-members {
+  padding: clamp(24px, 3vw, 38px);
+  border: 1px solid var(--color-border);
+  border-radius: 28px;
+  background: var(--color-surface);
+}
+
+.religious-workflow-members__label,
+.religious-workflow-authorities-intro {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 0.94rem;
+  font-weight: 750;
+  line-height: 1.5;
+}
+
+.religious-workflow-members__list {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.religious-workflow-member {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  padding: 23px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.religious-workflow-member:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.religious-workflow-member__number {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--color-surface);
+  background: var(--color-text);
+  font-size: 0.72rem;
+  font-weight: 800;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease;
+}
+
+.religious-workflow-member p {
+  margin: 4px 0 0;
+  color: var(--color-text);
+  font-size: 0.98rem;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.religious-workflow-commission-details,
+.religious-workflow-copy-notes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(32px, 4.5vw, 64px);
+  align-items: start;
+}
+
+.religious-workflow-term-note {
+  margin: 0;
+  padding: 20px 24px;
+  border-radius: 18px;
+  color: var(--color-text);
+  background: var(--color-accent);
+  font-size: 0.97rem;
+  font-weight: 650;
+  line-height: 1.6;
+}
+
+.religious-workflow-process-term {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+  padding-top: 36px;
+  border-top: 4px solid var(--color-accent);
+}
+
+.religious-workflow-term-lead {
+  margin: 0;
+  color: var(--color-text);
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+  font-weight: 650;
+  line-height: 1.6;
+  letter-spacing: -0.02em;
+}
+
+.religious-workflow-authorities {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.religious-workflow-authority {
+  --authority-surface: var(--color-surface);
+  --authority-text: var(--color-text);
+  --authority-number: var(--color-primary);
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: clamp(18px, 2.2vw, 30px);
+  align-content: start;
+  min-width: 0;
+  min-height: 200px;
+  padding: clamp(24px, 3vw, 38px);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  color: var(--authority-text);
+  background: var(--authority-surface);
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.religious-workflow-authority--dark {
+  --authority-surface: var(--color-text);
+  --authority-text: var(--color-surface);
+  --authority-number: var(--color-accent);
+  border-color: var(--color-text);
+}
+
+.religious-workflow-authority--accent {
+  --authority-surface: var(--color-accent);
+  --authority-number: var(--color-text);
+  border-color: var(--color-accent);
+}
+
+.religious-workflow-authority__number {
+  padding-top: 4px;
+  color: var(--authority-number);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.religious-workflow-authority p {
+  margin: 0;
+  font-size: clamp(1.04rem, 1.5vw, 1.24rem);
+  font-weight: 600;
+  line-height: 1.55;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
+}
+
+.religious-workflow-approval-details {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(32px, 6vw, 84px);
+  align-items: start;
+}
+
+.religious-workflow-order {
+  display: grid;
+  gap: 30px;
+  min-width: 0;
+  padding: clamp(26px, 3.5vw, 42px);
+  border-radius: 28px;
+  color: var(--color-surface);
+  background: var(--color-text);
+}
+
+.religious-workflow-order__price {
+  margin: 0;
+  font-size: clamp(1.5rem, 2.6vw, 2.15rem);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.04em;
+  overflow-wrap: anywhere;
+}
+
+.religious-workflow-copies {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.religious-workflow-copy {
+  --copy-surface: var(--color-surface);
+  --copy-text: var(--color-text);
+  --copy-label: var(--color-text-secondary);
+  --copy-number: var(--color-primary);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(24px, 3vw, 42px);
+  align-items: start;
+  min-width: 0;
+  padding: clamp(28px, 3.5vw, 44px);
+  border: 1px solid var(--color-border);
+  border-radius: 8px 32px 32px 32px;
+  color: var(--copy-text);
+  background: var(--copy-surface);
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.religious-workflow-copy--dark {
+  --copy-surface: var(--color-text);
+  --copy-text: var(--color-surface);
+  --copy-label: rgb(255 255 255 / 65%);
+  --copy-number: var(--color-accent);
+  border-color: var(--color-text);
+}
+
+.religious-workflow-copy__number {
+  color: var(--copy-number);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.07em;
+}
+
+.religious-workflow-copy__content {
+  min-width: 0;
+}
+
+.religious-workflow-copy__label,
+.religious-workflow-copy__storage dt {
+  margin: 0;
+  color: var(--copy-label);
+  font-size: 0.74rem;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.religious-workflow-copy__title {
+  margin: 10px 0 28px;
+  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+}
+
+.religious-workflow-copy__storage {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.religious-workflow-copy__storage dd {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+@media (hover: hover) {
+  .religious-workflow-member:hover .religious-workflow-member__number {
+    color: var(--color-text);
+    background: var(--color-accent);
+  }
+
+  .religious-workflow-authority:hover,
+  .religious-workflow-copy:hover {
+    border-color: var(--color-primary);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .religious-workflow-authority:hover,
+  .religious-workflow-copy:hover {
+    transform: translateY(-3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .religious-workflow-member__number,
+  .religious-workflow-authority,
+  .religious-workflow-copy {
+    transition: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .religious-workflow-commission-details,
+  .religious-workflow-process-term,
+  .religious-workflow-approval-details,
+  .religious-workflow-copy-notes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .religious-workflow-authorities,
+  .religious-workflow-copies {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .religious-workflow-authority {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .religious-workflow-member {
+    gap: 14px;
+  }
+
+  .religious-workflow-authority {
+    grid-template-columns: 28px minmax(0, 1fr);
+  }
+
+  .religious-workflow-copy {
+    gap: 24px;
+    padding: 26px 22px;
+  }
+}

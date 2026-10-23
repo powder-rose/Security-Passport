@@ -1,0 +1,228 @@
+.religious-act__document {
+  position: relative;
+  min-width: 0;
+  padding: clamp(26px, 3vw, 40px);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 28px;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.religious-act__document::before {
+  position: absolute;
+  top: 0;
+  left: 40px;
+  width: 92px;
+  height: 6px;
+  border-radius: 0 0 6px 6px;
+  background: var(--color-accent);
+  content: '';
+}
+
+.religious-act__table {
+  width: 100%;
+  margin-top: 30px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.religious-act__table th,
+.religious-act__table td {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+  font-size: 0.94rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.religious-act__table th:first-child {
+  width: 40%;
+  padding-right: 24px;
+}
+
+.religious-act__table thead th {
+  padding-top: 0;
+  color: var(--color-primary);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.religious-act__table tbody th {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.religious-act__table td {
+  color: var(--color-text);
+  font-weight: 650;
+}
+
+.religious-act__table tbody tr:last-child th,
+.religious-act__table tbody tr:last-child td {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.religious-act__details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 24px 52px;
+}
+
+.religious-act__order {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  padding: clamp(28px, 3.5vw, 44px);
+  border-radius: 28px;
+  background: var(--color-text);
+  color: #fff;
+}
+
+.religious-act__price {
+  max-width: 620px;
+  margin: 0;
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.035em;
+}
+
+.religious-services__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.religious-services__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  min-width: 0;
+  padding: 32px;
+  border-radius: 24px;
+  background: var(--color-bg);
+}
+
+.religious-services__number {
+  display: grid;
+  flex: 0 0 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  color: var(--color-primary);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.religious-services__copy {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+
+.religious-services__copy h3 {
+  margin: 0;
+  color: var(--color-text);
+  font-size: clamp(1.16rem, 1.65vw, 1.4rem);
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
+}
+
+.religious-services__copy p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.religious-services__footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 0.55fr);
+  align-items: start;
+  gap: clamp(30px, 6vw, 80px);
+}
+
+.religious-pricing__intro,
+.religious-pricing__context {
+  display: grid;
+  align-items: start;
+  gap: 30px;
+  min-width: 0;
+}
+
+.religious-documents__notes {
+  min-width: 0;
+}
+
+@media (hover: hover) {
+  .religious-services__item:hover .religious-services__number {
+    border-color: var(--color-accent);
+    background: var(--color-accent);
+    color: var(--color-text);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .religious-services__number {
+    transition:
+      background-color 220ms ease,
+      border-color 220ms ease,
+      color 220ms ease;
+  }
+}
+
+@media (max-width: 1024px) {
+  .religious-act__details,
+  .religious-services__footer {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .religious-act__order {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .religious-act__document {
+    padding: 26px 22px;
+    border-radius: 22px;
+  }
+
+  .religious-act__table th:first-child {
+    padding-right: 16px;
+  }
+
+  .religious-act__table th,
+  .religious-act__table td {
+    font-size: 0.86rem;
+  }
+
+  .religious-act__order {
+    padding: 26px;
+    border-radius: 22px;
+  }
+
+  .religious-services__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .religious-services__item {
+    gap: 18px;
+    padding: 24px;
+  }
+
+  .religious-services__number {
+    flex-basis: 36px;
+    height: 36px;
+  }
+}
