@@ -192,7 +192,7 @@ test('religious home card and both directories preserve the categorization act l
     await expect(card).toContainText(religiousObjectType);
     const illustration = card.getByRole('img', { name: religiousObjectType, exact: true });
     await expect(illustration).toHaveCount(1);
-    await expect(illustration).toHaveAttribute('src', '/images/illustrations/overview.webp');
+    await expect(illustration).toHaveAttribute('src', '/images/illustrations/religion.webp');
     await illustration.scrollIntoViewIfNeeded();
     await expect(illustration).toBeVisible();
     await expect
