@@ -240,6 +240,10 @@ test('cookie notice fits the mobile viewport', async ({ page }) => {
 
   await expect(notice).toBeVisible();
 
+  await notice.evaluate(async element => {
+    await Promise.all(element.getAnimations().map(animation => animation.finished));
+  });
+
   const bounds = await notice.boundingBox();
 
   expect(bounds).not.toBeNull();

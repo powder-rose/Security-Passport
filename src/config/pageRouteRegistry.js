@@ -16,6 +16,7 @@ export const objectPageSources = Object.freeze({
   industry: 'src/pages/IndustryPage/IndustryPage.jsx',
   energy: 'src/pages/EnergyPage/EnergyPage.jsx',
   agriculture: 'src/pages/AgriculturePage/AgriculturePage.jsx',
+  religion: 'src/pages/ReligiousPage/ReligiousPage.jsx',
 });
 
 export const servicePageSources = Object.freeze({

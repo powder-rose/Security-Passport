@@ -1,0 +1,216 @@
+.religious-passport-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  align-items: start;
+  gap: clamp(32px, 5vw, 72px);
+}
+
+.religious-passport-form__contents {
+  display: grid;
+  gap: 32px;
+  min-width: 0;
+  padding: clamp(24px, 3vw, 40px);
+  border: 1px solid var(--religious-line);
+  border-radius: 24px;
+  background: var(--color-surface);
+}
+
+.religious-passport-form__sections {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--religious-line);
+  list-style: none;
+}
+
+.religious-passport-form__sections li {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 18px;
+  align-items: baseline;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--religious-line);
+}
+
+.religious-passport-form__sections span {
+  color: var(--color-primary);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.religious-passport-form__sections p {
+  margin: 0;
+  font-size: 0.96rem;
+  font-weight: 650;
+  line-height: 1.6;
+}
+
+.religious-passport-form__sample {
+  display: grid;
+  gap: 28px;
+  min-width: 0;
+  padding-top: 32px;
+  border-top: 4px solid var(--color-accent);
+}
+
+.religious-protection-mark {
+  display: grid;
+  place-items: center;
+  width: 118px;
+  height: 118px;
+  margin-top: 14px;
+  border: 1px solid var(--religious-line);
+  border-radius: 50%;
+  color: var(--color-accent);
+  font-size: 2.6rem;
+  font-weight: 650;
+  letter-spacing: -0.05em;
+}
+
+.religious-protection-copy {
+  padding-top: 30px;
+  border-top: 1px solid var(--religious-line);
+}
+
+.religious-actualization-items {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.religious-actualization-items li {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  align-items: start;
+  gap: 24px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--religious-line);
+}
+
+.religious-actualization-items span {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  font-size: 1.2rem;
+  font-weight: 750;
+}
+
+.religious-actualization-items p {
+  margin: 4px 0 0;
+  font-size: 1.02rem;
+  font-weight: 650;
+  line-height: 1.65;
+}
+
+.religious-validity {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(26px, 4vw, 58px);
+  padding: clamp(26px, 4vw, 44px);
+  border: 1px solid rgb(145 210 42 / 45%);
+  border-radius: 26px;
+  background: rgb(169 240 74 / 9%);
+}
+
+.religious-measures {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.religious-measure {
+  display: grid;
+  align-content: start;
+  gap: 28px;
+  min-width: 0;
+  padding: 26px 0 0;
+  border-top: 3px solid var(--color-text);
+}
+
+.religious-measure:last-child {
+  border-color: var(--color-accent);
+}
+
+.religious-measure__category {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin: 0;
+}
+
+.religious-measure__category > span {
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  font-weight: 750;
+}
+
+.religious-measure__category > strong {
+  font-size: 3.8rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.07em;
+}
+
+.religious-measure__text {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+@media (min-width: 1025px) and (min-height: 720px) {
+  .religious-passport-form__sample {
+    position: sticky;
+    top: 110px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .religious-passport-form,
+  .religious-validity {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .religious-passport-form__sections li {
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 10px;
+    padding: 20px 0;
+  }
+
+  .religious-passport-form__sections p {
+    font-size: 0.9rem;
+  }
+
+  .religious-protection-mark {
+    width: 88px;
+    height: 88px;
+    font-size: 2rem;
+  }
+
+  .religious-actualization-items li {
+    gap: 18px;
+  }
+
+  .religious-measures {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+  }
+
+  .religious-measure {
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .religious-measure__category > strong {
+    font-size: 2.8rem;
+  }
+
+  .religious-measure__text {
+    font-size: 0.94rem;
+  }
+}

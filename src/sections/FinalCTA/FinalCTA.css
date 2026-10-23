@@ -196,6 +196,7 @@
 .final-cta input[type='text'],
 .final-cta input[type='tel'],
 .final-cta input[type='email'],
+.final-cta select,
 .final-cta textarea,
 .final-cta__context-value {
   width: 100%;
@@ -220,7 +221,8 @@
 
 .final-cta input[type='text'],
 .final-cta input[type='tel'],
-.final-cta input[type='email'] {
+.final-cta input[type='email'],
+.final-cta select {
   min-height: 54px;
   padding: 0 16px;
 }
@@ -233,6 +235,7 @@
 }
 
 .final-cta input:focus,
+.final-cta select:focus,
 .final-cta textarea:focus {
   border-color: var(--color-accent);
   box-shadow: 0 0 0 3px rgba(169, 240, 74, 0.18);

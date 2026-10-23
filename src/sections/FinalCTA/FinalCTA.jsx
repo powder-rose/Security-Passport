@@ -24,15 +24,20 @@ export default function FinalCTA({
   preview = false,
   service = '',
   objectType = '',
+  objectTypeOptions = [],
+  objectTypeLabel = 'Тип объекта',
   allowEmailOnly = false,
   objectPlaceholder = 'Например: гостиница, 2 400 м², требуется актуализация паспорта',
 }) {
   const [form, setForm] = useState(initialForm);
+  const [selectedObjectType, setSelectedObjectType] = useState('');
   const [status, setStatus] = useState('idle');
   const [message, setMessage] = useState('');
+  const hasObjectTypeOptions = objectTypeOptions.length > 0;
 
   const objectContext = [
     objectType ? `Тип объекта: ${objectType}` : '',
+    hasObjectTypeOptions && selectedObjectType ? `${objectTypeLabel}: ${selectedObjectType}` : '',
     service ? `Услуга: ${service}` : '',
   ]
     .filter(Boolean)
@@ -41,6 +46,8 @@ export default function FinalCTA({
   const objectMaxLength = Math.max(0, 1000 - objectPrefix.length);
 
   const endpoint = getLeadEndpoint();
+  const objectTypeMissing = hasObjectTypeOptions && !objectTypeOptions.includes(selectedObjectType);
+  const objectTypeInvalid = status === 'error' && objectTypeMissing;
   const nameInvalid = status === 'error' && !form.name.trim();
   const contactMissing = !form.phone.trim() && !form.email.trim();
   const phoneInvalid = status === 'error' && (allowEmailOnly ? contactMissing : !form.phone.trim());
@@ -62,6 +69,12 @@ export default function FinalCTA({
     if (preview) {
       setStatus('notice');
       setMessage('Режим предпросмотра: форма работает, но заявка не отправлена.');
+      return;
+    }
+
+    if (objectTypeMissing) {
+      setStatus('error');
+      setMessage(`Выберите ${objectTypeLabel.toLowerCase()}.`);
       return;
     }
 
@@ -100,6 +113,7 @@ export default function FinalCTA({
 
       reachGoal(METRICA_GOALS.leadSubmitSuccess, { source: 'final_cta' });
       setForm(initialForm);
+      setSelectedObjectType('');
       setStatus('success');
       setMessage('Заявка отправлена. Специалист свяжется с вами по указанным контактам.');
     } catch (error) {
@@ -182,7 +196,32 @@ export default function FinalCTA({
               </label>
             ) : null}
 
-            {objectType ? (
+            {hasObjectTypeOptions ? (
+              <label className="final-cta__field--wide">
+                <span>{objectTypeLabel} *</span>
+                <select
+                  name="objectType"
+                  value={selectedObjectType}
+                  onChange={event => {
+                    setSelectedObjectType(event.target.value);
+                    setStatus('idle');
+                    setMessage('');
+                  }}
+                  aria-invalid={objectTypeInvalid || undefined}
+                  aria-describedby={objectTypeInvalid ? 'final-cta-status' : undefined}
+                  required
+                >
+                  <option value="" disabled>
+                    Выберите тип объекта
+                  </option>
+                  {objectTypeOptions.map(option => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            ) : objectType ? (
               <label className="final-cta__field--wide">
                 <span>Тип объекта</span>
                 <output className="final-cta__context-value" name="objectType">
