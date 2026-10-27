@@ -1,0 +1,96 @@
+.rosgvardia-act-facts {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 12px clamp(24px, 3vw, 36px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+}
+
+.rosgvardia-act-facts > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  padding: 22px 0;
+}
+
+.rosgvardia-act-facts > div + div {
+  border-top: 1px solid var(--color-border);
+}
+
+.rosgvardia-act-facts dt {
+  color: var(--color-text-secondary);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.rosgvardia-act-facts dd {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 650;
+  line-height: 1.55;
+}
+
+.rosgvardia-confidentiality-details {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 5vw, 72px);
+  padding-top: 36px;
+  border-top: 1px solid var(--rosgvardia-line);
+}
+
+.rosgvardia-form-sections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 36px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rosgvardia-form-sections li {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 16px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--rosgvardia-line);
+}
+
+.rosgvardia-form-sections li > span {
+  padding-top: 3px;
+  color: var(--color-primary);
+  font-size: 0.8rem;
+  font-weight: 750;
+}
+
+.rosgvardia-form-sections p {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.rosgvardia-actualization-term {
+  --rosgvardia-muted: var(--color-text);
+  padding: 28px;
+  border-top: 3px solid var(--color-primary);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  background: var(--color-surface);
+}
+
+@media (max-width: 1024px) {
+  .rosgvardia-confidentiality-details {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .rosgvardia-form-sections {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rosgvardia-act-facts > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+}
