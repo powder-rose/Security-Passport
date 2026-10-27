@@ -1,4 +1,5 @@
 import Container from '../../../../components/ui/Container/Container';
+import { rosgvardiaObjectType } from '../../../../data/rosgvardiaObjectType.js';
 
 export default function CrowdRegime() {
   return (
@@ -28,6 +29,17 @@ export default function CrowdRegime() {
                   №272 нельзя механически применять вместо них.
                 </p>
               </div>
+
+              <p className="crowd-regime__lead">
+                Для объектов обязательной охраны Росгвардии ПП РФ № 272 предусматривает отдельные
+                требования к категорированию, форме паспорта и порядку его оформления.
+              </p>
+
+              <p className="crowd-regime__lead">
+                <a className="button button--primary" href={rosgvardiaObjectType.path}>
+                  {rosgvardiaObjectType.seoName}
+                </a>
+              </p>
             </div>
           </div>
         </Container>

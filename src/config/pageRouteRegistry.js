@@ -13,6 +13,7 @@ export const objectPageSources = Object.freeze({
   trade: 'src/pages/TradePage/TradePage.jsx',
   health: 'src/pages/HealthPage/HealthPage.jsx',
   crowd: 'src/pages/CrowdPage/CrowdPage.jsx',
+  rosgvardia: 'src/pages/RosgvardiaPage/RosgvardiaPage.jsx',
   industry: 'src/pages/IndustryPage/IndustryPage.jsx',
   energy: 'src/pages/EnergyPage/EnergyPage.jsx',
   agriculture: 'src/pages/AgriculturePage/AgriculturePage.jsx',

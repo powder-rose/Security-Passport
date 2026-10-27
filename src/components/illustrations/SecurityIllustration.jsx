@@ -8,6 +8,7 @@ const illustrationSources = {
   sport: '/images/illustrations/sport.webp',
   health: '/images/illustrations/health.webp',
   crowd: '/images/illustrations/crowd.webp',
+  rosgvardia: '/images/illustrations/overview.webp',
   industry: '/images/illustrations/industry.webp',
   energy: '/images/illustrations/energy.webp',
   agriculture: '/images/illustrations/agriculture.webp',
