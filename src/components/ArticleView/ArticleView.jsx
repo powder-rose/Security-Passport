@@ -2,7 +2,7 @@ import ArticleCallback from '../ArticleCallback/ArticleCallback.jsx';
 
 import FinalCTA from '../../sections/FinalCTA/FinalCTA.jsx';
 
-import { servicePages } from '../../data/servicePages.js';
+import { getArticleServices } from '../../data/articleServices.js';
 
 import './ArticleView.css';
 
@@ -163,8 +163,8 @@ function ArticleHtml({ className, html }) {
 }
 /* eslint-enable @eslint-react/dom-no-dangerously-set-innerhtml */
 
-function RelatedServices() {
-  const services = servicePages.slice(0, 2);
+function RelatedServices({ article }) {
+  const services = getArticleServices(article?.slug);
 
   return (
     <section className="article-related" aria-labelledby="article-services-title">
@@ -317,7 +317,7 @@ export default function ArticleView({ article, preview = false, relatedArticles 
         </article>
 
         <div className="article-view__recommendations">
-          <RelatedServices />
+          <RelatedServices article={article} />
 
           <RelatedArticles articles={relatedArticles} currentArticle={article} preview={preview} />
         </div>

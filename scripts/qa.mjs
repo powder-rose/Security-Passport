@@ -1,6 +1,7 @@
 import { access, readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRuntimeArticleResolver } from './lib/runtime-article-links.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const srcDir = path.join(root, 'src');
@@ -277,6 +278,12 @@ if (mode === 'source') {
     }
   }
 
+  const resolveRuntimeArticle = createRuntimeArticleResolver({
+    projectRoot: root,
+    origin: linkQaOrigin,
+  });
+  const verifiedPublicArticles = new Set();
+
   function getPathVariants(pathname) {
     const variants = new Set([pathname]);
 
@@ -423,6 +430,29 @@ if (mode === 'source') {
       const targetFile = await resolveInternalTarget(targetUrl.pathname);
 
       if (!targetFile) {
+        try {
+          const article = await resolveRuntimeArticle(targetUrl.pathname);
+          if (article) {
+            const fragment = decodeURIComponent(targetUrl.hash.slice(1));
+            if (fragment && !article.ids.has(fragment)) {
+              throw new Error(`missing #${fragment} anchor in public article`);
+            }
+            if (!verifiedPublicArticles.has(article.url)) {
+              console.log(`Runtime article QA: verified ${article.url}`);
+              verifiedPublicArticles.add(article.url);
+            }
+            continue;
+          }
+        } catch (error) {
+          registerBrokenLink({
+            source: sourcePage,
+            href: rawHref,
+            target: targetLabel,
+            reason: `public article verification failed: ${error.message}`,
+          });
+          continue;
+        }
+
         registerBrokenLink({
           source: sourcePage,
 

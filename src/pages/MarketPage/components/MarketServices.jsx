@@ -1,8 +1,10 @@
 import ServicePriceCard from '../../../components/commercial/ServicePriceCard';
 import getMarketSection from '../getMarketSection';
+import { marketLinks } from '../marketPageData';
 import {
   MarketAction,
   MarketHeading,
+  MarketLink,
   MarketNote,
   MarketParagraphs,
   MarketSection,
@@ -25,6 +27,7 @@ export default function MarketServices({ onServiceSelect }) {
           <div className="market-stack">
             <MarketParagraphs items={sample.paragraphs} />
             <MarketNote text={sample.note} />
+            <MarketLink link={marketLinks.article} />
           </div>
         </div>
       </MarketSection>
