@@ -1,5 +1,5 @@
 import Container from '../../components/ui/Container/Container';
-import SecurityIllustration from '../../components/illustrations/SecurityIllustration';
+import useScrollReveal from '../../components/commercial/useScrollReveal';
 import './DocumentsComparison.css';
 
 const actPoints = [
@@ -25,10 +25,13 @@ function DocumentCard({
   actionHref = '#contact',
   actionAriaLabel,
   variant = 'light',
-  illustration,
+  image,
+  number,
 }) {
   return (
     <article className={`document-card document-card--${variant}`}>
+      <span className="document-card__index" data-number={number} aria-hidden="true" />
+
       <div className="document-card__top">
         <span className="document-card__type" aria-hidden="true">
           {type}
@@ -36,8 +39,16 @@ function DocumentCard({
         <span className="document-card__label">{label}</span>
       </div>
 
-      <div className="document-card__illustration" aria-hidden="true">
-        {illustration}
+      <div className="document-card__illustration" aria-hidden="true" data-scroll-reveal>
+        <img
+          className="document-card__image"
+          src={image}
+          alt=""
+          width="512"
+          height="512"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
 
       <h3>{title}</h3>
@@ -68,8 +79,15 @@ function DocumentCard({
 }
 
 export default function DocumentsComparison() {
+  const sectionRef = useScrollReveal();
+
   return (
-    <section className="documents-comparison" id="comparison" aria-labelledby="comparison-title">
+    <section
+      className="documents-comparison"
+      id="comparison"
+      aria-labelledby="comparison-title"
+      ref={sectionRef}
+    >
       <Container>
         <div className="documents-comparison__heading">
           <div>
@@ -96,7 +114,8 @@ export default function DocumentsComparison() {
             actionLabel="Заказать акт категорирования"
             actionHref="/akt-obsledovaniya-i-kategorirovaniya-obekta/"
             actionAriaLabel="Подробнее об услуге подготовки акта обследования и категорирования объекта"
-            illustration={<SecurityIllustration variant="act" />}
+            image="/images/documents/inspection-act.webp"
+            number="01"
           />
 
           <DocumentCard
@@ -106,7 +125,8 @@ export default function DocumentsComparison() {
             points={passportPoints}
             actionLabel="Заказать паспорт безопасности"
             variant="dark"
-            illustration={<SecurityIllustration variant="passport" />}
+            image="/images/documents/security-passport.webp"
+            number="02"
           />
         </div>
 
