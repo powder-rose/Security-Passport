@@ -41,6 +41,13 @@
   line-height: 1.7;
 }
 
+.crowd-listing__note {
+  max-width: 960px;
+  margin: 28px 0 0;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
 .crowd-listing__flow {
   margin-top: 70px;
 

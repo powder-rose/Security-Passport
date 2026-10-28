@@ -18,6 +18,12 @@ export default function CrowdListing() {
             </p>
           </div>
 
+          <p className="crowd-listing__note">
+            При формировании перечня ММПЛ учитываются исключения, предусмотренные пунктом 2
+            требований ПП РФ № 272, в том числе в отношении мест, подлежащих обязательной охране
+            войсками национальной гвардии Российской Федерации.
+          </p>
+
           <div className="crowd-listing__flow">
             <div className="crowd-listing__step">
               <span>01</span>
