@@ -162,13 +162,14 @@ test('homepage document artwork reveals on scroll without hiding the card copy',
     await expect(artwork).toHaveCSS('transform', 'none');
   }
   await expect(section.locator('.document-card__list')).toHaveCount(2);
-  const hidden = await section.locator('h3, li, .document-card__action').evaluateAll(elements =>
-    elements.filter(element => {
-      const style = getComputedStyle(element);
-      return (
-        style.visibility !== 'visible' || style.display === 'none' || Number(style.opacity) < 1
-      );
-    }).length,
+  const hidden = await section.locator('h3, li, .document-card__action').evaluateAll(
+    elements =>
+      elements.filter(element => {
+        const style = getComputedStyle(element);
+        return (
+          style.visibility !== 'visible' || style.display === 'none' || Number(style.opacity) < 1
+        );
+      }).length,
   );
   expect(hidden).toBe(0);
 });
