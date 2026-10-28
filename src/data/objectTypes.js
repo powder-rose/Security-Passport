@@ -1,4 +1,5 @@
 import { rosgvardiaObjectType } from './rosgvardiaObjectType.js';
+import { marketObjectType } from './marketObjectType.js';
 
 export const objectTypes = [
   {
@@ -283,6 +284,7 @@ export const objectTypes = [
       'Постановление № 410',
     accent: 'Соцсфера',
   },
+  marketObjectType,
 ];
 
 

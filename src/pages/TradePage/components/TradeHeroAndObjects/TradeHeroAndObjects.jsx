@@ -1,6 +1,7 @@
 import Container from '../../../../components/ui/Container/Container';
 
 import { tradeObjects } from '../../tradePageData';
+import { marketObjectType } from '../../../../data/marketObjectType.js';
 
 export default function TradeHeroAndObjects() {
   return (
@@ -123,6 +124,11 @@ export default function TradeHeroAndObjects() {
                 Объекты, регулируемые другими специальными требованиями Правительства РФ, а также
                 торговые объекты, не включённые в соответствующий перечень, под №1273 не подпадают.
               </p>
+
+              <a className="trade-inline-link" href={marketObjectType.path}>
+                {marketObjectType.seoName}
+                <span aria-hidden="true">→</span>
+              </a>
             </article>
 
             <aside className="trade-applicability__check">
