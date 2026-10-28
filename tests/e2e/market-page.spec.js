@@ -155,12 +155,21 @@ test.describe('retail market landing without JavaScript', () => {
     expect(
       await main.locator('.market-section').evaluateAll(elements => elements.map(item => item.id)),
     ).toEqual(marketSections.map(item => item.id));
-    await expect(page.locator('#faq .faq-item__question')).toHaveText(
+    await expect(page.locator('#faq .market-disclosure__title')).toHaveText(
       faq.items.map(item => item.question),
     );
-    await expect(page.locator('#faq .faq-item__answer')).toHaveText(
+    await expect(page.locator('#faq .market-disclosure__body')).toHaveText(
       faq.items.map(item => item.answer),
     );
+    const faqDetail = page.locator('#faq details').nth(17);
+    await faqDetail.locator('summary').focus();
+    await page.keyboard.press('Enter');
+    await expect(faqDetail).toHaveAttribute('open', '');
+    await expect(faqDetail.locator('.market-disclosure__body')).toBeVisible();
+    await expect(faqDetail.locator('.market-disclosure__body')).toHaveText(faq.items[17].answer);
+    await page.keyboard.press('Space');
+    await expect(faqDetail).not.toHaveAttribute('open');
+
     await expect(page.locator('#process .process-step')).toHaveCount(7);
     await expect(page.locator('#prices .service-price-card')).toHaveCount(3);
     await expect(main.locator('input[type="file"]')).toHaveCount(0);
@@ -597,36 +606,45 @@ test('retail market approval, copies and update deadlines retain their distinct 
 
 test('retail market FAQ and native disclosure icons work with the keyboard', async ({ page }) => {
   await openPage(page);
-  const questions = page.locator('#faq .faq-item__button');
+  const questions = page.locator('#faq details.market-disclosure');
   await expect(questions).toHaveCount(18);
   for (const index of [1, 17]) {
-    const question = questions.nth(index);
-    const panelId = await question.getAttribute('aria-controls');
-    const panel = page.locator(`#${panelId}`);
+    const detail = questions.nth(index);
+    const question = detail.locator('summary');
+    const panel = detail.locator('.market-disclosure__body');
+    await expect(detail).toHaveAttribute('name', 'market-faq');
     await question.focus();
+    await expect(question).toBeFocused();
     await question.press('Enter');
-    await expect(question).toHaveAttribute('aria-expanded', 'true');
+    await expect(detail).toHaveAttribute('open', '');
     await expect(panel).toBeVisible();
-    await expect(panel).toContainText(faq.items[index].answer);
-    await expect(questions.first()).toHaveAttribute('aria-expanded', 'false');
-    const icon = question.locator('.faq-item__icon');
+    await expect(panel).toHaveText(faq.items[index].answer);
+    await expect(questions.first()).not.toHaveAttribute('open');
+    await expect(page.locator('#faq details[open]')).toHaveCount(1);
+    const icon = question.locator('.market-disclosure__icon');
     await finishAnimations(icon);
-    const offsets = await icon.evaluate(element => {
-      const circle = element.getBoundingClientRect();
-      return [...element.children].map(bar => {
-        const rect = bar.getBoundingClientRect();
+    const centers = await icon.evaluate(element =>
+      ['::before', '::after'].map(pseudo => {
+        const style = getComputedStyle(element, pseudo);
+        const matrix = new DOMMatrixReadOnly(style.transform);
         return [
-          rect.x + rect.width / 2 - circle.x - circle.width / 2,
-          rect.y + rect.height / 2 - circle.y - circle.height / 2,
+          parseFloat(style.left) +
+            parseFloat(style.width) / 2 +
+            matrix.m41 -
+            element.clientWidth / 2,
+          parseFloat(style.top) +
+            parseFloat(style.height) / 2 +
+            matrix.m42 -
+            element.clientHeight / 2,
         ];
-      });
-    });
-    for (const [x, y] of offsets) {
+      }),
+    );
+    for (const [x, y] of centers) {
       expect(Math.abs(x)).toBeLessThan(1);
       expect(Math.abs(y)).toBeLessThan(1);
     }
     await question.press('Space');
-    await expect(question).toHaveAttribute('aria-expanded', 'false');
+    await expect(detail).not.toHaveAttribute('open');
     await expect(panel).toBeHidden();
   }
 
@@ -705,7 +723,8 @@ test('retail market fits mobile through desktop and respects reduced motion', as
       .locator(
         '.market-hero, .market-section, .market-object, .market-note, .market-plan, ' +
           '.market-deadline, .market-table-scroll, .service-price-card, .process-step, ' +
-          '#lead-form, main h1, main h2',
+          '#lead-form, main h1, main h2, .market-faq-list, .market-form-dossier, ' +
+          '.market-service-list > li, .market-documents-list > div, .market-current-panel',
       )
       .evaluateAll(elements =>
         elements

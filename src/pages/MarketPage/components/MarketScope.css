@@ -1,58 +1,144 @@
+.market-objects-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.86fr);
+  gap: clamp(40px, 8vw, 120px);
+  align-items: start;
+}
+
 .market-object-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
-  margin: 48px 0 32px;
+  margin: 58px 0 36px;
 }
 
 .market-object {
-  display: grid;
-  grid-template-columns: 36px minmax(0, 1fr);
-  gap: 18px 22px;
-  align-content: start;
+  --market-object-surface: var(--color-bg);
+  --market-object-ink: var(--color-text);
+  --market-object-muted: var(--color-text-secondary);
+  --market-object-index: var(--color-primary);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 44px;
   min-width: 0;
-  padding: clamp(24px, 3vw, 38px);
+  min-height: 326px;
+  padding: clamp(26px, 3vw, 42px);
+  overflow: hidden;
   border: 1px solid var(--color-border);
-  border-radius: 22px;
-  background: var(--color-bg);
+  border-radius: 28px;
+  background: var(--market-object-surface);
+  color: var(--market-object-ink);
+}
+
+.market-object:first-child {
+  --market-object-surface: var(--color-text);
+  --market-object-ink: #fff;
+  --market-object-muted: rgb(255 255 255 / 70%);
+  --market-object-index: var(--color-accent);
+  border-color: var(--color-text);
+}
+
+.market-object__folio {
+  display: block;
+  color: var(--market-object-index);
+  font-size: clamp(3.25rem, 5vw, 5.25rem);
+  font-weight: 750;
+  line-height: 0.9;
+  letter-spacing: -0.065em;
+}
+
+.market-object__folio::before {
+  content: attr(data-number);
+}
+
+.market-object__folio::after {
+  position: absolute;
+  top: 34px;
+  right: 36px;
+  width: 72px;
+  height: 72px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.18;
+  content: '';
+}
+
+.market-object__copy {
+  display: grid;
+  gap: 18px;
+  max-width: 470px;
 }
 
 .market-object h3 {
   margin: 0;
-  font-size: clamp(1.3rem, 1.9vw, 1.75rem);
-  line-height: 1.18;
-  letter-spacing: -0.03em;
+  font-size: clamp(1.45rem, 2.2vw, 2rem);
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  overflow-wrap: anywhere;
 }
 
 .market-object p {
-  grid-column: 2;
   margin: 0;
-  color: var(--color-text-secondary);
+  color: var(--market-object-muted);
   font-size: 0.97rem;
   line-height: 1.65;
 }
 
+.market-objects-outro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 36px;
+  align-items: start;
+}
+
+.market-objects-outro .market-section-action {
+  padding-top: 24px;
+}
+
 .market-regulation-layout {
   display: grid;
-  grid-template-columns: minmax(280px, 0.65fr) minmax(0, 1.35fr);
-  gap: clamp(40px, 7vw, 100px);
+  grid-template-columns: minmax(280px, 0.64fr) minmax(0, 1.36fr);
+  gap: clamp(48px, 8vw, 124px);
   align-items: start;
 }
 
 .market-regulation-card {
-  padding: clamp(26px, 3vw, 38px);
+  position: relative;
+  padding: clamp(28px, 3vw, 42px);
+  overflow: hidden;
   border-radius: 28px;
   background: var(--color-text);
   color: #fff;
 }
 
+.market-regulation-card::before {
+  position: absolute;
+  top: 0;
+  right: 34px;
+  width: 74px;
+  height: 6px;
+  border-radius: 0 0 6px 6px;
+  background: var(--color-accent);
+  content: '';
+}
+
+.market-regulation-card__eyebrow {
+  color: rgb(255 255 255 / 58%);
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
 .market-regulation-card__number {
   display: block;
-  margin: 10px 0 48px;
+  margin: 44px 0 52px;
   color: var(--color-accent);
-  font-size: clamp(5rem, 8vw, 8rem);
+  font-size: clamp(5.8rem, 9vw, 9.4rem);
   font-weight: 750;
-  line-height: 0.9;
+  line-height: 0.8;
   letter-spacing: -0.08em;
 }
 
@@ -65,41 +151,92 @@
 .market-regulation-card li {
   padding: 17px 0;
   border-top: 1px solid rgb(255 255 255 / 16%);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   line-height: 1.55;
 }
 
 .market-responsibility-columns {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(30px, 6vw, 88px);
-  margin: 44px 0 32px;
+  gap: 18px;
+  margin: 48px 0 30px;
+}
+
+.market-responsibility-card {
+  min-width: 0;
+  padding: clamp(28px, 3.2vw, 44px);
+  border: 1px solid var(--color-border);
+  border-radius: 28px;
+  background: var(--color-bg);
+}
+
+.market-responsibility-card--partner {
+  --market-section-ink: #fff;
+  --market-section-muted: rgb(255 255 255 / 70%);
+  --market-section-accent: var(--color-accent);
+  border-color: var(--color-text);
+  background: var(--color-text);
+  color: var(--market-section-ink);
+}
+
+.market-responsibility-card h3 {
+  margin: 40px 0 26px;
+  font-size: clamp(1.7rem, 2.6vw, 2.6rem);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+  overflow-wrap: anywhere;
 }
 
 @media (prefers-reduced-motion: no-preference) and (hover: hover) {
   .market-object {
-    transition: border-color 180ms ease;
+    transition:
+      border-color 220ms ease,
+      box-shadow 220ms ease;
+  }
+
+  .market-object__folio::after {
+    transition: transform 280ms ease;
   }
 
   .market-object:hover {
     border-color: var(--color-primary);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .market-object:hover .market-object__folio::after {
+    transform: scale(1.15);
   }
 }
 
 @media (max-width: 980px) {
+  .market-objects-intro,
   .market-regulation-layout {
     grid-template-columns: 1fr;
+    gap: 36px;
   }
 
   .market-regulation-card {
     display: grid;
     grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr);
-    gap: 36px;
+    gap: 32px;
     align-items: center;
+  }
+
+  .market-regulation-card__eyebrow {
+    grid-column: 1 / -1;
   }
 
   .market-regulation-card__number {
     margin: 0;
+  }
+
+  .market-objects-outro {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .market-objects-outro .market-section-action {
+    padding-top: 0;
   }
 }
 
@@ -109,18 +246,25 @@
     grid-template-columns: 1fr;
   }
 
-  .market-responsibility-columns {
-    gap: 28px;
+  .market-object {
+    min-height: 280px;
+    gap: 34px;
+    border-radius: 22px;
   }
 
-  .market-object {
-    grid-template-columns: 26px minmax(0, 1fr);
-    gap: 14px;
+  .market-object__folio::after {
+    width: 56px;
+    height: 56px;
   }
 }
 
 @media (max-width: 430px) {
   .market-regulation-card {
     grid-template-columns: 1fr;
+    border-radius: 24px;
+  }
+
+  .market-responsibility-card {
+    border-radius: 22px;
   }
 }

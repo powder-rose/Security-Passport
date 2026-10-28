@@ -19,12 +19,12 @@ export default function MarketServices({ onServiceSelect }) {
   return (
     <>
       <MarketSection section={sample} tone="paper">
-        <div className="market-split">
-          <div className="market-stack">
+        <div className="market-sample-layout">
+          <div className="market-stack market-sticky">
             <MarketHeading section={sample} />
             <MarketAction action={sample.action} onServiceSelect={onServiceSelect} />
           </div>
-          <div className="market-stack">
+          <div className="market-sample-copy">
             <MarketParagraphs items={sample.paragraphs} />
             <MarketNote text={sample.note} />
             <MarketLink link={marketLinks.article} />
@@ -40,14 +40,14 @@ export default function MarketServices({ onServiceSelect }) {
             <ServicePriceCard key={item.number} item={item} onServiceSelect={onServiceSelect} />
           ))}
         </div>
-        <div className="market-split">
+        <div className="market-pricing-footer">
           <MarketParagraphs items={prices.paragraphs} />
           <MarketAction action={prices.action} onServiceSelect={onServiceSelect} />
         </div>
       </MarketSection>
 
       <MarketSection section={documents} tone="paper">
-        <div className="market-split">
+        <div className="market-documents-heading">
           <MarketHeading section={documents} />
           <MarketNote items={documents.notes} />
         </div>
@@ -57,9 +57,16 @@ export default function MarketServices({ onServiceSelect }) {
           ))}
         </div>
         <dl className="market-documents-list">
-          {documents.table.rows.map(([group, description]) => (
-            <div key={group}>
-              <dt>{group}</dt>
+          {documents.table.rows.map(([group, description], index) => (
+            <div key={group} data-scroll-reveal>
+              <dt>
+                <span
+                  className="market-index"
+                  data-number={String(index + 1).padStart(2, '0')}
+                  aria-hidden="true"
+                />
+                {group}
+              </dt>
               <dd>{description}</dd>
             </div>
           ))}

@@ -35,10 +35,13 @@ export function MarketParagraphs({ items = [] }) {
 export function MarketNote({ text, items = [] }) {
   return (
     <aside className="market-note">
-      {text ? <p>{text}</p> : null}
-      {items.map(item => (
-        <p key={item}>{item}</p>
-      ))}
+      <span className="market-note__mark" aria-hidden="true" />
+      <div>
+        {text ? <p>{text}</p> : null}
+        {items.map(item => (
+          <p key={item}>{item}</p>
+        ))}
+      </div>
     </aside>
   );
 }
@@ -74,10 +77,15 @@ export function MarketList({ items, ordered = false }) {
   );
 }
 
-export function MarketDisclosure({ title, open = false, children }) {
+export function MarketDisclosure({ title, open = false, number, name, children }) {
   return (
-    <details className="market-disclosure" open={open}>
+    <details
+      className={`market-disclosure${number ? ' market-disclosure--numbered' : ''}`}
+      open={open}
+      name={name}
+    >
       <summary>
+        {number ? <span className="market-index" data-number={number} aria-hidden="true" /> : null}
         <h3 className="market-disclosure__title">{title}</h3>
         <span className="market-disclosure__icon" aria-hidden="true" />
       </summary>

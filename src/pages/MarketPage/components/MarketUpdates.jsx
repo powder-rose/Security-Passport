@@ -2,7 +2,6 @@ import getMarketSection from '../getMarketSection';
 import {
   MarketHeading,
   MarketLink,
-  MarketList,
   MarketNote,
   MarketParagraphs,
   MarketSection,
@@ -17,11 +16,15 @@ export default function MarketUpdates() {
   return (
     <>
       <MarketSection section={actualization}>
-        <div className="market-split">
+        <div className="market-updates-heading">
           <MarketHeading section={actualization} />
           <div className="market-stack">
             <MarketParagraphs items={actualization.paragraphs} />
-            <MarketList items={actualization.items} />
+            <ul className="market-change-reasons">
+              {actualization.items.map(item => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
           </div>
         </div>
         <div className="market-deadlines">
@@ -84,8 +87,13 @@ export default function MarketUpdates() {
       </MarketSection>
 
       <MarketSection section={current}>
-        <div className="market-split">
-          <MarketHeading section={current} />
+        <div className="market-current-panel">
+          <div className="market-current-title">
+            <span className="market-current-year" aria-hidden="true">
+              2026
+            </span>
+            <MarketHeading section={current} />
+          </div>
           <MarketParagraphs items={current.paragraphs} />
         </div>
       </MarketSection>

@@ -1,6 +1,11 @@
-import FAQList from '../../../sections/FAQ/FAQList';
 import getMarketSection from '../getMarketSection';
-import { MarketHeading, MarketLink, MarketParagraphs, MarketSection } from './MarketContent';
+import {
+  MarketDisclosure,
+  MarketHeading,
+  MarketLink,
+  MarketParagraphs,
+  MarketSection,
+} from './MarketContent';
 import './MarketClosing.css';
 
 const service = getMarketSection('service');
@@ -11,7 +16,7 @@ export default function MarketClosing() {
   return (
     <>
       <MarketSection section={service} tone="paper">
-        <div className="market-split">
+        <div className="market-service-heading">
           <MarketHeading section={service} />
           <MarketParagraphs items={service.paragraphs} />
         </div>
@@ -22,7 +27,7 @@ export default function MarketClosing() {
         </div>
         <ol className="market-service-list">
           {service.table.rows.map(([work, result], index) => (
-            <li key={work}>
+            <li key={work} data-scroll-reveal>
               <span className="market-index" data-number={`0${index + 1}`} aria-hidden="true" />
               <h3>{work}</h3>
               <p>{result}</p>
@@ -31,27 +36,39 @@ export default function MarketClosing() {
         </ol>
       </MarketSection>
 
-      <MarketSection section={advantages}>
-        <div className="market-split">
-          <div className="market-stack">
-            <MarketHeading section={advantages} />
-            <MarketLink link={advantages.link} />
-          </div>
-          <ul className="market-advantages-list">
-            {advantages.items.map((item, index) => (
-              <li key={item} data-scroll-reveal>
-                <span className="market-index" data-number={`0${index + 1}`} aria-hidden="true" />
-                <p>{item}</p>
-              </li>
-            ))}
-          </ul>
+      <MarketSection section={advantages} tone="dark">
+        <div className="market-advantages-heading">
+          <MarketHeading section={advantages} />
+          <MarketLink link={advantages.link} />
         </div>
+        <ul className="market-advantages-list">
+          {advantages.items.map((item, index) => (
+            <li key={item} data-scroll-reveal>
+              <span className="market-index" data-number={`0${index + 1}`} aria-hidden="true" />
+              <p>{item}</p>
+            </li>
+          ))}
+        </ul>
       </MarketSection>
 
-      <MarketSection section={faq} tone="paper">
-        <MarketHeading section={faq} />
-        <div className="market-faq-list">
-          <FAQList items={faq.items} />
+      <MarketSection section={faq}>
+        <div className="market-faq-layout">
+          <div className="market-sticky">
+            <MarketHeading section={faq} />
+          </div>
+          <div className="market-faq-list">
+            {faq.items.map((item, index) => (
+              <MarketDisclosure
+                key={item.id}
+                title={item.question}
+                number={String(index + 1).padStart(2, '0')}
+                name="market-faq"
+                open={index === 0}
+              >
+                <p>{item.answer}</p>
+              </MarketDisclosure>
+            ))}
+          </div>
         </div>
       </MarketSection>
     </>
