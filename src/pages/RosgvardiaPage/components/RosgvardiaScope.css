@@ -1,0 +1,141 @@
+.rosgvardia-regulation-facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rosgvardia-regulation-facts li {
+  display: flex;
+  align-items: flex-end;
+  min-height: 144px;
+  padding: 26px;
+  border-top: 3px solid var(--color-primary);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  background: var(--color-surface);
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  font-weight: 750;
+  line-height: 1.4;
+}
+
+.rosgvardia-categories {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rosgvardia-category {
+  --rosgvardia-category-bg: var(--color-bg);
+  --rosgvardia-category-ink: var(--color-text);
+  --rosgvardia-category-muted: var(--color-text-secondary);
+  min-width: 0;
+  padding: clamp(24px, 3vw, 36px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  color: var(--rosgvardia-category-ink);
+  background: var(--rosgvardia-category-bg);
+  transition: transform 220ms ease;
+}
+
+.rosgvardia-category:first-child {
+  --rosgvardia-category-bg: var(--color-text);
+  --rosgvardia-category-ink: #fff;
+  --rosgvardia-category-muted: rgb(255 255 255 / 70%);
+  border-color: var(--color-text);
+}
+
+.rosgvardia-category:last-child {
+  --rosgvardia-category-bg: var(--color-surface);
+}
+
+.rosgvardia-category__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.rosgvardia-category__head > span {
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.rosgvardia-category__head > strong {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  color: var(--color-text);
+  background: var(--color-accent);
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.rosgvardia-category__details {
+  display: grid;
+  gap: 26px;
+  margin: 26px 0 0;
+}
+
+.rosgvardia-category__details dt {
+  margin-bottom: 10px;
+  color: var(--rosgvardia-category-muted);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.rosgvardia-category__details dd {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.rosgvardia-category__details > div:first-child dd {
+  font-size: 1.6rem;
+  font-weight: 750;
+  line-height: 1.3;
+}
+
+@media (hover: hover) {
+  .rosgvardia-category:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 1024px) {
+  .rosgvardia-regulation-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .rosgvardia-categories {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 420px) {
+  .rosgvardia-regulation-facts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rosgvardia-regulation-facts li {
+    min-height: 100px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rosgvardia-category {
+    transition: none;
+  }
+}

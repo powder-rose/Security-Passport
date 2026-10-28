@@ -47,7 +47,9 @@ export function buildSeo(pathname = '/') {
         `разработка паспорта и сопровождение ` +
         `согласования. ${SITE.brand}.`;
 
-    title = `${objectSeoTitle} | ${SITE.brand}`;
+    title = objectSeoTitle.endsWith(` | ${SITE.brand}`)
+      ? objectSeoTitle
+      : `${objectSeoTitle} | ${SITE.brand}`;
 
     description = objectSeoDescription;
   } else {

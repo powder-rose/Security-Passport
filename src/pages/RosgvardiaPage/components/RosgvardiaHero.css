@@ -1,0 +1,197 @@
+.rosgvardia-hero {
+  padding: 30px 0 clamp(64px, 7vw, 100px);
+  background: var(--color-bg);
+}
+
+.rosgvardia-breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-bottom: clamp(30px, 4vw, 52px);
+  color: var(--color-text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.rosgvardia-breadcrumbs a {
+  color: var(--color-primary);
+}
+
+.rosgvardia-hero__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 0.85fr);
+  align-items: start;
+  gap: clamp(32px, 4.6vw, 64px);
+}
+
+.rosgvardia-hero__content {
+  min-width: 0;
+}
+
+.rosgvardia-hero h1 {
+  margin: 0;
+  font-size: clamp(2.25rem, 3.65vw, 3.75rem);
+  font-weight: 750;
+  line-height: 1.08;
+  letter-spacing: -0.05em;
+  overflow-wrap: anywhere;
+}
+
+.rosgvardia-hero__offer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  margin: 30px 0 24px;
+}
+
+.rosgvardia-hero__price-label {
+  max-width: 140px;
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.rosgvardia-hero__price {
+  margin: 0;
+  padding: 6px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent);
+  font-size: clamp(1.65rem, 2.4vw, 2.1rem);
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+.rosgvardia-hero__price > span {
+  font-size: 1rem;
+}
+
+.rosgvardia-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px 24px;
+}
+
+.rosgvardia-hero__lead {
+  max-width: 720px;
+  margin: 30px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+
+.rosgvardia-hero__panel {
+  position: relative;
+  min-width: 0;
+  margin-top: 4px;
+  padding: clamp(26px, 3vw, 40px);
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  color: #fff;
+  background: var(--color-text);
+  box-shadow: var(--shadow-soft);
+}
+
+.rosgvardia-hero__panel::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: var(--color-primary);
+  content: '';
+}
+
+.rosgvardia-hero__panel-head {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr);
+  align-items: start;
+  gap: 14px;
+}
+
+.rosgvardia-hero__panel-head p {
+  margin: 0;
+  color: rgb(255 255 255 / 72%);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.rosgvardia-hero__marker {
+  width: 12px;
+  height: 12px;
+  margin-top: 5px;
+  border: 3px solid var(--color-accent);
+  border-radius: 50%;
+}
+
+.rosgvardia-hero__regulation {
+  margin: 36px 0;
+  color: var(--color-accent);
+  font-size: clamp(1.7rem, 2.8vw, 2.5rem);
+  font-weight: 750;
+  line-height: 1.15;
+  letter-spacing: -0.045em;
+}
+
+.rosgvardia-hero__facts {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rosgvardia-hero__facts li {
+  padding: 18px 0;
+  border-top: 1px solid rgb(255 255 255 / 18%);
+  font-size: 0.96rem;
+  line-height: 1.5;
+}
+
+.rosgvardia-hero__facts li:last-child {
+  padding-bottom: 0;
+}
+
+@media (max-width: 1024px) {
+  .rosgvardia-hero__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rosgvardia-hero__facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 26px;
+  }
+}
+
+@media (max-width: 640px) {
+  .rosgvardia-hero {
+    padding-top: 20px;
+  }
+
+  .rosgvardia-hero h1 {
+    font-size: clamp(2.05rem, 8.6vw, 2.85rem);
+  }
+
+  .rosgvardia-hero__offer {
+    margin-top: 24px;
+  }
+
+  .rosgvardia-hero__price-label {
+    max-width: none;
+  }
+
+  .rosgvardia-hero__actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .rosgvardia-hero__lead {
+    font-size: 0.94rem;
+  }
+
+  .rosgvardia-hero__facts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

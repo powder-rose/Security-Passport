@@ -1,3 +1,5 @@
+import { rosgvardiaObjectType } from './rosgvardiaObjectType.js';
+
 export const objectTypes = [
   {
     id: 'hotel',
@@ -188,6 +190,7 @@ export const objectTypes = [
     accent:
       'ММПЛ',
   },
+  rosgvardiaObjectType,
   {
     id: 'industry',
     quizOption: 'Промышленные объекты',

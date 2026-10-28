@@ -1,0 +1,86 @@
+.rosgvardia-table-scroll {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  overscroll-behavior-x: contain;
+}
+
+.rosgvardia-table-scroll:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+.rosgvardia-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  color: var(--color-text);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.rosgvardia-table th,
+.rosgvardia-table td {
+  padding: 22px 24px;
+  vertical-align: top;
+}
+
+.rosgvardia-table thead th {
+  color: #fff;
+  background: var(--color-text);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.rosgvardia-table tbody th {
+  width: 34%;
+  background: var(--color-surface);
+  font-weight: 650;
+}
+
+.rosgvardia-table tbody td {
+  color: var(--color-text-secondary);
+}
+
+.rosgvardia-table tbody tr + tr > * {
+  border-top: 1px solid var(--color-border);
+}
+
+.rosgvardia-table--comparison {
+  min-width: 690px;
+  table-layout: fixed;
+}
+
+.rosgvardia-table--comparison thead th:first-child,
+.rosgvardia-table--comparison tbody th {
+  position: sticky;
+  z-index: 1;
+  left: 0;
+  width: 24%;
+  border-right: 1px solid var(--color-border);
+}
+
+.rosgvardia-table--comparison thead th:last-child {
+  color: var(--color-text);
+  background: var(--color-accent);
+}
+
+.rosgvardia-table--comparison tbody td:last-child {
+  color: var(--color-text);
+  background: rgb(169 240 74 / 9%);
+}
+
+@media (max-width: 640px) {
+  .rosgvardia-table th,
+  .rosgvardia-table td {
+    padding: 18px 16px;
+  }
+
+  .rosgvardia-table {
+    font-size: 0.88rem;
+  }
+}
