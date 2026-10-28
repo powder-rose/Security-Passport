@@ -1,0 +1,51 @@
+.market-contents-disclosures {
+  min-width: 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.market-plans-intro {
+  margin: 44px 0 20px;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+.market-plans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+  margin-bottom: 36px;
+}
+
+.market-plan {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 28px 0;
+  border-top: 2px solid var(--color-text);
+}
+
+.market-plan h3 {
+  min-height: 76px;
+  margin: 28px 0 18px;
+  font-size: clamp(1.3rem, 2vw, 1.85rem);
+  line-height: 1.18;
+  letter-spacing: -0.035em;
+}
+
+.market-plan p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+}
+
+@media (max-width: 760px) {
+  .market-plans-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .market-plan h3 {
+    min-height: 0;
+    margin-top: 20px;
+  }
+}
