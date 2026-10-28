@@ -1,87 +1,200 @@
-.market-service-labels {
+.market-service-heading {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 30px;
-  margin-top: 48px;
-  padding: 18px 0 18px 62px;
-  border-bottom: 1px solid var(--color-text);
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: clamp(40px, 7vw, 100px);
+  align-items: end;
+}
+
+.market-service-labels {
+  display: flex;
+  gap: 16px;
+  margin: 44px 0 22px;
   color: var(--color-text-secondary);
-  font-size: 0.78rem;
-  font-weight: 650;
-  letter-spacing: 0.04em;
+  font-size: 0.8rem;
+}
+
+.market-service-labels span + span::before {
+  margin-right: 16px;
+  color: var(--color-primary);
+  content: '→';
 }
 
 .market-service-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .market-service-list li {
-  display: grid;
-  grid-template-columns: 32px minmax(0, 1fr) minmax(0, 1fr);
-  gap: 30px;
-  align-items: start;
-  padding: 28px 0;
-  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: clamp(24px, 2.6vw, 34px);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  background: var(--color-bg);
 }
 
 .market-service-list h3 {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 650;
-  line-height: 1.5;
+  margin: 32px 0 24px;
+  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+  font-weight: 750;
+  line-height: 1.24;
+  letter-spacing: -0.03em;
+  overflow-wrap: anywhere;
 }
 
 .market-service-list p {
-  margin: 0;
+  margin: auto 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
   color: var(--color-text-secondary);
-  line-height: 1.65;
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
+.market-service-list li:first-child {
+  --market-section-accent: var(--color-accent);
+  border-color: var(--color-text);
+  background: var(--color-text);
+  color: #fff;
+}
+
+.market-service-list li:first-child p {
+  border-color: rgb(255 255 255 / 20%);
+  color: rgb(255 255 255 / 70%);
+}
+
+.market-advantages-heading {
+  display: grid;
+  gap: 28px;
+  max-width: 1000px;
 }
 
 .market-advantages-list {
-  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 48px 0 0;
   padding: 0;
   list-style: none;
-  border-top: 1px solid var(--color-border);
 }
 
 .market-advantages-list li {
-  display: grid;
-  grid-template-columns: 38px minmax(0, 1fr);
-  gap: 20px;
-  padding: 28px 0;
-  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 48px;
+  min-width: 0;
+  padding: clamp(26px, 3vw, 40px);
+  border: 1px solid rgb(255 255 255 / 18%);
+  border-radius: 24px;
+}
+
+.market-advantages-list li:first-child {
+  --market-section-accent: var(--color-text);
+  grid-row: span 2;
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-text);
+}
+
+.market-advantages-list li:first-child .market-index {
+  font-size: clamp(5rem, 7vw, 7rem);
+  line-height: 0.8;
+  letter-spacing: -0.08em;
 }
 
 .market-advantages-list p {
   margin: 0;
-  font-size: clamp(1.1rem, 1.7vw, 1.45rem);
-  line-height: 1.45;
-  letter-spacing: -0.025em;
+  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+}
+
+.market-advantages-list li:first-child p {
+  font-size: clamp(1.55rem, 2vw, 2rem);
+}
+
+.market-faq-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+  gap: clamp(40px, 6vw, 90px);
+  align-items: start;
 }
 
 .market-faq-list {
-  margin-top: 48px;
+  min-width: 0;
+  padding: 0 clamp(18px, 2vw, 30px);
+  border: 1px solid var(--color-border);
+  border-radius: 28px;
+  background: #fff;
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .market-service-list li,
+  .market-advantages-list li {
+    transition:
+      border-color 220ms ease,
+      box-shadow 220ms ease;
+  }
+
+  .market-service-list li:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .market-advantages-list li:hover {
+    border-color: var(--color-accent);
+  }
+}
+
+@media (max-width: 1024px) {
+  .market-faq-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .market-service-list,
+  .market-advantages-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .market-advantages-list li:first-child {
+    grid-row: auto;
+    grid-column: 1 / -1;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 980px) {
+  .market-service-heading {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
 }
 
 @media (max-width: 620px) {
-  .market-service-labels {
-    gap: 16px;
-    padding-left: 0;
+  .market-service-list,
+  .market-advantages-list {
+    grid-template-columns: 1fr;
   }
 
-  .market-service-list li {
-    grid-template-columns: 28px minmax(0, 1fr);
-    gap: 12px 16px;
-  }
-
-  .market-service-list p {
-    grid-column: 2;
+  .market-service-list li,
+  .market-advantages-list li {
+    border-radius: 22px;
   }
 
   .market-advantages-list li {
-    grid-template-columns: 26px minmax(0, 1fr);
-    gap: 14px;
+    gap: 28px;
+  }
+
+  .market-faq-list {
+    padding: 0 14px;
+    border-radius: 22px;
   }
 }

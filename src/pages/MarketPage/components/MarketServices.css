@@ -1,69 +1,147 @@
+.market-sample-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(40px, 7vw, 100px);
+  align-items: start;
+}
+
+.market-sample-copy {
+  display: grid;
+  gap: 30px;
+  min-width: 0;
+  padding: clamp(26px, 3vw, 42px);
+  border: 1px solid var(--color-border);
+  border-radius: 28px;
+  background: var(--color-bg);
+}
+
 .market-price-label {
-  margin: 34px 0 18px;
+  margin: 32px 0 0;
   color: var(--color-text-secondary);
-  font-size: 0.88rem;
+  font-size: 0.9rem;
 }
 
 .market-price-grid {
-  --service-price-title-min-height: 108px;
-  --service-price-value-size: clamp(1.8rem, 2.6vw, 2.5rem);
+  --service-price-padding: clamp(26px, 2.6vw, 38px);
+  --service-price-gap: 34px;
+  --service-price-min-height: 390px;
+  --service-price-title-size: clamp(1.2rem, 1.8vw, 1.65rem);
+  --service-price-value-size: clamp(2rem, 2.8vw, 3rem);
+  --service-price-radius: 26px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
-  margin-bottom: 40px;
+  margin: 24px 0 38px;
+}
+
+.market-pricing-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.market-pricing-footer .market-section-action {
+  justify-self: end;
+}
+
+.market-documents-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: clamp(40px, 6vw, 88px);
+  align-items: start;
 }
 
 .market-documents-labels {
-  display: grid;
-  grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr);
-  gap: 36px;
-  margin-top: 48px;
-  padding: 18px 0;
-  border-bottom: 1px solid var(--color-text);
+  display: flex;
+  gap: 16px;
+  margin: 44px 0 20px;
   color: var(--color-text-secondary);
   font-size: 0.78rem;
-  font-weight: 650;
-  letter-spacing: 0.04em;
+}
+
+.market-documents-labels span + span::before {
+  margin-right: 16px;
+  color: var(--color-primary);
+  content: '/';
 }
 
 .market-documents-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
   margin: 0;
+  padding: 1px;
+  overflow: hidden;
+  border-radius: 26px;
+  background: var(--color-border);
 }
 
 .market-documents-list > div {
-  display: grid;
-  grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr);
-  gap: 36px;
-  padding: 24px 0;
-  border-bottom: 1px solid var(--color-border);
-  line-height: 1.65;
+  min-width: 0;
+  padding: clamp(24px, 2.6vw, 36px);
+  background: var(--color-bg);
 }
 
 .market-documents-list dt {
-  color: var(--color-text);
-  font-weight: 700;
+  display: grid;
+  gap: 22px;
+  margin: 0 0 14px;
+  font-size: 1.16rem;
+  font-weight: 750;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
 }
 
 .market-documents-list dd {
   margin: 0;
   color: var(--color-text-secondary);
+  font-size: 0.94rem;
+  line-height: 1.6;
 }
 
 @media (max-width: 980px) {
+  .market-sample-layout,
+  .market-pricing-footer,
+  .market-documents-heading {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .market-pricing-footer .market-section-action {
+    justify-self: start;
+  }
+
   .market-price-grid {
     grid-template-columns: 1fr;
-    --service-price-title-min-height: 0;
+  }
+
+  .market-documents-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 620px) {
-  .market-documents-labels {
-    gap: 14px;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  .market-sample-copy {
+    border-radius: 22px;
   }
 
-  .market-documents-list > div {
+  .market-price-grid {
+    --service-price-min-height: 0;
+  }
+
+  .market-documents-list {
     grid-template-columns: 1fr;
-    gap: 10px;
+    border-radius: 22px;
+  }
+
+  .market-documents-list dt {
+    grid-template-columns: 26px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .market-documents-list dd {
+    padding-left: 40px;
   }
 }

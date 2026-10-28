@@ -14,29 +14,31 @@ export default function MarketWorkflow() {
         <div className="market-split">
           <div className="market-stack market-sticky">
             <MarketHeading section={process} />
-            <MarketNote text={process.note} />
+            <div className="market-process-note">
+              <MarketNote text={process.note} />
+            </div>
           </div>
           <ProcessSteps steps={process.steps} />
         </div>
       </MarketSection>
 
       <MarketSection section={approval}>
-        <div className="market-split">
+        <div className="market-approval-heading">
           <MarketHeading section={approval} />
-          <div className="market-stack">
-            <MarketParagraphs items={approval.paragraphs} />
-            <ol className="market-approval-authorities">
-              {approval.authorities.map((authority, index) => (
-                <li key={authority} data-scroll-reveal>
-                  <span className="market-index" data-number={`0${index + 1}`} aria-hidden="true" />
-                  <p>{authority}</p>
-                </li>
-              ))}
-            </ol>
-            <p className="market-approval-result">{approval.approval}</p>
-            <MarketParagraphs items={approval.notes} />
-            <MarketNote items={approval.timing.paragraphs} />
-          </div>
+          <MarketParagraphs items={approval.paragraphs} />
+        </div>
+        <ol className="market-approval-authorities">
+          {approval.authorities.map((authority, index) => (
+            <li key={authority} data-scroll-reveal>
+              <span className="market-index" data-number={`0${index + 1}`} aria-hidden="true" />
+              <p>{authority}</p>
+            </li>
+          ))}
+        </ol>
+        <p className="market-approval-result">{approval.approval}</p>
+        <div className="market-approval-notes">
+          <MarketParagraphs items={approval.notes} />
+          <MarketNote items={approval.timing.paragraphs} />
         </div>
       </MarketSection>
 
@@ -61,7 +63,9 @@ export default function MarketWorkflow() {
               {copies.table.rows.map(([recipient, count]) => (
                 <tr key={recipient}>
                   <th scope="row">{recipient}</th>
-                  <td>{count}</td>
+                  <td>
+                    <span>{count}</span>
+                  </td>
                 </tr>
               ))}
             </tbody>
