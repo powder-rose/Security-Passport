@@ -2,6 +2,7 @@ import './CrowdPage.css';
 import './components/CrowdHero/CrowdHero.css';
 import './components/CrowdApplicability/CrowdApplicability.css';
 import './components/CrowdRegime/CrowdRegime.css';
+import './components/CrowdRosgvardia/CrowdRosgvardia.css';
 import './CrowdPageResponsiveTop.css';
 import './components/CrowdRegulation/CrowdRegulation.css';
 import './components/CrowdListing/CrowdListing.css';
@@ -17,6 +18,8 @@ import CrowdHero from './components/CrowdHero/CrowdHero';
 import CrowdApplicability from './components/CrowdApplicability/CrowdApplicability';
 
 import CrowdRegime from './components/CrowdRegime/CrowdRegime';
+
+import CrowdRosgvardia from './components/CrowdRosgvardia/CrowdRosgvardia';
 
 import CrowdRegulation from './components/CrowdRegulation/CrowdRegulation';
 
@@ -38,6 +41,8 @@ export default function CrowdPage() {
       <CrowdApplicability />
 
       <CrowdRegime />
+
+      <CrowdRosgvardia />
 
       <CrowdRegulation />
 

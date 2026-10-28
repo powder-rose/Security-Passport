@@ -319,7 +319,7 @@ test('Rosgvardia home card, both directories and the MMPL backlink remain reacha
     await expect(page.locator('h1')).toHaveText(rosgvardiaH1);
     await page.locator(`#comparison a[href="${crowdPath}"]`).click();
     await expect(page).toHaveURL(url => url.pathname === crowdPath);
-    const backlink = page.locator(`.crowd-regime a[href="${rosgvardiaPath}"]`);
+    const backlink = page.locator(`.crowd-rosgvardia a[href="${rosgvardiaPath}"]`);
     await expect(backlink).toHaveCount(1);
     await backlink.click();
     await expect(page.locator('h1')).toHaveText(rosgvardiaH1);
