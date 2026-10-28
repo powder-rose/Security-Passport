@@ -20,8 +20,15 @@ const initialForm = {
   website: '',
 };
 
+const defaultBenefits = [
+  'Проверим основание для категорирования',
+  'Определим состав документов и\u00A0работ',
+  'Сориентируем по стоимости и\u00A0этапам',
+];
+
 export default function FinalCTA({
   preview = false,
+  benefits = defaultBenefits,
   service = '',
   objectType = '',
   objectTypeOptions = [],
@@ -143,15 +150,11 @@ export default function FinalCTA({
           </p>
 
           <ul className="final-cta__benefits" aria-label="Что уточним на консультации">
-            <li>
-              <span aria-hidden="true">01</span> Проверим основание для категорирования
-            </li>
-            <li>
-              <span aria-hidden="true">02</span> Определим состав документов и{'\u00A0'}работ
-            </li>
-            <li>
-              <span aria-hidden="true">03</span> Сориентируем по стоимости и{'\u00A0'}этапам
-            </li>
+            {benefits.map((benefit, index) => (
+              <li key={benefit}>
+                <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span> {benefit}
+              </li>
+            ))}
           </ul>
 
           <div className="final-cta__contacts">

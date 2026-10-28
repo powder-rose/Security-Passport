@@ -1,0 +1,219 @@
+.market-hero {
+  padding: 32px 0 clamp(72px, 7vw, 104px);
+}
+
+.market-breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 44px;
+  color: var(--color-text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.market-breadcrumbs a:hover {
+  color: var(--color-primary);
+}
+
+.market-hero__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.38fr) minmax(300px, 0.72fr);
+  gap: clamp(40px, 6vw, 88px);
+  align-items: stretch;
+}
+
+.market-hero__content {
+  min-width: 0;
+}
+
+.market-hero h1 {
+  max-width: 880px;
+  margin: 0;
+  font-size: clamp(2.8rem, 4.45vw, 4.75rem);
+  font-weight: 750;
+  line-height: 1.01;
+  letter-spacing: -0.055em;
+}
+
+.market-hero__price {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  margin-top: 30px;
+  color: var(--color-text);
+}
+
+.market-hero__price > span {
+  font-size: 1rem;
+}
+
+.market-hero__price strong {
+  font-size: clamp(2.25rem, 3.4vw, 3.4rem);
+  line-height: 1;
+  letter-spacing: -0.055em;
+}
+
+.market-hero__lead {
+  max-width: 740px;
+  margin: 28px 0 0;
+  color: var(--color-text-secondary);
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+  line-height: 1.7;
+}
+
+.market-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 26px;
+  margin-top: 30px;
+}
+
+.market-hero__coverage {
+  margin: 24px 0 0;
+  padding-left: 14px;
+  border-left: 3px solid var(--color-accent);
+  font-size: 0.9rem;
+}
+
+.market-hero__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  min-width: 0;
+  padding: clamp(28px, 3vw, 42px);
+  border-radius: 30px;
+  background: var(--color-text);
+  color: #fff;
+}
+
+.market-hero__panel::before {
+  position: absolute;
+  top: 0;
+  right: 36px;
+  width: 72px;
+  height: 6px;
+  border-radius: 0 0 6px 6px;
+  background: var(--color-accent);
+  content: '';
+}
+
+.market-hero__panel-label {
+  margin: 0;
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+}
+
+.market-hero__panel-title {
+  margin: 0;
+  font-size: clamp(1.45rem, 2.1vw, 2rem);
+  font-weight: 650;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+.market-hero__mark {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 12px 0;
+}
+
+.market-hero__mark > span:first-child {
+  color: var(--color-accent);
+  font-size: clamp(7rem, 11vw, 10rem);
+  font-weight: 750;
+  line-height: 0.85;
+  letter-spacing: -0.08em;
+}
+
+.market-hero__sheets {
+  display: flex;
+  padding-right: 4px;
+}
+
+.market-hero__sheets span {
+  width: 35px;
+  height: 75px;
+  margin-left: -18px;
+  border: 1px solid rgb(169 240 74 / 55%);
+  border-radius: 5px;
+  background: var(--color-text);
+  transform: rotate(10deg);
+}
+
+.market-hero__sheets span:last-child {
+  background: var(--color-accent);
+}
+
+.market-hero__facts {
+  display: grid;
+  margin: auto 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.market-hero__facts li {
+  padding: 16px 0;
+  border-top: 1px solid rgb(255 255 255 / 16%);
+  color: rgb(255 255 255 / 80%);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 980px) {
+  .market-hero__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .market-hero__panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px 40px;
+  }
+
+  .market-hero__panel-label,
+  .market-hero__panel-title,
+  .market-hero__mark {
+    grid-column: 1;
+  }
+
+  .market-hero__facts {
+    grid-column: 2;
+    grid-row: 1 / 4;
+    align-self: center;
+    margin: 0;
+  }
+}
+
+@media (max-width: 620px) {
+  .market-breadcrumbs {
+    margin-bottom: 30px;
+  }
+
+  .market-hero h1 {
+    font-size: clamp(2.1rem, 8.3vw, 3rem);
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+  }
+
+  .market-hero__panel {
+    display: flex;
+    border-radius: 24px;
+  }
+
+  .market-hero__mark {
+    justify-content: flex-start;
+    gap: 70px;
+  }
+
+  .market-hero__actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
