@@ -344,7 +344,7 @@ test('retail market home card, both directories and trade backlink remain reacha
     await expect(page.locator('h1')).toHaveText(marketObjectType.h1);
     await page.locator(`#comparison a[href="${marketLinks.trade.href}"]`).click();
     await expect(page).toHaveURL(url => url.pathname === marketLinks.trade.href);
-    const backlink = page.locator(`.trade-applicability__rule a[href="${marketPath}"]`);
+    const backlink = page.locator(`.trade-market a[href="${marketPath}"]`);
     await expect(backlink).toHaveCount(1);
     await backlink.click();
     await expect(page.locator('h1')).toHaveText(marketObjectType.h1);
