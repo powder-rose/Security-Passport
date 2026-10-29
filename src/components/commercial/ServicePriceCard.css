@@ -42,6 +42,8 @@
 }
 
 .service-price-card--row {
+  --service-price-described-rows: auto auto auto;
+  --service-price-described-areas: 'number price' 'title action' 'description description';
   --service-price-columns: minmax(0, 1fr) auto;
   --service-price-rows: auto auto;
   --service-price-areas: 'number price' 'title action';
@@ -104,6 +106,22 @@
   line-height: 1.35;
   letter-spacing: -0.025em;
   overflow-wrap: anywhere;
+}
+
+.service-price-card--described {
+  grid-template-rows: var(--service-price-described-rows, auto auto 1fr auto auto);
+  grid-template-areas: var(
+    --service-price-described-areas,
+    'number' 'title' 'description' 'price' 'action'
+  );
+}
+
+.service-price-card__description {
+  grid-area: description;
+  margin: 0;
+  color: var(--service-price-muted);
+  font-size: 0.92rem;
+  line-height: 1.65;
 }
 
 .service-price-card__price-line {
@@ -176,6 +194,8 @@
   }
 
   .service-price-card--row {
+    --service-price-described-rows: auto auto auto auto;
+    --service-price-described-areas: 'number title' '. description' '. price' '. action';
     --service-price-columns: 28px minmax(0, 1fr);
     --service-price-rows: auto auto auto;
     --service-price-areas: 'number title' '. price' '. action';

@@ -1,0 +1,131 @@
+import Container from '../../../components/ui/Container/Container';
+import ServiceAction from '../../../components/commercial/ServiceAction';
+
+export function WaterSection({ section, tone = 'base', children }) {
+  return (
+    <section
+      className={`water-section water-section--${tone}`}
+      id={section.id}
+      aria-labelledby={`water-${section.id}-title`}
+    >
+      <Container>{children}</Container>
+    </section>
+  );
+}
+
+export function WaterHeading({ section }) {
+  return (
+    <div className="water-heading">
+      <p className="water-kicker">{section.kicker}</p>
+      <h2 id={`water-${section.id}-title`}>{section.title}</h2>
+    </div>
+  );
+}
+
+export function WaterParagraphs({ items }) {
+  if (!items?.length) return null;
+  return (
+    <div className="water-copy">
+      {items.map(text => (
+        <p key={text}>{text}</p>
+      ))}
+    </div>
+  );
+}
+
+export function WaterNote({ text }) {
+  if (!text) return null;
+  return (
+    <aside className="water-note">
+      <p>
+        <strong>Важно:</strong> {text}
+      </p>
+    </aside>
+  );
+}
+
+export function WaterIndex({ number }) {
+  return <span className="water-index" data-number={number} aria-hidden="true" />;
+}
+
+export function WaterLink({ link }) {
+  return (
+    <a className="water-link" href={link.href}>
+      <span>{link.label}</span>
+      <span aria-hidden="true">↗</span>
+    </a>
+  );
+}
+
+export function WaterAction({ action, onServiceSelect, accent = false, secondary = false }) {
+  return (
+    <ServiceAction
+      service={action.service}
+      onSelect={onServiceSelect}
+      accent={accent}
+      secondary={secondary}
+    >
+      {action.label}
+    </ServiceAction>
+  );
+}
+
+export function WaterList({ items, ordered = false }) {
+  const Tag = ordered ? 'ol' : 'ul';
+  return (
+    <Tag className={`water-list${ordered ? ' water-list--numbered' : ''}`}>
+      {items.map((text, index) => (
+        <li key={text}>
+          {ordered ? <WaterIndex number={String(index + 1).padStart(2, '0')} /> : null}
+          <span>{text}</span>
+        </li>
+      ))}
+    </Tag>
+  );
+}
+
+export function WaterDisclosure({ title, number, children, name, open = false }) {
+  return (
+    <details className="water-disclosure" name={name} open={open}>
+      <summary>
+        <WaterIndex number={number} />
+        <span className="water-disclosure__title">{title}</span>
+        <span className="water-disclosure__icon" aria-hidden="true" />
+      </summary>
+      <div className="water-disclosure__body">{children}</div>
+    </details>
+  );
+}
+
+export function WaterTable({ section, numbered = false }) {
+  const numerals = ['I', 'II', 'III', 'IV'];
+  return (
+    <div className="water-table-scroll" role="region" aria-label={section.title} tabIndex={0}>
+      <table className="water-table">
+        <caption className="water-visually-hidden">{section.title}</caption>
+        <thead>
+          <tr>
+            {section.table.headers.map(text => (
+              <th scope="col" key={text}>
+                {text}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {section.table.rows.map(([heading, ...cells], index) => (
+            <tr key={heading}>
+              <th scope="row">
+                {numbered ? <WaterIndex number={numerals[index]} /> : null}
+                <span>{heading}</span>
+              </th>
+              {cells.map(text => (
+                <td key={text}>{text}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}

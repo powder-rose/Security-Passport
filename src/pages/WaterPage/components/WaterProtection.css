@@ -1,0 +1,184 @@
+.water-information {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  margin-top: 44px;
+}
+
+.water-information__panel {
+  position: relative;
+  min-width: 0;
+  padding: 32px;
+  border: 1px solid var(--water-line);
+  border-radius: 24px;
+}
+
+.water-information__panel--allowed {
+  border-top: 4px solid var(--color-accent);
+  background: rgb(255 255 255 / 5%);
+}
+
+.water-information__panel--restricted {
+  --water-kicker: #fff;
+  border-top: 4px solid rgb(255 255 255 / 55%);
+}
+
+.water-information__symbol {
+  display: block;
+  margin-bottom: 24px;
+  color: var(--water-kicker);
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.water-information h3 {
+  margin: 0 0 18px;
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+
+.water-form-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(34px, 5vw, 80px);
+  align-items: start;
+  margin-top: 48px;
+}
+
+.water-form-document {
+  min-width: 0;
+  padding: 24px 30px 30px;
+  border: 1px solid var(--water-line);
+  border-top: 5px solid var(--color-accent);
+  border-radius: 8px 8px 24px 24px;
+  background: var(--color-surface);
+  box-shadow: 10px 10px 0 rgb(21 21 21 / 3%);
+}
+
+.water-form-document > .water-label {
+  margin-top: 4px;
+  font-size: 0.9rem;
+}
+
+.water-form-attachments h3 {
+  margin: 0 0 14px;
+  font-size: 1.25rem;
+}
+
+.water-form-attachments > .service-action {
+  margin-top: 28px;
+}
+
+.water-protection-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  gap: clamp(36px, 6vw, 90px);
+  margin-top: 36px;
+}
+
+.water-protection-notes {
+  padding: 30px;
+  border-radius: 24px;
+  background: #f0f4e6;
+}
+
+.water-inspections {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 28px;
+  align-items: stretch;
+  margin-top: 30px;
+}
+
+.water-inspections > div:first-child {
+  min-width: 0;
+}
+
+.water-inspections .water-label {
+  margin-top: 0;
+}
+
+.water-inspections__durations {
+  display: grid;
+  gap: 18px;
+}
+
+.water-inspections__durations article {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr);
+  gap: 26px;
+  align-items: center;
+  padding: 26px;
+  border: 1px solid var(--water-line);
+  border-radius: 24px;
+  background: var(--color-surface);
+}
+
+.water-inspections__durations article:last-child {
+  background: var(--color-text);
+  color: #fff;
+}
+
+.water-inspections__durations span {
+  color: var(--color-primary);
+  font-size: 4.5rem;
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: -0.075em;
+}
+
+.water-inspections__durations article:last-child > span {
+  color: var(--color-accent);
+}
+
+.water-inspections__durations p {
+  margin: 0;
+  font-size: 0.94rem;
+  line-height: 1.7;
+}
+
+.water-inspections__result {
+  margin: 30px 0 0;
+  font-weight: 650;
+}
+
+@media (max-width: 1024px) {
+  .water-form-layout,
+  .water-protection-layout,
+  .water-inspections {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .water-inspections__durations {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .water-inspections__durations article {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .water-information,
+  .water-inspections__durations {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .water-information__panel {
+    padding: 24px;
+  }
+
+  .water-form-document {
+    padding: 20px;
+    box-shadow: none;
+  }
+
+  .water-inspections__durations article {
+    grid-template-columns: 70px minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .water-inspections__durations span {
+    font-size: 3.7rem;
+  }
+}

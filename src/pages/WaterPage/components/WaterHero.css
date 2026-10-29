@@ -1,0 +1,303 @@
+.water-hero {
+  padding: 34px 0 42px;
+}
+
+.water-breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: clamp(36px, 4vw, 64px);
+  color: var(--color-text-secondary);
+  font-size: 0.83rem;
+  line-height: 1.6;
+}
+
+.water-breadcrumbs a {
+  color: inherit;
+  text-underline-offset: 4px;
+}
+
+.water-hero__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(320px, 0.72fr);
+  gap: clamp(42px, 6vw, 98px);
+  align-items: stretch;
+}
+
+.water-hero__content {
+  min-width: 0;
+}
+
+.water-hero h1 {
+  max-width: 900px;
+  margin: 0;
+  font-size: clamp(2.9rem, 4.4vw, 4.8rem);
+  line-height: 1.01;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.water-hero__commercial {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 28px 38px;
+  margin: 34px 0 30px;
+}
+
+.water-hero__price > span {
+  color: var(--color-text-secondary);
+  font-size: 0.8rem;
+}
+
+.water-hero__price p {
+  margin: 6px 0 0;
+  white-space: nowrap;
+}
+
+.water-hero__price p > span {
+  font-size: 0.96rem;
+}
+
+.water-hero__price strong {
+  font-size: clamp(2.3rem, 3vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.05em;
+}
+
+.water-hero__actions {
+  display: grid;
+  justify-items: start;
+  gap: 14px;
+}
+
+.water-hero__lead,
+.water-hero__coverage {
+  max-width: 760px;
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: clamp(1rem, 1.1vw, 1.08rem);
+  line-height: 1.7;
+}
+
+.water-hero__coverage {
+  margin-top: 18px;
+}
+
+.water-hero__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 590px;
+  padding: clamp(28px, 3vw, 44px);
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 32px;
+  background: var(--color-text);
+  color: #fff;
+}
+
+.water-hero__panel-top {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgb(255 255 255 / 20%);
+  color: rgb(255 255 255 / 68%);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.water-hero__number {
+  position: relative;
+  z-index: 1;
+  margin: 40px 0 30px;
+  font-size: clamp(5.2rem, 7.5vw, 8.6rem);
+  font-weight: 750;
+  line-height: 0.9;
+  letter-spacing: -0.075em;
+}
+
+.water-hero__facts {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 15px;
+  max-width: 300px;
+  margin: 0 0 124px;
+  padding: 0;
+  list-style: none;
+}
+
+.water-hero__facts li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.water-hero__facts li::before {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  content: '';
+}
+
+.water-hero__orbit {
+  position: absolute;
+  right: -72px;
+  bottom: -150px;
+  width: 370px;
+  height: 370px;
+  border: 1px solid rgb(255 255 255 / 28%);
+  border-radius: 50%;
+  transform: rotate(-15deg);
+}
+
+.water-hero__orbit > span {
+  position: absolute;
+  inset: 30px;
+  border: 1px solid rgb(255 255 255 / 22%);
+  border-radius: 50%;
+}
+
+.water-hero__orbit > span:nth-child(2) {
+  inset: 60px;
+}
+
+.water-hero__orbit > span:nth-child(3) {
+  inset: 90px;
+  border: 0;
+  background: var(--color-accent);
+}
+
+.water-hero__price-note {
+  max-width: 920px;
+  margin: 30px 0 0;
+  padding-left: 16px;
+  border-left: 2px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+
+.water-regulation-summary {
+  padding-block: 26px;
+  border-block: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.water-regulation-summary__layout {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 32px;
+}
+
+.water-regulation-summary p {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+.water-regulation-summary__title {
+  color: var(--color-primary);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.water-regulation-summary__edition {
+  padding-left: 26px;
+  border-left: 1px solid var(--color-border);
+  font-weight: 700;
+}
+
+@media (max-width: 1024px) {
+  .water-hero__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .water-hero__panel {
+    min-height: 0;
+  }
+
+  .water-hero__facts {
+    max-width: 70%;
+    margin-bottom: 20px;
+  }
+
+  .water-regulation-summary__layout {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 14px 24px;
+  }
+
+  .water-regulation-summary__edition {
+    grid-column: 2;
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .water-hero {
+    padding-top: 24px;
+  }
+
+  .water-hero h1 {
+    font-size: clamp(2rem, 8.8vw, 3.3rem);
+    line-height: 1.06;
+    letter-spacing: -0.045em;
+  }
+
+  .water-hero__commercial {
+    gap: 22px;
+    margin-top: 28px;
+  }
+
+  .water-hero__actions {
+    width: 100%;
+  }
+
+  .water-hero__panel {
+    border-radius: 24px;
+  }
+
+  .water-hero__number {
+    font-size: 5.4rem;
+  }
+
+  .water-hero__facts {
+    max-width: 100%;
+    margin-bottom: 86px;
+  }
+
+  .water-hero__orbit {
+    right: -140px;
+    bottom: -220px;
+  }
+
+  .water-regulation-summary__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .water-regulation-summary__edition {
+    grid-column: auto;
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .water-hero__orbit {
+    transition: transform 500ms ease;
+  }
+
+  .water-hero__panel:hover .water-hero__orbit {
+    transform: translate(-8px, -8px) rotate(-15deg);
+  }
+}
