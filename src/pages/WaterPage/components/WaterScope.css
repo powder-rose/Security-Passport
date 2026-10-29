@@ -85,13 +85,21 @@
   gap: clamp(40px, 7vw, 110px);
 }
 
-.water-exclusions > div:last-child {
-  padding-left: 30px;
-  border-left: 1px solid var(--water-line);
-}
-
 .water-exclusions .water-label {
   margin-top: 0;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .water-object {
+    transition:
+      border-color 200ms ease,
+      box-shadow 200ms ease;
+  }
+
+  .water-object:hover {
+    border-color: var(--water-accent);
+    box-shadow: 0 14px 32px rgb(21 21 21 / 6%);
+  }
 }
 
 @media (max-width: 1180px) {
@@ -133,23 +141,5 @@
 
   .water-object h3 {
     font-size: 1.5rem;
-  }
-
-  .water-exclusions > div:last-child {
-    padding-left: 0;
-    border-left: 0;
-  }
-}
-
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .water-object {
-    transition:
-      border-color 200ms ease,
-      box-shadow 200ms ease;
-  }
-
-  .water-object:hover {
-    border-color: var(--water-accent);
-    box-shadow: 0 14px 32px rgb(21 21 21 / 6%);
   }
 }

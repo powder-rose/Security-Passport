@@ -9,6 +9,7 @@
   border-radius: 28px;
   background: var(--color-text);
   color: #fff;
+  box-shadow: 0 24px 50px rgb(0 0 0 / 16%);
 }
 
 .water-regulations__identity .water-kicker {
@@ -38,13 +39,36 @@
   font-size: 0.8rem;
 }
 
-.water-regulations__subjects {
-  margin: 12px 0 28px;
+.water-regulations__topics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 22px 0 32px;
+  padding: 0;
+  list-style: none;
 }
 
-.water-regulations__subjects .water-list {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 26px;
+.water-regulations__topics > li {
+  display: grid;
+  grid-template-columns: 5px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 16px;
+  min-width: 0;
+  padding: 20px 22px;
+  border-radius: 14px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 1rem;
+  font-weight: 550;
+  line-height: 1.55;
+}
+
+.water-regulations__topics > li::before {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  content: '';
 }
 
 .water-changes {
@@ -60,12 +84,16 @@
   grid-column: span 3;
   min-width: 0;
   padding: 28px 30px;
-  border-top: 2px solid var(--water-line);
   background: var(--color-bg);
+  border: 1px solid var(--water-line);
+  border-top: 3px solid transparent;
+  border-radius: 24px;
+  box-shadow: 0 12px 24px rgb(0 0 0 / 4%);
 }
 
 .water-change:nth-child(3) {
   grid-column: span 2;
+  border-top-color: var(--color-accent);
 }
 
 .water-change:nth-child(4) {
@@ -106,6 +134,7 @@
   padding: 20px 0 20px 46px;
   border-left: 1px solid var(--water-line);
   color: var(--color-accent);
+  padding-left: 34px;
 }
 
 .water-transition__date > span:first-child {
@@ -123,28 +152,93 @@
   letter-spacing: -0.035em;
 }
 
+.water-registry-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 5vw, 74px);
+  align-items: start;
+}
+
+.water-registry-intro .water-copy {
+  max-width: 480px;
+}
+
 .water-registry {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 36px;
-  margin: 50px 0 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.water-registry li {
-  padding-top: 22px;
-  border-top: 1px solid var(--water-line);
+.water-registry > li {
+  min-width: 0;
+  padding: 28px;
+  border-radius: 22px;
+  background: var(--color-surface);
+  color: var(--color-text);
 }
 
-.water-registry li:nth-child(2) {
-  border-top: 3px solid var(--water-accent);
+.water-registry > li:first-child {
+  --water-kicker: var(--color-accent);
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 22px;
+  grid-column: 1 / -1;
+  padding: 32px;
+  background: var(--color-text);
+  color: #fff;
+}
+
+.water-registry > li:last-child {
+  background: #eaf3da;
+}
+
+.water-registry .water-index {
+  font-size: 1.7rem;
+  font-weight: 650;
+  letter-spacing: -0.06em;
+  line-height: 1;
 }
 
 .water-registry p {
-  margin: 24px 0 0;
-  color: var(--water-muted);
-  line-height: 1.75;
+  margin: 22px 0 0;
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+.water-registry > li:first-child p {
+  margin: 0;
+  font-size: 1.07rem;
+}
+
+.water-change:nth-child(1) {
+  border-top-color: var(--color-primary);
+}
+
+.water-change:nth-child(2) {
+  border-top-color: #7ea1ff;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .water-registry > li {
+    transition: transform 200ms ease;
+  }
+
+  .water-registry > li:hover {
+    transform: translateY(-3px);
+  }
+}
+
+@media (max-width: 1100px) {
+  .water-registry-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .water-registry-intro .water-copy {
+    max-width: 780px;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -167,11 +261,6 @@
     border-left: 0;
     padding: 25px 0 0;
     border-top: 1px solid var(--water-line);
-  }
-
-  .water-registry {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 24px;
   }
 }
 
@@ -196,7 +285,7 @@
     padding: 26px 24px;
   }
 
-  .water-regulations__subjects .water-list {
+  .water-regulations__topics {
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -210,5 +299,19 @@
 
   .water-transition__date > span:last-child {
     font-size: clamp(1.25rem, 4.8vw, 2rem);
+  }
+
+  .water-registry {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .water-registry > li {
+    padding: 24px;
+  }
+
+  .water-registry > li:first-child {
+    grid-template-columns: 32px minmax(0, 1fr);
+    gap: 16px;
+    padding: 24px;
   }
 }

@@ -41,7 +41,7 @@ export default function WaterCategorization({ onServiceSelect }) {
         </div>
       </WaterSection>
       <WaterSection section={separate} tone="paper">
-        <div className="water-intro-grid">
+        <div className="water-intro-grid water-intro-grid--separate">
           <WaterHeading section={separate} />
           <WaterParagraphs items={separate.paragraphs.slice(0, 1)} />
         </div>
@@ -90,19 +90,17 @@ export default function WaterCategorization({ onServiceSelect }) {
           </div>
         </div>
       </WaterSection>
+
       <WaterSection section={act} tone="paper">
-        <div className="water-act">
-          <div className="water-sticky">
-            <WaterHeading section={act} />
-            <WaterParagraphs items={act.paragraphs} />
-            <WaterNote text={act.note} />
-            <WaterAction action={act.action} onServiceSelect={onServiceSelect} />
-          </div>
-          <div className="water-act__document">
-            <p className="water-act__name">{act.documentName}</p>
-            <WaterTable section={act} />
-            <WaterLink link={act.link} />
-          </div>
+        <WaterHeading section={act} />
+        <div className="water-act__intro">
+          <WaterParagraphs items={act.paragraphs} />
+          <WaterAction action={act.action} onServiceSelect={onServiceSelect} />
+        </div>
+        <WaterTable section={act} layout="facts" />
+        <div className="water-act__footer">
+          <WaterNote text={act.note} />
+          <WaterLink link={act.link} />
         </div>
       </WaterSection>
     </>

@@ -97,30 +97,46 @@ export function WaterDisclosure({ title, number, children, name, open = false })
   );
 }
 
-export function WaterTable({ section, numbered = false }) {
+export function WaterTable({ section, numbered = false, layout = 'standard' }) {
+  const facts = layout === 'facts';
   const numerals = ['I', 'II', 'III', 'IV'];
+
   return (
-    <div className="water-table-scroll" role="region" aria-label={section.title} tabIndex={0}>
-      <table className="water-table">
-        <caption className="water-visually-hidden">{section.title}</caption>
-        <thead>
-          <tr>
+    <div
+      className={facts ? 'water-facts-table' : 'water-table-scroll'}
+      role="region"
+      aria-label={section.title}
+      tabIndex={facts ? undefined : 0}
+    >
+      <table className={facts ? 'water-facts' : 'water-table'} role={facts ? 'table' : undefined}>
+        <caption className="water-visually-hidden">{section.documentName || section.title}</caption>
+        <thead
+          className={facts ? 'water-visually-hidden' : undefined}
+          role={facts ? 'rowgroup' : undefined}
+        >
+          <tr role={facts ? 'row' : undefined}>
             {section.table.headers.map(text => (
-              <th scope="col" key={text}>
+              <th key={text} scope="col" role={facts ? 'columnheader' : undefined}>
                 {text}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody role={facts ? 'rowgroup' : undefined}>
           {section.table.rows.map(([heading, ...cells], index) => (
-            <tr key={heading}>
-              <th scope="row">
+            <tr
+              key={heading}
+              role={facts ? 'row' : undefined}
+              data-scroll-reveal={facts ? '' : undefined}
+            >
+              <th scope="row" role={facts ? 'rowheader' : undefined}>
                 {numbered ? <WaterIndex number={numerals[index]} /> : null}
                 <span>{heading}</span>
               </th>
               {cells.map(text => (
-                <td key={text}>{text}</td>
+                <td key={text} role={facts ? 'cell' : undefined}>
+                  {text}
+                </td>
               ))}
             </tr>
           ))}

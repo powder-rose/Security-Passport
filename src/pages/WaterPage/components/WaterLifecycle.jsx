@@ -3,7 +3,6 @@ import {
   WaterDisclosure,
   WaterHeading,
   WaterLink,
-  WaterList,
   WaterParagraphs,
   WaterSection,
 } from './WaterContent';
@@ -18,7 +17,7 @@ export default function WaterLifecycle() {
       <WaterSection section={validity}>
         <WaterHeading section={validity} />
         <div className="water-validity">
-          <div className="water-validity__term">
+          <div className="water-validity__term water-sticky">
             <span aria-hidden="true">
               5 <small>лет</small>
             </span>
@@ -26,9 +25,20 @@ export default function WaterLifecycle() {
           </div>
           <div className="water-validity__replacement">
             <WaterDisclosure number="↗" title={validity.replacement.label} open>
-              <WaterList items={validity.replacement.items} />
+              <ul className="water-validity__reasons">
+                {validity.replacement.items.map(text => (
+                  <li key={text}>
+                    <span>{text}</span>
+                  </li>
+                ))}
+              </ul>
             </WaterDisclosure>
-            <p className="water-validity__deadline">{validity.replacement.timing}</p>
+            <div className="water-validity__deadline">
+              <span aria-hidden="true">
+                3 <small>месяца</small>
+              </span>
+              <p>{validity.replacement.timing}</p>
+            </div>
           </div>
         </div>
       </WaterSection>

@@ -1,5 +1,6 @@
 import { rosgvardiaObjectType } from './rosgvardiaObjectType.js';
 import { marketObjectType } from './marketObjectType.js';
+import { waterObjectType } from './waterObjectType.js';
 
 export const objectTypes = [
   {
@@ -285,6 +286,7 @@ export const objectTypes = [
     accent: 'Соцсфера',
   },
   marketObjectType,
+  waterObjectType,
 ];
 
 
