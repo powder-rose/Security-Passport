@@ -89,6 +89,10 @@
   margin-top: 0;
 }
 
+.water-exclusions .water-heading {
+  --water-heading-size: clamp(2rem, 2.7vw, 3rem);
+}
+
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .water-object {
     transition:

@@ -61,6 +61,10 @@
   align-items: start;
 }
 
+.water-process .water-heading {
+  --water-heading-size: clamp(1.95rem, 2.45vw, 2.75rem);
+}
+
 .water-process__timing {
   margin: 32px 0 0;
   padding: 25px 0 0;

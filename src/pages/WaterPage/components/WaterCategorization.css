@@ -148,6 +148,10 @@
   align-items: start;
 }
 
+.water-commission .water-heading {
+  --water-heading-size: clamp(2rem, 2.65vw, 3rem);
+}
+
 .water-commission__timing {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
