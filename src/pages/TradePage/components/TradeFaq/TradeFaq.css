@@ -106,6 +106,8 @@
 }
 
 .trade-faq__answer {
+  display: grid;
+  gap: 18px;
   padding: 0 54px 28px 72px;
 }
 

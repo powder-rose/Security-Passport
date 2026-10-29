@@ -35,7 +35,9 @@ export default function TradeFaq() {
                   </summary>
 
                   <div className="trade-faq__answer">
-                    <p>{item.answer}</p>
+                    {(Array.isArray(item.answer) ? item.answer : [item.answer]).map(paragraph => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
                   </div>
                 </details>
               ))}

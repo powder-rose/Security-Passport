@@ -1,6 +1,7 @@
 import './TradePage.css';
 
 import './components/TradeHeroAndObjects/TradeHeroAndObjects.css';
+import './components/TradeMarket/TradeMarket.css';
 import './components/TradeRegulation/TradeRegulation.css';
 import './components/TradeRegulationChanges/TradeRegulationChanges.css';
 import './components/TradeCategorizationAndAct/TradeCategorizationAndAct.css';
@@ -18,6 +19,8 @@ import './components/TradeWorkApproach/TradeWorkApproach.css';
 import './components/TradeFaq/TradeFaq.css';
 
 import TradeHeroAndObjects from './components/TradeHeroAndObjects/TradeHeroAndObjects';
+
+import TradeMarket from './components/TradeMarket/TradeMarket';
 
 import TradeRegulation from './components/TradeRegulation/TradeRegulation';
 
@@ -54,6 +57,8 @@ export default function TradePage() {
   return (
     <main id="main-content" className="trade-page">
       <TradeHeroAndObjects />
+
+      <TradeMarket />
 
       <TradeRegulation />
 

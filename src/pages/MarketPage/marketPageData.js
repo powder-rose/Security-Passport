@@ -23,7 +23,7 @@ export const marketLinks = {
   },
   trade: {
     href: '/pasport-bezopasnosti-torgovogo-obekta/',
-    label: 'Паспорт безопасности торгового объекта',
+    label: 'Паспорт безопасности торгового объекта по ПП РФ № 1273',
   },
   article: {
     href: '/blog/pasport-bezopasnosti-rynka/',
