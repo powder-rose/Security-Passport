@@ -5,7 +5,7 @@ import { tradeObjects } from '../../tradePageData';
 export default function TradeHeroAndObjects() {
   return (
     <>
-      <section className="trade-hero" id="top">
+      <section className="trade-hero">
         <Container>
           <nav className="trade-breadcrumbs" aria-label="Хлебные крошки">
             <a href="/">Паспорт безопасности</a>
