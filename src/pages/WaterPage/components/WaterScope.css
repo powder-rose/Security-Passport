@@ -90,7 +90,7 @@
 }
 
 .water-exclusions .water-heading {
-  --water-heading-size: clamp(2rem, 2.7vw, 3rem);
+  --water-heading-size: clamp(1.9rem, 2.2vw, 2.45rem);
 }
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {

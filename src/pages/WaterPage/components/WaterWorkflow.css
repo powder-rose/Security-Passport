@@ -62,7 +62,7 @@
 }
 
 .water-process .water-heading {
-  --water-heading-size: clamp(1.95rem, 2.45vw, 2.75rem);
+  --water-heading-size: clamp(1.85rem, 2.05vw, 2.35rem);
 }
 
 .water-process__timing {

@@ -149,7 +149,7 @@
 }
 
 .water-commission .water-heading {
-  --water-heading-size: clamp(2rem, 2.65vw, 3rem);
+  --water-heading-size: clamp(1.9rem, 2.2vw, 2.45rem);
 }
 
 .water-commission__timing {
