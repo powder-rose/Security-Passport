@@ -311,6 +311,21 @@ if (canonical) {
     }
   }
 
+  // Card lists must not carry the full archive into every generated document.
+  // Use the same compact data for SSR and hydration to preserve their markup.
+  const blogArticleCards = publishedArticles.map(article => ({
+    id: article.id,
+    title: article.title,
+    slug: article.slug,
+    image: article.image || '',
+    imageAlt: article.imageAlt || '',
+    seoDescription: article.seoDescription || '',
+    category: article.category || '',
+    createdAt: article.createdAt,
+    updatedAt: article.updatedAt,
+    publishedAt: article.publishedAt,
+  }));
+
   function createBlogDocument(renderResult, blogData, routeCssSource) {
     let document = objectTypeBaseTemplate
       .replace(/<title>[\s\S]*?<\/title>/i, '')
@@ -338,8 +353,15 @@ if (canonical) {
       `<script>` + `window.__PASSPORT_BLOG__=` + `${serializedBlogData};` + `</script>`;
 
     document = document
-      .replace('</head>', `${resultHeadTags}\n` + `${resultBootstrap}\n` + `</head>`)
-      .replace('<div id="root"></div>', `<div id="root">` + `${renderResult.html}` + `</div>`);
+      .replace('</head>', `${resultHeadTags}\n</head>`)
+      .replace('<div id="root"></div>', `<div id="root">` + `${renderResult.html}` + `</div>`)
+      .replace('</body>', `${resultBootstrap}\n</body>`);
+
+    if (Buffer.byteLength(document, 'utf8') > 2_000_000) {
+      throw new Error(
+        'Blog HTML exceeds the 2,000,000-byte limit. Reduce article or bootstrap data.',
+      );
+    }
 
     return document;
   }
@@ -490,7 +512,7 @@ if (canonical) {
   const blogResult = render({
     pathname: '/blog/',
 
-    blogArticles: publishedArticles,
+    blogArticles: blogArticleCards,
 
     article: null,
   });
@@ -499,7 +521,7 @@ if (canonical) {
     blogResult,
 
     {
-      articles: publishedArticles,
+      articles: blogArticleCards,
 
       article: null,
     },
@@ -538,7 +560,7 @@ if (canonical) {
     const articleResult = render({
       pathname: articlePathname,
 
-      blogArticles: publishedArticles,
+      blogArticles: blogArticleCards,
 
       article,
     });
@@ -547,7 +569,7 @@ if (canonical) {
       articleResult,
 
       {
-        articles: publishedArticles,
+        articles: blogArticleCards,
 
         article,
       },
