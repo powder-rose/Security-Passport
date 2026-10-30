@@ -26,10 +26,15 @@ Production состоит из следующих основных уровне�
 Версионируемые конфигурации:
 
     deploy/nginx/pasport-bezopasnosty.ru.conf
+    deploy/nginx/pasport-bezopasnosty-http.conf
     deploy/nginx/regions-wildcard.conf
     deploy/nginx/snippets/options-ssl-pasport-bezopasnosty.conf
 
 pasport-bezopasnosty.ru.conf соответствует фактически активной production-конфигурации федерального домена.
+
+pasport-bezopasnosty-http.conf обслуживает HTTP-запросы к основному домену на порту 80 и перенаправляет их на HTTPS с сохранением пути и параметров. Он устанавливается в `/etc/nginx/sites-available/pasport-bezopasnosty-http.conf` и подключается одноимённой ссылкой из `sites-enabled`.
+
+Путь `/.well-known/acme-challenge/` сохраняет прежний HTTP webroot `/var/www/html`. Это исключение предназначено для проверки HTTP-01. Оно само по себе не проверяет настройки Certbot или успешность продления сертификата.
 
 regions-wildcard.conf обслуживает старые региональные поддомены и перенаправляет их на федеральный сайт.
 
