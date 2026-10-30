@@ -6,6 +6,7 @@ const illustrationSources = {
   culture: '/images/illustrations/culture.webp',
   trade: '/images/illustrations/trade.webp',
   market: '/images/illustrations/overview.webp',
+  water: '/images/illustrations/overview.webp',
   sport: '/images/illustrations/sport.webp',
   health: '/images/illustrations/health.webp',
   crowd: '/images/illustrations/crowd.webp',

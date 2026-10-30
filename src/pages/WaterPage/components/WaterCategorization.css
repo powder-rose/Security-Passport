@@ -4,29 +4,34 @@
 
 .water-criteria .water-list {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 50px;
+  gap: 16px 18px;
 }
 
 .water-criteria .water-list > li {
   padding-block: 24px;
+  padding: 24px 24px 24px 22px;
+  border: 1px solid var(--water-line);
+  border-radius: 22px;
+  background: var(--color-surface);
 }
 
 .water-criteria__conclusion {
   margin: 34px 0 0;
   padding: 28px 32px;
   border-radius: 20px;
-  background: var(--color-text);
   color: #fff;
   font-size: clamp(1.05rem, 1.4vw, 1.25rem);
   line-height: 1.6;
+  background: var(--color-text);
+  box-shadow: 0 22px 44px rgb(0 0 0 / 10%);
 }
 
 .water-categories-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.55fr) minmax(250px, 0.55fr);
-  gap: 40px;
-  align-items: start;
   margin-top: 36px;
+  gap: 30px;
+  align-items: stretch;
 }
 
 .water-categories-layout .water-table {
@@ -34,7 +39,11 @@
 }
 
 .water-categories-notes {
-  padding: 8px 0;
+  align-self: stretch;
+  padding: 28px;
+  border: 1px solid var(--water-line);
+  border-radius: 24px;
+  background: var(--color-surface);
 }
 
 .water-territories {
@@ -52,13 +61,14 @@
   min-width: 0;
   padding: clamp(26px, 3vw, 42px);
   border: 1px solid var(--water-line);
-  border-radius: 26px;
   background: var(--color-bg);
+  border-radius: 28px;
+  box-shadow: 0 16px 36px rgb(0 0 0 / 5%);
 }
 
 .water-territories__operators {
-  background: var(--color-text);
   color: #fff;
+  background: var(--color-text);
 }
 
 .water-territories__diagram {
@@ -66,14 +76,17 @@
   grid-template-columns: minmax(26px, 1fr) auto minmax(26px, 1fr);
   gap: 20px;
   align-items: center;
-  min-height: 150px;
+  min-height: 170px;
+  padding: 8px 0;
 }
 
 .water-territories__diagram > span {
-  height: 110px;
   border: 1px dashed var(--color-primary);
   border-radius: 18px;
-  background: rgb(7 84 214 / 3%);
+  height: 88px;
+  border-style: solid;
+  border-color: rgb(40 88 255 / 35%);
+  background: var(--color-surface);
 }
 
 .water-territories__diagram strong {
@@ -81,6 +94,8 @@
   font-size: 0.86rem;
   font-weight: 600;
   text-align: center;
+  position: relative;
+  padding: 0 10px;
 }
 
 .water-territories__diagram b {
@@ -95,16 +110,18 @@
   align-items: center;
   gap: 22px;
   min-height: 150px;
+  position: relative;
 }
 
 .water-territories__marks > span {
   display: grid;
   place-items: center;
-  width: 90px;
-  height: 90px;
   border: 1px solid rgb(255 255 255 / 35%);
   border-radius: 50%;
   font-size: 1.6rem;
+  width: 88px;
+  height: 88px;
+  backdrop-filter: blur(2px);
 }
 
 .water-territories__marks > span:last-child {
@@ -124,12 +141,15 @@
   line-height: 1.7;
 }
 
-.water-commission,
-.water-act {
+.water-commission {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   gap: clamp(40px, 7vw, 110px);
   align-items: start;
+}
+
+.water-commission .water-heading {
+  --water-heading-size: clamp(1.9rem, 2.2vw, 2.45rem);
 }
 
 .water-commission__timing {
@@ -137,9 +157,10 @@
   grid-template-columns: auto minmax(0, 1fr);
   gap: 28px;
   align-items: center;
-  padding: 28px;
-  border-radius: 24px;
   background: var(--color-accent);
+  padding: 30px 34px;
+  border-radius: 30px;
+  box-shadow: 0 18px 36px rgb(170 230 76 / 18%);
 }
 
 .water-commission__timing > span {
@@ -164,6 +185,10 @@
 
 .water-commission__people {
   margin: 32px 0;
+  padding: 30px 32px;
+  border: 1px solid var(--water-line);
+  border-radius: 24px;
+  background: var(--color-surface);
 }
 
 .water-commission__people > p {
@@ -179,43 +204,183 @@
   border-top: 1px solid var(--water-line);
   color: var(--water-muted);
   line-height: 1.7;
+  padding: 26px 0 0;
+  font-size: 1rem;
 }
 
-.water-act__document {
+.water-act__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 40px;
+  align-items: center;
+  margin: 28px 0 38px;
+}
+
+.water-act__intro .water-copy {
+  max-width: 800px;
+}
+
+.water-act__footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.75fr);
+  gap: 48px;
+  align-items: center;
+  margin-top: 26px;
+}
+
+.water-act__footer .water-note {
+  margin-block: 0;
+}
+
+.water-act__footer .water-link {
+  margin-top: 0;
+  justify-self: end;
+  max-width: 380px;
+}
+
+.water-facts-table {
   min-width: 0;
-  padding: clamp(22px, 2.7vw, 38px);
-  border: 1px solid var(--water-line);
-  border-top: 5px solid var(--water-accent);
-  border-radius: 8px 8px 26px 26px;
+}
+
+.water-facts {
+  display: block;
+  width: 100%;
+  border-spacing: 0;
+  text-align: left;
+}
+
+.water-facts tbody {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.water-facts tbody tr {
+  grid-column: span 3;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+  padding: 26px;
+  border-radius: 20px;
   background: var(--color-bg);
+  color: var(--color-text);
 }
 
-.water-act__name {
-  margin: 0 0 28px;
-  font-size: 1.16rem;
-  font-weight: 750;
-  line-height: 1.45;
+.water-facts th[scope='row'] {
+  display: block;
+  padding: 0;
+  color: var(--color-primary);
+  font-size: 0.74rem;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  font-weight: 700;
 }
 
-.water-act .water-table {
-  min-width: 400px;
-  font-size: 0.88rem;
+.water-facts td {
+  display: block;
+  padding: 0;
+  font-size: clamp(1.12rem, 1.4vw, 1.4rem);
+  line-height: 1.38;
+  letter-spacing: -0.02em;
+  font-weight: 650;
 }
 
-.water-act .water-table th,
-.water-act .water-table td {
-  padding: 16px 20px;
+.water-facts tbody tr:nth-child(2) {
+  background: var(--color-accent);
+}
+
+.water-facts tbody tr:nth-child(2) th {
+  color: var(--color-text);
+}
+
+.water-facts tbody tr:nth-child(2) td {
+  font-size: 3.4rem;
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.water-facts tbody tr:nth-child(n + 5) {
+  grid-column: span 4;
+}
+
+.water-facts tbody tr:nth-child(5) {
+  background: var(--color-text);
+  color: #fff;
+}
+
+.water-facts tbody tr:nth-child(5) th {
+  color: var(--color-accent);
+}
+
+.water-categories-layout .water-table-scroll {
+  box-shadow: 0 18px 36px rgb(0 0 0 / 6%);
+}
+
+.water-categories-notes .water-note {
+  margin-bottom: 0;
+}
+
+.water-territories__distance {
+  background: var(--color-surface);
+}
+
+.water-territories__marks::after {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1px;
+  background: rgb(255 255 255 / 10%);
+  content: '';
+}
+
+.water-commission__people > .water-copy {
+  gap: 14px;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .water-facts tbody tr {
+    transition: transform 180ms ease;
+  }
+
+  .water-facts tbody tr:hover {
+    transform: translateY(-3px);
+  }
 }
 
 @media (max-width: 1100px) {
   .water-categories-layout,
-  .water-commission,
-  .water-act {
+  .water-commission {
     grid-template-columns: minmax(0, 1fr);
   }
 
   .water-categories-notes {
     max-width: 860px;
+  }
+}
+
+@media (max-width: 900px) {
+  .water-act__intro,
+  .water-act__footer {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .water-act__intro > .service-action,
+  .water-act__footer .water-link {
+    justify-self: start;
+  }
+
+  .water-facts tbody {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .water-facts tbody tr,
+  .water-facts tbody tr:nth-child(n + 5) {
+    grid-column: auto;
+  }
+
+  .water-facts tbody tr:last-child {
+    grid-column: 1 / -1;
   }
 }
 
@@ -247,5 +412,23 @@
 
   .water-criteria__conclusion {
     padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .water-facts tbody {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .water-facts tbody tr {
+    gap: 16px;
+    padding: 22px;
+  }
+
+  .water-facts tbody tr:nth-child(2) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 }

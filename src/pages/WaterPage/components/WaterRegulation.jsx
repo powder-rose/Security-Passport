@@ -4,7 +4,6 @@ import {
   WaterAction,
   WaterHeading,
   WaterIndex,
-  WaterList,
   WaterNote,
   WaterParagraphs,
   WaterSection,
@@ -48,9 +47,13 @@ export default function WaterRegulation({ onServiceSelect }) {
             <WaterHeading section={regulations} />
             <WaterParagraphs items={regulations.paragraphs} />
             <p className="water-label">{regulations.listLabel}</p>
-            <div className="water-regulations__subjects">
-              <WaterList items={regulations.items} ordered />
-            </div>
+            <ul className="water-regulations__topics">
+              {regulations.items.map(text => (
+                <li key={text} data-scroll-reveal>
+                  <span>{text}</span>
+                </li>
+              ))}
+            </ul>
             <WaterParagraphs items={regulations.notes} />
           </div>
         </div>
@@ -87,19 +90,22 @@ export default function WaterRegulation({ onServiceSelect }) {
           </div>
         </WaterSection>
       ) : null}
+
       <WaterSection section={registry}>
-        <div className="water-intro-grid">
-          <WaterHeading section={registry} />
-          <WaterParagraphs items={registry.paragraphs.slice(0, 1)} />
+        <div className="water-registry-layout">
+          <div className="water-registry-intro water-sticky">
+            <WaterHeading section={registry} />
+            <WaterParagraphs items={registry.paragraphs.slice(0, 1)} />
+          </div>
+          <ol className="water-registry">
+            {registry.paragraphs.slice(1).map((text, index) => (
+              <li key={text} data-scroll-reveal>
+                <WaterIndex number={String(index + 1).padStart(2, '0')} />
+                <p>{text}</p>
+              </li>
+            ))}
+          </ol>
         </div>
-        <ol className="water-registry">
-          {registry.paragraphs.slice(1).map((text, index) => (
-            <li key={text} data-scroll-reveal>
-              <WaterIndex number={String(index + 1).padStart(2, '0')} />
-              <p>{text}</p>
-            </li>
-          ))}
-        </ol>
       </WaterSection>
     </>
   );

@@ -1,15 +1,14 @@
 .water-page {
   --water-ink: var(--color-text);
-  --water-muted: var(--color-text-secondary);
   --water-line: var(--color-border);
   --water-accent: var(--color-accent);
   --water-kicker: var(--color-primary);
   color: var(--water-ink);
+  --water-muted: #53565c;
 }
 
 .water-section {
   padding: clamp(76px, 7.6vw, 122px) 0;
-  border-top: 1px solid var(--water-line);
   background: var(--color-bg);
 }
 
@@ -43,11 +42,13 @@
 .water-heading h2 {
   max-width: 1060px;
   margin: 0;
-  font-size: clamp(2.2rem, 3.45vw, 3.8rem);
   line-height: 1.04;
   letter-spacing: -0.05em;
   text-wrap: balance;
-  overflow-wrap: anywhere;
+  font-size: var(--water-heading-size, clamp(2rem, 3.1vw, 3.5rem));
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
 }
 
 .water-intro-grid {
@@ -125,9 +126,9 @@
   font-size: 0.96rem;
   font-weight: 700;
   line-height: 1.55;
-  text-decoration: underline;
   text-decoration-color: transparent;
   text-underline-offset: 5px;
+  text-decoration: none;
 }
 
 .water-link > span:first-child {
@@ -153,29 +154,28 @@
 
 .water-list {
   display: grid;
-  gap: 0;
   margin: 0;
   padding: 0;
   list-style: none;
+  gap: 18px;
 }
 
 .water-list > li {
   position: relative;
-  padding: 17px 0 17px 22px;
-  border-bottom: 1px solid var(--water-line);
   color: var(--water-muted);
   line-height: 1.65;
+  padding: 0 0 0 22px;
 }
 
 .water-list:not(.water-list--numbered) > li::before {
   position: absolute;
   left: 0;
-  top: 27px;
   width: 5px;
   height: 5px;
   border-radius: 50%;
   background: var(--water-kicker);
   content: '';
+  top: 0.65em;
 }
 
 .water-list--numbered > li {
@@ -186,11 +186,10 @@
 }
 
 .water-list--numbered .water-index {
-  padding-top: 5px;
+  padding-top: 4px;
 }
 
 .water-disclosure {
-  border-bottom: 1px solid var(--water-line);
 }
 
 .water-disclosure > summary {
@@ -198,10 +197,10 @@
   grid-template-columns: 34px minmax(0, 1fr) 36px;
   gap: 18px;
   align-items: center;
-  min-height: 86px;
-  padding: 22px 0;
   cursor: pointer;
   list-style: none;
+  min-height: 84px;
+  padding: 22px 0;
 }
 
 .water-disclosure > summary::-webkit-details-marker {
@@ -218,7 +217,7 @@
   font-size: 1.03rem;
   font-weight: 750;
   line-height: 1.5;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
 }
 
 .water-disclosure__icon {
@@ -227,8 +226,8 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: var(--color-bg);
   color: var(--color-text);
+  background: #f0efe9;
 }
 
 .water-disclosure__icon::before,
@@ -250,6 +249,7 @@
 
 .water-disclosure[open] .water-disclosure__icon {
   background: var(--color-accent);
+  color: var(--color-text);
 }
 
 .water-disclosure[open] .water-disclosure__icon::after {
@@ -307,10 +307,10 @@
   left: 0;
   width: 29%;
   min-width: 140px;
-  background: #f0f1e9;
   color: var(--color-text);
   font-weight: 750;
   box-shadow: 1px 0 var(--water-line);
+  background: #f0f1e9;
 }
 
 .water-table th[scope='row'] .water-index {
@@ -343,11 +343,79 @@
   white-space: nowrap;
 }
 
+.water-disclosure > summary:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 5px;
+  border-radius: 12px;
+}
+
 @media (min-width: 1101px) and (min-height: 800px) {
   .water-sticky {
     position: sticky;
     top: 110px;
   }
+}
+
+@media (hover: hover) {
+  .water-disclosure > summary:hover .water-disclosure__title {
+    color: var(--color-primary);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .water-disclosure__icon,
+  .water-disclosure__icon::after {
+    transition:
+      background-color 180ms ease,
+      transform 180ms ease;
+  }
+
+  .water-link span:first-child,
+  .water-disclosure > summary,
+  .water-disclosure__icon {
+    transition:
+      color 180ms ease,
+      transform 180ms ease,
+      background-color 180ms ease;
+  }
+
+  .water-disclosure > summary:hover {
+    transform: translateX(2px);
+  }
+
+  .water-disclosure[open] > .water-disclosure__body {
+    animation: water-disclosure-enter 220ms ease-out;
+  }
+
+  @keyframes water-disclosure-enter {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+.water-link:hover span:first-child {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+
+.water-table thead th:first-child {
+  border-top-left-radius: 22px;
+}
+
+.water-table thead th:last-child {
+  border-top-right-radius: 22px;
+}
+
+.water-table tbody tr:nth-child(even) td {
+  background: rgb(21 21 21 / 1.8%);
 }
 
 @media (max-width: 1024px) {
@@ -364,7 +432,7 @@
 
 @media (max-width: 640px) {
   .water-heading h2 {
-    font-size: clamp(1.9rem, 7.5vw, 2.75rem);
+    font-size: var(--water-heading-size, clamp(1.55rem, 5.9vw, 2.25rem));
     line-height: 1.08;
     letter-spacing: -0.04em;
   }
@@ -410,17 +478,21 @@
   }
 }
 
-@media (hover: hover) {
-  .water-disclosure > summary:hover .water-disclosure__title {
-    color: var(--color-primary);
+@media (max-width: 480px) {
+  .water-disclosure > summary {
+    grid-template-columns: minmax(0, 1fr) 32px;
+    gap: 12px;
+  }
+  .water-disclosure > summary > .water-index {
+    display: none;
+  }
+  .water-disclosure__body {
+    padding-left: 0;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .water-disclosure__icon,
-  .water-disclosure__icon::after {
-    transition:
-      background-color 180ms ease,
-      transform 180ms ease;
+@media (max-width: 360px) {
+  .water-heading h2 {
+    font-size: var(--water-heading-size, 1.4rem);
   }
 }

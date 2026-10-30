@@ -10,6 +10,12 @@ import { WaterAction } from './WaterContent';
 import './WaterHero.css';
 
 export default function WaterHero({ objectType, onServiceSelect }) {
+  const coverageEnd = objectType.pageCoverage.indexOf('.') + 1;
+  const coverage = coverageEnd
+    ? objectType.pageCoverage.slice(0, coverageEnd)
+    : objectType.pageCoverage;
+  const edition = coverageEnd ? objectType.pageCoverage.slice(coverageEnd).trim() : '';
+
   return (
     <>
       <section className="water-hero" aria-labelledby="water-hero-title">
@@ -43,7 +49,15 @@ export default function WaterHero({ objectType, onServiceSelect }) {
                 </div>
               </div>
               <p className="water-hero__lead">{objectType.pageLead}</p>
-              <p className="water-hero__coverage">{objectType.pageCoverage}</p>
+              <p className="water-hero__coverage">
+                <span className="water-hero__coverage-main">{coverage}</span>
+                {edition ? (
+                  <>
+                    {' '}
+                    <span className="water-hero__edition">{edition}</span>
+                  </>
+                ) : null}
+              </p>
             </div>
             <aside className="water-hero__panel" aria-label={objectType.regulationFocus}>
               <div className="water-hero__panel-top">
@@ -56,14 +70,9 @@ export default function WaterHero({ objectType, onServiceSelect }) {
                   <li key={fact}>{fact}</li>
                 ))}
               </ul>
-              <div className="water-hero__orbit" aria-hidden="true">
-                <span />
-                <span />
-                <span />
-              </div>
+              <span className="water-hero__accent" aria-hidden="true" />
             </aside>
           </div>
-          <p className="water-hero__price-note">{waterHeroPrice.note}</p>
         </Container>
       </section>
       <section
