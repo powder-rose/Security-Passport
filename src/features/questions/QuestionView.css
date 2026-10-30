@@ -1,5 +1,5 @@
 .question-page {
-  padding: 76px 0 0;
+  padding: 0 0 clamp(72px, 8vw, 112px);
 }
 
 .question-page--preview {
@@ -7,7 +7,7 @@
 }
 
 .question-preview-shell {
-  padding-top: 76px;
+  padding-top: 0;
 }
 
 .question-progress {
@@ -80,8 +80,9 @@
 .question-short {
   padding: 34px;
   border-radius: 24px;
-  background: var(--color-primary);
-  color: white;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
 }
 
 .question-short__label {
@@ -228,7 +229,7 @@
 }
 
 .question-content th {
-  background: #e8edff;
+  background: var(--color-bg);
 }
 
 .question-content img,
