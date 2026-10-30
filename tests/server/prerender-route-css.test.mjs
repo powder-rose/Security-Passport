@@ -298,6 +298,117 @@ function countOccurrences(source, value) {
   return source.split(value).length - 1;
 }
 
+test('a large article archive keeps blog bootstrap compact and after the server-rendered content', async () => {
+  const fixture = await createFixture();
+
+  try {
+    const articlesFile = path.join(fixture.root, 'data', 'articles.json');
+    const [template] = JSON.parse(await fs.readFile(articlesFile, 'utf8'));
+    const articles = Array.from({ length: 120 }, (_, index) => ({
+      ...template,
+      id: `article-${index}`,
+      slug: `article-${index}`,
+      title: `Статья ${index} </script> & >`,
+      content: `<p>ARTICLE_BODY_${index}_${'данные '.repeat(4000)}</p>`,
+    }));
+
+    await fs.writeFile(
+      articlesFile,
+      JSON.stringify([...articles, { ...template, slug: 'draft', status: 'draft' }]),
+      'utf8',
+    );
+
+    await execFileAsync(process.execPath, [fixture.copiedPrerender], {
+      cwd: fixture.root,
+      env: {
+        ...process.env,
+        PRERENDER_CLIENT_DIR: fixture.clientDirectory,
+        PRERENDER_SERVER_ENTRY: fixture.serverEntry,
+        PRERENDER_TEMPLATE_DIR: fixture.templateDirectory,
+      },
+      windowsHide: true,
+    });
+
+    for (const article of [null, articles[0], articles.at(-1)]) {
+      const output = article
+        ? path.join(fixture.clientDirectory, 'blog', article.slug, 'index.html')
+        : path.join(fixture.clientDirectory, 'blog', 'index.html');
+      const document = await fs.readFile(output, 'utf8');
+      const bootstrap = document.match(/<script>window\.__PASSPORT_BLOG__=([\s\S]*?);<\/script>/);
+
+      assert.ok(bootstrap);
+      assert.ok(document.indexOf(bootstrap[0]) > document.indexOf('</main>'));
+      assert.ok(document.indexOf(bootstrap[0]) < document.indexOf('</body>'));
+      assert.ok(Buffer.byteLength(document, 'utf8') < 300_000);
+
+      const data = JSON.parse(bootstrap[1]);
+
+      assert.equal(data.articles.length, articles.length);
+      assert.deepEqual(
+        data.articles.map(item => item.slug),
+        articles.map(item => item.slug),
+      );
+      assert.equal(data.articles[0].title, articles[0].title);
+      assert.equal(data.articles[0].category, template.category);
+      assert.ok(data.articles.every(item => !Object.hasOwn(item, 'content')));
+      assert.ok(data.articles.every(item => !Object.hasOwn(item, 'legacySlugs')));
+      assert.doesNotMatch(bootstrap[1], /<|>|&/);
+
+      if (article) {
+        assert.deepEqual(data.article, article);
+        const otherArticle = article === articles[0] ? articles.at(-1) : articles[0];
+
+        assert.doesNotMatch(document, new RegExp(`ARTICLE_BODY_${otherArticle.id.slice(8)}_`));
+      } else {
+        assert.equal(data.article, null);
+        assert.doesNotMatch(document, /ARTICLE_BODY_/);
+      }
+
+      const prefix = Buffer.from(document).subarray(0, 2_000_000).toString('utf8');
+
+      assert.match(prefix, /<div id="root"><main><h1>/);
+      assert.match(prefix, /<\/main>/);
+    }
+  } finally {
+    await fs.rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test('prerender rejects blog HTML above the uncompressed byte limit', async () => {
+  const fixture = await createFixture();
+
+  try {
+    const articlesFile = path.join(fixture.root, 'data', 'articles.json');
+    const [article] = JSON.parse(await fs.readFile(articlesFile, 'utf8'));
+
+    await fs.writeFile(
+      articlesFile,
+      JSON.stringify([{ ...article, content: `<p>${'я'.repeat(1_000_000)}</p>` }]),
+      'utf8',
+    );
+
+    await assert.rejects(
+      execFileAsync(process.execPath, [fixture.copiedPrerender], {
+        cwd: fixture.root,
+        env: {
+          ...process.env,
+          PRERENDER_CLIENT_DIR: fixture.clientDirectory,
+          PRERENDER_SERVER_ENTRY: fixture.serverEntry,
+          PRERENDER_TEMPLATE_DIR: fixture.templateDirectory,
+        },
+        windowsHide: true,
+      }),
+      error => {
+        assert.match(error.stderr, /Blog HTML exceeds the 2,000,000-byte limit/);
+
+        return true;
+      },
+    );
+  } finally {
+    await fs.rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
 test('blog, article and object prerender include route CSS from the complete Vite manifest graph without duplicating base CSS', async () => {
   const fixture = await createFixture();
 
