@@ -32,6 +32,8 @@ export default function App({
   pathname,
   initialBlogArticles = null,
   initialArticle = null,
+  initialQuestionsData = null,
+  initialRelatedQuestions = null,
   routeComponents = {},
 }) {
   const resolvedPathname =
@@ -46,12 +48,35 @@ export default function App({
 
     BlogPage: BlogPageComponent,
 
+    QuestionsPage: QuestionsPageComponent,
+
+    QuestionPage: QuestionPageComponent,
+
     ArticlePage: ArticlePageComponent,
 
     objectTypeComponents = {},
 
     servicePageComponents = {},
   } = routeComponents;
+
+  if (normalizedPathname === '/questions' || /^\/questions\/[^/]+$/.test(normalizedPathname)) {
+    return (
+      <>
+        <Analytics />
+        <CookieNotice />
+        <Header pathname={resolvedPathname} />
+        {normalizedPathname === '/questions' ? (
+          <QuestionsPageComponent initialData={initialQuestionsData} />
+        ) : (
+          <QuestionPageComponent
+            slug={normalizedPathname.split('/').at(-1)}
+            initialData={initialQuestionsData}
+          />
+        )}
+        <Footer />
+      </>
+    );
+  }
 
   if (normalizedPathname === '/blog') {
     return (
@@ -90,6 +115,7 @@ export default function App({
           slug={articleSlug}
           initialArticle={initialArticle}
           initialArticles={initialBlogArticles}
+          initialQuestions={initialRelatedQuestions}
         />
 
         <Footer />

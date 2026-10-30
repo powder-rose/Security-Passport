@@ -25,6 +25,7 @@ const [
   { createAdminAuth },
   { registerAdminRoutes },
   { registerArticleRoutes },
+  { registerQuestionRoutes, startQuestionScheduler },
   { registerPublicApiRoutes },
   { registerFrontendServing },
   { registerHttpMiddleware, registerHttpErrorHandler },
@@ -38,6 +39,7 @@ const [
   import('./auth/admin-auth.mjs'),
   import('./http/admin-routes.mjs'),
   import('./http/article-routes.mjs'),
+  import('./http/question-routes.mjs'),
   import('./http/public-api-routes.mjs'),
   import('./http/frontend-serving.mjs'),
   import('./http/http-middleware.mjs'),
@@ -106,6 +108,9 @@ registerArticleRoutes({
   clientDir,
   uploadsDir,
 });
+
+registerQuestionRoutes({ app, adminAuth, clientDir });
+startQuestionScheduler();
 
 registerPublicApiRoutes({
   app,

@@ -1,3 +1,4 @@
+import { createContentSlug as createSlug } from '../../shared/contracts/content-slug.js';
 import crypto from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -196,63 +197,6 @@ function assertPublishedArticleSeo({ status, seoTitle, seoDescription }) {
   error.code = 'ARTICLE_SEO_REQUIRED';
 
   throw error;
-}
-
-const SLUG_TRANSLIT = {
-  а: 'a',
-  б: 'b',
-  в: 'v',
-  г: 'g',
-  д: 'd',
-  е: 'e',
-  ё: 'e',
-  ж: 'zh',
-  з: 'z',
-  и: 'i',
-  й: 'y',
-  к: 'k',
-  л: 'l',
-  м: 'm',
-  н: 'n',
-  о: 'o',
-  п: 'p',
-  р: 'r',
-  с: 's',
-  т: 't',
-  у: 'u',
-  ф: 'f',
-  х: 'h',
-  ц: 'c',
-  ч: 'ch',
-  ш: 'sh',
-  щ: 'shch',
-  ъ: '',
-  ы: 'y',
-  ь: '',
-  э: 'e',
-  ю: 'yu',
-  я: 'ya',
-};
-
-function createSlug(value) {
-  const source = String(value || '')
-    .trim()
-    .toLowerCase();
-
-  const transliterated = Array.from(source)
-    .map(char => {
-      if (Object.prototype.hasOwnProperty.call(SLUG_TRANSLIT, char)) {
-        return SLUG_TRANSLIT[char];
-      }
-
-      return char;
-    })
-    .join('');
-
-  return transliterated
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .replace(/-{2,}/g, '-');
 }
 
 function createUniqueSlug(articles, value, excludeId = null) {

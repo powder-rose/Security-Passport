@@ -10,6 +10,8 @@ const navLinks = [
   ['#documents', 'Исходные данные'],
   ['#expert', 'Эксперт'],
   ['#faq', 'FAQ'],
+  ['/blog/', 'Блог'],
+  ['/questions/', 'Вопрос — ответ'],
 ];
 
 const legalLinks = [
@@ -44,7 +46,7 @@ export default function Footer() {
             <ul>
               {navLinks.map(([href, label]) => (
                 <li key={href}>
-                  <a href={`/${href}`}>{label}</a>
+                  <a href={href.startsWith('/') ? href : `/${href}`}>{label}</a>
                 </li>
               ))}
             </ul>

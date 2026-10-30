@@ -1,5 +1,7 @@
 const API = '/api/admin';
 
+export { request as adminRequest };
+
 export const ADMIN_AUTH_REQUIRED_EVENT = 'passport-admin-auth-required';
 
 export class AdminApiError extends Error {

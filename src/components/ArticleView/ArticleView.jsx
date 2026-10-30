@@ -1,3 +1,4 @@
+import BlogQuestions from '../../features/questions/BlogQuestions.jsx';
 import ArticleCallback from '../ArticleCallback/ArticleCallback.jsx';
 
 import FinalCTA from '../../sections/FinalCTA/FinalCTA.jsx';
@@ -265,7 +266,12 @@ function RelatedArticles({ articles, currentArticle, preview }) {
   );
 }
 
-export default function ArticleView({ article, preview = false, relatedArticles = [] }) {
+export default function ArticleView({
+  article,
+  preview = false,
+  relatedArticles = [],
+  relatedQuestions = [],
+}) {
   const title = article?.title || 'Заголовок статьи';
 
   const content = article?.content || '';
@@ -320,6 +326,8 @@ export default function ArticleView({ article, preview = false, relatedArticles 
           <RelatedServices article={article} />
 
           <RelatedArticles articles={relatedArticles} currentArticle={article} preview={preview} />
+
+          <BlogQuestions questions={relatedQuestions} />
         </div>
       </main>
 

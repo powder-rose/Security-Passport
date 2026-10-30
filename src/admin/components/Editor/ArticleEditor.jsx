@@ -27,7 +27,7 @@ const ArticleImage = Image.extend({
   },
 });
 
-export default function ArticleEditor({ value, onChange }) {
+export default function ArticleEditor({ value, onChange, disabled = false }) {
   const [, forceUpdate] = useReducer(current => current + 1, 0);
   const [linksOpen, setLinksOpen] = useState(false);
 
@@ -74,6 +74,10 @@ export default function ArticleEditor({ value, onChange }) {
       editor.commands.setContent(value || '<p></p>', false);
     }
   }, [value, editor]);
+
+  useEffect(() => {
+    if (editor) editor.setEditable(!disabled);
+  }, [editor, disabled]);
 
   const links = getEditorLinks(editor);
 

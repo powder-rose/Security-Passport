@@ -1,3 +1,6 @@
+import { questionCatalog } from '../shared/contracts/questions.js';
+import { createPrerenderDocument } from './lib/prerender-document.mjs';
+import { createPrerenderQuestionStore, prerenderQuestions } from './lib/prerender-questions.mjs';
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -313,6 +316,8 @@ if (canonical) {
 
   // Card lists must not carry the full archive into every generated document.
   // Use the same compact data for SSR and hydration to preserve their markup.
+  const questionState = await (await createPrerenderQuestionStore({ projectRoot })).read();
+
   const blogArticleCards = publishedArticles.map(article => ({
     id: article.id,
     title: article.title,
@@ -326,44 +331,14 @@ if (canonical) {
     publishedAt: article.publishedAt,
   }));
 
-  function createBlogDocument(renderResult, blogData, routeCssSource) {
-    let document = objectTypeBaseTemplate
-      .replace(/<title>[\s\S]*?<\/title>/i, '')
-      .replace(/<meta\s+name=["']robots["'][^>]*>/i, '')
-      .replace(/<meta\s+name=["']description["'][^>]*>/i, '');
-
-    const routeCssTags = getClientRouteCssLinks(routeCssSource, document);
-
-    const resultHeadTags = [
-      renderResult.helmet?.title?.toString() || '',
-      renderResult.helmet?.meta?.toString() || '',
-      renderResult.helmet?.link?.toString() || '',
-      routeCssTags,
-      renderResult.helmet?.script?.toString() || '',
-    ]
-      .filter(Boolean)
-      .join('\n');
-
-    const serializedBlogData = JSON.stringify(blogData)
-      .replace(/</g, '\\u003c')
-      .replace(/>/g, '\\u003e')
-      .replace(/&/g, '\\u0026');
-
-    const resultBootstrap =
-      `<script>` + `window.__PASSPORT_BLOG__=` + `${serializedBlogData};` + `</script>`;
-
-    document = document
-      .replace('</head>', `${resultHeadTags}\n</head>`)
-      .replace('<div id="root"></div>', `<div id="root">` + `${renderResult.html}` + `</div>`)
-      .replace('</body>', `${resultBootstrap}\n</body>`);
-
-    if (Buffer.byteLength(document, 'utf8') > 2_000_000) {
-      throw new Error(
-        'Blog HTML exceeds the 2,000,000-byte limit. Reduce article or bootstrap data.',
-      );
-    }
-
-    return document;
+  function createContentDocument(result, data, routeCssSource, bootstrapKey = '__PASSPORT_BLOG__') {
+    return createPrerenderDocument({
+      template: objectTypeBaseTemplate,
+      result,
+      data,
+      bootstrapKey,
+      cssTags: getClientRouteCssLinks(routeCssSource, objectTypeBaseTemplate),
+    });
   }
 
   for (const objectType of objectTypes) {
@@ -517,7 +492,7 @@ if (canonical) {
     article: null,
   });
 
-  const blogDocument = createBlogDocument(
+  const blogDocument = createContentDocument(
     blogResult,
 
     {
@@ -557,21 +532,27 @@ if (canonical) {
   for (const article of publishedArticles) {
     const articlePathname = `/blog/${article.slug}/`;
 
+    const relatedQuestions = questionCatalog(questionState, {
+      article: article.slug,
+    }).questions.slice(0, 4);
+
     const articleResult = render({
       pathname: articlePathname,
 
       blogArticles: blogArticleCards,
 
       article,
+      relatedQuestions,
     });
 
-    const articleDocument = createBlogDocument(
+    const articleDocument = createContentDocument(
       articleResult,
 
       {
         articles: blogArticleCards,
 
         article,
+        questions: relatedQuestions,
       },
 
       pageModuleSources.article,
@@ -594,6 +575,15 @@ if (canonical) {
   // /BLOG PRERENDER
   // ========================================================
 
+  const questionSitemapUrls = await prerenderQuestions({
+    render,
+    createDocument: createContentDocument,
+    clientDir,
+    canonical,
+    articles: publishedArticles,
+    state: questionState,
+  });
+
   // Перезаписываем федеральный sitemap:
   // главная + индексируемые дочерние SEO-страницы.
   function getArticleLastmod(article) {
@@ -606,6 +596,7 @@ if (canonical) {
   }
 
   const federalObjectSitemapUrls = [
+    ...questionSitemapUrls,
     {
       loc: canonical,
       priority: '1.0',

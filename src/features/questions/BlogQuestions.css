@@ -1,0 +1,10 @@
+.blog-question-card p {
+  display: -webkit-box;
+  margin: 16px 0 22px;
+  overflow: hidden;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  line-height: 1.7;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}

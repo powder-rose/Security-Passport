@@ -48,6 +48,15 @@ async function loadPageComponent(source) {
 async function loadRouteComponents(pathname) {
   const normalizedPathname = pathname.replace(/\/+$/, '') || '/';
 
+  if (normalizedPathname === '/questions' || /^\/questions\/[^/]+$/.test(normalizedPathname)) {
+    const catalog = normalizedPathname === '/questions';
+    return {
+      [catalog ? 'QuestionsPage' : 'QuestionPage']: await loadPageComponent(
+        catalog ? pageModuleSources.questions : pageModuleSources.question,
+      ),
+    };
+  }
+
   if (normalizedPathname === '/blog') {
     return {
       BlogPage: await loadPageComponent(pageModuleSources.blog),
@@ -116,6 +125,8 @@ async function bootstrap() {
             pathname={window.location.pathname}
             initialBlogArticles={initialBlogData.articles ?? null}
             initialArticle={initialBlogData.article ?? null}
+            initialQuestionsData={window.__PASSPORT_QUESTIONS__ ?? null}
+            initialRelatedQuestions={initialBlogData.questions ?? null}
             routeComponents={routeComponents}
           />
         </HelmetProvider>

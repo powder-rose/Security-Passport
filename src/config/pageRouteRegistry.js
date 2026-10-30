@@ -1,6 +1,8 @@
 export const pageModuleSources = Object.freeze({
   legal: 'src/pages/LegalPage/LegalPage.jsx',
   blog: 'src/pages/BlogPage/BlogPage.jsx',
+  questions: 'src/pages/QuestionsPage/QuestionsPage.jsx',
+  question: 'src/pages/QuestionPage/QuestionPage.jsx',
   article: 'src/pages/ArticlePage/ArticlePage.jsx',
   genericObject: 'src/pages/ObjectTypePage/ObjectTypePage.jsx',
 });

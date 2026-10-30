@@ -210,7 +210,8 @@ for FILE in \
     robots.txt \
     sitemap.xml \
     sitemap-google.xml \
-    blog/index.html
+    blog/index.html \
+    questions/index.html
 do
     if [ ! -s "dist/client/${FILE}" ]; then
         echo "ОШИБКА: отсутствует dist/client/${FILE}"
@@ -305,7 +306,8 @@ for FILE in \
     robots.txt \
     sitemap.xml \
     sitemap-google.xml \
-    blog/index.html
+    blog/index.html \
+    questions/index.html
 do
     if [ ! -s "${BUILD_RELEASE}/${FILE}" ]; then
         echo "ОШИБКА: release не содержит ${FILE}"

@@ -13,6 +13,8 @@ export default function AdminLayout({ children }) {
 
           <a href="/admin/articles">Статьи</a>
 
+          <a href="/admin/questions">Вопросы и ответы</a>
+
           <a
             href="/blog/"
             target="_blank"
