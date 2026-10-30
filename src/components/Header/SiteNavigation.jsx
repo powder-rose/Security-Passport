@@ -44,6 +44,15 @@ export default function SiteNavigation({
           Блог
         </a>
 
+        <a
+          className={`site-nav__quick-link${currentPathname.startsWith('/questions') ? ' is-current' : ''}`}
+          href="/questions/"
+          aria-current={currentPathname.startsWith('/questions') ? 'page' : undefined}
+          onClick={onCloseMenus}
+        >
+          Вопрос — ответ
+        </a>
+
         <button
           ref={directoryButtonRef}
           className={`site-nav__directory-toggle${directoryActive ? ' is-current' : ''}`}

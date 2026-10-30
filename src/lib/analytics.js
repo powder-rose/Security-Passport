@@ -11,6 +11,7 @@ const METRICA_IDS = [...new Set([METRICA_ID, SECONDARY_METRICA_ID].filter(Boolea
 
 export const METRICA_GOALS = Object.freeze({
   contactCtaClick: 'contact_cta_click',
+  questionServiceClick: 'question_service_click',
   phoneClick: 'phone_click',
   emailClick: 'email_click',
   articleCallbackOpen: 'article_callback_open',

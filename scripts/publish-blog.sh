@@ -206,6 +206,7 @@ echo "[3/7] Проверяем результат..."
 
 for FILE in \
     "${TMP_CLIENT}/blog/index.html" \
+    "${TMP_CLIENT}/questions/index.html" \
     "${TMP_CLIENT}/sitemap.xml" \
     "${TMP_CLIENT}/sitemap-google.xml"
 do
@@ -238,6 +239,7 @@ done < <(
     grep -RhoE \
         '(src|href)="/assets/[^"]+"' \
         "${TMP_CLIENT}/blog" \
+        "${TMP_CLIENT}/questions" \
         2>/dev/null \
         | sed -E \
             's/^(src|href)="([^"]+)".*/\2/' \
@@ -277,6 +279,9 @@ rsync -a \
     "${TMP_CLIENT}/blog/" \
     "${NEW_RELEASE}/blog/"
 
+
+rm -rf "${NEW_RELEASE}/questions"
+rsync -a "${TMP_CLIENT}/questions/" "${NEW_RELEASE}/questions/"
 
 cp \
     "${TMP_CLIENT}/sitemap.xml" \

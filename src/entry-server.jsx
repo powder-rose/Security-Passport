@@ -42,6 +42,10 @@ const serverRouteComponents = {
 
   BlogPage: resolveServerPageComponent(pageModuleSources.blog),
 
+  QuestionsPage: resolveServerPageComponent(pageModuleSources.questions),
+
+  QuestionPage: resolveServerPageComponent(pageModuleSources.question),
+
   ArticlePage: resolveServerPageComponent(pageModuleSources.article),
 
   objectTypeComponents: resolvePageComponents(objectPageSources),
@@ -49,7 +53,13 @@ const serverRouteComponents = {
   servicePageComponents: resolvePageComponents(servicePageSources),
 };
 
-export function render({ pathname = '/', blogArticles = null, article = null } = {}) {
+export function render({
+  pathname = '/',
+  blogArticles = null,
+  article = null,
+  questionsData = null,
+  relatedQuestions = null,
+} = {}) {
   const helmetContext = {};
 
   const store = createAppStore();
@@ -61,6 +71,8 @@ export function render({ pathname = '/', blogArticles = null, article = null } =
           pathname={pathname}
           initialBlogArticles={blogArticles}
           initialArticle={article}
+          initialQuestionsData={questionsData}
+          initialRelatedQuestions={relatedQuestions}
           routeComponents={serverRouteComponents}
         />
       </HelmetProvider>

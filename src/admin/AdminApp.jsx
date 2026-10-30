@@ -16,8 +16,23 @@ const ArticleEditPage = lazy(() => import('./pages/ArticleEditPage/ArticleEditPa
 
 const CreateArticlePage = lazy(() => import('./pages/ArticleEditPage/CreateArticlePage.jsx'));
 
+const QuestionsPage = lazy(() => import('./pages/QuestionsPage/QuestionsPage.jsx'));
+const QuestionEditPage = lazy(() => import('./pages/QuestionEditPage/QuestionEditPage.jsx'));
+const QuestionPreviewPage = lazy(
+  () => import('./pages/QuestionPreviewPage/QuestionPreviewPage.jsx'),
+);
+const QuestionSettingsPage = lazy(
+  () => import('./pages/QuestionSettingsPage/QuestionSettingsPage.jsx'),
+);
+
 function RouterView() {
   const path = window.location.pathname;
+
+  if (path.startsWith('/admin/questions/preview/')) return <QuestionPreviewPage />;
+  if (path.startsWith('/admin/questions/settings')) return <QuestionSettingsPage />;
+  if (path.startsWith('/admin/questions/new') || path.startsWith('/admin/questions/edit/'))
+    return <QuestionEditPage />;
+  if (path.startsWith('/admin/questions')) return <QuestionsPage />;
 
   if (path.startsWith('/admin/articles/new')) {
     return <CreateArticlePage />;
@@ -59,6 +74,14 @@ export default function AdminApp() {
 
   if (!user) {
     return <LoginPage />;
+  }
+
+  if (window.location.pathname.startsWith('/admin/questions/preview/')) {
+    return (
+      <Suspense fallback={<div>Загрузка предпросмотра…</div>}>
+        <QuestionPreviewPage />
+      </Suspense>
+    );
   }
 
   return (

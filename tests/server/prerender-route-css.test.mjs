@@ -1,3 +1,4 @@
+import { installPrerenderDependencies } from './prerender-fixture.mjs';
 import assert from 'node:assert/strict';
 import { execFile } from 'node:child_process';
 import fs from 'node:fs/promises';
@@ -64,6 +65,8 @@ async function createFixture() {
   const serverEntry = path.join(runtimeDirectory, 'entry-server.mjs');
 
   await fs.copyFile(prerenderFile, copiedPrerender);
+
+  await installPrerenderDependencies(root);
 
   const registryDirectory = path.join(root, 'src', 'config');
 
@@ -221,6 +224,8 @@ export function render({
   );
 
   const manifest = {
+    'src/pages/QuestionsPage/QuestionsPage.jsx': { css: ['assets/questions.css'] },
+    'src/pages/QuestionPage/QuestionPage.jsx': { css: ['assets/question.css'] },
     'src/pages/LegalPage/LegalPage.jsx': {
       css: ['assets/legal.css'],
     },
@@ -274,6 +279,8 @@ export function render({
 
   for (const cssFile of [
     'base.css',
+    'questions.css',
+    'question.css',
     'legal.css',
     'blog-page.css',
     'article-page.css',

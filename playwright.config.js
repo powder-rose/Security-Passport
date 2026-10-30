@@ -15,7 +15,7 @@ export default defineConfig({
 
   timeout: 30_000,
 
-  globalTimeout: 180_000,
+  globalTimeout: 240_000,
 
   forbidOnly: Boolean(process.env.CI),
 

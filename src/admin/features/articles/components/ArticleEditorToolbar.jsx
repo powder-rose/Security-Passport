@@ -76,6 +76,15 @@ export default function ArticleEditorToolbar({
 
       <button
         type="button"
+        className={editor.isActive('orderedList') ? 'editor-button active' : 'editor-button'}
+        title="Нумерованный список"
+        onClick={() => editor.chain().focus().toggleOrderedList().run()}
+      >
+        1. Список
+      </button>
+
+      <button
+        type="button"
         className={editor.isActive('link') ? 'editor-button active' : 'editor-button'}
         title={editor.isActive('link') ? 'Изменить ссылку' : 'Добавить ссылку'}
         onClick={onEditCurrentLink}
