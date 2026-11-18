@@ -45,8 +45,41 @@ async function login(page, path) {
 
   await page.locator('input[type="password"]').fill(adminPassword);
 
+  const loginResponse = page.waitForResponse(
+    response =>
+      new URL(response.url()).pathname === '/api/admin/login' &&
+      response.request().method() === 'POST',
+  );
+  const sessionResponse = page.waitForResponse(
+    response =>
+      new URL(response.url()).pathname === '/api/admin/session' &&
+      response.request().method() === 'GET',
+  );
   await page.locator('button[type="submit"]').click();
+  const signedIn = await loginResponse;
+  expect(signedIn.status()).toBe(200);
+  expect(await signedIn.json()).toMatchObject({ ok: true });
+  const session = await sessionResponse;
+  expect(session.status()).toBe(200);
+  expect(await session.json()).toMatchObject({ ok: true, authenticated: true });
+  await expect(page.locator('.admin-login')).toHaveCount(0);
+  await expect(page.locator('.admin-sidebar__menu')).toBeVisible();
 }
+
+test.afterEach(async ({ page }, testInfo) => {
+  if (testInfo.status === testInfo.expectedStatus) return;
+  try {
+    const state = await page.evaluate(() => ({
+      pathname: window.location.pathname,
+      headings: [...document.querySelectorAll('h1')].map(node => node.textContent),
+      loginVisible: Boolean(document.querySelector('.admin-login')),
+      sectionLoading: document.body.innerText.includes('Загрузка раздела...'),
+    }));
+    console.error('SMOKE_FAILURE_STATE=' + JSON.stringify(state));
+  } catch {
+    console.error('SMOKE_FAILURE_STATE=PAGE_UNAVAILABLE');
+  }
+});
 
 test('public home and blog boot in a real browser', async ({ page }) => {
   const pageErrors = collectPageErrors(page);
@@ -77,6 +110,12 @@ test('direct admin articles deep link reaches the authenticated React route', as
   ).toBeVisible();
 
   await expect(page).toHaveURL(/\/admin\/articles$/);
+
+  await page.getByRole('link', { name: /^Создать статью/ }).click();
+  await expect(page.getByRole('heading', { name: text.newArticle, exact: true })).toBeVisible();
+  await expect(page).toHaveURL(/\/admin\/articles\/new$/);
+  await page.reload();
+  await expect(page.getByRole('heading', { name: text.newArticle, exact: true })).toBeVisible();
 });
 
 test('direct lazy article-create route boots and consumes fresh=1', async ({ page }) => {
@@ -92,61 +131,44 @@ test('direct lazy article-create route boots and consumes fresh=1', async ({ pag
   await expect(page).toHaveURL(/\/admin\/articles\/new$/);
 });
 
-test('article category autocomplete uses dynamic admin categories', async ({ page }) => {
-  const pageErrors = collectPageErrors(page);
-  const categories = ['Гостиницы', 'Культура', 'Образовательные организации', 'Торговые объекты'];
-
-  await page.route('**/api/admin/article-categories', async route => {
-    if (route.request().method() !== 'GET') {
-      await route.continue();
-
-      return;
-    }
-
-    await route.fulfill({
-      status: 200,
-
-      contentType: 'application/json',
-
-      body: JSON.stringify({
-        ok: true,
-        categories,
-      }),
+for (const scenario of [
+  {
+    name: 'article list',
+    path: '/admin/articles',
+    heading: text.articles,
+    suggestions: '#admin-blog-category-options option',
+  },
+  {
+    name: 'article editor',
+    path: '/admin/articles/new?fresh=1',
+    heading: text.newArticle,
+    suggestions: '#blog-category-suggestions-create option',
+  },
+]) {
+  test(`article category autocomplete uses dynamic admin categories in the ${scenario.name}`, async ({
+    page,
+  }) => {
+    const pageErrors = collectPageErrors(page);
+    const categories = ['Гостиницы', 'Культура', 'Образовательные организации', 'Торговые объекты'];
+    await page.route('**/api/admin/article-categories', async route => {
+      if (route.request().method() !== 'GET') {
+        await route.continue();
+        return;
+      }
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ ok: true, categories }),
+      });
     });
+    await login(page, scenario.path);
+    await expect(page.getByRole('heading', { name: scenario.heading, exact: true })).toBeVisible();
+    const options = page.locator(scenario.suggestions);
+    await expect(options).toHaveCount(categories.length);
+    expect(await options.evaluateAll(nodes => nodes.map(node => node.value))).toEqual(categories);
+    expect(pageErrors).toEqual([]);
   });
-
-  await login(page, '/admin/articles');
-
-  const listOptions = page.locator('#admin-blog-category-options option');
-
-  await expect(listOptions).toHaveCount(categories.length);
-
-  expect(await listOptions.evaluateAll(options => options.map(option => option.value))).toEqual(
-    categories,
-  );
-
-  // Exercise the real administrator action and its navigation to the lazy editor.
-  const createLink = page.getByRole('link', { name: /^Создать статью/ });
-  await expect(createLink).toHaveAttribute('href', '/admin/articles/new?fresh=1');
-  await createLink.click();
-
-  await expect(
-    page.getByRole('heading', {
-      name: text.newArticle,
-      exact: true,
-    }),
-  ).toBeVisible();
-  await expect(page).toHaveURL(/\/admin\/articles\/new$/);
-
-  const createOptions = page.locator('#blog-category-suggestions-create option');
-
-  await expect(createOptions).toHaveCount(categories.length);
-
-  expect(await createOptions.evaluateAll(options => options.map(option => option.value))).toEqual(
-    categories,
-  );
-  expect(pageErrors).toEqual([]);
-});
+}
 test('invalid admin login exposes its browser error state', async ({ page }) => {
   const response = await page.goto('/admin/articles');
 
