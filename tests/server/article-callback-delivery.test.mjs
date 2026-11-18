@@ -149,3 +149,29 @@ test('article callback reaches email and admin with its source context', async t
     });
   }
 });
+
+test('a durable hub queue is a delivery channel and a failed queue write cannot succeed', async t => {
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), 'hub-only-delivery-'));
+  t.after(() => fs.rm(root, { recursive: true, force: true }));
+  const file = path.join(root, 'hub.jsonl');
+  const delivery = createLeadDelivery({
+    backupEnabled: false,
+    leadsFile: path.join(root, 'old.jsonl'),
+    env: { BOYKOV_HUB_OUTBOX: file },
+  });
+  const lead = {
+    id: 'hub-only-1',
+    receivedAt: '2026-11-18T10:00:00Z',
+    source: LEAD_SOURCE_ARTICLE_CALLBACK,
+    data: { phone: '+79990000000', interest: ARTICLE_CALLBACK_INTERESTS[0] },
+  };
+  const result = await delivery.deliverLead(lead);
+  assert.equal(result.ok, true);
+  assert.equal(JSON.parse((await fs.readFile(file, 'utf8')).trim()).id, lead.id);
+  const failing = createLeadDelivery({
+    backupEnabled: false,
+    leadsFile: path.join(root, 'old.jsonl'),
+    env: { BOYKOV_HUB_OUTBOX: root },
+  });
+  await assert.rejects(failing.deliverLead(lead));
+});

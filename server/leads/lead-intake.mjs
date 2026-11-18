@@ -190,6 +190,7 @@ export function createLeadIntake({ leadDelivery, env = process.env }) {
 
   const rateBuckets = new Map();
   const requestIds = new Map();
+  const inFlight = new Map();
 
   function prune(now = Date.now()) {
     for (const [key, bucket] of rateBuckets) {
@@ -263,12 +264,29 @@ export function createLeadIntake({ leadDelivery, env = process.env }) {
       });
     }
 
-    requestIds.set(lead.requestId, Date.now());
+    if (inFlight.has(lead.requestId)) {
+      const saved = await inFlight.get(lead.requestId);
+      return res
+        .status(saved ? 200 : 503)
+        .json(
+          saved
+            ? { ok: true, duplicate: true, requestId: lead.requestId }
+            : { ok: false, error: 'NO_DELIVERY_CHANNEL_AVAILABLE' },
+        );
+    }
+    let finish;
+    inFlight.set(
+      lead.requestId,
+      new Promise(resolve => {
+        finish = resolve;
+      }),
+    );
 
     try {
       const delivery = await leadDelivery.deliverLead(lead);
 
       if (!delivery.ok) {
+        finish(false);
         requestIds.delete(lead.requestId);
 
         return res.status(503).json({
@@ -277,6 +295,8 @@ export function createLeadIntake({ leadDelivery, env = process.env }) {
         });
       }
 
+      requestIds.set(lead.requestId, Date.now());
+      finish(true);
       console.info(`[lead] accepted ${lead.id} (${lead.source})`);
 
       return res.status(201).json({
@@ -285,6 +305,7 @@ export function createLeadIntake({ leadDelivery, env = process.env }) {
         requestId: lead.requestId,
       });
     } catch (error) {
+      finish(false);
       requestIds.delete(lead.requestId);
 
       console.error('[lead] unexpected delivery error:', error);
@@ -293,6 +314,8 @@ export function createLeadIntake({ leadDelivery, env = process.env }) {
         ok: false,
         error: 'LEAD_DELIVERY_FAILED',
       });
+    } finally {
+      inFlight.delete(lead.requestId);
     }
   }
 
