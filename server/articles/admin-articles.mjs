@@ -9,6 +9,7 @@ import {
 } from '../../shared/contracts/article-category.js';
 
 import { sanitizeArticleContent } from './article-html.mjs';
+import { parseScheduleInstant } from '../../shared/contracts/article-schedule.js';
 
 const FILE = path.resolve('data/articles.json');
 
@@ -114,7 +115,7 @@ function assertOptionalArticleStatus(input) {
     return;
   }
 
-  if (!['draft', 'published'].includes(input.status)) {
+  if (!['draft', 'published', 'scheduled'].includes(input.status)) {
     throw createArticleInputError('status');
   }
 }
@@ -137,6 +138,8 @@ function validateCreateArticleInput(input) {
   assertOptionalNullableString(input, 'image');
 
   assertOptionalArticleStatus(input);
+  assertOptionalNullableString(input, 'scheduledAt');
+  assertOptionalString(input, 'expectedUpdatedAt');
 
   return input;
 }
@@ -163,6 +166,8 @@ function validateUpdateArticleInput(input) {
   }
 
   assertOptionalArticleStatus(input);
+  assertOptionalNullableString(input, 'scheduledAt');
+  assertOptionalString(input, 'expectedUpdatedAt');
 
   if (
     Object.hasOwn(input, 'updateSlug') &&
@@ -184,7 +189,7 @@ function normalizeSeoField(value) {
 }
 
 function assertPublishedArticleSeo({ status, seoTitle, seoDescription }) {
-  if (status !== 'published') {
+  if (status !== 'published' && status !== 'scheduled') {
     return;
   }
 
@@ -197,6 +202,42 @@ function assertPublishedArticleSeo({ status, seoTitle, seoDescription }) {
   error.code = 'ARTICLE_SEO_REQUIRED';
 
   throw error;
+}
+
+function scheduleError(code) {
+  return Object.assign(new Error(code), { code });
+}
+
+function nextPublicationSchedule(article, data, status, now) {
+  const previous = article?.publicationSchedule;
+  if (status === 'scheduled') {
+    const at = parseScheduleInstant(
+      Object.hasOwn(data, 'scheduledAt') ? data.scheduledAt : previous?.at,
+    );
+    if (!at) throw scheduleError('ARTICLE_SCHEDULE_INVALID');
+    const unchanged =
+      article?.status === 'scheduled' && previous?.at === at && previous.state === 'scheduled';
+    if (Date.parse(at) <= Date.parse(now) && !unchanged)
+      throw scheduleError('ARTICLE_SCHEDULE_PAST');
+    if (unchanged) return previous;
+    return {
+      id: crypto.randomUUID(),
+      at,
+      state: 'scheduled',
+      createdAt: now,
+      startedAt: null,
+      finishedAt: null,
+      error: null,
+    };
+  }
+  if (!previous) return undefined;
+  if (status === 'published' && article?.status === 'scheduled') {
+    return { ...previous, state: 'publishing', startedAt: now, finishedAt: null, error: null };
+  }
+  if (status === 'draft' && previous.state !== 'cancelled') {
+    return { ...previous, state: 'cancelled', finishedAt: now, error: null };
+  }
+  return previous;
 }
 
 function createUniqueSlug(articles, value, excludeId = null) {
@@ -246,7 +287,8 @@ async function createArticleMutation(data) {
 
   const seoDescription = normalizeSeoField(data.seoDescription);
 
-  const status = data.status === 'published' ? 'published' : 'draft';
+  const status = data.status || 'draft';
+  const publicationSchedule = nextPublicationSchedule(null, data, status, now);
 
   assertPublishedArticleSeo({
     status,
@@ -266,7 +308,7 @@ async function createArticleMutation(data) {
     imageAlt: data.imageAlt || '',
 
     status,
-
+    ...(publicationSchedule ? { publicationSchedule } : {}),
     category: normalizeArticleCategory(data.category),
 
     slug: createUniqueSlug(articles, data.slug || data.title || 'article'),
@@ -307,6 +349,9 @@ async function updateArticleMutation(id, data) {
   }
 
   const article = articles[index];
+  if (data.expectedUpdatedAt !== undefined && data.expectedUpdatedAt !== article.updatedAt) {
+    throw scheduleError('ARTICLE_CONFLICT');
+  }
 
   let nextSlug = article.slug;
 
@@ -336,6 +381,8 @@ async function updateArticleMutation(id, data) {
   }
 
   const nextStatus = data.status ?? article.status;
+  const now = new Date().toISOString();
+  const publicationSchedule = nextPublicationSchedule(article, data, nextStatus, now);
 
   const nextSeoTitle =
     data.seoTitle !== undefined
@@ -367,7 +414,7 @@ async function updateArticleMutation(id, data) {
     imageAlt: data.imageAlt ?? article.imageAlt ?? '',
 
     status: nextStatus,
-
+    ...(publicationSchedule ? { publicationSchedule } : {}),
     category:
       data.category !== undefined
         ? normalizeArticleCategory(data.category)
@@ -397,7 +444,7 @@ async function updateArticleMutation(id, data) {
         ? article.publishedAt || new Date().toISOString()
         : article.publishedAt,
 
-    updatedAt: new Date().toISOString(),
+    updatedAt: now,
   };
 
   await saveArticles(articles);
@@ -431,4 +478,122 @@ export async function getArticleById(id) {
   const articles = await readArticles();
 
   return articles.find(item => item.id === id) || null;
+}
+
+// Timer transitions share the editor's write queue and keep unrelated stored content intact.
+export function publishDueArticles(now = new Date()) {
+  return queueArticleWrite(async () => {
+    const articles = await readStoredArticles();
+    const instant = now.toISOString();
+    const due = [];
+    for (const article of articles) {
+      const schedule = article.publicationSchedule;
+      if (
+        article.status !== 'scheduled' ||
+        schedule?.state !== 'scheduled' ||
+        Date.parse(schedule.at) > now.getTime()
+      )
+        continue;
+      if (!parseScheduleInstant(schedule.at)) continue;
+      try {
+        assertPublishedArticleSeo({ ...article, status: 'published' });
+        article.status = 'published';
+        article.publishedAt ||= schedule.at;
+        article.updatedAt = instant;
+        article.publicationSchedule = {
+          ...schedule,
+          state: 'publishing',
+          startedAt: instant,
+          error: null,
+        };
+        due.push(article.id);
+      } catch {
+        article.publicationSchedule = {
+          ...schedule,
+          state: 'error',
+          finishedAt: instant,
+          error: 'Заполните SEO Title и SEO Description.',
+        };
+      }
+    }
+    if (
+      due.length ||
+      articles.some(
+        article =>
+          article.publicationSchedule?.finishedAt === instant &&
+          article.publicationSchedule?.state === 'error',
+      )
+    )
+      await saveArticles(articles);
+    return due;
+  });
+}
+
+export async function getScheduledArticles() {
+  const articles = await readStoredArticles();
+  return articles
+    .filter(article => article.publicationSchedule)
+    .map(article => ({
+      id: article.id,
+      title: article.title,
+      slug: article.slug,
+      image: article.image || null,
+      category: article.category || '',
+      status: article.status,
+      updatedAt: article.updatedAt,
+      schedule: article.publicationSchedule,
+    }));
+}
+
+export function prepareScheduledPublication() {
+  return queueArticleWrite(async () => {
+    const articles = await readStoredArticles();
+    const jobs = [];
+    let changed = false;
+    for (const article of articles) {
+      const schedule = article.publicationSchedule;
+      if (article.status !== 'published' || !['publishing', 'error'].includes(schedule?.state))
+        continue;
+      jobs.push({ id: article.id, scheduleId: schedule.id });
+      if (schedule.state === 'error') {
+        article.publicationSchedule = {
+          ...schedule,
+          state: 'publishing',
+          startedAt: new Date().toISOString(),
+          finishedAt: null,
+          error: null,
+        };
+        changed = true;
+      }
+    }
+    if (changed) await saveArticles(articles);
+    return jobs;
+  });
+}
+
+export function settleScheduledPublication(jobs, error = null) {
+  return queueArticleWrite(async () => {
+    if (!jobs.length) return;
+    const articles = await readStoredArticles();
+    let changed = false;
+    for (const job of jobs) {
+      const article = articles.find(
+        item => item.id === job.id && item.publicationSchedule?.id === job.scheduleId,
+      );
+      if (
+        !article ||
+        article.status !== 'published' ||
+        !['publishing', 'error'].includes(article.publicationSchedule.state)
+      )
+        continue;
+      article.publicationSchedule = {
+        ...article.publicationSchedule,
+        state: error ? 'error' : 'success',
+        finishedAt: new Date().toISOString(),
+        error: error ? 'Не удалось обновить сайт. Повторите публикацию.' : null,
+      };
+      changed = true;
+    }
+    if (changed) await saveArticles(articles);
+  });
 }

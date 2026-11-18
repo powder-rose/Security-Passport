@@ -133,24 +133,14 @@ export default function ArticleFormFields({
             Выберите готовую категорию или впишите новую самостоятельно.
           </small>
         </label>
-
-        <label>
-          <span>Статус</span>
-
-          <select value={form.status} onChange={event => onChange('status', event.target.value)}>
-            <option value="draft">Черновик</option>
-
-            <option value="published">Опубликовано</option>
-          </select>
-        </label>
       </section>
 
       <section className="admin-editor__card">
         <h2>SEO</h2>
 
         <p className="admin-seo-note">
-          Для черновика поля можно оставить пустыми. Для публикации обязательны SEO Title и SEO
-          Description.
+          Для черновика поля можно оставить пустыми. Для публикации и расписания обязательны SEO
+          Title и SEO Description.
         </p>
 
         <label>

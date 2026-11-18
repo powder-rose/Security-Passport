@@ -28,6 +28,10 @@ const defaultBenefits = [
 
 export default function FinalCTA({
   preview = false,
+  title = null,
+  description = null,
+  source = LEAD_SOURCE_FINAL_CTA,
+  submitLabel = 'Отправить заявку',
   benefits = defaultBenefits,
   service = '',
   objectType = '',
@@ -114,7 +118,7 @@ export default function FinalCTA({
       setMessage('Отправляем заявку…');
 
       await submitLead({
-        source: LEAD_SOURCE_FINAL_CTA,
+        source,
         data,
       });
 
@@ -141,12 +145,16 @@ export default function FinalCTA({
         <div className="final-cta__copy">
           <p className="final-cta__kicker">Обсудить объект</p>
           <h2 id="final-cta-title">
-            Определим, какие документы нужны <em>именно вашему объекту</em>
+            {title || (
+              <>
+                Определим, какие документы нужны <em>именно вашему объекту</em>
+              </>
+            )}
           </h2>
 
           <p className="final-cta__lead">
-            Расскажите об объекте — проверим применимые требования, состав исходных данных и
-            предложим понятный порядок дальнейшей работы.
+            {description ||
+              'Расскажите об объекте — проверим применимые требования, состав исходных данных и предложим понятный порядок дальнейшей работы.'}
           </p>
 
           <ul className="final-cta__benefits" aria-label="Что уточним на консультации">
@@ -321,7 +329,7 @@ export default function FinalCTA({
           </label>
 
           <button className="final-cta__submit" type="submit" disabled={status === 'loading'}>
-            <span>{status === 'loading' ? 'Отправляем…' : 'Отправить заявку'}</span>
+            <span>{status === 'loading' ? 'Отправляем…' : submitLabel}</span>
             <span className="final-cta__submit-arrow" aria-hidden="true">
               ↗
             </span>

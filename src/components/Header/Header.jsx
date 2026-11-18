@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import { objectTypes } from '../../data/objectTypes.js';
 import Container from '../ui/Container/Container';
 
 import HeaderActions from './HeaderActions';
@@ -12,7 +14,20 @@ import useHeaderNavigation from './useHeaderNavigation';
 
 import './Header.css';
 
-export default function Header({ pathname = '/' }) {
+export default function Header({ pathname = '/', initialItems = null }) {
+  const [directoryItems, setDirectoryItems] = useState(initialItems || objectTypes);
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch('/api/directions/menu', { signal: controller.signal })
+      .then(async response => (response.ok ? response.json() : null))
+      .then(data => {
+        if (data?.ok && Array.isArray(data.menuItems)) setDirectoryItems(data.menuItems);
+      })
+      .catch(() => {
+        /* Preserve the prerendered navigation when the API is unavailable. */
+      });
+    return () => controller.abort();
+  }, []);
   const {
     mobileMenuOpen,
     directoryOpen,
@@ -54,6 +69,7 @@ export default function Header({ pathname = '/' }) {
         </button>
 
         <SiteNavigation
+          directoryItems={directoryItems}
           mobileMenuOpen={mobileMenuOpen}
           mobileNavRef={mobileNavRef}
           currentPathname={currentPathname}
@@ -69,6 +85,7 @@ export default function Header({ pathname = '/' }) {
         <HeaderActions currentPathname={currentPathname} onNavigate={handleNavigation} />
 
         <SiteDirectory
+          directoryItems={directoryItems}
           open={directoryOpen}
           currentPathname={currentPathname}
           onClose={closeDirectory}

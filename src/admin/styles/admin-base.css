@@ -276,6 +276,45 @@ button {
   color: #fff;
 }
 
+.admin-sidebar__menu a[aria-current='page'] {
+  color: #d5efb5;
+  background: #ffffff12;
+}
+
+@media (max-width: 760px) {
+  .admin-layout {
+    flex-direction: column;
+  }
+  .admin-sidebar {
+    width: 100%;
+    min-height: 0;
+    padding: 18px;
+  }
+  .admin-sidebar__brand {
+    margin-bottom: 16px;
+  }
+  .admin-sidebar__menu {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+  }
+  .admin-sidebar__menu a {
+    flex-shrink: 0;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+  .admin-sidebar__logout {
+    margin-top: 14px;
+    align-self: flex-end;
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+  .admin-layout .admin-content {
+    padding: 18px 14px 36px;
+    min-width: 0;
+  }
+}
+
 .admin-sidebar__logout {
   margin-top: auto;
 
@@ -353,5 +392,14 @@ button {
 
   .admin-page-header h1 {
     font-size: 34px;
+  }
+}
+
+@media (max-width: 760px) {
+  .admin-sidebar__menu {
+    scrollbar-width: none;
+  }
+  .admin-sidebar__menu::-webkit-scrollbar {
+    display: none;
   }
 }

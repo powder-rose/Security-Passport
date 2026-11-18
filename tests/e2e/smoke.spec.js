@@ -32,6 +32,14 @@ function collectPageErrors(page) {
   return errors;
 }
 
+const browserFailures = new WeakMap();
+
+test.beforeEach(async ({ page }) => {
+  const failures = [];
+  browserFailures.set(page, failures);
+  page.on('pageerror', error => failures.push(error.message));
+});
+
 async function login(page, path) {
   const response = await page.goto(path);
 
@@ -45,8 +53,44 @@ async function login(page, path) {
 
   await page.locator('input[type="password"]').fill(adminPassword);
 
+  const loginResponse = page.waitForResponse(
+    response =>
+      new URL(response.url()).pathname === '/api/admin/login' &&
+      response.request().method() === 'POST',
+  );
+  const sessionResponse = page.waitForResponse(
+    response =>
+      new URL(response.url()).pathname === '/api/admin/session' &&
+      response.request().method() === 'GET',
+  );
   await page.locator('button[type="submit"]').click();
+  const signedIn = await loginResponse;
+  expect(signedIn.status()).toBe(200);
+  expect(await signedIn.json()).toMatchObject({ ok: true });
+  const session = await sessionResponse;
+  expect(session.status()).toBe(200);
+  expect(await session.json()).toMatchObject({ ok: true, authenticated: true });
+  await expect(page.locator('.admin-login')).toHaveCount(0);
+  await expect(page.locator('.admin-sidebar__menu')).toBeVisible();
 }
+
+test.afterEach(async ({ page }, testInfo) => {
+  if (testInfo.status === testInfo.expectedStatus) return;
+  try {
+    const state = await page.evaluate(() => ({
+      pathname: window.location.pathname,
+      headings: [...document.querySelectorAll('h1')].map(node => node.textContent),
+      loginVisible: Boolean(document.querySelector('.admin-login')),
+      sectionLoading: document.body.innerText.includes('Загрузка раздела...'),
+    }));
+    console.error(
+      'SMOKE_FAILURE_STATE=' +
+        JSON.stringify({ ...state, browserErrors: browserFailures.get(page) || [] }),
+    );
+  } catch {
+    console.error('SMOKE_FAILURE_STATE=PAGE_UNAVAILABLE');
+  }
+});
 
 test('public home and blog boot in a real browser', async ({ page }) => {
   const pageErrors = collectPageErrors(page);
@@ -77,9 +121,16 @@ test('direct admin articles deep link reaches the authenticated React route', as
   ).toBeVisible();
 
   await expect(page).toHaveURL(/\/admin\/articles$/);
+
+  await page.getByRole('link', { name: /^Создать статью/ }).click();
+  await expect(page.getByRole('heading', { name: text.newArticle, exact: true })).toBeVisible();
+  await expect(page).toHaveURL(/\/admin\/articles\/new$/);
+  await page.reload();
+  await expect(page.getByRole('heading', { name: text.newArticle, exact: true })).toBeVisible();
 });
 
 test('direct lazy article-create route boots and consumes fresh=1', async ({ page }) => {
+  const pageErrors = collectPageErrors(page);
   await login(page, '/admin/articles/new?fresh=1');
 
   await expect(
@@ -90,59 +141,62 @@ test('direct lazy article-create route boots and consumes fresh=1', async ({ pag
   ).toBeVisible();
 
   await expect(page).toHaveURL(/\/admin\/articles\/new$/);
-});
 
-test('article category autocomplete uses dynamic admin categories', async ({ page }) => {
-  const categories = ['Гостиницы', 'Культура', 'Образовательные организации', 'Торговые объекты'];
-
-  await page.route('**/api/admin/article-categories', async route => {
-    if (route.request().method() !== 'GET') {
-      await route.continue();
-
-      return;
-    }
-
-    await route.fulfill({
-      status: 200,
-
-      contentType: 'application/json',
-
-      body: JSON.stringify({
-        ok: true,
-        categories,
+  const editor = page.locator('.tiptap[contenteditable="true"]');
+  await expect(editor).toBeVisible();
+  await editor.fill('Текст нового черновика для проверки редактора.');
+  await expect
+    .poll(() =>
+      page.evaluate(() => {
+        const draft = localStorage.getItem('passport-admin-new-article-draft');
+        return draft ? JSON.parse(draft).form.content : '';
       }),
-    });
-  });
-
-  await login(page, '/admin/articles');
-
-  const listOptions = page.locator('#admin-blog-category-options option');
-
-  await expect(listOptions).toHaveCount(categories.length);
-
-  expect(await listOptions.evaluateAll(options => options.map(option => option.value))).toEqual(
-    categories,
-  );
-
-  const createPage = await page.goto('/admin/articles/new?fresh=1');
-
-  expect(createPage?.status()).toBe(200);
-
-  await expect(
-    page.getByRole('heading', {
-      name: text.newArticle,
-      exact: true,
-    }),
-  ).toBeVisible();
-
-  const createOptions = page.locator('#blog-category-suggestions-create option');
-
-  await expect(createOptions).toHaveCount(categories.length);
-
-  expect(await createOptions.evaluateAll(options => options.map(option => option.value))).toEqual(
-    categories,
-  );
+    )
+    .toContain('Текст нового черновика');
+  await page.reload();
+  await expect(page.getByRole('heading', { name: text.newArticle, exact: true })).toBeVisible();
+  await expect(editor).toContainText('Текст нового черновика');
+  expect(pageErrors).toEqual([]);
 });
+
+for (const scenario of [
+  {
+    name: 'article list',
+    path: '/admin/articles',
+    heading: text.articles,
+    suggestions: '#admin-blog-category-options option',
+  },
+  {
+    name: 'article editor',
+    path: '/admin/articles/new?fresh=1',
+    heading: text.newArticle,
+    suggestions: '#blog-category-suggestions-create option',
+  },
+]) {
+  test(`article category autocomplete uses dynamic admin categories in the ${scenario.name}`, async ({
+    page,
+  }) => {
+    const pageErrors = collectPageErrors(page);
+    const categories = ['Гостиницы', 'Культура', 'Образовательные организации', 'Торговые объекты'];
+    await page.route('**/api/admin/article-categories', async route => {
+      if (route.request().method() !== 'GET') {
+        await route.continue();
+        return;
+      }
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ ok: true, categories }),
+      });
+    });
+    await login(page, scenario.path);
+    await expect(page.getByRole('heading', { name: scenario.heading, exact: true })).toBeVisible();
+    const options = page.locator(scenario.suggestions);
+    await expect(options).toHaveCount(categories.length);
+    expect(await options.evaluateAll(nodes => nodes.map(node => node.value))).toEqual(categories);
+    expect(pageErrors).toEqual([]);
+  });
+}
 test('invalid admin login exposes its browser error state', async ({ page }) => {
   const response = await page.goto('/admin/articles');
 
@@ -158,10 +212,30 @@ test('invalid admin login exposes its browser error state', async ({ page }) => 
 test('article-list API failure renders retry UI instead of a false empty state', async ({
   page,
 }) => {
+  let listRequests = 0;
+  await page.route('**/api/admin/blog-publication', route =>
+    route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        ok: true,
+        publication: { status: 'error', error: 'Fixture publication error' },
+      }),
+    }),
+  );
   await page.route('**/api/admin/articles', async route => {
     if (route.request().method() !== 'GET') {
       await route.continue();
 
+      return;
+    }
+
+    if (++listRequests > 1) {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ ok: true, articles: [] }),
+      });
       return;
     }
 
@@ -180,6 +254,8 @@ test('article-list API failure renders retry UI instead of a false empty state',
 
   await login(page, '/admin/articles');
 
+  const listError = page.locator('.admin-empty').filter({ hasText: text.loadError });
+
   await expect(
     page.getByText(text.loadError, {
       exact: true,
@@ -187,7 +263,7 @@ test('article-list API failure renders retry UI instead of a false empty state',
   ).toBeVisible();
 
   await expect(
-    page.getByRole('button', {
+    listError.getByRole('button', {
       name: text.retry,
       exact: true,
     }),
@@ -198,6 +274,14 @@ test('article-list API failure renders retry UI instead of a false empty state',
       exact: true,
     }),
   ).toHaveCount(0);
+
+  await expect(page.getByRole('status')).toContainText('Fixture publication error');
+  await expect(page.getByRole('status').getByRole('button', { name: text.retry })).toBeVisible();
+  await listError.getByRole('button', { name: text.retry, exact: true }).click();
+  await expect(listError).toHaveCount(0);
+  await expect(page.getByText(text.empty, { exact: true })).toBeVisible();
+  expect(listRequests).toBe(2);
+  await expect(page.getByRole('status')).toContainText('Fixture publication error');
 });
 
 test('cookie notice persists its dismissal across public pages', async ({ page }) => {

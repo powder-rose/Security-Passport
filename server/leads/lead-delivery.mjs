@@ -204,7 +204,7 @@ function buildFormLeadText(lead) {
   return lines.join('\n').slice(0, 12000);
 }
 
-function buildLeadText(lead) {
+export function buildLeadText(lead) {
   if (lead.source === LEAD_SOURCE_ARTICLE_CALLBACK) {
     return buildArticleCallbackLeadText(lead);
   }

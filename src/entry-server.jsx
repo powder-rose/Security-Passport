@@ -42,6 +42,8 @@ const serverRouteComponents = {
 
   BlogPage: resolveServerPageComponent(pageModuleSources.blog),
 
+  RegulationsCatalogPage: resolveServerPageComponent(pageModuleSources.catalog),
+
   QuestionsPage: resolveServerPageComponent(pageModuleSources.questions),
 
   QuestionPage: resolveServerPageComponent(pageModuleSources.question),
@@ -59,6 +61,8 @@ export function render({
   article = null,
   questionsData = null,
   relatedQuestions = null,
+  catalogData = null,
+  directoryItems = null,
 } = {}) {
   const helmetContext = {};
 
@@ -73,6 +77,8 @@ export function render({
           initialArticle={article}
           initialQuestionsData={questionsData}
           initialRelatedQuestions={relatedQuestions}
+          initialCatalogData={catalogData}
+          initialDirectory={directoryItems}
           routeComponents={serverRouteComponents}
         />
       </HelmetProvider>

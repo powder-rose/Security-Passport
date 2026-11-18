@@ -224,6 +224,10 @@ export function render({
   );
 
   const manifest = {
+    'src/pages/RegulationsCatalogPage/RegulationsCatalogPage.jsx': {
+      css: ['assets/catalog-fixture.css'],
+    },
+
     'src/pages/QuestionsPage/QuestionsPage.jsx': { css: ['assets/questions.css'] },
     'src/pages/QuestionPage/QuestionPage.jsx': { css: ['assets/question.css'] },
     'src/pages/LegalPage/LegalPage.jsx': {

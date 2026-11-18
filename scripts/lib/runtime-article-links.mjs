@@ -1,9 +1,35 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { setTimeout as waitForRetry } from 'node:timers/promises';
 
 const publicOrigin = 'https://pasport-bezopasnosty.ru';
 const articlePathPattern = /^\/blog\/[a-z0-9]+(?:-[a-z0-9]+)*\/$/;
+const retryDelays = [300, 1000];
+const retryableStatuses = new Set([408, 429, 500, 502, 503, 504]);
+const retryableCodes = new Set([
+  'ARTICLE_HTTP_TRANSIENT',
+  'ECONNRESET',
+  'ECONNREFUSED',
+  'ETIMEDOUT',
+  'EAI_AGAIN',
+  'ENETUNREACH',
+  'EHOSTUNREACH',
+  'UND_ERR_SOCKET',
+  'UND_ERR_CONNECT_TIMEOUT',
+  'UND_ERR_HEADERS_TIMEOUT',
+  'UND_ERR_BODY_TIMEOUT',
+]);
+
+function isTransientFailure(error) {
+  return (
+    retryableCodes.has(error?.code) ||
+    retryableCodes.has(error?.cause?.code) ||
+    error?.name === 'TimeoutError' ||
+    error?.name === 'AbortError' ||
+    (error instanceof TypeError && ['fetch failed', 'terminated'].includes(error.message))
+  );
+}
 
 function attributes(tag) {
   return Object.fromEntries(
@@ -51,6 +77,7 @@ export function createRuntimeArticleResolver({
   projectRoot,
   origin,
   fetchImpl = globalThis.fetch,
+  wait = waitForRetry,
 }) {
   let publishedArticles;
   const requests = new Map();
@@ -71,18 +98,39 @@ export function createRuntimeArticleResolver({
     return publishedArticles;
   }
 
-  async function requestArticle(url) {
+  async function requestArticleOnce(url) {
     const response = await fetchImpl(url, {
       redirect: 'error',
       signal: AbortSignal.timeout(30_000),
       headers: { Accept: 'text/html', 'Cache-Control': 'no-cache' },
     });
+    if (retryableStatuses.has(response.status)) {
+      await response.body?.cancel().catch(() => {});
+      throw Object.assign(new Error(`Public article returned HTTP ${response.status}`), {
+        code: 'ARTICLE_HTTP_TRANSIENT',
+      });
+    }
     assert.equal(response.status, 200, `Public article returned HTTP ${response.status}`);
     assert.equal(response.url, url, 'Public article URL mismatch');
     assert.match(response.headers.get('content-type') || '', /^text\/html(?:;|$)/i);
     assert.ok(!/\b(noindex|none)\b/i.test(response.headers.get('x-robots-tag') || ''));
     const ids = validateArticle(await response.text(), url);
     return { url, ids };
+  }
+
+  async function requestArticle(url) {
+    for (let attempt = 0; ; attempt++) {
+      try {
+        // Reading and validating the body belongs to the same attempt as fetch.
+        return await requestArticleOnce(url);
+      } catch (error) {
+        if (!isTransientFailure(error)) throw error;
+        if (attempt === retryDelays.length) {
+          throw new Error(`${error.message} (after ${attempt + 1} attempts)`, { cause: error });
+        }
+        await wait(retryDelays[attempt]);
+      }
+    }
   }
 
   return async pathname => {

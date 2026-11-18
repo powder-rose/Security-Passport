@@ -5,6 +5,7 @@ import MobileMenuPortal from './MobileMenuPortal';
 import { quickNavLinks } from './headerNavigation';
 
 export default function SiteNavigation({
+  directoryItems,
   mobileMenuOpen,
   mobileNavRef,
   currentPathname,
@@ -69,7 +70,12 @@ export default function SiteNavigation({
         <div className="site-nav__mobile-directory">
           <div className="site-nav__mobile-title">Все разделы</div>
 
-          <DirectoryContent currentPathname={currentPathname} onNavigate={onCloseMenus} mobile />
+          <DirectoryContent
+            items={directoryItems}
+            currentPathname={currentPathname}
+            onNavigate={onCloseMenus}
+            mobile
+          />
         </div>
 
         <a className="site-nav__mobile-cta" href="/#contact" onClick={onCloseMenus}>

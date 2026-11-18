@@ -6,6 +6,7 @@ import { normalizeArticleCategory } from '../../features/articles/model/articleC
 
 import BlogPublicationStatus from './components/BlogPublicationStatus.jsx';
 import useBlogPublication from './hooks/useBlogPublication.js';
+import { formatPublicationDate } from '../../../../shared/contracts/article-schedule.js';
 
 function formatDate(date) {
   if (!date) {
@@ -168,10 +169,19 @@ export default function ArticlesPage() {
           <button className={filter === 'draft' ? 'active' : ''} onClick={() => setFilter('draft')}>
             Черновики
           </button>
+          <button
+            className={filter === 'scheduled' ? 'active' : ''}
+            onClick={() => setFilter('scheduled')}
+          >
+            По расписанию
+          </button>
         </div>
 
         <div className="admin-articles-header-actions-wrap">
           <div className="admin-articles-header-actions">
+            <a href="/admin/publications" className="admin-button-secondary">
+              План публикаций
+            </a>
             <a href="/admin/articles/new?fresh=1" className="admin-button">
               Создать статью
             </a>
@@ -221,11 +231,22 @@ export default function ArticlesPage() {
                   className={
                     article.status === 'published'
                       ? 'admin-status admin-status--published'
-                      : 'admin-status admin-status--draft'
+                      : article.status === 'scheduled'
+                        ? 'admin-status admin-status--scheduled'
+                        : 'admin-status admin-status--draft'
                   }
                 >
-                  {article.status === 'published' ? 'Опубликовано' : 'Черновик'}
+                  {article.status === 'published'
+                    ? 'Опубликовано'
+                    : article.status === 'scheduled'
+                      ? 'По расписанию'
+                      : 'Черновик'}
                 </span>
+                {article.status === 'scheduled' && (
+                  <div className="admin-article-date">
+                    {formatPublicationDate(article.publicationSchedule?.at)} МСК
+                  </div>
+                )}
 
                 <label className="admin-article-category">
                   <span>Категория</span>

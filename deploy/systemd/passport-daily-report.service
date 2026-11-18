@@ -5,6 +5,10 @@ Wants=network-online.target
 
 [Service]
 Type=oneshot
+User=passport
+Group=passport
+UMask=0077
+TimeoutStartSec=120
 WorkingDirectory=/var/www/pasport-bezopasnosty.ru/app/passport-security-base
 Environment=SERVER_ENV_FILE=/var/www/pasport-bezopasnosty.ru/app/passport-security-base/.env.server
-ExecStart=/usr/bin/node /var/www/pasport-bezopasnosty.ru/app/passport-security-base/scripts/send-daily-report.mjs
+ExecStart=/usr/bin/flock --nonblock /var/www/pasport-bezopasnosty.ru/app/passport-security-base/data/.daily-report.lock /usr/bin/node /var/www/pasport-bezopasnosty.ru/app/passport-security-base/scripts/send-daily-report.mjs

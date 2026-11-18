@@ -178,6 +178,13 @@ let stateWrites = Promise.resolve();
 
 let running = false;
 
+const publicationObservers = new Set();
+
+export function observeBlogPublication(observer) {
+  publicationObservers.add(observer);
+  return () => publicationObservers.delete(observer);
+}
+
 function updateState(mutator) {
   const operation = stateWrites.then(async () => {
     const next = normalizeState(
@@ -241,10 +248,23 @@ async function processQueue() {
 
       console.log(`[blog-publication] started: ${activeReason}`);
 
+      const observations = [];
       try {
+        for (const observer of publicationObservers) {
+          observations.push({ observer, jobs: await observer.prepare() });
+        }
         await runPublication(activeReason);
+        for (const { observer, jobs } of observations) await observer.settle(jobs);
       } catch (error) {
         console.error('[blog-publication] failed:', error);
+
+        for (const { observer, jobs } of observations) {
+          try {
+            await observer.settle(jobs, error);
+          } catch (trackingError) {
+            console.error('[blog-publication] schedule status failed:', trackingError);
+          }
+        }
 
         const message = error instanceof Error ? error.message : String(error);
 

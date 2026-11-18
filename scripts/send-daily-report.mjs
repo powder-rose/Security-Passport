@@ -1,12 +1,18 @@
 import process from 'node:process';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 dotenv.config({
   path: process.env.SERVER_ENV_FILE || '.env.server',
 });
 
 const { getStatistics, STAT_PERIODS } = await import('../server/analytics/statistics.mjs');
+const { resolveProjectRoot } = await import('../server/shared/project-root.mjs');
+const { getDailyLeads, buildLeadsCsv, buildDailyLeadsHtml, buildDailyLeadsText } =
+  await import('../server/reports/daily-leads.mjs');
 
 const REPORT_EMAIL = process.env.DAILY_REPORT_EMAIL || 'mail@pasport-bezopasnosty.ru';
 
@@ -454,7 +460,7 @@ function buildCsv(statistics) {
   return '\uFEFF' + rows.map(row => row.map(csvCell).join(';')).join('\r\n');
 }
 
-function buildHtml(statistics) {
+function buildHtml(statistics, leads = []) {
   return `
     <!doctype html>
 
@@ -489,7 +495,7 @@ function buildHtml(statistics) {
             line-height:1;
             letter-spacing:-.04em;
           ">
-            Статистика сайта
+            Статистика и заявки
           </h1>
 
 
@@ -521,6 +527,7 @@ function buildHtml(statistics) {
 
 
           ${buildOverviewHtml(statistics)}
+          ${buildDailyLeadsHtml(leads)}
 
 
           <div style="
@@ -576,23 +583,33 @@ function buildHtml(statistics) {
   `;
 }
 
-function createTransport() {
-  const host = process.env.SMTP_HOST;
+export function createTransport(env = process.env) {
+  const host = env.SMTP_HOST;
 
-  const user = process.env.SMTP_USER;
+  const user = env.SMTP_USER;
 
-  const pass = process.env.SMTP_PASS;
+  const pass = env.SMTP_PASS;
 
   if (!host || !user || !pass) {
-    throw new Error('SMTP не настроен: проверьте SMTP_HOST, SMTP_USER и SMTP_PASS');
+    throw Object.assign(new Error('SMTP не настроен: проверьте SMTP_HOST, SMTP_USER и SMTP_PASS'), {
+      code: 'SMTP_NOT_CONFIGURED',
+    });
   }
 
   return nodemailer.createTransport({
     host,
 
-    port: Number(process.env.SMTP_PORT || 465),
+    port: Number(env.SMTP_PORT || 465),
 
-    secure: String(process.env.SMTP_SECURE ?? 'true').toLowerCase() === 'true',
+    secure:
+      env.SMTP_SECURE === undefined
+        ? Number(env.SMTP_PORT || 465) === 465
+        : String(env.SMTP_SECURE).toLowerCase() === 'true',
+    connectionTimeout: Number(env.SMTP_TIMEOUT_MS) || 20_000,
+    greetingTimeout: Number(env.SMTP_TIMEOUT_MS) || 20_000,
+    socketTimeout: Number(env.SMTP_TIMEOUT_MS) || 20_000,
+    logger: false,
+    debug: false,
 
     auth: {
       user,
@@ -601,52 +618,150 @@ function createTransport() {
   });
 }
 
-const statistics = await getStatistics();
+export async function sendDailyReport({
+  now = new Date(),
+  env = process.env,
+  transportFactory = createTransport,
+  readStatistics = getStatistics,
+  readLeads = getDailyLeads,
+  stateFile = path.join(resolveProjectRoot(), 'data/daily-report.json'),
+  preview = false,
+} = {}) {
+  const statistics = await readStatistics({ now });
 
-const dayPeriod = statistics.periods.day;
+  const dayPeriod = statistics.periods.day;
 
-const reportDate = formatDate(getPeriodEndDate(dayPeriod));
+  const reportDate = formatDate(getPeriodEndDate(dayPeriod));
 
-const fileDate = reportDate.split('.').reverse().join('-');
+  const fileDate = reportDate.split('.').reverse().join('-');
 
-const transport = createTransport();
+  const leads = await readLeads(dayPeriod.range);
+  let previous = null;
+  try {
+    previous = JSON.parse(await fs.readFile(stateFile, 'utf8'));
+  } catch (error) {
+    if (error?.code !== 'ENOENT') throw error;
+  }
+  if (!preview && previous?.status === 'sent' && previous.reportDate === reportDate)
+    return { status: 'already_sent', reportDate };
+  await fs.mkdir(path.dirname(stateFile), { recursive: true });
+  async function saveState(value) {
+    const temporary = stateFile + '.' + process.pid + '.tmp';
+    try {
+      await fs.writeFile(temporary, JSON.stringify(value, null, 2) + '\n', { mode: 0o600 });
+      await fs.rename(temporary, stateFile);
+    } finally {
+      await fs.rm(temporary, { force: true });
+    }
+  }
 
-await transport.sendMail({
-  from: FROM_EMAIL,
-  to: REPORT_EMAIL,
+  const message = {
+    from: env.LEAD_EMAIL_FROM || env.SMTP_USER || FROM_EMAIL,
+    to: env.DAILY_REPORT_EMAIL || REPORT_EMAIL,
 
-  subject: `Статистика pasport-bezopasnosty.ru — ${reportDate}`,
+    subject: `Статистика и заявки pasport-bezopasnosty.ru — ${reportDate}`,
 
-  text: buildText(statistics),
+    text: buildText(statistics) + '\n\n' + buildDailyLeadsText(leads),
 
-  html: buildHtml(statistics),
+    html: buildHtml(statistics, leads),
 
-  attachments: [
-    {
-      filename: `statistics-${fileDate}.csv`,
+    attachments: [
+      {
+        filename: `statistics-${fileDate}.csv`,
 
-      content: buildCsv(statistics),
+        content: buildCsv(statistics),
 
-      contentType: 'text/csv; charset=utf-8',
-    },
-  ],
-});
+        contentType: 'text/csv; charset=utf-8',
+      },
+      {
+        filename: `leads-${fileDate}.csv`,
+        content: buildLeadsCsv(leads),
+        contentType: 'text/csv; charset=utf-8',
+      },
+      {
+        filename: `lead-details-${fileDate}.txt`,
+        content: leads.length
+          ? leads.map(lead => lead.details).join('\n\n====================\n\n')
+          : 'За этот день новых заявок не было.',
+        contentType: 'text/plain; charset=utf-8',
+      },
+    ],
+  };
+  if (preview) {
+    const directory = path.join(path.dirname(stateFile), 'daily-report-preview');
+    await fs.mkdir(directory, { recursive: true, mode: 0o700 });
+    await fs.writeFile(path.join(directory, 'report.html'), message.html, { mode: 0o600 });
+    await fs.writeFile(path.join(directory, 'report.txt'), message.text, { mode: 0o600 });
+    for (const attachment of message.attachments)
+      await fs.writeFile(path.join(directory, attachment.filename), attachment.content, {
+        mode: 0o600,
+      });
+    return { status: 'preview', reportDate, directory, leads: leads.length };
+  }
+  let transport;
+  try {
+    transport = transportFactory(env);
+    await saveState({
+      version: 1,
+      status: 'sending',
+      reportDate,
+      attemptedAt: new Date().toISOString(),
+      sentAt: null,
+      recipient: message.to,
+    });
+    const result = await transport.sendMail(message);
+    if (Array.isArray(result?.rejected) && result.rejected.length)
+      throw Object.assign(new Error('Recipient rejected'), { code: 'RECIPIENT_REJECTED' });
+    await saveState({
+      version: 1,
+      status: 'sent',
+      reportDate,
+      sentAt: new Date().toISOString(),
+      recipient: message.to,
+    });
+  } catch (error) {
+    await saveState({
+      version: 1,
+      status: 'error',
+      reportDate,
+      sentAt: null,
+      error: String(error?.code || 'SEND_FAILED').replace(/[^A-Z0-9_]/gi, '_'),
+      recipient: message.to,
+    });
+    throw Object.assign(new Error('Не удалось отправить отчёт. Проверьте SMTP и статус отчёта.'), {
+      code: error?.code || 'SEND_FAILED',
+    });
+  } finally {
+    transport?.close?.();
+  }
 
-console.log(`✓ Отчёт отправлен: ${REPORT_EMAIL}`);
+  console.log(`✓ Отчёт отправлен: ${REPORT_EMAIL}`);
 
-console.log(`✓ Отчётная дата: ${reportDate}`);
+  console.log(`✓ Отчётная дата: ${reportDate}`);
 
-console.log('✓ Федеральный сайт: Россия');
+  console.log('✓ Федеральный сайт: Россия');
 
-console.log('✓ Полная статистика приложена в CSV');
+  console.log('✓ Полная статистика приложена в CSV');
 
-for (const definition of STAT_PERIODS) {
-  const period = statistics.periods[definition.key];
+  for (const definition of STAT_PERIODS) {
+    const period = statistics.periods[definition.key];
 
-  console.log(
-    `${period.label}: ` +
-      `${period.totals.visits} посещений, ` +
-      `${period.totals.leads} заявок, ` +
-      `${formatPercent(period.totals.conversion, period.totals.visits)}`,
-  );
+    console.log(
+      `${period.label}: ` +
+        `${period.totals.visits} посещений, ` +
+        `${period.totals.leads} заявок, ` +
+        `${formatPercent(period.totals.conversion, period.totals.visits)}`,
+    );
+  }
+  return { status: 'sent', reportDate, leads: leads.length };
+}
+
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  try {
+    const result = await sendDailyReport({ preview: process.argv.includes('--preview') });
+    console.log('DAILY_REPORT=' + result.status.toUpperCase());
+  } catch (error) {
+    console.error('DAILY_REPORT=FAILED_' + (error.code || 'UNKNOWN'));
+    process.exitCode = 1;
+  }
 }

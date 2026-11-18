@@ -231,8 +231,16 @@ export function registerArticleRoutes({ app, adminAuth, clientDir, uploadsDir })
           publication,
         });
       } catch (error) {
-        if (error?.code === 'ARTICLE_INPUT_INVALID' || error?.code === 'ARTICLE_SEO_REQUIRED') {
-          return res.status(400).json({
+        if (
+          [
+            'ARTICLE_INPUT_INVALID',
+            'ARTICLE_SEO_REQUIRED',
+            'ARTICLE_SCHEDULE_INVALID',
+            'ARTICLE_SCHEDULE_PAST',
+            'ARTICLE_CONFLICT',
+          ].includes(error?.code)
+        ) {
+          return res.status(error.code === 'ARTICLE_CONFLICT' ? 409 : 400).json({
             ok: false,
             error: error.code,
           });
@@ -285,8 +293,16 @@ export function registerArticleRoutes({ app, adminAuth, clientDir, uploadsDir })
           publication,
         });
       } catch (error) {
-        if (error?.code === 'ARTICLE_INPUT_INVALID' || error?.code === 'ARTICLE_SEO_REQUIRED') {
-          return res.status(400).json({
+        if (
+          [
+            'ARTICLE_INPUT_INVALID',
+            'ARTICLE_SEO_REQUIRED',
+            'ARTICLE_SCHEDULE_INVALID',
+            'ARTICLE_SCHEDULE_PAST',
+            'ARTICLE_CONFLICT',
+          ].includes(error?.code)
+        ) {
+          return res.status(error.code === 'ARTICLE_CONFLICT' ? 409 : 400).json({
             ok: false,
             error: error.code,
           });

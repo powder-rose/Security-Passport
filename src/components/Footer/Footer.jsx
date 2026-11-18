@@ -12,6 +12,7 @@ const navLinks = [
   ['#faq', 'FAQ'],
   ['/blog/', 'Блог'],
   ['/questions/', 'Вопрос — ответ'],
+  ['/postanovleniya/', 'Все постановления'],
 ];
 
 const legalLinks = [

@@ -185,6 +185,7 @@ export function scrollToNavigationTarget(target, behavior = 'smooth') {
 
 export function isDirectoryActive(pathname) {
   return (
+    pathname === '/postanovleniya' ||
     servicePages.some(page => isPathActive(page.path, pathname)) ||
     objectTypes.some(item => isPathActive(item.path, pathname))
   );

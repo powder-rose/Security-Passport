@@ -61,7 +61,7 @@ export function createSlug(value) {
 }
 
 export function validatePublicationSeo(form) {
-  if (form.status !== 'published') {
+  if (form.status !== 'published' && form.status !== 'scheduled') {
     return true;
   }
 

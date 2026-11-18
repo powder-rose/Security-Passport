@@ -34,6 +34,8 @@ export default function App({
   initialArticle = null,
   initialQuestionsData = null,
   initialRelatedQuestions = null,
+  initialCatalogData = null,
+  initialDirectory = null,
   routeComponents = {},
 }) {
   const resolvedPathname =
@@ -47,6 +49,8 @@ export default function App({
     ObjectTypePage: GenericObjectTypePage,
 
     BlogPage: BlogPageComponent,
+
+    RegulationsCatalogPage: RegulationsCatalogPageComponent,
 
     QuestionsPage: QuestionsPageComponent,
 
@@ -64,7 +68,7 @@ export default function App({
       <>
         <Analytics />
         <CookieNotice />
-        <Header pathname={resolvedPathname} />
+        <Header pathname={resolvedPathname} initialItems={initialDirectory} />
         {normalizedPathname === '/questions' ? (
           <QuestionsPageComponent initialData={initialQuestionsData} />
         ) : (
@@ -78,13 +82,25 @@ export default function App({
     );
   }
 
+  if (normalizedPathname === '/postanovleniya') {
+    return (
+      <>
+        <Analytics />
+        <CookieNotice />
+        <Header pathname={resolvedPathname} initialItems={initialDirectory} />
+        <RegulationsCatalogPageComponent initialData={initialCatalogData} />
+        <Footer />
+      </>
+    );
+  }
+
   if (normalizedPathname === '/blog') {
     return (
       <>
         <Analytics />
         <CookieNotice />
 
-        <Header pathname={resolvedPathname} />
+        <Header pathname={resolvedPathname} initialItems={initialDirectory} />
 
         <BlogPageComponent initialArticles={initialBlogArticles} />
 
@@ -109,7 +125,7 @@ export default function App({
         <Analytics />
         <CookieNotice />
 
-        <Header pathname={resolvedPathname} />
+        <Header pathname={resolvedPathname} initialItems={initialDirectory} />
 
         <ArticlePageComponent
           slug={articleSlug}
@@ -147,7 +163,7 @@ export default function App({
 
         <Analytics />
         <CookieNotice />
-        <Header pathname={resolvedPathname} />
+        <Header pathname={resolvedPathname} initialItems={initialDirectory} />
 
         <ObjectPageComponent objectType={objectType} />
 
@@ -167,7 +183,7 @@ export default function App({
 
         <Analytics />
         <CookieNotice />
-        <Header pathname={resolvedPathname} />
+        <Header pathname={resolvedPathname} initialItems={initialDirectory} />
 
         <ServicePageComponent servicePage={servicePage} />
 
@@ -181,7 +197,7 @@ export default function App({
       <Seo pathname="/" />
       <Analytics />
       <CookieNotice />
-      <Header pathname={resolvedPathname} />
+      <Header pathname={resolvedPathname} initialItems={initialDirectory} />
 
       <main id="main-content">
         <Hero />

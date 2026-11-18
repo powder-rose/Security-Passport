@@ -1,4 +1,5 @@
 import { useAuth } from '../../auth/AuthProvider';
+import ArrowIcon from '../ArrowIcon.jsx';
 
 export default function AdminLayout({ children }) {
   const { signOut } = useAuth();
@@ -12,8 +13,18 @@ export default function AdminLayout({ children }) {
           <a href="/admin/">Главная</a>
 
           <a href="/admin/articles">Статьи</a>
+          <a
+            href="/admin/publications"
+            aria-current={
+              window.location.pathname.startsWith('/admin/publications') ? 'page' : undefined
+            }
+          >
+            План публикаций
+          </a>
 
           <a href="/admin/questions">Вопросы и ответы</a>
+
+          <a href="/admin/directions">Каталог постановлений</a>
 
           <a
             href="/blog/"
@@ -21,10 +32,8 @@ export default function AdminLayout({ children }) {
             rel="noopener noreferrer"
             className="admin-sidebar__blog-link"
           >
-            Блог на сайте ↗
+            Блог на сайте <ArrowIcon />
           </a>
-
-          <a href="/admin/regulations">Нормативные документы</a>
 
           <a href="/admin/leads">Заявки</a>
 
