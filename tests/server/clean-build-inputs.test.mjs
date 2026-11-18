@@ -241,12 +241,18 @@ const invalidArticleCases = [
 for (const [name, options] of invalidArticleCases) {
   test(`runtime article QA rejects ${name}`, async t => {
     const projectRoot = await articleWorkspace(t);
+    let calls = 0;
     const resolve = createRuntimeArticleResolver({
       projectRoot,
       origin: articleOrigin,
-      fetchImpl: async () => publicArticleResponse(options),
+      wait: async () => {},
+      fetchImpl: async () => {
+        calls++;
+        return publicArticleResponse(options);
+      },
     });
     await assert.rejects(resolve(articlePath));
+    assert.equal(calls, options.status === 500 ? 3 : 1);
   });
 }
 
@@ -264,4 +270,120 @@ test('runtime article QA treats network failure as an error and caches it', asyn
   await assert.rejects(resolve(articlePath), /network unavailable/);
   await assert.rejects(resolve(articlePath), /network unavailable/);
   assert.equal(requests, 1);
+});
+
+test('runtime article QA retries an interrupted response body and shares the successful result', async t => {
+  const projectRoot = await articleWorkspace(t);
+  let calls = 0;
+  const delays = [];
+  const resolve = createRuntimeArticleResolver({
+    projectRoot,
+    origin: articleOrigin,
+    wait: async delay => delays.push(delay),
+    fetchImpl: async () => {
+      calls++;
+      const response = publicArticleResponse();
+      if (calls === 1) {
+        response.text = async () => {
+          throw new TypeError('terminated', {
+            cause: Object.assign(new Error('socket closed'), { code: 'UND_ERR_SOCKET' }),
+          });
+        };
+      }
+      return response;
+    },
+  });
+  const [first, second] = await Promise.all([resolve(articlePath), resolve(articlePath)]);
+  assert.equal(first, second);
+  assert.deepEqual([...first.ids], ['details']);
+  assert.equal(calls, 2);
+  assert.deepEqual(delays, [300]);
+  assert.equal(await resolve(articlePath), first);
+  assert.equal(calls, 2);
+  assert.deepEqual(await fs.readdir(projectRoot), []);
+});
+
+test('runtime article QA retries temporary HTTP errors with fresh attempt deadlines', async t => {
+  const projectRoot = await articleWorkspace(t);
+  const signals = [];
+  const delays = [];
+  const responses = [];
+  const resolve = createRuntimeArticleResolver({
+    projectRoot,
+    origin: articleOrigin,
+    wait: async delay => delays.push(delay),
+    fetchImpl: async (url, options) => {
+      assert.equal(url, articleUrl);
+      assert.equal(options.redirect, 'error');
+      signals.push(options.signal);
+      const response = publicArticleResponse({ status: [503, 502, 200][signals.length - 1] });
+      responses.push(response);
+      return response;
+    },
+  });
+  assert.equal((await resolve(articlePath)).url, articleUrl);
+  assert.equal(new Set(signals).size, 3);
+  assert.deepEqual(delays, [300, 1000]);
+  assert.ok(responses[0].bodyUsed && responses[1].bodyUsed);
+});
+
+test('runtime article QA recovers from transient connection and timeout failures', async t => {
+  const projectRoot = await articleWorkspace(t);
+  for (const error of [
+    new TypeError('fetch failed', { cause: { code: 'ECONNRESET' } }),
+    Object.assign(new Error('DNS retry'), { code: 'EAI_AGAIN' }),
+    new DOMException('Request deadline exceeded', 'TimeoutError'),
+  ]) {
+    let calls = 0;
+    const resolve = createRuntimeArticleResolver({
+      projectRoot,
+      origin: articleOrigin,
+      wait: async () => {},
+      fetchImpl: async () => {
+        if (++calls === 1) throw error;
+        return publicArticleResponse();
+      },
+    });
+    assert.equal((await resolve(articlePath)).url, articleUrl);
+    assert.equal(calls, 2);
+  }
+});
+
+test('runtime article QA still fails and caches the error after three interrupted attempts', async t => {
+  const projectRoot = await articleWorkspace(t);
+  let calls = 0;
+  const delays = [];
+  const resolve = createRuntimeArticleResolver({
+    projectRoot,
+    origin: articleOrigin,
+    wait: async delay => delays.push(delay),
+    fetchImpl: async () => {
+      calls++;
+      const response = publicArticleResponse();
+      response.text = async () => {
+        throw new TypeError('terminated');
+      };
+      return response;
+    },
+  });
+  await assert.rejects(resolve(articlePath), /terminated \(after 3 attempts\)/);
+  await assert.rejects(resolve(articlePath), /terminated \(after 3 attempts\)/);
+  assert.equal(calls, 3);
+  assert.deepEqual(delays, [300, 1000]);
+});
+
+test('runtime article QA does not retry certificate failures or treat them as verified content', async t => {
+  const projectRoot = await articleWorkspace(t);
+  let calls = 0;
+  const resolve = createRuntimeArticleResolver({
+    projectRoot,
+    origin: articleOrigin,
+    wait: () => assert.fail('A permanent TLS failure must not be retried'),
+    fetchImpl: async () => {
+      calls++;
+      throw new TypeError('TLS validation failed', { cause: { code: 'CERT_HAS_EXPIRED' } });
+    },
+  });
+  await assert.rejects(resolve(articlePath), /TLS validation failed/);
+  assert.equal(calls, 1);
 });
