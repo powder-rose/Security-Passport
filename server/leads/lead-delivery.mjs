@@ -4,6 +4,7 @@ import nodemailer from 'nodemailer';
 
 import { LEAD_SOURCE_ARTICLE_CALLBACK, LEAD_SOURCE_QUIZ } from '../../shared/contracts/lead.js';
 import { appendLeadToFile } from './lead-storage.mjs';
+import { appendHubOutbox } from './hub-outbox.mjs';
 
 function cleanString(value, maxLength = 2000) {
   if (typeof value !== 'string') {
@@ -330,6 +331,7 @@ export function createLeadDelivery({ backupEnabled, leadsFile, env = process.env
   }
 
   async function deliverLead(lead) {
+    await appendHubOutbox(env.BOYKOV_HUB_OUTBOX, lead);
     const text = buildLeadText(lead);
 
     const tasks = [saveBackup(lead), sendTelegram(text), sendEmail(text, lead)];
@@ -368,7 +370,7 @@ export function createLeadDelivery({ backupEnabled, leadsFile, env = process.env
     const backupSucceeded = successful.some(result => result.channel === 'backup');
 
     return {
-      ok: backupSucceeded || successfulNotifications.length > 0,
+      ok: Boolean(env.BOYKOV_HUB_OUTBOX) || backupSucceeded || successfulNotifications.length > 0,
 
       results,
     };
@@ -377,6 +379,7 @@ export function createLeadDelivery({ backupEnabled, leadsFile, env = process.env
   function getTransportStatus() {
     return {
       backup: Boolean(backupEnabled),
+      ...(env.BOYKOV_HUB_OUTBOX ? { hub: true } : {}),
 
       telegram: Boolean(env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID),
 

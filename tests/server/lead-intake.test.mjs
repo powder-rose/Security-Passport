@@ -494,3 +494,37 @@ test('article callback rejects invalid or spam submissions before delivery', asy
     assert.equal(delivered.length, 0, scenario.label);
   }
 });
+
+test('concurrent duplicate cannot report success before the first durable delivery', async () => {
+  for (const success of [true, false]) {
+    let finish;
+    const pending = new Promise(resolve => {
+      finish = resolve;
+    });
+    let calls = 0;
+    const intake = createLeadIntake({
+      leadDelivery: {
+        deliverLead: async () => {
+          calls++;
+          return pending;
+        },
+      },
+      env: {},
+    });
+    const first = createResponse(),
+      second = createResponse(),
+      body = createValidLeadBody('concurrent-delivery-' + success);
+    await withMutedConsole('info', async () => {
+      const one = intake.handleLead(createRequest({ body }), first);
+      const two = intake.handleLead(createRequest({ body }), second);
+      await Promise.resolve();
+      assert.equal(second.body, null);
+      finish({ ok: success });
+      await Promise.all([one, two]);
+    });
+    assert.equal(calls, 1);
+    assert.equal(first.body.ok, success);
+    assert.equal(second.body.ok, success);
+    assert.equal(second.statusCode, success ? 200 : 503);
+  }
+});
