@@ -114,6 +114,17 @@ export function getArticleCategories() {
   return request('/article-categories');
 }
 
+export function getArticleSchedules() {
+  return request('/article-schedules');
+}
+
+export function changeArticleSchedule(id, data) {
+  return request(`/article-schedules/${encodeURIComponent(id)}`, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
 export function getBlogPublication() {
   return request('/blog-publication');
 }
@@ -161,6 +172,10 @@ export function uploadArticleImage(file) {
 
 export function getStatistics() {
   return request('/statistics');
+}
+
+export function getDailyReportStatus() {
+  return request('/daily-report');
 }
 
 export function getDocumentation() {

@@ -7,9 +7,12 @@ import { useArticleCategoryOptions } from '../../features/articles/hooks/useArti
 import {
   createEmptyArticleForm,
   getNormalizedArticleSeo,
+  getArticleSchedulePayload,
+  ARTICLE_SAVE_ERRORS,
 } from '../../features/articles/model/articleForm.js';
 
 import ArticleFormFields from '../../features/articles/components/ArticleFormFields.jsx';
+import ArticlePublicationPanel from '../../features/articles/components/ArticlePublicationPanel.jsx';
 
 import ImageCropper from '../../components/ImageCropper/ImageCropper.jsx';
 
@@ -67,7 +70,7 @@ export default function CreateArticlePage() {
   const [form, setForm] = useState(() => {
     const draft = loadArticleDraft();
 
-    return draft?.form || createEmptyArticleForm();
+    return { ...createEmptyArticleForm(), ...(draft?.form || {}) };
   });
 
   const savingRef = useRef(false);
@@ -140,16 +143,13 @@ export default function CreateArticlePage() {
         ...form,
 
         ...getNormalizedArticleSeo(form),
+        ...getArticleSchedulePayload(form),
 
         slug: createSlug(form.slug || form.title),
       });
 
       if (result?.ok === false) {
-        if (result.error === 'ARTICLE_SEO_REQUIRED') {
-          alert('Статью нельзя опубликовать: заполните SEO Title и SEO Description.');
-        } else {
-          alert('Не удалось сохранить статью.');
-        }
+        alert(ARTICLE_SAVE_ERRORS[result.error] || 'Не удалось сохранить статью.');
 
         savingRef.current = false;
         setSaving(false);
@@ -183,37 +183,52 @@ export default function CreateArticlePage() {
 
         <h1>Новая статья</h1>
 
-        <ArticleFormFields
-          form={form}
-          mode="create"
-          categoryOptions={categoryOptions}
-          onChange={change}
-          onSlugChange={value => change('slug', createSlug(value))}
-          onImageSelect={selectImage}
-          slugPlaceholder={createSlug(form.title) || 'url-stati'}
-        />
+        <div className="admin-editor__workspace">
+          <div className="admin-editor__main">
+            <ArticleFormFields
+              form={form}
+              mode="create"
+              categoryOptions={categoryOptions}
+              onChange={change}
+              onSlugChange={value => change('slug', createSlug(value))}
+              onImageSelect={selectImage}
+              slugPlaceholder={createSlug(form.title) || 'url-stati'}
+            />
+          </div>
 
-        <div className="admin-editor__actions">
-          <button
-            type="button"
-
-            className="admin-button admin-button--preview"
-
-            onClick={previewArticle}
+          <aside
+            className="admin-editor__publication-rail"
+            aria-label="Публикация и действия со статьёй"
           >
-            Предпросмотр статьи
-          </button>
+            <ArticlePublicationPanel form={form} onChange={change} />
 
-          <button
-            type="button"
+            <div className="admin-editor__actions">
+              <button
+                type="button"
 
-            className="admin-button"
+                className="admin-button admin-button--preview"
 
-            onClick={save}
-            disabled={saving}
-          >
-            {saving ? 'Сохранение...' : 'Сохранить'}
-          </button>
+                onClick={previewArticle}
+              >
+                Предпросмотр статьи
+              </button>
+
+              <button
+                type="button"
+
+                className="admin-button"
+
+                onClick={save}
+                disabled={saving}
+              >
+                {saving
+                  ? 'Сохранение...'
+                  : form.status === 'scheduled'
+                    ? 'Запланировать'
+                    : 'Сохранить'}
+              </button>
+            </div>
+          </aside>
         </div>
       </div>
     </>

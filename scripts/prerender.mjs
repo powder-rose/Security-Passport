@@ -1,3 +1,5 @@
+import { readPrerenderCatalog, prerenderCatalog } from './lib/prerender-catalog.mjs';
+import { withDirectoryBootstrap } from '../shared/catalog/catalog.js';
 import { questionCatalog } from '../shared/contracts/questions.js';
 import { createPrerenderDocument } from './lib/prerender-document.mjs';
 import { createPrerenderQuestionStore, prerenderQuestions } from './lib/prerender-questions.mjs';
@@ -34,7 +36,12 @@ const serverEntry = resolveEnvPath(
   path.join(projectRoot, 'dist', 'server', 'entry-server.js'),
 );
 
-const { render } = await import(pathToFileURL(serverEntry).href);
+const { render: renderPage } = await import(pathToFileURL(serverEntry).href);
+const catalogData = await readPrerenderCatalog({
+  projectRoot,
+  publishedPaths: objectTypes.map(item => item.path),
+});
+const render = (options = {}) => renderPage({ ...options, directoryItems: catalogData.menuItems });
 
 const { html, helmet } = render();
 
@@ -63,6 +70,8 @@ if (!template.includes('<div id="root"></div>')) {
 if (!template.includes('<div id="root"></div>')) {
   throw new Error('Raw Vite template is missing empty root');
 }
+
+template = withDirectoryBootstrap(template, catalogData.menuItems);
 
 const generatorTemplateDir = resolveEnvPath(
   'PRERENDER_TEMPLATE_DIR',
@@ -575,6 +584,13 @@ if (canonical) {
   // /BLOG PRERENDER
   // ========================================================
 
+  await prerenderCatalog({
+    render,
+    createDocument: createContentDocument,
+    clientDir,
+    data: catalogData,
+  });
+
   const questionSitemapUrls = await prerenderQuestions({
     render,
     createDocument: createContentDocument,
@@ -597,6 +613,7 @@ if (canonical) {
 
   const federalObjectSitemapUrls = [
     ...questionSitemapUrls,
+    { loc: `${canonical}/postanovleniya/`, priority: '0.9' },
     {
       loc: canonical,
       priority: '1.0',

@@ -18,6 +18,10 @@ dotenv.config({
   path: process.env.SERVER_ENV_FILE || '.env.server',
 });
 
+const { registerArticleScheduleRoutes } = await import('./http/article-schedule-routes.mjs');
+const { articleScheduler } = await import('./articles/article-scheduler.mjs');
+const { registerReportRoutes } = await import('./http/report-routes.mjs');
+
 const [
   { createLeadDelivery },
   { createLeadIntake },
@@ -26,6 +30,7 @@ const [
   { registerAdminRoutes },
   { registerArticleRoutes },
   { registerQuestionRoutes, startQuestionScheduler },
+  { registerCatalogRoutes },
   { registerPublicApiRoutes },
   { registerFrontendServing },
   { registerHttpMiddleware, registerHttpErrorHandler },
@@ -40,6 +45,7 @@ const [
   import('./http/admin-routes.mjs'),
   import('./http/article-routes.mjs'),
   import('./http/question-routes.mjs'),
+  import('./http/catalog-routes.mjs'),
   import('./http/public-api-routes.mjs'),
   import('./http/frontend-serving.mjs'),
   import('./http/http-middleware.mjs'),
@@ -110,7 +116,13 @@ registerArticleRoutes({
 });
 
 registerQuestionRoutes({ app, adminAuth, clientDir });
+registerCatalogRoutes({ app, adminAuth, clientDir });
 startQuestionScheduler();
+registerArticleScheduleRoutes({ app, adminAuth });
+registerReportRoutes({ app, adminAuth });
+articleScheduler.start();
+process.once('SIGINT', articleScheduler.stop);
+process.once('SIGTERM', articleScheduler.stop);
 
 registerPublicApiRoutes({
   app,

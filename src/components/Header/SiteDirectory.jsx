@@ -1,6 +1,12 @@
 import DirectoryContent from './DirectoryContent';
 
-export default function SiteDirectory({ open, currentPathname, onClose, onNavigate }) {
+export default function SiteDirectory({
+  open,
+  currentPathname,
+  onClose,
+  onNavigate,
+  directoryItems,
+}) {
   return (
     <div
       id="site-directory"
@@ -25,7 +31,11 @@ export default function SiteDirectory({ open, currentPathname, onClose, onNaviga
           </button>
         </div>
 
-        <DirectoryContent currentPathname={currentPathname} onNavigate={onNavigate} />
+        <DirectoryContent
+          items={directoryItems}
+          currentPathname={currentPathname}
+          onNavigate={onNavigate}
+        />
       </div>
     </div>
   );

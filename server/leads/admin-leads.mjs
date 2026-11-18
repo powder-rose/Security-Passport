@@ -1,6 +1,10 @@
 import path from 'node:path';
 
-import { LEAD_SOURCE_ARTICLE_CALLBACK, LEAD_SOURCE_QUIZ } from '../../shared/contracts/lead.js';
+import {
+  LEAD_SOURCE_ARTICLE_CALLBACK,
+  LEAD_SOURCE_CATALOG,
+  LEAD_SOURCE_QUIZ,
+} from '../../shared/contracts/lead.js';
 import { readJsonLines } from '../shared/jsonl.mjs';
 import { resolveSiteFromHost } from '../shared/site-region.mjs';
 import { resolveProjectRoot } from '../shared/project-root.mjs';
@@ -70,7 +74,7 @@ function getArticleUrl(lead) {
   }
 }
 
-function normalizeLead(lead) {
+export function normalizeLead(lead) {
   const contact = getContactData(lead);
   const site = resolveLeadSite(lead);
 
@@ -82,11 +86,13 @@ function normalizeLead(lead) {
     source: text(lead.source, 150),
 
     sourceTitle:
-      lead.source === LEAD_SOURCE_ARTICLE_CALLBACK
-        ? 'Статья / звонок'
-        : lead.source === LEAD_SOURCE_QUIZ
-          ? 'Квиз'
-          : 'Форма',
+      lead.source === LEAD_SOURCE_CATALOG
+        ? LEAD_SOURCE_CATALOG
+        : lead.source === LEAD_SOURCE_ARTICLE_CALLBACK
+          ? 'Статья / звонок'
+          : lead.source === LEAD_SOURCE_QUIZ
+            ? 'Квиз'
+            : 'Форма',
 
     city: site,
 

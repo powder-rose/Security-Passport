@@ -132,6 +132,10 @@ export function render() {
           css: ['assets/legal-fixture.css'],
         },
 
+        'src/pages/RegulationsCatalogPage/RegulationsCatalogPage.jsx': {
+          css: ['assets/catalog-fixture.css'],
+        },
+
         'src/pages/QuestionsPage/QuestionsPage.jsx': { css: ['assets/questions-fixture.css'] },
 
         'src/pages/BlogPage/BlogPage.jsx': {

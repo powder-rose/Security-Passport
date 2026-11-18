@@ -15,6 +15,13 @@ import { useAuth } from './auth/AuthProvider.jsx';
 const ArticleEditPage = lazy(() => import('./pages/ArticleEditPage/ArticleEditPage.jsx'));
 
 const CreateArticlePage = lazy(() => import('./pages/ArticleEditPage/CreateArticlePage.jsx'));
+const PublicationPlanPage = lazy(
+  () => import('./pages/PublicationPlanPage/PublicationPlanPage.jsx'),
+);
+
+const RegulationsCatalogPage = lazy(
+  () => import('./pages/RegulationsCatalogPage/RegulationsCatalogPage.jsx'),
+);
 
 const QuestionsPage = lazy(() => import('./pages/QuestionsPage/QuestionsPage.jsx'));
 const QuestionEditPage = lazy(() => import('./pages/QuestionEditPage/QuestionEditPage.jsx'));
@@ -27,6 +34,9 @@ const QuestionSettingsPage = lazy(
 
 function RouterView() {
   const path = window.location.pathname;
+  if (path.startsWith('/admin/publications')) return <PublicationPlanPage />;
+
+  if (path.startsWith('/admin/directions')) return <RegulationsCatalogPage />;
 
   if (path.startsWith('/admin/questions/preview/')) return <QuestionPreviewPage />;
   if (path.startsWith('/admin/questions/settings')) return <QuestionSettingsPage />;

@@ -4,6 +4,7 @@ import process from 'node:process';
 import {
   LEAD_SOURCE_ARTICLE_CALLBACK,
   LEAD_SOURCE_FINAL_CTA,
+  LEAD_SOURCE_CATALOG,
   LEAD_SOURCE_QUIZ,
   LEAD_SOURCES,
 } from '../../shared/contracts/lead.js';
@@ -107,7 +108,7 @@ function validateLead(lead) {
     return 'INVALID_DATA';
   }
 
-  if (lead.source === LEAD_SOURCE_FINAL_CTA) {
+  if (lead.source === LEAD_SOURCE_FINAL_CTA || lead.source === LEAD_SOURCE_CATALOG) {
     if (cleanString(lead.data.website, 200)) {
       return 'SPAM_DETECTED';
     }

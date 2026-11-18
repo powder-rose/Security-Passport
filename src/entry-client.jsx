@@ -57,6 +57,10 @@ async function loadRouteComponents(pathname) {
     };
   }
 
+  if (normalizedPathname === '/postanovleniya') {
+    return { RegulationsCatalogPage: await loadPageComponent(pageModuleSources.catalog) };
+  }
+
   if (normalizedPathname === '/blog') {
     return {
       BlogPage: await loadPageComponent(pageModuleSources.blog),
@@ -127,6 +131,8 @@ async function bootstrap() {
             initialArticle={initialBlogData.article ?? null}
             initialQuestionsData={window.__PASSPORT_QUESTIONS__ ?? null}
             initialRelatedQuestions={initialBlogData.questions ?? null}
+            initialCatalogData={window.__PASSPORT_CATALOG__ ?? null}
+            initialDirectory={window.__PASSPORT_DIRECTORY__ ?? null}
             routeComponents={routeComponents}
           />
         </HelmetProvider>

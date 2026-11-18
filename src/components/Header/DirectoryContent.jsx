@@ -23,82 +23,93 @@ function DirectoryLink({ href, label, currentPathname, onNavigate }) {
   );
 }
 
-export default function DirectoryContent({ currentPathname, onNavigate, mobile = false }) {
+export default function DirectoryContent({
+  currentPathname,
+  onNavigate,
+  mobile = false,
+  items = objectTypes,
+}) {
   const excludedServiceIds = getObjectTypeByPathname(currentPathname)?.excludedServiceIds || [];
   const visibleServices = servicePages.filter(page => !excludedServiceIds.includes(page.id));
 
   return (
-    <div className={`site-directory__grid${mobile ? ' site-directory__grid--mobile' : ''}`}>
-      <section className="site-directory__group">
-        <div className="site-directory__eyebrow">Услуги</div>
+    <>
+      <div className={`site-directory__grid${mobile ? ' site-directory__grid--mobile' : ''}`}>
+        <section className="site-directory__group">
+          <div className="site-directory__eyebrow">Услуги</div>
 
-        <div className="site-directory__links">
-          <DirectoryLink
-            href="/"
-            label="Паспорт безопасности объекта"
-            currentPathname={currentPathname}
-            onNavigate={onNavigate}
-          />
-
-          {visibleServices.map(page => (
+          <div className="site-directory__links">
             <DirectoryLink
-              key={page.path}
-              href={page.path}
-              label={page.title}
+              href="/"
+              label="Паспорт безопасности объекта"
               currentPathname={currentPathname}
               onNavigate={onNavigate}
             />
-          ))}
-        </div>
-      </section>
 
-      <section
-        className="
+            {visibleServices.map(page => (
+              <DirectoryLink
+                key={page.path}
+                href={page.path}
+                label={page.title}
+                currentPathname={currentPathname}
+                onNavigate={onNavigate}
+              />
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="
           site-directory__group
           site-directory__group--objects
         "
-      >
-        <div className="site-directory__eyebrow">По типу объекта</div>
+        >
+          <div className="site-directory__eyebrow">По типу объекта</div>
 
-        <div
-          className="
+          <div
+            className="
             site-directory__links
             site-directory__links--objects
           "
-        >
-          {objectTypes.map(item => (
+          >
+            {items.map(item => (
+              <DirectoryLink
+                key={item.path}
+                href={item.path}
+                label={item.title}
+                currentPathname={currentPathname}
+                onNavigate={onNavigate}
+              />
+            ))}
+          </div>
+        </section>
+
+        <section className="site-directory__group">
+          <div className="site-directory__eyebrow">Материалы</div>
+
+          <div className="site-directory__links">
             <DirectoryLink
-              key={item.path}
-              href={item.path}
-              label={item.title}
+              href="/blog/"
+              label="Блог"
               currentPathname={currentPathname}
               onNavigate={onNavigate}
             />
-          ))}
-        </div>
-      </section>
+          </div>
 
-      <section className="site-directory__group">
-        <div className="site-directory__eyebrow">Материалы</div>
+          <div className="site-directory__help">
+            <span>Не уверены, какой документ нужен?</span>
 
-        <div className="site-directory__links">
-          <DirectoryLink
-            href="/blog/"
-            label="Блог"
-            currentPathname={currentPathname}
-            onNavigate={onNavigate}
-          />
-        </div>
-
-        <div className="site-directory__help">
-          <span>Не уверены, какой документ нужен?</span>
-
-          <a href="/#contact" onClick={onNavigate}>
-            Обсудить объект
-            <span aria-hidden="true">→</span>
-          </a>
-        </div>
-      </section>
-    </div>
+            <a href="/#contact" onClick={onNavigate}>
+              Обсудить объект
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </section>
+      </div>
+      <a className="site-directory__catalog-link" href="/postanovleniya/" onClick={onNavigate}>
+        <span>Смотреть все постановления</span>
+        <span aria-hidden="true">→</span>
+      </a>
+    </>
   );
 }

@@ -1,0 +1,156 @@
+.admin-catalog {
+  display: grid;
+  gap: 20px;
+}
+.admin-catalog-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 24px;
+}
+.admin-catalog-heading h1 {
+  margin: 0 0 12px;
+}
+.admin-catalog-heading p,
+.admin-catalog-hint {
+  color: #686868;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.admin-catalog fieldset {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+}
+.admin-catalog-layout {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.2fr);
+  gap: 24px;
+  align-items: start;
+}
+.admin-catalog-panel {
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid #d8d5ce;
+  border-radius: 16px;
+  background: #fff;
+}
+.admin-catalog-panel h2 {
+  margin: 0;
+  font-size: 20px;
+}
+.admin-catalog-panel summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+.admin-catalog-panel[open] summary {
+  margin-bottom: 24px;
+}
+.admin-catalog-fields {
+  display: grid;
+  gap: 20px;
+}
+.admin-catalog-fields label,
+.admin-catalog-field {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  font-size: 13px;
+}
+.admin-catalog-fields input:not([type='checkbox']),
+.admin-catalog-fields textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #d8d5ce;
+  border-radius: 8px;
+  color: #151515;
+  background: #fff;
+  font: inherit;
+  line-height: 1.5;
+}
+.admin-catalog-fields textarea {
+  resize: vertical;
+}
+.admin-catalog-fields .admin-catalog-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.admin-catalog-toggle input {
+  width: 18px;
+  height: 18px;
+}
+.admin-catalog-list-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.admin-catalog-cards {
+  display: grid;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+.admin-catalog-cards button {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 10px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d8d5ce;
+  border-radius: 8px;
+  background: #fff;
+  color: #151515;
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.4;
+  cursor: pointer;
+}
+.admin-catalog-cards button.is-selected {
+  border-color: #151515;
+  background: #f4f2ed;
+}
+.admin-catalog-cards small {
+  display: block;
+  margin-top: 6px;
+  color: #686868;
+  font-size: 11px;
+}
+.admin-catalog-error,
+.admin-catalog-warning {
+  padding: 14px;
+  border: 1px solid #bb786a;
+  border-radius: 8px;
+  color: #783a2c;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.admin-catalog-save {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+.admin-catalog-save span {
+  color: #686868;
+  font-size: 12px;
+}
+.admin-catalog-faq-row {
+  display: grid;
+  gap: 14px;
+  padding-top: 20px;
+  border-top: 1px solid #d8d5ce;
+}
+@media (max-width: 950px) {
+  .admin-catalog-layout {
+    grid-template-columns: 1fr;
+  }
+  .admin-catalog-heading {
+    flex-direction: column;
+  }
+}

@@ -7,9 +7,12 @@ import { useArticleCategoryOptions } from '../../features/articles/hooks/useArti
 import {
   createArticleFormFromRecord,
   getNormalizedArticleSeo,
+  getArticleSchedulePayload,
+  ARTICLE_SAVE_ERRORS,
 } from '../../features/articles/model/articleForm.js';
 
 import ArticleFormFields from '../../features/articles/components/ArticleFormFields.jsx';
+import ArticlePublicationPanel from '../../features/articles/components/ArticlePublicationPanel.jsx';
 
 import ImageCropper from '../../components/ImageCropper/ImageCropper.jsx';
 
@@ -31,6 +34,7 @@ export default function ArticleEditPage() {
   const [savedPublication, setSavedPublication] = useState({
     status: '',
     slug: '',
+    updatedAt: '',
   });
 
   useEffect(() => {
@@ -45,6 +49,7 @@ export default function ArticleEditPage() {
             status: result.article.status || '',
 
             slug: result.article.slug || '',
+            updatedAt: result.article.updatedAt || '',
           });
 
           setForm(createArticleFormFromRecord(result.article));
@@ -110,16 +115,14 @@ export default function ArticleEditPage() {
         ...form,
 
         ...getNormalizedArticleSeo(form),
+        ...getArticleSchedulePayload(form),
+        expectedUpdatedAt: savedPublication.updatedAt,
 
         updateSlug: form.slug !== savedPublication.slug,
       });
 
       if (result?.ok === false) {
-        if (result.error === 'ARTICLE_SEO_REQUIRED') {
-          alert('Статью нельзя опубликовать: заполните SEO Title и SEO Description.');
-        } else {
-          alert('Не удалось сохранить статью.');
-        }
+        alert(ARTICLE_SAVE_ERRORS[result.error] || 'Не удалось сохранить статью.');
 
         savingRef.current = false;
         setSaving(false);
@@ -206,31 +209,41 @@ export default function ArticleEditPage() {
             />
           </div>
 
-          <aside className="admin-editor__sticky-actions" aria-label="Действия со статьёй">
-            <div className="admin-editor__sticky-title">Действия</div>
+          <aside
+            className="admin-editor__publication-rail"
+            aria-label="Публикация и действия со статьёй"
+          >
+            <ArticlePublicationPanel form={form} onChange={change} />
+            <div className="admin-editor__sticky-actions">
+              <div className="admin-editor__sticky-title">Действия</div>
 
-            <button
-              type="button"
-              className="admin-button admin-button--preview"
-              onClick={openPreview}
-            >
-              Предпросмотр
-            </button>
-
-            <button type="button" className="admin-button" onClick={save} disabled={saving}>
-              {saving ? 'Сохранение...' : 'Сохранить'}
-            </button>
-
-            {savedPublication.status === 'published' && savedPublication.slug && (
-              <a
-                href={`/blog/${savedPublication.slug}/`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="admin-editor__public-link"
+              <button
+                type="button"
+                className="admin-button admin-button--preview"
+                onClick={openPreview}
               >
-                Открыть на сайте ↗
-              </a>
-            )}
+                Предпросмотр
+              </button>
+
+              <button type="button" className="admin-button" onClick={save} disabled={saving}>
+                {saving
+                  ? 'Сохранение...'
+                  : form.status === 'scheduled'
+                    ? 'Запланировать'
+                    : 'Сохранить'}
+              </button>
+
+              {savedPublication.status === 'published' && savedPublication.slug && (
+                <a
+                  href={`/blog/${savedPublication.slug}/`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="admin-editor__public-link"
+                >
+                  Открыть на сайте ↗
+                </a>
+              )}
+            </div>
           </aside>
         </div>
       </div>
