@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -28,12 +28,14 @@ const ArticleImage = Image.extend({
 });
 
 export default function ArticleEditor({ value, onChange, disabled = false }) {
-  const [, forceUpdate] = useReducer(current => current + 1, 0);
   const [linksOpen, setLinksOpen] = useState(false);
 
   const editor = useEditor({
+    immediatelyRender: false,
+    shouldRerenderOnTransaction: true,
     extensions: [
       StarterKit.configure({
+        link: false,
         heading: {
           levels: [2, 3],
         },
@@ -60,10 +62,6 @@ export default function ArticleEditor({ value, onChange, disabled = false }) {
 
     content: value || '',
 
-    onTransaction() {
-      forceUpdate();
-    },
-
     onUpdate({ editor: currentEditor }) {
       onChange(currentEditor.getHTML());
     },
@@ -71,12 +69,12 @@ export default function ArticleEditor({ value, onChange, disabled = false }) {
 
   useEffect(() => {
     if (editor && value !== editor.getHTML()) {
-      editor.commands.setContent(value || '<p></p>', false);
+      editor.commands.setContent(value || '<p></p>', { emitUpdate: false });
     }
   }, [value, editor]);
 
   useEffect(() => {
-    if (editor) editor.setEditable(!disabled);
+    if (editor) editor.setEditable(!disabled, false);
   }, [editor, disabled]);
 
   const links = getEditorLinks(editor);

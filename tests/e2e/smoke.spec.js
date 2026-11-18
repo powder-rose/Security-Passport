@@ -32,6 +32,14 @@ function collectPageErrors(page) {
   return errors;
 }
 
+const browserFailures = new WeakMap();
+
+test.beforeEach(async ({ page }) => {
+  const failures = [];
+  browserFailures.set(page, failures);
+  page.on('pageerror', error => failures.push(error.message));
+});
+
 async function login(page, path) {
   const response = await page.goto(path);
 
@@ -75,7 +83,10 @@ test.afterEach(async ({ page }, testInfo) => {
       loginVisible: Boolean(document.querySelector('.admin-login')),
       sectionLoading: document.body.innerText.includes('Загрузка раздела...'),
     }));
-    console.error('SMOKE_FAILURE_STATE=' + JSON.stringify(state));
+    console.error(
+      'SMOKE_FAILURE_STATE=' +
+        JSON.stringify({ ...state, browserErrors: browserFailures.get(page) || [] }),
+    );
   } catch {
     console.error('SMOKE_FAILURE_STATE=PAGE_UNAVAILABLE');
   }
@@ -119,6 +130,7 @@ test('direct admin articles deep link reaches the authenticated React route', as
 });
 
 test('direct lazy article-create route boots and consumes fresh=1', async ({ page }) => {
+  const pageErrors = collectPageErrors(page);
   await login(page, '/admin/articles/new?fresh=1');
 
   await expect(
@@ -129,6 +141,22 @@ test('direct lazy article-create route boots and consumes fresh=1', async ({ pag
   ).toBeVisible();
 
   await expect(page).toHaveURL(/\/admin\/articles\/new$/);
+
+  const editor = page.locator('.tiptap[contenteditable="true"]');
+  await expect(editor).toBeVisible();
+  await editor.fill('Текст нового черновика для проверки редактора.');
+  await expect
+    .poll(() =>
+      page.evaluate(() => {
+        const draft = localStorage.getItem('passport-admin-new-article-draft');
+        return draft ? JSON.parse(draft).form.content : '';
+      }),
+    )
+    .toContain('Текст нового черновика');
+  await page.reload();
+  await expect(page.getByRole('heading', { name: text.newArticle, exact: true })).toBeVisible();
+  await expect(editor).toContainText('Текст нового черновика');
+  expect(pageErrors).toEqual([]);
 });
 
 for (const scenario of [
