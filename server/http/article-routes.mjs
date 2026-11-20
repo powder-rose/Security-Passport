@@ -14,6 +14,7 @@ import {
   createArticle,
   updateArticle,
   deleteArticle,
+  isDeletedArticleSlug,
 } from '../articles/admin-articles.mjs';
 
 import {
@@ -50,6 +51,15 @@ export function registerArticleRoutes({ app, adminAuth, clientDir, uploadsDir })
         );
 
         if (!current) {
+          const exists = articles.some(
+            article =>
+              article.slug === requestedSlug ||
+              (Array.isArray(article.legacySlugs) && article.legacySlugs.includes(requestedSlug)),
+          );
+          if (!exists && (await isDeletedArticleSlug(requestedSlug))) {
+            return res.redirect(301, '/blog/');
+          }
+
           return res.status(404).type('text/plain').send('Article not found');
         }
 
