@@ -102,6 +102,7 @@ before(async () => {
 beforeEach(async () => {
   await waitFor(() => !publication.getBlogPublicationStatus().running);
   await fs.writeFile(path.join(root, 'data/articles.json'), '[]');
+  await fs.rm(path.join(root, 'data/deleted-article-slugs.json'), { force: true });
   await fs.rm(path.join(root, 'failure'), { force: true });
 });
 after(async () => {
@@ -166,6 +167,65 @@ test('publication never starts early, starts exactly at the due boundary, and ca
   assert.equal(result.status, 'published');
   assert.equal(result.publishedAt, at);
   assert.equal(result.publicationSchedule.state, 'publishing');
+});
+
+test('deleting a published article removes it from the lists and permanently redirects its current and legacy URLs', async () => {
+  const article = await store.createArticle({ ...input, status: 'published', slug: 'old-slug' });
+  const updated = await store.updateArticle(article.id, { updateSlug: true, slug: 'removed-slug' });
+  const other = await store.createArticle({ ...input, status: 'published', slug: 'other-slug' });
+  const draft = await store.createArticle({ ...input, status: 'draft', slug: 'draft-only' });
+
+  for (const slug of ['old-slug', updated.slug, other.slug]) {
+    const file = path.join(root, 'client/blog', slug, 'index.html');
+    await fs.mkdir(path.dirname(file), { recursive: true });
+    await fs.writeFile(file, '<p>Generated article page</p>');
+  }
+
+  const request = slug => fetch(origin + '/blog/' + slug, { redirect: 'manual' });
+  assert.equal((await request(updated.slug + '/')).status, 200);
+  const legacy = await request('old-slug/');
+  assert.equal(legacy.status, 301);
+  assert.equal(legacy.headers.get('location'), '/blog/removed-slug/');
+
+  const deleted = await fetch(origin + '/api/admin/articles/' + article.id, {
+    method: 'DELETE',
+    headers: { cookie },
+  });
+  assert.equal(deleted.status, 200);
+  assert.equal((await deleted.json()).ok, true);
+  assert.equal(await store.getArticleById(article.id), null);
+  assert.deepEqual(
+    (await api('/api/articles')).data.articles.map(item => item.slug),
+    [other.slug],
+  );
+  assert.equal((await api('/api/articles/' + updated.slug)).status, 404);
+  assert.ok(!(await api('/api/admin/articles')).data.articles.some(item => item.id === article.id));
+
+  for (const slug of ['old-slug/', 'removed-slug', 'removed-slug/']) {
+    const redirect = await request(slug);
+    assert.equal(redirect.status, 301);
+    assert.equal(redirect.headers.get('location'), '/blog/');
+  }
+  assert.equal((await request('unknown-slug/')).status, 404);
+  assert.equal((await request(other.slug + '/')).status, 200);
+  assert.equal((await request(draft.slug + '/')).status, 404);
+  await store.deleteArticle(draft.id);
+  assert.equal((await request(draft.slug + '/')).status, 404);
+
+  const reloaded = await import('../../server/articles/admin-articles.mjs?reload-deleted-slugs');
+  assert.equal(await reloaded.isDeletedArticleSlug('old-slug'), true);
+  assert.equal(await reloaded.isDeletedArticleSlug('removed-slug'), true);
+  assert.equal(await reloaded.isDeletedArticleSlug('draft-only'), false);
+  const replacement = await store.createArticle({
+    ...input,
+    status: 'draft',
+    slug: 'removed-slug',
+  });
+  assert.equal(replacement.slug, 'removed-slug-2');
+  assert.equal(
+    (await store.updateArticle(replacement.id, { updateSlug: true, slug: 'old-slug' })).slug,
+    'old-slug-2',
+  );
 });
 
 test('catch-up after downtime preserves existing publication dates, legacy slugs and unrelated raw records', async () => {

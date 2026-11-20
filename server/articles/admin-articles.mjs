@@ -12,6 +12,7 @@ import { sanitizeArticleContent } from './article-html.mjs';
 import { parseScheduleInstant } from '../../shared/contracts/article-schedule.js';
 
 const FILE = path.resolve('data/articles.json');
+const DELETED_SLUGS_FILE = path.resolve('data/deleted-article-slugs.json');
 
 let writes = Promise.resolve();
 
@@ -45,20 +46,37 @@ async function readArticles() {
   }));
 }
 
-async function saveArticles(articles) {
-  const temporary = `${FILE}.${process.pid}.${Date.now()}.tmp`;
+async function readDeletedSlugs() {
+  try {
+    const slugs = JSON.parse(await fs.readFile(DELETED_SLUGS_FILE, 'utf8'));
+    if (!Array.isArray(slugs) || slugs.some(slug => typeof slug !== 'string' || !slug)) {
+      throw new Error('INVALID_DELETED_ARTICLE_SLUGS');
+    }
+    return slugs;
+  } catch (error) {
+    if (error?.code === 'ENOENT') return [];
+    throw error;
+  }
+}
+
+export async function isDeletedArticleSlug(slug) {
+  return (await readDeletedSlugs()).includes(slug);
+}
+
+async function saveJson(file, value) {
+  const temporary = `${file}.${process.pid}.${Date.now()}.tmp`;
 
   try {
-    await fs.mkdir(path.dirname(FILE), {
+    await fs.mkdir(path.dirname(file), {
       recursive: true,
     });
 
-    await fs.writeFile(temporary, `${JSON.stringify(articles, null, 2)}\n`, {
+    await fs.writeFile(temporary, `${JSON.stringify(value, null, 2)}\n`, {
       encoding: 'utf8',
       mode: 0o600,
     });
 
-    await fs.rename(temporary, FILE);
+    await fs.rename(temporary, file);
   } catch (error) {
     await fs.rm(temporary, {
       force: true,
@@ -66,6 +84,10 @@ async function saveArticles(articles) {
 
     throw error;
   }
+}
+
+function saveArticles(articles) {
+  return saveJson(FILE, articles);
 }
 
 function queueArticleWrite(operation) {
@@ -240,14 +262,16 @@ function nextPublicationSchedule(article, data, status, now) {
   return previous;
 }
 
-function createUniqueSlug(articles, value, excludeId = null) {
+async function createUniqueSlug(articles, value, excludeId = null) {
   const base = createSlug(value) || 'article';
+  const deletedSlugs = new Set(await readDeletedSlugs());
 
   let candidate = base;
 
   let suffix = 2;
 
   const isUsed = slug =>
+    deletedSlugs.has(slug) ||
     articles.some(
       article =>
         article.id !== excludeId &&
@@ -311,7 +335,7 @@ async function createArticleMutation(data) {
     ...(publicationSchedule ? { publicationSchedule } : {}),
     category: normalizeArticleCategory(data.category),
 
-    slug: createUniqueSlug(articles, data.slug || data.title || 'article'),
+    slug: await createUniqueSlug(articles, data.slug || data.title || 'article'),
 
     legacySlugs: [],
 
@@ -367,7 +391,7 @@ async function updateArticleMutation(id, data) {
    * явно отправил updateSlug: true.
    */
   if (data.updateSlug === true && typeof data.slug === 'string') {
-    const requestedSlug = createUniqueSlug(articles, data.slug, article.id);
+    const requestedSlug = await createUniqueSlug(articles, data.slug, article.id);
 
     if (requestedSlug && requestedSlug !== article.slug) {
       if (article.slug) {
@@ -454,6 +478,21 @@ async function updateArticleMutation(id, data) {
 
 async function deleteArticleMutation(id) {
   const articles = await readArticles();
+  const article = articles.find(item => item.id === id);
+
+  if (article && (article.status === 'published' || article.publishedAt)) {
+    const slugs = [
+      article.slug,
+      ...(Array.isArray(article.legacySlugs) ? article.legacySlugs : []),
+    ].filter(slug => typeof slug === 'string' && slug);
+
+    if (slugs.length) {
+      // Persist public URLs before removing the article. If the second write fails,
+      // the existing article still wins over the redirect and deletion can be retried.
+      const deletedSlugs = await readDeletedSlugs();
+      await saveJson(DELETED_SLUGS_FILE, [...new Set([...deletedSlugs, ...slugs])]);
+    }
+  }
 
   const filtered = articles.filter(item => item.id !== id);
 
