@@ -20,6 +20,7 @@ export const ARTICLE_HTML_OPTIONS = {
     'ol',
     'li',
     'blockquote',
+    'section',
     'a',
     'img',
     'table',
@@ -38,6 +39,7 @@ export const ARTICLE_HTML_OPTIONS = {
     '*': ['class'],
 
     a: ['href', 'target', 'rel', 'title'],
+    section: ['data-passport-document', 'data-title'],
 
     img: ['src', 'alt', 'title', 'width', 'height', 'loading', 'decoding'],
 

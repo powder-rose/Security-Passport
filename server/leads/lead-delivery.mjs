@@ -2,7 +2,11 @@ import process from 'node:process';
 
 import nodemailer from 'nodemailer';
 
-import { LEAD_SOURCE_ARTICLE_CALLBACK, LEAD_SOURCE_QUIZ } from '../../shared/contracts/lead.js';
+import {
+  LEAD_SOURCE_ARTICLE_CALLBACK,
+  LEAD_SOURCE_DOCUMENT_REQUEST,
+  LEAD_SOURCE_QUIZ,
+} from '../../shared/contracts/lead.js';
 import { appendLeadToFile } from './lead-storage.mjs';
 import { appendHubOutbox } from './hub-outbox.mjs';
 
@@ -177,6 +181,30 @@ function buildArticleCallbackLeadText(lead) {
   return lines.join('\n').slice(0, 12000);
 }
 
+function buildDocumentRequestText(lead) {
+  const data = lead.data || {};
+  const lines = [
+    'НОВАЯ ЗАЯВКА — ЗАПРОС ДОКУМЕНТА ИЗ СТАТЬИ',
+    '',
+    'ID: ' + lead.id,
+    'Получена: ' + lead.receivedAt,
+  ];
+
+  addLeadSection(lines, 'ДОКУМЕНТ', [
+    ['Название документа', data.documentTitle],
+    ['Статья', data.articleTitle],
+    ['Адрес документа', data.articleUrl],
+  ]);
+  addLeadSection(lines, 'КОНТАКТЫ', [
+    ['Имя', data.name],
+    ['Телефон', data.phone],
+    ['Email', data.email],
+    ['Согласие', data.consent],
+  ]);
+  addLeadAttribution(lines, lead);
+  return lines.join('\n').slice(0, 12000);
+}
+
 function buildFormLeadText(lead) {
   const data = lead.data || {};
 
@@ -206,6 +234,10 @@ function buildFormLeadText(lead) {
 }
 
 export function buildLeadText(lead) {
+  if (lead.source === LEAD_SOURCE_DOCUMENT_REQUEST) {
+    return buildDocumentRequestText(lead);
+  }
+
   if (lead.source === LEAD_SOURCE_ARTICLE_CALLBACK) {
     return buildArticleCallbackLeadText(lead);
   }
@@ -316,11 +348,13 @@ export function createLeadDelivery({ backupEnabled, leadsFile, env = process.env
       from,
       to,
       subject:
-        lead.source === LEAD_SOURCE_ARTICLE_CALLBACK
-          ? 'Новая заявка: обратный звонок из статьи'
-          : lead.source === LEAD_SOURCE_QUIZ
-            ? 'Новая заявка: квиз паспорта безопасности'
-            : 'Новая заявка: паспорт безопасности',
+        lead.source === LEAD_SOURCE_DOCUMENT_REQUEST
+          ? 'Новая заявка: запрос документа из статьи'
+          : lead.source === LEAD_SOURCE_ARTICLE_CALLBACK
+            ? 'Новая заявка: обратный звонок из статьи'
+            : lead.source === LEAD_SOURCE_QUIZ
+              ? 'Новая заявка: квиз паспорта безопасности'
+              : 'Новая заявка: паспорт безопасности',
       text,
     });
 

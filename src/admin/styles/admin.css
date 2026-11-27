@@ -42,3 +42,5 @@
 @import './admin-editor-layout.css';
 @import './admin-article-meta.css';
 @import './admin-links-panel.css';
+
+@import './admin-document-callouts.css';

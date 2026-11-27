@@ -10,6 +10,13 @@ import { uploadArticleImage } from '../../api/adminApi';
 import ArticleEditorToolbar from '../../features/articles/components/ArticleEditorToolbar.jsx';
 import ArticleLinksPanel from '../../features/articles/components/ArticleLinksPanel.jsx';
 import { getEditorLinks } from '../../features/articles/editor/articleEditorLinks.js';
+import ArticleDocumentDialog from '../../features/articles/components/ArticleDocumentDialog.jsx';
+import {
+  DocumentCallout,
+  getDocumentTarget,
+  applyDocumentCallout,
+  unwrapDocumentCallout,
+} from '../../features/articles/editor/DocumentCallout.js';
 
 const ArticleImage = Image.extend({
   addAttributes() {
@@ -29,6 +36,7 @@ const ArticleImage = Image.extend({
 
 export default function ArticleEditor({ value, onChange, disabled = false }) {
   const [linksOpen, setLinksOpen] = useState(false);
+  const [documentDialog, setDocumentDialog] = useState(null);
 
   const editor = useEditor({
     immediatelyRender: false,
@@ -40,6 +48,8 @@ export default function ArticleEditor({ value, onChange, disabled = false }) {
           levels: [2, 3],
         },
       }),
+
+      DocumentCallout,
 
       ArticleImage.configure({
         HTMLAttributes: {
@@ -228,6 +238,13 @@ export default function ArticleEditor({ value, onChange, disabled = false }) {
           setLinksOpen(current => !current);
         }}
         onAddImage={addImage}
+        onDocument={() =>
+          setDocumentDialog({
+            from: editor.state.selection.from,
+            to: editor.state.selection.to,
+            target: getDocumentTarget(editor),
+          })
+        }
       />
 
       {linksOpen && (
@@ -242,6 +259,33 @@ export default function ArticleEditor({ value, onChange, disabled = false }) {
       <div className="article-editor">
         <EditorContent editor={editor} />
       </div>
+
+      {documentDialog && (
+        <ArticleDocumentDialog
+          title={documentDialog.target?.title || 'Образец документа'}
+          editing={documentDialog.target?.kind === 'documentCallout'}
+          onClose={() => setDocumentDialog(null)}
+          onSave={title => {
+            const applied = applyDocumentCallout(
+              editor,
+              title,
+              documentDialog,
+              documentDialog.target,
+            );
+            if (applied) setDocumentDialog(null);
+            return applied;
+          }}
+          onRemove={
+            documentDialog.target?.kind === 'documentCallout'
+              ? () => {
+                  if (unwrapDocumentCallout(editor, documentDialog.target)) {
+                    setDocumentDialog(null);
+                  }
+                }
+              : undefined
+          }
+        />
+      )}
     </div>
   );
 }

@@ -3,6 +3,7 @@ import process from 'node:process';
 
 import {
   LEAD_SOURCE_ARTICLE_CALLBACK,
+  LEAD_SOURCE_DOCUMENT_REQUEST,
   LEAD_SOURCE_FINAL_CTA,
   LEAD_SOURCE_CATALOG,
   LEAD_SOURCE_QUIZ,
@@ -10,10 +11,13 @@ import {
 } from '../../shared/contracts/lead.js';
 import {
   articleCallbackSchema,
+  documentRequestSchema,
   leadEmailContactSchema,
   quizContactSchema,
 } from '../../shared/validation/leadValidation.js';
 import { resolveSiteFromHost } from '../shared/site-region.mjs';
+import { getArticles } from '../articles/admin-articles.mjs';
+import { getArticleDocument } from '../articles/article-documents.mjs';
 
 function cleanString(value, maxLength = 2000) {
   if (typeof value !== 'string') {
@@ -93,6 +97,12 @@ function normalizeLead(body, req) {
   };
 }
 
+async function resolveArticleDocument(slug, index) {
+  const articles = await getArticles();
+  const article = articles.find(item => item.slug === slug && item.status === 'published');
+  return getArticleDocument(article, index);
+}
+
 function validateLead(lead) {
   const allowedSources = new Set(LEAD_SOURCES);
 
@@ -150,6 +160,12 @@ function validateLead(lead) {
     }
   }
 
+  if (lead.source === LEAD_SOURCE_DOCUMENT_REQUEST) {
+    if (cleanString(lead.data.website, 200)) return 'SPAM_DETECTED';
+    if (lead.data.consent !== true) return 'CONSENT_REQUIRED';
+    if (!documentRequestSchema.isValidSync(lead.data)) return 'INVALID_DOCUMENT_REQUEST';
+  }
+
   if (lead.source === LEAD_SOURCE_QUIZ) {
     const contact = lead.data?.answers?.contact;
 
@@ -181,7 +197,11 @@ function validateLead(lead) {
   return '';
 }
 
-export function createLeadIntake({ leadDelivery, env = process.env }) {
+export function createLeadIntake({
+  leadDelivery,
+  env = process.env,
+  resolveDocument = resolveArticleDocument,
+}) {
   const rateWindowMs = Number(env.LEAD_RATE_WINDOW_MS || 10 * 60 * 1000);
 
   const rateMax = Number(env.LEAD_RATE_MAX || 8);
@@ -254,6 +274,22 @@ export function createLeadIntake({ leadDelivery, env = process.env }) {
 
         error: validationError === 'SPAM_DETECTED' ? undefined : validationError,
       });
+    }
+
+    if (lead.source === LEAD_SOURCE_DOCUMENT_REQUEST) {
+      let document;
+      try {
+        document = await resolveDocument(lead.data.articleSlug, lead.data.documentIndex);
+      } catch (error) {
+        console.error('[document-request] lookup failed:', error);
+        return res.status(503).json({ ok: false, error: 'DOCUMENT_LOOKUP_FAILED' });
+      }
+
+      if (!document) {
+        return res.status(400).json({ ok: false, error: 'DOCUMENT_NOT_AVAILABLE' });
+      }
+
+      lead.data = { ...lead.data, ...document };
     }
 
     if (requestIds.has(lead.requestId)) {

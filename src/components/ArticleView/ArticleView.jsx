@@ -1,4 +1,12 @@
+import { useEffect, useState } from 'react';
+
 import BlogQuestions from '../../features/questions/BlogQuestions.jsx';
+import ArticleDocumentRequest from '../ArticleDocument/ArticleDocumentRequest.jsx';
+import {
+  renderArticleDocumentMarkup,
+  plainDocumentText,
+} from '../../features/articles/documents/articleDocumentMarkup.js';
+import '../ArticleDocument/ArticleDocument.css';
 import ArticleCallback from '../ArticleCallback/ArticleCallback.jsx';
 
 import FinalCTA from '../../sections/FinalCTA/FinalCTA.jsx';
@@ -281,14 +289,108 @@ export default function ArticleView({
   const imageAlt = article?.imageAlt || title;
 
   const date = formatArticleDate(article?.publishedAt || article?.createdAt);
+  const [documentRequest, setDocumentRequest] = useState(null);
+  const [copyAllowed, setCopyAllowed] = useState(preview);
 
+  useEffect(() => {
+    if (preview || !content.includes('data-passport-document')) return undefined;
+
+    const controller = new AbortController();
+    fetch('/api/admin/session', {
+      credentials: 'same-origin',
+      cache: 'no-store',
+      signal: controller.signal,
+    })
+      .then(response => response.ok)
+      .then(setCopyAllowed)
+      .catch(() => setCopyAllowed(false));
+
+    return () => controller.abort();
+  }, [preview, content]);
+
+  const displayedContent = renderArticleDocumentMarkup(content, copyAllowed);
   const { contentBeforeCallback, contentAfterCallback, shouldShowCallback } =
-    splitArticleHtml(content);
+    splitArticleHtml(displayedContent);
+
+  function selectionTouchesProtectedDocument(event) {
+    if (copyAllowed) return false;
+    if (event.target?.closest?.('.passport-document[data-document-access="visitor"]')) return true;
+    const selection = document.getSelection();
+    if (!selection || selection.isCollapsed) return false;
+    const cards = event.currentTarget.querySelectorAll(
+      '.passport-document[data-document-access="visitor"]',
+    );
+    return Array.from(cards).some(card => {
+      for (let index = 0; index < selection.rangeCount; index += 1) {
+        if (selection.getRangeAt(index).intersectsNode(card)) return true;
+      }
+      return false;
+    });
+  }
+
+  function preventDocumentCopy(event) {
+    if (selectionTouchesProtectedDocument(event)) event.preventDefault();
+  }
+
+  async function handleDocumentAction(event) {
+    const button = event.target?.closest?.('[data-document-request], [data-document-copy]');
+    if (!button) return;
+
+    const card = button.closest('.passport-document');
+    if (!card) return;
+
+    const index = Number(card.dataset.documentIndex);
+    if (!Number.isInteger(index) || index < 1) return;
+
+    if (button.hasAttribute('data-document-request')) {
+      event.preventDefault();
+      setDocumentRequest({ index, title: card.dataset.title || 'Образец документа' });
+      return;
+    }
+
+    if (!copyAllowed || !button.hasAttribute('data-document-copy')) return;
+    const body = card.querySelector('[data-document-body]');
+    const status = card.querySelector('.passport-document__status');
+    if (!body || !status) return;
+
+    const text = plainDocumentText(body)
+      .replace(/[ \t]+\n/g, '\n')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+    if (!text) {
+      status.textContent = 'В образце пока нет текста.';
+      return;
+    }
+
+    button.disabled = true;
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+      await navigator.clipboard.writeText(text);
+      status.textContent = 'Текст документа скопирован.';
+    } catch {
+      card.querySelector('details').open = true;
+      const range = document.createRange();
+      range.selectNodeContents(body);
+      const selection = document.getSelection();
+      selection?.removeAllRanges();
+      selection?.addRange(range);
+      status.textContent = 'Текст выделен — нажмите Ctrl+C.';
+    } finally {
+      button.disabled = false;
+    }
+  }
 
   return (
     <>
       <main id="main-content" className="article-view">
-        <article className="article-view__article">
+        <article
+          className="article-view__article"
+          onClick={handleDocumentAction}
+          onCopyCapture={preventDocumentCopy}
+          onCutCapture={preventDocumentCopy}
+          onContextMenuCapture={preventDocumentCopy}
+          onDragStartCapture={preventDocumentCopy}
+        >
           <header className="article-view__header">
             {preview && <div className="article-view__preview-badge">Предпросмотр</div>}
 
@@ -320,6 +422,16 @@ export default function ArticleView({
           )}
 
           {!content && <div className="article-view__empty">Здесь появится текст статьи.</div>}
+
+          {documentRequest && (
+            <ArticleDocumentRequest
+              key={documentRequest.index}
+              article={article}
+              document={documentRequest}
+              preview={preview}
+              onClose={() => setDocumentRequest(null)}
+            />
+          )}
         </article>
 
         <div className="article-view__recommendations">
