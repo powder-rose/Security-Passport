@@ -313,3 +313,17 @@ export const articleCallbackSchema = yup.object({
 
   website: yup.string().max(0, 'Некорректная отправка формы.').default(''),
 });
+
+export const documentRequestSchema = yup.object({
+  name: nameSchema,
+  phone: russianPhoneSchema,
+  email: emailSchema.required('Укажите электронную почту.'),
+  articleSlug: yup
+    .string()
+    .max(180)
+    .matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)
+    .required(),
+  documentIndex: yup.number().integer().min(1).max(1000).required(),
+  consent: consentSchema,
+  website: yup.string().max(0).default(''),
+});

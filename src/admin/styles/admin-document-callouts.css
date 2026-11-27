@@ -1,0 +1,122 @@
+.article-editor .ProseMirror section[data-passport-document='1'] {
+  position: relative;
+  margin: 26px 0;
+  padding: 46px 20px 20px;
+  border: 1px solid #d8e3f5;
+  border-top: 3px solid #1260ff;
+  border-radius: 12px;
+  background: #f2f6ff;
+}
+
+.article-editor .ProseMirror section[data-passport-document='1']::before {
+  content: 'ОБРАЗЕЦ ДОКУМЕНТА · ' attr(data-title);
+  position: absolute;
+  top: 14px;
+  left: 20px;
+  right: 20px;
+  color: #244b8c;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+}
+
+.article-editor .ProseMirror section[data-passport-document='1'] > :last-child {
+  margin-bottom: 0;
+}
+.article-editor .ProseMirror section[data-passport-document='1']:focus-within {
+  border-color: #1260ff;
+}
+
+.article-document-dialog {
+  box-sizing: border-box;
+  width: min(560px, calc(100vw - 32px));
+  max-height: 90dvh;
+  margin: auto;
+  padding: 32px;
+  border: 1px solid #d8e3f5;
+  border-radius: 16px;
+  background: #fff;
+  color: #121b2c;
+  box-shadow: 0 18px 60px rgba(16, 32, 60, 0.2);
+}
+
+.article-document-dialog::backdrop {
+  background: rgba(9, 21, 43, 0.6);
+}
+.article-document-dialog form {
+  display: grid;
+  gap: 15px;
+}
+.article-document-dialog h2 {
+  margin: 0;
+  font-size: 27px;
+  line-height: 1.2;
+}
+.article-document-dialog p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #526078;
+}
+.article-document-dialog .article-document-dialog__eyebrow {
+  color: #1260ff;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.article-document-dialog label {
+  display: grid;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.article-document-dialog input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px 13px;
+  border: 1px solid #becbde;
+  border-radius: 7px;
+  background: #fff;
+  font: inherit;
+  font-size: 16px;
+}
+.article-document-dialog input:focus-visible {
+  outline: 2px solid #1260ff;
+}
+.article-document-dialog__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 10px;
+}
+.article-document-dialog__actions button {
+  padding: 10px 14px;
+  border: 1px solid #becbde;
+  border-radius: 6px;
+  background: #fff;
+  color: #162944;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.article-document-dialog__actions button:last-child {
+  background: #1260ff;
+  border-color: #1260ff;
+  color: #fff;
+}
+.article-document-dialog .article-document-dialog__error {
+  color: #b91c1c;
+}
+
+@media (max-width: 640px) {
+  .article-document-dialog {
+    padding: 24px;
+  }
+  .article-document-dialog__actions {
+    justify-content: stretch;
+  }
+  .article-document-dialog__actions button {
+    flex: 1 1 auto;
+  }
+}

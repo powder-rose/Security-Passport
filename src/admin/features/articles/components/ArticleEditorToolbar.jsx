@@ -5,6 +5,7 @@ export default function ArticleEditorToolbar({
   onEditCurrentLink,
   onToggleLinks,
   onAddImage,
+  onDocument,
 }) {
   return (
     <div className="article-editor-toolbar">
@@ -146,6 +147,15 @@ export default function ArticleEditorToolbar({
         }}
       >
         Врезка
+      </button>
+
+      <button
+        type="button"
+        className={editor.isActive('documentCallout') ? 'editor-button active' : 'editor-button'}
+        title="Врезка документа"
+        onClick={onDocument}
+      >
+        Документ
       </button>
 
       <button
